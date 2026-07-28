@@ -376,5 +376,17 @@
     "category": "Assumption",
     "gap_or_question": "DevOps source-driven (Salesforce CLI + Git, pipeline Dev->QA->UAT->Prod) + full sandbox para UAT",
     "impact_or_notes": "Assumcao de design baseada em equipe multi-perfil + timeline comprimida + go-live regulado. Validar toolchain e politica de deploy da Dataprev."
+  },
+  {
+    "gap_id": "G0508",
+    "category": "Assumption",
+    "gap_or_question": "Assunção de faseamento: fundação-antes-de-marketplace com E05 (integração) iniciada mock-first já na Fase 1 — sequenciamento por caminho crítico (E05/E08 → E01 → E02/E03). Válida enquanto o risco #1 for a ausência de contratos de API; se os contratos existirem cedo, a fundação e o marketplace podem paralelizar mais.",
+    "impact_or_notes": "Valida-se com o inventário de contratos de API na Fase 0. Se a integração deixar de ser o gargalo, o roadmap comprime. Revise se G0501 se resolver."
+  },
+  {
+    "gap_id": "G0907",
+    "category": "Assumption",
+    "gap_or_question": "Assunção de faseamento: E09 (Change & Adoção) tem pico na Fase 4, mas a comunicação com as ~600-700 facilitadoras arranca na Fase 1 — a resistência esperada (perda de margem no modelo transparente) exige antecipação. Válida enquanto a fronteira de escopo change PS vs. Dataprev/MTE (G0901/G0906) não for definida.",
+    "impact_or_notes": "Valida-se ao confirmar a divisão PS vs. Dataprev do change. Se a Dataprev/MTE assumir a comunicação, o esforço PS em E09 recua para capacitação/adoção."
   }
 ]

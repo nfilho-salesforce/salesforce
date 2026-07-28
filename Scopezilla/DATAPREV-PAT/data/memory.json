@@ -121,6 +121,23 @@
         "Central Salesforce KB degradada (access_denied) — grounding via knowledge/ do projeto (1 doc); sugerir /kb-sync"
       ],
       "next": "ROADMAP (sequência + faixa de duração top-down) via /dataprev"
+    },
+    {
+      "date": "2026-07-28",
+      "skills": ["roadmap"],
+      "summary": "Roadmap DATAPREV-PAT: 5 fases (0-4) sequenciadas por caminho crítico E05/E08 → E01 → E02/E03. Fase 0 incluída (65 gaps > 15). Faixa de duração derivada top-down: 18-38 semanas (Multi-Cloud Medium/High + adders regulada/integração-sem-contratos/UI-custom, teto +50%), com Benchmark Disclaimer. Analog SGP/MGI ancora o piso, não puxa o teto. Range-drivers: E05/E03/E08. depends_on gravados em epics.json. Sem commitment de duração (faixa derivada, não compromisso) — fases sem semanas.",
+      "produced": ["data/roadmap.json", "outputs/02-delivery-plan.md", "data/csv/03-roadmap-phases.csv"],
+      "decisions": [
+        {"decision": "5 fases: Fase 0 Discovery/Arquitetura (blockers) → 1 Fundação (E05/E08/E01) → 2 Marketplace (E02/E04) → 3 Financeiro & Atendimento (E03/E06) → 4 Carga/Adoção/Estabilização (E07/E09)", "rationale": "Fundação-primeiro/risco-cedo: E05 mock-first e E08 residência governam o data model; E01 destrava marketplace e financeiro. Fase 0 obrigatória por 65 gaps."},
+        {"decision": "Duração = faixa derivada 18-38 sem (top-down-shape), sem commitment", "rationale": "Usuário optou por derivar faixa por benchmark, não comprometer nº. Janela do cliente (~15-16 sem set→nov) fica ABAIXO do piso de 18 sem — argumento de Fase 0 + escopo como variável de flexão."}
+      ],
+      "open_threads": [
+        "Janela do cliente (set→nov, ~15-16 sem) abaixo do piso do benchmark (18 sem) mesmo sem compressão IA — escopo é a variável de flexão contra a data",
+        "Faixa aperta ao resolver range-drivers E05 (contratos de API)/E03 (banco custódia/PSP)/E08 (fronteira residência) — idealmente na Fase 0",
+        "SGP/MGI actual_weeks não capturado (memória tem horas, não semanas) — pedir se precisar apertar reconciliação",
+        "Compressão por IA ainda não aplicada — depende de efficiency.json (EFFICIENCY não rodou); dataprev exige ganho ≥25%"
+      ],
+      "next": "EFFICIENCY (ganhos de IA na entrega; comprimir a faixa via realized_band/native_band) via /dataprev"
     }
   ],
   "preferences": {},

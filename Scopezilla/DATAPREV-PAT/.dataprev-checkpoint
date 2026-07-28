@@ -1,7 +1,7 @@
 PROJETO=DATAPREV-PAT
-FASE_ATUAL=DESIGN
-FASES_CONCLUIDAS=INTAKE,SETUP,DISCOVER,STRATEGY,REQUIREMENTS,DESIGN
-PROXIMO=ROADMAP
+FASE_ATUAL=ROADMAP
+FASES_CONCLUIDAS=INTAKE,SETUP,DISCOVER,STRATEGY,REQUIREMENTS,DESIGN,ROADMAP
+PROXIMO=EFFICIENCY
 LOCAL=/Users/nfilho/claude/Scopezilla/DATAPREV-PAT
 HEROKU=nenhum
 PRODUTOS_SF=MuleSoft,Experience Cloud,Core/Service Cloud,Agentforce
@@ -9,4 +9,4 @@ ESCOPO=fluxo completo (4 modulos)
 RESIDENCIA_DADOS=hibrida (ADR0001)
 MIGRACAO=cadastros iniciais
 COMERCIAL=PS Services + Licencas SF
-STATUS=design concluido; 01-solution.md (org unica, residencia hibrida como fundacao, 4 blockers como assumcoes); estimates.json 9 epicas (2 XL: E02 Marketplace/E05 Integracao; 4 L: E01/E03/E06/E08; 3 M: E04/E07/E09) todos Assumed; 63 gaps; Fase 0 recomendada
+STATUS=roadmap concluido; 5 fases (0-4) sequencia por caminho critico E05/E08->E01->E02/E03; Fase 0 incluida (65 gaps); faixa derivada 18-38 sem (top-down-shape + Benchmark Disclaimer, sem commitment); janela cliente set->nov (~15-16 sem) ABAIXO do piso de 18 sem; range-drivers E05/E03/E08; depends_on gravados em epics.json; 02-delivery-plan.md escrito

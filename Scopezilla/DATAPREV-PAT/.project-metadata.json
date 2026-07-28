@@ -12,7 +12,7 @@
     "strategy": "complete",
     "requirements": "complete",
     "design": "complete",
-    "roadmap": "not-started",
+    "roadmap": "complete",
     "efficiency": "not-started",
     "estimate": "not-started",
     "commercials": "not-started",
@@ -34,7 +34,24 @@
       "source": "Reunião 21/jul/2026 (Notes by Gemini)",
       "note": "Timeline agressiva; homologação do fluxo cotação/contratação em set, financeiro em produção 15/nov"
     },
-    "user_commitment": null
+    "user_commitment": null,
+    "derived": {
+      "derived_low_weeks": 18,
+      "derived_high_weeks": 38,
+      "derivation_source": "top-down-shape",
+      "basis": "Multi-Cloud + Data Integration, shape entre Medium e High (9 épicas, 2 XL + 4 L + 3 M, integração multi-sistema + ~600-700 facilitadoras, 4 clouds); baseline 16-26 sem, alargado por adders — regulada (+15-20%), integração sem contratos de API (+10-15%), UI custom do leilão (+10-20%), todos os sizes Assumed — teto limitado a +50%",
+      "ai_native_compressed": false,
+      "range_drivers": [
+        {"epic_id": "E05", "driver": "Hub de integração multi-sistema + ~600-700 APIs de facilitadoras, mock-first, sem nenhum contrato/Swagger existente (risco #1, caminho crítico)", "tighten_with": "Quantos sistemas têm contrato de API disponível hoje, e qual o modelo de onboarding das facilitadoras (API única padronizada vs. N integrações)?"},
+        {"epic_id": "E03", "driver": "Integração financeira (boleto/Pix/split multi-parte) com idempotência e conciliação; sobe a XL se exigir motor financeiro dedicado", "tighten_with": "Qual banco custódia/PSP, e a mecânica de split e conciliação está definida?"},
+        {"epic_id": "E08", "driver": "Fronteira campo-a-campo da residência híbrida não ratificada; governa o data model de E01/E02/E03/E06 e sobe a XL se exigir de-tokenização campo-a-campo em runtime em escala", "tighten_with": "Ratificar com Jair Bogo o que é token vs. o que pode persistir (G0801)"}
+      ],
+      "analog": {
+        "description": "SGP/MGI (Dataprev) — MuleSoft + Agentforce, ~2.085h; forma menor que o PAT (sem hub de integração de centenas de facilitadoras nem leilão custom). Ancora o piso da faixa; não puxa o teto.",
+        "actual_weeks": null,
+        "source": "user-supplied"
+      }
+    }
   },
   "products_in_scope": [
     "mulesoft",

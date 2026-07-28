@@ -1,0 +1,52 @@
+[
+  {
+    "phase_number": 0,
+    "phase_name": "Discovery & Arquitetura",
+    "objectives": "Resolver os quatro blockers de arquitetura antes do compromisso final de escopo/prazo: fronteira campo-a-campo da residência híbrida (G0801, ratificar com Jair Bogo), contratos/Swaggers de API dos sistemas externos (G0501), hospedagem MuleSoft × residência = ponto de de-tokenização (G0504), identidade Experience Cloud × CPF-não-persiste (G0106). Iniciar engajamento CTID/ANPD e o inventário das APIs das facilitadoras.",
+    "epics_included": "",
+    "success_criteria": "ADR 0001 ratificado com fronteira campo-a-campo definida; inventário de contratos de API por sistema (existe/não existe); decisão de hospedagem MuleSoft tomada; padrão de identidade Experience Cloud × Contact tokenizado validado. Saída = os sizes Assumed podem ser reconfirmados e a faixa apertada.",
+    "dependencies": "Nenhuma — é a fase que precede tudo. Requer disponibilidade da arquitetura Dataprev (Jair Bogo) e dos donos dos sistemas externos.",
+    "risks": "Se os contratos de API não existirem nem após a Fase 0, E05 permanece mock-first e o caminho crítico segue em aberto; a janela do cliente (set→nov) encolhe a cada semana que a Fase 0 consome.",
+    "kb_sources": ["[assumption: Fase 0 disparada por 63 gaps > 15 (regra do produto) — resolve os 4 blockers que mantêm todos os sizes em Assumed]"]
+  },
+  {
+    "phase_number": 1,
+    "phase_name": "Fundação (Identidade + Integração + Residência)",
+    "objectives": "Erguer a base sobre a qual tudo renderiza: hub de integração MuleSoft mock-first (o risco #1, começado cedo de propósito), o modelo de residência/tokenização (E08) que governa o data model das demais épicas, e o portal Experience Cloud com login gov.br (E01). Iniciar a comunicação de mudança com as facilitadoras (E09 arranca aqui, mesmo que seu pico seja depois).",
+    "epics_included": "E05,E08,E01",
+    "success_criteria": "Camada API-led MuleSoft de pé com mocks; modelo de referência tokenizada implementado e resolvendo em runtime; portal com login gov.br funcional e Contact por referência tokenizada. Base pronta para o marketplace.",
+    "dependencies": "Fase 0 (blockers resolvidos). E01 depende de E05 (resolução de identidade) e E08 (Contact tokenizado).",
+    "risks": "Ausência de contratos de API (G0501) trava a virada mock→real; fronteira de residência (G0801) não ratificada re-molda o data model; conector gov.br OIDC nativo inexistente (G0101).",
+    "kb_sources": ["[assumption: fundação-antes-de-marketplace + E05 mock-first cedo — sequenciamento por caminho crítico; risco #1 (integração sem contratos) atacado primeiro]"]
+  },
+  {
+    "phase_number": 2,
+    "phase_name": "Marketplace (o coração)",
+    "objectives": "Construir o valor mais visível da reforma: o leilão reverso (E02 — cotação → propostas de N facilitadoras → comparação lado a lado → seleção → contrato) e o credenciamento unificado de estabelecimentos (E04).",
+    "epics_included": "E02,E04",
+    "success_criteria": "Beneficiária publica cotação, facilitadoras enviam propostas via API, tela 'Comparar Propostas' operante, seleção vira contrato; estabelecimentos se credenciam via gov.br com aprovação da facilitadora.",
+    "dependencies": "Fase 1 (E01 portal/identidade, E05 integração). E02 e E04 dependem de E01 + E05.",
+    "risks": "Regras de seleção/desempate e conformidade Lei 14.133/2021 indefinidas (G0202/G0203); tela de comparação ausente no protótipo (G0201); conflito de system-of-record do credenciamento (G0401).",
+    "kb_sources": ["[KB: salesforce-revenue-cloud-marketplace-arch.md] — leilão reverso é custom na Core Platform; não é capability nativa"]
+  },
+  {
+    "phase_number": 3,
+    "phase_name": "Financeiro & Atendimento",
+    "objectives": "Fechar o fluxo com o financeiro (E03 — folha, boleto/Pix, conta custódia, split governo/facilitadora sob repasse ≤15 dias) e o atendimento inteligente (E06 — Agentforce informacional + transacional).",
+    "epics_included": "E03,E06",
+    "success_criteria": "Upload de folha → boleto/Pix → split via MuleSoft com idempotência e trilha de conciliação; agente Agentforce atende dúvidas e consultas ao marketplace sem CPF em prompt.",
+    "dependencies": "Fase 1 (E05 integração, E08 residência) e Fase 2 (marketplace com dados para o agente consultar). E03 depende de E01 + E05 + E08; E06 depende de E05 + E08.",
+    "risks": "Banco custódia/PSP e mecânica de conciliação indefinidos (G0301/G0304) — integração externa de maior risco; tensão residência × agente transacional (G0603); WhatsApp Business API/aprovação Meta (G0602).",
+    "kb_sources": ["[KB: salesforce-revenue-cloud-marketplace-arch.md] — split multi-parte não é nativo de Billing; integração externa via MuleSoft"]
+  },
+  {
+    "phase_number": 4,
+    "phase_name": "Carga, Adoção & Estabilização",
+    "objectives": "Popular a plataforma (E07 — carga inicial de beneficiárias, facilitadoras e estabelecimentos a partir do Novo PAT/MTE) e conduzir o pico da adoção (E09 — capacitação, materiais, métricas de adoção), fechando com estabilização/hypercare.",
+    "epics_included": "E07,E09",
+    "success_criteria": "Cadastros carregados com dedup e qualidade; facilitadoras e beneficiárias capacitadas com métricas de adoção acompanhadas; go-live estabilizado.",
+    "dependencies": "Fase 1 (E05 para extração/carga). E07 depende de E05. E09 é transversal — sua comunicação começa na Fase 1 e culmina aqui.",
+    "risks": "Volume de carga desconhecido — band-widener (G0701); escopo PS vs. Dataprev do change (G0901/G0906); resistência das facilitadoras (perda de margem no modelo transparente).",
+    "kb_sources": ["[assumption: comms-de-change antecipadas — E09 arranca na Fase 1 apesar do pico na Fase 4; escala de 600-700 facilitadoras exige antecipação]"]
+  }
+]
