@@ -1,0 +1,362 @@
+[
+  {
+    "gap_id": "G0101",
+    "category": "Capability Gap",
+    "gap_or_question": "O fluxo gov.br usa OpenID Connect (OIDC), mas o Experience Cloud não integra o botão/nível de garantia (selo Bronze/Prata/Ouro) gov.br nativamente — exige Auth. Provider OIDC customizado + registration handler Apex, e possivelmente proxy via MuleSoft. Qual nível mínimo de conta gov.br (Prata/Ouro) será exigido para a beneficiária, e o gov.br autoriza o cadastro do marketplace como Relying Party (client_id/redirect_uri em produção)?",
+    "impact_or_notes": "Sem confirmação de que o gov.br credencia o portal como RP e sem definição do nível de garantia, o login não é buildável. Afeta arquitetura de identidade e cronograma (habilitação junto ao gov.br costuma ter lead-time governamental). Claim atualmente [assumption]."
+  },
+  {
+    "gap_id": "G0102",
+    "category": "Missing Requirement",
+    "gap_or_question": "A 'procuração digital / representar empresa' não tem mecânica definida: a autorização de representante da PJ vem do próprio gov.br (procuração eletrônica gov.br / e-CNPJ / módulo do Novo PAT), ou o marketplace mantém seu próprio modelo de vínculo pessoa-empresa e papéis? Quem é a fonte de verdade do vínculo CPF→CNPJ e como é revogado?",
+    "impact_or_notes": "Define o modelo de dados de controle de acesso (User↔Account↔Contact, papéis, múltiplas empresas por pessoa) e a fronteira com o gov.br/Novo PAT. Sem isso, o controle de acesso do portal e o requisito de residência (ADR 0001) ficam indefinidos."
+  },
+  {
+    "gap_id": "G0103",
+    "category": "Missing Requirement",
+    "gap_or_question": "Qual o volume de usuários nomeados e o padrão de acesso do portal (beneficiárias ativas, picos simultâneos, logins/mês) para dimensionar as licenças Experience Cloud? O modelo é login-based, member-based ou page-view? ~450 mil (ou ~300-327 mil) empresas beneficiárias, cada uma com múltiplos representantes, muda ordens de grandeza a licença.",
+    "impact_or_notes": "O tipo e volume de licença Experience Cloud é o maior driver de custo recorrente do portal e ainda está em aberto (Open Question 7). Divergência de base (450k vs 300k) amplia a incerteza."
+  },
+  {
+    "gap_id": "G0104",
+    "category": "Missing Requirement",
+    "gap_or_question": "Experiência e design de serviço: a tela 'Comparar Propostas' não está no protótipo Figma e a jornada completa da beneficiária (estados de erro, acessibilidade, conteúdo, fluxo de exceção de procuração) não foi desenhada. Haverá pesquisa com usuários e design de serviço no escopo, ou a Dataprev/MTE fornece os wireframes?",
+    "impact_or_notes": "O portal é a face pública do programa; a tela mais crítica de valor não existe em protótipo. Sem design de serviço definido, o esforço de UX de E01/E02 é impossível de dimensionar. Buyer-facing: confirmar responsabilidade e escopo de UX."
+  },
+  {
+    "gap_id": "G0105",
+    "category": "Missing Requirement",
+    "gap_or_question": "Obrigações de acessibilidade de portal gov federal: o portal deve cumprir eMAG e/ou WCAG 2.1 AA, além do Padrão Digital de Governo (gov.br/DS)? O Experience Cloud com tema LWR atinge esse nível sem customização? Há homologação de acessibilidade antes do go-live?",
+    "impact_or_notes": "Portais federais estão sujeitos ao eMAG/decreto de acessibilidade; descumprimento pode bloquear a homologação e gerar risco jurídico. Adiciona esforço de tematização/testes ao E01 não capturado hoje."
+  },
+  {
+    "gap_id": "G0106",
+    "category": "Source Conflict",
+    "gap_or_question": "A residência híbrida (ADR 0001 — CPF não persiste no SF) colide com o Experience Cloud: User/Contact do portal normalmente armazena identificadores da pessoa (CPF é o identificador natural no gov.br). Como criar/gerenciar o usuário do portal sem persistir CPF — via identificador tokenizado com resolução em runtime via MuleSoft? É compatível com SSO gov.br e a sessão do Experience Cloud?",
+    "impact_or_notes": "Se o User do portal precisar de CPF (ou identificador derivado que seja dado pessoal), há tensão direta com o ADR 0001. Ratificar com arquitetura Dataprev (Jair Bogo) antes do design; caso contrário retrabalha a fundação de E01 e E08."
+  },
+  {
+    "gap_id": "G0201",
+    "category": "Missing Requirement",
+    "gap_or_question": "A tela 'Comparar Propostas' — coração do épico — não estava no protótipo Figma. Faltam definidos: quais atributos da proposta são comparados (preço por trabalhador, SLA/prazo, cobertura por UF, atendimento aos recursos obrigatórios, taxa/desconto), como são exibidos lado a lado e quais são decisórios vs. informativos.",
+    "impact_or_notes": "Bloqueia o design do modelo de dados de Proposta__c e da UI de comparação — o item de maior valor e maior risco do escopo. Pergunta prioritária ao cliente (Open Question 5)."
+  },
+  {
+    "gap_id": "G0202",
+    "category": "Ambiguity",
+    "gap_or_question": "A seleção do vencedor é automática (ranking por algoritmo objetivo) ou manual (a beneficiária escolhe livremente)? O protótipo sugere escolha humana; a dinâmica de 'leilão reverso' sugere ranking automático. As hipóteses implicam arquiteturas e esforços muito diferentes.",
+    "impact_or_notes": "Divisor de escopo/sizing de E02: seleção manual assistida é substancialmente mais leve que um motor de scoring com regras de desempate e trilha de justificativa. Afeta diretamente o T-shirt size."
+  },
+  {
+    "gap_id": "G0203",
+    "category": "Potential Risk",
+    "gap_or_question": "A seleção entre propostas está sujeita à Lei 14.133/2021 (Licitações) ou a contratação B2B beneficiária↔facilitadora fica fora do regime licitatório? Se houver vínculo licitatório, o critério de julgamento, a motivação obrigatória, a publicidade e o direito de recurso condicionam o algoritmo de seleção e a auditabilidade.",
+    "impact_or_notes": "Conflito potencial: escolha livre pela beneficiária pode ser inválida se o marketplace for entendido como processo de contratação pública. Precisa de posição jurídica do MTE/Dataprev antes de fixar as regras. Alto impacto sobre TCU/CGU (E08)."
+  },
+  {
+    "gap_id": "G0204",
+    "category": "Logical Gap",
+    "gap_or_question": "Não há regras de desempate quando propostas ficam equivalentes no critério principal. Há critério secundário (SLA, cobertura UF, recursos obrigatórios), sorteio, ou devolução à beneficiária? Também não há regra para propostas parcialmente conformes.",
+    "impact_or_notes": "Sem regra de desempate e conformidade mínima, o motor de comparação/seleção fica indeterminado e não é testável. Impacta acceptance criteria e integridade jurídica."
+  },
+  {
+    "gap_id": "G0205",
+    "category": "Missing Requirement",
+    "gap_or_question": "O SLA/prazo do 'leilão' (countdown de propostas) não tem regras: prazo fixo, configurável pela beneficiária ou por norma? O que ocorre no vencimento — fecha automaticamente, permite prorrogação, notifica? Facilitadoras podem revisar/retirar proposta? Propostas fora do prazo são rejeitadas?",
+    "impact_or_notes": "Define a máquina de estados da Cotação e o job de expiração. Sem isso não se modelam transições nem gatilhos de notificação."
+  },
+  {
+    "gap_id": "G0206",
+    "category": "Logical Gap",
+    "gap_or_question": "O status 'Concluída sem contrato' não tem gatilhos definidos: ocorre quando nenhuma facilitadora propõe, quando a beneficiária não seleciona no prazo, ou quando rejeita todas? Há reabertura/relançamento automático, notificação ao MTE, ou encerramento? Diferença vs. 'Cancelada'.",
+    "impact_or_notes": "Caminho de exceção central da máquina de estados; sem regra, o lifecycle da Cotação fica incompleto. Afeta automação de estados e relatórios ao MTE."
+  },
+  {
+    "gap_id": "G0207",
+    "category": "Capability Gap",
+    "gap_or_question": "A mecânica de lance das facilitadoras via API não está especificada: polling ou push (webhook/evento)? Como a proposta é submetida (payload, auth, idempotência), validada e confirmada? Como garantir que só facilitadoras credenciadas e elegíveis por UF concorram? Lance aberto ou envelope fechado?",
+    "impact_or_notes": "Sem suporte nativo a RFQ/leilão, todo o canal de lance é custom (API MuleSoft + objetos + Apex). Aberto vs. fechado tem implicações de anticolusão e arquitetura. Depende de contratos de API das facilitadoras (mock-first em E05)."
+  },
+  {
+    "gap_id": "G0208",
+    "category": "Ambiguity",
+    "gap_or_question": "Como as propostas são normalizadas para comparação justa dada a personalização (split Alimentação/Refeição, distribuição por UF com preço regional, recursos obrigatórios)? A facilitadora cota valor único, por UF, ou por combinação? A comparação é por custo total, por trabalhador/mês, ou por UF?",
+    "impact_or_notes": "Define a granularidade do objeto Proposta__c (uma linha por proposta vs. N por UF) e a fórmula de ranking. Erro de modelagem obriga refatoração do núcleo do épico."
+  },
+  {
+    "gap_id": "G0301",
+    "category": "Missing Requirement",
+    "gap_or_question": "Qual banco público operará a conta custódia e qual o modelo de liquidação (settlement) do split? O split ocorre no banco/adquirente (dinheiro nunca transita pela plataforma) ou há conciliação pós-crédito? A plataforma orquestra ou apenas instrui o split? Falta o contrato de API (Swagger) do banco/PSP.",
+    "impact_or_notes": "Bloqueia DESIGN e estimativa de E03/E05. KB confirma que split multi-parte NÃO é nativo do Billing — depende de integração externa (MuleSoft) cujo contrato inexiste. Ligado a Open Question 2."
+  },
+  {
+    "gap_id": "G0302",
+    "category": "Ambiguity",
+    "gap_or_question": "Qual o mecanismo concreto de geração de boleto/Pix? O brief cita 'Bolex?' com interrogação. É um produto, uma API do banco público ou desenvolvimento próprio? Pix e boleto têm fluxos e prazos distintos — ambos no escopo ou apenas um?",
+    "impact_or_notes": "Provedor e mecanismo indefinidos impedem estimar a integração de pagamento (E05). Pix (instantâneo) vs. boleto (D+1/D+2) muda a máquina de estados de crédito e o SLA de 15 dias. Ligado a Open Question 2."
+  },
+  {
+    "gap_id": "G0303",
+    "category": "Logical Gap",
+    "gap_or_question": "Como a regra de repasse em até 15 dias (Decreto 12.712/2025) é medida e imposta pela plataforma? O prazo conta a partir de qual evento (upload da folha, confirmação de pagamento, compensação)? Há enforcement automático (alerta/bloqueio/penalidade) ou só registro? Quem é o responsável legal pelo descumprimento?",
+    "impact_or_notes": "O prazo de 15 dias é obrigação regulatória central. Sem o evento-gatilho e o enforcement, não se projeta a máquina de estados nem os relatórios de conformidade (TCU/CGU). Risco de a plataforma assumir responsabilidade por prazo que depende de terceiros."
+  },
+  {
+    "gap_id": "G0304",
+    "category": "Missing Requirement",
+    "gap_or_question": "Não há requisito de conciliação financeira. Como a plataforma reconcilia o valor da folha, o valor pago pela beneficiária, o creditado aos trabalhadores, o repasse à facilitadora e a taxa retida ao MTE/Dataprev? O que acontece em divergência (pagamento parcial, valor a maior/menor)?",
+    "impact_or_notes": "Conciliação é obrigatória em fluxo de custódia/split e é onde builds financeiros falham. Ausência subdimensiona E03. Necessária para auditoria e para fechar o ciclo financeiro."
+  },
+  {
+    "gap_id": "G0305",
+    "category": "Potential Risk",
+    "gap_or_question": "Não há tratamento de erros no fluxo de pagamento: boleto não pago, Pix rejeitado, falha com o banco custódia, split parcial, estorno/chargeback, folha inconsistente pós-processamento. Qual a máquina de estados de exceção e os fluxos de compensação/reprocessamento?",
+    "impact_or_notes": "Fluxos financeiros exigem caminhos de exceção robustos; tratá-los como afterthought explode esforço e risco. Falha silenciosa em repasse pode gerar descumprimento do prazo de 15 dias e passivo regulatório."
+  },
+  {
+    "gap_id": "G0306",
+    "category": "Ambiguity",
+    "gap_or_question": "O 'layout padronizado' de folha é único (definido pela plataforma) ou cada uma das ~600-700 facilitadoras usa layout próprio que a plataforma precisa normalizar? Qual o formato (CSV/posicional/XML/API), regras de validação, volume de linhas e periodicidade?",
+    "impact_or_notes": "Padronização imposta pela plataforma é simples; normalizar N layouts de facilitadoras cresce E03/E05 significativamente. Determina se há motor de transformação/validação de arquivo. Input material para sizing."
+  },
+  {
+    "gap_id": "G0307",
+    "category": "Missing Requirement",
+    "gap_or_question": "Como a taxa ao MTE/Dataprev é calculada, parametrizada e retida no split? É percentual fixo, faixa, ou varia por contrato/facilitadora? Retida na liquidação (banco) ou apurada à parte? Há relação com o teto de 3,6% da reforma (taxa a estabelecimentos) ou é taxa distinta de operação da plataforma?",
+    "impact_or_notes": "A taxa é uma perna do split e fonte de custeio do programa. Regra indefinida impede modelar split e conciliação. Confusão entre 3,6% a estabelecimentos e taxa de operação é risco de escopo — desambiguar."
+  },
+  {
+    "gap_id": "G0308",
+    "category": "Potential Risk",
+    "gap_or_question": "O baseline Core-only (custom + split via MuleSoft, Revenue Cloud/Billing fora) suporta o crescimento do financeiro? E03 é 'Assumed'. Se o financeiro crescer (faturamento, notas, credit memos, múltiplos ciclos), há risco de retrabalho por não adotar Billing desde já.",
+    "impact_or_notes": "Decisão de arquitetura load-bearing sob incerteza. KB indica que Billing cobriria invoice/payment/tax nativamente, mas não o split. Custom-agora-vs-Billing-depois é trade-off de reversibilidade custosa — premissa a ratificar, com gatilho de migração para Revenue Cloud reavaliado."
+  },
+  {
+    "gap_id": "G0401",
+    "category": "Source Conflict",
+    "gap_or_question": "Cadastro unificado de estabelecimentos vs. facilitadoras mantendo o papel legal de aprovar/descredenciar: quem e o system-of-record do credenciamento? Cadastro-base unico com N status por facilitadora, ou credenciamento unico que todas honram?",
+    "impact_or_notes": "Define o modelo de dados central de E04 (Estabelecimento unico vs. Credenciamento__c 1->N por facilitadora). Afeta E02 e E05. Alto impacto de sizing."
+  },
+  {
+    "gap_id": "G0402",
+    "category": "Capability Gap",
+    "gap_or_question": "Identidade gov.br do estabelecimento (PJ/CNPJ): o login OIDC de E01 e desenhado para PF + procuracao. Como o estabelecimento se autentica (representante PF com e-CNPJ, certificado digital)?",
+    "impact_or_notes": "Se exigir identidade PJ distinta, e escopo nao coberto por E01. Afeta Experience Cloud, MuleSoft (validacao CNPJ) e volumetria de 800k identidades."
+  },
+  {
+    "gap_id": "G0403",
+    "category": "Ambiguity",
+    "gap_or_question": "Relacao entre credenciamento e a exigencia de interoperabilidade/aceitacao universal de bandeiras (~360 dias): o credenciamento per-facilitadora perde funcao? Plataforma modela como bilateral legado, universal, ou ambos em transicao?",
+    "impact_or_notes": "A regra de interoperabilidade pode tornar o credenciamento per-facilitadora transitorio; modelar errado gera retrabalho. Depende de fonte oficial (prazo 360 dias)."
+  },
+  {
+    "gap_id": "G0404",
+    "category": "Missing Requirement",
+    "gap_or_question": "Deduplicacao/reconciliacao com as bases das ~600-700 facilitadoras: chave de matching (CNPJ raiz vs. CNPJ+filial), regra de sobrevivencia em conflito, tratamento matriz/filial, quem resolve divergencias?",
+    "impact_or_notes": "Sem regra de dedup, a promessa de reduzir duplicidade nao e dimensionavel e a carga inicial (E07) fica em risco. Ponto de contato com E07."
+  },
+  {
+    "gap_id": "G0405",
+    "category": "Logical Gap",
+    "gap_or_question": "Semantica do descredenciamento em cadastro unificado: descredenciar afeta so a relacao daquela facilitadora ou remove do cadastro central? Ha evento por motivo (fraude, inadimplencia, encerramento CNPJ) que propaga?",
+    "impact_or_notes": "Define maquinas de estado e regras de propagacao de E04. Afeta auditoria (E08) e contratos de API (E05)."
+  },
+  {
+    "gap_id": "G0406",
+    "category": "Potential Risk",
+    "gap_or_question": "Fronteira de residencia (ADR 0001) para dado de estabelecimento: dado de PJ (CNPJ, razao social, endereco, MCC) e sensivel sob LGPD? Pode persistir no core SF ou fica only-on-Dataprev? Dado de responsavel PF exigiria tokenizacao.",
+    "impact_or_notes": "Se puder persistir no SF, E04 tem modelo nativo; se cair na residencia hibrida, exige orquestracao MuleSoft e muda arquitetura/dimensionamento. Ratificar com Jair Bogo."
+  },
+  {
+    "gap_id": "G0501",
+    "category": "Potential Risk",
+    "gap_or_question": "Nao existem hoje Swaggers/contratos de API para nenhum sistema externo (Novo PAT, GOV.BR/Geride, CTPS Digital, eSocial, SDC, Kinis, banco publico). Qual o cronograma comprometido de disponibilizacao de cada contrato e quem e responsavel?",
+    "impact_or_notes": "Risco de integracao mais alto do projeto. Sem data firme por sistema, a transicao mock->real nao e planejavel e o caminho critico fica indefinido. Recomenda-se registro de dependencias de API com owner+data como pre-condicao de kick-off."
+  },
+  {
+    "gap_id": "G0502",
+    "category": "Ambiguity",
+    "gap_or_question": "A abordagem mock-first nao tem governanca definida para virar real sem retrabalho. Mocks seguirao contrato versionado e acordado (contract-first/OpenAPI ratificado) antes do dev, ou serao baseados em suposicao? Havera testes de contrato?",
+    "impact_or_notes": "Sem disciplina contract-first + testes de contrato, cada divergencia do real gera retrabalho de mapeamento/transformacao/testes; o esforco pode dobrar."
+  },
+  {
+    "gap_id": "G0503",
+    "category": "Missing Requirement",
+    "gap_or_question": "O onboarding das ~600-700 facilitadoras nao tem modelo definido. Cada facilitadora implementa um contrato de API padrao unico (self-service com sandbox de certificacao), ou a plataforma constroi conectores por facilitadora? Ha processo de homologacao/versionamento?",
+    "impact_or_notes": "E o fator de escala que domina o dimensionamento MuleSoft. Integracao N-a-N sob medida e inviavel para 600-700; o modelo tem de ser contrato padrao + portal de certificacao."
+  },
+  {
+    "gap_id": "G0504",
+    "category": "Logical Gap",
+    "gap_or_question": "O local de hospedagem do MuleSoft nao esta decidido e colide com a residencia hibrida (ADR 0001). CloudHub (nuvem MuleSoft) ou runtime auto-hospedado em nuvem gov/on-prem Dataprev (Runtime Fabric)? Onde ocorre a des-tokenizacao/resolucao do CPF em runtime?",
+    "impact_or_notes": "Se MuleSoft orquestra CPF e roda em CloudHub fora do controle Dataprev, viola a premissa de residencia. O ponto de tokenizacao precisa estar dentro da fronteira Dataprev. Pre-requisito de arquitetura de conformidade LGPD/ANPD."
+  },
+  {
+    "gap_id": "G0505",
+    "category": "Missing Requirement",
+    "gap_or_question": "Padroes de auth/autz por sistema externo nao especificados (OAuth2 client-credentials, mTLS, certificado ICP-Brasil, gov.br OIDC, API keys?). Cada sistema tende a exigir padrao distinto. Como gerir segredos, rotacao e trust store?",
+    "impact_or_notes": "Auth heterogenea entre 600-700 facilitadoras + sistemas federais e fonte comum de atraso e incidente. Sem padrao definido, o design de seguranca da integracao fica sem baseline dimensionavel."
+  },
+  {
+    "gap_id": "G0506",
+    "category": "Missing Requirement",
+    "gap_or_question": "Sem RNFs de resiliencia: idempotencia (critica em boleto/Pix/split - risco financeiro de duplicidade), retry/backoff, dead-letter, reconciliacao e SLAs de disponibilidade por sistema. Volumes e picos esperados?",
+    "impact_or_notes": "Em fluxo financeiro (repasse <=15 dias, Decreto 12.712/2025), falta de idempotencia/reconciliacao pode gerar pagamento duplicado. RNFs de resiliencia dimensionam o esforco e sao condicao de conformidade financeira."
+  },
+  {
+    "gap_id": "G0507",
+    "category": "Missing Requirement",
+    "gap_or_question": "Falta requisito de observabilidade/monitoramento da integracao: monitoracao fim-a-fim, alertas, trilha de auditoria das chamadas (para TCU/CGU/ANPD sem persistir CPF), saude por facilitadora/sistema. Quem opera pos go-live (Dataprev NOC vs. PS)?",
+    "impact_or_notes": "Com 600-700 integracoes, sem observabilidade nao ha diagnostico em escala nem prova de conformidade de acesso a dado sensivel. Define ferramental e fronteira de operacao, ambos indefinidos."
+  },
+  {
+    "gap_id": "G0601",
+    "category": "Ambiguity",
+    "gap_or_question": "Escopo do agente indefinido entre informacional (FAQ grounded) e transacional (criar cotacao, enviar folha, credenciar) - Open Question 8. Diferenca de sizing enorme: informacional e XS-S; transacional exige acoes custom (Apex/Flow topics), integracao com E02-E05 e testes de seguranca por acao.",
+    "impact_or_notes": "Bloqueia a estimativa de E06 - T-shirt pode variar de S a XL. Recomenda-se decompor em fase informacional (MVP) + transacional (futura) ate o cliente definir casos de uso."
+  },
+  {
+    "gap_id": "G0602",
+    "category": "Potential Risk",
+    "gap_or_question": "Canal WhatsApp: exige WhatsApp Business API via BSP Meta, aprovacao de templates, numero verificado, custo por conversa e opt-in. Para orgao federal, qual entidade (MTE/Dataprev) detem a conta Meta e a politica de custo? Webchat (Experience Cloud) tem barreira menor.",
+    "impact_or_notes": "WhatsApp adiciona dependencia externa, custo recorrente e lead time de aprovacao Meta fora do controle. Se nao confirmado, MVP em webchat e WhatsApp fase posterior. Impacta cronograma e custeio."
+  },
+  {
+    "gap_id": "G0603",
+    "category": "Logical Gap",
+    "gap_or_question": "Tensao residencia (ADR 0001) x agente transacional: um agente que responde consultas vinculadas a CPF (status da folha, beneficio regular) precisa acessar dado sensivel em runtime. Como o grounding/retrieval do Agentforce respeita a fronteira do ADR sem que o dado transite/seja logado no prompt do LLM?",
+    "impact_or_notes": "Conflito arquitetural critico sob LGPD Art. 11. Ratificar com Jair Bogo quais consultas transacionais sao permitidas e como recuperar sem persistir/logar. Pode restringir o agente ou exigir mascaramento no retrieval."
+  },
+  {
+    "gap_id": "G0604",
+    "category": "Missing Requirement",
+    "gap_or_question": "Sem base de conhecimento definida para grounding do agente informacional (regras do PAT, Decreto 12.712/2025, FAQ do Novo PAT, procedimentos). Sem corpus curado e mantido, o agente alucina ou responde desatualizado - risco alto em contexto regulatorio sub judice (ADI no STF).",
+    "impact_or_notes": "Requer definir fonte da base, processo de curadoria/atualizacao e dono (MTE? Dataprev?). Pre-requisito para qualquer caso de uso informacional."
+  },
+  {
+    "gap_id": "G0605",
+    "category": "Missing Requirement",
+    "gap_or_question": "Handoff/escalonamento humano nao definido: para o que o agente nao resolve, qual a mesa humana de destino? Hoje a operacao e fragmentada entre facilitadoras e Novo PAT/MTE - nao ha confirmacao de contact center Salesforce (Service Cloud/Omni-Channel) para receber a escalada.",
+    "impact_or_notes": "Impacta escopo (pode exigir Service Cloud + Omni-Channel + filas, hoje nao listados) e a experiencia do cidadao. Confirmar se existe/havera atendimento humano e sob responsabilidade de quem."
+  },
+  {
+    "gap_id": "G0606",
+    "category": "Potential Risk",
+    "gap_or_question": "Guardrails de agente publico governamental: prevenir aconselhamento juridico/fiscal indevido, respostas sobre regras sub judice (ADI ABBT no STF), vies/toxicidade, trilha de auditoria das interacoes (TCU/CGU/ANPD). Idioma (PT-BR) e acessibilidade nao especificados.",
+    "impact_or_notes": "Exige testes de seguranca do agente (Testing Center/red-teaming), politicas de topicos proibidos, disclaimers e log auditavel. Subestimar guardrails de agente federal publico e risco reputacional/conformidade - deve entrar no sizing e QA."
+  },
+  {
+    "gap_id": "G0701",
+    "category": "Source Conflict",
+    "gap_or_question": "Volume de empresas beneficiarias diverge entre fontes: discovery citou ~450 mil, fontes oficiais/imprensa citam ~300-327,7 mil. Qual o numero real da base a carregar? (registrado em strategy _open_data_flags)",
+    "impact_or_notes": "Discrepancia de ~30-40% dimensiona diretamente o esforco de carga, dedup e validacao. Distorce a estimativa de E07 e o dimensionamento MuleSoft (E05). Resolver antes de qualquer artefato client-facing."
+  },
+  {
+    "gap_id": "G0702",
+    "category": "Logical Gap",
+    "gap_or_question": "Se o Novo PAT permanece SoR e o CPF nao persiste no SF (ADR 0001), o que exatamente e carregado no Salesforce? Precisa-se do inventario de campos nao-sensiveis por entidade e da chave de referencia tokenizada que liga cada registro a origem Dataprev.",
+    "impact_or_notes": "Sem o dicionario de dados de referencia nao ha como definir objetos-alvo, mapeamento origem->destino nem tokenizacao. E a decisao que separa carga leve de migracao massiva. Depende da fronteira de residencia (Open Question 3)."
+  },
+  {
+    "gap_id": "G0703",
+    "category": "Missing Requirement",
+    "gap_or_question": "Acesso a(s) fonte(s) da carga nao definido: existe extract/API/dump do Novo PAT e bases MTE? Qual formato (CSV, API bulk, banco), janela de disponibilizacao e quem prove o extrato? Carga one-time ou requer sync delta continuo?",
+    "impact_or_notes": "Se exige sync delta recorrente, o escopo de E07 cresce de evento pontual para pipeline permanente (sobrepoe E05). Formato e prazo do extrato sao pre-condicao para desenhar o processo; sem eles o go-live nov/2026 fica em risco."
+  },
+  {
+    "gap_id": "G0704",
+    "category": "Ambiguity",
+    "gap_or_question": "Regras de qualidade e dedup nao especificadas e ha sobreposicao de escopo com E04. Chave de dedup (CNPJ? CNPJ+UF?), como tratar estabelecimentos multi-facilitadora, e a limpeza acontece na carga inicial (E07) ou no credenciamento continuo (E04)? Quem e dono do data cleansing?",
+    "impact_or_notes": "Ambiguidade E07<->E04 gera risco de double-count de esforco (MECE) e de responsabilidade. Base de 800k com ~26% de aceitacao sugere base suja; sem regras e dono, a qualidade pos-carga fica indefensavel."
+  },
+  {
+    "gap_id": "G0705",
+    "category": "Potential Risk",
+    "gap_or_question": "Sem estrategia de reconciliacao/validacao pos-carga nem de rollback/cutover. Como comprovar que a carga bateu com o SoR (contagem, amostragem, checksum)? O que acontece em falha parcial - ha rollback, reprocessamento idempotente e criterio de aceite?",
+    "impact_or_notes": "Em auditoria TCU/CGU/ANPD, carga sem trilha de reconciliacao e sem criterio de aceite e passivo de conformidade. Falha parcial sem idempotencia/rollback deixa referencias orfas que quebram E02/E03. RNF para o plano de teste."
+  },
+  {
+    "gap_id": "G0706",
+    "category": "Capability Gap",
+    "gap_or_question": "Confirmar a fonte primaria dos volumes oficiais (22M trabalhadores, 800k estabelecimentos, 600-700 facilitadoras) - hoje vem de imprensa citando o MTE, nao do portal primario. O extrato real do Novo PAT pode divergir materialmente.",
+    "impact_or_notes": "Se os volumes reais divergem dos assumidos, o dimensionamento de E07 e das licencas/integracao dependentes muda. Verificar na fonte antes de citar como fato em artefato client-facing."
+  },
+  {
+    "gap_id": "G0801",
+    "category": "Ambiguity",
+    "gap_or_question": "Fronteira exata da residencia hibrida ainda nao ratificada: quais campos podem transitar/persistir no SF e quais permanecem exclusivamente na infra Dataprev (CPF, transacoes vinculadas). ADR 0001 registra a diretriz mas deixa a lista de campos como pergunta aberta a ratificar com Jair Bogo (Open Question 3).",
+    "impact_or_notes": "E o maior bloqueador do DESIGN e do dimensionamento MuleSoft. Sem a fronteira campo-a-campo nao se fecha o modelo de dados nem se estima o volume de resolucao em runtime. Reversao re-desenha E01/E02/E03/E06. Alta prioridade."
+  },
+  {
+    "gap_id": "G0802",
+    "category": "Logical Gap",
+    "gap_or_question": "Mecanica de tokenizacao e resolucao em runtime nao especificada: onde o token e gerado e custodiado (Dataprev, MuleSoft, vault?), mapeamento token<->CPF, latencia/disponibilidade aceitaveis para resolucao via API, e comportamento em indisponibilidade da base Dataprev (degradacao, cache, fila).",
+    "impact_or_notes": "A viabilidade de UX (telas com dado nominal resolvido on-demand) e o dimensionamento de chamadas MuleSoft dependem disto. Resolucao sincrona de alto volume impacta performance, custo e SLA do portal. Resposta antes do DESIGN de E05."
+  },
+  {
+    "gap_id": "G0803",
+    "category": "Missing Requirement",
+    "gap_or_question": "Trilha de auditoria (TCU/CGU/ANPD) para acesso a dados sensiveis que NAO persistem no SF: como registrar quem acessou/resolveu qual CPF, quando e com qual base legal, se o dado vive na Dataprev? Onde reside o log (SF Event Monitoring/Shield, log MuleSoft, log Dataprev), retencao, imutabilidade e formato exportavel.",
+    "impact_or_notes": "Auditoria de acesso e obrigacao LGPD/orgaos de controle. A residencia hibrida cria o paradoxo de auditar acesso a dado que nao esta no SF - o log provavelmente correlaciona SF+MuleSoft+Dataprev. Pode exigir Salesforce Shield (licenca). Impacta escopo e licenciamento."
+  },
+  {
+    "gap_id": "G0804",
+    "category": "Potential Risk",
+    "gap_or_question": "Requisitos de certificacao/hospedagem para governo federal nao confirmados: ISO 27001, SOC 2, e a regiao de hospedagem Salesforce. ADR 0001 rejeitou Hyperforce Brasil por persistir CPF - mas qual regiao/instancia hospedara o core SF? Ha exigencia de nuvem governamental (GovCloud) ou residencia nacional para metadados/dados nao-sensiveis?",
+    "impact_or_notes": "Se o edital/Dataprev exigir residencia nacional inclusive para dados nao-sensiveis ou GovCloud, a arquitetura muda materialmente. Certificacoes podem ser condicao de licitacao (Lei 14.133/2021). Risco de descoberta tardia que afeta timeline set/nov 2026."
+  },
+  {
+    "gap_id": "G0805",
+    "category": "Ambiguity",
+    "gap_or_question": "Papeis LGPD nao definidos: quem e controlador, operador e suboperador entre MTE (dono do programa), Dataprev (executor) e Salesforce. Definir a cadeia de responsabilidade, os contratos de tratamento (DPA) e a base legal do Art. 7/Art. 11 para o dado sensivel do trabalhador.",
+    "impact_or_notes": "Define obrigacoes contratuais, clausulas de DPA e responsabilizacao perante a ANPD. Ausencia de definicao clara de controlador/operador e risco juridico e pode travar a assinatura. Afeta o SOW e a matriz de responsabilidades."
+  },
+  {
+    "gap_id": "G0806",
+    "category": "Logical Gap",
+    "gap_or_question": "Mecanica do direito ao esquecimento/eliminacao (LGPD Art. 18) com referencias tokenizadas: se o CPF fica na Dataprev e o SF guarda so token, a eliminacao/anonimizacao e orquestrada como entre SF, MuleSoft e Dataprev? O que acontece com contratos/folhas historicas que referenciam a beneficiaria eliminada e com retencao fiscal concorrente.",
+    "impact_or_notes": "Direito de eliminacao e portabilidade sao exigencias LGPD. Ha conflito com retencao obrigatoria de registros financeiros/contratuais. Precisa de regra de negocio explicita; sem ela ha risco de nao-conformidade."
+  },
+  {
+    "gap_id": "G0807",
+    "category": "Potential Risk",
+    "gap_or_question": "Consentimento e comunicacao da base legal ao titular (trabalhador/beneficiaria) nao endereçados: como e onde a plataforma coleta/registra consentimento ou informa a base legal, especialmente para o trabalhador (que nao e usuario direto do portal, mas cujo CPF e tratado no credito via CTPS Digital).",
+    "impact_or_notes": "O trabalhador e titular de dado sensivel mas nao interage com o portal - a base legal do tratamento do CPF dele precisa ser clara (execucao de politica publica/obrigacao legal?). Gap de conformidade que pode exigir registro de consentimento ou parecer juridico. Impacta E03 e E06."
+  },
+  {
+    "gap_id": "G0901",
+    "category": "Ambiguity",
+    "gap_or_question": "Quais audiencias estao de fato no escopo de entrega da PS (facilitadoras via API, beneficiarias no portal, estabelecimentos, trabalhadores, equipe Dataprev/MTE) e quais sao responsabilidade do MTE/Dataprev? Alcance de programa nacional nao e o mesmo que publico de treinamento/change entregue pela PS.",
+    "impact_or_notes": "Fronteira de escopo e o maior determinante de tamanho desta epica. Sem defini-la o sizing varia em uma ou duas ordens de grandeza (capacitar equipe Dataprev vs. campanha nacional para milhoes). Bloqueia estimativa."
+  },
+  {
+    "gap_id": "G0902",
+    "category": "Potential Risk",
+    "gap_or_question": "A adocao pelas facilitadoras e voluntaria ou mandataria pela reforma (Decreto 12.712/2025 - arranjo aberto/interoperabilidade)? As facilitadoras tem incentivo oposto: transparencia e comparabilidade comprimem sua margem. Um plano de adocao que assume boa vontade de quem perde dinheiro e fragil.",
+    "impact_or_notes": "Se a adesao e mandataria por lei, change vira gestao de conformidade/onboarding tecnico (API), nao persuasao. Se voluntaria, ha risco de resistencia ativa/litigio (ja ha ADI no STF pela ABBT). Muda a natureza e o tamanho da epica."
+  },
+  {
+    "gap_id": "G0903",
+    "category": "Ambiguity",
+    "gap_or_question": "O que gestao de mudanca e adocao significa concretamente? A descricao mistura quatro coisas de custo/dono diferentes: (a) comunicacao/campanha, (b) capacitacao/treinamento, (c) materiais de apoio, (d) acompanhamento/metricas - e a Risk #6 adiciona (e) CoE e (f) corpo de governanca pos go-live.",
+    "impact_or_notes": "Sem decompor nao ha como sizar nem alocar (a PS entrega treinamento? monta CoE? so produz materiais?). Decisao de decomposicao e pre-requisito para transformar a epica em trabalho estimavel. Candidata a virar 2+ epicas ou ter partes movidas para gap/Dataprev."
+  },
+  {
+    "gap_id": "G0904",
+    "category": "Missing Requirement",
+    "gap_or_question": "Quem e o dono da governanca pos go-live (CoE, data stewardship, mudanca continua) - PS, Dataprev (sustentacao/DEBT) ou MTE? A Risk #6 registra que isso nao foi endereçado. Governanca continua e responsabilidade recorrente, nao entrega de projeto.",
+    "impact_or_notes": "Dataprev opera e sustenta a plataforma; candidata natural a dona da governanca continua. Se a PS assumir, e escopo recorrente com modelo comercial proprio. Se a Dataprev assumir, vira premissa/gap de handoff. Impacta modelo de entrega e comercial."
+  },
+  {
+    "gap_id": "G0905",
+    "category": "Logical Gap",
+    "gap_or_question": "Como se define e mede sucesso de adocao, e como isso se concilia com a ausencia de KPIs quantificados (Open Question 6 aberta)? Um plano sem meta observavel (% facilitadoras integradas ate go-live, % cotacoes concluidas, tempo ate primeira contratacao) nao tem criterio de aceite.",
+    "impact_or_notes": "Sem baseline e alvo, a epica nao tem outcome mensuravel. Nao inventar baseline. Depende de resolver Open Question 6. Impacta a definicao de pronto da epica."
+  },
+  {
+    "gap_id": "G0906",
+    "category": "Potential Risk",
+    "gap_or_question": "Esta epica e entregue pela PS ou pelo cliente (Dataprev/MTE) com apoio pontual? Foi adicionada a pedido do usuario em 28/jul como escopo aberto (produtos: []). Change/adocao de programa federal nacional envolve comunicacao institucional, canais gov.br e linguagem oficial que tipicamente pertencem ao orgao publico.",
+    "impact_or_notes": "Se PS-entregue, exige perfis de Change & Adoption no roster e forte dependencia de conteudo/canais do MTE/Dataprev. Se cliente-entregue, vira premissa/gap e sai do sizing PS. Determina se a epica gera esforco PS ou e apenas responsabilidade a registrar."
+  }
+]

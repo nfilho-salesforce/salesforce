@@ -1,0 +1,12 @@
+PROJETO=DATAPREV-PAT
+FASE_ATUAL=REQUIREMENTS
+FASES_CONCLUIDAS=INTAKE,SETUP,DISCOVER,STRATEGY,REQUIREMENTS
+PROXIMO=DESIGN
+LOCAL=/Users/nfilho/claude/Scopezilla/DATAPREV-PAT
+HEROKU=nenhum
+PRODUTOS_SF=MuleSoft,Experience Cloud,Core/Service Cloud,Agentforce
+ESCOPO=fluxo completo (4 modulos)
+RESIDENCIA_DADOS=hibrida (ADR0001)
+MIGRACAO=cadastros iniciais
+COMERCIAL=PS Services + Licencas SF
+STATUS=requirements concluido; 9 epicas (epics.json) + 60 gaps (gaps.json); Revenue Cloud fora; E09 change&adocao criada; Fase 0 recomendada (60 gaps, 3 conflitos, 4 bloqueadores de arquitetura)

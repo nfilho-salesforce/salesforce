@@ -1,0 +1,128 @@
+{
+  "sessions": [
+    {
+      "summary": "Discover DATAPREV-PAT: projeto inicializado nesta pasta (init-project), contexto construído (78 arquivos, MP4 não convertido intencional). Extraction Audit + interview produziram Discovery Brief cobrindo 4 módulos, integrações, riscos.",
+      "skills": [
+        "discover"
+      ],
+      "produced": [
+        "outputs/00-discovery-brief.md",
+        "decisions/0001-residencia-dados-hibrida.md"
+      ],
+      "decisions": [
+        {
+          "decision": "Escopo ROM = fluxo completo (4 módulos)",
+          "rationale": "Confirmado por Nelson; timeline set→nov cobre cotação→financeiro",
+          "rejected": [
+            "Fase 1 apenas",
+            "Fase 1+Financeiro"
+          ]
+        },
+        {
+          "decision": "Residência de dados híbrida (ADR 0001)",
+          "rationale": "CPF/sensível fica na Dataprev; SF orquestra via MuleSoft sem persistir",
+          "rejected": [
+            "Nuvem SF Hyperforce BR",
+            "Tudo on-prem"
+          ]
+        },
+        {
+          "decision": "Migração = carga inicial de cadastros",
+          "rationale": "Novo PAT é system-of-record; sem migração massiva"
+        },
+        {
+          "decision": "Comercial = PS Services + Licenças SF",
+          "rationale": "Padrão Dataprev"
+        }
+      ],
+      "open_threads": [
+        "APIs Novo PAT/GOV.BR/eSocial sem Swagger — mocks na Fase 1 (alto risco)",
+        "Fronteira exata da residência híbrida a ratificar com Jair Bogo",
+        "Tela Comparar Propostas ausente no protótipo — regras de leilão a definir",
+        "Data Cloud/Tableau (monitoramento MTE) fora desta rodada",
+        "Volume usuários Experience Cloud / KPIs não quantificados"
+      ],
+      "next": "REQUIREMENTS (definir épicas) via /dataprev"
+    },
+    {
+      "summary": "Strategy DATAPREV-PAT: pesquisa de mercado (Decreto 12.712/2025, oligopólio facilitadoras, ADI STF, Novo PAT) fundamentou strategy.json — desafios, value drivers, prioridades, visão (aprovada), objetivos, business case.",
+      "skills": [
+        "strategy"
+      ],
+      "produced": [
+        "data/strategy.json"
+      ],
+      "decisions": [
+        {
+          "decision": "Visão aprovada: PAT como mercado digital único/transparente/concorrencial via gov.br",
+          "rationale": "Aprovada por Nelson como está"
+        },
+        {
+          "decision": "Prioridade 1 = marketplace cotação/contratação",
+          "rationale": "Coração da reforma; valor mais visível primeiro"
+        }
+      ],
+      "open_threads": [
+        "Nº empresas beneficiárias diverge: discovery 450k vs. oficial ~300-327,7k — confirmar",
+        "Números oficiais PAT via imprensa, não portal primário — verificar antes de client-facing",
+        "Prazos do Decreto 12.712/2025 sujeitos a ADI no STF (ABBT)"
+      ],
+      "next": "REQUIREMENTS (definir épicas) via /dataprev"
+    },
+    {
+      "summary": "Requirements DATAPREV-PAT: pesquisa de produto validou hipótese do usuário (Revenue Cloud+Experience+MuleSoft para o 'leilão') — Experience+MuleSoft confirmados, mas Revenue Cloud é sell-side (sem RFQ/leilão reverso nativo); leilão é custom na Core Platform de qualquer forma. Definidas 9 épicas + gap analysis (60 gaps). Primeiro doc de knowledge/ criado e indexado (salesforce-revenue-cloud-marketplace-arch.md).",
+      "skills": [
+        "requirements"
+      ],
+      "produced": [
+        "data/epics.json",
+        "data/gaps.json",
+        "knowledge/salesforce-revenue-cloud-marketplace-arch.md"
+      ],
+      "decisions": [
+        {
+          "decision": "Revenue Cloud fora desta rodada — baseline Core-only (E03)",
+          "rationale": "RLM é sell-side (catálogo→quote→order→billing); não suporta RFQ/leilão reverso nativo; split multi-parte não é nativo de Billing. Leilão é custom na Core Platform de qualquer forma; split via MuleSoft. Reavaliar em fase futura.",
+          "rejected": ["Revenue Cloud (CLM+Billing) dentro de E03 nesta rodada"]
+        },
+        {
+          "decision": "Criada E09 — Gestão de Mudança & Adoção",
+          "rationale": "Persona 'scope implies more than the build' + Risk #6 (governança pós go-live não endereçada); usuário optou por tornar change/adoção explícita como épica (escopo/fronteira PS vs. Dataprev a confirmar)"
+        },
+        {
+          "decision": "9 épicas aprovadas (E01 Portal gov.br, E02 Marketplace Cotação, E03 Folha&Financeiro, E04 Credenciamento, E05 Integração MuleSoft, E06 Agentforce, E07 Migração, E08 Segurança/Residência, E09 Change&Adoção)",
+          "rationale": "Cobre os 4 módulos + transversais (integração, segurança/residência, migração, change); MECE, fronteiras limpas"
+        }
+      ],
+      "open_threads": [
+        "60 gaps / 3 conflitos de fonte → Fase 0 recomendada antes do compromisso de escopo/prazo",
+        "G0801 (bloqueador): fronteira campo-a-campo da residência híbrida — ratificar com Jair Bogo",
+        "G0501: sem Swaggers/contratos de API para todos os sistemas externos — caminho crítico",
+        "G0504: hospedagem MuleSoft (CloudHub vs. Runtime Fabric gov) × residência — ponto de tokenização",
+        "G0106: residência híbrida × Experience Cloud User/Contact (CPF)",
+        "G0701: 450k vs 300-327k empresas beneficiárias — resolver antes de sizing client-facing",
+        "E09 (G0901/G0906): fronteira de escopo PS vs. Dataprev/MTE e resistência das facilitadoras",
+        "Central Salesforce KB degradada (access_denied) — grounding via knowledge/ do projeto"
+      ],
+      "next": "DESIGN (arquitetura) via /dataprev — recomendar resolver bloqueadores de arquitetura (G0801/G0501/G0504) idealmente em Fase 0"
+    }
+  ],
+  "preferences": {},
+  "decision_log": [
+    "Discover: escopo 4 módulos, residência híbrida (ADR0001), migração cadastros iniciais, PS+Licenças",
+    "Strategy: visão aprovada; eixo narrativo = choque regulatório Decreto 12.712/2025; prioridade 1 marketplace",
+    {
+      "date": "2026-07-28",
+      "area": "scope/product",
+      "decision": "Revenue Cloud fora desta rodada; leilão custom na Core Platform (Cotacao__c 1→N Proposta__c); split financeiro via MuleSoft",
+      "rationale": "Pesquisa validou que RLM é sell-side, sem RFQ/leilão reverso nativo e sem split multi-parte nativo de Billing",
+      "rejected": ["Revenue Cloud (CLM+Billing) dentro do escopo de E03"]
+    },
+    {
+      "date": "2026-07-28",
+      "area": "scope",
+      "decision": "9 épicas; E09 Gestão de Mudança & Adoção adicionada explicitamente",
+      "rationale": "Change/adoção implícita pelo alcance do programa (Risk #6); usuário optou por torná-la épica"
+    }
+  ]
+}

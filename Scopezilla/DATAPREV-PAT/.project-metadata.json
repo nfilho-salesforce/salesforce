@@ -1,0 +1,46 @@
+{
+  "project_name": "DATAPREV-PAT",
+  "created_at": "2026-07-27",
+  "depth_mode": "epic-level",
+  "vertical": "government",
+  "rfp_tier": "standard",
+  "benchmark_source": "model-training-data",
+  "completion_status": {
+    "setup": "not-started",
+    "tutorial": "not-started",
+    "discover": "complete",
+    "strategy": "complete",
+    "requirements": "complete",
+    "design": "not-started",
+    "roadmap": "not-started",
+    "efficiency": "not-started",
+    "estimate": "not-started",
+    "commercials": "not-started",
+    "validate": "not-started",
+    "narratives": "not-started",
+    "export": "not-started",
+    "backlog": "not-started",
+    "quantum-leap": "not-started",
+    "slides": "not-started",
+    "rfp": "not-started",
+    "cleanup": "not-started",
+    "wrapup": "not-started",
+    "help": "not-started",
+    "contribute": "not-started"
+  },
+  "timeline": {
+    "client_target": {
+      "value": "Homologação set/2026; produção 15/nov/2026",
+      "source": "Reunião 21/jul/2026 (Notes by Gemini)",
+      "note": "Timeline agressiva; homologação do fluxo cotação/contratação em set, financeiro em produção 15/nov"
+    },
+    "user_commitment": null
+  },
+  "products_in_scope": [
+    "mulesoft",
+    "experience-cloud",
+    "core-service-cloud",
+    "agentforce"
+  ],
+  "products_with_overlay": []
+}

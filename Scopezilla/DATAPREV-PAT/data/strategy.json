@@ -1,0 +1,82 @@
+{
+  "strategic_context": {
+    "current_state_challenges": [
+      {"challenge": "Contratação de vale-alimentação/refeição é fragmentada e opaca: empresas beneficiárias negociam bilateralmente com cada facilitadora, sem comparabilidade de propostas.", "source": "discovery", "confidence": "Confirmed"},
+      {"challenge": "Taxas de administração historicamente altas ao estabelecimento (~6-7%) e repasses longos (30-45 dias), agora limitados pelo Decreto 12.712/2025 a 3,6% (MDR) / 2% (interchange) e 15 dias.", "source": "research", "confidence": "Confirmed"},
+      {"challenge": "Mercado concentrado: 4 incumbentes (Alelo, VR, Ticket/Edenred, Pluxee) detêm ~80% da receita de um setor que movimenta R$ 150-200 bi/ano e atende +22-24 mi trabalhadores — o governo trata como oligopólio.", "source": "research", "confidence": "Confirmed"},
+      {"challenge": "MTE não tem visibilidade sistêmica sobre a operação do programa (fluxos, taxas praticadas, aceitação, irregularidades).", "source": "discovery", "confidence": "Confirmed"},
+      {"challenge": "Integração entre atores é inexistente/imatura — centenas de facilitadoras e ~800 mil estabelecimentos operam em silos, com apenas ~26% de aceitação efetiva entre credenciados.", "source": "research", "confidence": "Assumed"},
+      {"challenge": "Recadastramento obrigatório no Novo PAT (prazo prorrogado após 25/07/2026; sistema antigo desativado 16/07/2026) sob pena de perda do benefício fiscal (IRPJ) cria pressão operacional imediata sobre participantes.", "source": "research", "confidence": "Confirmed"}
+    ],
+    "business_impacts": [
+      {"impact": "Choque de margem nas facilitadoras (Pluxee até -30% de Ebitda; Edenred ~13%) força recomposição de receita via volume, produto e eficiência — não mais via taxa/rebate.", "affected_area": "Facilitadoras / mercado", "severity": "high"},
+      {"impact": "Ausência de plataforma neutra deixa empresas beneficiárias sem poder de comparação e o MTE sem instrumento de fiscalização da nova regra (3,6% / 15 dias / interoperabilidade).", "affected_area": "Governo / beneficiárias", "severity": "high"},
+      {"impact": "Incerteza jurídica (ADI no STF pela ABBT, liminares idas e vindas) sobre prazos de vigência do decreto — premissas de escopo dependentes de datas ficam sujeitas a decisão judicial.", "affected_area": "Regulatório / cronograma", "severity": "medium"}
+    ],
+    "industry_context": {
+      "summary": "O PAT (Lei 6.321/1976, ~50 anos em 2026) passa pela maior reforma de sua história com o Decreto nº 12.712/2025, que comprime a margem das operadoras e força interoperabilidade — abrindo espaço para uma plataforma pública neutra operada pela Dataprev para o MTE.",
+      "trends": [
+        "Compressão regulatória de taxas (MDR 3,6%, interchange 2%) e repasse em 15 dias, vigência a partir de 10/02/2026",
+        "Arranjo aberto obrigatório para operadoras acima de 500 mil trabalhadores; aceitação universal de bandeiras em ~360 dias",
+        "Entrada de fintechs (Flash, Caju, Swile, iFood Benefícios) pressionando os incumbentes",
+        "Digitalização gov.br do programa via Novo PAT com recadastramento obrigatório"
+      ],
+      "regulatory_factors": [
+        "Decreto nº 12.712/2025 (publ. 12/11/2025), altera Decreto 10.854/2021 — teto MDR 3,6%, interchange 2%, repasse 15 dias corridos",
+        "Portabilidade (trabalhador escolher operadora) foi estudada mas NÃO incluída — apenas interoperabilidade",
+        "LGPD (Art. 11 — dado sensível), auditoria TCU/CGU, ANPD",
+        "Contratação sob Lei 14.133/2021",
+        "ADI no STF (ABBT) questionando o decreto — relatora min. Cármen Lúcia"
+      ],
+      "competitive_pressures": [
+        "Oligopólio (Alelo, VR, Ticket/Edenred, Pluxee ~80% da receita) vs. desafiantes fintech",
+        "+R$ 1,5 bi em rebates concedidos em 2024, prática pressionada pelas novas regras"
+      ]
+    },
+    "value_drivers": [
+      {"driver": "Jornada única gov.br para beneficiárias com comparação de propostas lado a lado", "category": "experience", "description": "Substitui negociação bilateral fragmentada por experiência transparente e padronizada."},
+      {"driver": "Leilão automatizado entre facilitadoras", "category": "efficiency", "description": "Cotação → propostas → seleção substitui processo manual; reduz tempo e assimetria de informação."},
+      {"driver": "Fluxo financeiro digital (folha, conta custódia, split) conforme repasse de 15 dias", "category": "efficiency", "description": "Upload de folha, geração de boleto/Pix, split governo/facilitadora automatizados."},
+      {"driver": "Conformidade e auditabilidade da reforma", "category": "risk", "description": "Instrumento para o MTE fiscalizar teto de 3,6%, prazo de 15 dias e interoperabilidade; trilha LGPD/TCU."},
+      {"driver": "Visibilidade sistêmica do programa para o MTE", "category": "risk", "description": "Base para monitoramento a posteriori de taxas, aceitação e irregularidades."}
+    ],
+    "strategic_priorities": [
+      {"priority": "Habilitar o marketplace de cotação e contratação (motor da concorrência)", "rank": 1, "rationale": "Coração da proposta de valor e da reforma — comparabilidade de propostas; entrega o valor mais visível primeiro (homologação set/2026)."},
+      {"priority": "Digitalizar o fluxo financeiro (folha + conta custódia + split) sob a regra de repasse de 15 dias", "rank": 2, "rationale": "Operacionaliza o benefício e a conformidade financeira; alvo de produção 15/nov/2026."},
+      {"priority": "Unificar credenciamento e identidade via gov.br", "rank": 3, "rationale": "Base de confiança e dado da plataforma; reduz fraude e duplicidade."},
+      {"priority": "Camada de atendimento inteligente (Agentforce)", "rank": 4, "rationale": "Escala suporte a centenas de milhares de participantes sem inflar custo operacional."}
+    ]
+  },
+  "transformation_strategy": {
+    "vision_statement": "Tornar o PAT um mercado digital único, transparente e concorrencial — onde qualquer empresa brasileira, do MEI à grande corporação, cota, contrata e gere o benefício alimentação de seus trabalhadores em uma jornada 100% gov.br, com propostas comparáveis lado a lado, taxas dentro do novo teto regulatório (3,6%) e repasses garantidos em 15 dias. Operado pela Dataprev para o Ministério do Trabalho e Emprego, o marketplace substitui a negociação fragmentada e opaca de hoje por um leilão aberto entre facilitadoras, dando ao governo visibilidade sistêmica sobre bilhões de reais em benefícios e ao trabalhador a confiança de um programa moderno, auditável e interoperável.",
+    "strategic_objectives": [
+      {"objective": "Homologar cotação/contratação e integração com o Novo PAT", "success_criteria": "Beneficiária cria cotação via gov.br e recebe propostas (reais ou mock) comparáveis; integração Novo PAT/GOV.BR validada.", "timeline_horizon": "short"},
+      {"objective": "Colocar em produção o fluxo completo com o módulo financeiro", "success_criteria": "Contrato → folha → conta custódia → split executados ponta a ponta em produção (alvo 15/nov/2026).", "timeline_horizon": "medium"},
+      {"objective": "Consolidar credenciamento unificado via gov.br", "success_criteria": "Estabelecimentos e participantes cadastrados/validados via identidade gov.br, com papel legal das facilitadoras preservado.", "timeline_horizon": "medium"},
+      {"objective": "Tornar a plataforma fonte de visibilidade do PAT para o MTE", "success_criteria": "Dados operacionais disponíveis para monitoramento a posteriori (fase futura — Data Cloud/Tableau fora desta rodada).", "timeline_horizon": "long"}
+    ],
+    "principles": [
+      {"principle": "gov.br-first", "rationale": "Identidade e procuração digital como porta única de acesso, aderente ao padrão do governo federal."},
+      {"principle": "Dado sensível na origem", "rationale": "Salesforce orquestra; a Dataprev persiste o dado sensível (CPF) — ADR 0001, residência híbrida."},
+      {"principle": "Configurar antes de customizar", "rationale": "Acelerar a entrega dentro de uma timeline agressiva (set→nov/2026) e reduzir custo de sustentação."},
+      {"principle": "Mock-first nas integrações", "rationale": "Desbloquear o desenvolvimento sem esperar Swagger/definição das APIs (Novo PAT, GOV.BR, eSocial), reduzindo risco de cronograma."}
+    ]
+  },
+  "business_case": {
+    "why_salesforce": "A reforma exige uma plataforma que combine portal externo autenticado (Experience Cloud sobre gov.br), motor de processos e estados de negócio (Core/Service Cloud para cotação, credenciamento, folha), integração corporativa com múltiplos sistemas governamentais e centenas de facilitadoras (MuleSoft) e atendimento em escala (Agentforce) — quatro capacidades nativas e integradas em uma única plataforma, encurtando o caminho para a timeline agressiva do programa.",
+    "why_now": "O Decreto 12.712/2025 entra em vigor a partir de 10/02/2026 com adequação de repasse em 90 dias e arranjo aberto até novembro; o Novo PAT exige recadastramento obrigatório sob pena de perda do benefício fiscal. A janela para instrumentalizar a fiscalização e a transparência da reforma é agora — atraso significa operar a nova regra sem plataforma que a suporte e sem visibilidade para o MTE.",
+    "expected_outcomes": [
+      {"outcome": "Comparabilidade de propostas de facilitadoras em jornada única gov.br", "category": "experience", "timeframe": "set/2026 (homologação)"},
+      {"outcome": "Fluxo financeiro digital conforme repasse de 15 dias (folha, conta custódia, split)", "category": "efficiency", "timeframe": "15/nov/2026 (produção)"},
+      {"outcome": "Instrumento de conformidade e auditabilidade da reforma para o MTE", "category": "risk", "timeframe": "contínuo pós go-live"},
+      {"outcome": "Credenciamento unificado reduzindo fricção e duplicidade", "category": "efficiency", "timeframe": "médio prazo"}
+    ],
+    "differentiation": "Dataprev como executora pública de confiança, integrada ao ecossistema gov.br, combinada à plataforma Salesforce e a uma metodologia de entrega acelerada por IA (mock-first nas integrações, configuração sobre customização) que comprime a timeline sem abrir mão de conformidade LGPD/TCU e residência de dados híbrida (ADR 0001)."
+  },
+  "_open_data_flags": [
+    "Nº de empresas beneficiárias diverge: reunião de discovery citou ~450 mil; fontes oficiais/imprensa citam ~300-327,7 mil — confirmar com o cliente antes de usar em artefato client-facing.",
+    "Números oficiais do PAT (22M trabalhadores, 800k estabelecimentos) vêm de imprensa citando o MTE, não do portal primário — verificar na fonte antes de citar como fato.",
+    "Login gov.br do Novo PAT e prazo de 360 dias para aceitação universal precisam de confirmação em fonte oficial (Planalto/gov.br/DOU).",
+    "Prazos do decreto sujeitos à ADI no STF (ABBT) — premissas dependentes de datas devem carregar essa ressalva."
+  ]
+}
