@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<!-- SCOPEZILLA DEAL REVIEW — DATAPREV-PAT · internal only · generated from the honest read of data/*.json + outputs/ + decisions/ -->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deal Review — DATAPREV-PAT — Marketplace Digital do PAT</title>
+<style>
+  :root{
+    --navy:#032d60; --blue:#0176d3; --sky:#eef4fb; --ink:#181818; --muted:#5c6b7a;
+    --line:#e5eaf0; --ok:#2e844a; --warn:#dd7a01; --bad:#ba0517; --chipbg:#f3f6fa;
+    --good-bg:#eafce9; --warn-bg:#fff7e6; --bad-bg:#fdeceb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:#f5f7fa;line-height:1.5}
+  header{background:var(--navy);color:#fff;padding:22px 28px}
+  header .eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.75}
+  header h1{margin:4px 0 2px;font-size:24px}
+  header .sub{opacity:.85;font-size:14px}
+  header code{background:rgba(255,255,255,.14);color:#fff}
+  .stampline{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:12px;font-size:12px;opacity:.9}
+  .stampline b{opacity:1}
+  .internal{display:inline-block;margin-top:10px;background:#c23934;color:#fff;font-size:11px;font-weight:700;letter-spacing:.06em;padding:3px 8px;border-radius:3px;text-transform:uppercase}
+  .whatis{margin-top:10px;font-size:13px;line-height:1.5;opacity:.9;max-width:760px}
+  nav.tabs{display:flex;gap:4px;background:#fff;padding:0 20px;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:4;overflow-x:auto}
+  nav.tabs button{border:0;background:none;padding:13px 15px;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+  nav.tabs button.active{color:var(--navy);border-bottom-color:var(--blue)}
+  main{max-width:1200px;margin:0 auto;padding:24px 20px 50px}
+  .tab{display:none} .tab.active{display:block}
+  .card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px 20px;margin-bottom:16px}
+  .card h2{margin:0 0 4px;font-size:16px;color:var(--navy)}
+  .card .hint{font-size:12px;color:var(--muted);margin:0 0 14px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);font-weight:600}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .kv{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line);font-size:13px;gap:12px}
+  .kv:last-child{border-bottom:0}
+  .kv .k{color:var(--muted)} .kv .v{font-weight:600;text-align:right}
+  .pill{display:inline-block;font-size:11px;font-weight:600;padding:2px 9px;border-radius:20px}
+  .pill.ok{background:var(--good-bg);color:var(--ok)} .pill.warn{background:var(--warn-bg);color:var(--warn)}
+  .pill.bad{background:var(--bad-bg);color:var(--bad)} .pill.gray{background:var(--chipbg);color:var(--muted)}
+  .pill.info{background:var(--sky);color:var(--blue)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{font-size:12px;padding:5px 11px;border-radius:20px;font-weight:600;background:var(--sky);color:var(--blue)}
+  .chip.dim{background:var(--chipbg);color:var(--muted)}
+  .bar{display:flex;height:22px;border-radius:5px;overflow:hidden;font-size:11px;color:#fff;font-weight:600;margin:4px 0 2px}
+  .bar span{display:flex;align-items:center;justify-content:center;min-width:24px}
+  .seg-ok{background:var(--ok)} .seg-warn{background:var(--warn)} .seg-bad{background:var(--bad)}
+  .legend{font-size:11px;color:var(--muted);display:flex;gap:14px;margin-top:2px;flex-wrap:wrap}
+  .legend i{font-style:normal;display:inline-flex;align-items:center;gap:4px}
+  .dot{width:9px;height:9px;border-radius:2px;display:inline-block}
+  .quote{border-left:3px solid var(--blue);background:var(--sky);padding:12px 16px;border-radius:0 6px 6px 0;font-size:14px;margin:0 0 8px}
+  .quote .src{display:block;margin-top:6px;font-size:11px;color:var(--muted)}
+  .ask{margin-top:14px;border:1px dashed var(--blue);background:#f7fbff;border-radius:8px;padding:12px 15px}
+  .ask .lead{font-size:12px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.04em;margin-bottom:7px;display:flex;align-items:center;gap:6px}
+  .ask ul{margin:0;padding-left:0;list-style:none}
+  .ask li{font-size:13px;padding:4px 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--navy)}
+  .ask li::before{content:"›";color:var(--blue);font-weight:700;margin-right:8px}
+  .contra{border-left:3px solid var(--bad);background:var(--bad-bg);padding:11px 15px;border-radius:0 6px 6px 0;font-size:13px;margin-bottom:10px}
+  .contra b{color:var(--bad)}
+  .stale{font-size:11px;color:var(--warn);font-weight:600}
+  .declist{margin:0;padding:0;list-style:none}
+  .declist li{padding:9px 0;border-bottom:1px solid var(--line);font-size:13px;display:flex;gap:10px}
+  .declist li:last-child{border-bottom:0}
+  .declist .d{color:var(--muted);font-size:11px;white-space:nowrap;min-width:78px;font-weight:600}
+  .thread{padding:8px 0;border-bottom:1px solid var(--line);font-size:13px;display:flex;gap:9px}
+  .thread:last-child{border-bottom:0}
+  .thread .ic{color:var(--warn)}
+  details.epic{border:1px solid var(--line);border-radius:7px;margin-bottom:8px;overflow:hidden}
+  details.epic>summary{list-style:none;cursor:pointer;padding:11px 14px;display:flex;align-items:center;gap:10px;font-size:13px;background:#fff}
+  details.epic>summary::-webkit-details-marker{display:none}
+  details.epic[open]>summary{border-bottom:1px solid var(--line);background:var(--sky)}
+  details.epic .eid{font-weight:700;color:var(--navy);min-width:34px}
+  details.epic .ename{font-weight:600;flex:1}
+  details.epic .sz{font-weight:700;color:var(--navy);width:26px;text-align:center}
+  .epic-body{padding:12px 16px;font-size:13px;background:#fcfdfe}
+  .epic-body h4{margin:12px 0 3px;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+  .epic-body h4:first-child{margin-top:0}
+  .epic-body p{margin:0}
+  .caret{color:var(--muted);transition:transform .15s} details[open] .caret{transform:rotate(90deg)}
+  .heat{display:flex;align-items:center} .heat .h{height:14px;border-radius:2px;background:var(--warn)}
+  /* gantt / calendar */
+  .gantt{margin:6px 0 4px}
+  .gantt-months{display:grid;grid-template-columns:150px 1fr;font-size:10px;color:var(--muted)}
+  .gantt-months .mrow{display:grid;border-left:1px solid var(--line)}
+  .gantt-months .mrow span{padding:3px 0 4px 3px;border-right:1px solid var(--line);white-space:nowrap;overflow:hidden}
+  .gantt-row{display:grid;grid-template-columns:150px 1fr;align-items:center;margin-top:5px}
+  .gantt-row .glabel{font-size:12px;font-weight:600;color:var(--navy);padding-right:8px}
+  .gantt-track{position:relative;min-height:34px;background:linear-gradient(90deg,var(--chipbg) 0 1px,transparent 1px);border-left:1px solid var(--line);border-radius:3px}
+  .gbar{position:absolute;top:3px;bottom:3px;border-radius:4px;display:flex;align-items:center;padding:2px 8px;font-size:10.5px;line-height:1.15;font-weight:600;color:#fff;white-space:normal;overflow:hidden}
+  .gbar.p1{background:#0176d3} .gbar.p2{background:#1a8fe0} .gbar.p3{background:#57a5c9}
+  .gbar.p4{background:repeating-linear-gradient(45deg,#8a9aa8,#8a9aa8 6px,#9caab6 6px,#9caab6 12px)}
+  .gmark{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--bad);z-index:2}
+  .gmark span{position:absolute;top:-16px;left:-30px;font-size:10px;color:var(--bad);font-weight:700;white-space:nowrap}
+  .glegend{display:flex;gap:16px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:14px}
+  .glegend i{font-style:normal;display:inline-flex;align-items:center;gap:5px}
+  .gkey{width:16px;height:11px;border-radius:2px;display:inline-block}
+  /* estimate comparison — 2 or 3 lanes (traditional / augmented / AI-native) */
+  .lanes{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+  .lane{border:1px solid var(--line);border-radius:8px;padding:14px 16px}
+  .lane.trad{background:#fafbfc} .lane.aug{background:#fbfaf5;border-color:#e6ddc0}
+  .lane.ql{background:#f5faff;border-color:#bcd9f0}
+  .lane.ql.conditional{background:#fff9f2;border-color:#f0d6bc;border-style:dashed}
+  .lane .badge{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:2px 7px;border-radius:10px;margin-bottom:8px}
+  .lane .badge.cond{background:#f0d6bc;color:#7a4a12}
+  .lane .badge.prov{background:#e4e8ef;color:#42506a}
+  .lane h3{margin:0 0 2px;font-size:14px;color:var(--navy)}
+  .lane .tag{font-size:11px;color:var(--muted);margin-bottom:10px}
+  .lane .big{font-size:20px;font-weight:700;color:var(--navy);line-height:1.2}
+  .lane .biglbl{font-size:11px;color:var(--muted);margin-bottom:10px}
+  .lane .line{font-size:12px;padding:5px 0;border-top:1px solid var(--line)}
+  .lane .line b{color:var(--navy)}
+  /* efficiency bars */
+  .eff{margin-top:4px}
+  .effrow{display:grid;grid-template-columns:230px 1fr 74px;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--line);font-size:12px}
+  .effrow:last-child{border-bottom:0}
+  .effrow .ename2{font-weight:600;color:var(--navy)}
+  .effbar{height:16px;background:var(--chipbg);border-radius:3px;position:relative;overflow:hidden}
+  .effbar .fill{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#0176d3,#57a5c9);border-radius:3px}
+  .effrow .val{text-align:right;font-weight:700;color:var(--blue)}
+  /* doc excerpt (verbatim from a spine output) */
+  .excerpt{font-size:13px;line-height:1.6}
+  .excerpt p{margin:0 0 10px}
+  .docref{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--blue);background:var(--sky);padding:5px 11px;border-radius:5px;margin-top:4px;text-decoration:none}
+  .recon{border-left:3px solid var(--warn);background:var(--warn-bg);padding:10px 14px;border-radius:0 6px 6px 0;font-size:12px;margin:0 0 12px}
+  /* resource rows on the shared phase-calendar grid */
+  .roster .gantt-months{grid-template-columns:480px 1fr}
+  .rg-row{display:grid;grid-template-columns:190px 290px 1fr;align-items:center;margin-top:3px;border-top:1px solid var(--line);padding-top:3px}
+  .rg-row .rgl{font-size:12px;font-weight:600;color:var(--navy);padding-right:10px}
+  .rg-row .rgl .cnt{display:block;color:var(--muted);font-weight:400;font-size:11px;margin-top:1px}
+  .rg-row .rgd{font-size:11px;line-height:1.4;color:var(--muted);padding-right:12px}
+  .rg-hdr{display:grid;grid-template-columns:190px 290px 1fr;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;font-weight:700;margin-top:6px}
+  .rg-track{position:relative;height:20px;background:linear-gradient(90deg,var(--chipbg) 0 1px,transparent 1px);border-left:1px solid var(--line)}
+  .rg-bar{position:absolute;top:3px;height:14px;border-radius:3px;background:#0176d3;opacity:.9}
+  .rg-bar.frac{background:repeating-linear-gradient(45deg,#7fb3dd,#7fb3dd 4px,#a9cdea 4px,#a9cdea 8px)}
+  .rg-sub{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;margin:14px 0 2px;font-weight:700}
+  .muted{color:var(--muted)} .small{font-size:12px}
+  code{background:var(--chipbg);padding:1px 5px;border-radius:3px;font-size:12px}
+  /* copy-as-image button (chart cards only) */
+  .card{position:relative}
+  .shot-btn{position:absolute;top:14px;right:16px;font-size:11px;font-weight:600;color:var(--blue);background:#fff;border:1px solid var(--line);border-radius:5px;padding:4px 9px;cursor:pointer;z-index:2}
+  .shot-btn:hover{background:var(--sky)}
+  [data-shot]{background:#fff}
+  @media print{
+    nav.tabs,.shot-btn{display:none} .tab{display:block!important;page-break-inside:avoid} body{background:#fff}
+    details.epic{page-break-inside:avoid} details.epic>summary{background:#fff!important} .ask{page-break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">Scopezilla Deal Review</div>
+  <h1>DATAPREV-PAT — Marketplace Digital do PAT</h1>
+  <div class="sub">DATAPREV-PAT · Government · Dataprev / Ministério do Trabalho e Emprego (MTE)</div>
+  <div class="stampline">
+    <span><b>Gerado:</b> 28 jul 2026, 16:32 BRT (UTC&minus;03:00)</span>
+    <span><b>Scopezilla:</b> 1.9.1</span>
+    <span><b>Dados do projeto atualizados:</b> 28 jul 2026</span>
+  </div>
+  <div class="internal">Uso interno — não é material para o cliente</div>
+  <div class="whatis">Um retrato da leitura honesta do Claude sobre este projeto — reconciliada e com fonte, a mesma resposta que você teria perguntando no repositório. Onde os dados divergem, isto é dito, em vez de adivinhado. Para qualquer aprofundamento, abra o projeto e pergunte.</div>
+</header>
+
+<nav class="tabs">
+  <button class="active" data-tab="glance">Resumo</button>
+  <button data-tab="discovery">Descoberta</button>
+  <button data-tab="epics">Épicas &amp; Solução</button>
+  <button data-tab="delivery">Roadmap &amp; Time</button>
+  <button data-tab="estimate">Estimativa</button>
+  <button data-tab="gaps">Gaps &amp; Risco</button>
+  <button data-tab="decisions">Decisões &amp; Pendências</button>
+  <button data-tab="signals">Sinais de Scoping</button>
+  <button data-tab="diag">Diagnóstico</button>
+</nav>
+
+<main>
+  <section class="tab active" id="glance">
+    <div class="card">
+      <h2>A chamada de cabeçalho — nas palavras do autor do escopo</h2>
+      <p class="hint">Verbatim de <code>outputs/artifacts/estimate-comparison.md</code> · seção "So What".</p>
+      <div class="quote">
+        A âncora é <b>AI-native</b>: ~<b>11–27 semanas</b>, ~<b>8,6 FTE</b> média-programa, é o número comprometido. A trilha tradicional é um <i>gross-up notional</i> (~18–38 semanas, ~10,3 FTE) — "o que custaria do jeito antigo". O modelo AI-native remove ~<b>42%</b> do gross-up. <b>Risco #1:</b> a âncora AI-native repousa em uma banda de eficiência <b>condicional/provisória</b> com prontidão do cliente <b>Low (2/8)</b>.
+        <span class="src">estimate-comparison.md — "So What", assinado pelo Solution Lead em 28/07/2026 como ponto de partida defensável.</span>
+      </div>
+      <div class="contra"><b>Tensão material a carregar:</b> o número comprometido usa a <code>native_band</code> (~28–38%) que a análise de eficiência marcou <b>condicional/provisória</b>, enquanto a prontidão de IA medida do cliente é <b>Low (2/8)</b>. Não é resolvida aqui — é a decisão que o Solution Lead possui. Detalhe na aba Estimativa.</div>
+    </div>
+    <div class="card">
+      <h2>Fatos do projeto</h2>
+      <p class="hint">Apenas contagens, datas e marcadores lidos direto dos dados — nada sintetizado.</p>
+      <div class="grid3">
+        <div>
+          <div class="kv"><span class="k">Épicas</span><span class="v">9</span></div>
+          <div class="kv"><span class="k">Mix de complexidade</span><span class="v">2 XL · 4 L · 3 M</span></div>
+          <div class="kv"><span class="k">Confiança das épicas</span><span class="v">5 Confirmed · 4 Assumed</span></div>
+          <div class="kv"><span class="k">Confiança dos sizes</span><span class="v">9/9 Assumed</span></div>
+        </div>
+        <div>
+          <div class="kv"><span class="k">Fases do roadmap</span><span class="v">5 (+ Fase 0)</span></div>
+          <div class="kv"><span class="k">Duração (âncora AI-native)</span><span class="v">~11–27 sem</span></div>
+          <div class="kv"><span class="k">Duração (tradicional notional)</span><span class="v">~18–38 sem</span></div>
+          <div class="kv"><span class="k">FTE média-programa</span><span class="v">~8,6 / ~10,3</span></div>
+        </div>
+        <div>
+          <div class="kv"><span class="k">Gaps abertos</span><span class="v">65</span></div>
+          <div class="kv"><span class="k">Blockers de arquitetura</span><span class="v">4</span></div>
+          <div class="kv"><span class="k">Linhas de roster (PS)</span><span class="v">11 · +6 cliente</span></div>
+          <div class="kv"><span class="k">ADRs</span><span class="v">1 (residência híbrida)</span></div>
+        </div>
+      </div>
+      <p class="small muted" style="margin-top:12px">Preço indicativo omitido do Resumo por depender de leitura entre trilhas com faixas largas — está na aba Estimativa, com disclaimers de rate validado.</p>
+    </div>
+    <div class="ask">
+      <div class="lead">⧉ Perguntas para fazer ao Claude no repositório</div>
+      <ul>
+        <li>Por que a âncora é AI-native se a prontidão do cliente é Low (2/8)?</li>
+        <li>O que a Fase 0 precisa fechar para apertar as faixas de 18–38 e 11–27 semanas?</li>
+        <li>Quais dos 4 blockers de arquitetura movem mais os números se destravados?</li>
+      </ul>
+    </div>
+  </section>
+  <section class="tab" id="discovery">
+    <div class="card">
+      <h2>Resumo executivo — verbatim do discovery brief</h2>
+      <p class="hint">De <code>outputs/00-discovery-brief.md</code> · §1. Insumos: reunião 21/jul/2026 (Notes by Gemini), 3 BPMN, slides "Marketplace–Financeiro", protótipo Figma "PAT–Cotação".</p>
+      <div class="excerpt">
+        <p>A Dataprev vai construir, para o <b>Ministério do Trabalho e Emprego (MTE)</b>, uma <b>plataforma-marketplace do PAT</b> que dá transparência e concorrência à contratação de vale-alimentação/refeição — conectando empresas beneficiárias, facilitadoras (emissoras de cartão) e estabelecimentos credenciados, sob as novas regras da reforma de nov/2025 (taxa máxima 3,6%, repasse em até 15 dias).</p>
+        <p>Salesforce PS propõe um ROM cobrindo os <b>quatro módulos</b> (Cotação/Contratação, Folha/Financeiro, Credenciamento e Agentforce) sobre <b>MuleSoft + Experience Cloud + Core/Service Cloud + Agentforce</b>, com homologação-alvo em set/2026 e produção em 15/nov/2026.</p>
+      </div>
+      <a class="docref" href="../00-discovery-brief.md">📄 00-discovery-brief.md — brief completo</a>
+    </div>
+    <div class="recon">
+      <b>Nota de reconciliação — volumetria de fontes secundárias.</b> Os números de volume do brief (§2: ~22 mi trabalhadores · ~450 mil empresas beneficiárias · ~800 mil estabelecimentos · 600–700 facilitadoras) vêm de imprensa/reforma, não de dado primário do cliente. O gap <code>G0706</code> os marca "a confirmar na origem", e <code>G0701</code> registra divergência de ~450k (discovery) vs ~300–327,7k (oficial) beneficiárias. Tratados como ordem de grandeza, não fatos ratificados.
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <h2>Quem é quem — cliente</h2>
+        <p class="hint">De discovery-brief §7. Verbatim.</p>
+        <div class="kv"><span class="k">Negócio/técnico (requisitos)</span><span class="v">Fabricio Paiva · Lucas Pinheiro · Ramon Pontes</span></div>
+        <div class="kv"><span class="k">Arquitetura/baixo nível</span><span class="v">Jair Bogo</span></div>
+        <div class="kv"><span class="k">Decisão contratual (diretoria)</span><span class="v">Antônio Jaime · Flávio Ronerson</span></div>
+        <div class="kv"><span class="k">Dono do programa</span><span class="v">MTE</span></div>
+        <div class="kv"><span class="k">Executor</span><span class="v">Dataprev — DPS/SUTF/DEBT</span></div>
+      </div>
+      <div class="card">
+        <h2>Quem é quem — Salesforce PS</h2>
+        <p class="hint">De discovery-brief §7. Verbatim.</p>
+        <div class="kv"><span class="k">PM</span><span class="v">Rafael Roquette</span></div>
+        <div class="kv"><span class="k">AE</span><span class="v">Tony Tonete</span></div>
+        <div class="kv"><span class="k">Líder PS</span><span class="v">Juliana Brites</span></div>
+        <div class="kv"><span class="k">Estratégia/roadmap</span><span class="v">Juliane Lopes</span></div>
+        <div class="kv"><span class="k">EM</span><span class="v">Nelson Stebulaitis</span></div>
+        <div class="kv"><span class="k">CSM</span><span class="v">Rudi Mayer</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Landscape Salesforce — 4 produtos confirmados</h2>
+      <p class="hint">De discovery-brief §3 (confirmado por Nelson, 27/jul). Estado atual: greenfield para o PAT — sem org/asset SF reaproveitável.</p>
+      <table>
+        <tr><th>Produto</th><th>Papel na solução</th></tr>
+        <tr><td><b>MuleSoft</b></td><td>Integração com Novo PAT, CTPS Digital, GOV.BR, Geride (auth), eSocial, SDC, Kinis PJ/Par, banco público (boleto/split). Orquestra dados sensíveis <i>na origem</i> (ADR 0001).</td></tr>
+        <tr><td><b>Experience Cloud</b></td><td>Portal marketplace (beneficiárias/facilitadoras) autenticado via GOV.BR + procuração digital.</td></tr>
+        <tr><td><b>Core Platform / Service Cloud</b></td><td>Motor de cotação (leilão), credenciamento, gestão de folha, orquestração de status.</td></tr>
+        <tr><td><b>Agentforce</b></td><td>Agente informacional/transacional (WhatsApp/webchat) — próximas etapas.</td></tr>
+      </table>
+      <p class="small muted" style="margin-top:8px"><b>Fora desta rodada:</b> Data Cloud / Tableau (bloco de monitoramento MTE) — reavaliar em fase futura.</p>
+    </div>
+    <div class="ask">
+      <div class="lead">⧉ Perguntas para fazer ao Claude no repositório</div>
+      <ul>
+        <li>Quais volumes do brief são de fonte primária vs. imprensa, e quais bloqueiam a estimativa?</li>
+        <li>Resumir as jornadas confirmadas pelo protótipo Figma da persona Beneficiária.</li>
+        <li>O que muda no escopo se Data Cloud/Tableau entrar nesta rodada?</li>
+      </ul>
+    </div>
+  </section>
+  <section class="tab" id="epics">
+    <div class="card">
+      <h2>Visão da solução — nível ROM, sobre premissas</h2>
+      <p class="hint">De <code>outputs/01-solution.md</code>. Fundações transversais verbatim.</p>
+      <div class="excerpt">
+        <p><b>Org única</b> (Enterprise+) hospeda os 4 domínios; separação por objeto/perfil/sharing, não multi-org. <b>Residência híbrida (ADR 0001):</b> CPF e dados sensíveis <b>não persistem</b> no Salesforce — a org guarda referências tokenizadas resolvidas em runtime via MuleSoft contra a infra Dataprev. OWD Private em todos os objetos transacionais; visibilidade N-vendedores do leilão via Apex managed sharing. DevOps source-driven (CLI + Git), Dev→QA→UAT→Produção.</p>
+        <p>Quatro decisões de arquitetura em aberto (fronteira de residência, hospedagem MuleSoft, identidade Experience Cloud × CPF, contratos de API) idealmente se resolvem numa <b>Fase 0</b> antes do compromisso final de escopo/prazo.</p>
+      </div>
+      <a class="docref" href="../01-solution.md">📄 01-solution.md — desenho completo por processo</a>
+      <p class="small muted" style="margin-top:10px">A letra de tamanho abaixo é o headline de complexidade; os números (duração/FTE/preço) vivem na aba Estimativa. <b>Confiança da épica</b> e <b>confiança do size</b> são distintas: 5/9 épicas Confirmed, mas <b>todos os 9 sizes seguem Assumed</b> atrás dos 4 blockers de arquitetura.</p>
+    </div>
+
+    <details class="epic"><summary><span class="caret">›</span><span class="eid">E01</span><span class="ename">Portal &amp; Identidade gov.br</span><span class="pill ok">Confirmed</span><span class="sz">L</span></summary>
+      <div class="epic-body">
+        <h4>Descrição</h4><p>Fundação Experience Cloud do marketplace: login gov.br (OpenID Connect), procuração digital, fluxo "representar empresa", navegação e controle de acesso do portal da beneficiária. Base de identidade sobre a qual E02/E03/E04 renderizam.</p>
+        <h4>Abordagem de solução</h4><p>Experience Cloud LWR + gov.br OIDC (Auth Provider/Named Credentials); Contact por referência tokenizada resolvida em runtime via MuleSoft.</p>
+        <h4>Racional de sizing (size Assumed)</h4><p>L — largura de UI + segurança external do portal; integração e data model moderados. <i>XL se procuração digital exigir motor de delegação custom ou acessibilidade demandar componentes não-LDS extensos.</i></p>
+        <h4>Riscos</h4><p>Conector gov.br OIDC nativo inexistente (G0101); procuração digital sem mecânica definida (G0102); acessibilidade gov federal (G0105); Contact × residência (G0106). Depende de E05, E08.</p>
+      </div>
+    </details>
+
+    <details class="epic"><summary><span class="caret">›</span><span class="eid">E02</span><span class="ename">Marketplace de Cotação e Contratação</span><span class="pill ok">Confirmed</span><span class="sz">XL</span></summary>
+      <div class="epic-body">
+        <h4>Descrição</h4><p>Motor do "leilão" reverso: beneficiária publica cotação; N facilitadoras enviam propostas com prazo/SLA; comparação lado a lado; seleção → contrato. Padrão comprador→N-vendedores é custom na Core Platform (Cotacao__c 1→N Proposta__c + Flow/Apex) — não há suporte nativo Salesforce a RFQ/leilão reverso.</p>
+        <h4>Abordagem de solução</h4><p>Cotacao__c 1→N Proposta__c; Flow (publicação/prazo/SLA) + Apex (ranking, comparação, seleção→contrato); LWC de comparação; Apex managed sharing.</p>
+        <h4>Racional de sizing (size Assumed)</h4><p>XL — múltiplas dimensões em L (automação + UI + sharing) compõem para XL; é o motor custom do leilão reverso.</p>
+        <h4>Riscos</h4><p>Regras de seleção/desempate indefinidas (G0202/G0204); conformidade Lei 14.133 (G0203); normalização de propostas para comparação justa (G0208); tela de comparação ausente no protótipo (G0201). Depende de E01, E05.</p>
+      </div>
+    </details>
+
+    <details class="epic"><summary><span class="caret">›</span><span class="eid">E03</span><span class="ename">Folha &amp; Financeiro</span><span class="pill warn">Assumed</span><span class="sz">L</span></summary>
+      <div class="epic-body">
+        <h4>Descrição</h4><p>Upload de folha padronizado, processamento pela facilitadora, boleto/Pix, conta custódia em banco público e split governo/facilitadora, sob repasse em até 15 dias (Decreto 12.712/2025). Baseline Core-only; split é integração externa via MuleSoft. Revenue Cloud fora desta rodada.</p>
+        <h4>Abordagem de solução</h4><p>Objetos custom folha/contrato; upload em layout padronizado; split/boleto/Pix como integração externa via MuleSoft com idempotência e trilha de conciliação.</p>
+        <h4>Racional de sizing (size Assumed)</h4><p>L — dirigido por integração financeira crítica + automação de split/conciliação. <i>XL se conta custódia + conciliação multi-parte + volume exigirem motor financeiro dedicado (reintrodução de Revenue Cloud Billing).</i></p>
+        <h4>Riscos</h4><p>Banco custódia e modelo de liquidação indefinidos (G0301); mecânica boleto/Pix (G0302); conciliação ausente (G0304); tratamento de erro de pagamento (G0305); risco do baseline Core-only (G0308). Depende de E01, E05, E08.</p>
+      </div>
+    </details>
+
+    <details class="epic"><summary><span class="caret">›</span><span class="eid">E04</span><span class="ename">Credenciamento de Estabelecimentos</span><span class="pill ok">Confirmed</span><span class="sz">M</span></summary>
+      <div class="epic-body">
+        <h4>Descrição</h4><p>Cadastro unificado de estabelecimentos via gov.br; facilitadoras mantêm o papel legal de aprovar e descredenciar. Reduz fricção e duplicidade; base de dado e confiança da plataforma.</p>
+        <h4>Abordagem de solução</h4><p>Objeto de estabelecimento + workflow de aprovação declarativo + integração MuleSoft para dedup/reconciliação com bases das facilitadoras.</p>
+        <h4>Racional de sizing (size Assumed)</h4><p>M — várias dimensões moderadas sem nenhuma em L; conflito de system-of-record adiciona risco, não tamanho.</p>
+        <h4>Riscos</h4><p>Conflito de fonte: registro unificado vs. papel legal da facilitadora (G0401); identidade gov.br PJ/CNPJ (G0402); semântica de descredenciamento (G0405); fronteira de residência para dado de estabelecimento (G0406). Depende de E01, E05.</p>
+      </div>
+    </details>
+
+    <details class="epic"><summary><span class="caret">›</span><span class="eid">E05</span><span class="ename">Integração Corporativa (MuleSoft)</span><span class="pill ok">Confirmed</span><span class="sz">XL</span></summary>
+      <div class="epic-body">
+        <h4>Descrição</h4><p>Camada API-led conectando Novo PAT, GOV.BR/Geride, CTPS Digital, eSocial, SDC, Kinis PJ/Par, banco público (boleto/Pix/split) e as APIs das ~600–700 facilitadoras. Abordagem mock-first para desbloquear o dev enquanto Swaggers/contratos não são disponibilizados.</p>
+        <h4>Abordagem de solução</h4><p>Camada API-led (System/Process/Experience) no MuleSoft Anypoint; mock-first; padrões event-driven (Platform Events/CDC), tratamento de erro/replay.</p>
+        <h4>Racional de sizing (size Assumed)</h4><p>XL — dirigido inteiramente pela largura e profundidade da integração: hub multi-sistema + centenas de APIs de facilitadoras, sem contratos existentes.</p>
+        <h4>Riscos</h4><p><b>Ausência total de contratos de API (G0501) — risco #1 e caminho crítico, band-widener grande</b>; governança mock-first (G0502); onboarding de ~600–700 facilitadoras sem modelo (G0503); hospedagem MuleSoft × residência (G0504); RNFs de resiliência/idempotência (G0506); observabilidade (G0507).</p>
+      </div>
+    </details>
+
+    <details class="epic"><summary><span class="caret">›</span><span class="eid">E06</span><span class="ename">Atendimento Inteligente (Agentforce)</span><span class="pill warn">Assumed</span><span class="sz">L</span></summary>
+      <div class="epic-body">
+        <h4>Descrição</h4><p>Agente informacional e transacional (WhatsApp/webchat) para atender participantes em escala. Canais, casos de uso (informacional vs. transacional) e integração com o marketplace a confirmar com o cliente.</p>
+        <h4>Abordagem de solução</h4><p>Agentforce com camada informacional (FAQ grounded) + transacional; grounding por referência tokenizada; guardrails; canais WhatsApp/webchat.</p>
+        <h4>Racional de sizing (size Assumed)</h4><p>L — dirigido pela dimensão de inteligência (agente multi-tópico + grounding + guardrails); integração e segurança moderadas.</p>
+        <h4>Riscos</h4><p>Escopo informacional vs. transacional indefinido (G0601); WhatsApp Business API/aprovação Meta (G0602); tensão residência × agente transacional (G0603); base de conhecimento para grounding ausente (G0604); handoff humano (G0605); guardrails públicos (G0606). Depende de E05, E08.</p>
+      </div>
+    </details>
+
+    <details class="epic"><summary><span class="caret">›</span><span class="eid">E07</span><span class="ename">Migração &amp; Carga Inicial de Cadastros</span><span class="pill warn">Assumed</span><span class="sz">M</span></summary>
+      <div class="epic-body">
+        <h4>Descrição</h4><p>Carga inicial de cadastros de beneficiárias, facilitadoras e estabelecimentos a partir do Novo PAT / bases MTE. Novo PAT permanece system-of-record (sem migração massiva); foco em qualidade, deduplicação e referências não-sensíveis (ADR 0001).</p>
+        <h4>Abordagem de solução</h4><p>Extração/carga inicial via MuleSoft com dedup; Novo PAT permanece system-of-record; foco em referências não-sensíveis.</p>
+        <h4>Racional de sizing (size Assumed)</h4><p>M — carga inicial bounded (SoR permanece externo); Unknown de volume sobe conservadoramente. <i>L se o volume superar ~500k registros ou as bases das facilitadoras exigirem transformação/limpeza pesada.</i></p>
+        <h4>Riscos</h4><p>Volume desconhecido — band-widener (G0701); acesso à fonte da carga indefinido (G0703); regras de qualidade/dedup não especificadas (G0704); sem estratégia de reconciliação/rollback (G0705); o que carregar se CPF não persiste (G0702). Depende de E05.</p>
+      </div>
+    </details>
+
+    <details class="epic"><summary><span class="caret">›</span><span class="eid">E08</span><span class="ename">Segurança, Residência de Dados &amp; Conformidade</span><span class="pill ok">Confirmed</span><span class="sz">L</span></summary>
+      <div class="epic-body">
+        <h4>Descrição</h4><p>Modelo de dados com referências tokenizadas — CPF e dados sensíveis não persistem na nuvem Salesforce, resolvidos em runtime via API (ADR 0001, residência híbrida). Diagrama de fluxo de dados sob LGPD (Art. 11), trilha de auditoria para TCU/CGU/ANPD. Requisito transversal a todas as épicas.</p>
+        <h4>Abordagem de solução</h4><p>Modelo de referências tokenizadas, resolução runtime via MuleSoft, DFD LGPD, trilha de auditoria; overlay de conformidade regulada.</p>
+        <h4>Racional de sizing (size Assumed)</h4><p>L — dirigido pela dimensão de segurança/residência (arquitetura de tokenização). <i>XL se a fronteira exigir de-tokenização campo-a-campo em runtime em alta escala/latência ou certificação de hospedagem específica.</i></p>
+        <h4>Riscos</h4><p><b>Fronteira campo-a-campo não ratificada (G0801) — governa data model de várias épicas</b>; mecânica de tokenização/resolução (G0802); auditoria de dado não-persistido (G0803); certificação/hospedagem gov federal (G0804); papéis LGPD (G0805); direito ao esquecimento com referências (G0806).</p>
+      </div>
+    </details>
+
+    <details class="epic"><summary><span class="caret">›</span><span class="eid">E09</span><span class="ename">Gestão de Mudança &amp; Adoção</span><span class="pill warn">Assumed</span><span class="sz">M</span></summary>
+      <div class="epic-body">
+        <h4>Descrição</h4><p>Change management e plano de adoção para o alcance do programa (600–700 facilitadoras + centenas de milhares de beneficiárias): comunicação, capacitação, materiais de apoio e acompanhamento de adoção. Entrega Salesforce PS. Escopo detalhado e fronteira com a Dataprev a confirmar.</p>
+        <h4>Abordagem de solução</h4><p>Plano de comunicação, materiais de apoio, capacitação e métricas de adoção. Entrega Salesforce PS; sem arquitetura técnica bespoke.</p>
+        <h4>Racional de sizing (size Assumed)</h4><p>M — não é build técnico; o tamanho reflete a coordenação de mudança em escala, não complexidade de plataforma.</p>
+        <h4>Riscos</h4><p>Escopo PS vs. cliente indefinido (G0901/G0906); adoção voluntária vs. mandatória (G0902); definição concreta de change/adoção (G0903); dono da governança pós go-live (G0904); métrica de sucesso de adoção (G0905).</p>
+      </div>
+    </details>
+
+    <div class="ask">
+      <div class="lead">⧉ Perguntas para fazer ao Claude no repositório</div>
+      <ul>
+        <li>Quais épicas sobem de size se cada um dos 4 blockers quebrar contra a assumption?</li>
+        <li>E02 (leilão reverso custom) é mesmo XL, ou dá para reduzir com padrão configurável?</li>
+        <li>E09 (change) é PS ou Dataprev — e o que muda no roster se for cliente?</li>
+      </ul>
+    </div>
+  </section>
+  <section class="tab" id="delivery">
+    <div class="card">
+      <h2>Roadmap &amp; Time — sequência de fases e roster</h2>
+      <p class="hint">De <code>outputs/02-delivery-plan.md</code> + <code>data/roadmap.json</code> + <code>data/resource-plan.json</code>. Sem duração comprometida por fase (<code>user_commitment=null</code>) — os Gantts abaixo mostram <b>sequência nocional e span relativo</b>, ancorados na âncora AI-native comprometida (~11–27 sem) e posicionados por peso de complexidade. Não é compromisso de calendário.</p>
+    </div>
+
+    <div class="card" data-shot>
+      <h3>Calendário de fases (nocional)</h3>
+      <div class="gantt">
+        <div class="gantt-months mrow" style="grid-template-columns:repeat(7,1fr)"><span>Ago 26</span><span>Set</span><span>Out</span><span>Nov</span><span>Dez</span><span>Jan 27</span><span>Fev</span></div>
+        <div class="gantt-row"><span class="glabel">Fase 0 · Discovery &amp; Arquitetura</span><div class="gantt-track" style="background-size:calc(100%/7) 100%"><div class="gbar p4" style="left:0%;width:10%">Fase 0</div></div></div>
+        <div class="gantt-row"><span class="glabel">Fase 1 · Fundação (E05·E08·E01)</span><div class="gantt-track" style="background-size:calc(100%/7) 100%"><div class="gbar p1" style="left:10%;width:36%">Fundação</div></div></div>
+        <div class="gantt-row"><span class="glabel">Fase 2 · Marketplace (E02·E04)</span><div class="gantt-track" style="background-size:calc(100%/7) 100%"><div class="gbar p2" style="left:46%;width:22%">Marketplace</div></div></div>
+        <div class="gantt-row"><span class="glabel">Fase 3 · Financeiro &amp; Atendimento (E03·E06)</span><div class="gantt-track" style="background-size:calc(100%/7) 100%"><div class="gbar p3" style="left:68%;width:20%">Fin. &amp; Atend.</div></div></div>
+        <div class="gantt-row"><span class="glabel">Fase 4 · Carga·Adoção·Estabilização (E07·E09)</span><div class="gantt-track" style="background-size:calc(100%/7) 100%"><div class="gbar p4" style="left:88%;width:12%">Estabiliz.</div></div></div>
+        <div class="gmark" style="left:calc(480px + (100% - 480px) * 0.286)"><span>◆ Homologação set/26</span></div>
+        <div class="gmark" style="left:calc(480px + (100% - 480px) * 0.50)"><span>◆ Produção 15/nov/26</span></div>
+      </div>
+      <div class="glegend"><span class="gkey"><i class="p1"></i>Fundação</span><span class="gkey"><i class="p2"></i>Marketplace</span><span class="gkey"><i class="p3"></i>Fin. &amp; Atend.</span><span class="gkey"><i class="p4"></i>Fase suave / estabilização</span></div>
+      <p class="small muted">Posições por peso de complexidade (XL=8, L=5, M=3): F1=18 · F2=11 · F3=10 · F4=6. Caminho crítico: <b>E05·E08 → E01 → E02·E03</b>. Marcos de <code>.dataprev-checkpoint</code> / delivery-plan; datas indicativas.</p>
+    </div>
+
+    <div class="card" data-shot>
+      <h3>Roster Salesforce PS — trilha AI-native comprometida (11 linhas)</h3>
+      <p class="small muted">Uma linha por pessoa/função (<code>resource-plan.json</code>, autoria do <code>estimate</code>). Barra = fases ativas; <span class="frac" style="display:inline-block;width:34px;height:10px;vertical-align:middle;border-radius:2px"></span> hachurado = alocação fracional (meio período enquanto ativo). Sem horas/taxas aqui — números na aba Estimativa.</p>
+      <div class="gantt roster">
+        <div class="gantt-months" style="grid-template-columns:480px 1fr"><span></span><div class="mrow" style="grid-template-columns:repeat(7,1fr)"><span>Ago 26</span><span>Set</span><span>Out</span><span>Nov</span><span>Dez</span><span>Jan 27</span><span>Fev</span></div></div>
+        <div class="rg-hdr"><span>Função</span><span>O que faz</span><span></span></div>
+        <div class="rg-row"><div class="rgl">Engagement Manager<span class="cnt">sênior · onshore · ×1 · full</span></div><div class="rgd">Accountability única de entrega e da relação MTE×Dataprev; caminho crítico de coordenação.</div><div class="rg-track" style="background-size:calc(100%/7) 100%"><div class="rg-bar" style="left:0%;width:100%"></div></div></div>
+        <div class="rg-row"><div class="rgl">Senior Solution Architect<span class="cnt">sênior · onshore · ×1 · full</span></div><div class="rgd">Dono da arquitetura; solution + funcional de alto nível. ADR 0001 governa data model de E01/E02/E03/E06.</div><div class="rg-track" style="background-size:calc(100%/7) 100%"><div class="rg-bar" style="left:0%;width:100%"></div></div></div>
+        <div class="rg-row"><div class="rgl">Senior Technical Architect<span class="cnt">sênior · onshore · ×1 · full</span></div><div class="rgd">Risco #1: hub E05 sem contratos de API, mock-first. Dirige o fleet de agentes no caminho crítico.</div><div class="rg-track" style="background-size:calc(100%/7) 100%"><div class="rg-bar" style="left:0%;width:88%"></div></div></div>
+        <div class="rg-row"><div class="rgl">Project Manager<span class="cnt">regular · onshore · ×1 · full</span></div><div class="rgd">Coordenação multi-fase, release management, cadência com stakeholders. Ramp na Fase 1.</div><div class="rg-track" style="background-size:calc(100%/7) 100%"><div class="rg-bar" style="left:10%;width:90%"></div></div></div>
+        <div class="rg-row"><div class="rgl">Developer (pod)<span class="cnt">regular · offshore · ×2 · full</span></div><div class="rgd">Constroem COM agentes o leilão custom (E02) e o financeiro (E03) — caminho crítico. Pod 3→2 sob a arquitetura sênior.</div><div class="rg-track" style="background-size:calc(100%/7) 100%"><div class="rg-bar" style="left:10%;width:90%"></div></div></div>
+        <div class="rg-row"><div class="rgl">MuleSoft Technical Consultant<span class="cnt">regular · offshore · ×1 · full</span></div><div class="rgd">Cobre a virada mock→real de E05 e a de-tokenização em runtime (fora da fronteira do agente). 2→1.</div><div class="rg-track" style="background-size:calc(100%/7) 100%"><div class="rg-bar" style="left:10%;width:78%"></div></div></div>
+        <div class="rg-row"><div class="rgl">Experience Architect<span class="cnt">regular · offshore · ×1 · full</span></div><div class="rgd">Jornada única gov.br (E01) + UX do leilão/comparação de propostas (E02). Risco de adoção material.</div><div class="rg-track" style="background-size:calc(100%/7) 100%"><div class="rg-bar" style="left:10%;width:48%"></div></div></div>
+        <div class="rg-row"><div class="rgl">Quality Assurance<span class="cnt">regular · offshore · ×2 · full</span></div><div class="rgd">QA amplificado, não substituído: surge no hardening — go-live financeiro regulado (idempotência/conciliação boleto/Pix/split).</div><div class="rg-track" style="background-size:calc(100%/7) 100%"><div class="rg-bar" style="left:46%;width:54%"></div></div></div>
+        <div class="rg-row"><div class="rgl">Technical Consultant — Agentforce<span class="cnt">sênior · offshore · ×1 · half</span></div><div class="rgd">Atendimento inteligente Agentforce (E06). Especialista fracional consumido na Fase 3.</div><div class="rg-track" style="background-size:calc(100%/7) 100%"><div class="rg-bar frac" style="left:68%;width:20%"></div></div></div>
+        <div class="rg-row"><div class="rgl">Change &amp; Adoção → Solution Consultant ⚠︎<span class="cnt">regular · onshore · ×1 · half</span></div><div class="rgd">600–700 facilitadoras + beneficiárias; resistência à perda de margem no modelo transparente. ⚠ Sem correspondente exato na tabela de rates.</div><div class="rg-track" style="background-size:calc(100%/7) 100%"><div class="rg-bar frac" style="left:10%;width:90%"></div></div></div>
+        <div class="rg-row"><div class="rgl">Technical Consultant — Data Migration<span class="cnt">regular · offshore · ×1 · half</span></div><div class="rgd">Carga inicial de cadastros (E07). Fracional na Fase 4.</div><div class="rg-track" style="background-size:calc(100%/7) 100%"><div class="rg-bar frac" style="left:88%;width:12%"></div></div></div>
+      </div>
+      <p class="small muted">~8,6 FTE média-programa (pico ~13 pessoas no meio do build). Traço tradicional (gross-up notional): ~10,3 FTE — pod Core 3, MuleSoft 2. Cobertura do cliente (input do gate AI-native, sem esforço/preço PS): Product Owner/Decisor <b>⚠ não confirmado</b>, SMEs por épica, Data Steward, Client IT/Plataforma, Capacidade UAT, Sponsor executivo.</p>
+    </div>
+
+    <div class="card">
+      <h3>Objetivos, critérios e riscos por fase</h3>
+      <div class="kv"><span class="k">Fase 0 · Discovery &amp; Arquitetura</span><span class="v">Resolver os 4 blockers (fronteira de residência, hospedagem MuleSoft, identidade Experience Cloud × CPF, contratos de API). Aperta as faixas de todos os 9 sizes antes do compromisso final. <b>Recomendada</b> (65 gaps / 3 conflitos de fonte).</span></div>
+        <div class="kv"><span class="k">Fase 1 · Fundação</span><span class="v">E05 (hub integração mock-first) · E08 (residência/tokenização) · E01 (portal gov.br). Estabelece a base de identidade e segurança sobre a qual tudo renderiza. Risco: ausência de contratos de API (G0501).</span></div>
+        <div class="kv"><span class="k">Fase 2 · Marketplace</span><span class="v">E02 (leilão reverso custom) · E04 (credenciamento). Motor de cotação→proposta→contrato. Risco: regras de seleção/Lei 14.133 indefinidas.</span></div>
+        <div class="kv"><span class="k">Fase 3 · Financeiro &amp; Atendimento</span><span class="v">E03 (folha/split/custódia via MuleSoft) · E06 (Agentforce). Homologação do fluxo financeiro regulado (set/2026) antes de produção. Risco: conta custódia e conciliação indefinidas.</span></div>
+        <div class="kv"><span class="k">Fase 4 · Carga·Adoção·Estabilização</span><span class="v">E07 (carga inicial) · E09 (change &amp; adoção). Estabilização pós go-live (15/nov/2026). Risco: volume de carga desconhecido; escopo de change PS vs. cliente.</span></div>
+      <div class="recon"><b>Faixa de duração (nível engajamento):</b> ~18–38 semanas benchmark top-down-shape (multi-cloud, complexidade média + adders de integração). Janela do cliente (~15–16 sem) fica <b>abaixo do piso benchmark de 18 sem</b> — tensão registrada. Range-drivers: E05, E03, E08. Análogo: SGP/MGI ~2.085h. <i>Baseado em benchmark, não é compromisso.</i></div>
+      <a class="docref" href="../02-delivery-plan.md">📄 02-delivery-plan.md — plano completo + tabela de riscos consolidada (7 linhas)</a>
+    </div>
+
+    <div class="ask">
+      <div class="lead">⧉ Perguntas para fazer ao Claude no repositório</div>
+      <ul>
+        <li>A janela do cliente (~15–16 sem) cabe abaixo do piso benchmark de 18 sem — o que precisa ser cortado ou re-sequenciado?</li>
+        <li>Se a Fase 0 destravar os 4 blockers, quanto as faixas de duração e size apertam?</li>
+        <li>O Product Owner não confirmado é o maior risco de entrega — qual o plano B se o cliente não staff-ar essa função?</li>
+      </ul>
+    </div>
+  </section>
+  <section class="tab" id="estimate">
+    <div class="card">
+      <h2>Estimativa dual-track — AI-native (âncora) vs. tradicional (notional)</h2>
+      <p class="hint">De <code>data/estimate-comparison.json</code> + <code>outputs/artifacts/estimate-comparison.md</code>. Base de escopo única e validada. <b>Âncora: AI-native</b> — é o número comprometido; a trilha tradicional é um <i>gross-up notional</i> ("o que custaria do jeito antigo"). Assinado pelo Solution Lead em 28/07/2026 como ponto de partida defensável.</p>
+    </div>
+
+    <div class="contra">
+      <b>Tensão material na âncora.</b> O número comprometido (AI-native) usa uma banda de compressão que a análise de eficiência marcou <b>condicional/provisória</b> (<code>native_qualification: "conditional"</code>), enquanto a prontidão de IA medida do cliente é <b>Low (2/8)</b>. A qualificação registrada no <code>estimate-comparison.json</code> é "qualified" (atestada pelo Solution Lead) — mas gates TCU/CGU/ANPD, ADI/STF e Fase 0 travada apontam para a postura <i>oposta</i> à do modelo operacional AI-native. Comprometer-se com a faixa AI-native é comprometer-se com o cliente adotar um modo de trabalho que ele não exibe hoje. Decisão que o Solution Lead possui.
+    </div>
+
+    <div class="card" data-shot>
+      <h3>Comparação de trilhas</h3>
+      <div class="lanes">
+        <div class="lane ql conditional">
+          <span class="badge">AI-native · âncora</span><span class="badge prov">Provisional</span>
+          <div class="big">R$ 3,0M – 7,4M</div><div class="biglbl">com imposto · indicativo</div>
+          <div class="tag">R$ 2,83M – 6,94M sem imposto</div>
+          <div class="line">~<b>11–27 semanas</b> · ~<b>8,6 FTE</b> média-programa (pico ~13)</div>
+          <div class="line">Baseline benchmark 18–38 sem comprimida pela <code>native_band</code> (~28–38%, condicional/provisória)</div>
+          <div class="line"><b>Número comprometido.</b> Qualificação atestada pelo Solution Lead.</div>
+        </div>
+        <div class="lane trad">
+          <span class="badge cond">Tradicional · notional</span>
+          <div class="big">R$ 5,8M – 12,3M</div><div class="biglbl">com imposto · indicativo</div>
+          <div class="tag">R$ 5,44M – 11,48M sem imposto</div>
+          <div class="line">~<b>18–38 semanas</b> · ~<b>10,3 FTE</b> média-programa (pico ~15)</div>
+          <div class="line">Gross-up notional a partir da AI-native (<code>native_band</code> invertida); coincide com a baseline top-down-shape</div>
+          <div class="line">"O que custaria do jeito antigo" — não é o número submetido.</div>
+        </div>
+      </div>
+      <div class="recon"><b>Delta ~42%</b> de redução no midpoint: ~⅔ por duração comprimida (18–38 → 11–27 sem via <code>native_band</code>), ~⅓ por volume de build absorvido por agentes (pod Core 3→2, MuleSoft 2→1; 10,3→8,6 FTE). Contra-pressão pequena de mix de rate (AI-native ~2% mais sênior). <b>Fórmula:</b> Σ(FTE-efetiva × rate sem imposto) × semanas × 40; com imposto = sem imposto ÷ 0,9345.</div>
+      <p class="small muted">Faixas indicativas apenas para planejamento, baseadas na tabela de rates da Dataprev fornecida e validada em 28/07/2026. Estrutura comercial final confirmada via acordo comercial aplicável. Todos os 9 sizes seguem <b>Assumed</b> — as faixas são largas por construção e apertam com a Fase 0.</p>
+    </div>
+
+    <div class="card" data-shot>
+      <h3>Eficiência de IA por tipo de trabalho (banda augmented ~10–18%, prontidão Low 2/8)</h3>
+      <p class="small muted">De <code>data/efficiency.json</code>. Banda <i>realized</i> (augmented — ferramenta de IA, modelo operacional inalterado). Não é redução de headcount nem input de preço.</p>
+      <div class="eff">
+        <div class="effrow"><span class="ename2">Documentation &amp; KM</span><div class="effbar"><div class="fill" style="width:20%"></div></div><span class="val">~12–20%</span></div>
+        <div class="effrow"><span class="ename2">Analysis &amp; Design</span><div class="effbar"><div class="fill" style="width:18%"></div></div><span class="val">~10–18%</span></div>
+        <div class="effrow"><span class="ename2">Technical Eng. &amp; QA</span><div class="effbar"><div class="fill" style="width:16%"></div></div><span class="val">~8–16%</span></div>
+        <div class="effrow"><span class="ename2">Project Mgmt &amp; Ops</span><div class="effbar"><div class="fill" style="width:12%"></div></div><span class="val">~8–12%</span></div>
+      </div>
+      <div class="recon"><b>Banda realizada ~10–18%</b> (augmented, Low readiness) vs. <b>~28–38% AI-native</b> (native_band, condicional/provisória). As bandas se sobrepõem em ~25–35% — o <b>gate de qualificação</b>, não o número, distingue as trilhas. Sinais de prontidão: AI tooling 0/2 · Delivery velocity 1/2 · Data hygiene 1/2 · Legal/compliance 0/2 = <b>2/8</b>. Onde IA não ajuda: alinhamento de stakeholders, sign-off regulatório TCU/CGU/ANPD, conciliação financeira crítica.</div>
+    </div>
+
+    <div class="card">
+      <h3>Cinco alavancas AI-native aplicadas</h3>
+      <ol class="declist">
+        <li>Volume→agentes: pod Core 3→2, MuleSoft 2→1; builders remanescentes no caminho crítico.</li>
+        <li>QA <b>amplificado, não substituído</b> — mantido em 2 com surge no hardening financeiro regulado.</li>
+        <li>Sequenciamento sênior mantém arquitetura full-time.</li>
+        <li>Breadth fixa o núcleo (mantido flat).</li>
+        <li>Especialistas fracionais (Experience/Agentforce/Change/Data) inalterados.</li>
+      </ol>
+      <a class="docref" href="estimate-comparison.md">📄 estimate-comparison.md — decomposição do delta, roster, disclaimers e nota de honestidade</a>
+    </div>
+
+    <div class="ask">
+      <div class="lead">⧉ Perguntas para fazer ao Claude no repositório</div>
+      <ul>
+        <li>A qualificação AI-native é "qualified" mas a prontidão é Low 2/8 — o que precisa mudar no cliente para a âncora se sustentar?</li>
+        <li>Se cairmos para a trilha tradicional (notional), qual vira o número submetido e o prazo?</li>
+        <li>Quanto do delta de 42% sobrevive se a Fase 0 revelar que E05 (contratos de API) é pior que o assumido?</li>
+      </ul>
+    </div>
+  </section>
+  <section class="tab" id="gaps">
+    <div class="card">
+      <h2>Gaps &amp; Risco — 65 gaps, 4 bloqueadores</h2>
+      <p class="hint">De <code>data/gaps.json</code>. 65 gaps distribuídos pelas 9 épicas. Volume material de Assumed/Unknown por trás dos 9 sizes — <code>grill-me-on-scope</code> antes do handoff é recomendado.</p>
+    </div>
+
+    <div class="card" data-shot>
+      <h3>Concentração de gaps por épica (todas as 9)</h3>
+      <div class="heat">
+        <div class="h" style="background:#08306b;color:#fff"><b>E08</b>9<small>Segurança/Residência</small></div>
+        <div class="h" style="background:#125ca4;color:#fff"><b>E02</b>8<small>Marketplace</small></div>
+        <div class="h" style="background:#125ca4;color:#fff"><b>E03</b>8<small>Folha &amp; Financeiro</small></div>
+        <div class="h" style="background:#125ca4;color:#fff"><b>E05</b>8<small>Integração MuleSoft</small></div>
+        <div class="h" style="background:#2b7bba;color:#fff"><b>E01</b>7<small>Portal gov.br</small></div>
+        <div class="h" style="background:#2b7bba;color:#fff"><b>E09</b>7<small>Change &amp; Adoção</small></div>
+        <div class="h" style="background:#4a97c9;color:#fff"><b>E04</b>6<small>Credenciamento</small></div>
+        <div class="h" style="background:#4a97c9;color:#fff"><b>E06</b>6<small>Atendimento</small></div>
+        <div class="h" style="background:#4a97c9;color:#fff"><b>E07</b>6<small>Migração &amp; Carga</small></div>
+      </div>
+      <div class="grid3" style="margin-top:14px">
+        <div class="kv"><span class="k">Missing Requirement</span><span class="v">19</span></div>
+        <div class="kv"><span class="k">Potential Risk</span><span class="v">12</span></div>
+        <div class="kv"><span class="k">Ambiguity</span><span class="v">12</span></div>
+        <div class="kv"><span class="k">Logical Gap</span><span class="v">10</span></div>
+        <div class="kv"><span class="k">Assumption</span><span class="v">5</span></div>
+        <div class="kv"><span class="k">Capability Gap</span><span class="v">4</span></div>
+        <div class="kv"><span class="k">Source Conflict</span><span class="v">3</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Os 4 bloqueadores (a Fase 0 existe para estes)</h3>
+      <div class="quote">G0801 — Fronteira de residência campo-a-campo não ratificada. <span class="src">Ambiguity · governa o data model de várias épicas · ratificar com Jair Bogo</span></div>
+      <div class="quote">G0501 — Sem Swaggers/contratos de API para o hub de integração. <span class="src">Potential Risk · risco #1, caminho crítico (E05)</span></div>
+      <div class="quote">G0504 — Hospedagem do MuleSoft × exigência de residência de dados. <span class="src">Logical Gap · tensão arquitetural (E05/E08)</span></div>
+      <div class="quote">G0106 — Residência híbrida × identidade Experience Cloud com CPF. <span class="src">Source Conflict · destrava o data model do portal (E01)</span></div>
+    </div>
+
+    <div class="card">
+      <h3>Amostra de perguntas em aberto <span class="small muted">(mostrando 6 de 65 — verbatim)</span></h3>
+      <div class="excerpt">
+        <p><b>G0202</b> · Regras de seleção/desempate do leilão reverso não definidas — quem ganha em empate de prazo/SLA?</p>
+        <p><b>G0301</b> · Banco de custódia e modelo de liquidação do split governo/facilitadora indefinidos.</p>
+        <p><b>G0503</b> · Onboarding de ~600–700 facilitadoras sem modelo de integração/contrato.</p>
+        <p><b>G0602</b> · WhatsApp Business API e aprovação Meta para o agente transacional — viável no prazo?</p>
+        <p><b>G0701</b> · Conflito de fonte: ~450k vs ~300–327,7k beneficiárias (volumetria de carga).</p>
+        <p><b>G0901</b> · Escopo de change &amp; adoção PS vs. Dataprev não delimitado.</p>
+      </div>
+      <a class="docref" href="../data/gaps.json">📄 gaps.json — os 65 gaps completos</a>
+    </div>
+
+    <div class="ask">
+      <div class="lead">⧉ Perguntas para fazer ao Claude no repositório</div>
+      <ul>
+        <li>Quais dos 65 gaps, se não fechados na Fase 0, quebram a faixa de estimativa?</li>
+        <li>O conflito de volumetria (450k vs 300–327k) muda o size de E07 (carga)?</li>
+        <li>Roda <code>grill-me-on-scope</code> antes do handoff — quais Assumed viram Confirmed com o cliente?</li>
+      </ul>
+    </div>
+  </section>
+  <section class="tab" id="decisions">
+    <div class="card">
+      <h2>Premissas de arquitetura (ADRs)</h2>
+      <p class="hint">De <code>decisions/</code>. As regras de mais alta altitude que moldam o escopo — poucas por design. Reverter uma re-molda várias épicas.</p>
+      <div class="kv"><span class="k">ADR 0001 · Residência de dados híbrida</span><span class="v"><b>Regra:</b> CPF e dados sensíveis <b>não persistem</b> na nuvem Salesforce; a org guarda referências tokenizadas resolvidas em runtime via MuleSoft contra a infra Dataprev. <span class="pill ok">accepted</span> <span class="chip">Source: client-supplied + scopezilla-recommended</span><br><b>Repousa sobre isto:</b> data model de E01/E02/E03/E06/E08, ponto de tokenização no MuleSoft (E05), fronteira de residência (blocker G0801). Reverter cascateia por quase todo o escopo.</span></div>
+    </div>
+
+    <div class="card">
+      <h2>Log de decisões <span class="small muted">(5 de 5 — verbatim)</span></h2>
+      <ol class="declist">
+        <li>Discover: escopo 4 módulos, residência híbrida (ADR0001), migração cadastros iniciais, PS + Licenças SF.</li>
+        <li>Strategy: visão aprovada; eixo narrativo = choque regulatório Decreto 12.712/2025; prioridade 1 marketplace.</li>
+        <li><b>Revenue Cloud fora desta rodada</b>; leilão custom na Core Platform (Cotacao__c 1→N Proposta__c); split financeiro via MuleSoft. <span class="small muted">(Rejeitado: Revenue Cloud CLM+Billing dentro de E03 — RLM é sell-side, sem RFQ/leilão reverso nem split multi-parte nativos.)</span></li>
+        <li><b>9 épicas</b>; E09 Gestão de Mudança &amp; Adoção adicionada explicitamente. <span class="small muted">(Change/adoção implícita pelo alcance do programa — Risk #6.)</span></li>
+        <li><b>Âncora do dual-track = AI-native</b> (número comprometido); tradicional = gross-up notional invertendo a native_band. <span class="small muted">(Rejeitado: âncora tradicional com AI-native derivado por compressão — não aplicável, o deal comprometeu-se ao modo AI-native.)</span></li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h2>Threads em aberto <span class="small muted">(consolidados das 9 sessões)</span></h2>
+      <div class="thread"><span class="ic">▸</span> <b>G0801</b> — fronteira campo-a-campo da residência híbrida: ratificar com Jair Bogo. <b>(bloqueador)</b></div>
+      <div class="thread"><span class="ic">▸</span> <b>G0501</b> — sem Swaggers/contratos de API para os sistemas externos: caminho crítico. <b>(bloqueador)</b></div>
+      <div class="thread"><span class="ic">▸</span> <b>G0504</b> — hospedagem MuleSoft (CloudHub vs. Runtime Fabric gov) × residência: ponto de tokenização. <b>(bloqueador)</b></div>
+      <div class="thread"><span class="ic">▸</span> <b>G0106</b> — residência híbrida × Experience Cloud User/Contact (CPF). <b>(bloqueador)</b></div>
+      <div class="thread"><span class="ic">▸</span> Volume diverge: discovery 450k vs. oficial ~300–327,7k empresas beneficiárias — confirmar na origem antes de client-facing.</div>
+      <div class="thread"><span class="ic">▸</span> Números de mercado via imprensa (~22mi trabalhadores, ~800k estabelecimentos), não portal primário — verificar antes de cifra exata.</div>
+      <div class="thread"><span class="ic">▸</span> Prazos do Decreto 12.712/2025 sujeitos a ADI no STF (ABBT).</div>
+      <div class="thread"><span class="ic">▸</span> Todos os 9 sizes em Assumed atrás dos 4 blockers — a Fase 0 aperta as faixas.</div>
+      <div class="thread"><span class="ic">▸</span> E03 pode subir a XL, E08 a XL; E07 sobe a L se volume &gt;500k registros.</div>
+      <div class="thread"><span class="ic">▸</span> Janela do cliente (~15–16 sem, set→nov) abaixo do piso benchmark (18 sem) — escopo é a variável de flexão contra a data.</div>
+      <div class="thread"><span class="ic">▸</span> Compressão por IA: banda augmented honesta ~10–18% NÃO alcança o alvo ≥25%; os 25% só existem na banda AI-native condicional (~28–38%).</div>
+      <div class="thread"><span class="ic">▸</span> Tensão âncora: AI-native condicional/provisória vs. prontidão de IA medida Low (2/8) — decisão do Solution Lead.</div>
+      <div class="thread"><span class="ic">▸</span> Change &amp; Adoção sem correspondente exato na tabela de rates Dataprev — mapeado a Solution Consultant (R$ 573,98); confirmar.</div>
+      <div class="thread"><span class="ic">▸</span> Product Owner/Decisor empoderado do lado cliente <b>não confirmado</b> — gap de prontidão que o gate AI-native testa.</div>
+      <div class="thread"><span class="ic">▸</span> Readiness AI tooling (0) e legal/compliance (0) marcados Assumed — há ferramenta de IA aprovada? política de manuseio de dados por IA sob LGPD?</div>
+      <div class="thread"><span class="ic">▸</span> Escopo de change PS vs. Dataprev/MTE (E09) e resistência das facilitadoras ao modelo transparente.</div>
+      <div class="thread"><span class="ic">▸</span> Data Cloud / Tableau (monitoramento MTE) fora desta rodada.</div>
+      <div class="thread"><span class="ic">▸</span> Volume de usuários Experience Cloud e KPIs não quantificados.</div>
+      <div class="thread"><span class="ic">▸</span> SGP/MGI <code>actual_weeks</code> não capturado (memória tem horas, não semanas) — pedir se precisar apertar a reconciliação de análogo.</div>
+      <div class="thread"><span class="ic">▸</span> Central Salesforce KB degradada (access_denied) — grounding via <code>knowledge/</code> do projeto; sugerir <code>/kb-sync</code>.</div>
+      <div class="thread"><span class="ic">▸</span> Pacote vertical Government ausente (só <code>pace.md</code>) — usados proof points padrão de Salesforce PS.</div>
+      <div class="thread"><span class="ic">▸</span> WARN de validação: <code>estimates.json</code> "stale" vs. <code>epics.json</code> (depends_on gravado pelo roadmap) — não afeta sizing.</div>
+    </div>
+
+    <div class="ask">
+      <div class="lead">⧉ Perguntas para fazer ao Claude no repositório</div>
+      <ul>
+        <li>Se a fronteira de residência (G0801) mudar, quais épicas e sizes cascateiam?</li>
+        <li>Reabrir Revenue Cloud numa fase futura mudaria o desenho do financeiro (E03)?</li>
+        <li>Quais threads em aberto precisam virar decisão antes do handoff?</li>
+      </ul>
+    </div>
+  </section>
+  <section class="tab" id="signals">
+    <div class="card">
+      <h2>Sinais de scoping — quão fundamentado está este deal</h2>
+      <p class="hint">Não é checklist nem ordem obrigatória. Mostra quais estágios foram exercidos e a honestidade dos números por trás do escopo.</p>
+    </div>
+
+    <div class="card">
+      <h3>Estágios exercitados</h3>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <span class="chip">discover</span><span class="chip">strategy</span><span class="chip">requirements</span><span class="chip">design</span><span class="chip">roadmap</span><span class="chip">efficiency</span><span class="chip">narratives</span><span class="chip">export</span><span class="chip">estimate</span>
+        <span class="chip dim">commercials</span><span class="chip dim">slides</span><span class="chip dim">grill-me-on-scope</span><span class="chip dim">quantum-leap</span><span class="chip dim">backlog</span>
+      </div>
+      <p class="small muted">Sólidos = executados (9 estágios do ciclo + estimate). Esmaecidos = side-quests disponíveis, não rodados. <b>grill-me-on-scope</b> recomendado antes do handoff dado o volume de Assumed.</p>
+    </div>
+
+    <div class="card">
+      <h3>Confiança &amp; fundamentação</h3>
+      <div class="grid2">
+        <div class="kv"><span class="k">Confiança de escopo</span><span class="v">~28% Confirmed · ~72% Assumed (do executive-summary). 5/9 épicas Confirmed, mas <b>9/9 sizes Assumed</b> atrás dos 4 blockers.</span></div>
+        <div class="kv"><span class="k">Gaps abertos</span><span class="v">65 gaps · 3 conflitos de fonte · 4 bloqueadores. Fase 0 recomendada (regra: &gt;15 gaps).</span></div>
+        <div class="kv"><span class="k">Fundamentação (grounding)</span><span class="v">1 doc em <code>knowledge/</code> (arquitetura Revenue Cloud/marketplace). Central Salesforce KB degradada (access_denied) — grounding via projeto.</span></div>
+        <div class="kv"><span class="k">Vertical pack</span><span class="v">Government ausente (só <code>pace</code>) — usados proof points padrão de Salesforce PS.</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Proveniência dos números</h3>
+      <div class="kv"><span class="k">T-shirt sizes</span><span class="v">Complexidade relativa (2 XL · 4 L · 3 M), não esforço. Não multiplicáveis por rate. Todos Assumed.</span></div>
+      <div class="kv"><span class="k">Duração</span><span class="v">Faixa 18–38 sem <b>derivada top-down-shape</b> (benchmark, não compromisso); âncora AI-native 11–27 sem via native_band. Sem commitment de calendário.</span></div>
+      <div class="kv"><span class="k">Preço</span><span class="v">Indicativo, da tabela de rates Dataprev <b>fornecida e validada</b> em 28/07/2026. Com imposto = sem imposto ÷ 0,9345. Vive só em <code>estimate-comparison.json</code>.</span></div>
+      <div class="kv"><span class="k">Roster/contagens</span><span class="v">11 linhas PS + 6 cliente, cada uma com justificativa (ganhas, não inventadas). ~8,6 FTE AI-native · ~10,3 tradicional.</span></div>
+    </div>
+
+    <div class="ask">
+      <div class="lead">⧉ Perguntas para fazer ao Claude no repositório</div>
+      <ul>
+        <li>Com 72% Assumed, este deal está pronto para handoff ou precisa de mais discovery?</li>
+        <li>Roda <code>grill-me-on-scope</code> — quais inferências não confirmadas mais afetam a estimativa?</li>
+        <li>Vale definir um vertical pack Government para proof points de setor público?</li>
+      </ul>
+    </div>
+  </section>
+  <section class="tab" id="diag">
+    <div class="card">
+      <h2>Diagnóstico — proveniência &amp; frescor</h2>
+      <p class="hint">Quando cada arquivo foi escrito por último. Um arquivo materialmente atrás das épicas sinaliza drift.</p>
+    </div>
+
+    <div class="card">
+      <h3>Frescor por arquivo (data/última escrita)</h3>
+      <div class="kv"><span class="k">decisions/0001 · 00-discovery-brief.md</span><span class="v">2026-07-27 17:32</span></div>
+      <div class="kv"><span class="k">data/strategy.json</span><span class="v">2026-07-28 09:03</span></div>
+      <div class="kv"><span class="k">outputs/01-solution.md</span><span class="v">2026-07-28 12:09</span></div>
+      <div class="kv"><span class="k">data/estimates.json</span><span class="v">2026-07-28 12:16 <span class="pill warn">stale vs epics</span></span></div>
+      <div class="kv"><span class="k">data/epics.json</span><span class="v">2026-07-28 12:57 <small>(depends_on gravado pelo roadmap)</small></span></div>
+      <div class="kv"><span class="k">data/roadmap.json</span><span class="v">2026-07-28 12:58</span></div>
+      <div class="kv"><span class="k">data/gaps.json · 02-delivery-plan.md</span><span class="v">2026-07-28 12:59</span></div>
+      <div class="kv"><span class="k">data/efficiency.json</span><span class="v">2026-07-28 14:26</span></div>
+      <div class="kv"><span class="k">data/estimate-comparison.json · resource-plan.json</span><span class="v">2026-07-28 16:14</span></div>
+      <div class="kv"><span class="k">data/memory.json</span><span class="v">2026-07-28 16:15</span></div>
+      <div class="recon"><b>Nota de drift:</b> <code>estimates.json</code> (12:16) precede <code>epics.json</code> (12:57) porque o roadmap gravou <code>depends_on</code> nas épicas depois — é campo de sequenciamento, <b>não afeta os sizes</b>. WARN não-bloqueante do validador; rodar <code>revise</code> só se algo material mudar.</div>
+    </div>
+
+    <div class="card">
+      <h3>Ambiente &amp; atividade</h3>
+      <div class="grid2">
+        <div class="kv"><span class="k">Plugin Scopezilla</span><span class="v">1.9.1</span></div>
+        <div class="kv"><span class="k">Vertical</span><span class="v">pace <small>(Government ausente)</small></span></div>
+        <div class="kv"><span class="k">Fase atual</span><span class="v">EXPORT concluído · ciclo de 9 fases fechado + estimate</span></div>
+        <div class="kv"><span class="k">Ambiente Salesforce</span><span class="v">Nenhum Heroku / org de handoff (HEROKU=nenhum)</span></div>
+        <div class="kv"><span class="k">Sessões</span><span class="v">9 sessões (discover → estimate)</span></div>
+        <div class="kv"><span class="k">Decisões logadas</span><span class="v">5 entradas · 1 ADR</span></div>
+      </div>
+    </div>
+
+    <div class="ask">
+      <div class="lead">⧉ Perguntas para fazer ao Claude no repositório</div>
+      <ul>
+        <li>Algum arquivo está materialmente atrás do escopo atual e precisa de <code>revise</code>?</li>
+        <li>Roda <code>validate</code> — há inconsistências cross-file antes do handoff?</li>
+        <li>Qual o próximo passo: <code>commercials</code>, <code>slides</code>, <code>grill-me-on-scope</code> ou <code>quantum-leap</code>?</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<script>
+  document.querySelectorAll('nav.tabs button').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('nav.tabs button').forEach(function(x){x.classList.remove('active')});
+      document.querySelectorAll('.tab').forEach(function(x){x.classList.remove('active')});
+      b.classList.add('active');
+      document.getElementById(b.dataset.tab).classList.add('active');
+      window.scrollTo(0,0);
+    });
+  });
+
+  async function nodeToPngBlob(node){
+    var r = node.getBoundingClientRect(), w = Math.ceil(r.width), h = Math.ceil(r.height), scale = 2;
+    var clone = node.cloneNode(true), src = node.querySelectorAll('*'), dst = clone.querySelectorAll('*');
+    inlineStyle(node, clone);
+    for (var i=0;i<src.length;i++) inlineStyle(src[i], dst[i]);
+    clone.style.margin = '0';
+    var xml = new XMLSerializer().serializeToString(clone);
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'">'
+            + '<foreignObject width="100%" height="100%">'
+            + '<div xmlns="http://www.w3.org/1999/xhtml">'+xml+'</div>'
+            + '</foreignObject></svg>';
+    var img = new Image();
+    await new Promise(function(res,rej){
+      img.onload = res; img.onerror = rej;
+      img.src = 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+    });
+    var c = document.createElement('canvas'); c.width = w*scale; c.height = h*scale;
+    var ctx = c.getContext('2d'); ctx.scale(scale,scale);
+    ctx.fillStyle = '#fff'; ctx.fillRect(0,0,w,h); ctx.drawImage(img,0,0);
+    return await new Promise(function(res){ c.toBlob(res,'image/png'); });
+  }
+  function inlineStyle(from,to){
+    var cs = getComputedStyle(from), s = '';
+    for (var i=0;i<cs.length;i++){ var p = cs[i]; s += p+':'+cs.getPropertyValue(p)+';'; }
+    to.setAttribute('style', s);
+  }
+  async function copyShot(node,btn){
+    var label = btn.textContent;
+    try{
+      var blob = await nodeToPngBlob(node);
+      if (navigator.clipboard && window.ClipboardItem){
+        await navigator.clipboard.write([new ClipboardItem({'image/png':blob})]);
+        btn.textContent = '✓ Copiado';
+      } else { throw new Error('no clipboard-image'); }
+    }catch(e){
+      try{
+        var blob2 = await nodeToPngBlob(node), a = document.createElement('a');
+        a.href = URL.createObjectURL(blob2); a.download = 'deal-review-chart.png'; a.click();
+        btn.textContent = '✓ Baixado';
+      }catch(e2){ btn.textContent = '✗ Use screenshot'; }
+    }
+    setTimeout(function(){ btn.textContent = label; }, 2200);
+  }
+  document.querySelectorAll('[data-shot]').forEach(function(node){
+    var btn = document.createElement('button');
+    btn.className = 'shot-btn'; btn.textContent = '⧉ Copiar como imagem';
+    btn.addEventListener('click', function(){ copyShot(node, btn); });
+    node.appendChild(btn);
+  });
+</script>
+</body>
+</html>
