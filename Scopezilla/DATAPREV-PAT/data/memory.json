@@ -153,6 +153,22 @@
         "Tensão alvo ≥25% vs. banda honesta surfaceada no deliverable — decisão comercial de trilha (augmented vs. buscar qualificação AI-native) fica com o cliente/Solution Lead"
       ],
       "next": "NARRATIVES (executive summary + seções de proposta) via /dataprev"
+    },
+    {
+      "date": "2026-07-28",
+      "skills": ["narratives"],
+      "summary": "Narratives DATAPREV-PAT: audiência executiva; rota executive-summary-only (sem rfp.json, sem resource-plan, sem arquivo precificado → sem seção de Investimento/dólar). Escrito outputs/artifacts/executive-summary.md sintetizando strategy.json (visão/value drivers/prioridades/business case), 9 épicas, 5 fases, faixa 18-38 sem com Benchmark Disclaimer verbatim, T-shirt como complexidade relativa (não esforço, sem preço), banda de eficiência ~10-18% augmented, e enquadramento honesto de confiança (28% Confirmed/72% Assumed, 65 gaps, Fase 0 recomendada). Sem pacote vertical Government (só pace) → proof points padrão de PS + nota recomendando definir o pack.",
+      "produced": ["outputs/artifacts/executive-summary.md"],
+      "decisions": [
+        {"decision": "Rota executive-summary-only (sem variante RFP nem seção de Investimento)", "rationale": "Não há rfp.json nem arquivo precificado governado (estimate-comparison/commercials); regra do skill: sem número derivado — investimento a confirmar via estimate/commercials"},
+        {"decision": "Enquadrar riscos/premissas com a confiança real (28% Confirmed, 65 gaps) e reafirmar Fase 0 como destravadora + escopo como variável de flexão contra a data", "rationale": "Honestidade: janela do cliente abaixo do piso de benchmark e todos os sizes Assumed atrás dos 4 blockers"}
+      ],
+      "open_threads": [
+        "Pacote vertical Government ausente (só pace.md) — recomendado definir para proof points de setor público; usados proof points padrão de Salesforce PS",
+        "Números divergentes de volume (450k vs 300-327,7k empresas; 22mi trabalhadores/800k estabelecimentos de imprensa) marcados no exec summary como a confirmar na origem antes de uso client-facing",
+        "Sem seção de Investimento/dólar — a produzir via estimate (dual-track) ou commercials (taxa validada) quando o cliente/Solution Lead decidir"
+      ],
+      "next": "EXPORT (empacotar deliverables: Excel + docs) via /dataprev"
     }
   ],
   "preferences": {},

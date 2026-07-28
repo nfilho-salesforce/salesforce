@@ -1,7 +1,7 @@
 PROJETO=DATAPREV-PAT
-FASE_ATUAL=EFFICIENCY
-FASES_CONCLUIDAS=INTAKE,SETUP,DISCOVER,STRATEGY,REQUIREMENTS,DESIGN,ROADMAP,EFFICIENCY
-PROXIMO=NARRATIVES
+FASE_ATUAL=NARRATIVES
+FASES_CONCLUIDAS=INTAKE,SETUP,DISCOVER,STRATEGY,REQUIREMENTS,DESIGN,ROADMAP,EFFICIENCY,NARRATIVES
+PROXIMO=EXPORT
 LOCAL=/Users/nfilho/claude/Scopezilla/DATAPREV-PAT
 HEROKU=nenhum
 PRODUTOS_SF=MuleSoft,Experience Cloud,Core/Service Cloud,Agentforce
@@ -9,4 +9,4 @@ ESCOPO=fluxo completo (4 modulos)
 RESIDENCIA_DADOS=hibrida (ADR0001)
 MIGRACAO=cadastros iniciais
 COMERCIAL=PS Services + Licencas SF
-STATUS=efficiency concluido (category-only); banda augmented realizada ~10-18% (task-level ~30-45% x fator 0.30-0.40); readiness Low 2/8; cenarios Low ~8-12%(atual)/Mid ~12-16%/High ~16-22%; banda AI-native condicional ~28-38% (gated, provisoria decisions/0033); TENSAO: alvo >=25% do programa so alcancavel na trilha AI-native condicional, NAO na augmented honesta - surfaceado no deliverable, augmented nao inflada; efficiency.json + efficiency-analysis.md escritos
+STATUS=narratives concluido; executive summary escrito (audiencia executiva, rota executive-summary-only - sem rfp.json/resource-plan/arquivo precificado -> SEM secao de Investimento/dolar); sintetiza strategy (visao/value drivers/business case), 9 epicas, 5 fases, faixa 18-38 sem com Benchmark Disclaimer, T-shirt como complexidade (nao esforco, sem preco), banda eficiencia ~10-18% augmented, confianca honesta 28% Confirmed/72% Assumed/65 gaps/Fase 0; pacote vertical Government ausente (so pace) -> proof points padrao PS + nota; numeros de volume divergentes marcados a confirmar na origem
