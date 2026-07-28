@@ -12,7 +12,7 @@
 
 ## Panorama
 
-O Decreto nº 12.712/2025 promove a maior reforma do PAT em quase 50 anos: comprime a margem das operadoras (teto de administração — MDR — de 3,6%, tarifa de intercâmbio de 2%) e exige repasse ao estabelecimento em até 15 dias e interoperabilidade. Isso abre espaço para uma **plataforma pública neutra, operada pela Dataprev para o Ministério do Trabalho e Emprego (MTE)**, que substitui a negociação bilateral fragmentada de hoje por um leilão aberto entre facilitadoras — dando ao governo visibilidade sistêmica sobre um setor que movimenta R$ 150–200 bilhões/ano e atende mais de 22 milhões de trabalhadores.
+O Decreto nº 12.712/2025 promove a maior reforma do PAT em quase 50 anos: comprime a margem das operadoras (teto de administração — MDR — de 3,6%, tarifa de intercâmbio de 2%) e exige repasse ao estabelecimento em até 15 dias e interoperabilidade. Isso abre espaço para uma **plataforma pública neutra, operada pela Dataprev para o Ministério do Trabalho e Emprego (MTE)**, que substitui a negociação bilateral fragmentada de hoje por um leilão aberto entre facilitadoras — dando ao governo visibilidade sistêmica sobre um setor que movimenta centenas de bilhões de reais por ano e atende dezenas de milhões de trabalhadores.
 
 **Por que agora:** o decreto entra em vigor a partir de 10/02/2026 e o Novo PAT exige recadastramento obrigatório sob pena de perda do benefício fiscal. A janela para instrumentalizar a fiscalização e a transparência da reforma é imediata — atrasar significa operar a nova regra sem plataforma que a suporte e sem visibilidade para o MTE.
 

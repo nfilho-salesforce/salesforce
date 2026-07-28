@@ -169,6 +169,20 @@
         "Sem seção de Investimento/dólar — a produzir via estimate (dual-track) ou commercials (taxa validada) quando o cliente/Solution Lead decidir"
       ],
       "next": "EXPORT (empacotar deliverables: Excel + docs) via /dataprev"
+    },
+    {
+      "date": "2026-07-28",
+      "skills": ["export"],
+      "summary": "Export DATAPREV-PAT: validate-data.py rodado — inicialmente FAIL por leak de preço (regex pegou 'R$ 150-200 bilhões', tamanho de mercado do setor citado por imprensa, não preço de serviço). Reescrito o executive-summary para 'centenas de bilhões de reais/dezenas de milhões de trabalhadores' (preserva o argumento, respeita o gate determinístico e a cautela dos _open_data_flags). Re-validado PASS (1 WARN não-bloqueante: estimates.json 'stale' pois roadmap gravou depends_on em epics.json depois — campo de sequenciamento, não afeta sizes). openpyxl presente → workbook Excel primário com 5 sheets (Epics, Gap Analysis, Estimates, Roadmap Phases, Efficiency).",
+      "produced": ["outputs/scoping-deliverables.xlsx"],
+      "decisions": [
+        {"decision": "Reescrever tamanho de mercado (R$ 150-200 bi → 'centenas de bilhões de reais') em vez de mover para seção de Commercials", "rationale": "Não é preço de serviço nem ROM — é contexto de mercado público; o número exato vinha de imprensa (flagged nos _open_data_flags). Remover a cifra disputada passa o gate E melhora a honestidade."}
+      ],
+      "open_threads": [
+        "WARN validate: estimates.json 'stale' vs epics.json (depends_on gravado pelo roadmap) — não afeta sizing; rodar revise só se algo material mudar",
+        "Números de mercado (450k/300-327k empresas, ~22mi trabalhadores, ~800k estabelecimentos) seguem a confirmar na origem antes de qualquer artefato com cifra exata"
+      ],
+      "next": "Ciclo /dataprev completo (9 fases). Side-quests disponíveis: estimate (dual-track + roster + preço), commercials (preço indicativo c/ taxa validada), slides (deck), grill-me-on-scope (stress-test), quantum-leap (handoff de build)"
     }
   ],
   "preferences": {},
