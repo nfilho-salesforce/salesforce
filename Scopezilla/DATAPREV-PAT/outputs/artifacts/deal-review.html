@@ -22,10 +22,13 @@
   .stampline b{opacity:1}
   .internal{display:inline-block;margin-top:10px;background:#c23934;color:#fff;font-size:11px;font-weight:700;letter-spacing:.06em;padding:3px 8px;border-radius:3px;text-transform:uppercase}
   .whatis{margin-top:10px;font-size:13px;line-height:1.5;opacity:.9;max-width:760px}
-  nav.tabs{display:flex;gap:4px;background:#fff;padding:0 20px;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:4;overflow-x:auto}
-  nav.tabs button{border:0;background:none;padding:13px 15px;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
-  nav.tabs button.active{color:var(--navy);border-bottom-color:var(--blue)}
-  main{max-width:1200px;margin:0 auto;padding:24px 20px 50px}
+  .shell{display:flex;align-items:flex-start}
+  nav.tabs{display:flex;flex-direction:column;gap:2px;background:#fff;padding:16px 10px;border-right:1px solid var(--line);position:sticky;top:0;align-self:flex-start;width:236px;min-width:236px;height:100vh;overflow-y:auto;z-index:4}
+  nav.tabs .navhdr{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700;padding:4px 14px 8px}
+  nav.tabs button{border:0;background:none;padding:11px 14px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;border-left:3px solid transparent;border-radius:0 6px 6px 0;white-space:normal;text-align:left;line-height:1.3}
+  nav.tabs button:hover{background:var(--sky)}
+  nav.tabs button.active{color:var(--navy);border-left-color:var(--blue);background:var(--sky)}
+  main{flex:1;min-width:0;max-width:1120px;margin:0;padding:24px 28px 60px}
   .tab{display:none} .tab.active{display:block}
   .card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px 20px;margin-bottom:16px}
   .card h2{margin:0 0 4px;font-size:16px;color:var(--navy)}
@@ -138,13 +141,28 @@
   .rg-sub{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;margin:14px 0 2px;font-weight:700}
   .muted{color:var(--muted)} .small{font-size:12px}
   code{background:var(--chipbg);padding:1px 5px;border-radius:3px;font-size:12px}
+  /* macro architecture diagram (layer stack) */
+  .arch{margin:6px 0 2px}
+  .arch-layer{border:1px solid var(--line);border-radius:8px;padding:11px 14px;margin:7px 0;background:#fff;position:relative}
+  .arch-layer .lname{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700;margin-bottom:8px}
+  .arch-layer.l-user{background:#f4f7fb}
+  .arch-layer.l-exp{background:#eef4fb;border-color:#bcd9f0}
+  .arch-layer.l-core{background:#f5faff;border-color:#bcd9f0}
+  .arch-layer.l-mule{background:#fff7e6;border-color:#e6ddc0}
+  .arch-layer.l-ext{background:#fafbfc}
+  .arch-nodes{display:flex;flex-wrap:wrap;gap:6px}
+  .arch-node{font-size:12px;font-weight:600;background:#fff;border:1px solid var(--line);border-radius:6px;padding:6px 10px;color:var(--navy)}
+  .arch-node.prod{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .arch-node.sor{border-color:var(--blue);color:var(--blue)}
+  .arch-conn{text-align:center;color:var(--muted);font-size:15px;line-height:1;margin:-1px 0}
+  .arch-boundary{background:repeating-linear-gradient(45deg,#fdeceb,#fdeceb 8px,#fbe0de 8px,#fbe0de 16px);border:1px dashed var(--bad);border-radius:8px;padding:9px 14px;margin:9px 0;font-size:12px;color:var(--bad);font-weight:700;text-align:center}
   /* copy-as-image button (chart cards only) */
   .card{position:relative}
   .shot-btn{position:absolute;top:14px;right:16px;font-size:11px;font-weight:600;color:var(--blue);background:#fff;border:1px solid var(--line);border-radius:5px;padding:4px 9px;cursor:pointer;z-index:2}
   .shot-btn:hover{background:var(--sky)}
   [data-shot]{background:#fff}
   @media print{
-    nav.tabs,.shot-btn{display:none} .tab{display:block!important;page-break-inside:avoid} body{background:#fff}
+    nav.tabs,.shot-btn{display:none} .shell{display:block} main{max-width:none} .tab{display:block!important;page-break-inside:avoid} body{background:#fff}
     details.epic{page-break-inside:avoid} details.epic>summary{background:#fff!important} .ask{page-break-inside:avoid}
   }
 </style>
@@ -155,7 +173,7 @@
   <h1>DATAPREV-PAT — Marketplace Digital do PAT</h1>
   <div class="sub">DATAPREV-PAT · Government · Dataprev / Ministério do Trabalho e Emprego (MTE)</div>
   <div class="stampline">
-    <span><b>Gerado:</b> 28 jul 2026, 16:32 BRT (UTC&minus;03:00)</span>
+    <span><b>Gerado:</b> 28 jul 2026, 18:04 BRT (UTC&minus;03:00)</span>
     <span><b>Scopezilla:</b> 1.9.1</span>
     <span><b>Dados do projeto atualizados:</b> 28 jul 2026</span>
   </div>
@@ -163,10 +181,13 @@
   <div class="whatis">Um retrato da leitura honesta do Claude sobre este projeto — reconciliada e com fonte, a mesma resposta que você teria perguntando no repositório. Onde os dados divergem, isto é dito, em vez de adivinhado. Para qualquer aprofundamento, abra o projeto e pergunte.</div>
 </header>
 
+<div class="shell">
 <nav class="tabs">
+  <div class="navhdr">Navegação</div>
   <button class="active" data-tab="glance">Resumo</button>
   <button data-tab="discovery">Descoberta</button>
   <button data-tab="epics">Épicas &amp; Solução</button>
+  <button data-tab="arch">Arquitetura Macro</button>
   <button data-tab="delivery">Roadmap &amp; Time</button>
   <button data-tab="estimate">Estimativa</button>
   <button data-tab="gaps">Gaps &amp; Risco</button>
@@ -374,6 +395,130 @@
         <li>Quais épicas sobem de size se cada um dos 4 blockers quebrar contra a assumption?</li>
         <li>E02 (leilão reverso custom) é mesmo XL, ou dá para reduzir com padrão configurável?</li>
         <li>E09 (change) é PS ou Dataprev — e o que muda no roster se for cliente?</li>
+      </ul>
+    </div>
+  </section>
+  <section class="tab" id="arch">
+    <div class="card">
+      <h2>O que esta aba mostra</h2>
+      <p class="hint">Arquitetura macro em nível de proposta (ROM), sobre premissas. Destilado de <code>outputs/01-solution.md</code> (§Fundações de Arquitetura) e da ADR <code>decisions/0001</code>. Quatro decisões de arquitetura seguem em aberto — idealmente resolvidas na Fase 0 antes do compromisso final de escopo e prazo.</p>
+    </div>
+
+    <div class="card" data-shot>
+      <h2>Diagrama macro — pilha de camadas</h2>
+      <p class="hint">Uma org Salesforce única. Dados sensíveis não descem para a nuvem: a fronteira de residência (ADR 0001) separa o que persiste no Salesforce do que é resolvido em runtime via MuleSoft.</p>
+      <div class="arch">
+        <div class="arch-layer l-user">
+          <div class="lname">Usuários &amp; identidade</div>
+          <div class="arch-nodes">
+            <span class="arch-node">Beneficiárias (gov.br OIDC)</span>
+            <span class="arch-node">Facilitadoras (~600–700)</span>
+            <span class="arch-node">Estabelecimentos (gov.br PJ / CNPJ)</span>
+            <span class="arch-node">Atendimento (WhatsApp / webchat)</span>
+          </div>
+        </div>
+        <div class="arch-conn">↓</div>
+        <div class="arch-layer l-exp">
+          <div class="lname">Experience Cloud (LWR) — portal externo</div>
+          <div class="arch-nodes">
+            <span class="arch-node prod">Experience Cloud</span>
+            <span class="arch-node">Login gov.br + procuração digital (E01)</span>
+            <span class="arch-node">Publicar cotação / comparar propostas (E02)</span>
+            <span class="arch-node">Credenciamento (E04)</span>
+          </div>
+        </div>
+        <div class="arch-conn">↓</div>
+        <div class="arch-layer l-core">
+          <div class="lname">Core / Service Cloud + Agentforce — motor de negócio</div>
+          <div class="arch-nodes">
+            <span class="arch-node prod">Core / Service Cloud</span>
+            <span class="arch-node">Cotacao__c → N Proposta__c (leilão reverso, E02)</span>
+            <span class="arch-node">Folha / contrato / split (E03)</span>
+            <span class="arch-node">OWD Private + Apex managed sharing</span>
+            <span class="arch-node prod">Agentforce</span>
+            <span class="arch-node">Atendimento inform.+transacional (E06)</span>
+          </div>
+        </div>
+        <div class="arch-conn">↓</div>
+        <div class="arch-boundary">▚ Fronteira de residência — ADR 0001 · CPF e dados sensíveis NÃO persistem no Salesforce; a org guarda apenas referências tokenizadas ▚</div>
+        <div class="arch-layer l-mule">
+          <div class="lname">MuleSoft Anypoint — integração API-led</div>
+          <div class="arch-nodes">
+            <span class="arch-node prod">MuleSoft</span>
+            <span class="arch-node">Camadas System / Process / Experience</span>
+            <span class="arch-node">De-tokenização de CPF em runtime</span>
+            <span class="arch-node">Mock-first (sem contratos de API — risco #1)</span>
+            <span class="arch-node">Event-driven (Platform Events / CDC)</span>
+          </div>
+        </div>
+        <div class="arch-conn">↓</div>
+        <div class="arch-layer l-ext">
+          <div class="lname">Sistemas externos — ecossistema Dataprev / MTE (E05)</div>
+          <div class="arch-nodes">
+            <span class="arch-node sor">Novo PAT (system-of-record)</span>
+            <span class="arch-node">Infra de tokenização Dataprev</span>
+            <span class="arch-node">GOV.BR / Geride</span>
+            <span class="arch-node">CTPS Digital</span>
+            <span class="arch-node">eSocial</span>
+            <span class="arch-node">SDC</span>
+            <span class="arch-node">Kinis PJ / Par</span>
+            <span class="arch-node">Banco público — boleto / Pix / split</span>
+            <span class="arch-node">APIs das ~600–700 facilitadoras</span>
+          </div>
+        </div>
+      </div>
+      <p class="small muted" style="margin-top:12px">Fonte: <code>01-solution.md</code> §Fundações + E01–E08. Produtos Salesforce em azul-escuro; Novo PAT destacado como system-of-record (a carga é inicial, não migração massiva — E07).</p>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h2>Fundações transversais</h2>
+        <p class="hint">Decisões horizontais que nenhuma épica possui — de <code>01-solution.md</code> §Fundações.</p>
+        <div class="kv"><span class="k">Estratégia de org</span><span class="v">Org única (Enterprise+)</span></div>
+        <div class="kv"><span class="k">Separação de domínios</span><span class="v">Objeto · perfil · sharing (não multi-org)</span></div>
+        <div class="kv"><span class="k">Portal externo</span><span class="v">Experience Cloud LWR · Customer Community Plus</span></div>
+        <div class="kv"><span class="k">Licença external</span><span class="v">login- vs member-based — a quantificar (G0103/G0108)</span></div>
+        <div class="kv"><span class="k">Compartilhamento</span><span class="v">OWD Private + Apex managed sharing</span></div>
+        <div class="kv"><span class="k">DevOps</span><span class="v">Source-driven (CLI + Git) · Dev→QA→UAT→Prod</span></div>
+      </div>
+      <div class="card">
+        <h2>ADR 0001 — residência de dados híbrida</h2>
+        <p class="hint">A premissa transversal (a E01/E02/E03/E06; concretizada em E08). De <code>decisions/0001</code> + <code>01-solution.md</code> §Segurança.</p>
+        <div class="quote">
+          CPF e dados sensíveis <b>não persistem</b> na nuvem Salesforce. A org guarda <b>referências tokenizadas</b>, resolvidas em runtime via MuleSoft contra a infraestrutura Dataprev — sob LGPD Art. 11, com trilha de auditoria para TCU/CGU/ANPD.
+          <span class="src">01-solution.md — §Segurança e residência de dados (ADR 0001).</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Quatro decisões de arquitetura em aberto (blockers → Fase 0)</h2>
+      <p class="hint">A fundação de residência carrega estas até a Fase 0. Verbatim das etiquetas <code>[assumption:]</code> de <code>01-solution.md</code>; cada uma é um blocker em <code>gaps.json</code>.</p>
+      <ul class="declist">
+        <li><span class="d">G0801</span><span>Fronteira campo-a-campo exata da residência (o que é token vs. o que pode persistir), a ratificar com Jair Bogo — governa o data model de E01/E02/E03/E06.</span></li>
+        <li><span class="d">G0504</span><span>Hospedagem MuleSoft (CloudHub vs. Runtime Fabric em gov cloud) × residência — define ONDE ocorre a de-tokenização do CPF.</span></li>
+        <li><span class="d">G0106</span><span>Experience Cloud exige User/Contact com identidade — conciliar com "CPF não persiste" via Contact por referência tokenizada + resolução runtime.</span></li>
+        <li><span class="d">G0501</span><span>Sem Swagger/contrato de API de nenhum sistema externo — integração é mock-first até os contratos existirem. Risco #1, caminho crítico.</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Sequência de dependências &amp; range-drivers</h2>
+      <p class="hint">De <code>epics.json.depends_on</code> (roadmap) e dos range-drivers em <code>estimate-comparison.md</code>.</p>
+      <div class="excerpt">
+        <p><b>Fundação transversal:</b> E05 (integração MuleSoft) e E08 (segurança/residência) sustentam todo o resto — E05 é o <b>risco #1 e caminho crítico</b> (ausência total de contratos de API).</p>
+        <p><b>Porta de entrada:</b> E01 (identidade gov.br) é a base sobre a qual E02, E03 e E04 renderizam.</p>
+        <p><b>Núcleo de valor:</b> E02 (leilão reverso custom, XL) e E03 (financeiro: split/conciliação) — os dois que, com E08 (fronteira não ratificada), fixam o teto das faixas de esforço.</p>
+      </div>
+      <div class="recon"><b>Por que as faixas são largas.</b> Os 9 sizes seguem <b>Assumed</b> atrás dos quatro blockers acima. A Fase 0 os resolve e aperta as faixas — é a recomendação que antecede o compromisso de escopo e prazo. Detalhe nas abas Gaps &amp; Risco e Estimativa.</div>
+    </div>
+
+    <div class="ask">
+      <div class="lead">⧉ Perguntas para fazer ao Claude no repositório</div>
+      <ul>
+        <li>Se a fronteira de residência (G0801) for mais restritiva que o assumido, o que muda no data model?</li>
+        <li>A de-tokenização em runtime via MuleSoft aguenta o volume do leilão (E02) e do financeiro (E03)?</li>
+        <li>Quais dos 4 blockers, destravados na Fase 0, mais apertam as faixas de esforço?</li>
       </ul>
     </div>
   </section>
@@ -705,6 +850,7 @@
     </div>
   </section>
 </main>
+</div>
 
 <script>
   document.querySelectorAll('nav.tabs button').forEach(function(b){
