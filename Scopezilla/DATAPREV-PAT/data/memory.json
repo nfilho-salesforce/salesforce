@@ -83,7 +83,9 @@
         {
           "decision": "Revenue Cloud fora desta rodada — baseline Core-only (E03)",
           "rationale": "RLM é sell-side (catálogo→quote→order→billing); não suporta RFQ/leilão reverso nativo; split multi-parte não é nativo de Billing. Leilão é custom na Core Platform de qualquer forma; split via MuleSoft. Reavaliar em fase futura.",
-          "rejected": ["Revenue Cloud (CLM+Billing) dentro de E03 nesta rodada"]
+          "rejected": [
+            "Revenue Cloud (CLM+Billing) dentro de E03 nesta rodada"
+          ]
         },
         {
           "decision": "Criada E09 — Gestão de Mudança & Adoção",
@@ -108,11 +110,23 @@
     },
     {
       "summary": "Design DATAPREV-PAT: esqueleto de arquitetura aprovado (org única, Experience Cloud + Core/Service + MuleSoft + Agentforce; residência híbrida ADR 0001 como fundação; 4 blockers de arquitetura carregados como assumções). Escrito outputs/01-solution.md (fundações transversais + mapa por processo de negócio). T-shirt sizing dos 9 épicos pelo rubric dimensional (2 XL, 4 L, 3 M) — todos Assumed pelos blockers em aberto. +3 assumções load-bearing gravadas em gaps.json (G0108 licença Experience Cloud, G0808 org única, G0809 DevOps source-driven).",
-      "skills": ["design"],
-      "produced": ["outputs/01-solution.md", "data/estimates.json", "data/csv/02-estimates.csv"],
+      "skills": [
+        "design"
+      ],
+      "produced": [
+        "outputs/01-solution.md",
+        "data/estimates.json",
+        "data/csv/02-estimates.csv"
+      ],
       "decisions": [
-        {"decision": "Org única; residência resolvida por tokenização (E08), não por multi-org", "rationale": "Nenhum requisito de isolamento força multi-org; ADR 0001 resolve residência via referências tokenizadas + MuleSoft"},
-        {"decision": "Sizing: E02 Marketplace e E05 Integração = XL; E01/E03/E06/E08 = L; E04/E07/E09 = M", "rationale": "Rubric dimensional: E05 dirigido por largura de integração (~600-700 facilitadoras, sem contratos); E02 por composição de L (automação+UI+sharing do leilão custom)"}
+        {
+          "decision": "Org única; residência resolvida por tokenização (E08), não por multi-org",
+          "rationale": "Nenhum requisito de isolamento força multi-org; ADR 0001 resolve residência via referências tokenizadas + MuleSoft"
+        },
+        {
+          "decision": "Sizing: E02 Marketplace e E05 Integração = XL; E01/E03/E06/E08 = L; E04/E07/E09 = M",
+          "rationale": "Rubric dimensional: E05 dirigido por largura de integração (~600-700 facilitadoras, sem contratos); E02 por composição de L (automação+UI+sharing do leilão custom)"
+        }
       ],
       "open_threads": [
         "Todos os 9 sizes em Assumed — 4 blockers de arquitetura (G0801/G0501/G0504/G0106) não resolvidos alargam faixa a jusante; argumento da Fase 0",
@@ -124,12 +138,24 @@
     },
     {
       "date": "2026-07-28",
-      "skills": ["roadmap"],
+      "skills": [
+        "roadmap"
+      ],
       "summary": "Roadmap DATAPREV-PAT: 5 fases (0-4) sequenciadas por caminho crítico E05/E08 → E01 → E02/E03. Fase 0 incluída (65 gaps > 15). Faixa de duração derivada top-down: 18-38 semanas (Multi-Cloud Medium/High + adders regulada/integração-sem-contratos/UI-custom, teto +50%), com Benchmark Disclaimer. Analog SGP/MGI ancora o piso, não puxa o teto. Range-drivers: E05/E03/E08. depends_on gravados em epics.json. Sem commitment de duração (faixa derivada, não compromisso) — fases sem semanas.",
-      "produced": ["data/roadmap.json", "outputs/02-delivery-plan.md", "data/csv/03-roadmap-phases.csv"],
+      "produced": [
+        "data/roadmap.json",
+        "outputs/02-delivery-plan.md",
+        "data/csv/03-roadmap-phases.csv"
+      ],
       "decisions": [
-        {"decision": "5 fases: Fase 0 Discovery/Arquitetura (blockers) → 1 Fundação (E05/E08/E01) → 2 Marketplace (E02/E04) → 3 Financeiro & Atendimento (E03/E06) → 4 Carga/Adoção/Estabilização (E07/E09)", "rationale": "Fundação-primeiro/risco-cedo: E05 mock-first e E08 residência governam o data model; E01 destrava marketplace e financeiro. Fase 0 obrigatória por 65 gaps."},
-        {"decision": "Duração = faixa derivada 18-38 sem (top-down-shape), sem commitment", "rationale": "Usuário optou por derivar faixa por benchmark, não comprometer nº. Janela do cliente (~15-16 sem set→nov) fica ABAIXO do piso de 18 sem — argumento de Fase 0 + escopo como variável de flexão."}
+        {
+          "decision": "5 fases: Fase 0 Discovery/Arquitetura (blockers) → 1 Fundação (E05/E08/E01) → 2 Marketplace (E02/E04) → 3 Financeiro & Atendimento (E03/E06) → 4 Carga/Adoção/Estabilização (E07/E09)",
+          "rationale": "Fundação-primeiro/risco-cedo: E05 mock-first e E08 residência governam o data model; E01 destrava marketplace e financeiro. Fase 0 obrigatória por 65 gaps."
+        },
+        {
+          "decision": "Duração = faixa derivada 18-38 sem (top-down-shape), sem commitment",
+          "rationale": "Usuário optou por derivar faixa por benchmark, não comprometer nº. Janela do cliente (~15-16 sem set→nov) fica ABAIXO do piso de 18 sem — argumento de Fase 0 + escopo como variável de flexão."
+        }
       ],
       "open_threads": [
         "Janela do cliente (set→nov, ~15-16 sem) abaixo do piso do benchmark (18 sem) mesmo sem compressão IA — escopo é a variável de flexão contra a data",
@@ -141,11 +167,20 @@
     },
     {
       "date": "2026-07-28",
-      "skills": ["efficiency"],
+      "skills": [
+        "efficiency"
+      ],
       "summary": "Efficiency DATAPREV-PAT (category-only, sem resource-plan): blend task-level ~30-45% × fator de realização 0.30-0.40 (regulada + zero contratos de API puxam ao piso; org greenfield + mock-first nudge cima) → banda augmented realizada ~10-18%. Readiness Low (2/8): AI tooling 0, velocity 1, data hygiene 1, legal/compliance 0. Cenários: Low ~8-12% (atual), Mid ~12-16%, High ~16-22%. 4 categorias (Documentação lidera ~12-20%; PM & Ops piso ~8-12%). Banda AI-native condicional ~28-38% (provisória, decisions/0033).",
-      "produced": ["data/efficiency.json", "outputs/artifacts/efficiency-analysis.md", "data/csv/08-efficiency.csv"],
+      "produced": [
+        "data/efficiency.json",
+        "outputs/artifacts/efficiency-analysis.md",
+        "data/csv/08-efficiency.csv"
+      ],
       "decisions": [
-        {"decision": "Banda augmented honesta ~10-18% NÃO alcança o alvo ≥25% do programa; os 25% só existem na banda AI-native condicional (~28-38%)", "rationale": "Engajamento regulado + integração-pesada + baixa prontidão de IA. Banda augmented NÃO inflada para atingir alvo; native apresentada como motivador gated que exige modelo operacional native — postura oposta à de um programa gov com gates TCU/CGU/ANPD e Fase 0 hoje."}
+        {
+          "decision": "Banda augmented honesta ~10-18% NÃO alcança o alvo ≥25% do programa; os 25% só existem na banda AI-native condicional (~28-38%)",
+          "rationale": "Engajamento regulado + integração-pesada + baixa prontidão de IA. Banda augmented NÃO inflada para atingir alvo; native apresentada como motivador gated que exige modelo operacional native — postura oposta à de um programa gov com gates TCU/CGU/ANPD e Fase 0 hoje."
+        }
       ],
       "open_threads": [
         "Readiness signals AI tooling posture (0) e legal/compliance (0) marcados Assumed — perguntas de esclarecimento: há ferramenta de IA aprovada? há política de manuseio de dados por IA sob LGPD?",
@@ -156,12 +191,22 @@
     },
     {
       "date": "2026-07-28",
-      "skills": ["narratives"],
+      "skills": [
+        "narratives"
+      ],
       "summary": "Narratives DATAPREV-PAT: audiência executiva; rota executive-summary-only (sem rfp.json, sem resource-plan, sem arquivo precificado → sem seção de Investimento/dólar). Escrito outputs/artifacts/executive-summary.md sintetizando strategy.json (visão/value drivers/prioridades/business case), 9 épicas, 5 fases, faixa 18-38 sem com Benchmark Disclaimer verbatim, T-shirt como complexidade relativa (não esforço, sem preço), banda de eficiência ~10-18% augmented, e enquadramento honesto de confiança (28% Confirmed/72% Assumed, 65 gaps, Fase 0 recomendada). Sem pacote vertical Government (só pace) → proof points padrão de PS + nota recomendando definir o pack.",
-      "produced": ["outputs/artifacts/executive-summary.md"],
+      "produced": [
+        "outputs/artifacts/executive-summary.md"
+      ],
       "decisions": [
-        {"decision": "Rota executive-summary-only (sem variante RFP nem seção de Investimento)", "rationale": "Não há rfp.json nem arquivo precificado governado (estimate-comparison/commercials); regra do skill: sem número derivado — investimento a confirmar via estimate/commercials"},
-        {"decision": "Enquadrar riscos/premissas com a confiança real (28% Confirmed, 65 gaps) e reafirmar Fase 0 como destravadora + escopo como variável de flexão contra a data", "rationale": "Honestidade: janela do cliente abaixo do piso de benchmark e todos os sizes Assumed atrás dos 4 blockers"}
+        {
+          "decision": "Rota executive-summary-only (sem variante RFP nem seção de Investimento)",
+          "rationale": "Não há rfp.json nem arquivo precificado governado (estimate-comparison/commercials); regra do skill: sem número derivado — investimento a confirmar via estimate/commercials"
+        },
+        {
+          "decision": "Enquadrar riscos/premissas com a confiança real (28% Confirmed, 65 gaps) e reafirmar Fase 0 como destravadora + escopo como variável de flexão contra a data",
+          "rationale": "Honestidade: janela do cliente abaixo do piso de benchmark e todos os sizes Assumed atrás dos 4 blockers"
+        }
       ],
       "open_threads": [
         "Pacote vertical Government ausente (só pace.md) — recomendado definir para proof points de setor público; usados proof points padrão de Salesforce PS",
@@ -172,17 +217,50 @@
     },
     {
       "date": "2026-07-28",
-      "skills": ["export"],
+      "skills": [
+        "export"
+      ],
       "summary": "Export DATAPREV-PAT: validate-data.py rodado — inicialmente FAIL por leak de preço (regex pegou 'R$ 150-200 bilhões', tamanho de mercado do setor citado por imprensa, não preço de serviço). Reescrito o executive-summary para 'centenas de bilhões de reais/dezenas de milhões de trabalhadores' (preserva o argumento, respeita o gate determinístico e a cautela dos _open_data_flags). Re-validado PASS (1 WARN não-bloqueante: estimates.json 'stale' pois roadmap gravou depends_on em epics.json depois — campo de sequenciamento, não afeta sizes). openpyxl presente → workbook Excel primário com 5 sheets (Epics, Gap Analysis, Estimates, Roadmap Phases, Efficiency).",
-      "produced": ["outputs/scoping-deliverables.xlsx"],
+      "produced": [
+        "outputs/scoping-deliverables.xlsx"
+      ],
       "decisions": [
-        {"decision": "Reescrever tamanho de mercado (R$ 150-200 bi → 'centenas de bilhões de reais') em vez de mover para seção de Commercials", "rationale": "Não é preço de serviço nem ROM — é contexto de mercado público; o número exato vinha de imprensa (flagged nos _open_data_flags). Remover a cifra disputada passa o gate E melhora a honestidade."}
+        {
+          "decision": "Reescrever tamanho de mercado (R$ 150-200 bi → 'centenas de bilhões de reais') em vez de mover para seção de Commercials",
+          "rationale": "Não é preço de serviço nem ROM — é contexto de mercado público; o número exato vinha de imprensa (flagged nos _open_data_flags). Remover a cifra disputada passa o gate E melhora a honestidade."
+        }
       ],
       "open_threads": [
         "WARN validate: estimates.json 'stale' vs epics.json (depends_on gravado pelo roadmap) — não afeta sizing; rodar revise só se algo material mudar",
         "Números de mercado (450k/300-327k empresas, ~22mi trabalhadores, ~800k estabelecimentos) seguem a confirmar na origem antes de qualquer artefato com cifra exata"
       ],
       "next": "Ciclo /dataprev completo (9 fases). Side-quests disponíveis: estimate (dual-track + roster + preço), commercials (preço indicativo c/ taxa validada), slides (deck), grill-me-on-scope (stress-test), quantum-leap (handoff de build)"
+    },
+    {
+      "date": "2026-07-28",
+      "skills_used": [
+        "estimate"
+      ],
+      "summary": "Estimate dual-track (traditional vs AI-native) sobre base de escopo única (9 épicas, 2XL/4L/3M, todos Assumed). Ownership: PS entrega as 9 (build completo), Dataprev dona da origem+tokenização (ADR 0001). Âncora = AI-native (cliente qualifica, decisão do Solution Lead); tradicional = gross-up notional. AI-native: 11-27 sem, ~8,6 FTE média-programa; tradicional: 18-38 sem, ~10,3 FTE. Delta ~42% no midpoint (~⅔ duração comprimida via native_band, ~⅓ volume de build absorvido por agentes). Preço indicativo via tabela de rates Dataprev validada, sem imposto; com imposto = ÷0,9345. Persistido estimate-comparison.json + resource-plan.json (roster âncora AI-native) + estimate-comparison.md. Validador PASS (pricing-leak limpo; 1 WARN não-bloqueante de estimates.json stale herdado do EXPORT).",
+      "friction": [
+        "Pricing-leak inicial: R$ fora da seção Approved Commercials no .md — corrigido (cifras só em Approved Commercials).",
+        "resource-plan.json precisa ser array JSON puro (não objeto com chave roster); linhas side:client não aceitam seniority/location 'n/a' — corrigido removendo os campos."
+      ],
+      "decisions": [
+        {
+          "decision": "Âncora = AI-native; tradicional como gross-up notional",
+          "rationale": "Usuário (Solution Lead) atesta que o cliente qualifica para o modelo operacional AI-native — o número comprometido é o AI-native."
+        }
+      ],
+      "open_threads": [
+        "Risco #1: âncora AI-native repousa em native_band condicional/provisória (~28-38%) enquanto a prontidão de IA medida é Low (2/8) — gates TCU/CGU/ANPD, ADI/STF, Fase 0 travada apontam postura oposta. Registrado no artefato; decisão do Solution Lead.",
+        "Change & Adoção sem correspondente exato na tabela Dataprev — mapeado a Solution Consultant (R$ 573,98); confirmar role/taxa de conversão.",
+        "Product Owner empoderado do lado cliente não confirmado — é o gap de prontidão que o gate AI-native testa."
+      ],
+      "next_steps": [
+        "Solution Lead refina os números finais e confirma no acordo comercial.",
+        "commercials/slides se o usuário quiser aprofundar uma trilha ou montar deck."
+      ]
     }
   ],
   "preferences": {},
@@ -194,13 +272,24 @@
       "area": "scope/product",
       "decision": "Revenue Cloud fora desta rodada; leilão custom na Core Platform (Cotacao__c 1→N Proposta__c); split financeiro via MuleSoft",
       "rationale": "Pesquisa validou que RLM é sell-side, sem RFQ/leilão reverso nativo e sem split multi-parte nativo de Billing",
-      "rejected": ["Revenue Cloud (CLM+Billing) dentro do escopo de E03"]
+      "rejected": [
+        "Revenue Cloud (CLM+Billing) dentro do escopo de E03"
+      ]
     },
     {
       "date": "2026-07-28",
       "area": "scope",
       "decision": "9 épicas; E09 Gestão de Mudança & Adoção adicionada explicitamente",
       "rationale": "Change/adoção implícita pelo alcance do programa (Risk #6); usuário optou por torná-la épica"
+    },
+    {
+      "date": "2026-07-28",
+      "area": "estimate",
+      "decision": "Âncora do dual-track = AI-native (número comprometido); tradicional = gross-up notional invertendo a native_band",
+      "rationale": "Solution Lead atesta que o cliente qualifica para o modelo operacional AI-native; o número submetido é o AI-native, tradicional é 'o que custaria do jeito antigo'.",
+      "rejected": [
+        "Âncora tradicional com AI-native derivado por compressão (postura de pitch) — não aplicável: o deal comprometeu-se ao modo AI-native"
+      ]
     }
   ]
 }
