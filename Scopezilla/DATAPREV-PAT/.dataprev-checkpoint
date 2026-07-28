@@ -1,7 +1,7 @@
 PROJETO=DATAPREV-PAT
-FASE_ATUAL=ROADMAP
-FASES_CONCLUIDAS=INTAKE,SETUP,DISCOVER,STRATEGY,REQUIREMENTS,DESIGN,ROADMAP
-PROXIMO=EFFICIENCY
+FASE_ATUAL=EFFICIENCY
+FASES_CONCLUIDAS=INTAKE,SETUP,DISCOVER,STRATEGY,REQUIREMENTS,DESIGN,ROADMAP,EFFICIENCY
+PROXIMO=NARRATIVES
 LOCAL=/Users/nfilho/claude/Scopezilla/DATAPREV-PAT
 HEROKU=nenhum
 PRODUTOS_SF=MuleSoft,Experience Cloud,Core/Service Cloud,Agentforce
@@ -9,4 +9,4 @@ ESCOPO=fluxo completo (4 modulos)
 RESIDENCIA_DADOS=hibrida (ADR0001)
 MIGRACAO=cadastros iniciais
 COMERCIAL=PS Services + Licencas SF
-STATUS=roadmap concluido; 5 fases (0-4) sequencia por caminho critico E05/E08->E01->E02/E03; Fase 0 incluida (65 gaps); faixa derivada 18-38 sem (top-down-shape + Benchmark Disclaimer, sem commitment); janela cliente set->nov (~15-16 sem) ABAIXO do piso de 18 sem; range-drivers E05/E03/E08; depends_on gravados em epics.json; 02-delivery-plan.md escrito
+STATUS=efficiency concluido (category-only); banda augmented realizada ~10-18% (task-level ~30-45% x fator 0.30-0.40); readiness Low 2/8; cenarios Low ~8-12%(atual)/Mid ~12-16%/High ~16-22%; banda AI-native condicional ~28-38% (gated, provisoria decisions/0033); TENSAO: alvo >=25% do programa so alcancavel na trilha AI-native condicional, NAO na augmented honesta - surfaceado no deliverable, augmented nao inflada; efficiency.json + efficiency-analysis.md escritos

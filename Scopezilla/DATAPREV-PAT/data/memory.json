@@ -138,6 +138,21 @@
         "Compressão por IA ainda não aplicada — depende de efficiency.json (EFFICIENCY não rodou); dataprev exige ganho ≥25%"
       ],
       "next": "EFFICIENCY (ganhos de IA na entrega; comprimir a faixa via realized_band/native_band) via /dataprev"
+    },
+    {
+      "date": "2026-07-28",
+      "skills": ["efficiency"],
+      "summary": "Efficiency DATAPREV-PAT (category-only, sem resource-plan): blend task-level ~30-45% × fator de realização 0.30-0.40 (regulada + zero contratos de API puxam ao piso; org greenfield + mock-first nudge cima) → banda augmented realizada ~10-18%. Readiness Low (2/8): AI tooling 0, velocity 1, data hygiene 1, legal/compliance 0. Cenários: Low ~8-12% (atual), Mid ~12-16%, High ~16-22%. 4 categorias (Documentação lidera ~12-20%; PM & Ops piso ~8-12%). Banda AI-native condicional ~28-38% (provisória, decisions/0033).",
+      "produced": ["data/efficiency.json", "outputs/artifacts/efficiency-analysis.md", "data/csv/08-efficiency.csv"],
+      "decisions": [
+        {"decision": "Banda augmented honesta ~10-18% NÃO alcança o alvo ≥25% do programa; os 25% só existem na banda AI-native condicional (~28-38%)", "rationale": "Engajamento regulado + integração-pesada + baixa prontidão de IA. Banda augmented NÃO inflada para atingir alvo; native apresentada como motivador gated que exige modelo operacional native — postura oposta à de um programa gov com gates TCU/CGU/ANPD e Fase 0 hoje."}
+      ],
+      "open_threads": [
+        "Readiness signals AI tooling posture (0) e legal/compliance (0) marcados Assumed — perguntas de esclarecimento: há ferramenta de IA aprovada? há política de manuseio de dados por IA sob LGPD?",
+        "Compressão da faixa 18-38 sem via efficiency: roadmap/estimate podem aplicar realized_band (~10-18%) para a trilha augmented; native_band (~28-38%) só atrás do gate de qualificação",
+        "Tensão alvo ≥25% vs. banda honesta surfaceada no deliverable — decisão comercial de trilha (augmented vs. buscar qualificação AI-native) fica com o cliente/Solution Lead"
+      ],
+      "next": "NARRATIVES (executive summary + seções de proposta) via /dataprev"
     }
   ],
   "preferences": {},

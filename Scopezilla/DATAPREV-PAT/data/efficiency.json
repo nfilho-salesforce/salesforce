@@ -1,0 +1,118 @@
+{
+  "fidelity": "category-only",
+  "generated_from": {
+    "epics_count": 9,
+    "estimates_count": 9,
+    "has_roadmap": true,
+    "has_resource_plan": false
+  },
+  "task_level": {
+    "blended_band": "~30-45%",
+    "basis": "Mix dominado por código custom e integração — E02 (leilão reverso, Apex+LWC) e E05 (hub de ~600-700 APIs, mock-first) são os dois XL e puxam o Technical Engineering para o primeiro plano com banda larga (o imposto de IA é maior em código bespoke); a carga documental de programa regulado (DFD LGPD, trilha de auditoria TCU/CGU, ADR) adiciona uma fatia de ganho mais confiável em Documentação.",
+    "sources": ["[1]", "[3]", "[4]", "[7]", "[13]"]
+  },
+  "realization_factor": {
+    "value_range": "0.30-0.40",
+    "rationale": "Straddle entre a linha regulada/integração-legada pesada (0.25-0.35) e config+custom misto (0.35-0.45): governo regulado + ausência total de contratos de API puxa para o piso; org Salesforce greenfield (sem dívida de código legado) + mock-first + princípio 'configurar antes de customizar' (strategy.json) nudge levemente para cima.",
+    "drivers": ["Governo federal regulado (LGPD Art. 11, TCU/CGU/ANPD)", "Integração pesada sem contratos de API (E05, risco #1)", "Build custom significativo (E02 leilão reverso)", "Org greenfield + mock-first + configurar-antes-de-customizar compensam parcialmente"]
+  },
+  "project_level": {
+    "realized_band": "~10-18%",
+    "basis": "task-level (~30-45%) × fator de realização (0.30-0.40), antes da modulação por readiness. Banda augmented — ferramental de IA, modelo operacional inalterado.",
+    "confidence": "Assumed",
+    "native_band": "~28-38%",
+    "native_basis": "task-level × o fator de realização AI-native (0.55-0.75), aplicável SOMENTE atrás do gate de qualificação. Temperada abaixo da faixa genérica de 35-40% porque o piso de coordenação irredutível de um programa gov com gates TCU/CGU/ANPD + incerteza jurídica (ADI/STF) é estruturalmente grande, mesmo num modelo native. Provisória — a magnitude é não-calibrada (decisions/0033).",
+    "native_qualification": "conditional"
+  },
+  "readiness": {
+    "signals": [
+      {"signal": "AI tooling posture", "score": 0, "evidence": "Dataprev é empresa pública federal de TI; nenhuma evidência no discovery de ferramentas de IA aprovadas (Copilot/Claude em IDE) ou postura de adoção. Postura legal/segurança tende a ser restritiva. Assumed — pergunta de esclarecimento."},
+      {"signal": "Delivery velocity / speed bias", "score": 1, "evidence": "Data-alvo agressiva (homologação set/2026, produção 15/nov, ~15-16 sem abaixo do piso de 18) sinaliza viés de velocidade; MAS camadas de aprovação gov, incerteza jurídica (ADI no STF) e os blockers da Fase 0 temperam. Misto."},
+      {"signal": "Data & environment hygiene", "score": 1, "evidence": "Org Salesforce greenfield (sem dívida legada no lado SF), MAS paisagem de integração externa fragmentada — sem contratos/Swaggers de API, ~600-700 facilitadoras em silos, volume de carga desconhecido (G0701). Lado SF limpo, lado integração/dados bagunçado."},
+      {"signal": "Legal / security / compliance posture", "score": 0, "evidence": "Pesada — LGPD Art. 11 (dado sensível), auditoria TCU/CGU/ANPD, residência híbrida (CPF não persiste, ADR 0001), ADI no STF. Máximo de restrição para código/dado proprietário em prompts; sem política de manuseio de dados por IA evidenciada."}
+    ],
+    "total_score": 2,
+    "scenarios": [
+      {
+        "scenario": "Low readiness",
+        "score_range": "0-2",
+        "realized_band": "~8-12%",
+        "narrative": "Estado de hoje. Sem ferramental de IA aprovado e com gates de compliance pesados, o ganho fica no piso — o modelo ajuda a rascunhar código/testes/docs, mas o ambiente não deixa capturar mais.",
+        "unlock_to_move_up": ["Aprovar Copilot/Claude para uso em IDE dentro da fronteira de segurança", "Publicar política de manuseio de dados por IA (o que pode/não pode ir a prompt sob LGPD)"]
+      },
+      {
+        "scenario": "Mid readiness",
+        "score_range": "3-5",
+        "realized_band": "~12-16%",
+        "narrative": "Com ferramental aprovado e uma política de dados clara, o ganho sobe para o meio da banda — o time captura o ganho documental e de testes de forma consistente, o custom pesado continua limitado pelo review.",
+        "unlock_to_move_up": ["Ambientes/dados de teste representativos prontos cedo", "Contratos de API resolvidos na Fase 0 (reduz o mock-then-rework)"]
+      },
+      {
+        "scenario": "High readiness",
+        "score_range": "6-8",
+        "realized_band": "~16-22%",
+        "narrative": "Condições favorecem o topo da banda augmented — ferramental aprovado, dados limpos e ciclos rápidos. Ainda é a banda augmented; ultrapassar isso exige o modelo operacional AI-native (banda condicional).",
+        "unlock_to_move_up": []
+      }
+    ],
+    "current_scenario": "Low readiness"
+  },
+  "by_category": [
+    {
+      "category": "Technical Engineering & QA",
+      "task_level_band": "~25-40%",
+      "realized_band": "~8-16%",
+      "driving_tasks": ["Create Code (realistic enterprise / legacy)", "Analyze Code & Fix Defects", "Write Test Classes", "Generate Test Data"],
+      "driving_epics": ["E05", "E02", "E03"],
+      "sources": ["[1]", "[4]"],
+      "narrative": "O mock-first de E05 é favorável à IA — gerar stubs/mocks aproxima-se de greenfield, onde o ganho é maior. Mas o leilão reverso custom (E02) e a de-tokenização em runtime (E08) são exatamente 'fora da fronteira irregular': código bespoke complexo onde o esforço de review consome o ganho bruto."
+    },
+    {
+      "category": "Analysis & Design",
+      "task_level_band": "~30-50%",
+      "realized_band": "~10-18%",
+      "driving_tasks": ["Write User Stories", "Generation of Analysis Models", "Discovery Prep"],
+      "driving_epics": ["E08", "E02", "E01"],
+      "sources": ["[2]", "[11]"],
+      "narrative": "A IA acelera o rascunho de modelos de análise e histórias (fronteira de residência de E08, regras do leilão de E02, jornada do portal E01). O refinamento é humano-dependente: ratificar a fronteira campo-a-campo com Jair Bogo e alinhar as regras do leilão à Lei 14.133 não é trabalho que o modelo fecha."
+    },
+    {
+      "category": "Documentation & Knowledge Management",
+      "task_level_band": "~35-50%",
+      "realized_band": "~12-20%",
+      "driving_tasks": ["Generate Documents", "Meeting Notes", "Knowledge Transfer"],
+      "driving_epics": ["E08", "E09", "E01"],
+      "sources": ["[7]", "[11]"],
+      "narrative": "É onde os ganhos mais defensáveis vivem: um programa regulado gera documentação pesada (DFD LGPD, docs de trilha de auditoria TCU/CGU, ADR, materiais de capacitação de E09) que a IA rascunha bem. O ganho é real porque o volume é alto e a estrutura é repetível."
+    },
+    {
+      "category": "Project Management & Operations",
+      "task_level_band": "~20-30%",
+      "realized_band": "~8-12%",
+      "driving_tasks": ["Status Reports", "Search & Retrieval", "Coordination"],
+      "driving_epics": ["E09", "E05"],
+      "sources": ["[7]", "[1]", "[5]"],
+      "narrative": "A categoria de menor ganho. A IA sumariza status e recupera informação, mas o núcleo — alinhamento entre MTE × Dataprev × 600-700 facilitadoras, resolução dos blockers da Fase 0, coordenação da virada mock→real de E05 — é trabalho humano que não se move."
+    }
+  ],
+  "by_role_type": [],
+  "human_barriers": [
+    {"activity": "Project Pulse Reports", "why_no_gain": "Trabalho de construção de confiança que a IA sumariza mas não facilita."},
+    {"activity": "Stakeholder Alignment", "why_no_gain": "Enorme aqui: alinhamento entre MTE (governo) × Dataprev × 600-700 facilitadoras. A IA rascunha posições; as pessoas decidem."},
+    {"activity": "Conflict Resolution", "why_no_gain": "Julgamento humano."},
+    {"activity": "Ratificação da fronteira de residência (G0801)", "why_no_gain": "Decisão de arquitetura humana com Jair Bogo — o que é token vs. o que pode persistir. Governa o data model; não é rascunhável por IA."},
+    {"activity": "Definição das regras do leilão / Lei 14.133 (G0202/G0203)", "why_no_gain": "Sign-off legal/regulatório humano sobre critérios de seleção e desempate; a IA propõe minutas, o órgão decide."},
+    {"activity": "Resolução da incerteza jurídica (ADI no STF)", "why_no_gain": "Fora do controle de qualquer equipe de entrega — depende de decisão judicial."}
+  ],
+  "assumptions": [
+    "Benchmarks extraídos de dados publicados 2022-2026 (Peng et al./GitHub 2022, Paradis et al./Google 2024, METR 2025, DORA 2024-2025, McKinsey 2025, GitClear 2025, Stanford HAI AI Index 2026) mais observações internas.",
+    "Bandas task-level convertidas para project-level via fator de realização que contabiliza a lei de Amdahl + overhead de review/imposto de IA.",
+    "Todos os 9 sizes permanecem Assumed atrás dos blockers da Fase 0 — a banda realizada herda essa confiança (Assumed)."
+  ],
+  "caveats": [
+    "Bandas são qualitativas e específicas do projeto, não garantias.",
+    "Nenhuma implicação de horas, FTE ou custo é computada ou implícita.",
+    "O gap de percepção é real — times frequentemente sentem-se mais rápidos que os ganhos medidos confirmam (METR 2025).",
+    "MANDATO ≥25% vs. banda honesta: a banda augmented honesta (~10-18%) NÃO alcança 25% para este engajamento regulado, integração-pesada, de baixa prontidão para IA. Os 25% só aparecem na banda AI-native condicional (~28-38%), que é gated + provisória (decisions/0033) e exige o cliente comprometer-se com um modelo operacional native (build/demo/decide diário, decisores empoderados) — postura oposta à de um programa gov com gates TCU/CGU/ANPD e Fase 0 hoje. A banda augmented NÃO foi inflada para atingir o alvo; a native é apresentada como motivador, não como compromisso."
+  ]
+}
