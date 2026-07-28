@@ -1,7 +1,7 @@
 PROJETO=DATAPREV-PAT
-FASE_ATUAL=REQUIREMENTS
-FASES_CONCLUIDAS=INTAKE,SETUP,DISCOVER,STRATEGY,REQUIREMENTS
-PROXIMO=DESIGN
+FASE_ATUAL=DESIGN
+FASES_CONCLUIDAS=INTAKE,SETUP,DISCOVER,STRATEGY,REQUIREMENTS,DESIGN
+PROXIMO=ROADMAP
 LOCAL=/Users/nfilho/claude/Scopezilla/DATAPREV-PAT
 HEROKU=nenhum
 PRODUTOS_SF=MuleSoft,Experience Cloud,Core/Service Cloud,Agentforce
@@ -9,4 +9,4 @@ ESCOPO=fluxo completo (4 modulos)
 RESIDENCIA_DADOS=hibrida (ADR0001)
 MIGRACAO=cadastros iniciais
 COMERCIAL=PS Services + Licencas SF
-STATUS=requirements concluido; 9 epicas (epics.json) + 60 gaps (gaps.json); Revenue Cloud fora; E09 change&adocao criada; Fase 0 recomendada (60 gaps, 3 conflitos, 4 bloqueadores de arquitetura)
+STATUS=design concluido; 01-solution.md (org unica, residencia hibrida como fundacao, 4 blockers como assumcoes); estimates.json 9 epicas (2 XL: E02 Marketplace/E05 Integracao; 4 L: E01/E03/E06/E08; 3 M: E04/E07/E09) todos Assumed; 63 gaps; Fase 0 recomendada

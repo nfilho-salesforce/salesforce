@@ -105,6 +105,22 @@
         "Central Salesforce KB degradada (access_denied) — grounding via knowledge/ do projeto"
       ],
       "next": "DESIGN (arquitetura) via /dataprev — recomendar resolver bloqueadores de arquitetura (G0801/G0501/G0504) idealmente em Fase 0"
+    },
+    {
+      "summary": "Design DATAPREV-PAT: esqueleto de arquitetura aprovado (org única, Experience Cloud + Core/Service + MuleSoft + Agentforce; residência híbrida ADR 0001 como fundação; 4 blockers de arquitetura carregados como assumções). Escrito outputs/01-solution.md (fundações transversais + mapa por processo de negócio). T-shirt sizing dos 9 épicos pelo rubric dimensional (2 XL, 4 L, 3 M) — todos Assumed pelos blockers em aberto. +3 assumções load-bearing gravadas em gaps.json (G0108 licença Experience Cloud, G0808 org única, G0809 DevOps source-driven).",
+      "skills": ["design"],
+      "produced": ["outputs/01-solution.md", "data/estimates.json", "data/csv/02-estimates.csv"],
+      "decisions": [
+        {"decision": "Org única; residência resolvida por tokenização (E08), não por multi-org", "rationale": "Nenhum requisito de isolamento força multi-org; ADR 0001 resolve residência via referências tokenizadas + MuleSoft"},
+        {"decision": "Sizing: E02 Marketplace e E05 Integração = XL; E01/E03/E06/E08 = L; E04/E07/E09 = M", "rationale": "Rubric dimensional: E05 dirigido por largura de integração (~600-700 facilitadoras, sem contratos); E02 por composição de L (automação+UI+sharing do leilão custom)"}
+      ],
+      "open_threads": [
+        "Todos os 9 sizes em Assumed — 4 blockers de arquitetura (G0801/G0501/G0504/G0106) não resolvidos alargam faixa a jusante; argumento da Fase 0",
+        "E03 pode subir a XL e E08 a XL conforme size_if_assumption_breaks; E07 sobe a L se volume >500k",
+        "Adders de risco para o roadmap: regulada (+15-20%), timeline comprimida set→nov/2026 (+15-25%), integração sem contratos",
+        "Central Salesforce KB degradada (access_denied) — grounding via knowledge/ do projeto (1 doc); sugerir /kb-sync"
+      ],
+      "next": "ROADMAP (sequência + faixa de duração top-down) via /dataprev"
     }
   ],
   "preferences": {},

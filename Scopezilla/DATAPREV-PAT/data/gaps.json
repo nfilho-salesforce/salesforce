@@ -358,5 +358,23 @@
     "category": "Potential Risk",
     "gap_or_question": "Esta epica e entregue pela PS ou pelo cliente (Dataprev/MTE) com apoio pontual? Foi adicionada a pedido do usuario em 28/jul como escopo aberto (produtos: []). Change/adocao de programa federal nacional envolve comunicacao institucional, canais gov.br e linguagem oficial que tipicamente pertencem ao orgao publico.",
     "impact_or_notes": "Se PS-entregue, exige perfis de Change & Adoption no roster e forte dependencia de conteudo/canais do MTE/Dataprev. Se cliente-entregue, vira premissa/gap e sai do sizing PS. Determina se a epica gera esforco PS ou e apenas responsabilidade a registrar."
+  },
+  {
+    "gap_id": "G0108",
+    "category": "Assumption",
+    "gap_or_question": "Modelo de licenca Experience Cloud (login-based vs member-based) para beneficiarias + estabelecimentos",
+    "impact_or_notes": "Assumcao de design (org unica, Experience Cloud external). Validar contra o volume de usuarios ativos (G0103) — define custo de licenciamento."
+  },
+  {
+    "gap_id": "G0808",
+    "category": "Assumption",
+    "gap_or_question": "Org unica Salesforce hospeda todos os dominios (marketplace/credenciamento/financeiro/atendimento)",
+    "impact_or_notes": "Assumcao de design: nenhum requisito de isolamento regulatorio forca multi-org; residencia resolvida por tokenizacao (E08), nao por separacao de org. Validar com arquitetura Dataprev."
+  },
+  {
+    "gap_id": "G0809",
+    "category": "Assumption",
+    "gap_or_question": "DevOps source-driven (Salesforce CLI + Git, pipeline Dev->QA->UAT->Prod) + full sandbox para UAT",
+    "impact_or_notes": "Assumcao de design baseada em equipe multi-perfil + timeline comprimida + go-live regulado. Validar toolchain e politica de deploy da Dataprev."
   }
 ]
