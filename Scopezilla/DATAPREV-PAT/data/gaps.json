@@ -135,7 +135,7 @@
     "gap_id": "G0401",
     "category": "Source Conflict",
     "gap_or_question": "Cadastro unificado de estabelecimentos vs. facilitadoras mantendo o papel legal de aprovar/descredenciar: quem e o system-of-record do credenciamento? Cadastro-base unico com N status por facilitadora, ou credenciamento unico que todas honram?",
-    "impact_or_notes": "Define o modelo de dados central de E04 (Estabelecimento unico vs. Credenciamento__c 1->N por facilitadora). Afeta E02 e E05. Alto impacto de sizing."
+    "impact_or_notes": "Define o modelo de dados central de E04 (Estabelecimento unico vs. Credenciamento__c 1->N por facilitadora). Afeta E02 e E05. Alto impacto de sizing. Contexto de negócio (base: discovery-notes/reforma-pat-decreto-12712-2025.md): a reforma (Decreto 12.712/2025 — MDR 3,6%, repasse 15 dias, interoperabilidade) torna o cadastro unificado o value driver do estabelecimento, mas NÃO extingue o papel legal da facilitadora de aprovar/descredenciar — é essa dupla natureza (registro central único vs. relação legal por facilitadora) que gera o conflito de fonte a resolver na Fase 0. Decreto sub judice (ADI 7962/STF)."
   },
   {
     "gap_id": "G0402",

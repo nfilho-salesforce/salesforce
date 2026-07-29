@@ -173,7 +173,7 @@
   <h1>DATAPREV-PAT — Marketplace Digital do PAT</h1>
   <div class="sub">DATAPREV-PAT · Government · Dataprev / Ministério do Trabalho e Emprego (MTE)</div>
   <div class="stampline">
-    <span><b>Gerado:</b> 28 jul 2026, 18:04 BRT (UTC&minus;03:00)</span>
+    <span><b>Gerado:</b> 29 jul 2026, 15:20 BRT (UTC&minus;03:00)</span>
     <span><b>Scopezilla:</b> 1.9.1</span>
     <span><b>Dados do projeto atualizados:</b> 28 jul 2026</span>
   </div>
@@ -187,6 +187,7 @@
   <button class="active" data-tab="glance">Resumo</button>
   <button data-tab="discovery">Descoberta</button>
   <button data-tab="epics">Épicas &amp; Solução</button>
+  <button data-tab="pat-reforma">Reforma do PAT</button>
   <button data-tab="arch">Arquitetura Macro</button>
   <button data-tab="delivery">Roadmap &amp; Time</button>
   <button data-tab="estimate">Estimativa</button>
@@ -395,6 +396,56 @@
         <li>Quais épicas sobem de size se cada um dos 4 blockers quebrar contra a assumption?</li>
         <li>E02 (leilão reverso custom) é mesmo XL, ou dá para reduzir com padrão configurável?</li>
         <li>E09 (change) é PS ou Dataprev — e o que muda no roster se for cliente?</li>
+      </ul>
+    </div>
+  </section>
+  <section class="tab" id="pat-reforma">
+    <div class="card">
+      <h2>Por que um estabelecimento se credenciaria no PAT — a economia que a reforma inverteu</h2>
+      <p class="hint">Contexto de domínio que sustenta <b>E04 (Credenciamento)</b> e o conflito <b>G0401</b>. Base documental: <code>discovery-notes/reforma-pat-decreto-12712-2025.md</code> (Decreto 12.712/2025 · planalto.gov.br + Pluxee). <b>Sub judice</b> — ADI 7962 no STF; AGU/PGR sustentam a validade.</p>
+      <div class="quote">
+        <b>Resposta curta:</b> antes da reforma, aceitar vale-alimentação/refeição significava um contrato por operadora — o estabelecimento se credenciava <b>facilitadora a facilitadora</b> (Alelo, Ticket/Edenred, Pluxee/Sodexo, VR), cada uma uma rede fechada, com taxa (MDR) alta e variável e repasse negociado caso a caso. O Decreto 12.712/2025 <b>inverteu a economia</b>: teto de MDR de 3,6%, repasse em até 15 dias, fim do rebate e interoperabilidade entre bandeiras. Com isso, o cadastro unificado via gov.br passa a ser a via de <b>menor custo e menor fricção</b> — é esse value driver que sustenta a adesão do estabelecimento ao marketplace do PAT.
+        <span class="src">discovery-notes/reforma-pat-decreto-12712-2025.md — síntese das fontes oficiais + impacto no estabelecimento.</span>
+      </div>
+    </div>
+
+    <div class="card" data-shot>
+      <h2>Modelo antigo (redes fechadas) × reforma (interoperável)</h2>
+      <p class="hint">Só transações PAT. Fora do PAT (auxílio-alimentação e outras modalidades), permanecem as condições de contrato.</p>
+      <table>
+        <tr><th>Dimensão</th><th>Antes — acordo direto por operadora</th><th>Depois — Decreto 12.712/2025</th></tr>
+        <tr><td><b>Credenciamento</b></td><td>Facilitadora a facilitadora — um contrato por operadora; duplicidade e fricção.</td><td>Cadastro unificado; um credenciamento/terminal aceita todas as bandeiras (interoperabilidade).</td></tr>
+        <tr><td><b>Taxa administrativa (MDR)</b></td><td>Alta e variável, negociada por operadora.</td><td><b>Teto de 3,6%</b> nas vendas PAT (Tarifa de Gestão de Pagamento isenta nesses casos).</td></tr>
+        <tr><td><b>Repasse ao estabelecimento</b></td><td>Prazo definido caso a caso.</td><td><b>Em até 15 dias</b> para vendas PAT.</td></tr>
+        <tr><td><b>Rebate</b></td><td>Rebate/desconto entre facilitadora e empresa contratante.</td><td><b>Fim do rebate</b> (mudança citada pela imprensa jurídica).</td></tr>
+        <tr><td><b>Aceitação de bandeiras</b></td><td>Rede fechada — cada terminal aceita só a bandeira da operadora contratada.</td><td>Portabilidade: mai/2026 (180 dias — sistemas com +500 mil trabalhadores) → nov/2026 (360 dias — interoperabilidade total).</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>As quatro alavancas da reforma</h2>
+      <ol class="declist">
+        <li><b>Teto de MDR de 3,6%</b> — corta e padroniza o custo de aceitação, que antes era negociado operadora a operadora.</li>
+        <li><b>Repasse em até 15 dias</b> — dá previsibilidade de caixa que o modelo caso a caso não garantia.</li>
+        <li><b>Interoperabilidade / portabilidade</b> — um credenciamento/terminal aceita todas as bandeiras; elimina a duplicidade de contratos. Prazos: mai/2026 (grandes) → nov/2026 (total).</li>
+        <li><b>Fim do rebate</b> — remove o desconto entre facilitadora e empresa contratante, atacando a assimetria do modelo fechado.</li>
+      </ol>
+      <p class="small muted" style="margin-top:8px">Regras de uso mantidas: vale-refeição = refeições prontas; vale-alimentação = gêneros alimentícios.</p>
+    </div>
+
+    <div class="card">
+      <h2>Ligação com o escopo — E04 e G0401</h2>
+      <div class="kv"><span class="k">E04 · Credenciamento (size M, Confirmed)</span><span class="v">A reforma é o <b>driver de negócio</b> do cadastro unificado: menor custo e menor fricção tornam a adesão do estabelecimento racional. É o que sustenta o volume da plataforma.</span></div>
+      <div class="kv"><span class="k">G0401 · Conflito de fonte (Fase 0)</span><span class="v">A reforma <b>não extingue</b> o papel legal da facilitadora de aprovar/descredenciar. Essa dupla natureza — registro central único (gov.br) vs. relação legal por facilitadora — é o conflito de system-of-record a resolver na Fase 0.</span></div>
+      <div class="contra"><b>Caveat a carregar:</b> o Decreto 12.712/2025 está <b>sub judice</b> — ADI 7962 no STF (AGU e PGR sustentam a validade). Os prazos de interoperabilidade (mai/2026, nov/2026) e o teto de MDR são a premissa regulatória do deal, mas dependem da decisão do STF. É a mesma tensão já registrada nas abas Decisões (thread ABBT) e Estimativa (gate regulatório).</div>
+    </div>
+
+    <div class="ask">
+      <div class="lead">⧉ Perguntas para fazer ao Claude no repositório</div>
+      <ul>
+        <li>Se a ADI 7962 suspender os prazos de interoperabilidade, o que muda no value driver de E04?</li>
+        <li>Como o modelo de dados de E04 concilia registro único (gov.br) com o papel legal da facilitadora (G0401)?</li>
+        <li>O teto de MDR de 3,6% e o repasse em 15 dias afetam o desenho do financeiro (E03)?</li>
       </ul>
     </div>
   </section>
