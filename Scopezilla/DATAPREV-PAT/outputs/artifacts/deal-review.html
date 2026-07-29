@@ -173,7 +173,7 @@
   <h1>DATAPREV-PAT — Marketplace Digital do PAT</h1>
   <div class="sub">DATAPREV-PAT · Government · Dataprev / Ministério do Trabalho e Emprego (MTE)</div>
   <div class="stampline">
-    <span><b>Gerado:</b> 29 jul 2026, 15:20 BRT (UTC&minus;03:00)</span>
+    <span><b>Gerado:</b> 29 jul 2026, 17:45 BRT (UTC&minus;03:00)</span>
     <span><b>Scopezilla:</b> 1.9.1</span>
     <span><b>Dados do projeto atualizados:</b> 28 jul 2026</span>
   </div>
@@ -188,6 +188,7 @@
   <button data-tab="discovery">Descoberta</button>
   <button data-tab="epics">Épicas &amp; Solução</button>
   <button data-tab="pat-reforma">Reforma do PAT</button>
+  <button data-tab="ciclo-mensal">Ciclo Mensal &amp; Adquirência</button>
   <button data-tab="arch">Arquitetura Macro</button>
   <button data-tab="delivery">Roadmap &amp; Time</button>
   <button data-tab="estimate">Estimativa</button>
@@ -250,7 +251,7 @@
         <p>A Dataprev vai construir, para o <b>Ministério do Trabalho e Emprego (MTE)</b>, uma <b>plataforma-marketplace do PAT</b> que dá transparência e concorrência à contratação de vale-alimentação/refeição — conectando empresas beneficiárias, facilitadoras (emissoras de cartão) e estabelecimentos credenciados, sob as novas regras da reforma de nov/2025 (taxa máxima 3,6%, repasse em até 15 dias).</p>
         <p>Salesforce PS propõe um ROM cobrindo os <b>quatro módulos</b> (Cotação/Contratação, Folha/Financeiro, Credenciamento e Agentforce) sobre <b>MuleSoft + Experience Cloud + Core/Service Cloud + Agentforce</b>, com homologação-alvo em set/2026 e produção em 15/nov/2026.</p>
       </div>
-      <a class="docref" href="../00-discovery-brief.md">📄 00-discovery-brief.md — brief completo</a>
+      <span class="docref">📄 00-discovery-brief.md — brief completo (no repositório)</span>
     </div>
     <div class="recon">
       <b>Nota de reconciliação — volumetria de fontes secundárias.</b> Os números de volume do brief (§2: ~22 mi trabalhadores · ~450 mil empresas beneficiárias · ~800 mil estabelecimentos · 600–700 facilitadoras) vêm de imprensa/reforma, não de dado primário do cliente. O gap <code>G0706</code> os marca "a confirmar na origem", e <code>G0701</code> registra divergência de ~450k (discovery) vs ~300–327,7k (oficial) beneficiárias. Tratados como ordem de grandeza, não fatos ratificados.
@@ -305,7 +306,7 @@
         <p><b>Org única</b> (Enterprise+) hospeda os 4 domínios; separação por objeto/perfil/sharing, não multi-org. <b>Residência híbrida (ADR 0001):</b> CPF e dados sensíveis <b>não persistem</b> no Salesforce — a org guarda referências tokenizadas resolvidas em runtime via MuleSoft contra a infra Dataprev. OWD Private em todos os objetos transacionais; visibilidade N-vendedores do leilão via Apex managed sharing. DevOps source-driven (CLI + Git), Dev→QA→UAT→Produção.</p>
         <p>Quatro decisões de arquitetura em aberto (fronteira de residência, hospedagem MuleSoft, identidade Experience Cloud × CPF, contratos de API) idealmente se resolvem numa <b>Fase 0</b> antes do compromisso final de escopo/prazo.</p>
       </div>
-      <a class="docref" href="../01-solution.md">📄 01-solution.md — desenho completo por processo</a>
+      <span class="docref">📄 01-solution.md — desenho completo por processo (no repositório)</span>
       <p class="small muted" style="margin-top:10px">A letra de tamanho abaixo é o headline de complexidade; os números (duração/FTE/preço) vivem na aba Estimativa. <b>Confiança da épica</b> e <b>confiança do size</b> são distintas: 5/9 épicas Confirmed, mas <b>todos os 9 sizes seguem Assumed</b> atrás dos 4 blockers de arquitetura.</p>
     </div>
 
@@ -446,6 +447,67 @@
         <li>Se a ADI 7962 suspender os prazos de interoperabilidade, o que muda no value driver de E04?</li>
         <li>Como o modelo de dados de E04 concilia registro único (gov.br) com o papel legal da facilitadora (G0401)?</li>
         <li>O teto de MDR de 3,6% e o repasse em 15 dias afetam o desenho do financeiro (E03)?</li>
+      </ul>
+    </div>
+  </section>
+  <section class="tab" id="ciclo-mensal">
+    <div class="card">
+      <h2>O ciclo mensal do benefício — da contratação à cobrança e ao repasse</h2>
+      <p class="hint">Contexto de domínio que sustenta <b>E03 (Folha &amp; Financeiro)</b>, <b>E02 (Marketplace)</b>, <b>E04 (Credenciamento)</b> e <b>E05 (Integração)</b>. Base documental: <code>discovery-notes/ciclo-mensal-beneficio-e-adquirencia.md</code> (Ticket, G1, guias de portabilidade + Decreto 12.712/2025). <b>Sub judice</b> — mesma premissa regulatória da aba Reforma do PAT.</p>
+      <div class="quote">
+        <b>Resposta curta:</b> depois que a empresa (beneficiária) contrata uma facilitadora, o ciclo é <b>mensal e pré-pago</b>. A cada mês o RH envia um <b>pedido de recarga</b> — na prática uma folha: por CPF, o valor do benefício de cada colaborador. A facilitadora consolida o total, <b>cobra a empresa</b> (boleto/Pix + taxa de administração), e só então <b>credita os cartões</b>. O trabalhador gasta no estabelecimento credenciado via maquininha; a facilitadora <b>repassa ao estabelecimento</b> o valor da venda <b>menos o MDR</b> (agora com teto de 3,6% e repasse em até 15 dias). São, portanto, <b>dois fluxos financeiros distintos</b> — empresa→facilitadora (pré-pagamento) e facilitadora→estabelecimento (repasse pós-venda) — que o financeiro do marketplace (E03) precisa orquestrar.
+        <span class="src">discovery-notes/ciclo-mensal-beneficio-e-adquirencia.md — síntese das fontes de domínio + Decreto 12.712/2025.</span>
+      </div>
+    </div>
+
+    <div class="card" data-shot>
+      <h2>O ciclo mensal, passo a passo</h2>
+      <p class="hint">Um ciclo típico de recarga, do fechamento da folha ao gasto no estabelecimento.</p>
+      <ol class="declist">
+        <li><b>Setup (uma vez)</b> — a empresa define o valor mensal por colaborador e cadastra os funcionários (CPF); a facilitadora emite e distribui os cartões.</li>
+        <li><b>Pedido de recarga (mensal)</b> — o RH envia o arquivo de recarga na plataforma da facilitadora: por CPF, o valor do mês (ajustado por admissões, desligamentos, dias trabalhados, férias).</li>
+        <li><b>Cobrança / pré-pagamento</b> — a facilitadora consolida o total e cobra a empresa. O modelo é <b>pré-pagamento obrigatório</b> (a reforma vedou o pós-pagamento): boleto/Pix pelo valor da folha <b>+ taxa de administração</b> da empresa contratante.</li>
+        <li><b>Crédito nos cartões</b> — confirmado o pagamento, o saldo entra <b>automaticamente</b> no cartão de cada colaborador na data de recarga.</li>
+        <li><b>Uso pelo trabalhador</b> — gasto no estabelecimento credenciado no PAT (vale-refeição = refeições prontas; vale-alimentação = gêneros), com controle por <b>MCC</b> (código de categoria do estabelecimento).</li>
+        <li><b>Repasse ao estabelecimento</b> — a facilitadora (via adquirente) liquida a venda ao estabelecimento, <b>descontado o MDR</b> — teto de 3,6% e prazo de até 15 dias nas vendas PAT.</li>
+      </ol>
+    </div>
+
+    <div class="card" data-shot>
+      <h2>Quem cobra quem — os dois fluxos financeiros</h2>
+      <p class="hint">O erro comum é tratar como um fluxo só. São dois, com contrapartes, sentidos e taxas diferentes.</p>
+      <table>
+        <tr><th>Fluxo</th><th>Sentido</th><th>Gatilho</th><th>Taxa incidente</th></tr>
+        <tr><td><b>1 · Recarga (pré-pago)</b></td><td>Empresa beneficiária → facilitadora</td><td>Pedido mensal de recarga (folha por CPF)</td><td><b>Taxa de administração</b> paga pela empresa (após a reforma, sem rebate/deságio).</td></tr>
+        <tr><td><b>2 · Liquidação da venda</b></td><td>Facilitadora / adquirente → estabelecimento</td><td>Compra do trabalhador na maquininha</td><td><b>MDR</b> pago pelo estabelecimento — teto de 3,6%, repasse em até 15 dias.</td></tr>
+      </table>
+      <p class="small muted" style="margin-top:8px">No modelo antigo o rebate cruzava os dois fluxos — a facilitadora dava desconto à empresa (fluxo 1) e recuperava com MDR alto (6–8%) no estabelecimento (fluxo 2). A reforma proibiu esse cruzamento.</p>
+    </div>
+
+    <div class="card">
+      <h2>A relação com bandeiras e maquininhas (adquirência)</h2>
+      <p class="hint">Por que "acordo direto com as operadoras" e "aceitar em qualquer maquininha" eram, até a reforma, coisas incompatíveis.</p>
+      <div class="kv"><span class="k">Modelo antigo — rede fechada</span><span class="v">Cada operadora rodava seu próprio arranjo: o cartão da operadora Y só passava na maquininha credenciada por Y. Se o restaurante tinha a bandeira X, a transação não ocorria. Daí o credenciamento facilitadora a facilitadora.</span></div>
+      <div class="kv"><span class="k">Reforma — arranjo aberto</span><span class="v">Interoperabilidade: qualquer maquininha habilitada no PAT aceita qualquer bandeira, referenciada ao arranjo de pagamento (Banco Central). Portabilidade gratuita entre operadoras. Fim do "não aceitamos a bandeira X".</span></div>
+      <div class="kv"><span class="k">Papéis</span><span class="v"><b>Facilitadora/operadora</b> emite o benefício e faz a recarga; <b>adquirente</b> (maquininha) captura e processa a transação; <b>bandeira/arranjo</b> conecta os dois lados. O estabelecimento paga o MDR à adquirência; o teto de 3,6% incide sobre essa relação.</span></div>
+      <p class="small muted" style="margin-top:8px">Cronograma da interoperabilidade: mai/2026 (sistemas com +500 mil trabalhadores) → nov/2026 (total).</p>
+    </div>
+
+    <div class="card">
+      <h2>Ligação com o escopo — E02, E03, E04, E05</h2>
+      <div class="kv"><span class="k">E03 · Folha &amp; Financeiro (size, Assumed)</span><span class="v">É o coração deste ciclo no marketplace: upload de folha padronizada, geração de boleto/Pix, conta custódia em banco público e <b>split governo/facilitadora</b> sob a regra de repasse em 15 dias. O fluxo 1 (recarga pré-paga) é exatamente o que E03 orquestra.</span></div>
+      <div class="kv"><span class="k">E02 · Marketplace de Cotação</span><span class="v">A taxa de administração (fluxo 1) e as condições de repasse são variáveis da cotação — a beneficiária compara facilitadoras por preço/prazo. O ciclo mensal é o que ela "compra" no leilão reverso.</span></div>
+      <div class="kv"><span class="k">E04 · Credenciamento + adquirência</span><span class="v">O MDR/repasse (fluxo 2) é o que torna o cadastro unificado racional para o estabelecimento — mesmo value driver da aba Reforma do PAT. A interoperabilidade é o que dispensa o credenciamento por operadora.</span></div>
+      <div class="kv"><span class="k">E05 · Integração (MuleSoft)</span><span class="v">Os dois fluxos batem em sistemas externos: banco público (boleto/Pix/split, fluxo 1) e as APIs de adquirência/facilitadoras (liquidação, fluxo 2). Reforça a abordagem mock-first enquanto os contratos de API não chegam.</span></div>
+      <div class="contra"><b>Caveats a carregar:</b> (1) o <b>pré-pagamento obrigatório</b> e o teto de MDR vêm do Decreto 12.712/2025, <b>sub judice</b> (ADI 7962/STF) — mesma premissa regulatória da aba Reforma do PAT. (2) O desenho exato de <b>conta custódia, adquirente/PSP e split</b> é assunção em E03 — a confirmar com o cliente (Open Question do discovery). Não tratar o ciclo como resolvido antes dessa confirmação.</div>
+    </div>
+
+    <div class="ask">
+      <div class="lead">⧉ Perguntas para fazer ao Claude no repositório</div>
+      <ul>
+        <li>O marketplace opera o fluxo 2 (liquidação ao estabelecimento) ou só o fluxo 1 (recarga)? Isso muda o escopo de E03 e E05.</li>
+        <li>Quem é a adquirente/PSP e como funciona a conta custódia e o split governo/facilitadora em E03?</li>
+        <li>Se a interoperabilidade for adiada pela ADI 7962, o ciclo de adquirência (fluxo 2) volta ao modelo fechado? Qual o impacto em E04?</li>
       </ul>
     </div>
   </section>
@@ -624,7 +686,7 @@
         <div class="kv"><span class="k">Fase 3 · Financeiro &amp; Atendimento</span><span class="v">E03 (folha/split/custódia via MuleSoft) · E06 (Agentforce). Homologação do fluxo financeiro regulado (set/2026) antes de produção. Risco: conta custódia e conciliação indefinidas.</span></div>
         <div class="kv"><span class="k">Fase 4 · Carga·Adoção·Estabilização</span><span class="v">E07 (carga inicial) · E09 (change &amp; adoção). Estabilização pós go-live (15/nov/2026). Risco: volume de carga desconhecido; escopo de change PS vs. cliente.</span></div>
       <div class="recon"><b>Faixa de duração (nível engajamento):</b> ~18–38 semanas benchmark top-down-shape (multi-cloud, complexidade média + adders de integração). Janela do cliente (~15–16 sem) fica <b>abaixo do piso benchmark de 18 sem</b> — tensão registrada. Range-drivers: E05, E03, E08. Análogo: SGP/MGI ~2.085h. <i>Baseado em benchmark, não é compromisso.</i></div>
-      <a class="docref" href="../02-delivery-plan.md">📄 02-delivery-plan.md — plano completo + tabela de riscos consolidada (7 linhas)</a>
+      <span class="docref">📄 02-delivery-plan.md — plano completo + tabela de riscos consolidada (7 linhas) (no repositório)</span>
     </div>
 
     <div class="ask">
@@ -691,7 +753,7 @@
         <li>Breadth fixa o núcleo (mantido flat).</li>
         <li>Especialistas fracionais (Experience/Agentforce/Change/Data) inalterados.</li>
       </ol>
-      <a class="docref" href="estimate-comparison.md">📄 estimate-comparison.md — decomposição do delta, roster, disclaimers e nota de honestidade</a>
+      <span class="docref">📄 estimate-comparison.md — decomposição do delta, roster, disclaimers e nota de honestidade (no repositório)</span>
     </div>
 
     <div class="ask">
@@ -751,7 +813,7 @@
         <p><b>G0701</b> · Conflito de fonte: ~450k vs ~300–327,7k beneficiárias (volumetria de carga).</p>
         <p><b>G0901</b> · Escopo de change &amp; adoção PS vs. Dataprev não delimitado.</p>
       </div>
-      <a class="docref" href="../data/gaps.json">📄 gaps.json — os 65 gaps completos</a>
+      <span class="docref">📄 gaps.json — os 65 gaps completos (no repositório)</span>
     </div>
 
     <div class="ask">

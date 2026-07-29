@@ -261,6 +261,22 @@
         "Solution Lead refina os números finais e confirma no acordo comercial.",
         "commercials/slides se o usuário quiser aprofundar uma trilha ou montar deck."
       ]
+    },
+    {
+      "date": "2026-07-29",
+      "skills_used": [],
+      "summary": "Pesquisa de domínio (ad-hoc): ciclo mensal do benefício após a contratação — pedido de recarga por CPF, cobrança pré-paga (boleto/Pix + taxa de administração), crédito no cartão e repasse ao estabelecimento (MDR ≤3,6%, ≤15 dias); e a relação com bandeiras/maquininhas (rede fechada → arranjo aberto/adquirência). Salvo em discovery-notes/ciclo-mensal-beneficio-e-adquirencia.md. Nova aba 'Ciclo Mensal & Adquirência' no deal-review.html. Corrigidos 5 links relativos do HTML (docref → span) que quebravam o upload para a cloud.",
+      "friction": [
+        "Upload da cloud bloqueia <a href> relativo/não-https — docrefs de arquivos do repositório precisaram virar rótulos (span)"
+      ],
+      "decisions": [],
+      "open_threads": [
+        "Escopo do financeiro (E03): marketplace opera só o fluxo 1 (recarga pré-paga) ou também o fluxo 2 (liquidação ao estabelecimento)?",
+        "Conta custódia, adquirente/PSP e split governo/facilitadora em E03 — a confirmar com o cliente"
+      ],
+      "next_steps": [
+        "Confirmar com o cliente o desenho de conta custódia/adquirência e a fronteira fluxo 1 vs fluxo 2 antes de fechar sizing de E03/E05"
+      ]
     }
   ],
   "preferences": {},
