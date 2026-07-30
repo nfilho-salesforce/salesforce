@@ -1,0 +1,29 @@
+<!-- Source: Protótipos de tela compartilhados pela Dataprev (pasta "PAT - Cotação") · Retrieved: 2026-07-30 · Via: Nelson (upload) -->
+
+# Protótipos de tela do PAT — índice e leitura por épica
+
+Seis telas (mockups de alta fidelidade, visual gov.br/DS Gov) compartilhadas pela Dataprev, cobrindo o fluxo ponta a ponta do marketplace PAT: login gov.br → representação de empresa → credenciamento (visão MTE e visão estabelecimento) → cotação (leilão reverso) → financeiro (folha, boleto, contrato). São **artefato do cliente** — grounding primário para o escopo e para as épicas. Cada arquivo é uma imagem; abrir com a ferramenta Read para ver o detalhe visual (as tabelas, os status e os campos carregam decisões que não estão no texto).
+
+Complementa `discovery-notes/01-prototipo-figma-cotacao.md` e a pasta `discovery-notes/figma/`.
+
+| # | Arquivo | O que mostra | Bate em |
+|---|---|---|---|
+| 01 | `01-login-landing.png` | Landing gov.br do PAT (MTE); botão **"Entrar com gov.br"**; rodapé Política de privacidade / Precisa de ajuda? | **E01** (Portal & Identidade gov.br) |
+| 02 | `02-selecao-empresa.png` | Pós-login: **"Selecione a empresa que deseja representar"** — CPF com autorização para operar N CNPJs (Super Pão / Mercado Bom Preço / Rede Alimentar; Matriz/Filial; status Ativa). Dois estados (antes/depois de selecionar → Continuar). Menu lateral: Início, Registros, Empresas Credenciadas, Cotação, Meus Contratos/Beneficiários, Facilitadores, Sair. | **E01** (representar empresa, multi-CNPJ via gov.br) |
+| 03 | `03-mte-credenciamento.png` | **Visão Analista MTE.** "Consultar Credenciamentos" (filtros + tabela de status: Pendente de análise / Em análise / Deferido / Exigência complementar / Indeferido). "Análise do Credenciamento": 1 Dados da Empresa · 2 Endereço · 3 Contatos PAT · 4 Documentação (Vigilância Sanitária, Alvará de Funcionamento — Válido/Inválido) · 5 Parecer Técnico (Deferido/Complementação/Indeferido + Motivo + Observações). Visualizador de PDF com validação documento a documento. Menu MTE: Análises, Auditoria, Cotação, Credenciamentos, Relatórios. | **E04** (Credenciamento) · persona **Analista MTE** · trilha de **Auditoria** (E08) |
+| 04 | `04-estabelecimento-cadastro.png` | **Visão estabelecimento.** "Consultar Estabelecimento" (+ Cadastrar) e "Cadastrar Estabelecimento": 1 Dados da Empresa (CNPJ, Razão Social, Nome Fantasia, Natureza Jurídica, CNAE, Porte, Início atividades) · 2 Endereço · 3 Contatos PAT · 4 Documentação (barra de progresso "2 de 3 documentos", upload drag&drop) · toast "Cadastro realizado com sucesso". | **E04** (Credenciamento — lado do estabelecimento) |
+| 05 | `05-cotacao-fluxo.png` | **Marketplace / leilão reverso.** "Minhas Cotações" (status: Contratada / Concluída sem contrato / Cancelada / Aguardando Propostas). "Nova Cotação" (qtd. funcionários, valor por trabalhador, percentualização Alimentação/Refeição, periodicidade, tipo de saldo combinado/separado, distribuição por UF, recursos obrigatórios). "Comparação de Propostas" (Taxa Administrativa, Prazo de Implantação, Custo 1ª/2ª via, Custo Entrega; escolher). "Detalhes da Proposta" (ex.: CAJU). "Termo de Aceitação da Contratação". Comparação com logos de facilitadoras (Caju, Alelo, Sodexo, Ticket). | **E02** (Marketplace de Cotação) |
+| 06 | `06-financeiro-folha.png` | **Financeiro.** "Consultar Contratos" (Facilitadora, Beneficiária, Vigência, Valor Mensal, Ativo/Inativo). "Folha de Beneficiários" (Competência Ano/Mês + envio de **CSV** com layout) → "Folha enviada com Sucesso. Protocolo". "Histórico de Folhas" (Remessa, Competência, status Processando/Processado/Cancelada). **Boleto de Pagamento** gov.br (pagador/beneficiário, valor, código de barras). "Contrato de Prestação de Serviços" (Objeto, Benefícios Contratados, Condições Comerciais: 350 trabalhadores, R$750/trab., R$262.500/mês, prazo 5 dias úteis, vigência 24 meses; Baixar PDF). | **E03** (Folha & Financeiro — recarga pré-paga, boleto, contrato) |
+
+## Notas de escopo que os protótipos confirmam / levantam
+
+- **E01 é gov.br puro + "representar empresa" multi-CNPJ** — o login não é usuário/senha; é gov.br, e um mesmo CPF opera vários CNPJs (Matriz/Filial). Confirma a premissa de identidade federada e o padrão de troca de contexto de empresa.
+- **E04 tem duas faces distintas** — a do **estabelecimento** que cadastra e sobe documentos (tela 04) e a do **Analista MTE** que analisa, valida documento a documento e emite parecer (tela 03). A tela 03 mostra que a **validação é por documento** (Válido/Inválido + motivo) e que há estados de "Exigência complementar" — isso pressiona o desenho de workflow/estados de E04 e a persona MTE, que até aqui aparecia mais fraca no escopo.
+- **E02 (cotação) já traz as variáveis comerciais da proposta** — Taxa Administrativa, prazos, custos de emissão/entrega, percentualização Alimentação/Refeição, saldo combinado/separado. É a "cesta" que a beneficiária compra no leilão reverso; alinha com a nota do ciclo mensal (fluxo 1 = taxa de administração).
+- **E03 usa CSV de folha + boleto** — a folha de beneficiários entra por **arquivo CSV com layout**, gera **protocolo** e **boleto** (pré-pagamento). Confirma o coração de E03 (recarga pré-paga por competência) e levanta a pergunta aberta do desenho de split/conta custódia (G0301) — o boleto mostra pagador/beneficiário mas não o split governo/facilitadora.
+- **Auditoria/Relatórios aparecem no menu MTE** — reforça E08 (segurança/trilha de auditoria TCU/CGU/ANPD) como transversal, não só premissa.
+
+## Caveats
+
+- **Protótipos, não especificação** — são mockups de UI; nomes de campo, status e passos podem mudar na construção. Tratar como *forte indicação de escopo*, não contrato de requisitos.
+- Números nas telas (R$750/trab., R$262.500/mês, 350 trabalhadores, taxas das facilitadoras) são **dados de exemplo do mockup** — não são preço nem premissa comercial do deal.
