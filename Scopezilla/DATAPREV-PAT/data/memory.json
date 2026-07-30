@@ -293,6 +293,22 @@
       "next_steps": [
         "Se útil ao proposal, refletir a persona 'empresa beneficiária' e os gatilhos de adesão em E01/E02 na narrativa"
       ]
+    },
+    {
+      "date": "2026-07-30",
+      "skills_used": [],
+      "summary": "Nova aba no topo do bloco 'Decreto 12.712/2025' do deal-review.html: 'Resumo & Linha do Tempo'. Resumo do decreto no que toca ao projeto (tabela determinação→o que muda→requisitos cruzados: interoperabilidade→E04/G0401/G0403; teto MDR 3,6%→E04/E03; repasse 15 dias→E03/G0301/G0305; pré-pagamento obrigatório→E03; fim do rebate→E02/E03; +E05/G0501 e E08/ADR-0001/G0808) e linha do tempo dos prazos. Data de publicação confirmada nesta rodada via busca: Decreto assinado 11/nov/2025, publicado 12/nov/2025 (marco zero); interoperabilidade total em 360 dias (~nov/2026); marco 180 dias (~mai/2026, +500 mil trabalhadores); regras financeiras ~fev/2026 (imprensa). Sub judice ADI 7962/STF. Nota salva em discovery-notes/decreto-12712-2025-resumo-linha-do-tempo.md; carimbo atualizado; parity 13 abas/13 seções.",
+      "friction": [
+        "planalto.gov.br retornou ECONNRESET; data de publicação confirmada via busca DuckDuckGo HTML"
+      ],
+      "decisions": [],
+      "open_threads": [
+        "Ratificar contra o texto oficial (artigo a artigo) os marcos de 180 dias e ~fev/2026, hoje ancorados em imprensa/nota anterior",
+        "ADI 7962/STF segue como gate de risco de toda a linha do tempo de prazos (E03/E04)"
+      ],
+      "next_steps": [
+        "Se útil ao roadmap, mapear o que precisa estar pronto antes de cada marco (fev/mai/nov 2026)"
+      ]
     }
   ],
   "preferences": {},

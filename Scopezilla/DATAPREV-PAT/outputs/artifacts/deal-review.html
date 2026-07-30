@@ -173,7 +173,7 @@
   <h1>DATAPREV-PAT — Marketplace Digital do PAT</h1>
   <div class="sub">DATAPREV-PAT · Government · Dataprev / Ministério do Trabalho e Emprego (MTE)</div>
   <div class="stampline">
-    <span><b>Gerado:</b> 30 jul 2026, 10:20 BRT (UTC&minus;03:00)</span>
+    <span><b>Gerado:</b> 30 jul 2026, 11:05 BRT (UTC&minus;03:00)</span>
     <span><b>Scopezilla:</b> 1.9.1</span>
     <span><b>Dados do projeto atualizados:</b> 28 jul 2026</span>
   </div>
@@ -195,6 +195,7 @@
   <button data-tab="signals">Sinais de Scoping</button>
   <button data-tab="diag">Diagnóstico</button>
   <div class="navhdr">Decreto 12.712/2025</div>
+  <button data-tab="decreto-resumo">Resumo &amp; Linha do Tempo</button>
   <button data-tab="pat-reforma">Reforma do PAT</button>
   <button data-tab="ciclo-mensal">Ciclo Mensal &amp; Adquirência</button>
   <button data-tab="adesao-beneficiaria">Adesão da Beneficiária</button>
@@ -399,6 +400,63 @@
         <li>Quais épicas sobem de size se cada um dos 4 blockers quebrar contra a assumption?</li>
         <li>E02 (leilão reverso custom) é mesmo XL, ou dá para reduzir com padrão configurável?</li>
         <li>E09 (change) é PS ou Dataprev — e o que muda no roster se for cliente?</li>
+      </ul>
+    </div>
+  </section>
+  <section class="tab" id="decreto-resumo">
+    <div class="card">
+      <h2>Decreto 12.712/2025 — o que determina, no que toca ao nosso projeto</h2>
+      <p class="hint">Nota-índice do bloco Decreto. As demais abas aprofundam recortes: economia do credenciamento (<b>Reforma do PAT</b>), o ciclo financeiro mensal (<b>Ciclo Mensal &amp; Adquirência</b>) e a ótica da empregadora (<b>Adesão da Beneficiária</b>). Base documental: <code>discovery-notes/decreto-12712-2025-resumo-linha-do-tempo.md</code> (planalto.gov.br + imprensa jurídica/mercado). <b>Sub judice</b> — ADI 7962/STF.</p>
+      <div class="quote">
+        <b>Em uma frase:</b> o Decreto 12.712/2025 (assinado em 11/nov/2025, publicado em 12/nov/2025) reforma o PAT alterando o Decreto 10.854/2021 — impõe <b>interoperabilidade entre bandeiras</b>, <b>teto de MDR de 3,6%</b>, <b>repasse ao estabelecimento em até 15 dias</b>, <b>pré-pagamento obrigatório</b> e o <b>fim do rebate</b>. É a <b>premissa regulatória do deal</b>: define quando o credenciamento unificado (E04) e o novo desenho financeiro (E03) deixam de ser "futuro" e viram requisito vigente. Tudo <b>sub judice</b> pela ADI 7962 no STF.
+        <span class="src">discovery-notes/decreto-12712-2025-resumo-linha-do-tempo.md — síntese + confirmação da data de publicação (12/nov/2025) e do prazo de 360 dias.</span>
+      </div>
+    </div>
+
+    <div class="card" data-shot>
+      <h2>O que o decreto determina — e onde bate no escopo</h2>
+      <p class="hint">Só transações dentro do PAT. Fora do PAT (auxílio-alimentação e outras modalidades), permanecem as condições de contrato.</p>
+      <table>
+        <tr><th>Determinação do decreto</th><th>O que muda</th><th>Requisitos cruzados</th></tr>
+        <tr><td><b>Interoperabilidade / portabilidade</b></td><td>Um mesmo terminal/credenciamento aceita várias bandeiras, sem contratos separados; portabilidade gratuita entre operadoras.</td><td><b>E04</b> · <b>G0401</b> (system-of-record) · <b>G0403</b> (credenciamento per-facilitadora vira transitório?)</td></tr>
+        <tr><td><b>Teto de MDR de 3,6%</b></td><td>Taxa de aceitação nas vendas PAT limitada a 3,6% (antes alta e variável por operadora).</td><td><b>E04</b> (value driver) · <b>E03</b> (variável do financeiro)</td></tr>
+        <tr><td><b>Repasse em até 15 dias</b></td><td>Previsibilidade de caixa; substitui prazos negociados caso a caso.</td><td><b>E03</b> · <b>G0301</b> (conta custódia/split) · <b>G0305</b> (exceções: split parcial, estorno)</td></tr>
+        <tr><td><b>Pré-pagamento obrigatório</b></td><td>Vedado o pós-pagamento; a empresa paga a recarga antes do crédito nos cartões.</td><td><b>E03</b> (fluxo 1 — recarga pré-paga é o coração do financeiro)</td></tr>
+        <tr><td><b>Fim do rebate</b></td><td>Proibido o desconto/deságio entre facilitadora e empresa contratante que cruzava os dois fluxos.</td><td><b>E02</b> (taxa de administração vira a variável limpa da cotação) · <b>E03</b></td></tr>
+        <tr><td><b>Regras de uso mantidas</b></td><td>Vale-refeição = refeições prontas; vale-alimentação = gêneros; controle por MCC.</td><td>E03 / E04 (controle transacional)</td></tr>
+      </table>
+      <p class="small muted" style="margin-top:8px">Pressão adicional: <b>E05</b> depende das APIs de banco público, adquirência e facilitadoras (G0501 — sem Swaggers hoje); <b>E08 / ADR 0001</b> (residência, org única — G0808) convivem com a trilha de auditoria TCU/CGU/ANPD que o programa exige.</p>
+    </div>
+
+    <div class="card" data-shot>
+      <h2>Linha do tempo — o que aconteceu e os prazos do decreto</h2>
+      <p class="hint">Prazos contados da publicação (12/nov/2025). Datas de 2026 são datas-alvo, todas dependentes da ADI 7962/STF.</p>
+      <table>
+        <tr><th>Data</th><th>Marco</th><th>Prazo (da publicação)</th></tr>
+        <tr><td><b>1976</b></td><td>Lei 6.321 institui o PAT e a dedução do IRPJ.</td><td>—</td></tr>
+        <tr><td><b>2021</b></td><td>Decreto 10.854 consolida a regulamentação do PAT.</td><td>—</td></tr>
+        <tr><td><b>11/nov/2025</b></td><td>Decreto 12.712/2025 <b>assinado</b>.</td><td>—</td></tr>
+        <tr><td><b>12/nov/2025</b></td><td><b>Publicação</b> — marco zero da contagem dos prazos.</td><td>dia 0</td></tr>
+        <tr><td><b>~fev/2026</b></td><td>Entrada em vigor das regras financeiras (teto de MDR, repasse 15 dias, pré-pagamento, fim do rebate) — sinalizada pela imprensa.</td><td>~90 dias</td></tr>
+        <tr><td><b>~mai/2026</b></td><td>Interoperabilidade para sistemas com <b>+500 mil trabalhadores</b>.</td><td>180 dias</td></tr>
+        <tr><td><b>~nov/2026</b></td><td><b>Interoperabilidade total</b> — todos os sistemas.</td><td>360 dias</td></tr>
+        <tr><td><b>em curso</b></td><td><b>ADI 7962/STF</b> — decreto sub judice; AGU/PGR sustentam a validade.</td><td>—</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>Ligação com o escopo — premissa e gate de risco</h2>
+      <div class="kv"><span class="k">Premissa regulatória do deal</span><span class="v">Os prazos <b>fev → mai → nov/2026</b> definem quando o value driver de E04 (credenciamento unificado + interoperabilidade) e o desenho financeiro de E03 (pré-pagamento, split, repasse 15 dias) deixam de ser "futuro" e viram requisito vigente.</span></div>
+      <div class="kv"><span class="k">Gate de risco (E03/E04)</span><span class="v">Se o STF (ADI 7962) suspender os prazos, o value driver de E04 e as regras de E03 ficam em suspenso. Mesma tensão registrada nas abas Decisões (thread ABBT) e Estimativa (gate regulatório).</span></div>
+      <div class="contra"><b>Caveats a carregar:</b> (1) a data de publicação (12/nov/2025) e o prazo de 360 dias foram confirmados nesta rodada; os marcos de <b>180 dias (+500 mil trabalhadores)</b> e <b>~fev/2026</b> vêm de nota anterior + imprensa — datas-alvo, a ratificar contra o texto oficial artigo a artigo. (2) Decreto <b>sub judice</b> (ADI 7962/STF) — toda a linha do tempo depende da decisão do STF. (3) A leitura é para fins de escopo — não é parecer jurídico.</div>
+    </div>
+
+    <div class="ask">
+      <div class="lead">⧉ Perguntas para fazer ao Claude no repositório</div>
+      <ul>
+        <li>Qual o efeito de cada prazo (fev, mai, nov/2026) no faseamento do roadmap — o que precisa estar pronto antes de cada marco?</li>
+        <li>Se a ADI 7962 suspender os prazos, quais épicas e gaps (E03, E04, G0301, G0401, G0403) mudam de premissa?</li>
+        <li>Que artigos do decreto ainda precisam ser ratificados contra o texto oficial antes de virarem requisito confirmado?</li>
       </ul>
     </div>
   </section>
