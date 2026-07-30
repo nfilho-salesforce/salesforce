@@ -173,7 +173,7 @@
   <h1>DATAPREV-PAT — Marketplace Digital do PAT</h1>
   <div class="sub">DATAPREV-PAT · Government · Dataprev / Ministério do Trabalho e Emprego (MTE)</div>
   <div class="stampline">
-    <span><b>Gerado:</b> 29 jul 2026, 17:45 BRT (UTC&minus;03:00)</span>
+    <span><b>Gerado:</b> 30 jul 2026, 10:20 BRT (UTC&minus;03:00)</span>
     <span><b>Scopezilla:</b> 1.9.1</span>
     <span><b>Dados do projeto atualizados:</b> 28 jul 2026</span>
   </div>
@@ -187,8 +187,6 @@
   <button class="active" data-tab="glance">Resumo</button>
   <button data-tab="discovery">Descoberta</button>
   <button data-tab="epics">Épicas &amp; Solução</button>
-  <button data-tab="pat-reforma">Reforma do PAT</button>
-  <button data-tab="ciclo-mensal">Ciclo Mensal &amp; Adquirência</button>
   <button data-tab="arch">Arquitetura Macro</button>
   <button data-tab="delivery">Roadmap &amp; Time</button>
   <button data-tab="estimate">Estimativa</button>
@@ -196,6 +194,10 @@
   <button data-tab="decisions">Decisões &amp; Pendências</button>
   <button data-tab="signals">Sinais de Scoping</button>
   <button data-tab="diag">Diagnóstico</button>
+  <div class="navhdr">Decreto 12.712/2025</div>
+  <button data-tab="pat-reforma">Reforma do PAT</button>
+  <button data-tab="ciclo-mensal">Ciclo Mensal &amp; Adquirência</button>
+  <button data-tab="adesao-beneficiaria">Adesão da Beneficiária</button>
 </nav>
 
 <main>
@@ -508,6 +510,66 @@
         <li>O marketplace opera o fluxo 2 (liquidação ao estabelecimento) ou só o fluxo 1 (recarga)? Isso muda o escopo de E03 e E05.</li>
         <li>Quem é a adquirente/PSP e como funciona a conta custódia e o split governo/facilitadora em E03?</li>
         <li>Se a interoperabilidade for adiada pela ADI 7962, o ciclo de adquirência (fluxo 2) volta ao modelo fechado? Qual o impacto em E04?</li>
+      </ul>
+    </div>
+  </section>
+  <section class="tab" id="adesao-beneficiaria">
+    <div class="card">
+      <h2>Por que uma empresa adere ao PAT — adesão, elegibilidade, vantagem e obrigatoriedade</h2>
+      <p class="hint">Contexto de domínio do lado da <b>empresa beneficiária</b> (empregadora que oferece o benefício) — a persona-alvo do portal e do marketplace (<b>E01</b>, <b>E02</b>). Base documental: <code>discovery-notes/adesao-empresa-beneficiaria-pat.md</code> (TOTVS, Portal Tributário, Ohub, Migalhas · Lei 6.321/76 + Decreto 10.854/2021 / 12.712/2025).</p>
+      <div class="quote">
+        <b>Resposta curta:</b> a adesão ao PAT é <b>voluntária — não há obrigatoriedade nem prazo legal de adesão</b>. A empresa adere porque o programa troca a oferta de alimentação por <b>dois benefícios fiscais fortes</b>: (1) para quem apura pelo <b>Lucro Real</b>, dedução no IRPJ; e (2) para <b>qualquer empresa</b>, a <b>não incidência de encargos</b> (INSS/FGTS) sobre o valor do benefício — que, via PAT aprovado, não tem natureza salarial. Quem <b>não adere</b> não é penalizado, mas perde esses dois benefícios: se oferecer vale fora do PAT, o valor pode virar base de encargos, e o Lucro Real perde a dedução. Na prática, é uma adesão "voluntária mas economicamente quase compulsória".
+        <span class="src">discovery-notes/adesao-empresa-beneficiaria-pat.md — síntese das fontes de domínio.</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Obrigatoriedade e prazos</h2>
+      <div class="kv"><span class="k">É obrigatório aderir?</span><span class="v"><b>Não.</b> O PAT é iniciativa de <b>adesão voluntária / facultativa</b> (Lei 6.321/76; Decreto 10.854/2021). Nenhuma empresa é obrigada a participar.</span></div>
+      <div class="kv"><span class="k">Há prazo para aderir?</span><span class="v"><b>Não há prazo legal de adesão</b> — a empresa adere quando quiser. Mas precisa estar <b>registrada antes</b> de usufruir do incentivo fiscal. O registro é <b>eletrônico e gratuito</b> (hoje via PATNET/MTE), muitas vezes feito pela própria facilitadora; aprovação típica em <b>5 a 15 dias</b>.</span></div>
+      <div class="kv"><span class="k">O que tem prazo, então?</span><span class="v">Os prazos relevantes são os da <b>reforma</b> (interoperabilidade mai/2026 → nov/2026, aba Reforma do PAT), não a adesão em si.</span></div>
+    </div>
+
+    <div class="card" data-shot>
+      <h2>Vantagens da adesão — os dois benefícios fiscais</h2>
+      <p class="hint">O que a empresa ganha ao aderir. Não somos escritório contábil — confirmar valores/limites com a contabilidade do cliente.</p>
+      <table>
+        <tr><th>Benefício</th><th>Quem aproveita</th><th>Como funciona</th></tr>
+        <tr><td><b>Dedução no IRPJ</b></td><td>Empresas do <b>Lucro Real</b></td><td>Dedução do imposto devido correspondente à alíquota (15%) sobre as despesas de custeio do PAT, <b>limitada a 4% do IR devido</b>; o excedente pode ser aproveitado nos 2 anos-calendário seguintes.</td></tr>
+        <tr><td><b>Não incidência de encargos</b></td><td><b>Qualquer regime</b> (inclusive Simples/Presumido)</td><td>Via PAT previamente aprovado, o valor pago <b>não tem natureza salarial</b> — não compõe base de INSS nem FGTS, e não é rendimento tributável do trabalhador.</td></tr>
+        <tr><td><b>Participação do trabalhador</b></td><td>Todas</td><td>Desconto no trabalhador limitado a <b>20% do custo</b> direto da refeição — reduz o custo líquido do benefício para a empresa.</td></tr>
+        <tr><td><b>Retenção &amp; competitividade</b></td><td>Todas</td><td>Benefício amplamente esperado no mercado CLT; ausência é desvantagem competitiva em setores onde o PAT é padrão.</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>Critérios de elegibilidade</h2>
+      <div class="kv"><span class="k">Quem pode aderir</span><span class="v">Qualquer empresa (pessoa jurídica) com empregados CLT. A adesão em si não distingue por regime tributário.</span></div>
+      <div class="kv"><span class="k">Quem aproveita o incentivo do IRPJ</span><span class="v">Somente empresas do <b>Lucro Real</b>. Simples Nacional e Lucro Presumido <b>não deduzem</b> — mas ainda ganham a não incidência de encargos.</span></div>
+      <div class="kv"><span class="k">Foco de baixa renda</span><span class="v">O programa prioriza o trabalhador de baixa renda (a Lei 6.321/76 aponta que ~86% dos beneficiários ganham <b>até 5 salários mínimos</b>); o incentivo fiscal é orientado a essa faixa.</span></div>
+      <div class="kv"><span class="k">Acesso universal / não discriminação</span><span class="v">O benefício deve alcançar os empregados de forma <b>igualitária</b> (todos os CLT com direito, salvo cláusula específica de acordo coletivo) — não pode ser seletivo.</span></div>
+    </div>
+
+    <div class="card">
+      <h2>O que acontece se a beneficiária não aderir</h2>
+      <div class="kv"><span class="k">Penalidade legal?</span><span class="v"><b>Nenhuma</b> — sendo voluntário, não aderir não gera multa nem sanção.</span></div>
+      <div class="kv"><span class="k">O que perde</span><span class="v">(1) A <b>dedução no IRPJ</b> (se Lucro Real). (2) A <b>não incidência de encargos</b>: oferecer alimentação <b>fora</b> do PAT pode dar ao valor <b>natureza salarial</b>, atraindo INSS/FGTS. (3) Comprovação/transparência junto à Receita e posição competitiva.</span></div>
+      <div class="contra"><b>Nuance a carregar:</b> corre debate sobre <b>dedução integral</b> do PAT no IRPJ (vs. o limite clássico de 4%) — entendimento em evolução. Tratar o limite de 4% como a regra grounded e a "dedução integral" como interpretação recente <b>a confirmar</b> com a contabilidade do cliente. Não somos consultoria fiscal.</div>
+    </div>
+
+    <div class="card">
+      <h2>Ligação com o escopo — E01, E02, E07</h2>
+      <div class="kv"><span class="k">E01 · Portal &amp; Identidade gov.br</span><span class="v">A beneficiária é a <b>persona primária</b> do portal. A adesão eletrônica (hoje PATNET) é candidata a ser simplificada/unificada via gov.br no marketplace — reduzir a fricção de adesão é parte do value driver.</span></div>
+      <div class="kv"><span class="k">E02 · Marketplace de Cotação</span><span class="v">A racionalidade fiscal (dedução + isenção de encargos) é <b>por que</b> a beneficiária entra na plataforma; o leilão reverso é <b>como</b> ela escolhe a facilitadora pelo melhor custo do ciclo mensal.</span></div>
+      <div class="kv"><span class="k">E07 · Migração &amp; Carga</span><span class="v">A base de beneficiárias já registradas no PAT (MTE / Novo PAT) é fonte da carga inicial — o Novo PAT permanece system-of-record (ADR 0001).</span></div>
+    </div>
+
+    <div class="ask">
+      <div class="lead">⧉ Perguntas para fazer ao Claude no repositório</div>
+      <ul>
+        <li>A adesão ao PAT via gov.br (E01) substitui ou integra o PATNET atual? Isso muda o escopo de E01/E05.</li>
+        <li>O marketplace atende beneficiárias de todos os regimes (Simples/Presumido/Real) ou o alvo é o Lucro Real? Afeta E02 e a mensagem de adoção.</li>
+        <li>A carga inicial (E07) parte da base de beneficiárias já registradas no MTE? Qual volume e qualidade?</li>
       </ul>
     </div>
   </section>

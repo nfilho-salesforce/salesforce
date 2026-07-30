@@ -277,6 +277,22 @@
       "next_steps": [
         "Confirmar com o cliente o desenho de conta custódia/adquirência e a fronteira fluxo 1 vs fluxo 2 antes de fechar sizing de E03/E05"
       ]
+    },
+    {
+      "date": "2026-07-30",
+      "skills_used": [],
+      "summary": "Reestruturação da sidebar do deal-review.html: criada seção 'Decreto 12.712/2025' agrupando Reforma do PAT, Ciclo Mensal & Adquirência e a nova aba 'Adesão da Beneficiária'. Pesquisa de domínio (ad-hoc) sobre a adesão da empresa beneficiária ao PAT — adesão facultativa (Lei 6.321/76; Decreto 10.854/2021), sem prazo legal de adesão, cadastro eletrônico gratuito no MTE (aprovação ~5-15 dias, usualmente via facilitadora). Dois benefícios fiscais: (1) dedução do IRPJ só p/ Lucro Real, 15% das despesas de custeio limitado a 4% do IR devido, excedente aproveitável em 2 anos-calendário; (2) não-incidência de INSS/FGTS (sem natureza salarial) para qualquer regime via PAT aprovado. Participação do trabalhador limitada a 20%; acesso universal/não-discriminatório com prioridade a baixa renda (~86% dos beneficiários até 5 salários mínimos). Não aderir = sem penalidade, mas perde dedução e a proteção de encargos (vale fora do PAT pode adquirir natureza salarial → INSS/FGTS). Debate de 'dedução integral' sinalizado como evolutivo/a-confirmar. Nota salva em discovery-notes/adesao-empresa-beneficiaria-pat.md; carimbo do HTML atualizado.",
+      "friction": [
+        "Vários blogs (Pluxee/Alelo/Ticket diretos) retornaram 404/402; contornado via busca DuckDuckGo HTML + fetch das fontes vivas"
+      ],
+      "decisions": [],
+      "open_threads": [
+        "'Dedução integral' do IRPJ além dos 4% do IR devido — acompanhar evolução legislativa/administrativa antes de afirmar como fato",
+        "Confirmar com o cliente se a adesão da beneficiária é conduzida no portal (E01) ou permanece no Novo PAT/PATNET como system-of-record"
+      ],
+      "next_steps": [
+        "Se útil ao proposal, refletir a persona 'empresa beneficiária' e os gatilhos de adesão em E01/E02 na narrativa"
+      ]
     }
   ],
   "preferences": {},
