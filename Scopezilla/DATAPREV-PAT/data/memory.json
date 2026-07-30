@@ -309,6 +309,20 @@
       "next_steps": [
         "Se útil ao roadmap, mapear o que precisa estar pronto antes de cada marco (fev/mai/nov 2026)"
       ]
+    },
+    {
+      "date": "2026-07-30",
+      "skills_used": [],
+      "summary": "Aprofundada a pesquisa do sub judice e acrescentado card 'Status da ADI 7962/STF — tem expectativa real de adiar prazos?' na aba Resumo do deal-review.html (antes do card 'Ligação com o escopo'). Leitura de risco calibrada: ABBT (Alelo, Ticket/Edenred, Pluxee, VR) autora, com pedido de liminar por 'risco de colapso operacional'; AGU e PGR pela validade; liminar pedida mas sem decisão do STF, sem julgamento de mérito, relator não identificado nas fontes; TRF-3 reverteu liminares em 24/fev/2026 recolocando as regras financeiras em vigor. Conclusão: regras financeiras (E03) baixo risco de cair (já em vigor); cronograma de interoperabilidade (E04, mai→nov/2026) é onde mora o risco de adiamento — base case os prazos seguem valendo, com risco vivo de cauda. Nota atualizada em discovery-notes/decreto-12712-2025-resumo-linha-do-tempo.md (seção Status da ADI). Caveat (2) da aba refinada apontando para o card; carimbo → 11:40; parity 13/13; commit local escopado.",
+      "friction": [],
+      "decisions": [],
+      "open_threads": [
+        "Conferir andamento oficial da ADI 7962 no acompanhamento processual do STF — fontes jun–jul/2026 escassas",
+        "Se o STF conceder liminar/julgar antes dos prazos, reabrir o gate regulatório de E03/E04 (revise)"
+      ],
+      "next_steps": [
+        "Monitorar decisão do STF na ADI 7962 antes de comprometer marcos de interoperabilidade no roadmap"
+      ]
     }
   ],
   "preferences": {},
