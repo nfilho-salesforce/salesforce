@@ -44,6 +44,14 @@ Requisitos cruzados adicionais que o decreto pressiona: **E05** (as APIs de banc
 - Os prazos de **fev → mai → nov/2026** são a **premissa regulatória do deal**: definem quando o value driver de E04 (credenciamento unificado + interoperabilidade) e o desenho financeiro de E03 (pré-pagamento, split, repasse 15 dias) deixam de ser "futuro" e viram requisito vigente.
 - A **ADI 7962** é o **gate de risco**: se o STF suspender os prazos, o value driver de E04 e as regras de E03 ficam em suspenso — mesma tensão já registrada nas abas Decisões (thread ABBT) e Estimativa (gate regulatório).
 
+## Status da ADI 7962/STF (atualização 30/jul/2026)
+
+- **Quem move:** a **ABBT** (associação das empresas de benefícios ao trabalhador) ajuizou a ADI 7962 pedindo a derrubada de dispositivos do Decreto 12.712/2025, com **pedido de liminar** para suspendê-los. Argumento central: os prazos curtos alteram contratos vigentes e geram "risco de colapso operacional do setor".
+- **Defesa:** **AGU e PGR** apresentaram manifestações **defendendo a validade** do decreto.
+- **Onde está (pela leitura das fontes):** liminar **pedida, mas não há decisão** confirmada do STF; **sem julgamento de mérito**; relator **não identificado** nas fontes consultadas. Item datado mais recente é de **~maio/2026** (ajuizamento). Fontes escassas para jun–jul/2026 — recomenda-se conferir o andamento no acompanhamento processual do STF.
+- **Batalha nas instâncias inferiores:** no início de 2026 operadoras obtiveram **liminares** suspendendo partes do decreto (sobretudo a vedação ao rebate/desconto). Em **24/fev/2026 o TRF-3 reverteu** essas liminares — "as novas regras do PAT voltam" —, recolocando as regras financeiras em vigor.
+- **Leitura de risco:** as **regras financeiras** (teto de MDR, fim do rebate, pré-pagamento) **já sobreviveram a uma reversão (TRF-3) e estão em vigor**; o alvo do lobby de adiamento é sobretudo o **cronograma de interoperabilidade** (mai → nov/2026). Base atual: **os prazos seguem valendo** (nov/2026 total ainda "previsto"), com **risco vivo e não resolvido** de escorregar se o STF conceder liminar ou julgar parcialmente.
+
 ## Caveats
 
 - **Data de publicação (12/nov/2025) e prazo de 360 dias** confirmados nesta rodada; os marcos de **180 dias (+500 mil trabalhadores)** e **~fev/2026 (regras financeiras)** vêm de nota anterior do projeto e de leitura de imprensa — tratar como datas-alvo, a ratificar contra o texto oficial artigo a artigo.
