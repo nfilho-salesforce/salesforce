@@ -1,72 +1,81 @@
-# Plano de Entrega — DATAPREV-PAT (Marketplace Digital do PAT)
+# Plano de Entrega — DATAPREV-PAT (Reforma do PAT / MTE)
 
-> **Roadmap por fases — funcionalidade ao longo do tempo.** Este documento sequencia *o quê* é entregue e *em que ordem*. Não nomeia equipe: as disciplinas e o quadro nominal para entregar isto — com contagens defensáveis, por trilha — vêm do `estimate`.
+**Duração total do programa: 13 semanas (compromisso do usuário).** Modo **data-fixa, planejado de trás pra frente** a partir do go-live imóvel de **15/nov/2026** (marco de interoperabilidade total do Decreto 12.712/2025 + entrada do financeiro em produção). Proposta assinada ~15/ago/2026.
 
-## Duração do programa
+> **A data é o âncora; o escopo é a variável de flexão.** O programa não comprime 18–38 semanas de trabalho em 13 — ele entrega um **MVP** dimensionado para a janela e mantém um conjunto de **candidatos a de-escopo** como buffer de cronograma. Se um risco de caminho crítico se materializar (provisionamento, gateway PCI, contratos de API), o buffer é acionado antes da data.
 
-**Faixa por benchmark: 18–38 semanas** (derivada top-down da forma do engajamento — Multi-Cloud + integração de dados, shape entre Medium e High: 9 épicas, 2 XL + 4 L + 3 M, hub de integração multi-sistema + ~600-700 facilitadoras, 4 clouds; baseline de 16-26 semanas alargado por adders de risco — regulada, integração sem contratos de API, UI custom do leilão, todos os sizes ainda Assumed — teto limitado a +50%).
+**Leitura honesta do arquiteto:** esta é uma janela **agressiva** para o escopo em jogo — três épicas XL (E02, E03, E05), integração multi-sistema sem contratos e uma prontidão de IA baixa. É entregável **como MVP** com o de-escopo abaixo tratado como buffer real, disciplina de caminho crítico na Fase 0/1 e uma janela de estabilização mínima. Não é entregável como escopo completo. As alavancas de segurança do cronograma estão nomeadas — não escondidas.
 
-> *This figure is benchmark-based, derived from the AI model's training data and general delivery patterns (not Salesforce-validated) — not a commitment. Final figures are confirmed through the applicable commercial agreement.*
-
-**A janela do cliente está abaixo do piso do benchmark.** O alvo em pauta (homologação set/2026, produção 15/nov/2026) equivale a ~15-16 semanas de calendário a partir de 28/jul — **abaixo do piso de 18 semanas, antes mesmo de qualquer compressão por IA**. Isso não é um "não dá"; é o argumento para (a) a **Fase 0** resolver os blockers que hoje seguram todos os sizes em Assumed, e (b) tratar o **escopo como variável de flexão** contra a data — decidir com o cliente o que entra em cada marco (homologação vs. produção). A faixa aperta quando os range-drivers abaixo são resolvidos.
-
-**O que fixa o teto (range-drivers):**
-- **E05 — Integração:** hub multi-sistema + ~600-700 APIs de facilitadoras, mock-first, sem nenhum contrato/Swagger. *Aperta com:* quantos sistemas têm contrato hoje e qual o modelo de onboarding das facilitadoras (API única padronizada vs. N integrações).
-- **E03 — Financeiro:** boleto/Pix/split multi-parte com idempotência e conciliação; sobe a XL se exigir motor financeiro dedicado. *Aperta com:* qual banco custódia/PSP e se a mecânica de split/conciliação está definida.
-- **E08 — Residência:** fronteira campo-a-campo não ratificada; governa o data model de E01/E02/E03/E06. *Aperta com:* ratificar com Jair Bogo o que é token vs. o que pode persistir (G0801).
-
-**Reconciliação de analog:** SGP/MGI (Dataprev, MuleSoft + Agentforce, ~2.085h) é uma forma **menor** que o PAT — sem o hub de centenas de facilitadoras nem o leilão custom. Ancora o **piso** da faixa (um build Dataprev multi-produto aterrissa na casa das ~15-18 semanas); não puxa o teto para baixo.
+---
 
 ## Caminho crítico
 
-**E05/E08 (fundação) → E01 → E02/E03.** A residência (E08) e a integração (E05) destravam a identidade (E01), que destrava o marketplace (E02) e o financeiro (E03). Escorregão em qualquer elo da fundação cascateia por todo o cronograma.
+**Fase 0 (provisionamento da org dedicada + contratação do gateway PCI) → E05 (hub de integração) → E03 (motor de split & conciliação) → estabilização.**
+
+Escorregões de terceiros na Fase 0 (lead-time de provisionamento e de contratação do gateway PCI) são o **maior risco** à data fixa — não estão sob controle da entrega. E01/E02/E04 dependem de E05; E03 depende de E05 + E08 + o gateway contratado. Qualquer atraso cascateia direto para o go-live.
+
+---
 
 ## Sequência de fases
 
-As fases mostram **posição na sequência e dependências** — sem semanas por fase (a faixa vive no nível do programa, acima; não há commitment de duração).
+### Fase 0 — Arranque, Provisionamento & Arquitetura (2 semanas)
+- **Épicas:** — (fase de destrave, sem build)
+- Provisionar a **instância dedicada e apartada** (ADR 0002); **selecionar/contratar o provedor do gateway PCI** (G0309, ADR 0003); resolver os blockers de arquitetura (fronteira de residência G0801, contratos de API G0501, hospedagem MuleSoft G0504, identidade × CPF-não-persiste G0106).
+- **Sai com:** org acessível, parceiro de gateway definido, ADR 0001 ratificado, inventário de contratos de API.
 
-### Fase 0 — Discovery & Arquitetura *(posição 1 de 5)*
-- **Épicas:** nenhuma (fase de resolução).
-- **Objetivo:** resolver os quatro blockers antes do compromisso final — fronteira da residência (G0801, ratificar com Jair Bogo), contratos de API (G0501), hospedagem MuleSoft × residência (G0504), identidade Experience Cloud × CPF (G0106). Iniciar CTID/ANPD e o inventário das APIs das facilitadoras.
-- **Saída:** os 9 sizes Assumed podem ser reconfirmados e a faixa apertada.
-- **Disparada por:** 63 gaps > 15 (regra do produto).
+### Fase 1 — Fundação: Identidade + Integração + Residência (4 semanas) · *depende de: Fase 0*
+- **Épicas:** E05 (hub MuleSoft mock-first, gateway PCI como alvo), E08 (residência/tokenização na org dedicada), E01 (portal Experience Cloud + login gov.br).
+- Fase de maior carga; risco #1 (integração sem contratos) atacado primeiro. Comunicação de mudança (E09) arranca aqui.
 
-### Fase 1 — Fundação (Identidade + Integração + Residência) *(posição 2 de 5)*
-- **Épicas:** E05 (integração, mock-first), E08 (residência/segurança), E01 (portal + gov.br). *depende de: Fase 0.*
-- **Objetivo:** erguer a base sobre a qual tudo renderiza. O risco #1 (E05, sem contratos) começa cedo, de propósito. A comunicação de mudança (E09) arranca aqui.
-- **É front-loaded de propósito** — fundação + a integração de maior risco primeiro, para não descobrir o problema dos contratos no fim.
+### Fase 2 — Marketplace & Credenciamento (3 semanas) · *depende de: Fase 1 (E01, E05)*
+- **Épicas:** E02 (leilão reverso — propostas ocultas até o fechamento, seleção manual, contrato fora da plataforma; **MVP sem Data Cloud**), E04 (credenciamento gov.br PJ/CNPJ).
 
-### Fase 2 — Marketplace (o coração) *(posição 3 de 5)*
-- **Épicas:** E02 (cotação/leilão reverso), E04 (credenciamento). *depende de: E01, E05.*
-- **Objetivo:** o valor mais visível da reforma — publicar cotação, receber propostas de N facilitadoras, comparar lado a lado, selecionar → contrato; credenciar estabelecimentos via gov.br.
+### Fase 3 — Financeiro: Motor de Regras de Split & Conciliação (3 semanas) · *depende de: Fase 0 (gateway PCI), Fase 1 (E05, E08)*
+- **Épicas:** E03 (**XL** — Salesforce calcula/aplica split com teto MDR 3,6% e repasse ≤15 dias, emite boletagem com split, concilia por casamento, recebe movimentações; execução/custódia FORA = gateway PCI do cliente).
+- Fase XL mais sensível à data fixa; se algo escorrega, a pressão de de-escopo bate aqui.
 
-### Fase 3 — Financeiro & Atendimento *(posição 4 de 5)*
-- **Épicas:** E03 (folha/split/boleto/Pix), E06 (Agentforce). *depende de: E01, E05, E08 (E03); E05, E08 (E06).*
-- **Objetivo:** fechar o fluxo — financeiro sob repasse ≤15 dias (a integração externa de maior risco) e atendimento inteligente informacional + transacional sem CPF em prompt.
+### Fase 4 — Carga Mínima, Adoção & Estabilização/Go-live (1 semana) · *depende de: Fase 1 (E05)*
+- **Épicas:** E07 (carga inicial **mínima**; Novo PAT permanece system-of-record), E09 (adoção enxuta, pico da comunicação).
+- Janela de estabilização/hypercare mínima até 15/nov. Carga massiva e adoção completa ficam pós-go-live.
 
-### Fase 4 — Carga, Adoção & Estabilização *(posição 5 de 5)*
-- **Épicas:** E07 (carga inicial), E09 (adoção — pico aqui; comms desde a Fase 1). *depende de: E05 (E07).*
-- **Objetivo:** popular a plataforma com dedup/qualidade, conduzir o pico da capacitação/adoção, estabilizar/hypercare.
+---
+
+## Candidatos a de-escopo (buffer de cronograma)
+
+Ordenados por primeiro-a-cair. Tratados como buffer — entram no MVP só se a janela permitir; saem primeiro se um risco de caminho crítico se materializar.
+
+| # | Item | Épica | Justificativa |
+|---|------|-------|---------------|
+| 1 | **Agentforce — atendimento inteligente** | E06 (inteira) | Valor real, mas não é pré-requisito do go-live regulatório; canal WhatsApp/BSP + guardrails públicos somam risco e prazo. Fora do MVP. |
+| 2 | **Data Cloud — enriquecimento/perfil** | E02 | Adição Assumed; o leilão reverso funciona sem ele. |
+| 3 | **Marketing Cloud / alertas** | E02/E06 | Ambiguidade de escopo (G0209); não bloqueia o fluxo core. |
+| 4 | **Carga massiva de dados** | E07 | MVP carrega o mínimo; volume completo pós-go-live. |
+| 5 | **Adoção completa** | E09 | MVP entrega capacitação essencial; programa completo de adoção pós-go-live. |
+
+---
 
 ## Processos padrão (transversais, não repetidos por fase)
 
-- **Testes:** unitário + integração contínuos; UAT em full sandbox com dado representativo antes de cada marco de go-live; hardening/QA concentrado na Fase 4 (go-live regulado com emissão financeira).
-- **Deployment:** pipeline source-driven (Salesforce CLI + Git) Dev → QA → UAT → Produção.
-- **Capacitação:** materiais e treinamento sob E09, com comunicação iniciada na Fase 1 pela escala das facilitadoras.
-- **Virada mock→real (E05):** governança explícita de substituição dos mocks pelas APIs reais conforme os contratos surgem.
+- **Testes:** contínuos; QA amplifica-se e **surge** na janela de estabilização (financeiro regulado, data fixa) — não encolhe sob IA.
+- **Deploy:** entregas incrementais na org dedicada; release management coordenado ao longo das fases.
+- **Capacitação/adoção:** E09 transversal, comunicação desde a Fase 1, pico na Fase 4.
 
-## Riscos consolidados
+---
 
-| Risco | Onde pesa | Mitigação |
-|---|---|---|
-| Ausência total de contratos de API (G0501) — risco #1, caminho crítico | E05 / Fase 1 | Mock-first cedo; inventário na Fase 0; governança de virada |
-| Fronteira de residência não ratificada (G0801) | E08 / Fase 1 | Ratificar com Jair Bogo na Fase 0 antes do data model |
-| Janela do cliente < piso do benchmark | Programa | Fase 0 + escopo como variável de flexão contra a data |
-| Banco custódia/PSP e conciliação indefinidos (G0301/G0304) | E03 / Fase 3 | Definir na Fase 0/1; idempotência e trilha obrigatórias |
-| Regras de leilão/Lei 14.133 indefinidas (G0202/G0203) | E02 / Fase 2 | Workshop de regras antes do build do motor |
-| Resistência das facilitadoras (perda de margem) | E09 / Fases 1→4 | Comunicação antecipada; adoção medida |
-| Volume de carga desconhecido (G0701) | E07 / Fase 4 | Band-widener; confirmar volume/fonte na Fase 0 |
+## Tabela de riscos consolidada
 
-## Próximo passo
+| Risco | Fase | Mitigação | Gap |
+|-------|------|-----------|-----|
+| Lead-time de provisionamento da org dedicada | 0 | Pedido no dia 1 da Fase 0; escalonar com a plataforma | ADR 0002 |
+| Contratação/integração do gateway PCI atrasa | 0→3 | Selecionar cedo; contrato de integração mock na Fase 1 | G0309 |
+| Contratos de API inexistentes (mock→real) | 1 | Mock-first; governança de virada; inventário na Fase 0 | G0501 |
+| Fronteira de residência não ratificada | 0→1 | Ratificar com Jair Bogo antes do data model | G0801 |
+| Regras de split/conciliação indefinidas | 3 | Definir na Fase 0/1; especialista de arquitetura financeira | G0304 |
+| Janela de estabilização mínima | 4 | QA surge; hypercare desde o D-0; buffer de de-escopo | — |
+| Volume de carga desconhecido | 4 | Carga mínima no MVP; massiva pós-go-live | G0701 |
 
-As disciplinas e o quadro nominal para entregar isto — com contagens defensáveis, por trilha — vêm do `estimate`. A faixa de duração aperta à medida que os range-drivers (E05/E03/E08) são resolvidos, idealmente na Fase 0.
+---
+
+## Equipe
+
+As disciplinas e o roster nomeado para entregar isto — com contagens defensáveis, por lane — vêm do **`estimate`**. Este documento é funcionalidade ao longo do tempo; não nomeia time. Observação para o `estimate`: E03 agora XL exige um **especialista de arquitetura financeira/bancária (split)** no roster de ambas as lanes, e a janela fixa de ~13 semanas precisa ser reconciliada com as faixas de duração derivadas.

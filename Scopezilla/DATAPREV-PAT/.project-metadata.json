@@ -34,7 +34,13 @@
       "source": "Reunião 21/jul/2026 (Notes by Gemini)",
       "note": "Timeline agressiva; homologação do fluxo cotação/contratação em set, financeiro em produção 15/nov"
     },
-    "user_commitment": null,
+    "user_commitment": {
+      "total_weeks": 13,
+      "rationale": "Data de go-live FIXA e externa: 15/nov/2026 (marco de interoperabilidade total do Decreto 12.712/2025 + entrada do financeiro em produção). Proposta ~15/ago → janela de construção ~13 semanas. A data é o âncora imóvel; o ESCOPO é a variável de flexão — MVP definido, com candidatos a de-escopo (Data Cloud em E02, Marketing Cloud/alertas, Agentforce E06) como buffer de cronograma.",
+      "set_by": "user",
+      "mode": "fixed-date-backward-planned",
+      "scope_flex": true
+    },
     "derived": {
       "derived_low_weeks": 18,
       "derived_high_weeks": 38,

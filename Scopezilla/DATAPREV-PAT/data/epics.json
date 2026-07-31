@@ -11,25 +11,25 @@
   {
     "epic_id": "E02",
     "epic_name": "Marketplace de Cotação e Contratação",
-    "description": "Motor do 'leilão' reverso: beneficiária publica cotação (nº funcionários, valor, vigência, distribuição por UF, recursos obrigatórios); N facilitadoras enviam propostas com prazo/SLA; comparação lado a lado; seleção → contrato. Padrão comprador→N-vendedores é custom na Core Platform (objetos Cotacao__c 1→N Proposta__c + Flow/Apex) — não há suporte nativo Salesforce a RFQ/leilão reverso.",
+    "description": "Motor do 'leilão' reverso: beneficiária publica cotação (nº funcionários, valor, vigência, distribuição por UF, recursos obrigatórios); N facilitadoras enviam propostas com prazo/SLA; comparação lado a lado (FlexCards) com propostas ocultas até o fechamento da janela (regra de equidade — ninguém vê antes); seleção manual pela beneficiária → contrato firmado fora da plataforma, registrado via post da facilitadora. Padrão comprador→N-vendedores é custom na Core Platform (objetos Cotacao__c 1→N Proposta__c + Flow/Apex) — não há suporte nativo Salesforce a RFQ/leilão reverso. Data Cloud sinalizado (sync 30/jul) para enriquecer o histórico das facilitadoras na comparação de propostas — Assumed, candidato a de-escopo/buffer sob a janela fixa de 15/nov.",
     "confidence": "Confirmed",
-    "products": ["core-service-cloud", "experience-cloud"],
+    "products": ["core-service-cloud", "experience-cloud", "data-cloud"],
     "depends_on": ["E01", "E05"],
-    "kb_sources": ["[KB: salesforce-revenue-cloud-marketplace-arch.md] — leilão reverso não é capability nativa (RLM é sell-side); modelo custom Cotacao__c→Proposta__c confirmado contra fonte primária Salesforce"]
+    "kb_sources": ["[KB: salesforce-revenue-cloud-marketplace-arch.md] — leilão reverso não é capability nativa (RLM é sell-side); modelo custom Cotacao__c→Proposta__c confirmado contra fonte primária Salesforce", "[assumption: Data Cloud para enriquecimento do histórico de facilitadoras — decidido na sync interna 30/jul/2026, a ratificar com o cliente; candidato a de-escopo sob a janela fixa]"]
   },
   {
     "epic_id": "E03",
     "epic_name": "Folha & Financeiro",
-    "description": "Upload de folha em layout padronizado, processamento pela facilitadora, geração de boleto/Pix, conta custódia em banco público e split governo/facilitadora, sob a regra de repasse em até 15 dias (Decreto 12.712/2025). Baseline Core-only: objetos custom para folha/contrato; split é integração externa via MuleSoft (não nativo de Billing). Revenue Cloud (CLM+Billing) fora desta rodada — reavaliar em fase futura se o financeiro crescer.",
+    "description": "Upload mensal de folha em layout padronizado (CSV por competência), validação client-side (OmniScript) + Apex linha a linha, e o ciclo financeiro sob a regra de repasse em até 15 dias (Decreto 12.712/2025). FRONTEIRA CRM-vs-financeiro (ADR 0003): o Salesforce é o MOTOR DE REGRAS DE SPLIT — calcula e aplica o rateio (governo/facilitadora/estabelecimento, teto MDR 3,6%, repasse 15 dias), EMITE a boletagem já com o split aplicado, ORQUESTRA e CONCILIA (solicita boletos pós-processamento, monitora a conta custódia, faz o casamento dos lançamentos com o boleto pago, exibe status/racional BOE) e RECEBE as movimentações bancárias devolvidas. FORA de escopo (gateway PCI, contratado pelo cliente): execução das transações bancárias e custódia do dinheiro. UI simplificada (sync 30/jul): status consolidado 'crédito concedido' — uma linha, não lista por trabalhador (não 10 mil); essa marca é o gatilho de notificação à empresa e via CTPS Digital. Baseline Core-only: objetos custom para folha/contrato/split; Revenue Cloud (CLM+Billing) fora desta rodada — reavaliar se o financeiro crescer. O motor de regras financeiras residente no Salesforce é lógica financeira real → forte candidato a re-size L→XL.",
     "confidence": "Assumed",
     "products": ["core-service-cloud", "mulesoft"],
     "depends_on": ["E01", "E05", "E08"],
-    "kb_sources": ["[KB: salesforce-revenue-cloud-marketplace-arch.md] — split multi-parte não é nativo de Billing; integração externa banco/PSP via MuleSoft", "[assumption: modelo de conta custódia e adquirente/PSP a confirmar com o cliente]"]
+    "kb_sources": ["[KB: salesforce-revenue-cloud-marketplace-arch.md] — split multi-parte não é nativo de Billing; motor de regras custom + integração com gateway via MuleSoft", "[decisions/0003-fronteira-crm-nao-transacional.md] — Salesforce calcula/aplica split e emite boletagem; execução e custódia são do gateway PCI externo (cliente)", "[assumption: provedor do gateway PCI não definido — dependência de terceiro, risco para a janela de 15/nov]"]
   },
   {
     "epic_id": "E04",
     "epic_name": "Credenciamento de Estabelecimentos",
-    "description": "Cadastro unificado de estabelecimentos via gov.br; facilitadoras mantêm o papel legal de aprovar e descredenciar. Reduz fricção e duplicidade; base de dado e confiança da plataforma. Driver de negócio (Decreto 12.712/2025): o modelo antigo obrigava o estabelecimento a credenciar-se facilitadora a facilitadora (um contrato por operadora, MDR alto/variável, repasse caso a caso). A reforma inverte a economia — teto de MDR de 3,6%, repasse em até 15 dias, fim do rebate e interoperabilidade (um credenciamento/terminal aceita todas as bandeiras; mai/2026 grandes, nov/2026 total) — tornando o cadastro unificado a via de menor custo e menor fricção. É esse value driver que sustenta a adesão do estabelecimento.",
+    "description": "Cadastro unificado de estabelecimentos via gov.br; facilitadoras mantêm o papel legal de aprovar e descredenciar. Duas faces (protótipos): a do estabelecimento que cadastra e sobe documentos, e a do Analista MTE que analisa documento a documento (Válido/Inválido + motivo), emite parecer (Deferido/Exigência complementar/Indeferido) e opera a trilha de auditoria. Distinção de domínio travada (sync 30/jul): a ADQUIRENTE (Cielo, Rede, Getnet) é responsável pelo crédito no cartão e pela relação com o estabelecimento credenciado — consulta a base de estabelecimentos antes de processar transações de alto volume; a FACILITADORA é responsável pela custódia do dinheiro. Reduz fricção e duplicidade; base de dado e confiança da plataforma. Driver de negócio (Decreto 12.712/2025): o modelo antigo obrigava o estabelecimento a credenciar-se facilitadora a facilitadora (um contrato por operadora, MDR alto/variável, repasse caso a caso). A reforma inverte a economia — teto de MDR de 3,6%, repasse em até 15 dias, fim do rebate e interoperabilidade (um credenciamento/terminal aceita todas as bandeiras; mai/2026 grandes, nov/2026 total) — tornando o cadastro unificado a via de menor custo e menor fricção. É esse value driver que sustenta a adesão do estabelecimento.",
     "confidence": "Confirmed",
     "products": ["core-service-cloud", "experience-cloud", "mulesoft"],
     "depends_on": ["E01", "E05"],
@@ -38,10 +38,10 @@
   {
     "epic_id": "E05",
     "epic_name": "Integração Corporativa (MuleSoft)",
-    "description": "Camada de integração API-led conectando Novo PAT, GOV.BR/Geride, CTPS Digital, eSocial, SDC, Kinis PJ/Par, banco público (boleto/Pix/split) e as APIs das ~600-700 facilitadoras. Abordagem mock-first para desbloquear o desenvolvimento enquanto Swaggers/contratos de API não são disponibilizados.",
+    "description": "Camada de integração API-led conectando Novo PAT, GOV.BR/Geride, CTPS Digital (notificação de ativação do crédito ao trabalhador — touchpoint novo, sync 30/jul), eSocial, SDC, Kinis PJ/Par, o gateway PCI/banco custódia (novo alvo de integração — recebe a boletagem com split aplicado do CRM e devolve as movimentações bancárias via webhook, ADR 0003) e as APIs das ~600-700 facilitadoras (webhooks de cotação, recepção de propostas). Validação de estabelecimento por CNPJ (sync 30/jul): client credentials flow para obter token, connected app com escopo restrito, MuleSoft valida o token antes de cada chamada com controle de rate limit e cache para consultas frequentes. Abordagem mock-first para desbloquear o desenvolvimento enquanto Swaggers/contratos de API não são disponibilizados.",
     "confidence": "Confirmed",
     "products": ["mulesoft"],
-    "kb_sources": ["[KB: salesforce-revenue-cloud-marketplace-arch.md] — MuleSoft Anypoint como plataforma de integração/API para os múltiplos sistemas e facilitadoras"]
+    "kb_sources": ["[KB: salesforce-revenue-cloud-marketplace-arch.md] — MuleSoft Anypoint como plataforma de integração/API para os múltiplos sistemas e facilitadoras", "[decisions/0003-fronteira-crm-nao-transacional.md] — gateway PCI como alvo de integração (boletagem → gateway; movimentações → CRM)"]
   },
   {
     "epic_id": "E06",
@@ -64,10 +64,10 @@
   {
     "epic_id": "E08",
     "epic_name": "Segurança, Residência de Dados & Conformidade",
-    "description": "Modelo de dados com referências tokenizadas — CPF e dados sensíveis não persistem na nuvem Salesforce, resolvidos em runtime via API (ADR 0001, residência híbrida). Diagrama de fluxo de dados sob LGPD (Art. 11), trilha de auditoria para TCU/CGU/ANPD. Requisito transversal a todas as épicas.",
+    "description": "Dois eixos de isolamento que coexistem. (1) RESIDÊNCIA (ADR 0001): modelo de dados com referências tokenizadas — CPF e dados sensíveis não persistem na nuvem Salesforce, resolvidos em runtime via API. (2) TOPOLOGIA (ADR 0002): instância Salesforce dedicada e apartada para o MTE/PAT, isolada das demais orgs de clientes da Dataprev — isolamento forçado (não opção) por segurança/sensibilidade financeira (conta custódia, split), volumetria (~800k estabelecimentos, ~450k beneficiárias), auditabilidade (TCU/CGU/ANPD) e administração pelo próprio MTE. Segurança/auditoria deixam de ser transversais implícitos e viram requisito explícito escrito na proposta com justificativa (call 30/jul): observabilidade, trilha de auditoria imutável do acesso a dado sensível, mascaramento de CPF nos logs. Diagrama de fluxo de dados sob LGPD (Art. 11). Requisito transversal a todas as épicas.",
     "confidence": "Confirmed",
     "products": ["core-service-cloud", "mulesoft"],
-    "kb_sources": ["[assumption: fronteira exata de campos da residência híbrida a ratificar com arquitetura Dataprev — ADR 0001 / Open Question 3]"]
+    "kb_sources": ["[assumption: fronteira exata de campos da residência híbrida a ratificar com arquitetura Dataprev — ADR 0001 / Open Question 3]", "[decisions/0002-instancia-dedicada-mte-pat.md] — instância dedicada e apartada (Cenário B), isolamento forçado; ainda verbal, a ratificar por escrito"]
   },
   {
     "epic_id": "E09",

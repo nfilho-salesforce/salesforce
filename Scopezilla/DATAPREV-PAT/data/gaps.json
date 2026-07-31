@@ -86,8 +86,8 @@
   {
     "gap_id": "G0301",
     "category": "Missing Requirement",
-    "gap_or_question": "Qual banco público operará a conta custódia e qual o modelo de liquidação (settlement) do split? O split ocorre no banco/adquirente (dinheiro nunca transita pela plataforma) ou há conciliação pós-crédito? A plataforma orquestra ou apenas instrui o split? Falta o contrato de API (Swagger) do banco/PSP.",
-    "impact_or_notes": "Bloqueia DESIGN e estimativa de E03/E05. KB confirma que split multi-parte NÃO é nativo do Billing — depende de integração externa (MuleSoft) cujo contrato inexiste. Ligado a Open Question 2."
+    "gap_or_question": "PARCIALMENTE RESOLVIDO (ADR 0003, sync 30/jul): a fronteira está definida — o Salesforce CALCULA e APLICA as regras de split (motor de regras no CRM) e EMITE a boletagem com o rateio; a EXECUÇÃO da liquidação e a CUSTÓDIA do dinheiro são do gateway PCI externo (dinheiro não transita pela plataforma). ABERTO: qual banco público/gateway opera a conta custódia (provedor não definido) e o contrato de API (Swagger) do gateway — mecânica de settlement e formato do webhook de retorno de movimentações.",
+    "impact_or_notes": "A parte de orquestração/cálculo deixa de ser bloqueador de escopo (é do SF, dá corpo a E03). O provedor do gateway PCI segue aberto — ver novo gap G0309 (dependência de terceiro, risco 15/nov). Ligado a Open Question 2."
   },
   {
     "gap_id": "G0302",
@@ -104,8 +104,8 @@
   {
     "gap_id": "G0304",
     "category": "Missing Requirement",
-    "gap_or_question": "Não há requisito de conciliação financeira. Como a plataforma reconcilia o valor da folha, o valor pago pela beneficiária, o creditado aos trabalhadores, o repasse à facilitadora e a taxa retida ao MTE/Dataprev? O que acontece em divergência (pagamento parcial, valor a maior/menor)?",
-    "impact_or_notes": "Conciliação é obrigatória em fluxo de custódia/split e é onde builds financeiros falham. Ausência subdimensiona E03. Necessária para auditoria e para fechar o ciclo financeiro."
+    "gap_or_question": "FORMA DEFINIDA (ADR 0003, sync 30/jul): a conciliação É escopo do Salesforce — 'casamento' dos lançamentos com o boleto pago, monitoramento da conta custódia e recepção das movimentações bancárias devolvidas pelo gateway para atualizar status/contratos. ABERTO: as regras concretas de conciliação — como reconciliar valor da folha vs. valor pago vs. creditado vs. repasse à facilitadora vs. taxa ao MTE, e o tratamento de divergência (pagamento parcial, valor a maior/menor, estorno).",
+    "impact_or_notes": "Conciliação passa a ser lógica financeira explícita no CRM — é o que empurra E03 de L para XL. Regras de divergência ainda indefinidas: input material de sizing e condição de auditoria. Envolver especialista de arquitetura bancária/financeira."
   },
   {
     "gap_id": "G0305",
@@ -248,8 +248,8 @@
   {
     "gap_id": "G0701",
     "category": "Source Conflict",
-    "gap_or_question": "Volume de empresas beneficiarias diverge entre fontes: discovery citou ~450 mil, fontes oficiais/imprensa citam ~300-327,7 mil. Qual o numero real da base a carregar? (registrado em strategy _open_data_flags)",
-    "impact_or_notes": "Discrepancia de ~30-40% dimensiona diretamente o esforco de carga, dedup e validacao. Distorce a estimativa de E07 e o dimensionamento MuleSoft (E05). Resolver antes de qualquer artefato client-facing."
+    "gap_or_question": "Volume de empresas beneficiarias: a call de esclarecimento (30/jul) firmou verbalmente ~450 mil beneficiárias (empresas) e ~800 mil estabelecimentos como base de sizing — fontes oficiais/imprensa ainda citam ~300-327,7 mil. Direção de trabalho: ~450k (Assumed, falado na call), a ratificar por escrito com o extrato real do Novo PAT.",
+    "impact_or_notes": "Assume-se ~450k para dimensionar carga/dedup/integração (E05/E07) — mantém-se Assumed até o extrato oficial. A discrepância de ~30-40% ainda distorce a estimativa se o número real for menor; não citar como fato em artefato client-facing sem a ratificação."
   },
   {
     "gap_id": "G0702",
@@ -368,8 +368,9 @@
   {
     "gap_id": "G0808",
     "category": "Assumption",
-    "gap_or_question": "Org unica Salesforce hospeda todos os dominios (marketplace/credenciamento/financeiro/atendimento)",
-    "impact_or_notes": "Assumcao de design: nenhum requisito de isolamento regulatorio forca multi-org; residencia resolvida por tokenizacao (E08), nao por separacao de org. Validar com arquitetura Dataprev."
+    "confidence": "Assumed",
+    "gap_or_question": "RESOLVIDO (ADR 0002, call 30/jul/2026): topologia de org do PAT. O eixo 'todos os domínios juntos em uma org' mantém-se; o que se resolveu é que essa org é DEDICADA E APARTADA das demais orgs de clientes da Dataprev — isolamento forçado por segurança/sensibilidade financeira, volumetria (~800k/~450k), auditabilidade (TCU/CGU/ANPD) e administração pelo próprio MTE (não pode ver 'a cozinha' dos demais clientes). Antes assumia-se que nenhum requisito forçava a separação.",
+    "impact_or_notes": "Fechado na direção 'isolamento é forçado por requisito'. Ainda VERBAL — a ratificar por escrito com o cliente (premissa forte, não confirmação documental). Precificação: apenas Cenário B (dedicado); dual-scenario A/B descartado. Provisionamento da org dedicada entra como pré-requisito de arranque (lead-time vs. janela fixa 15/nov)."
   },
   {
     "gap_id": "G0809",
@@ -388,5 +389,29 @@
     "category": "Assumption",
     "gap_or_question": "Assunção de faseamento: E09 (Change & Adoção) tem pico na Fase 4, mas a comunicação com as ~600-700 facilitadoras arranca na Fase 1 — a resistência esperada (perda de margem no modelo transparente) exige antecipação. Válida enquanto a fronteira de escopo change PS vs. Dataprev/MTE (G0901/G0906) não for definida.",
     "impact_or_notes": "Valida-se ao confirmar a divisão PS vs. Dataprev do change. Se a Dataprev/MTE assumir a comunicação, o esforço PS em E09 recua para capacitação/adoção."
+  },
+  {
+    "gap_id": "G0309",
+    "category": "Potential Risk",
+    "gap_or_question": "Provedor do gateway PCI / banco custódia NÃO DEFINIDO (ADR 0003). O gateway executa as transações bancárias e custodia o dinheiro (fora do escopo Salesforce PS, contratado pelo cliente), mas ninguém confirmou o nome/provedor. Nelson sinalizou envolver especialista (arquitetura bancária/financeira). Quem contrata, em que prazo, e qual o contrato de API (recebe boletagem, devolve movimentação via webhook)?",
+    "impact_or_notes": "Dependência de terceiro na entrega — risco direto para a janela fixa de 15/nov/2026. Sem gateway contratado e com contrato de API firme, o ciclo financeiro de E03 não fecha ponta a ponta e o teste integrado fica bloqueado. Candidato a pré-requisito de kick-off (registro de dependência com owner + data)."
+  },
+  {
+    "gap_id": "G0509",
+    "category": "Missing Requirement",
+    "gap_or_question": "Notificação via CTPS Digital (Carteira de Trabalho Digital) — touchpoint novo (sync 30/jul): a marca de status consolidado 'crédito concedido' dispara a notificação de ativação do crédito ao trabalhador. A integração/entrega dessa notificação é escopo Salesforce (via MuleSoft) ou é responsabilidade do MTE/Novo PAT? Existe contrato de API da CTPS Digital?",
+    "impact_or_notes": "Se for escopo SF, é mais um alvo de integração em E05 (com o dado sensível do trabalhador sob a fronteira do ADR 0001 — o trabalhador é titular mas não é usuário do portal, ver G0807). Se for do MTE, vira premissa/gap de handoff. Fronteira de responsabilidade a confirmar."
+  },
+  {
+    "gap_id": "G0209",
+    "category": "Ambiguity",
+    "gap_or_question": "Marketing Cloud para alertas automáticos (vencimento de contrato, atualização de folha) foi DISCUTIDO mas NÃO TRAVADO na sync (30/jul). É escopo real desta rodada ou 'plus'/nice-to-have para fase posterior? Se dentrar, adiciona produto (licença + configuração de jornadas) a E02/E03.",
+    "impact_or_notes": "Candidato a de-escopo/buffer sob a janela fixa de 15/nov. Alertas transacionais mínimos podem ser cobertos por notificação nativa/Flow sem Marketing Cloud. Grillar escopo vs. plus antes de dimensionar; não somar licença/esforço enquanto não travado."
+  },
+  {
+    "gap_id": "G0607",
+    "category": "Ambiguity",
+    "gap_or_question": "Agentforce / IA generativa para 'sugerir resumo dos termos do contrato em linguagem acessível' (sync 30/jul) é sinal fraco — 'sugere resumo'. É caso de uso real de E06 nesta rodada ou nice-to-have? Distinto do escopo informacional/transacional já aberto em G0601.",
+    "impact_or_notes": "Se real, é um caso de uso pontual de IA generativa acoplado a E02→E03 (resumo de contrato), mais leve que o agente transacional de G0601. Candidato a de-escopo/buffer sob a janela fixa. Grillar antes de dimensionar E06."
   }
 ]

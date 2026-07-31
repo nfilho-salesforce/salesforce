@@ -323,6 +323,50 @@
       "next_steps": [
         "Monitorar decisão do STF na ADI 7962 antes de comprometer marcos de interoperabilidade no roadmap"
       ]
+    },
+    {
+      "date": "2026-07-31",
+      "skills_used": [
+        "revise",
+        "requirements",
+        "design",
+        "roadmap",
+        "estimate",
+        "narratives",
+        "validate"
+      ],
+      "summary": "Sweep de reprocessamento 'reprocessar tudo afetado' após 2 fontes novas (call de esclarecimento + sync PAT interna) cruzadas com o Decreto 12.712/2025 e o fluxo entre personas. Grillados 13 candidatos; confirmados e propagados: (1) instância dedicada e apartada → ADR 0002; (2) fronteira CRM-não-transacional, Salesforce = motor de regras de split, gateway PCI executa/custodia → ADR 0003; (3) go-live FIXO 15/nov/2026 → modo data-fixa 13 semanas, MVP de 8 épicas, E06/Agentforce de-escopado como buffer. E03 re-sizado L→XL (motor de split). Distribuição {XL:3, L:3, M:3}. Roster ganhou especialista de arquitetura financeira/bancária (R12) em ambas as lanes; R09/E06 removido do roster comprometido. estimate-comparison: âncora AI-native comprometida (~R$3,50M sem imp / R$3,74M com imp, ~8,9 FTE, 4.620 h-pessoa PS); trilha tradicional (18-38 sem) NÃO alcança 15/nov — AI-native é necessidade de cronograma, agrava risco #1 (prontidão de IA Low 2/8). Exec summary e 01-solution.md re-renderizados. validate: G0808 recategorizado de 'Resolved' para 'Assumption'; E06 sem fase é de-escopo intencional (não é breakage).",
+      "friction": [
+        "Central Salesforce KB cache degradada (access_denied) — grounding apoiado em knowledge/ do projeto",
+        "Volumetria 800k/450k ainda de fonte de imprensa/call, não primária — a ratificar antes de client-facing",
+        "Instância dedicada (ADR 0002) ainda verbal — a ratificar por escrito"
+      ],
+      "decisions": [
+        {
+          "decision": "Instância dedicada e apartada (Cenário B), sem dual pricing A/B",
+          "rationale": "Isolamento forçado por segurança/volumetria/auditabilidade (TCU/CGU/ANPD)/admin pelo cliente; usuário escolheu 'só ADR, sem dual pricing'"
+        },
+        {
+          "decision": "Modo data-fixa 15/nov + MVP",
+          "rationale": "Data regulatória imóvel; escopo é a variável de flexão; E06 primeiro a cair"
+        },
+        {
+          "decision": "Salesforce = motor de regras de split; gateway PCI (cliente) executa/custodia",
+          "rationale": "Q3 do usuário: motor de regras é do Salesforce, não do PCI; PCI recebe boletagem com split, executa transações e devolve movimentações ao CRM"
+        }
+      ],
+      "open_threads": [
+        "Ratificar por escrito a instância dedicada (ADR 0002) e a fronteira campo-a-campo da residência (ADR 0001) com a arquitetura Dataprev",
+        "Selecionar/contratar o provedor do gateway PCI (G0309) — lead-time de Fase 0, risco #1 à data fixa",
+        "Confirmar o modelo operacional AI-native com o cliente (gate que torna a janela de 13 semanas viável)",
+        "Confirmar volumetria (~800k estabelecimentos / ~450k beneficiárias) em fonte primária",
+        "deal-review.html a re-renderizar refletindo o escopo reprocessado"
+      ],
+      "next_steps": [
+        "Re-renderizar deal-review.html",
+        "Considerar grill-me-on-scope no slice tocado (E03 XL, roster financeiro, janela fixa) antes do export",
+        "export quando o cliente ratificar ADR 0002 e o gateway PCI"
+      ]
     }
   ],
   "preferences": {},
@@ -351,6 +395,36 @@
       "rationale": "Solution Lead atesta que o cliente qualifica para o modelo operacional AI-native; o número submetido é o AI-native, tradicional é 'o que custaria do jeito antigo'.",
       "rejected": [
         "Âncora tradicional com AI-native derivado por compressão (postura de pitch) — não aplicável: o deal comprometeu-se ao modo AI-native"
+      ]
+    },
+    {
+      "date": "2026-07-31",
+      "area": "architecture",
+      "decision": "Instância Salesforce dedicada e apartada para o MTE/PAT (ADR 0002)",
+      "rationale": "Isolamento forçado por segurança/sensibilidade financeira, volumetria (~800k/~450k), auditabilidade TCU/CGU/ANPD e administração pelo próprio MTE. Ainda verbal, a ratificar por escrito. Provisionamento vira pré-req de Fase 0 (lead-time externo).",
+      "rejected": [
+        "org compartilhada com demais clientes Dataprev",
+        "dual pricing Cenário A (compartilhada) vs B (dedicada)"
+      ]
+    },
+    {
+      "date": "2026-07-31",
+      "area": "architecture",
+      "decision": "Fronteira CRM-não-transacional: Salesforce = motor de regras de split; gateway PCI (cliente) executa e custodia (ADR 0003)",
+      "rationale": "Salesforce calcula/aplica split (teto MDR 3,6%, repasse ≤15d), emite boletagem com split, concilia por casamento e recebe movimentações; execução bancária e custódia ficam no gateway PCI contratado pelo cliente. Dimensiona E03 de L para XL e adiciona especialista de arquitetura financeira ao roster.",
+      "rejected": [
+        "split como capability nativa de Billing",
+        "Salesforce transacionando/custodiando valores"
+      ]
+    },
+    {
+      "date": "2026-07-31",
+      "area": "scope+timeline",
+      "decision": "Modo data-fixa: go-live imóvel 15/nov/2026, janela de 13 semanas, MVP de 8 épicas (E06/Agentforce de-escopado como buffer)",
+      "rationale": "Interoperabilidade total do Decreto 12.712/2025 + entrada do financeiro em produção fixam a data. Trilha tradicional (18-38 sem) não alcança; AI-native + MVP é a única trilha viável, o que agrava o risco #1 (prontidão de IA Low 2/8). Escopo é a variável de flexão; de-escopo (E06, Data Cloud em E02, Marketing Cloud, carga massiva, adoção completa) é o buffer.",
+      "rejected": [
+        "comprimir 18-38 semanas de escopo completo em 13",
+        "mover a data"
       ]
     }
   ]

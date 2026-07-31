@@ -1,111 +1,136 @@
 {
   "project_name": "DATAPREV-PAT — Marketplace Digital do PAT",
-  "generated_at": "2026-07-28",
+  "generated_at": "2026-07-31",
   "anchor": "quantum-leap",
   "anchor_label": "AI-native",
   "validated_by": "user",
   "disclaimer_class": "input-derived",
+  "committed_engagement": {
+    "mode": "fixed-date-backward-planned",
+    "go_live": "15/nov/2026",
+    "total_weeks": 13,
+    "scope": "MVP — 8 épicas (E01,E02,E03,E04,E05,E07,E08,E09). E06 (Agentforce) fora do MVP; Data Cloud em E02 e Marketing Cloud/alertas também de-escopados como buffer de cronograma.",
+    "framing": "A data é o âncora imóvel; o ESCOPO é a variável de flexão. O programa não comprime 18-38 semanas de trabalho em 13 — entrega um MVP dimensionado para a janela, com candidatos a de-escopo como buffer.",
+    "committed_lane": "quantum-leap",
+    "committed_price": {
+      "basis": "roster comprometido (resource-plan.json) × janela fixa de 13 semanas × 40h, por rate sem imposto — via derive-hours.py",
+      "ps_person_hours": 4620,
+      "no_tax": 3495950,
+      "with_tax": 3740984,
+      "tax_rule": "com imposto = sem imposto ÷ 0,9345",
+      "program_avg_fte": 8.9,
+      "note": "Ponto indicativo do MVP na janela fixa, não faixa. Fica ABAIXO do meio da faixa full-scope AI-native (de-escopo de E06/Data Cloud/Marketing + janela mais curta). Carrega sizes Assumed atrás dos blockers de Fase 0.",
+      "disclaimers": ["rom", "validated-rate"]
+    },
+    "feasibility_finding": "As 13 semanas caem no EXTREMO INFERIOR da faixa derivada AI-native (11-27 sem) — atingíveis só no ponto agressivo E só com o de-escopo do MVP. A trilha TRADICIONAL (18-38 sem) NÃO alcança 15/nov de forma alguma. Isso torna o modelo AI-native não uma escolha de custo, mas uma NECESSIDADE de cronograma — o que agrava o risco #1, porque a prontidão de IA medida é Low (2/8).",
+    "schedule_buffer": "Candidatos a de-escopo, na ordem de primeiro-a-cair: (1) Agentforce E06 inteira; (2) Data Cloud em E02; (3) Marketing Cloud/alertas; (4) carga massiva de dados (E07); (5) adoção completa (E09). Entram no MVP só se a janela permitir; saem primeiro se um risco de caminho crítico se materializar (provisionamento da org dedicada, contratação do gateway PCI)."
+  },
   "shared_base": {
     "epics_count": 9,
-    "size_distribution": {"XL": 2, "L": 4, "M": 3},
+    "size_distribution": {"XL": 3, "L": 3, "M": 3},
     "size_confidence": "Assumed",
-    "size_confidence_note": "Todos os 9 sizes seguem Assumed atrás dos 4 blockers de arquitetura (G0801 fronteira de residência, G0501 contratos de API, G0504 hospedagem MuleSoft × residência, G0106 identidade gov.br × CPF). As duas trilhas herdam essa largura; a Fase 0 a aperta.",
-    "ownership_split": "Salesforce PS entrega as 9 épicas (build completo); Dataprev é dona da origem dos dados sensíveis e da tokenização (ADR 0001). Confirmado pelo usuário.",
+    "size_confidence_note": "E03 subiu de L para XL: a premissa que o design havia sinalizado em size_if_assumption_breaks se REALIZOU — o ADR 0003 confirma que o motor de regras de split e a conciliação vivem no Salesforce (não no gateway PCI). Distribuição agora {XL:3, L:3, M:3}. Os 9 sizes seguem Assumed atrás dos blockers de arquitetura (G0801 fronteira de residência, G0501 contratos de API, G0504 hospedagem MuleSoft × residência, G0106 identidade gov.br × CPF, G0309 provedor do gateway PCI indefinido). A Fase 0 aperta essa largura.",
+    "ownership_split": "Salesforce PS entrega as 9 épicas (build completo). FRONTEIRA CRM×financeiro (ADR 0003): o Salesforce é o motor de regras de split (calcula/aplica rateio, teto MDR 3,6%, repasse ≤15d), emite boletagem com split, orquestra e concilia; a EXECUÇÃO bancária e a custódia ficam FORA (gateway PCI/banco, contratado pelo cliente). Dataprev é dona da origem dos dados sensíveis e da tokenização (ADR 0001). Confirmado pelo usuário.",
     "range_drivers": [
-      {"epic_id": "E05", "driver": "Hub de integração multi-sistema + ~600-700 APIs de facilitadoras, mock-first, sem contratos/Swagger (risco #1, caminho crítico)"},
-      {"epic_id": "E03", "driver": "Integração financeira (boleto/Pix/split multi-parte) com idempotência e conciliação; sobe a XL se exigir motor financeiro dedicado"},
-      {"epic_id": "E08", "driver": "Fronteira campo-a-campo da residência híbrida não ratificada; governa o data model de E01/E02/E03/E06"}
+      {"epic_id": "E03", "driver": "REALIZADO em XL (ADR 0003): motor de regras de split no Salesforce — calcula/aplica rateio governo/facilitadora/estabelecimento (teto MDR 3,6%, repasse ≤15d, Decreto 12.712/2025), emite boletagem com split, concilia por casamento, integra o gateway PCI. Exige especialista de arquitetura financeira/bancária no roster."},
+      {"epic_id": "E05", "driver": "Hub de integração multi-sistema + APIs de facilitadoras, mock-first, sem contratos/Swagger (risco #1, caminho crítico); agora com o gateway PCI como alvo de integração (ADR 0003)"},
+      {"epic_id": "E08", "driver": "Fronteira campo-a-campo da residência híbrida (ADR 0001) não ratificada + instância dedicada/apartada (ADR 0002); governa o data model e a topologia de E01/E02/E03"}
     ]
   },
   "lanes": {
     "quantum-leap": {
       "label": "AI-native",
-      "role_in_comparison": "âncora — número comprometido",
+      "role_in_comparison": "âncora — trilha comprometida (MVP na data fixa)",
       "basis": "derived",
+      "duration_weeks_committed": 13,
       "duration_weeks_range": {"low": 11, "high": 27},
-      "duration_provenance": "baseline benchmark 18-38 sem (top-down-shape, .project-metadata.json.timeline.derived) comprimida pela native_band da eficiência (~28-38%, condicional/provisória, decisions/0033). Compressão: 18×(1-0,38)≈11; 38×(1-0,28)≈27.",
+      "duration_provenance": "Compromisso do usuário: janela FIXA de 13 semanas (go-live 15/nov, planejada de trás pra frente). A faixa derivada 11-27 sem (baseline benchmark 18-38 comprimida pela native_band ~28-38%, decisions/0033) é o RACIOCÍNIO por trás: 13 sem cai no extremo inferior dessa faixa e só é atingível com o de-escopo do MVP.",
       "duration_disclaimer": "benchmark",
       "capacity_summary": {
-        "program_avg_fte": 8.6,
-        "peak_distinct_people": 13,
-        "person_hours_range": {"low": 3797, "high": 9320},
-        "blended_rate_no_tax": 744.8,
-        "note": "FTE média-programa dobra phases_active (time-box) + allocation (fração). Pico maior no meio do build; headline é média, não head-count."
+        "program_avg_fte": 8.9,
+        "peak_distinct_people": 12,
+        "ps_person_hours": 4620,
+        "blended_rate_no_tax": 756.7,
+        "note": "FTE média-programa = 4620 PS person-hours / (13 sem × 40). Roster comprometido: financeiro/bancário adicionado (E03 XL), Agentforce E06 removido do MVP (de-escopo). Pico maior no meio do build."
       },
       "qualification": "qualified",
       "qualification_basis": "Solution Lead (usuário) atesta que o cliente qualifica para o modelo operacional AI-native. Compromisso do usuário — carregado com a tensão de prontidão como risco #1 (ver provisional_note).",
-      "provisional_note": "A native_band (~28-38%) é condicional/provisória e não calibrada de forma independente (decisions/0033). A prontidão de IA medida na eficiência é Low (2/8): sem ferramental de IA aprovado, gates TCU/CGU/ANPD, ADI/STF, Fase 0 travada — postura estruturalmente OPOSTA ao modelo native. O número comprometido repousa no cliente adotar um modo de trabalho que não exibe hoje. Risco #1 do estimate.",
+      "provisional_note": "A native_band (~28-38%) é condicional/provisória e não calibrada de forma independente (decisions/0033). A prontidão de IA medida na eficiência é Low (2/8): sem ferramental de IA aprovado, gates TCU/CGU/ANPD, ADI 7962/STF, Fase 0 travada por lead-times externos (provisionamento da org dedicada + contratação do gateway PCI) — postura estruturalmente OPOSTA ao modelo native. Agravante da data fixa: a trilha tradicional NÃO alcança 15/nov, então o AI-native deixa de ser escolha de custo e vira necessidade de cronograma. O número comprometido repousa no cliente adotar um modo de trabalho que não exibe hoje. Risco #1 do estimate.",
       "roster": [
-        {"role": "Project/Program Manager", "table_role": "Engagement Manager", "seniority": "senior", "location": "onshore", "count": 1, "allocation": "full", "phases_active": "0-4", "side": "ps", "rate_no_tax": 884.68, "justification": "Accountability única de entrega e da relação MTE×Dataprev; caminho crítico de coordenação (trabalho só-humano, não delegável a agente). Full-time todo o programa."},
-        {"role": "Solution Architect", "table_role": "Senior Solution Architect", "seniority": "senior", "location": "onshore", "count": 1, "allocation": "full", "phases_active": "0-4", "side": "ps", "rate_no_tax": 884.68, "justification": "Dono da arquitetura; cobre solution + funcional de alto nível no MVP. A residência híbrida (ADR 0001) governa o data model de E01/E02/E03/E06 — coverage sênior contínuo, amplificado por agentes."},
-        {"role": "Technical Architect", "table_role": "Senior Technical Architect", "seniority": "senior", "location": "onshore", "count": 1, "allocation": "full", "phases_active": "0-3", "side": "ps", "rate_no_tax": 884.68, "justification": "Risco #1: hub de integração E05 sem contratos de API, mock-first. Sênior presente no caminho crítico dirigindo o fleet de agentes; onshore por acoplamento de timezone com sistemas Dataprev/facilitadoras."},
+        {"role": "Project/Program Manager", "table_role": "Engagement Manager", "seniority": "senior", "location": "onshore", "count": 1, "allocation": "full", "phases_active": "0-4", "side": "ps", "rate_no_tax": 884.68, "justification": "Accountability única de entrega e da relação MTE×Dataprev; caminho crítico de coordenação (trabalho só-humano). Full-time. Janela FIXA de 13 semanas eleva a coordenação de caminho crítico."},
+        {"role": "Solution Architect", "table_role": "Senior Solution Architect", "seniority": "senior", "location": "onshore", "count": 1, "allocation": "full", "phases_active": "0-4", "side": "ps", "rate_no_tax": 884.68, "justification": "Dono da arquitetura; solution + funcional de alto nível no MVP. Residência híbrida (ADR 0001) + instância dedicada (ADR 0002) governam data model e topologia — coverage sênior contínuo, amplificado por agentes."},
+        {"role": "Technical Architect", "table_role": "Senior Technical Architect", "seniority": "senior", "location": "onshore", "count": 1, "allocation": "full", "phases_active": "0-3", "side": "ps", "rate_no_tax": 884.68, "justification": "Risco #1: hub de integração E05 sem contratos, mock-first, gateway PCI como alvo (ADR 0003). Sênior no caminho crítico dirigindo o fleet de agentes; onshore por acoplamento de timezone."},
+        {"role": "Technical Architect", "table_role": "Payments/Financial Architecture Specialist", "seniority": "senior", "location": "onshore", "count": 1, "allocation": "half", "allocation_by_phase": {"3": "full"}, "phases_active": "0-3", "side": "ps", "rate_no_tax": 884.68, "rate_flag": "⚠ Sem correspondente exato na tabela Dataprev; mapeado a Senior Technical Architect (R$ 884,68). A confirmar role/taxa.", "justification": "NOVO — E03 subiu a XL (ADR 0003): define as regras de split e conciliação (G0304) e o contrato de integração com o gateway PCI/banco custódia (G0309), e conduz o build de E03. Onshore por acoplamento regulatório/timezone. Half nas fases 0-1 (arquitetura), full na Fase 3 (build)."},
         {"role": "Project/Program Manager", "table_role": "Project Manager", "seniority": "regular", "location": "onshore", "count": 1, "allocation": "full", "phases_active": "1-4", "side": "ps", "rate_no_tax": 789.88, "justification": "Coordenação multi-fase, release management, cadência com stakeholders. Ramp na Fase 1."},
-        {"role": "Developer", "table_role": "Developer", "seniority": "regular", "location": "offshore", "count": 2, "allocation": "full", "phases_active": "1-4", "side": "ps", "rate_no_tax": 668.78, "justification": "AI-native — volume→agentes (adj.1): pod reduzido de 3→2 sob a arquitetura sênior; os builders remanescentes constroem COM agentes o leilão custom (E02, XL) e o financeiro (E03), que são caminho crítico e alto imposto de review. Não zerados por reflexo."},
-        {"role": "Developer", "table_role": "MuleSoft Technical Consultant", "seniority": "regular", "location": "offshore", "count": 1, "allocation": "full", "phases_active": "1-3", "side": "ps", "rate_no_tax": 668.78, "justification": "AI-native — volume→agentes (adj.1): 2→1. O stub/mock-first de E05 é favorável a agentes (aproxima-se de greenfield); o builder humano cobre a virada mock→real e a de-tokenização em runtime, que ficam fora da fronteira do agente."},
-        {"role": "Experience Design", "table_role": "Experience Architect", "seniority": "regular", "location": "offshore", "count": 1, "allocation": "full", "phases_active": "1-2", "side": "ps", "rate_no_tax": 789.88, "justification": "Especialista fracional consumido (adj.5): jornada única gov.br (E01) + UX do leilão/comparação de propostas (E02); risco de adoção material. Ativo nas fases de portal/marketplace."},
-        {"role": "Quality Assurance", "table_role": "Quality Assurance Consultant", "seniority": "regular", "location": "offshore", "count": 2, "allocation": "full", "phases_active": "2-4", "side": "ps", "rate_no_tax": 573.98, "justification": "AI-native — QA amplificado, NÃO reduzido (adj.2): um agente não pode ser o check independente da própria saída. Mantido em 2 e com surge no hardening — go-live financeiro regulado (idempotência/conciliação boleto/Pix/split) exige verificação humana independente."},
-        {"role": "Developer", "table_role": "Technical Consultant", "seniority": "senior", "location": "offshore", "count": 1, "allocation": "half", "phases_active": "3", "side": "ps", "rate_no_tax": 668.78, "justification": "Atendimento inteligente Agentforce (E06, L); especialista fracional consumido na Fase 3. Half-time enquanto ativo."},
-        {"role": "Change & Adoption", "table_role": "Solution Consultant", "seniority": "regular", "location": "onshore", "count": 1, "allocation": "half", "phases_active": "1-4", "side": "ps", "rate_no_tax": 573.98, "rate_flag": "⚠ Sem correspondente exato na tabela Dataprev; mapeado a Solution Consultant (R$ 573,98). A confirmar role/taxa de conversão.", "justification": "Alcance do programa: 600-700 facilitadoras + centenas de milhares de beneficiárias; resistência à perda de margem no modelo transparente. Especialista fracional (um dia/semana)."},
-        {"role": "Developer", "table_role": "Technical Consultant", "seniority": "regular", "location": "offshore", "count": 1, "allocation": "half", "phases_active": "4", "side": "ps", "rate_no_tax": 668.78, "justification": "Carga inicial de cadastros (E07, M); fracional na Fase 4."},
-        {"role": "Product Owner / Decisor", "count": 1, "allocation": "full", "phases_active": "0-4", "side": "client", "justification": "Decisor empoderado para destravar blockers (fronteira de residência com Jair Bogo, regras do leilão/Lei 14.133), com a cadência que o modelo AI-native exige. ⚠ Não confirmado — gap de prontidão do cliente; é exatamente o que o gate AI-native testa."},
+        {"role": "Developer", "table_role": "Developer", "seniority": "regular", "location": "offshore", "count": 2, "allocation": "full", "phases_active": "1-4", "side": "ps", "rate_no_tax": 668.78, "justification": "AI-native — volume→agentes (adj.1): pod 3→2 sob a arquitetura sênior; builders remanescentes constroem COM agentes o leilão custom (E02, XL) e o motor de split (E03, XL), caminho crítico e alto imposto de review."},
+        {"role": "Developer", "table_role": "MuleSoft Technical Consultant", "seniority": "regular", "location": "offshore", "count": 1, "allocation": "full", "phases_active": "1-3", "side": "ps", "rate_no_tax": 668.78, "justification": "AI-native — volume→agentes (adj.1): 2→1. Stub/mock-first de E05 favorável a agentes; builder humano cobre a virada mock→real, a integração do gateway PCI e a de-tokenização em runtime."},
+        {"role": "Experience Design", "table_role": "Experience Architect", "seniority": "regular", "location": "offshore", "count": 1, "allocation": "full", "phases_active": "1-2", "side": "ps", "rate_no_tax": 789.88, "justification": "Especialista fracional consumido (adj.5): jornada única gov.br (E01) + UX do leilão/comparação de propostas (E02); risco de adoção material."},
+        {"role": "Quality Assurance", "table_role": "Quality Assurance Consultant", "seniority": "regular", "location": "offshore", "count": 2, "allocation": "full", "phases_active": "2-4", "side": "ps", "rate_no_tax": 573.98, "justification": "AI-native — QA amplificado, NÃO reduzido (adj.2): agente não é check independente da própria saída. Mantido em 2 com surge no hardening — go-live financeiro regulado (split/conciliação, teto MDR 3,6%) em data FIXA com estabilização mínima (1 sem) exige verificação humana."},
+        {"role": "Change & Adoption", "table_role": "Solution Consultant", "seniority": "regular", "location": "onshore", "count": 1, "allocation": "half", "phases_active": "1-4", "side": "ps", "rate_no_tax": 573.98, "rate_flag": "⚠ Sem correspondente exato na tabela Dataprev; mapeado a Solution Consultant (R$ 573,98). A confirmar role/taxa.", "justification": "~800k estabelecimentos + ~450k beneficiárias (a ratificar); resistência à perda de margem no modelo transparente. Especialista fracional (um dia/semana)."},
+        {"role": "Developer", "table_role": "Technical Consultant", "seniority": "regular", "location": "offshore", "count": 1, "allocation": "half", "phases_active": "4", "side": "ps", "rate_no_tax": 668.78, "justification": "Carga inicial MÍNIMA de cadastros (E07, M) — Novo PAT permanece system-of-record. Fracional na Fase 4."},
+        {"role": "Product Owner / Decisor", "count": 1, "allocation": "full", "phases_active": "0-4", "side": "client", "justification": "Decisor empoderado para destravar blockers (residência com Jair Bogo, provisionamento da org dedicada, seleção do gateway PCI, regras do leilão/Lei 14.133), na cadência que o modelo AI-native e a data FIXA impõem. ⚠ Não confirmado — gap de prontidão; é o que o gate AI-native testa."},
         {"role": "SMEs por épica", "count": 1, "allocation": "half", "phases_active": "1-4", "side": "client", "justification": "Conhecimento de Novo PAT, eSocial, folha, regras Lei 14.133 — disponível no momento (modelo native)."},
-        {"role": "Data Steward", "count": 1, "allocation": "half", "phases_active": "4", "side": "client", "justification": "Origem e qualidade dos cadastros para E07 (Migração & Carga)."},
-        {"role": "Client IT / Plataforma", "count": 1, "allocation": "full", "phases_active": "1-3", "side": "client", "justification": "Contratos de API das facilitadoras, hospedagem MuleSoft × residência, ponto de tokenização (E05/E08). Sub-staff aqui é o matador de entrega clássico."},
-        {"role": "Capacidade de UAT", "count": 1, "allocation": "half", "phases_active": "3-4", "side": "client", "justification": "Homologação do fluxo financeiro regulado (set/2026) antes de produção."},
-        {"role": "Sponsor executivo", "count": 1, "allocation": "quarter", "phases_active": "0-4", "side": "client", "justification": "Alinhamento MTE × Dataprev; monitorar ADI/STF sobre o Decreto 12.712/2025."}
+        {"role": "Data Steward", "count": 1, "allocation": "half", "phases_active": "4", "side": "client", "justification": "Origem e qualidade dos cadastros para E07."},
+        {"role": "Client IT / Plataforma", "count": 1, "allocation": "full", "phases_active": "1-3", "side": "client", "justification": "Contratos de API das facilitadoras, hospedagem MuleSoft × residência, tokenização, provisionamento da instância dedicada (ADR 0002), contratação do gateway PCI (ADR 0003). Sub-staff aqui é o maior risco à data fixa."},
+        {"role": "Capacidade de UAT", "count": 1, "allocation": "half", "phases_active": "3-4", "side": "client", "justification": "Homologação do fluxo financeiro regulado (set/2026) antes de produção em 15/nov."},
+        {"role": "Sponsor executivo", "count": 1, "allocation": "quarter", "phases_active": "0-4", "side": "client", "justification": "Alinhamento MTE × Dataprev; ratificação por escrito da instância dedicada (ADR 0002); monitorar ADI 7962/STF."}
       ],
-      "indicative_price_range": {
-        "no_tax": {"low": 2828122, "high": 6941754},
-        "with_tax": {"low": 3026347, "high": 7428308},
+      "indicative_price_committed": {
+        "no_tax": 3495950,
+        "with_tax": 3740984,
         "tax_rule": "com imposto = sem imposto ÷ 0,9345",
-        "formula": "Σ(FTE-efetiva do papel × rate sem imposto) × semanas × 40; FTE-efetiva = count × allocation × fração-de-fase-ativa",
+        "formula": "Σ(person-hours PS do papel × rate sem imposto), person-hours = derive-hours.py sobre o roster comprometido × janela fixa de 13 sem",
+        "note": "Ponto do MVP na janela fixa (não faixa). A faixa full-scope AI-native derivada era no_tax 2.828.122-6.941.754; o ponto do MVP fica abaixo do meio por conta do de-escopo (E06/Data Cloud/Marketing) e da janela mais curta.",
         "disclaimers": ["rom", "validated-rate"]
       },
       "confidence": "Assumed"
     },
     "traditional": {
       "label": "Tradicional",
-      "role_in_comparison": "gross-up notional — o que custaria do jeito antigo",
+      "role_in_comparison": "gross-up notional — o que o ESCOPO COMPLETO custaria do jeito antigo; NÃO alcança a data fixa",
       "basis": "derived",
       "duration_weeks_range": {"low": 18, "high": 38},
-      "duration_provenance": "gross-up notional a partir da trilha AI-native comprometida (native_band da eficiência invertida) — coincide com a baseline benchmark top-down-shape 18-38 sem de .project-metadata.json.timeline.derived. Rotulado notional.",
+      "duration_provenance": "gross-up notional a partir da trilha AI-native (native_band da eficiência invertida) — coincide com a baseline benchmark top-down-shape 18-38 sem. FEASIBILITY: mesmo no piso de 18 sem, a partir de ~15/ago a trilha tradicional ultrapassa 15/nov — não alcança a data fixa de forma alguma.",
       "duration_disclaimer": "benchmark",
+      "feasibility_flag": "NÃO ALCANÇA 15/nov. 18-38 sem para o escopo completo estoura o go-live regulatório por semanas a meses. Por isso o AI-native + MVP é a única trilha que fecha a data — não uma preferência comercial.",
       "capacity_summary": {
-        "program_avg_fte": 10.3,
-        "peak_distinct_people": 15,
+        "program_avg_fte": 10.6,
+        "peak_distinct_people": 16,
         "person_hours_range": {"low": 7420, "high": 15670},
-        "blended_rate_no_tax": 732.4,
-        "note": "Pod de build offshore que escala com volume + oversight sênior onshore de arquitetura/PM."
+        "blended_rate_no_tax": 736.0,
+        "note": "Pod de build offshore que escala com volume + oversight sênior onshore + especialista financeiro/bancário (E03 XL). Escopo completo (9 épicas, inclui E06)."
       },
       "roster": [
         {"role": "Project/Program Manager", "table_role": "Engagement Manager", "seniority": "senior", "location": "onshore", "count": 1, "allocation": "full", "phases_active": "0-4", "side": "ps", "rate_no_tax": 884.68, "justification": "Accountability única de entrega e da relação MTE×Dataprev; caminho crítico de coordenação. Full-time todo o programa."},
-        {"role": "Solution Architect", "table_role": "Senior Solution Architect", "seniority": "senior", "location": "onshore", "count": 1, "allocation": "full", "phases_active": "0-4", "side": "ps", "rate_no_tax": 884.68, "justification": "Dono da arquitetura; cobre solution + funcional de alto nível no MVP. Residência híbrida (ADR 0001) governa o data model."},
-        {"role": "Technical Architect", "table_role": "Senior Technical Architect", "seniority": "senior", "location": "onshore", "count": 1, "allocation": "full", "phases_active": "0-3", "side": "ps", "rate_no_tax": 884.68, "justification": "Risco #1: hub de integração E05 sem contratos, mock-first. Sênior no caminho crítico; onshore por acoplamento de timezone com Dataprev/facilitadoras."},
+        {"role": "Solution Architect", "table_role": "Senior Solution Architect", "seniority": "senior", "location": "onshore", "count": 1, "allocation": "full", "phases_active": "0-4", "side": "ps", "rate_no_tax": 884.68, "justification": "Dono da arquitetura; solution + funcional de alto nível. Residência híbrida (ADR 0001) + instância dedicada (ADR 0002) governam o data model."},
+        {"role": "Technical Architect", "table_role": "Senior Technical Architect", "seniority": "senior", "location": "onshore", "count": 1, "allocation": "full", "phases_active": "0-3", "side": "ps", "rate_no_tax": 884.68, "justification": "Risco #1: hub de integração E05 sem contratos, mock-first, gateway PCI como alvo. Sênior no caminho crítico; onshore por acoplamento de timezone."},
+        {"role": "Technical Architect", "table_role": "Payments/Financial Architecture Specialist", "seniority": "senior", "location": "onshore", "count": 1, "allocation": "half", "allocation_by_phase": {"2": "full", "3": "full"}, "phases_active": "0-3", "side": "ps", "rate_no_tax": 884.68, "rate_flag": "⚠ Sem correspondente exato na tabela Dataprev; mapeado a Senior Technical Architect (R$ 884,68). A confirmar role/taxa.", "justification": "NOVO — E03 XL (ADR 0003): regras de split/conciliação (G0304) + integração do gateway PCI (G0309) + build de E03. Sem amplificação de agentes, carga financeira maior que na trilha AI-native — full nas fases 2-3."},
         {"role": "Project/Program Manager", "table_role": "Project Manager", "seniority": "regular", "location": "onshore", "count": 1, "allocation": "full", "phases_active": "1-4", "side": "ps", "rate_no_tax": 789.88, "justification": "Coordenação multi-fase, release management, cadência com stakeholders. Ramp na Fase 1."},
-        {"role": "Developer", "table_role": "Developer", "seniority": "regular", "location": "offshore", "count": 3, "allocation": "full", "phases_active": "1-4", "side": "ps", "rate_no_tax": 668.78, "justification": "Pod de build que escala com volume: E01 portal, E02 leilão custom (XL), E03 folha/financeiro, E04, E06. Offshore-weighted padrão tradicional."},
-        {"role": "Developer", "table_role": "MuleSoft Technical Consultant", "seniority": "regular", "location": "offshore", "count": 2, "allocation": "full", "phases_active": "1-3", "side": "ps", "rate_no_tax": 668.78, "justification": "Construção das ~600-700 integrações de facilitadoras + gov.br/eSocial/Novo PAT; mock→real. Segundo maior imposto de build."},
-        {"role": "Experience Design", "table_role": "Experience Architect", "seniority": "regular", "location": "offshore", "count": 1, "allocation": "full", "phases_active": "1-2", "side": "ps", "rate_no_tax": 789.88, "justification": "Jornada única gov.br (E01) + UX do leilão/comparação de propostas (E02); risco de adoção material. Consumido nas fases de portal/marketplace."},
-        {"role": "Quality Assurance", "table_role": "Quality Assurance Consultant", "seniority": "regular", "location": "offshore", "count": 2, "allocation": "full", "phases_active": "2-4", "side": "ps", "rate_no_tax": 573.98, "justification": "Go-live financeiro regulado (boleto/Pix/split, idempotência/conciliação) exige verificação independente; surge no hardening."},
-        {"role": "Developer", "table_role": "Technical Consultant", "seniority": "senior", "location": "offshore", "count": 1, "allocation": "half", "phases_active": "3", "side": "ps", "rate_no_tax": 668.78, "justification": "Atendimento inteligente Agentforce (E06, L); especialista fracional consumido na Fase 3."},
-        {"role": "Change & Adoption", "table_role": "Solution Consultant", "seniority": "regular", "location": "onshore", "count": 1, "allocation": "half", "phases_active": "1-4", "side": "ps", "rate_no_tax": 573.98, "rate_flag": "⚠ Sem correspondente exato na tabela Dataprev; mapeado a Solution Consultant (R$ 573,98). A confirmar role/taxa de conversão.", "justification": "600-700 facilitadoras + beneficiárias; resistência à perda de margem. Especialista fracional (um dia/semana)."},
+        {"role": "Developer", "table_role": "Developer", "seniority": "regular", "location": "offshore", "count": 3, "allocation": "full", "phases_active": "1-4", "side": "ps", "rate_no_tax": 668.78, "justification": "Pod de build que escala com volume: E01 portal, E02 leilão custom (XL), E03 motor de split (XL), E04, E06. Offshore-weighted padrão tradicional."},
+        {"role": "Developer", "table_role": "MuleSoft Technical Consultant", "seniority": "regular", "location": "offshore", "count": 2, "allocation": "full", "phases_active": "1-3", "side": "ps", "rate_no_tax": 668.78, "justification": "Construção das integrações de facilitadoras + gov.br/eSocial/Novo PAT + gateway PCI; mock→real. Segundo maior imposto de build."},
+        {"role": "Experience Design", "table_role": "Experience Architect", "seniority": "regular", "location": "offshore", "count": 1, "allocation": "full", "phases_active": "1-2", "side": "ps", "rate_no_tax": 789.88, "justification": "Jornada única gov.br (E01) + UX do leilão/comparação (E02); risco de adoção material."},
+        {"role": "Quality Assurance", "table_role": "Quality Assurance Consultant", "seniority": "regular", "location": "offshore", "count": 2, "allocation": "full", "phases_active": "2-4", "side": "ps", "rate_no_tax": 573.98, "justification": "Go-live financeiro regulado (split/conciliação) exige verificação independente; surge no hardening."},
+        {"role": "Developer", "table_role": "Technical Consultant", "seniority": "senior", "location": "offshore", "count": 1, "allocation": "half", "phases_active": "3", "side": "ps", "rate_no_tax": 668.78, "justification": "Atendimento inteligente Agentforce (E06, L); especialista fracional consumido na Fase 3. Presente no escopo completo tradicional."},
+        {"role": "Change & Adoption", "table_role": "Solution Consultant", "seniority": "regular", "location": "onshore", "count": 1, "allocation": "half", "phases_active": "1-4", "side": "ps", "rate_no_tax": 573.98, "rate_flag": "⚠ Sem correspondente exato na tabela Dataprev; mapeado a Solution Consultant (R$ 573,98). A confirmar role/taxa.", "justification": "~800k estabelecimentos + ~450k beneficiárias; resistência à perda de margem. Especialista fracional (um dia/semana)."},
         {"role": "Developer", "table_role": "Technical Consultant", "seniority": "regular", "location": "offshore", "count": 1, "allocation": "half", "phases_active": "4", "side": "ps", "rate_no_tax": 668.78, "justification": "Carga inicial de cadastros (E07, M); fracional na Fase 4."}
       ],
       "indicative_price_range": {
         "no_tax": {"low": 5436799, "high": 11477687},
         "with_tax": {"low": 5817869, "high": 12282704},
         "tax_rule": "com imposto = sem imposto ÷ 0,9345",
-        "formula": "Σ(FTE-efetiva do papel × rate sem imposto) × semanas × 40",
+        "formula": "Σ(FTE-efetiva do papel × rate sem imposto) × semanas × 40 (faixa notional benchmark, escopo completo)",
         "disclaimers": ["rom", "validated-rate"]
       },
       "confidence": "Assumed"
     }
   },
   "delta": {
-    "summary": "Ancorado na trilha AI-native (o número comprometido), o modelo remove ~42% do gross-up notional tradicional (midpoints com imposto ~R$ 5,2M vs. ~R$ 9,0M). Duração 11-27 sem vs. 18-38 sem; time ~8,6 FTE vs. ~10,3 FTE média-programa.",
+    "summary": "A comparação agora tem duas camadas. (1) COMPROMETIDO: MVP AI-native na janela FIXA de 13 semanas = ponto indicativo de R$ 3,50M sem imposto / R$ 3,74M com imposto (~8,9 FTE média-programa). (2) NOTIONAL: o escopo completo pelo jeito tradicional custaria ~R$ 5,8-12,3M com imposto E não alcançaria 15/nov. O delta portanto não é só de custo — é de VIABILIDADE: a trilha tradicional está fora da data.",
     "decomposition": [
-      {"lever": "Duração comprimida", "share": "~⅔ do delta", "detail": "18-38 → 11-27 sem via native_band (~28-38%). Menos semanas-programa × FTE é o maior componente."},
-      {"lever": "Volume de build absorvido por agentes", "share": "~⅓ do delta", "detail": "Pod Core 3→2 devs, MuleSoft 2→1 (10,3→8,6 FTE média). Núcleo sênior mantido; QA mantido e com surge; especialistas fracionais inalterados."},
-      {"lever": "Mix de rate", "share": "contra-pressão pequena", "detail": "AI-native pende levemente mais sênior (menos assentos offshore baratos de build) — blended R$744,8/h vs. R$732,4/h sem imposto. Ganho de duração+volume domina."}
+      {"lever": "Viabilidade de cronograma", "share": "decisivo", "detail": "Tradicional 18-38 sem NÃO fecha 15/nov; AI-native + MVP em 13 sem é a única trilha que alcança a data. O de-escopo (E06/Data Cloud/Marketing) é o buffer que torna a janela viável."},
+      {"lever": "De-escopo para o MVP", "share": "grande", "detail": "8 de 9 épicas no MVP; E06 (Agentforce) fora. O ponto comprometido (R$ 3,50M) fica abaixo do meio da faixa full-scope AI-native por causa disso + da janela mais curta."},
+      {"lever": "Volume de build absorvido por agentes", "share": "médio", "detail": "Pod Core 3→2 devs, MuleSoft 2→1. Núcleo sênior mantido; especialista financeiro/bancário ADICIONADO (E03 XL); QA mantido e com surge."},
+      {"lever": "E03 L→XL (motor de split no CRM)", "share": "contra-pressão", "detail": "ADR 0003 realizou a premissa de size_if_assumption_breaks: mais lógica financeira no Salesforce, +1 especialista sênior onshore em ambas as trilhas. Empurra as duas para cima; a viabilidade de cronograma ainda domina a decisão."}
     ]
   },
   "disclaimer_text": {
