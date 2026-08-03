@@ -31,7 +31,7 @@ A beneficiária registra sua demanda de leilão reverso como uma Opportunity nat
 
 ### 5. Acceptance
 
-Cenário de verificação — A beneficiária registra sua demanda de leilão reverso como uma Opportunity nativa do Sales Cloud, com todos os parâmetros que as facilitadoras precisam para cotar.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not persist CPF on the Account/Opportunity — carry a tokenized reference resolved at runtime (ADR 0001)).
+A analista de RH da Construtora Alfa (CNPJ 12.345.678/0001-90), autenticada via gov.br, abre "Nova demanda", informa 320 trabalhadores, valor-face R$ 44,00/dia, 22 dias/mês, modalidade PAT e janela de vigência de 7 dias. Ao salvar, o revisor confirma que foi criada uma Opportunity nativa do Sales Cloud vinculada à Account da Alfa, com todos esses parâmetros preenchidos e status "Aberta para propostas". Inspecionando a Opportunity e a Account, o revisor confirma que nenhum CPF foi gravado — apenas o CNPJ e uma referência tokenizada resolvida em runtime (ADR 0001).
 
 ### 6. Dependencies
 
@@ -77,7 +77,7 @@ N facilitadoras submetem propostas como Quotes nativas associadas à Opportunity
 
 ### 5. Acceptance
 
-Cenário de verificação — N facilitadoras submetem propostas como Quotes nativas associadas à Opportunity aberta, exclusivamente via API, sem UI nem licença de portal — a equidade é por construção.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not reveal competing Quotes to a facilitadora (equity by construction — facilitadora has no UI)).
+Alelo, Ticket e VR submetem, cada uma por chamada de API autenticada, uma proposta para a Opportunity aberta da Alfa (MDR de 2,8%, 3,1% e 3,6% respectivamente). O revisor confirma que cada submissão criou uma Quote nativa associada à Opportunity, sem nenhuma sessão de UI nem licença de portal consumida pela facilitadora. Ao tentar, pela API de uma facilitadora, ler as Quotes das outras, o revisor confirma que a resposta não expõe nenhuma proposta concorrente (equidade por construção).
 
 ### 6. Dependencies
 
@@ -119,7 +119,7 @@ O ciclo da demanda transita por estados regidos pela janela de vigência; a bene
 
 ### 5. Acceptance
 
-Cenário de verificação — O ciclo da demanda transita por estados regidos pela janela de vigência; a beneficiária vê as Quotes conforme chegam, mas a seleção fica travada até a janela fechar (não é seleção cega).; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not allow selection before the vigência window closes).
+Durante a janela de 7 dias, o revisor acompanha a demanda receber as Quotes; logado como a beneficiária, vê as 3 Quotes recebidas mas confirma que a ação de seleção está indisponível. No fechamento da janela (D+7) o estado transita para "Em seleção" e só então a seleção é liberada. O revisor confirma que nenhuma seleção foi possível antes do fechamento da janela.
 
 ### 6. Dependencies
 
@@ -161,7 +161,7 @@ A beneficiária compara as Quotes recebidas lado a lado numa tela custom, com os
 
 ### 5. Acceptance
 
-Cenário de verificação — A beneficiária compara as Quotes recebidas lado a lado numa tela custom, com os atributos decisórios normalizados para comparação justa.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not enable the selection action before the vigência window closes).
+Com a janela fechada e 3 Quotes recebidas, a beneficiária abre a tela Comparar Propostas e vê as três lado a lado — MDR, prazo de repasse e valor normalizado por trabalhador na mesma unidade. O revisor confirma o alinhamento dos atributos decisórios para comparação justa e que a ação de selecionar permanece desabilitada enquanto a janela não tiver fechado.
 
 ### 6. Dependencies
 
@@ -205,7 +205,7 @@ Após o fechamento da janela, a beneficiária seleciona uma Quote e a plataforma
 
 ### 5. Acceptance
 
-Cenário de verificação — Após o fechamento da janela, a beneficiária seleciona uma Quote e a plataforma transita a demanda para contrato firmado, com trilha de justificativa.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not allow selection before the window closes).
+A beneficiária seleciona a Quote da Ticket (MDR 3,1%) e informa a justificativa "melhor prazo de repasse". O revisor confirma que a demanda transita para "Contrato firmado", a Quote vencedora fica marcada, as demais como "Não selecionadas" e a justificativa fica registrada na trilha — transição só possível após o fechamento da janela.
 
 ### 6. Dependencies
 
@@ -246,7 +246,7 @@ A facilitadora anexa o PDF imutável do contrato com metadados e versões (aditi
 
 ### 5. Acceptance
 
-Cenário de verificação — A facilitadora anexa o PDF imutável do contrato com metadados e versões (aditivo = nova versão), sem gestão de ciclo de vida de contrato.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not build contract lifecycle management — no CLM redlining, clause library, obligations or e-signature (MVP)).
+A facilitadora Ticket anexa o PDF do contrato firmado com a Alfa. O revisor confirma que o arquivo fica vinculado ao contrato como versão 1, imutável, com metadados (data, partes, vigência). A facilitadora sobe um aditivo e o revisor confirma que ele entra como versão 2 preservando a versão 1, e que não há redline, biblioteca de cláusulas, obrigações nem assinatura eletrônica (sem CLM no MVP).
 
 ### 6. Dependencies
 
@@ -289,7 +289,7 @@ Após o contrato firmado, a beneficiária classifica o nº de trabalhadores acim
 
 ### 5. Acceptance
 
-Cenário de verificação — Após o contrato firmado, a beneficiária classifica o nº de trabalhadores acima/abaixo de 5 salários mínimos por CNPJ e matriz/filial, e o aceite é integrado ao Novo PAT via INIS PJ.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not persist CPF — classification is by CNPJ and salary band, not by worker identity (ADR 0001)).
+Após o contrato firmado, a beneficiária classifica por CNPJ e por matriz/filial os trabalhadores acima e abaixo de 5 salários mínimos (matriz /0001-90 → 210 abaixo / 40 acima; filial /0002-71 → 60 abaixo / 10 acima). Ao confirmar o termo de aceite, o revisor confirma que a classificação é integrada ao Novo PAT via INIS PJ e que ela usa CNPJ + faixa salarial — nenhum CPF de trabalhador é gravado (ADR 0001).
 
 ### 6. Dependencies
 
@@ -330,7 +330,7 @@ Beneficiárias PAT e não-PAT contratam pela mesma plataforma, mas com regras de
 
 ### 5. Acceptance
 
-Cenário de verificação — Beneficiárias PAT e não-PAT contratam pela mesma plataforma, mas com regras de cálculo distintas — PAT sob o teto de 3,6%, não-PAT sem benefício fiscal.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not apply the fiscal benefit to a não-PAT beneficiária).
+A Construtora Alfa (PAT) e a Boutique Beta (não-PAT) contratam pela mesma plataforma. O revisor confirma que, para a Alfa, o cálculo aplica o teto de 3,6% e o benefício fiscal do PAT; para a Beta, o mesmo fluxo roda sem o benefício fiscal. Ele confirma que o benefício fiscal nunca é aplicado à beneficiária não-PAT.
 
 ### 6. Dependencies
 
@@ -371,7 +371,7 @@ Contratos legados existentes são carregados na plataforma, mapeados à estrutur
 
 ### 5. Acceptance
 
-Cenário de verificação — Contratos legados existentes são carregados na plataforma, mapeados à estrutura nativa Opportunity/Quote/Account com seus PDFs e metadados.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not persist CPF — carry tokenized references (ADR 0001)).
+O time de migração carrega um lote de 500 contratos legados. Amostrando 5 registros, o revisor confirma que cada um foi mapeado à estrutura nativa Account/Opportunity/Quote com o PDF anexado e os metadados (vigência, MDR, facilitadora), e que nenhum CPF foi persistido — as referências de PF vêm tokenizadas (ADR 0001).
 
 ### 6. Dependencies
 
@@ -414,7 +414,7 @@ Um estabelecimento se cadastra uma única vez no portal, autenticado como PJ via
 
 ### 5. Acceptance
 
-Cenário de verificação — Um estabelecimento se cadastra uma única vez no portal, autenticado como PJ via gov.br, e a plataforma cria um registro pendente na base nacional unificada de estabelecimentos — substituindo o credenciamento repetido facilitadora a facilitadora.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Não persistir dado pessoal do representante (CPF) fora da fronteira de residência definida no ADR 0001 — resolver identidade PF em runtime).
+O restaurante Sabor & Cia (CNPJ 98.765.432/0001-10), autenticado como PJ via gov.br, faz o autocadastro no portal uma única vez. O revisor confirma que a plataforma cria um registro pendente na base nacional unificada de estabelecimentos e que não há recredenciamento facilitadora a facilitadora. Ele confirma que o CPF do representante não é persistido fora da fronteira do ADR 0001 — a identidade PF é resolvida em runtime.
 
 ### 6. Dependencies
 
@@ -459,7 +459,7 @@ O estabelecimento sobe os documentos exigidos para o credenciamento (licença sa
 
 ### 5. Acceptance
 
-Cenário de verificação — O estabelecimento sobe os documentos exigidos para o credenciamento (licença sanitária, comprovações de regularidade) anexados ao seu registro, com orientação de quais documentos são necessários e por que o cadastro está pendente.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Não deve deixar o registro avançar para análise humana sem o conjunto mínimo de documentos exigido).
+O Sabor & Cia acessa seu registro pendente e vê um checklist do que falta (licença sanitária, comprovação de regularidade fiscal) e sobe os dois documentos. O revisor confirma que ficam anexados ao registro, o checklist marca os itens recebidos e explica por que o cadastro segue pendente, e que o registro não avança para análise humana enquanto o conjunto mínimo de documentos não estiver completo.
 
 ### 6. Dependencies
 
@@ -501,7 +501,7 @@ A plataforma aplica regras determinísticas de validação sobre o cadastro e os
 
 ### 5. Acceptance
 
-Cenário de verificação — A plataforma aplica regras determinísticas de validação sobre o cadastro e os documentos (CNPJ ativo, CNAE compatível com alimentação, integridade do documento) e resolve automaticamente os casos claros, transbordando para análise humana somente as exceções.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Não deve aprovar automaticamente documento sinalizado para análise humana).
+Completo o checklist, a plataforma roda as regras determinísticas: CNPJ ativo na Receita, CNAE compatível com alimentação e documentos legíveis/íntegros. Para o Sabor & Cia (tudo conforme), o revisor confirma que o caso é resolvido automaticamente; para um segundo estabelecimento com CNAE incompatível, confirma que o caso é transbordado para análise humana. Ele confirma que nenhum documento sinalizado para análise é aprovado automaticamente.
 
 ### 6. Dependencies
 
@@ -544,7 +544,7 @@ Um Analista MTE analisa cada documento do estabelecimento (Válido/Inválido + m
 
 ### 5. Acceptance
 
-Cenário de verificação — Um Analista MTE analisa cada documento do estabelecimento (Válido/Inválido + motivo), emite um parecer sobre o credenciamento (Deferido / Exigência complementar / Indeferido) e toda a operação fica registrada em trilha de auditoria.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Não deve permitir parecer Deferido com documento pendente ou marcado Inválido sem justificativa registrada).
+A Analista MTE Regina abre o registro transbordado no console, marca cada documento como Válido ou Inválido com motivo e emite o parecer "Exigência complementar", pedindo a licença atualizada. O revisor confirma que toda a operação fica na trilha de auditoria e que o sistema não permite parecer "Deferido" com documento pendente ou marcado Inválido sem justificativa registrada.
 
 ### 6. Dependencies
 
@@ -586,7 +586,7 @@ A facilitadora mantém o papel legal de aprovar e descredenciar o estabeleciment
 
 ### 5. Acceptance
 
-Cenário de verificação — A facilitadora mantém o papel legal de aprovar e descredenciar o estabelecimento na sua relação, e o MTE pode descredenciar do programa; a mudança de status vira o estado consultável pela base de estabelecimentos que o adquirente lê antes de transacionar.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: A plataforma não deve descredenciar por conta própria — a ação legal pertence à facilitadora/MTE; a plataforma registra e propaga).
+A facilitadora Alelo aprova o Sabor & Cia na sua relação; meses depois, o MTE descredencia o estabelecimento do programa por irregularidade. O revisor confirma que cada mudança de status é registrada e que o estado consultável na base de estabelecimentos passa a "descredenciado" (lido pelo adquirente antes de transacionar). Ele confirma que a plataforma não descredencia por conta própria — a ação legal é da facilitadora/MTE; a plataforma registra e propaga.
 
 ### 6. Dependencies
 
@@ -631,7 +631,7 @@ A plataforma captura a data de validade da licença sanitária — o único camp
 
 ### 5. Acceptance
 
-Cenário de verificação — A plataforma captura a data de validade da licença sanitária — o único campo comum aos 5000+ padrões municipais sem base unificada — usando extração por IA sobre o documento enviado, com o analista confirmando o valor quando a extração não for confiável.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Não deve tratar um campo extraído por IA de baixa confiança como confirmado sem revisão humana).
+O Sabor & Cia envia a licença sanitária emitida pela prefeitura de Recife. O revisor confirma que a IA extrai a data de validade (31/12/2026) e a preenche no registro. Para uma licença de layout atípico com baixa confiança de extração, ele confirma que o campo fica sinalizado para confirmação e que o analista precisa validar o valor antes de ele ser tratado como confirmado.
 
 ### 6. Dependencies
 
@@ -673,7 +673,7 @@ A plataforma rastreia a data de validade da licença de cada estabelecimento, di
 
 ### 5. Acceptance
 
-Cenário de verificação — A plataforma rastreia a data de validade da licença de cada estabelecimento, dispara alertas com antecedência antes do vencimento e conduz o fluxo de renovação, de modo que uma licença não expire silenciosamente e o estabelecimento continue apto.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Não deve marcar o estabelecimento como apto após o vencimento da licença sem renovação analisada).
+Para um estabelecimento com licença válida até 31/12/2026, o revisor confirma que a plataforma dispara alertas com antecedência (60 e 30 dias antes) e conduz o fluxo de renovação. Avançando a data de simulação para depois do vencimento sem renovação analisada, ele confirma que o estabelecimento não é marcado como apto — a aptidão só se mantém com renovação analisada.
 
 ### 6. Dependencies
 

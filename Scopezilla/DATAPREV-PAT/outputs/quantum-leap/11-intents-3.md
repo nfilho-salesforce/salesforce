@@ -33,7 +33,7 @@ A beneficiária envia o CSV da folha da competência pelo portal ou por API e re
 
 ### 5. Acceptance
 
-Cenário de verificação — A beneficiária envia o CSV da folha da competência pelo portal ou por API e recebe confirmação de recebimento em segundos; o arquivo entra numa fila de processamento sem travar a sessão nem consumir um slot de processamento longo.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not process payroll critique synchronously on upload click (peak ~28/s exceeds the 25 concurrent long-Apex ceiling)).
+A Construtora Alfa envia o CSV da folha da competência 08/2026 (320 linhas) pelo portal. O revisor confirma que ela recebe confirmação de recebimento em segundos, a sessão não trava e o arquivo entra numa fila de processamento assíncrona. Ele confirma que a crítica não roda de forma síncrona no clique do upload (o pico de ~28/s excederia o teto de 25 Apex longos concorrentes).
 
 ### 6. Dependencies
 
@@ -79,7 +79,7 @@ Toda folha enfileirada passa por uma checagem automática de layout e integridad
 
 ### 5. Acceptance
 
-Cenário de verificação — Toda folha enfileirada passa por uma checagem automática de layout e integridade estrutural; folhas íntegras seguem para disponibilização à facilitadora e as inconsistentes são sinalizadas à beneficiária com o motivo, sem persistir as linhas.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not process payroll critique synchronously on upload click (peak ~28/s exceeds the 25 concurrent long-Apex ceiling)).
+Uma folha enfileirada com o layout correto passa na checagem de integridade estrutural e segue para disponibilização à facilitadora; uma segunda folha com coluna faltando é sinalizada à beneficiária com o motivo ("coluna valor_diario ausente"). O revisor confirma que nenhuma linha de folha é persistida em qualquer dos casos.
 
 ### 6. Dependencies
 
@@ -123,7 +123,7 @@ Folhas que passam na validação estrutural recebem uma crítica automática mai
 
 ### 5. Acceptance
 
-Cenário de verificação — Folhas que passam na validação estrutural recebem uma crítica automática mais rica (consistência dos dados da competência) executada de forma assíncrona; o resultado alimenta a liberação para download sem que a crítica rode no clique do upload.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not process payroll critique synchronously on upload click (peak ~28/s exceeds the 25 concurrent long-Apex ceiling)).
+Uma folha aprovada na validação estrutural recebe a crítica automática por IA (consistência dos dados da competência) executada de forma assíncrona. O revisor confirma que o resultado da crítica alimenta a liberação para download pela facilitadora e que a crítica não roda no clique do upload.
 
 ### 6. Dependencies
 
@@ -168,7 +168,7 @@ A plataforma tem os objetos custom que sustentam o ciclo financeiro — folha po
 
 ### 5. Acceptance
 
-Cenário de verificação — A plataforma tem os objetos custom que sustentam o ciclo financeiro — folha por competência (só cabeçalho), contrato/vigência e regras de split parametrizáveis — sobre a base Sales Cloud, sem Revenue Cloud e sem persistir linhas de folha.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not persist payroll line items in MVP (header/competência only)).
+O revisor inspeciona o schema e confirma a existência dos objetos custom: folha por competência (somente cabeçalho — contrato, competência mês-ano, totais), contrato/vigência e regras de split parametrizáveis, todos sobre a base Sales Cloud. Ele confirma que não há Revenue Cloud e que não há linha de item de folha persistida (header/competência apenas).
 
 ### 6. Dependencies
 
@@ -213,7 +213,7 @@ A facilitadora baixa a folha íntegra por contrato e vigência (mês-ano) via AP
 
 ### 5. Acceptance
 
-Cenário de verificação — A facilitadora baixa a folha íntegra por contrato e vigência (mês-ano) via API e devolve à plataforma o status 'processado' com o valor a pagar, que passa a alimentar a emissão de boleto.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not persist payroll line items in MVP (header/competência only)).
+A facilitadora Ticket baixa via API a folha íntegra do contrato da Alfa referente à competência 08/2026 e devolve status "processado" com valor a pagar de R$ 245.760,00. O revisor confirma que o status e o valor são registrados na folha-cabeçalho e passam a alimentar a emissão de boleto, e que nenhuma linha de folha é persistida.
 
 ### 6. Dependencies
 
@@ -258,7 +258,7 @@ Com o valor da folha processado, a plataforma envia a instrução de cobrança a
 
 ### 5. Acceptance
 
-Cenário de verificação — Com o valor da folha processado, a plataforma envia a instrução de cobrança ao gateway (que intermedia a conta custódia) e recebe de volta o boleto registrado com metadados e link, sem movimentar dinheiro.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not execute or custody funds — the gateway does (ADR 0003); Salesforce only requests and records).
+Com o valor de R$ 245.760,00 processado, a plataforma envia a instrução de cobrança ao gateway. O revisor confirma que retorna um boleto registrado com metadados (nosso número, vencimento, linha digitável) e link, vinculado à folha da competência. Ele confirma que a plataforma não executa nem custodia recursos — apenas solicita e registra (ADR 0003).
 
 ### 6. Dependencies
 
@@ -303,7 +303,7 @@ Assim que o boleto registrado retorna do gateway, a beneficiária o encontra dis
 
 ### 5. Acceptance
 
-Cenário de verificação — Assim que o boleto registrado retorna do gateway, a beneficiária o encontra disponível no portal (link/metadados) vinculado à folha da competência.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not persist payroll line items in MVP (header/competência only)).
+Assim que o boleto registrado retorna do gateway, a beneficiária Alfa acessa o portal e encontra o boleto (link e metadados) vinculado à folha da competência 08/2026. O revisor confirma a disponibilização e que nenhuma linha de folha é persistida.
 
 ### 6. Dependencies
 
@@ -347,7 +347,7 @@ A plataforma recebe do gateway as movimentações bancárias em lotes incrementa
 
 ### 5. Acceptance
 
-Cenário de verificação — A plataforma recebe do gateway as movimentações bancárias em lotes incrementais por agendamento e faz o casamento com os boletos emitidos, identificando o pagamento e avançando o status da folha automaticamente.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not execute or custody funds — reconciliation is matching/record-keeping only (ADR 0003)).
+O job agendado recebe do gateway o lote incremental de movimentações bancárias e casa o pagamento de R$ 245.760,00 com o boleto da Alfa 08/2026. O revisor confirma que a folha avança automaticamente para "pago/identificado" e que a plataforma não executa nem custodia recursos — a conciliação é só casamento/registro (ADR 0003).
 
 ### 6. Dependencies
 
@@ -393,7 +393,7 @@ Identificado o pagamento, a plataforma consulta as regras de split e calcula o r
 
 ### 5. Acceptance
 
-Cenário de verificação — Identificado o pagamento, a plataforma consulta as regras de split e calcula o rateio entre facilitadora, governo/MTE e demais partes, aplicando o teto de MDR de 3,6%, a distinção entre beneficiária PAT e não-PAT e o prazo de repasse de até 15 dias.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not execute or custody funds — the engine computes and applies the split; the gateway settles (ADR 0003)).
+Identificado o pagamento da Alfa (PAT), o motor calcula o rateio entre facilitadora, governo/MTE e demais partes, aplicando o teto de MDR de 3,6% e o prazo de repasse de até 15 dias; para a Boutique Beta (não-PAT), o revisor confirma a ramificação distinta. Ele confirma que o motor apenas calcula e aplica o split — a liquidação é do gateway (ADR 0003).
 
 ### 6. Dependencies
 
@@ -439,7 +439,7 @@ A plataforma registra todo o racional do repasse — datas, split aplicado, orde
 
 ### 5. Acceptance
 
-Cenário de verificação — A plataforma registra todo o racional do repasse — datas, split aplicado, ordens de transferência — como trilha auditável e entrega as ordens de transferência ao gateway via MuleSoft, que executa a movimentação.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not execute or custody funds — the platform hands transfer orders to the gateway (ADR 0003)).
+Calculado o split da Alfa, o revisor confirma que a plataforma registra o racional completo (datas, percentuais aplicados, valores por parte, ordens de transferência) como trilha auditável e entrega as ordens de transferência ao gateway via MuleSoft. Ele confirma que a plataforma não executa nem custodia recursos — apenas entrega as ordens (ADR 0003).
 
 ### 6. Dependencies
 
@@ -485,7 +485,7 @@ Concluído o repasse, a folha exibe um status consolidado 'crédito concedido' e
 
 ### 5. Acceptance
 
-Cenário de verificação — Concluído o repasse, a folha exibe um status consolidado 'crédito concedido' em uma única linha (não por trabalhador) e dispara a notificação à empresa e, via CTPS Digital, a 'expectativa de crédito' ao trabalhador — monitoramento apenas no MVP.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not persist payroll line items in MVP (header/competência only)).
+Concluído o repasse da folha 08/2026 da Alfa, o revisor confirma que a folha exibe "crédito concedido" em uma única linha consolidada (não por trabalhador), que a empresa é notificada e que a "expectativa de crédito" é enviada ao trabalhador via CTPS Digital. Ele confirma que nenhuma linha de folha é persistida (header/competência apenas) e que o MVP faz apenas monitoramento.
 
 ### 6. Dependencies
 
