@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Cronograma PAT Marketplace — semana a semana</title>
+<style>
+  :root{
+    --blue-dark:#071D41; --blue-mid:#0C326F; --blue-accent:#1351B4;
+    --teal:#377EC1; --green-dark:#168821; --orange:#E67E22; --red:#E52207; --purple:#7B2FBE;
+    --gray-bg:#F8F8F8; --gray-border:#E6E6E6; --text-main:#262626; --text-muted:#636363;
+    --sh-sm:0 1px 3px rgba(16,24,40,.06);
+    --font-body:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,system-ui,sans-serif;
+    --font-display:'Space Grotesk','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:var(--font-body);background:#fff;color:var(--text-main);padding:34px 38px;}
+  #cap{width:1960px;}
+
+  .hdr{margin-bottom:16px;}
+  .hdr .eyebrow{font-size:12px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--teal);margin-bottom:6px;}
+  .hdr h1{font-family:var(--font-display);font-size:30px;font-weight:800;color:var(--blue-dark);line-height:1.12;}
+  .hdr p{font-size:14px;color:var(--text-muted);margin-top:8px;max-width:1400px;line-height:1.55;}
+  .hdr p b{color:var(--text-main);}
+
+  .tl-legend{display:flex;flex-wrap:wrap;gap:10px 22px;margin:16px 0 18px;font-size:13px;color:var(--text-main);font-weight:600;}
+  .tl-legend span{display:inline-flex;align-items:center;gap:7px;}
+  .tl-legend i{width:16px;height:16px;border-radius:4px;display:inline-block;}
+
+  .tl-wrap{border:1px solid var(--gray-border);border-radius:14px;background:#fff;box-shadow:var(--sh-sm);overflow:hidden;}
+  .tl-inner{width:1884px;}
+
+  .tl-axis{display:grid;grid-template-columns:240px repeat(17,1fr);border-bottom:2px solid var(--gray-border);}
+  .tl-axis .tl-corner{padding:12px 14px;font-size:11.5px;font-weight:800;color:var(--text-muted);letter-spacing:.5px;text-transform:uppercase;display:flex;align-items:flex-end;}
+  .tl-wk{padding:9px 2px;text-align:center;color:#fff;border-left:1px solid rgba(255,255,255,.28);}
+  .tl-wk .wn{font-family:var(--font-display);font-size:14px;font-weight:800;line-height:1;}
+  .tl-wk .wd{font-size:10px;opacity:.92;margin-top:3px;}
+  .tl-wk.f1{background:#1351B4;} .tl-wk.f2{background:#377EC1;} .tl-wk.f3{background:#E67E22;} .tl-wk.f4{background:#168821;} .tl-wk.f5{background:#5C6A7D;}
+
+  .tl-track{display:grid;grid-template-columns:240px repeat(17,1fr);align-items:center;border-bottom:1px solid var(--gray-border);position:relative;min-height:52px;}
+  .tl-track:last-child{border-bottom:none;}
+  .tl-track .tl-lbl{grid-column:1;padding:10px 14px;font-size:13px;font-weight:700;color:var(--text-main);display:flex;align-items:center;gap:8px;flex-wrap:wrap;line-height:1.25;}
+  .tl-track .tl-lbl .ep{font-size:11px;font-weight:800;color:var(--text-muted);white-space:nowrap;}
+
+  .tl-cellgrid{grid-column:2 / span 17;grid-row:1;display:grid;grid-template-columns:repeat(17,1fr);height:100%;}
+  .tl-cellgrid i{border-left:1px solid #f0f0f0;}
+
+  /* Barras: quebram linha (não cortam texto), altura flexível */
+  .tl-bar{grid-row:1;min-height:38px;border-radius:8px;margin:8px 4px;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;font-size:11.5px;font-weight:700;padding:6px 10px;line-height:1.28;white-space:normal;box-shadow:0 2px 6px -2px rgba(0,0,0,.3);}
+  .tl-bar.b1{background:linear-gradient(135deg,#0C326F,#1351B4);}
+  .tl-bar.b2{background:linear-gradient(135deg,#1351B4,#377EC1);}
+  .tl-bar.b3{background:linear-gradient(135deg,#E67E22,#c9611a);}
+  .tl-bar.b4{background:linear-gradient(135deg,#168821,#0e5d17);}
+  .tl-bar.b5{background:linear-gradient(135deg,#5C6A7D,#41505F);}
+  .tl-bar.mule{background:linear-gradient(135deg,#00A1E0,#0C326F);}
+  .tl-bar.trans{background:linear-gradient(135deg,#7B2FBE,#9050E9);}
+  .tl-bar.qa{background:linear-gradient(135deg,#377EC1,#1351B4);opacity:.92;}
+  .tl-bar.uat{background:repeating-linear-gradient(45deg,#E52207,#E52207 8px,#c11a05 8px,#c11a05 16px);}
+
+  .tl-mk{display:grid;grid-template-columns:240px repeat(17,1fr);border-top:2px solid var(--gray-border);background:var(--gray-bg);}
+  .tl-mk .tl-lbl{grid-column:1;padding:12px 14px;font-size:12px;font-weight:800;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;}
+  .tl-mkcell{grid-row:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:10px 4px 14px;text-align:center;}
+  .tl-flag{font-size:20px;line-height:1;}
+  .tl-mkcell .mt{font-size:11px;font-weight:700;color:var(--blue-accent);margin-top:5px;line-height:1.22;}
+  .tl-mkcell .md{font-size:10.5px;color:var(--text-muted);margin-top:2px;font-weight:600;}
+
+  .foot{margin-top:14px;font-size:11.5px;color:var(--text-muted);line-height:1.5;}
+  .foot b{color:var(--text-main);}
+</style>
+</head>
+<body>
+<div id="cap">
+  <div class="hdr">
+    <div class="eyebrow">PAT Marketplace · Entrega · 17 semanas (13 build + 4 Scale) · planejado de trás pra frente a partir da data fixa</div>
+    <h1>🗓️ Cronograma · semana a semana</h1>
+    <p>Programa de <b>17 semanas</b> — <b>13 de build</b> (início <b>17/ago/2026</b>, go-live em produção <b>15/nov/2026</b>, marco de interoperabilidade do Decreto 12.712/2025) + <b>4 de Scale/Hypercare</b> (16/nov – 13/dez). Cada barra é uma frente de trabalho posicionada nas semanas em que é construída; as bandeiras marcam entregas de jornada (UAT), o deploy e o go-live.</p>
+  </div>
+
+  <div class="tl-legend">
+    <span><i style="background:#1351B4;"></i> Fundação (inicia Sem. 1)</span>
+    <span><i style="background:#00A1E0;"></i> Frente MuleSoft contínua (E05)</span>
+    <span><i style="background:#377EC1;"></i> Marketplace &amp; Credenciamento</span>
+    <span><i style="background:#E67E22;"></i> Financeiro (paralelo)</span>
+    <span><i style="background:#168821;"></i> Carga mínima &amp; Go-live</span>
+    <span><i style="background:#5C6A7D;"></i> Scale / Hypercare</span>
+    <span><i style="background:#7B2FBE;"></i> Transversal</span>
+    <span><i style="background:repeating-linear-gradient(45deg,#E52207,#E52207 4px,#c11a05 4px,#c11a05 8px);"></i> Homologação (UAT)</span>
+  </div>
+
+  <div class="tl-wrap">
+    <div class="tl-inner">
+      <!-- WEEK AXIS -->
+      <div class="tl-axis">
+        <div class="tl-corner">Frente de trabalho</div>
+        <div class="tl-wk f1"><div class="wn">S1</div><div class="wd">17/ago</div></div>
+        <div class="tl-wk f1"><div class="wn">S2</div><div class="wd">24/ago</div></div>
+        <div class="tl-wk f1"><div class="wn">S3</div><div class="wd">31/ago</div></div>
+        <div class="tl-wk f1"><div class="wn">S4</div><div class="wd">07/set</div></div>
+        <div class="tl-wk f2"><div class="wn">S5</div><div class="wd">14/set</div></div>
+        <div class="tl-wk f2"><div class="wn">S6</div><div class="wd">21/set</div></div>
+        <div class="tl-wk f2"><div class="wn">S7</div><div class="wd">28/set</div></div>
+        <div class="tl-wk f2"><div class="wn">S8</div><div class="wd">05/out</div></div>
+        <div class="tl-wk f2"><div class="wn">S9</div><div class="wd">12/out</div></div>
+        <div class="tl-wk f3"><div class="wn">S10</div><div class="wd">19/out</div></div>
+        <div class="tl-wk f3"><div class="wn">S11</div><div class="wd">26/out</div></div>
+        <div class="tl-wk f4"><div class="wn">S12</div><div class="wd">02/nov</div></div>
+        <div class="tl-wk f4"><div class="wn">S13</div><div class="wd">09/nov</div></div>
+        <div class="tl-wk f5"><div class="wn">S14</div><div class="wd">16/nov</div></div>
+        <div class="tl-wk f5"><div class="wn">S15</div><div class="wd">23/nov</div></div>
+        <div class="tl-wk f5"><div class="wn">S16</div><div class="wd">30/nov</div></div>
+        <div class="tl-wk f5"><div class="wn">S17</div><div class="wd">07/dez</div></div>
+      </div>
+
+      <!-- TRACKS -->
+      <div class="tl-track">
+        <div class="tl-lbl">🧱 Fundação: dados, arquitetura, identidade <span class="ep">S1–S4</span></div>
+        <div class="tl-cellgrid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tl-bar b1" style="grid-column:2 / 6;">Modelo de dados + arquitetura mesclada · gov.br · residência · portais</div>
+      </div>
+      <div class="tl-track">
+        <div class="tl-lbl">🔌 Frente MuleSoft (E05) · on-premise reusado <span class="ep">S1–S11</span></div>
+        <div class="tl-cellgrid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tl-bar mule" style="grid-column:2 / 13;">Camada API-led contínua · mock-first · de-tokenização · integração do gateway — Arquiteto Técnico MuleSoft dedicado</div>
+      </div>
+      <div class="tl-track">
+        <div class="tl-lbl">🛒 Marketplace &amp; Credenciamento <span class="ep">S5–S10</span></div>
+        <div class="tl-cellgrid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tl-bar b2" style="grid-column:6 / 12;">Leilão reverso · credenciamento + vigilância · 2 sprints de 3 semanas</div>
+      </div>
+      <div class="tl-track">
+        <div class="tl-lbl">💳 Financeiro: folha, split &amp; conciliação <span class="ep">S6–S11 · paralelo</span></div>
+        <div class="tl-cellgrid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tl-bar b3" style="grid-column:7 / 13;">Folha → boleto → split → conciliação · arranca junto com o Marketplace</div>
+      </div>
+      <div class="tl-track">
+        <div class="tl-lbl">🧪 Homologação (UAT) <span class="ep">S8–S13</span></div>
+        <div class="tl-cellgrid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tl-bar uat" style="grid-column:9 / 15;">UAT a partir da entrega do Marketplace → PROD (+1 semana)</div>
+      </div>
+      <div class="tl-track">
+        <div class="tl-lbl">🚀 Carga mínima, adoção &amp; go-live <span class="ep">S12–S13</span></div>
+        <div class="tl-cellgrid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tl-bar b4" style="grid-column:13 / 15;">Carga mínima (2 semanas) · go-live</div>
+      </div>
+      <div class="tl-track">
+        <div class="tl-lbl">✅ QA &amp; testes <span class="ep">transversal · S6–S13</span></div>
+        <div class="tl-cellgrid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tl-bar qa" style="grid-column:7 / 15;">Testes contínuos · surge no hardening pré-go-live</div>
+      </div>
+      <div class="tl-track">
+        <div class="tl-lbl">📣 Comunicação de mudança <span class="ep">transversal · S1–S13</span></div>
+        <div class="tl-cellgrid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tl-bar trans" style="grid-column:2 / 15;">Adoção &amp; comunicação — arranca na Fundação, pico no go-live</div>
+      </div>
+      <div class="tl-track">
+        <div class="tl-lbl">🛟 Scale / Hypercare <span class="ep">S14–S17</span></div>
+        <div class="tl-cellgrid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="tl-bar b5" style="grid-column:15 / 19;">Sustentar · manter · cutover à Dataprev — time enxuto</div>
+      </div>
+
+      <!-- MILESTONES -->
+      <div class="tl-mk">
+        <div class="tl-lbl">Marcos</div>
+        <div class="tl-mkcell"></div><div class="tl-mkcell"></div><div class="tl-mkcell"></div>
+        <div class="tl-mkcell"><span class="tl-flag">📐</span><span class="mt">Modelo de dados ratificado</span><span class="md">13/set</span></div>
+        <div class="tl-mkcell"></div><div class="tl-mkcell"></div><div class="tl-mkcell"></div>
+        <div class="tl-mkcell"><span class="tl-flag">🧪</span><span class="mt">Início UAT (entrega Marketplace)</span><span class="md">~11/out</span></div>
+        <div class="tl-mkcell"></div>
+        <div class="tl-mkcell"><span class="tl-flag">🛒</span><span class="mt">UAT Marketplace + Credenciamento</span><span class="md">25/out</span></div>
+        <div class="tl-mkcell"><span class="tl-flag">💳</span><span class="mt">UAT Financeiro completo</span><span class="md">01/nov</span></div>
+        <div class="tl-mkcell"></div>
+        <div class="tl-mkcell"><span class="tl-flag">🚀</span><span class="mt">Go-live PROD + Decreto</span><span class="md">15/nov</span></div>
+        <div class="tl-mkcell"></div><div class="tl-mkcell"></div><div class="tl-mkcell"></div>
+        <div class="tl-mkcell"><span class="tl-flag">🏁</span><span class="mt">Cutover / handover Dataprev</span><span class="md">13/dez</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <b>Caminho crítico.</b> Fundação (S1–S4, time inteiro — libera a paralelização) → frente MuleSoft contínua (E05, S1–S11) → Financeiro (E03, paralelo S6–S11) → homologação (UAT, S8–S13) → carga mínima (S12–S13) → go-live 15/nov → Scale/Hypercare (S14–S17). O modelo de dados fundacional é o gargalo interno e acontece já na Semana 1.
+  </div>
+</div>
+</body>
+</html>
