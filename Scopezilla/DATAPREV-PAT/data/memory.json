@@ -367,6 +367,220 @@
         "Considerar grill-me-on-scope no slice tocado (E03 XL, roster financeiro, janela fixa) antes do export",
         "export quando o cliente ratificar ADR 0002 e o gateway PCI"
       ]
+    },
+    {
+      "date": "2026-07-31",
+      "skills_used": [
+        "revise"
+      ],
+      "summary": "Segundo sweep de reprocessamento no mesmo dia: ingerido o transcript da reunião de esclarecimento PAT (31/jul, discovery-notes/04-duvidas-pat-transcript.md) + 6 premissas ditadas pelo usuário, com instrução de 'aplicar o enriquecimento necessario para GARANTIR a cobertura'. Premissas propagadas diretamente (decisões inequívocas do usuário, rastreadas como Assumed) por todos os artefatos: (1) Sales Cloud reusando objetos NATIVOS — Opportunity=demanda de leilão reverso da beneficiária, Quote=resposta da facilitadora via API → ADR 0004; (2) Experience Cloud = Partner Community (não Customer Community Plus) expondo Opportunity/Quote; (3) 100% greenfield + MuleSoft ON-PREMISE = soberania de dados + isolamento → ADR 0005 (resolve G0504); (4) definição de objetos fundacionais + mapeamento de dados com o time INTEIRO primeiro, depois paralelizar frentes de baixa dependência (a estratégia que torna a data fixa viável); (5) timeline comprometida 17/ago→homologação início nov→PROD 15/nov, com marcos de projeto/decreto/jornada para UAT e PROD e flag de inviabilidade se um pré-req escorregar; (6) fluxo folha/pagamento detalhado em 8 passos (upload CSV→validação layout/integridade→crítica IA→facilitadora baixa por contrato/vigência→retorna processado+valor→gateway boleta→conciliação em lotes incrementais via MuleSoft→split→gateway executa), com linhas da folha NÃO persistidas em objeto (roadmap futuro). Propagado em: epics.json (E01-E05,E08), roadmap.json (5 fases com datas comprometidas + foundational-modeling-first + 8-passos + marcos UAT/PROD), .project-metadata.json (user_commitment com datas/marcos/viability_flag; products sales-cloud/mulesoft/experience-cloud/agentforce), gaps.json (G0504 resolvido; +G0210/G0810/G0310 premissas), 01-solution.md, 02-delivery-plan.md, executive-summary.md, decisions/0004 e 0005.",
+      "friction": [
+        "Central Salesforce KB cache degradada (access_denied) — grounding apoiado em knowledge/ do projeto",
+        "Volumetria 800k/450k ainda de fonte de imprensa/call, não primária — a ratificar antes de client-facing"
+      ],
+      "decisions": [
+        {
+          "decision": "Sales Cloud reusando objetos nativos (Opportunity=demanda, Quote=resposta via API) + Experience Cloud Partner Community (ADR 0004)",
+          "rationale": "Premissa do usuário para encurtar o tempo de implementação sob a data fixa; substitui a leitura anterior de leilão 100% custom na Core Platform"
+        },
+        {
+          "decision": "100% greenfield + MuleSoft on-premise = soberania/isolamento (ADR 0005)",
+          "rationale": "Premissa do usuário; on-premise cumpre soberania de dados e mantém des-tokenização de CPF no perímetro Dataprev (aderente ao ADR 0001); resolve G0504"
+        },
+        {
+          "decision": "Linhas da folha NÃO persistem em objeto da plataforma (roadmap futuro)",
+          "rationale": "Premissa 6 do usuário; load-bearing para o modelo de dados de E03 — se o cliente exigir persistência/relatório linha-a-linha, E03 cresce"
+        }
+      ],
+      "open_threads": [
+        "Ratificar por escrito com o cliente os 5 ADRs — em especial 0004 (modelo Opportunity/Quote nativo sustenta a mecânica do leilão?) e 0005 (provisionamento greenfield + infra on-premise nos prazos)",
+        "Confirmar layout do CSV da folha, regra de integridade ('não quebrada'), alternativa de crítica IA e o contrato de API facilitadora↔plataforma (premissa 6)",
+        "3 pré-requisitos externos de lead-time na Fase 0 (org greenfield, MuleSoft on-premise, gateway) são o maior risco à data fixa de 15/nov",
+        "deal-review.html a re-renderizar refletindo o segundo sweep (objetos nativos, greenfield/on-premise, datas comprometidas, 8-passos)"
+      ],
+      "next_steps": [
+        "Re-renderizar deal-review.html com o escopo enriquecido",
+        "grill-me-on-scope no slice tocado (E02 sobre objetos nativos, E03 8-passos, janela de datas fixas) antes do export",
+        "export quando o cliente ratificar os ADRs e o gateway"
+      ]
+    },
+    {
+      "date": "2026-07-31",
+      "skills_used": [
+        "grill-me-on-scope"
+      ],
+      "summary": "Grilled the slice touched by the 2nd revise sweep (ADR 0004/0005, G0210/G0310/G0810). Resolved 3 items: (1) reverse-auction mechanic — facilitadora is API-only (no platform UI, no portal seat; submits Quote informing cotação/Opportunity ID open within vigência) → EQUIDADE POR CONSTRUÇÃO, no Apex managed sharing needed; beneficiária sees cotações as they arrive but selection is LOCKED until the vigência window closes (manual, not blind). Thins E02 custom layer. (2) folha lines do NOT persist in MVP — no requirement before 15/nov; persistence → future roadmap. (3) greenfield+MuleSoft on-premise accepted (user-endorsed). Surfaced cross-file contradiction: because facilitadora is API-only, the Experience Cloud portal-license driver is the BENEFICIÁRIA (operates Opportunity/Quote), NOT the facilitadora — the ~600–700 facilitadoras are MuleSoft integrations, not portal seats.",
+      "friction": [],
+      "decisions": [
+        {
+          "decision": "E02 reverse-auction equity is by construction (facilitadora API-only), not Apex managed sharing; selection manual but locked until window close",
+          "rationale": "Solution Manager firsthand: facilitadora has no platform access — only API, informing cotação/Opportunity ID within vigência. Confirmed G0210; strengthens ADR 0004, thins E02 custom."
+        },
+        {
+          "decision": "Folha lines do not persist in MVP; line-level persistence deferred to future roadmap",
+          "rationale": "No requirement before 15/nov (firsthand). Confirmed G0310; keeps E03 data model to header/competência."
+        },
+        {
+          "decision": "Portal Experience Cloud license driver = beneficiária, not facilitadora",
+          "rationale": "Facilitadora is API-only, consumes no portal seat; corrects E01/ADR 0004 licensing volumetria (facilitadoras are integrations, not seats)."
+        }
+      ],
+      "open_threads": [
+        "License VERSION for the beneficiária (Partner Community vs Customer Community Plus) still open (G0103/G0108) — Customer Community Plus does not expose Opportunity/Quote natively; requalify against real beneficiária access pattern.",
+        "8-step folha flow contract details still Assumed (CSV layout, integrity rule, AI-critique alternative, facilitadora↔platform API contract).",
+        "ADR 0002 dedicated-instance still verbal, to ratify in writing (G0808)."
+      ],
+      "next_steps": [
+        "Re-render deal-review.html to reflect enriched scope (Step 2 of the two steps).",
+        "Ratify the 5 ADRs with the client; requalify beneficiária license version."
+      ]
+    },
+    {
+      "date": "2026-07-31",
+      "skills_used": [],
+      "summary": "Capacity/hard-limits sizing for the two PAT loads on Experience Cloud (Customer Community). Insight: the ceiling is not 'N simultaneous users' but the 25 concurrent synchronous long-running (>5s) Apex transactions per org (CONCURRENT_REQUESTS_LIMIT_EXCEEDED). Load A: 800K estabelecimentos x1 access/month = light, cacheable reads (~0.3-5 logins/s). Load B: 1M beneficiaria logins over a 5-day window uploading payroll CSV (E03), ~40% on the last day -> ~11 logins/s avg, ~28/s peak. Synchronous critique at that peak is INFEASIBLE (25 slots => <5 uploads/s at 5s each vs ~28/s demand -> org-wide instability). Viable design: async decoupling -> fast dumb upload (Files/ContentVersion or external S3, <1s) -> background processing (Bulk API 2.0 150M rec/24h, Batch Apex, or Platform Events) -> async status notify; CDN/cache for guest+read pages. MVP tailwind: folha lines do NOT persist (G0310), so risk concentrates on upload+critique which the queue absorbs. Licensing is login-based (1 login/24h) -> size pool by beneficiaria peak month. Documented as a dedicated 'Capacidade & Hard Limits' tab in deal-review.html.",
+      "friction": [],
+      "decisions": [
+        {
+          "decision": "Payroll CSV critique must be ASYNC (upload -> queue -> notify), never synchronous on click",
+          "rationale": "Beneficiaria peak ~28 logins/s exceeds the 25-concurrent-long-Apex org ceiling; synchronous critique yields <5 uploads/s and destabilizes the org for all users (incl. 800K estabelecimentos). Async (Bulk API 2.0 / Batch Apex / Platform Events) fits with margin."
+        }
+      ],
+      "open_threads": [
+        "Average payroll CSV size (rows per beneficiaria) unknown -> drives real parse cost and peak sizing.",
+        "Upload storage decision: Salesforce Files vs external S3 (cost, retention, LGPD).",
+        "Salesforce-approved load test simulating the 5-day peak pending before any SLA commitment.",
+        "Volumetria (40% last-day concentration) is assumption, not client data -> ratify with client (G0706/G0701)."
+      ],
+      "next_steps": [
+        "Get average folha CSV row count from client.",
+        "Decide upload storage (Files vs S3) and finalize login-based license pool sized on beneficiaria peak month.",
+        "Schedule Salesforce-approved load test for the 5-day payroll window."
+      ]
+    },
+    {
+      "date": "2026-07-31",
+      "skills_used": [
+        "revise",
+        "validate"
+      ],
+      "summary": "Revise (3º sweep): mudança confirmada na notificação às facilitadoras quando a beneficiária publica uma demanda. MVP até 15/nov = ENDPOINT DE CONSULTA (pull via API/MuleSoft, E05) — a facilitadora consulta, sem push ativo, coerente com facilitadora API-only (ADR 0004). Notificação ativa (push) = roadmap futuro, com CANAL A DEFINIR — a escolha do canal condiciona posicionar ou não Marketing Cloud. Propagado em epics.json (E02/E05), gaps.json (G0207 resolvido para pull, G0209 reforçado, G0211 novo), CSVs, 02-delivery-plan.md (roadmap-futuro linha 3 + fases 1/2 + de-escopo), 01-solution.md (mecânica de notificação + correção de 7 referências stale de 'Apex managed sharing'/licenciamento que o 2º sweep não alcançara), executive-summary.md, deal-review.html. Sem impacto de sizing/timeline/preço (endpoint de consulta é mais leve; push saiu do MVP). Depois: validate.",
+      "friction": [
+        "01-solution.md carregava referências stale de 'Apex managed sharing'/'propostas ocultas' do 2º sweep (equidade-por-construção) que não haviam sido propagadas ao doc de solução — corrigidas neste sweep."
+      ],
+      "decisions": [
+        {
+          "decision": "MVP entrega endpoint de consulta (pull), não notificação ativa (push)",
+          "rationale": "Push movido para roadmap futuro; canal a definir gate para Marketing Cloud (G0211)."
+        }
+      ],
+      "open_threads": [
+        "G0211: canal da notificação ativa/push às facilitadoras indefinido (e-mail, webhook/evento, WhatsApp/BSP, in-app ou jornada Marketing Cloud) — decide se posicionamos Marketing Cloud (G0209).",
+        "Validate FAIL 'E06 sem fase' é ESPERADO/intencional: E06 (Agentforce) é de-escopo #1 / roadmap futuro, fora do MVP de 13 semanas por decisão. Não é defeito; export exigirá confirmação.",
+        "2 WARN de mtime (estimates vs epics; resource-plan vs roadmap) são falsos-positivos deste sweep — a mudança de notificação não alterou sizing/timeline/roster."
+      ],
+      "next_steps": [
+        "Definir o canal do push com o cliente (G0211) antes de dimensionar push ou posicionar Marketing Cloud",
+        "commercials (gated) quando houver rate validado",
+        "Ratificar os 5 ADRs com o cliente"
+      ]
+    },
+    {
+      "date": "2026-07-31",
+      "skills_used": [
+        "export"
+      ],
+      "summary": "Re-export pós-3º sweep de revise: CSVs re-sincronizados (7) e scoping-deliverables.xlsx reconstruído (7 abas: Epics, Gap Analysis, Estimates, Roadmap Phases, Roles & Skills, Efficiency, Estimate Comparison). Validador com FAIL único e ACEITO (E06 sem fase — de-escopo/roadmap futuro), sem vazamento de preço (bloqueante) — PASS. Sem rfp.json, review de artefato pulado.",
+      "friction": [],
+      "decisions": [],
+      "open_threads": [
+        "G0211: canal do push às facilitadoras (decide Marketing Cloud)",
+        "E06 FAIL no validador é intencional/aceito"
+      ],
+      "next_steps": [
+        "commercials (lane de pricing formal, se houver rate a validar)",
+        "slides (deck client-facing)"
+      ]
+    },
+    {
+      "date": "2026-07-31",
+      "skills_used": [
+        "commercials"
+      ],
+      "summary": "Formalizado o lane de pricing indicativo (trilha AI-native comprometida) em commercials.json + outputs/artifacts/commercials.md. Reproduzida a âncora do estimate via derive-hours.py: 4.620h PS, R$ 3.495.949,60 sem imposto, R$ 3.740.984,06 com imposto (÷0,9345). Rates da tabela oficial PS LATAM (já validated_by:user no estimate-comparison), gate satisfeito pela validação upstream. Preço sob heading Approved Commercials + Validated-Rate + ROM disclaimers verbatim. Self-gate: sem leak de preço; único FAIL = E06 sem fase (intencional).",
+      "friction": [],
+      "decisions": [],
+      "open_threads": [
+        "Rate flags ⚠: Payments/Financial Architecture Specialist e Change & Adoption sem correspondente exato na tabela Dataprev — taxa de conversão a confirmar",
+        "Preço é ponto na janela fixa (não faixa); sizes Assumed atrás dos blockers de Fase 0"
+      ],
+      "next_steps": [
+        "slides (3º da sequência export→commercials→slides)"
+      ]
+    },
+    {
+      "date": "2026-07-31",
+      "skills_used": [
+        "slides"
+      ],
+      "summary": "Gerado o deck executivo (Creation Mode): presentation-outline.md (13 slides, arco Situação→Complicação→Resolução, tom autoritativo) + presentation-deck.html autocontido via brand kit (deck shell, --client-primary #066AFE default governo). Slide 12 comercial com R$3,74M com imposto + Validated-Rate Disclaimer verbatim. Fecha a sequência export→commercials→slides.",
+      "friction": [],
+      "decisions": [
+        {
+          "decision": "Incluir 1 slide comercial (R$3,74M com imposto) no deck",
+          "rationale": "Preço validado (validated_by:user), não inventado; autorizado pelo usuário; carrega o Validated-Rate Disclaimer verbatim"
+        }
+      ],
+      "open_threads": [
+        "Deck e project não enviados ao git (monorepo compartilhado) — push pendente de decisão explícita do usuário"
+      ],
+      "next_steps": [
+        "Revisar/apresentar o deck",
+        "Opcional: quantum-leap (handoff de build) ou share (link Drive)"
+      ]
+    },
+    {
+      "date": "2026-08-02",
+      "skills_used": [
+        "backlog"
+      ],
+      "summary": "Backlog (human-delivery handoff) do MVP: geradas 158 histórias INVEST via 8 epic-analysts paralelos, cobertura completa das 8 épicas do MVP (E01=13, E02=30, E03=31, E04=19, E05=30, E07=10, E08=16, E09=9). E06/Agentforce fora (de-escopo/roadmap futuro). Acceptance criteria em Given/When/Then, aterrados em .discovery-context.md + 5 ADRs + KB de marketplace; tags [KB:]/[extends:]/[assumption:] nas alegações load-bearing. Distribuição de confiança: 46 Confirmed / 108 Assumed / 4 TBD. E03 mantida como está por escolha do usuário no gate. Salvo em data/user-stories.json (158 IDs únicos, schema OK) + regenerado data/csv/01-user-stories.csv via json-to-csv.py.",
+      "friction": [
+        "3 stories retornaram uncertainty_level Unknown (fora do schema Confirmed|Assumed|TBD) — normalizadas para TBD no merge (E02 US-0229/US-0230, E03 US-0305)",
+        "Recuperação dos arrays de E02-E09 a partir do transcript da sessão anterior (compaction) para retomar o save em etapas"
+      ],
+      "decisions": [
+        {
+          "decision": "Cobertura completa (full coverage) — sem intents.json, backlog cobre todas as 8 épicas do MVP",
+          "rationale": "quantum-leap não rodou (sem data/intents.json); regra do skill = full coverage; E06 excluída por estar fora do MVP de 13 semanas"
+        }
+      ],
+      "open_threads": [
+        "Muitas histórias Assumed atrás dos blockers de Fase 0 (contratos de API, gateway PCI, fronteira de residência, versão da licença da beneficiária G0103/G0108) — histórias a re-confirmar quando os ADRs forem ratificados",
+        "4 TBD marcam decisões abertas (licença de portal da beneficiária, integração de vínculos/procuração Geride)"
+      ],
+      "next_steps": [
+        "export refolda as histórias no workbook Excel (aba User Stories)",
+        "entregar data/csv/01-user-stories.csv ao time de delivery ou importar no Jira",
+        "quantum-leap se um build agêntico for acionado (emite 91-stories.md)"
+      ]
+    },
+    {
+      "date": "2026-08-02",
+      "skills_used": [
+        "export"
+      ],
+      "summary": "Re-export pós-backlog: scoping-deliverables.xlsx reconstruído com 9 abas (Epics, Gap Analysis, User Stories NOVA, Estimates, Roadmap Phases, Roles & Skills, Efficiency, Commercials, Estimate Comparison). Aba User Stories com as 158 histórias INVEST do MVP. openpyxl presente → workbook primário (sem fallback zip). Validador rodado antes = PASS clean (3 WARN mtime não-bloqueantes, falsos-positivos de sweeps anteriores); sem rfp.json → review de artefato pulado; sem vazamento de preço.",
+      "friction": [],
+      "decisions": [],
+      "open_threads": [
+        "3 WARN mtime (estimates/gaps/resource-plan vs epics/roadmap) permanecem — falsos-positivos, não afetam sizing"
+      ],
+      "next_steps": [
+        "Entregar outputs/scoping-deliverables.xlsx / data/csv/01-user-stories.csv ao time de delivery ou importar no Jira",
+        "Opcional: quantum-leap (handoff de build agêntico) ou share (link Drive)",
+        "Checkpoint git de data/ + outputs/ pendente de decisão explícita (monorepo compartilhado)"
+      ]
     }
   ],
   "preferences": {},
@@ -425,6 +639,54 @@
       "rejected": [
         "comprimir 18-38 semanas de escopo completo em 13",
         "mover a data"
+      ]
+    },
+    {
+      "date": "2026-07-31",
+      "area": "architecture",
+      "decision": "Plataforma sobre Sales Cloud reusando objetos NATIVOS — Opportunity=demanda de leilão reverso, Quote=resposta da facilitadora via API — expostos via Experience Cloud Partner Community (ADR 0004)",
+      "rationale": "Premissa do usuário (31/jul) para encurtar o tempo de implementação sob a data fixa de 15/nov. Reusa funcionalidade nativa em vez de objetos custom Cotacao__c/Proposta__c; Partner Community (não Customer Community Plus) para expor os objetos Sales no portal.",
+      "rejected": [
+        "leilão 100% custom na Core Platform (Cotacao__c 1→N Proposta__c)",
+        "Experience Cloud Customer Community Plus"
+      ]
+    },
+    {
+      "date": "2026-07-31",
+      "area": "architecture",
+      "decision": "Org 100% greenfield (nova, apartada de qualquer ambiente/admins Dataprev) + MuleSoft ON-PREMISE (ADR 0005)",
+      "rationale": "Premissa do usuário (31/jul). O isolamento greenfield + on-premise é o mecanismo de soberania de dados: a integração e o ponto de des-tokenização de CPF ficam no perímetro Dataprev (aderente ao ADR 0001). Resolve G0504 (hospedagem MuleSoft). Cria 3 pré-requisitos externos de lead-time na Fase 0 (org, infra on-premise, gateway) — o maior risco à data fixa.",
+      "rejected": [
+        "MuleSoft CloudHub / fora do perímetro Dataprev",
+        "build sobre org/ambiente Dataprev existente"
+      ]
+    },
+    {
+      "date": "2026-07-31",
+      "area": "timeline",
+      "decision": "Timeline comprometida com datas fixas: início 17/ago/2026 → homologação (UAT) início nov → go-live PRODUÇÃO 15/nov/2026 (13 semanas), com marcos de projeto/decreto/jornada para UAT e PROD e flag de inviabilidade se um pré-requisito escorregar",
+      "rationale": "Compromisso do usuário (31/jul), modo data-fixa planejado de trás pra frente. Estratégia de viabilidade: definição de objetos fundacionais + mapeamento de dados com o time inteiro primeiro, depois paralelização das frentes de baixa dependência. Se a homologação achar defeito no financeiro ou um pré-req da Fase 0 atrasar, 15/nov não é alcançável só com esforço — de-escopo (E03 primeiro) é o único trilho, sinalizado na timeline.",
+      "rejected": [
+        "janela set→nov sem datas de arranque comprometidas",
+        "paralelizar antes de fixar o modelo de dados fundacional"
+      ]
+    },
+    {
+      "date": "2026-07-31",
+      "area": "licensing/scope",
+      "decision": "Experience Cloud portal-license driver is the beneficiária, not the facilitadora; facilitadoras (~600–700) are MuleSoft API integrations, not portal seats",
+      "rationale": "Grill 31/jul confirmed facilitadora is API-only (no UI). This reshapes E01 licensing volumetria and thins E02 custom (equity by construction, no Apex managed sharing). Cites ADR 0004.",
+      "rejected": [
+        "Facilitadora consumes Partner Community seats (prior reading)"
+      ]
+    },
+    {
+      "date": "2026-07-31",
+      "area": "scope",
+      "decision": "Descoberta de demanda pela facilitadora: MVP (até 15/nov) entrega ENDPOINT DE CONSULTA (pull via API/MuleSoft, E05); notificação ATIVA (push) fica no roadmap futuro com o canal a definir.",
+      "rationale": "Coerente com facilitadora API-only (ADR 0004) — sem assento de portal para receber push. Endpoint de consulta é mais leve e cabe na janela fixa; o push depende de uma decisão de canal que ainda não existe (G0211), e essa decisão é o que condiciona posicionar ou não Marketing Cloud (G0209).",
+      "rejected": [
+        "Entregar notificação ativa (push) no MVP — rejeitado: canal indefinido, somaria produto/esforço não dimensionável e pressão sobre a data fixa de 15/nov"
       ]
     }
   ]

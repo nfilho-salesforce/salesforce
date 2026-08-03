@@ -1,0 +1,63 @@
+{
+  "rate_basis": "per-resource-hourly",
+  "lane": "quantum-leap",
+  "currency": "BRL",
+  "tax_rule": "com imposto = sem imposto ÷ 0,9345",
+  "rates": [
+    {
+      "role": "Engagement Manager / Sr Solution Architect / Sr Technical Architect (onshore-senior)",
+      "rate": 884.68,
+      "currency": "BRL",
+      "basis": "sem imposto",
+      "validated_by": "user",
+      "validated_at": "2026-07-31",
+      "rate_with_tax": 946.69
+    },
+    {
+      "role": "Project Manager / Experience Architect (onshore-regular & offshore-regular design)",
+      "rate": 789.88,
+      "currency": "BRL",
+      "basis": "sem imposto",
+      "validated_by": "user",
+      "validated_at": "2026-07-31",
+      "rate_with_tax": 845.24
+    },
+    {
+      "role": "Developer / Technical Consultant / MuleSoft TC (offshore-regular)",
+      "rate": 668.78,
+      "currency": "BRL",
+      "basis": "sem imposto",
+      "validated_by": "user",
+      "validated_at": "2026-07-31",
+      "rate_with_tax": 715.66
+    },
+    {
+      "role": "Quality Assurance Consultant / Solution Consultant (offshore & onshore-regular advisory)",
+      "rate": 573.98,
+      "currency": "BRL",
+      "basis": "sem imposto",
+      "validated_by": "user",
+      "validated_at": "2026-07-31",
+      "rate_with_tax": 614.21
+    }
+  ],
+  "rate_source": "Tabela oficial Salesforce PS LATAM (sem imposto), mapeada por table_role no resource-plan.json. Rates fornecidos e validados pelo usuário (também validated_by:user em estimate-comparison.json). Dois papéis carregam rate_flag ⚠ (Payments/Financial Architecture Specialist → Sr Technical Architect 884,68; Change & Adoption → Solution Consultant 573,98) — mapeamento por nome mais semelhante, taxa de conversão a confirmar.",
+  "effort_basis": {
+    "source": "top-down-shape",
+    "duration_weeks_range": "13",
+    "roster_summary": "11 linhas PS: 4 sênior onshore (EM, SA, TA, Payments TA) + 1 PM regular onshore + 3 Devs regular offshore + 1 Experience Design offshore + 2 QA offshore + 1 Change & Adoption onshore (fracional). Roster comprometido da trilha AI-native (resource-plan.json).",
+    "derivation_note": "Horas por pessoa via derive-hours.py (allocation × phases_active × 13 semanas × 40h, alocação-consciente). Preço = Σ(horas_pessoa × count × rate_no_tax por table_role). Janela FIXA comprometida de 13 semanas (timeline.user_commitment). E06/Agentforce fora do MVP; Data Cloud e Marketing Cloud de-escopados como buffer."
+  },
+  "ps_person_hours": 4620,
+  "indicative_range": {
+    "low": 3740984,
+    "high": 3740984,
+    "currency": "BRL",
+    "confidence": "Assumed",
+    "point_note": "Ponto indicativo do MVP na janela fixa de 13 semanas (não faixa). Sem imposto: R$ 3.495.949,60. Com imposto (÷0,9345): R$ 3.740.984,06. Sizes ainda Assumed atrás dos blockers de Fase 0.",
+    "no_tax": 3495950,
+    "with_tax": 3740984
+  },
+  "disclaimer_class": "input-derived",
+  "approved_commercials": true
+}

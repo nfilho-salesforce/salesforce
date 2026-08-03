@@ -100,6 +100,47 @@
   .glegend{display:flex;gap:16px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:14px}
   .glegend i{font-style:normal;display:inline-flex;align-items:center;gap:5px}
   .gkey{width:16px;height:11px;border-radius:2px;display:inline-block}
+  /* dated-milestone strip — visual project timeline */
+  .mstrip{position:relative;margin:44px 14px 60px;height:3px;background:var(--line);border-radius:2px}
+  .mstrip .mseg{position:absolute;top:0;height:3px;border-radius:2px}
+  .mstrip .mseg.p0{background:#8a9aa8} .mstrip .mseg.p1{background:#0176d3} .mstrip .mseg.p2{background:#1a8fe0} .mstrip .mseg.p3{background:#57a5c9} .mstrip .mseg.p4{background:repeating-linear-gradient(45deg,#8a9aa8,#8a9aa8 5px,#9caab6 5px,#9caab6 10px)}
+  .mnode{position:absolute;top:50%;transform:translate(-50%,-50%);width:15px;height:15px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 1.5px var(--line);z-index:2}
+  .mnode.projeto{background:var(--blue)} .mnode.jornada{background:var(--ok)} .mnode.decreto{background:var(--bad)}
+  .mlbl{position:absolute;transform:translateX(-50%);width:132px;text-align:center;font-size:10.5px;line-height:1.32;color:var(--muted)}
+  .mlbl .md{display:block;font-weight:700;color:var(--navy);font-size:12px}
+  .mlbl.up{bottom:26px} .mlbl.down{top:26px}
+  .mleg{display:flex;gap:16px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:4px}
+  .mleg i{font-style:normal;display:inline-flex;align-items:center;gap:5px}
+  .mleg .mdot{width:11px;height:11px;border-radius:50%;display:inline-block}
+  /* deliverables per phase */
+  .deliv{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:4px}
+  .deliv .dcard{border:1px solid var(--line);border-radius:8px;padding:11px 12px;background:#fff}
+  .deliv .dcard .dph{font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700}
+  .deliv .dcard .ddate{font-size:11px;color:var(--blue);font-weight:600;margin:2px 0 7px}
+  .deliv .dcard .dwork{font-size:11px;color:var(--muted);line-height:1.42}
+  .deliv .dcard .dout{font-size:12px;font-weight:600;color:var(--navy);margin-top:9px;padding-top:8px;border-top:1px solid var(--line)}
+  @media(max-width:820px){.deliv{grid-template-columns:1fr 1fr}}
+  /* roster cost table */
+  .rtbl{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px}
+  .rtbl th{background:var(--navy);color:#fff;text-align:left;padding:8px 10px;font-weight:600;font-size:11px}
+  .rtbl td{padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  .rtbl tr:nth-child(even) td{background:#fafcfe}
+  .rtbl td.num,.rtbl th.num{text-align:right;white-space:nowrap}
+  .rtbl .sub{display:block;font-size:10.5px;color:var(--muted)}
+  .rtbl tr.rtot td{border-top:2px solid var(--navy);border-bottom:none;font-weight:700;color:var(--navy);background:var(--sky)}
+  .rtbl tr.rtot td.num{font-size:13px}
+  .rflag{color:var(--warn);font-weight:700}
+  /* ROM headline stat tiles */
+  .rom{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:4px 0 2px}
+  .romtile{border:1px solid var(--line);border-radius:8px;padding:14px 16px;background:#f5faff;border-color:#bcd9f0}
+  .romtile.hero{background:var(--navy);border-color:var(--navy)}
+  .romtile .rl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;font-weight:700}
+  .romtile.hero .rl{color:rgba(255,255,255,.78)}
+  .romtile .rn{font-size:23px;font-weight:700;color:var(--navy);line-height:1.15;margin-top:3px}
+  .romtile.hero .rn{color:#fff}
+  .romtile .rx{font-size:11px;color:var(--muted);margin-top:3px}
+  .romtile.hero .rx{color:rgba(255,255,255,.8)}
+  @media(max-width:820px){.rom{grid-template-columns:1fr}}
   /* estimate comparison — 2 or 3 lanes (traditional / augmented / AI-native) */
   .lanes{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
   .lane{border:1px solid var(--line);border-radius:8px;padding:14px 16px}
@@ -173,7 +214,7 @@
   <h1>DATAPREV-PAT — Marketplace Digital do PAT</h1>
   <div class="sub">DATAPREV-PAT · Government · Dataprev / Ministério do Trabalho e Emprego (MTE)</div>
   <div class="stampline">
-    <span><b>Gerado:</b> 31 jul 2026, 11:20 BRT (UTC&minus;03:00)</span>
+    <span><b>Gerado:</b> 01 ago 2026 BRT (UTC&minus;03:00)</span>
     <span><b>Scopezilla:</b> 1.9.1</span>
     <span><b>Dados do projeto atualizados:</b> 31 jul 2026</span>
   </div>
@@ -188,8 +229,8 @@
   <button data-tab="discovery">Descoberta</button>
   <button data-tab="epics">Épicas &amp; Solução</button>
   <button data-tab="arch">Arquitetura Macro</button>
-  <button data-tab="delivery">Roadmap &amp; Time</button>
-  <button data-tab="estimate">Estimativa</button>
+  <button data-tab="delivery">Linha do Tempo &amp; Marcos</button>
+  <button data-tab="estimate">Estimativa &amp; ROM</button>
   <button data-tab="gaps">Gaps &amp; Risco</button>
   <button data-tab="decisions">Decisões &amp; Pendências</button>
   <button data-tab="signals">Sinais de Scoping</button>
@@ -199,6 +240,8 @@
   <button data-tab="pat-reforma">Reforma do PAT</button>
   <button data-tab="ciclo-mensal">Ciclo Mensal &amp; Adquirência</button>
   <button data-tab="adesao-beneficiaria">Adesão da Beneficiária</button>
+  <div class="navhdr">Escala &amp; Plataforma</div>
+  <button data-tab="capacidade">Capacidade &amp; Hard Limits</button>
 </nav>
 
 <main>
@@ -232,7 +275,7 @@
           <div class="kv"><span class="k">Gaps abertos</span><span class="v">69</span></div>
           <div class="kv"><span class="k">Blockers de arquitetura</span><span class="v">4 + provisionamento + gateway PCI</span></div>
           <div class="kv"><span class="k">Linhas de roster (PS)</span><span class="v">11 · +6 cliente</span></div>
-          <div class="kv"><span class="k">ADRs</span><span class="v">3 (residência · instância dedicada · fronteira split)</span></div>
+          <div class="kv"><span class="k">ADRs</span><span class="v">5 (residência · instância dedicada · fronteira split · Sales Cloud nativo · greenfield/on-premise)</span></div>
         </div>
       </div>
       <p class="small muted" style="margin-top:12px">Preço indicativo omitido do Resumo por depender de leitura entre trilhas com faixas largas — está na aba Estimativa, com disclaimers de rate validado.</p>
@@ -306,8 +349,8 @@
       <h2>Visão da solução — nível ROM, sobre premissas</h2>
       <p class="hint">De <code>outputs/01-solution.md</code>. Fundações transversais verbatim.</p>
       <div class="excerpt">
-        <p><b>Instância dedicada e apartada (ADR 0002):</b> os 4 domínios vivem numa única org, mas essa org é <b>isolada</b> das demais orgs de clientes da Dataprev — forçada por segurança/sensibilidade financeira, volumetria (~800k estabelecimentos, ~450k beneficiárias, a ratificar), auditabilidade TCU/CGU/ANPD e administração pelo próprio MTE. Provisionamento tem lead-time externo → pré-requisito de Fase 0. Premissa ainda <b>verbal, a ratificar por escrito</b>. <b>Residência híbrida (ADR 0001):</b> CPF e dados sensíveis <b>não persistem</b> no Salesforce — referências tokenizadas resolvidas em runtime via MuleSoft. <b>Fronteira CRM-não-transacional (ADR 0003):</b> o Salesforce é o <b>motor de regras de split</b> — calcula/aplica o rateio, emite boletagem com split e concilia; o gateway PCI (do cliente) executa transações e custodia. OWD Private nos transacionais; N-vendedores do leilão via Apex managed sharing. DevOps source-driven (CLI + Git).</p>
-        <p>Quatro decisões de arquitetura em aberto (fronteira de residência, hospedagem MuleSoft, identidade Experience Cloud × CPF, contratos de API) <b>mais</b> o provisionamento da instância dedicada e a contratação do gateway PCI se resolvem numa <b>Fase 0</b> antes do compromisso final de escopo. Os lead-times externos aí são o maior risco à data fixa.</p>
+        <p><b>Sales Cloud com objetos nativos (ADR 0004):</b> a plataforma é construída sobre <b>Sales Cloud</b> reusando objetos nativos para encurtar o tempo de implementação — <b>Opportunity</b> = demanda de leilão reverso da beneficiária; <b>Quote</b> = resposta da facilitadora recebida <b>exclusivamente via API</b> (sem UI, sem assento de portal). A <b>equidade é por construção</b> (a facilitadora não tem tela, logo não vê a proposta concorrente — sem Apex managed sharing custom); a beneficiária acompanha as cotações mas só <b>seleciona quando a janela de vigência fecha</b> (seleção manual travada, não cega). <b>Greenfield + MuleSoft on-premise (ADR 0005):</b> org 100% nova e isolada; MuleSoft on-premise é o mecanismo de soberania de dados e pré-requisito de marco da Fase 0 (resolve G0504). <b>Instância dedicada e apartada (ADR 0002):</b> org <b>isolada</b> das demais orgs Dataprev — segurança, volumetria (~800k estabelecimentos, ~450k beneficiárias, a ratificar), auditabilidade TCU/CGU/ANPD, administração pelo MTE; provisionamento com lead-time externo → pré-req de Fase 0; ainda <b>verbal, a ratificar por escrito</b>. <b>Residência híbrida (ADR 0001):</b> CPF e dados sensíveis <b>não persistem</b> no Salesforce — referências tokenizadas resolvidas em runtime via MuleSoft. <b>Fronteira CRM-não-transacional (ADR 0003):</b> o Salesforce é o <b>motor de regras de split</b> — calcula/aplica o rateio, emite boletagem com split e concilia; o gateway PCI (do cliente) executa transações e custodia. DevOps source-driven (CLI + Git).</p>
+        <p><b>Correção de licenciamento (grill 31/jul):</b> como a facilitadora é API-only, o driver de licença de portal é a <b>beneficiária</b> (opera Opportunity/Quote), <b>não a facilitadora</b> — as ~600–700 facilitadoras são integrações MuleSoft, não assentos de Experience Cloud. A versão de licença da beneficiária (Partner Community vs. Customer Community Plus) segue a requalificar (G0103/G0108). Quatro decisões de arquitetura em aberto (fronteira de residência, hospedagem MuleSoft, identidade Experience Cloud × CPF, contratos de API) <b>mais</b> o provisionamento greenfield/instância dedicada e a contratação do gateway PCI se resolvem numa <b>Fase 0</b> antes do compromisso final de escopo. Os lead-times externos aí são o maior risco à data fixa.</p>
       </div>
       <span class="docref">📄 01-solution.md — desenho completo por processo (no repositório)</span>
       <p class="small muted" style="margin-top:10px">A letra de tamanho abaixo é o headline de complexidade; os números (duração/FTE/preço) vivem na aba Estimativa. <b>Confiança da épica</b> e <b>confiança do size</b> são distintas: 5/9 épicas Confirmed, mas <b>todos os 9 sizes seguem Assumed</b> atrás dos 4 blockers de arquitetura.</p>
@@ -315,26 +358,27 @@
 
     <details class="epic"><summary><span class="caret">›</span><span class="eid">E01</span><span class="ename">Portal &amp; Identidade gov.br</span><span class="pill ok">Confirmed</span><span class="sz">L</span></summary>
       <div class="epic-body">
-        <h4>Descrição</h4><p>Fundação Experience Cloud do marketplace: login gov.br (OpenID Connect), procuração digital, fluxo "representar empresa", navegação e controle de acesso do portal da beneficiária. Base de identidade sobre a qual E02/E03/E04 renderizam.</p>
+        <h4>Descrição</h4><p>Fundação Experience Cloud do marketplace: login gov.br (OpenID Connect), procuração digital, fluxo "representar empresa", navegação e controle de acesso do portal da <b>beneficiária</b> (e do estabelecimento). Base de identidade sobre a qual E02/E03/E04 renderizam.</p>
         <h4>Abordagem de solução</h4><p>Experience Cloud LWR + gov.br OIDC (Auth Provider/Named Credentials); Contact por referência tokenizada resolvida em runtime via MuleSoft.</p>
+        <h4>Licenciamento (corrigido no grill 31/jul)</h4><p>O driver de licença de portal é a <b>beneficiária</b> — quem opera Opportunity (demanda) e Quote (comparação/seleção) no portal — <b>não a facilitadora</b>, que é API-only (E05) e <b>não consome assento</b>. As ~600–700 facilitadoras são integrações MuleSoft, não licenças de Experience Cloud. A <b>versão</b> de licença da beneficiária (Partner Community vs. Customer Community Plus) segue a requalificar (G0103/G0108): Customer Community Plus não expõe Opportunity/Quote nativamente.</p>
         <h4>Racional de sizing (size Assumed)</h4><p>L — largura de UI + segurança external do portal; integração e data model moderados. <i>XL se procuração digital exigir motor de delegação custom ou acessibilidade demandar componentes não-LDS extensos.</i></p>
-        <h4>Riscos</h4><p>Conector gov.br OIDC nativo inexistente (G0101); procuração digital sem mecânica definida (G0102); acessibilidade gov federal (G0105); Contact × residência (G0106). Depende de E05, E08.</p>
+        <h4>Riscos</h4><p>Conector gov.br OIDC nativo inexistente (G0101); procuração digital sem mecânica definida (G0102); versão de licença da beneficiária a requalificar (G0103/G0108); acessibilidade gov federal (G0105); Contact × residência (G0106). Depende de E05, E08.</p>
       </div>
     </details>
 
     <details class="epic"><summary><span class="caret">›</span><span class="eid">E02</span><span class="ename">Marketplace de Cotação e Contratação</span><span class="pill ok">Confirmed</span><span class="sz">XL</span></summary>
       <div class="epic-body">
-        <h4>Descrição</h4><p>Motor do "leilão" reverso: beneficiária publica cotação; N facilitadoras enviam propostas com prazo/SLA; comparação lado a lado; seleção → contrato. Padrão comprador→N-vendedores é custom na Core Platform (Cotacao__c 1→N Proposta__c + Flow/Apex) — não há suporte nativo Salesforce a RFQ/leilão reverso.</p>
-        <h4>Abordagem de solução</h4><p>Cotacao__c 1→N Proposta__c; Flow (publicação/prazo/SLA) + Apex (ranking, comparação, seleção→contrato); LWC de comparação; Apex managed sharing.</p>
-        <h4>Racional de sizing (size Assumed)</h4><p>XL — múltiplas dimensões em L (automação + UI + sharing) compõem para XL; é o motor custom do leilão reverso.</p>
-        <h4>Riscos</h4><p>Regras de seleção/desempate indefinidas (G0202/G0204); conformidade Lei 14.133 (G0203); normalização de propostas para comparação justa (G0208); tela de comparação ausente no protótipo (G0201). Depende de E01, E05.</p>
+        <h4>Descrição (re-shapeado — ADR 0004, grill 31/jul)</h4><p>Motor do "leilão" reverso sobre <b>objetos nativos Sales Cloud</b>: a beneficiária registra a demanda como <b>Opportunity</b>; N facilitadoras respondem <b>exclusivamente via API</b> (MuleSoft) com uma <b>Quote</b>, informando o ID da cotação/oportunidade aberta dentro da vigência. Comparação lado a lado → seleção manual → contrato. Sai o par custom Cotacao__c/Proposta__c; a complexidade migra de "construir do zero" para "adaptar o nativo" ao padrão comprador→N-vendedores.</p>
+        <h4>Abordagem de solução (ADR 0004)</h4><p>Opportunity (demanda) + Quote (resposta via API) nativos. A <b>facilitadora é API-only</b> — sem UI, sem assento de portal. No MVP descobre as demandas abertas por um <b>endpoint de consulta (pull via API/MuleSoft, E05)</b> — <b>sem push ativo</b>; a <b>notificação ativa (push) é roadmap futuro, com o canal a definir</b> (o que decide se posicionamos ou não Marketing Cloud — G0209/G0211, decisão 31/jul). <b>Equidade por construção</b>: como a facilitadora não tem tela, não enxerga a proposta concorrente — <b>sem Apex managed sharing custom</b>. Camada custom reservada ao que o nativo não entrega: LWC "Comparar Propostas" para a beneficiária, a <b>trava de seleção até o fechamento da janela de vigência</b> (a beneficiária acompanha as cotações conforme chegam, mas só seleciona quando a janela fecha — <i>não é seleção cega</i>) e a transição seleção→contrato (PDF imutável versionado, sem CLM).</p>
+        <h4>Racional de sizing (size Assumed)</h4><p>XL — mantém-se XL: reusar o nativo encurta o build custom mas <b>adiciona o esforço de dobrar Opportunity/Quote</b> (feitos para venda sell-side) ao padrão de leilão reverso; comparação/seleção/trava de vigência + o contrato de API com as facilitadoras compõem para XL.</p>
+        <h4>Riscos</h4><p>Regras de seleção/desempate indefinidas (G0202 — seleção manual travada até o fechamento confirmada no grill; G0204); conformidade Lei 14.133 (G0203); normalização de propostas para comparação justa (G0208); versão de licença da beneficiária a requalificar (G0103/G0108). Depende de E01, E05.</p>
       </div>
     </details>
 
     <details class="epic"><summary><span class="caret">›</span><span class="eid">E03</span><span class="ename">Motor de Regras de Split &amp; Conciliação</span><span class="pill warn">Assumed</span><span class="sz">XL</span></summary>
       <div class="epic-body">
         <h4>Descrição</h4><p>A empresa faz upload da folha; o Salesforce <b>calcula e aplica o split</b> (governo/facilitadora/estabelecimento) sob o teto de MDR de 3,6% e repasse em até 15 dias (Decreto 12.712/2025), <b>emite a boletagem já com o split aplicado</b>, orquestra e <b>concilia por casamento</b>. O dinheiro em si não passa pelo Salesforce: a execução bancária e a custódia ficam no <b>gateway PCI</b>, contratado pelo cliente (ADR 0003). Revenue Cloud fora desta rodada.</p>
-        <h4>Abordagem de solução (ADR 0003)</h4><p>Objetos custom folha/contrato/regras de rateio; upload em layout padronizado; o motor de split calcula/aplica, emite boletagem com split para o gateway PCI, e concilia por casamento os lançamentos devolvidos. Integração via MuleSoft com idempotência obrigatória e trilha de conciliação. Execução/custódia são do gateway PCI, não do CRM.</p>
+        <h4>Abordagem de solução (ADR 0003 · fluxo de 8 passos, grill 31/jul)</h4><p>Upload do CSV da folha (portal/API) → validação de layout + integridade → crítica via melhor alternativa Salesforce (Einstein/agente); <b>as linhas da folha NÃO persistem em objeto</b> (roadmap futuro — sem requisito para 15/nov, G0310) → facilitadora baixa por contrato/vigência → retorna "processado" + valor via API → plataforma envia valor ao gateway PCI → recebe boleto registrado + metadados → boleto disponível à beneficiária no portal → recebe movimentações bancárias do gateway → <b>identificação de pagamento em lotes incrementais via agendamento MuleSoft</b> → consulta regras de split → calcula repasse → registra todo o racional, entregando ao gateway PCI (executor único das transações). Idempotência obrigatória e trilha de conciliação. Execução/custódia são do gateway PCI, não do CRM.</p>
         <h4>Racional de sizing (size Assumed)</h4><p><b>XL — subiu de L</b>. O ADR 0003 confirmou que o motor de regras de split e a conciliação vivem no Salesforce (não só integração de saída): mais lógica financeira regulada no CRM, contrato de integração com o gateway PCI, conciliação multi-parte. A premissa <i>size_if_assumption_breaks</i> que o design havia sinalizado se realizou.</p>
         <h4>Riscos</h4><p>Regras de split/desempate indefinidas (G0301/G0304); modelo de conta custódia + provedor do gateway PCI a confirmar (G0309, pré-requisito de Fase 0); mecânica de conciliação (G0304); tratamento de erro de pagamento (G0305). Depende de E01, E05, E08.</p>
       </div>
@@ -399,7 +443,7 @@
       <div class="lead">⧉ Perguntas para fazer ao Claude no repositório</div>
       <ul>
         <li>Quais épicas sobem de size se cada um dos 4 blockers quebrar contra a assumption?</li>
-        <li>E02 (leilão reverso custom) é mesmo XL, ou dá para reduzir com padrão configurável?</li>
+        <li>E02 (leilão reverso sobre Opportunity/Quote nativos) é mesmo XL, ou o reuso nativo do Sales Cloud reduz o esforço de adaptação?</li>
         <li>E09 (change) é PS ou Dataprev — e o que muda no roster se for cliente?</li>
       </ul>
     </div>
@@ -645,7 +689,7 @@
   <section class="tab" id="arch">
     <div class="card">
       <h2>O que esta aba mostra</h2>
-      <p class="hint">Arquitetura macro em nível de proposta (ROM), sobre premissas. Destilado de <code>outputs/01-solution.md</code> (§Fundações de Arquitetura) e das ADRs <code>decisions/0001–0003</code> (residência híbrida · instância dedicada · fronteira CRM/split). Blockers de arquitetura + provisionamento da instância dedicada + contratação do gateway PCI seguem em aberto — resolvidos na Fase 0 antes do compromisso final de escopo e prazo.</p>
+      <p class="hint">Arquitetura macro em nível de proposta (ROM), sobre premissas. Destilado de <code>outputs/01-solution.md</code> (§Fundações de Arquitetura) e das ADRs <code>decisions/0001–0005</code> (residência híbrida · instância dedicada · fronteira CRM/split · Sales Cloud objetos nativos · greenfield + MuleSoft on-premise). Blockers de arquitetura + provisionamento greenfield/instância dedicada + contratação do gateway PCI seguem em aberto — resolvidos na Fase 0 antes do compromisso final de escopo e prazo.</p>
     </div>
 
     <div class="card" data-shot>
@@ -673,12 +717,12 @@
         </div>
         <div class="arch-conn">↓</div>
         <div class="arch-layer l-core">
-          <div class="lname">Core / Service Cloud + Agentforce — motor de negócio</div>
+          <div class="lname">Sales Cloud + Agentforce — motor de negócio (ADR 0004)</div>
           <div class="arch-nodes">
-            <span class="arch-node prod">Core / Service Cloud</span>
-            <span class="arch-node">Cotacao__c → N Proposta__c (leilão reverso, E02)</span>
+            <span class="arch-node prod">Sales Cloud</span>
+            <span class="arch-node">Opportunity (demanda) → N Quote via API (leilão reverso, E02)</span>
             <span class="arch-node">Motor de regras de split &amp; conciliação (E03, XL)</span>
-            <span class="arch-node">OWD Private + Apex managed sharing</span>
+            <span class="arch-node">Equidade por construção (facilitadora API-only — sem managed sharing)</span>
             <span class="arch-node prod">Agentforce</span>
             <span class="arch-node">Atendimento (E06 — fora do MVP)</span>
           </div>
@@ -720,9 +764,9 @@
         <p class="hint">Decisões horizontais que nenhuma épica possui — de <code>01-solution.md</code> §Fundações.</p>
         <div class="kv"><span class="k">Estratégia de org</span><span class="v">Instância <b>dedicada e apartada</b> (ADR 0002) — forçada por segurança, volumetria, auditoria TCU/CGU/ANPD e administração pelo MTE. Provisionamento = pré-req de Fase 0. <span class="pill warn">verbal, a ratificar por escrito</span></span></div>
         <div class="kv"><span class="k">Separação de domínios</span><span class="v">Objeto · perfil · sharing dentro da instância dedicada</span></div>
-        <div class="kv"><span class="k">Portal externo</span><span class="v">Experience Cloud LWR · Customer Community Plus</span></div>
-        <div class="kv"><span class="k">Licença external</span><span class="v">login- vs member-based — a quantificar (G0103/G0108)</span></div>
-        <div class="kv"><span class="k">Compartilhamento</span><span class="v">OWD Private + Apex managed sharing</span></div>
+        <div class="kv"><span class="k">Portal externo</span><span class="v">Experience Cloud LWR — <b>beneficiária</b> (opera Opportunity/Quote); facilitadora é API-only, sem assento (grill 31/jul)</span></div>
+        <div class="kv"><span class="k">Licença external</span><span class="v">versão da beneficiária a requalificar (Partner Community expõe Opportunity/Quote; Customer Community Plus não) — G0103/G0108</span></div>
+        <div class="kv"><span class="k">Compartilhamento</span><span class="v">Equidade por construção — facilitadora API-only não vê propostas concorrentes (sem Apex managed sharing custom, ADR 0004)</span></div>
         <div class="kv"><span class="k">DevOps</span><span class="v">Source-driven (CLI + Git) · Dev→QA→UAT→Prod</span></div>
       </div>
       <div class="card">
@@ -773,7 +817,7 @@
       <div class="excerpt">
         <p><b>Fundação transversal:</b> E05 (integração MuleSoft) e E08 (segurança/residência) sustentam todo o resto — E05 é o <b>risco #1 e caminho crítico</b> (ausência total de contratos de API).</p>
         <p><b>Porta de entrada:</b> E01 (identidade gov.br) é a base sobre a qual E02, E03 e E04 renderizam.</p>
-        <p><b>Núcleo de valor:</b> E02 (leilão reverso custom, XL) e E03 (financeiro: split/conciliação) — os dois que, com E08 (fronteira não ratificada), fixam o teto das faixas de esforço.</p>
+        <p><b>Núcleo de valor:</b> E02 (leilão reverso sobre Opportunity/Quote nativos, XL) e E03 (financeiro: split/conciliação) — os dois que, com E08 (fronteira não ratificada), fixam o teto das faixas de esforço.</p>
       </div>
       <div class="recon"><b>Por que as faixas são largas.</b> Os 9 sizes seguem <b>Assumed</b> atrás dos quatro blockers acima. A Fase 0 os resolve e aperta as faixas — é a recomendação que antecede o compromisso de escopo e prazo. Detalhe nas abas Gaps &amp; Risco e Estimativa.</div>
     </div>
@@ -789,8 +833,8 @@
   </section>
   <section class="tab" id="delivery">
     <div class="card">
-      <h2>Roadmap &amp; Time — sequência de fases e roster</h2>
-      <p class="hint">De <code>outputs/02-delivery-plan.md</code> + <code>data/roadmap.json</code> + <code>data/resource-plan.json</code>. <b>Modo data-fixa</b>: go-live <b>15/nov/2026</b> imóvel (regulatório), planejado de trás pra frente. Compromisso do usuário: <b>13 semanas</b> em 5 fases; o escopo é a variável de flexão. Os Gantts abaixo mostram as fases alocadas por peso de complexidade dentro da janela fixa.</p>
+      <h2>Linha do Tempo &amp; Marcos — 13 semanas, planejadas de trás pra frente</h2>
+      <p class="hint">De <code>.project-metadata.json.timeline</code> + <code>outputs/02-delivery-plan.md</code> + <code>data/roadmap.json</code>. <b>Modo data-fixa</b>: go-live <b>15/nov/2026</b> imóvel (regulatório — Decreto 12.712/2025), planejado de trás pra frente a partir do início comprometido em <b>17/ago/2026</b>. Janela de construção: <b>13 semanas</b> em 5 fases; o escopo é a variável de flexão. Abaixo: os <b>6 marcos de data</b>, o calendário de fases e os <b>entregáveis</b> de cada fase. <span class="small muted">O roster (perfis × horas × taxas por semana) mudou para a aba <b>Estimativa &amp; ROM</b> — é o "quem" da estimativa.</span></p>
     </div>
 
     <div class="card" data-shot>
@@ -810,31 +854,75 @@
     </div>
 
     <div class="card" data-shot>
-      <h3>Roster Salesforce PS — trilha AI-native comprometida (11 linhas)</h3>
-      <p class="small muted">Uma linha por pessoa/função (<code>resource-plan.json</code>, autoria do <code>estimate</code>). Barra = fases ativas; <span class="frac" style="display:inline-block;width:34px;height:10px;vertical-align:middle;border-radius:2px"></span> hachurado = alocação fracional (meio período enquanto ativo). Sem horas/taxas aqui — números na aba Estimativa.</p>
-      <div class="gantt roster">
-        <div class="gantt-months" style="grid-template-columns:480px 1fr"><span></span><div class="mrow" style="grid-template-columns:repeat(4,1fr)"><span>Ago 26</span><span>Set</span><span>Out</span><span>Nov</span></div></div>
-        <div class="rg-hdr"><span>Função</span><span>O que faz</span><span></span></div>
-        <div class="rg-row"><div class="rgl">Engagement Manager<span class="cnt">sênior · onshore · ×1 · full</span></div><div class="rgd">Accountability única de entrega e da relação MTE×Dataprev; caminho crítico de coordenação. Janela FIXA de 13 sem eleva a coordenação.</div><div class="rg-track" style="background-size:calc(100%/4) 100%"><div class="rg-bar" style="left:0%;width:100%"></div></div></div>
-        <div class="rg-row"><div class="rgl">Senior Solution Architect<span class="cnt">sênior · onshore · ×1 · full</span></div><div class="rgd">Dono da arquitetura; solution + funcional. ADR 0001 (residência) + ADR 0002 (instância dedicada) governam data model e topologia de E01/E02/E03/E08.</div><div class="rg-track" style="background-size:calc(100%/4) 100%"><div class="rg-bar" style="left:0%;width:100%"></div></div></div>
-        <div class="rg-row"><div class="rgl">Senior Technical Architect<span class="cnt">sênior · onshore · ×1 · full</span></div><div class="rgd">Risco #1: hub E05 sem contratos de API, mock-first, com o gateway PCI como alvo (ADR 0003). Dirige o fleet de agentes no caminho crítico.</div><div class="rg-track" style="background-size:calc(100%/4) 100%"><div class="rg-bar" style="left:0%;width:92.3%"></div></div></div>
-        <div class="rg-row"><div class="rgl">Payments/Financial Architecture Specialist ⚠︎<span class="cnt">sênior · onshore · ×1 · half (full na Fase 3)</span></div><div class="rgd">NOVO — E03 subiu a XL (ADR 0003). Define as regras de split/conciliação (G0304) e o contrato do gateway PCI (G0309); conduz o build do motor de split. ⚠ Sem correspondente exato na tabela; mapeado a Senior Technical Architect.</div><div class="rg-track" style="background-size:calc(100%/4) 100%"><div class="rg-bar frac" style="left:0%;width:92.3%"></div></div></div>
-        <div class="rg-row"><div class="rgl">Project Manager<span class="cnt">regular · onshore · ×1 · full</span></div><div class="rgd">Coordenação multi-fase, release management, cadência com stakeholders. Ramp na Fase 1.</div><div class="rg-track" style="background-size:calc(100%/4) 100%"><div class="rg-bar" style="left:15.4%;width:84.6%"></div></div></div>
-        <div class="rg-row"><div class="rgl">Developer (pod)<span class="cnt">regular · offshore · ×2 · full</span></div><div class="rgd">Constroem COM agentes o leilão custom (E02, XL) e o motor de split (E03, XL) — caminho crítico. Pod 3→2 sob a arquitetura sênior.</div><div class="rg-track" style="background-size:calc(100%/4) 100%"><div class="rg-bar" style="left:15.4%;width:84.6%"></div></div></div>
-        <div class="rg-row"><div class="rgl">MuleSoft Technical Consultant<span class="cnt">regular · offshore · ×1 · full</span></div><div class="rgd">Cobre a virada mock→real de E05, a integração do gateway PCI (ADR 0003) e a de-tokenização em runtime. 2→1.</div><div class="rg-track" style="background-size:calc(100%/4) 100%"><div class="rg-bar" style="left:15.4%;width:76.9%"></div></div></div>
-        <div class="rg-row"><div class="rgl">Experience Architect<span class="cnt">regular · offshore · ×1 · full</span></div><div class="rgd">Jornada única gov.br (E01) + UX do leilão/comparação de propostas (E02). Risco de adoção material.</div><div class="rg-track" style="background-size:calc(100%/4) 100%"><div class="rg-bar" style="left:15.4%;width:53.8%"></div></div></div>
-        <div class="rg-row"><div class="rgl">Quality Assurance<span class="cnt">regular · offshore · ×2 · full</span></div><div class="rgd">QA amplificado, não substituído: surge no hardening — go-live financeiro regulado (idempotência/conciliação boleto/Pix/split) numa data FIXA.</div><div class="rg-track" style="background-size:calc(100%/4) 100%"><div class="rg-bar" style="left:46.2%;width:53.8%"></div></div></div>
-        <div class="rg-row"><div class="rgl">Change &amp; Adoção → Solution Consultant ⚠︎<span class="cnt">regular · onshore · ×1 · half</span></div><div class="rgd">~800k estabelecimentos + ~450k beneficiárias (a ratificar); resistência à perda de margem no modelo transparente. ⚠ Sem correspondente exato na tabela de rates.</div><div class="rg-track" style="background-size:calc(100%/4) 100%"><div class="rg-bar frac" style="left:15.4%;width:84.6%"></div></div></div>
-        <div class="rg-row"><div class="rgl">Technical Consultant — Data Migration<span class="cnt">regular · offshore · ×1 · half</span></div><div class="rgd">Carga inicial MÍNIMA de cadastros (E07) — Novo PAT permanece system-of-record. Fracional na Fase 4.</div><div class="rg-track" style="background-size:calc(100%/4) 100%"><div class="rg-bar frac" style="left:92.3%;width:7.7%"></div></div></div>
+      <h3>Os 6 marcos de data — janela fixa 17/ago → 15/nov/2026</h3>
+      <p class="small muted">De <code>.project-metadata.json.timeline.user_commitment.milestones</code>. Nós posicionados por data real dentro da janela de 13 semanas; a faixa colorida abaixo é a sequência das 5 fases.</p>
+      <div class="mstrip">
+        <div class="mseg p0" style="left:0%;width:15.4%"></div>
+        <div class="mseg p1" style="left:15.4%;width:30.8%"></div>
+        <div class="mseg p2" style="left:46.2%;width:23%"></div>
+        <div class="mseg p3" style="left:69.2%;width:23.1%"></div>
+        <div class="mseg p4" style="left:92.3%;width:7.7%"></div>
+        <div class="mnode projeto" style="left:0%"></div>
+        <div class="mlbl down" style="left:0%;transform:translateX(-12%)"><span class="md">17/ago</span>Kick-off — início do projeto</div>
+        <div class="mnode projeto" style="left:14.3%"></div>
+        <div class="mlbl up" style="left:14.3%"><span class="md">30/ago</span>Ambiente pronto — org greenfield + MuleSoft on-premise + gateway PCI</div>
+        <div class="mnode projeto" style="left:45.1%"></div>
+        <div class="mlbl down" style="left:45.1%"><span class="md">27/set</span>Modelo de dados fundacional ratificado — habilita paralelização</div>
+        <div class="mnode jornada" style="left:83.5%"></div>
+        <div class="mlbl up" style="left:83.5%"><span class="md">01/nov</span>Homologação (UAT) início — jornadas em ambiente de homologação</div>
+        <div class="mnode projeto" style="left:100%"></div>
+        <div class="mlbl down" style="left:100%;transform:translateX(-88%)"><span class="md">15/nov</span>Go-live PRODUÇÃO<br><span style="color:var(--bad);font-weight:700">◆ Marco Decreto 12.712/2025 — interoperabilidade total</span></div>
       </div>
-      <p class="small muted">~8,9 FTE média-programa (pico ~12 pessoas distintas no meio do build). Traço tradicional (gross-up notional): ~10,6 FTE — pod Core 3, MuleSoft 2. E06/Agentforce fora do MVP: a linha de especialista Agentforce saiu do roster comprometido. Cobertura do cliente (input do gate AI-native, sem esforço/preço PS): Product Owner/Decisor <b>⚠ não confirmado</b>, SMEs por épica, Data Steward, Client IT/Plataforma, Capacidade UAT, Sponsor executivo.</p>
+      <div class="mleg">
+        <i><span class="mdot" style="background:var(--blue)"></span>Marco de projeto</i>
+        <i><span class="mdot" style="background:var(--ok)"></span>Marco de jornada (UAT)</i>
+        <i><span class="mdot" style="background:var(--bad)"></span>Marco regulatório (Decreto)</i>
+      </div>
+      <p class="small muted">Go-live PRODUÇÃO e o marco regulatório de interoperabilidade total coincidem em <b>15/nov/2026</b> — a data é externa e imóvel. A homologação das jornadas começa em 01/nov; a Fase 4 (hardening financeiro + go-live) concentra 9–15/nov.</p>
+    </div>
+
+    <div class="card" data-shot>
+      <h3>Entregáveis por fase — o que fica pronto ao fim de cada janela</h3>
+      <div class="deliv">
+        <div class="dcard">
+          <div class="dph">Fase 0 · Arranque</div>
+          <div class="ddate">17–30 ago · 2 sem</div>
+          <div class="dwork">Org greenfield dedicada · gateway PCI selecionado · MuleSoft on-premise · 4 blockers resolvidos (residência G0801, API G0501, hospedagem G0504, gov.br×CPF G0106).</div>
+          <div class="dout">▸ Ambiente pronto + arquitetura ratificada</div>
+        </div>
+        <div class="dcard">
+          <div class="dph">Fase 1 · Fundação</div>
+          <div class="ddate">31 ago–27 set · 4 sem</div>
+          <div class="dwork">E05 hub de integração mock-first · E08 residência/tokenização na org dedicada · E01 portal gov.br. Base de identidade e segurança.</div>
+          <div class="dout">▸ Modelo de dados fundacional + base de identidade/segurança</div>
+        </div>
+        <div class="dcard">
+          <div class="dph">Fase 2 · Marketplace</div>
+          <div class="ddate">28 set–18 out · 3 sem</div>
+          <div class="dwork">E02 leilão reverso sobre Opportunity/Quote nativos (XL, facilitadora API-only) · E04 credenciamento. Demanda→resposta→seleção→contrato.</div>
+          <div class="dout">▸ Marketplace + credenciamento funcionais</div>
+        </div>
+        <div class="dcard">
+          <div class="dph">Fase 3 · Financeiro</div>
+          <div class="ddate">19 out–8 nov · 3 sem</div>
+          <div class="dwork">E03 motor de regras de split &amp; conciliação no Salesforce (XL, ADR 0003) · contrato do gateway PCI. A fase mais sensível à data fixa.</div>
+          <div class="dout">▸ Motor financeiro homologável</div>
+        </div>
+        <div class="dcard">
+          <div class="dph">Fase 4 · Go-live</div>
+          <div class="ddate">9–15 nov · 1 sem</div>
+          <div class="dwork">E07 carga inicial MÍNIMA (Novo PAT é system-of-record) · E09 change &amp; adoção enxuta · hypercare mínimo.</div>
+          <div class="dout">▸ Go-live PRODUÇÃO — 15/nov/2026</div>
+        </div>
+      </div>
+      <p class="small muted">Caminho crítico: <b>Fase 0 (provisionamento + gateway PCI) → E05 → E03 → estabilização</b>. E06 (Agentforce), Data Cloud e Marketing Cloud ficam <b>fora do MVP</b> como buffer de de-escopo — a data é o âncora, o escopo é a variável de flexão.</p>
     </div>
 
     <div class="card">
       <h3>Objetivos, critérios e riscos por fase <span class="small muted">(modo data-fixa · 13 sem · go-live 15/nov)</span></h3>
       <div class="kv"><span class="k">Fase 0 · Arranque, Provisionamento &amp; Arquitetura <small>(2 sem)</small></span><span class="v">Provisionar a <b>instância dedicada</b> (ADR 0002 — lead-time externo) · selecionar/contratar o <b>gateway PCI</b> (ADR 0003) · resolver os 4 blockers (fronteira de residência G0801, contratos de API G0501, hospedagem MuleSoft G0504, identidade gov.br × CPF G0106). Aperta as faixas de todos os 9 sizes. <b>Os lead-times externos aqui são o maior risco à data fixa.</b> (69 gaps / 3 conflitos de fonte.)</span></div>
         <div class="kv"><span class="k">Fase 1 · Fundação <small>(4 sem)</small></span><span class="v">E05 (hub integração mock-first) · E08 (residência/tokenização na org dedicada) · E01 (portal gov.br). Estabelece a base de identidade e segurança sobre a qual tudo renderiza. Risco #1 atacado cedo: ausência de contratos de API (G0501).</span></div>
-        <div class="kv"><span class="k">Fase 2 · Marketplace &amp; Credenciamento <small>(3 sem)</small></span><span class="v">E02 (leilão reverso custom, XL — sem Data Cloud) · E04 (credenciamento). Motor de cotação→proposta→contrato. Risco: regras de seleção/Lei 14.133 indefinidas.</span></div>
+        <div class="kv"><span class="k">Fase 2 · Marketplace &amp; Credenciamento <small>(3 sem)</small></span><span class="v">E02 (leilão reverso sobre Opportunity/Quote nativos, XL — sem Data Cloud; facilitadora API-only) · E04 (credenciamento). Demanda→resposta via API→seleção travada até o fechamento→contrato. Risco: regras de seleção/Lei 14.133 indefinidas.</span></div>
         <div class="kv"><span class="k">Fase 3 · Motor de Split &amp; Conciliação <small>(3 sem)</small></span><span class="v">E03 (motor de regras de split & conciliação no Salesforce, XL — ADR 0003; o gateway PCI executa/custodia). A fase XL mais sensível à data fixa; homologação do fluxo financeiro regulado antes de produção. Risco: regras de split/conta custódia e conciliação indefinidas (G0304/G0309).</span></div>
         <div class="kv"><span class="k">Fase 4 · Carga Mínima, Adoção &amp; Estabilização <small>(1 sem)</small></span><span class="v">E07 (carga inicial MÍNIMA — Novo PAT é system-of-record) · E09 (change &amp; adoção enxuta). Hypercare mínimo até o go-live (15/nov/2026). Buffer: carga massiva e adoção completa ficam pós-go-live.</span></div>
       <div class="recon"><b>Duração comprometida:</b> <b>13 semanas em modo data-fixa</b> — o go-live de 15/nov/2026 é imóvel e o ESCOPO é a variável de flexão. A faixa benchmark top-down-shape (~18–38 sem, multi-cloud, complexidade média + adders) é o RACIOCÍNIO por trás; comprimida pela native_band, a faixa AI-native 11–27 sem coloca as 13 sem no extremo inferior — atingível só com o de-escopo do MVP (E06/Data Cloud/Marketing como buffer). <b>A trilha tradicional (18–38 sem) não alcança 15/nov de forma alguma.</b> Range-drivers: E05, E03, E08. <i>Baseado em benchmark, não é compromisso.</i></div>
@@ -852,8 +940,31 @@
   </section>
   <section class="tab" id="estimate">
     <div class="card">
-      <h2>Estimativa dual-track — AI-native (âncora) vs. tradicional (notional)</h2>
-      <p class="hint">De <code>data/estimate-comparison.json</code> + <code>outputs/artifacts/estimate-comparison.md</code>. Base de escopo única e validada. <b>Âncora: AI-native</b> — é o número comprometido; a trilha tradicional é um <i>gross-up notional</i> ("o que custaria do jeito antigo"). Assinado pelo Solution Lead em 28/07/2026 como ponto de partida defensável.</p>
+      <h2>Estimativa &amp; ROM — âncora AI-native, roster e preço indicativo</h2>
+      <p class="hint">De <code>data/estimate-comparison.json</code> + <code>data/commercials.json</code> + <code>outputs/artifacts/commercials.md</code>. Base de escopo única e validada. <b>Âncora: AI-native</b> — é o número comprometido; a trilha tradicional é um <i>gross-up notional</i> ("o que custaria do jeito antigo"). Assinado pelo Solution Lead em 28/07/2026. Abaixo: o <b>ROM</b>, a comparação de trilhas, o <b>roster de perfis × horas × taxas por semana</b> e a eficiência de IA. <span class="small muted">Horas × taxas aparecem aqui por ser artefato <b>de uso interno</b> — nunca em material de cliente.</span></p>
+    </div>
+
+    <div class="card" data-shot>
+      <h3>ROM — MVP na janela fixa (trilha AI-native comprometida)</h3>
+      <div class="rom">
+        <div class="romtile hero">
+          <div class="rl">ROM com imposto</div>
+          <div class="rn">R$ 3,74M</div>
+          <div class="rx">R$ 3.740.984 · sem imposto ÷ 0,9345 · ponto indicativo do MVP</div>
+        </div>
+        <div class="romtile">
+          <div class="rl">Sem imposto</div>
+          <div class="rn">R$ 3,50M</div>
+          <div class="rx">R$ 3.495.950 · Σ(roster × rate validado)</div>
+        </div>
+        <div class="romtile">
+          <div class="rl">Esforço PS</div>
+          <div class="rn">4.620 h</div>
+          <div class="rx">11 funções · 13 semanas fixas · ~8,9 FTE média-programa</div>
+        </div>
+      </div>
+      <p class="small muted"><i>This range is based on the rate of the official Salesforce PS LATAM rate table (per-role, R$ 573,98–R$ 884,68/h sem imposto, mapeado por função no roster) you supplied and validated on 2026-07-31. Indicative for planning only; final commercial structure is confirmed through the applicable commercial agreement.</i></p>
+      <p class="small muted"><b>Ponto indicativo, não faixa</b> — as 13 semanas são compromisso do usuário (planejamento de trás pra frente a partir de 15/nov). Não é custo, margem nem preço fechado; é o valor cobrado (bill rate) × esforço top-down do roster. Deriva do roster nomeado × janela, <b>não</b> de T-shirt sizes × rate. O número se move com o escopo.</p>
     </div>
 
     <div class="contra">
@@ -877,11 +988,64 @@
           <div class="tag">R$ 5,46M – 11,53M sem imposto · 7.420–15.670 h-pessoa</div>
           <div class="line">~<b>18–38 semanas</b> · ~<b>10,6 FTE</b> média-programa (pico ~16)</div>
           <div class="line">Escopo completo (9 épicas, inclui E06) do jeito antigo. Coincide com a baseline benchmark top-down-shape.</div>
-          <div class="line"><b>Não fecha 15/nov de forma alguma</b> — mesmo no piso de 18 sem, a partir de ~15/ago ultrapassa a data. Não é o número submetido.</div>
+          <div class="line"><b>Não fecha 15/nov de forma alguma</b> — mesmo no piso de 18 sem, a partir do início comprometido (17/ago) ultrapassa a data. Não é o número submetido.</div>
         </div>
       </div>
       <div class="recon"><b>O delta não é só de custo — é de VIABILIDADE.</b> A trilha tradicional (18–38 sem) está fora da data fixa; o MVP AI-native em 13 sem é a única que alcança 15/nov. Alavancas: (1) <b>viabilidade de cronograma</b> (decisiva) — o de-escopo de E06/Data Cloud/Marketing é o buffer que torna a janela viável; (2) <b>de-escopo do MVP</b> (grande) — 8 de 9 épicas, por isso o ponto comprometido fica abaixo do meio da faixa full-scope; (3) <b>volume de build absorvido por agentes</b> (médio) — pod Core 3→2, MuleSoft 2→1 (10,6→8,9 FTE); (4) <b>E03 L→XL</b> (contra-pressão) — motor de split no CRM adiciona +1 especialista sênior em ambas as trilhas. <b>Fórmula:</b> Σ(roster × rate sem imposto) × 40h × semanas; com imposto = sem imposto ÷ 0,9345.</div>
       <p class="small muted">Faixas/ponto indicativos apenas para planejamento, baseados na tabela de rates da Dataprev fornecida e validada em 28/07/2026. Estrutura comercial final confirmada via acordo comercial aplicável. Todos os 9 sizes seguem <b>Assumed</b> atrás dos blockers de Fase 0.</p>
+    </div>
+
+    <div class="card" data-shot>
+      <h3>Roster — perfis × horas × taxas (trilha AI-native comprometida, 11 linhas)</h3>
+      <p class="small muted">De <code>outputs/artifacts/commercials.md</code> + <code>data/commercials.json</code>. Preço = Σ(h/pessoa × qtd × rate sem imposto por função). Horas derivadas por alocação × fases ativas × 13 sem × 40h (<code>derive-hours.py</code>) — meia-alocação e fase-única contam proporcionalmente. <b>Uso interno</b>: horas × taxas nunca vão a material de cliente.</p>
+      <table class="rtbl">
+        <thead>
+          <tr>
+            <th>Função (roster)</th>
+            <th>Sen. · Local · Qtd</th>
+            <th>Fases ativas</th>
+            <th class="num">h/pessoa</th>
+            <th class="num">Rate s/ imp. (R$/h)</th>
+            <th class="num">Subtotal s/ imp. (R$)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Project/Program Manager (Engagement Mgr)</td><td>sênior · onshore · ×1</td><td>Fases 0–4 · full</td><td class="num">520</td><td class="num">884,68</td><td class="num">460.034</td></tr>
+          <tr><td>Solution Architect</td><td>sênior · onshore · ×1</td><td>Fases 0–4 · full</td><td class="num">520</td><td class="num">884,68</td><td class="num">460.034</td></tr>
+          <tr><td>Technical Architect</td><td>sênior · onshore · ×1</td><td>Fases 0–3 · full</td><td class="num">480</td><td class="num">884,68</td><td class="num">424.646</td></tr>
+          <tr><td>Payments/Financial Architecture Specialist <span class="rflag">⚠</span></td><td>sênior · onshore · ×1</td><td>Fases 0–3 · meio (full na 3)</td><td class="num">300</td><td class="num">884,68</td><td class="num">265.404</td></tr>
+          <tr><td>Project Manager</td><td>regular · onshore · ×1</td><td>Fases 1–4 · full</td><td class="num">440</td><td class="num">789,88</td><td class="num">347.547</td></tr>
+          <tr><td>Developer (pod)</td><td>regular · offshore · ×2</td><td>Fases 1–4 · full</td><td class="num">440</td><td class="num">668,78</td><td class="num">588.526</td></tr>
+          <tr><td>Developer (MuleSoft)</td><td>regular · offshore · ×1</td><td>Fases 1–3 · full</td><td class="num">400</td><td class="num">668,78</td><td class="num">267.512</td></tr>
+          <tr><td>Experience Design</td><td>regular · offshore · ×1</td><td>Fases 1–2 · full</td><td class="num">280</td><td class="num">789,88</td><td class="num">221.166</td></tr>
+          <tr><td>Quality Assurance</td><td>regular · offshore · ×2</td><td>Fases 2–4 · full</td><td class="num">280</td><td class="num">573,98</td><td class="num">321.429</td></tr>
+          <tr><td>Change &amp; Adoption <span class="rflag">⚠</span></td><td>regular · onshore · ×1</td><td>Fases 1–4 · meio</td><td class="num">220</td><td class="num">573,98</td><td class="num">126.276</td></tr>
+          <tr><td>Developer (carga mínima)</td><td>regular · offshore · ×1</td><td>Fase 4 · fracional</td><td class="num">20</td><td class="num">668,78</td><td class="num">13.376</td></tr>
+          <tr class="rtot"><td>TOTAL PS</td><td>11 linhas · pico ~12 pessoas</td><td>13 semanas fixas</td><td class="num">4.620</td><td class="num">—</td><td class="num">3.495.950</td></tr>
+        </tbody>
+      </table>
+      <p class="small muted"><span class="rflag">⚠</span> Dois papéis sem correspondente exato na tabela Dataprev, mapeados por nome mais semelhante: Payments/Financial Architecture Specialist → Senior Technical Architect (884,68); Change &amp; Adoption → Solution Consultant (573,98). Taxa de conversão a confirmar. Com imposto = sem imposto ÷ 0,9345 → <b>R$ 3.740.984</b>.</p>
+    </div>
+
+    <div class="card" data-shot>
+      <h3>Roster por semana — quando cada função está ativa</h3>
+      <p class="small muted">Mesmas 11 linhas, alocadas na janela fixa. Barra = fases ativas (a coluna "h/pessoa" acima já folda alocação × fases × 13 sem); <span class="frac" style="display:inline-block;width:34px;height:10px;vertical-align:middle;border-radius:2px"></span> hachurado = alocação fracional (meio período enquanto ativo).</p>
+      <div class="gantt roster">
+        <div class="gantt-months" style="grid-template-columns:480px 1fr"><span></span><div class="mrow" style="grid-template-columns:repeat(4,1fr)"><span>Ago 26</span><span>Set</span><span>Out</span><span>Nov</span></div></div>
+        <div class="rg-hdr"><span>Função</span><span>O que faz</span><span></span></div>
+        <div class="rg-row"><div class="rgl">Engagement Manager<span class="cnt">sênior · onshore · ×1 · full</span></div><div class="rgd">Accountability única de entrega e da relação MTE×Dataprev; caminho crítico de coordenação. Janela FIXA de 13 sem eleva a coordenação.</div><div class="rg-track" style="background-size:calc(100%/4) 100%"><div class="rg-bar" style="left:0%;width:100%"></div></div></div>
+        <div class="rg-row"><div class="rgl">Senior Solution Architect<span class="cnt">sênior · onshore · ×1 · full</span></div><div class="rgd">Dono da arquitetura; solution + funcional. ADR 0001 (residência) + ADR 0002 (instância dedicada) governam data model e topologia de E01/E02/E03/E08.</div><div class="rg-track" style="background-size:calc(100%/4) 100%"><div class="rg-bar" style="left:0%;width:100%"></div></div></div>
+        <div class="rg-row"><div class="rgl">Senior Technical Architect<span class="cnt">sênior · onshore · ×1 · full</span></div><div class="rgd">Risco #1: hub E05 sem contratos de API, mock-first, com o gateway PCI como alvo (ADR 0003). Dirige o fleet de agentes no caminho crítico.</div><div class="rg-track" style="background-size:calc(100%/4) 100%"><div class="rg-bar" style="left:0%;width:92.3%"></div></div></div>
+        <div class="rg-row"><div class="rgl">Payments/Financial Architecture Specialist ⚠︎<span class="cnt">sênior · onshore · ×1 · half (full na Fase 3)</span></div><div class="rgd">NOVO — E03 subiu a XL (ADR 0003). Define as regras de split/conciliação (G0304) e o contrato do gateway PCI (G0309); conduz o build do motor de split. ⚠ Sem correspondente exato na tabela; mapeado a Senior Technical Architect.</div><div class="rg-track" style="background-size:calc(100%/4) 100%"><div class="rg-bar frac" style="left:0%;width:92.3%"></div></div></div>
+        <div class="rg-row"><div class="rgl">Project Manager<span class="cnt">regular · onshore · ×1 · full</span></div><div class="rgd">Coordenação multi-fase, release management, cadência com stakeholders. Ramp na Fase 1.</div><div class="rg-track" style="background-size:calc(100%/4) 100%"><div class="rg-bar" style="left:15.4%;width:84.6%"></div></div></div>
+        <div class="rg-row"><div class="rgl">Developer (pod)<span class="cnt">regular · offshore · ×2 · full</span></div><div class="rgd">Constroem COM agentes o leilão sobre objetos nativos Opportunity/Quote (E02, XL) e o motor de split (E03, XL) — caminho crítico. Pod 3→2 sob a arquitetura sênior.</div><div class="rg-track" style="background-size:calc(100%/4) 100%"><div class="rg-bar" style="left:15.4%;width:84.6%"></div></div></div>
+        <div class="rg-row"><div class="rgl">MuleSoft Technical Consultant<span class="cnt">regular · offshore · ×1 · full</span></div><div class="rgd">Cobre a virada mock→real de E05, a integração do gateway PCI (ADR 0003) e a de-tokenização em runtime. 2→1.</div><div class="rg-track" style="background-size:calc(100%/4) 100%"><div class="rg-bar" style="left:15.4%;width:76.9%"></div></div></div>
+        <div class="rg-row"><div class="rgl">Experience Architect<span class="cnt">regular · offshore · ×1 · full</span></div><div class="rgd">Jornada única gov.br (E01) + UX do leilão/comparação de propostas (E02). Risco de adoção material.</div><div class="rg-track" style="background-size:calc(100%/4) 100%"><div class="rg-bar" style="left:15.4%;width:53.8%"></div></div></div>
+        <div class="rg-row"><div class="rgl">Quality Assurance<span class="cnt">regular · offshore · ×2 · full</span></div><div class="rgd">QA amplificado, não substituído: surge no hardening — go-live financeiro regulado (idempotência/conciliação boleto/Pix/split) numa data FIXA.</div><div class="rg-track" style="background-size:calc(100%/4) 100%"><div class="rg-bar" style="left:46.2%;width:53.8%"></div></div></div>
+        <div class="rg-row"><div class="rgl">Change &amp; Adoção → Solution Consultant ⚠︎<span class="cnt">regular · onshore · ×1 · half</span></div><div class="rgd">~800k estabelecimentos + ~450k beneficiárias (a ratificar); resistência à perda de margem no modelo transparente. ⚠ Sem correspondente exato na tabela de rates.</div><div class="rg-track" style="background-size:calc(100%/4) 100%"><div class="rg-bar frac" style="left:15.4%;width:84.6%"></div></div></div>
+        <div class="rg-row"><div class="rgl">Technical Consultant — Data Migration<span class="cnt">regular · offshore · ×1 · half</span></div><div class="rgd">Carga inicial MÍNIMA de cadastros (E07) — Novo PAT permanece system-of-record. Fracional na Fase 4.</div><div class="rg-track" style="background-size:calc(100%/4) 100%"><div class="rg-bar frac" style="left:92.3%;width:7.7%"></div></div></div>
+      </div>
+      <p class="small muted">~8,9 FTE média-programa (pico ~12 pessoas distintas no meio do build). Traço tradicional (gross-up notional): ~10,6 FTE — pod Core 3, MuleSoft 2. E06/Agentforce fora do MVP: a linha de especialista Agentforce saiu do roster comprometido. Cobertura do cliente (input do gate AI-native, sem esforço/preço PS): Product Owner/Decisor <b>⚠ não confirmado</b>, SMEs por épica, Data Steward, Client IT/Plataforma, Capacidade UAT, Sponsor executivo.</p>
     </div>
 
     <div class="card" data-shot>
@@ -986,19 +1150,23 @@
       <div class="kv"><span class="k">ADR 0001 · Residência de dados híbrida</span><span class="v"><b>Regra:</b> CPF e dados sensíveis <b>não persistem</b> na nuvem Salesforce; a org guarda referências tokenizadas resolvidas em runtime via MuleSoft contra a infra Dataprev. <span class="pill ok">accepted</span> <span class="chip">Source: client-supplied + scopezilla-recommended</span><br><b>Repousa sobre isto:</b> data model de E01/E02/E03/E06/E08, ponto de tokenização no MuleSoft (E05), fronteira de residência (blocker G0801). Reverter cascateia por quase todo o escopo.</span></div>
       <div class="kv"><span class="k">ADR 0002 · Instância dedicada e apartada</span><span class="v"><b>Regra:</b> o MTE/PAT roda numa <b>instância Salesforce dedicada e apartada</b> das demais orgs de clientes da Dataprev — isolamento forçado por segurança/sensibilidade financeira, volumetria (~800k estabelecimentos, ~450k beneficiárias — a ratificar), auditabilidade perante TCU/CGU/ANPD e administração da instância pelo próprio MTE. <span class="pill warn">accepted (verbal, a ratificar por escrito)</span> <span class="chip">Source: client-supplied</span><br><b>Repousa sobre isto:</b> o provisionamento tem <b>lead-time externo</b> e é <b>pré-requisito de arranque (Fase 0)</b> — o maior risco à data fixa de 15/nov (blocker PROV).</span></div>
       <div class="kv"><span class="k">ADR 0003 · Fronteira CRM-não-transacional / motor de split</span><span class="v"><b>Regra:</b> o Salesforce é o <b>motor de regras de split</b> — calcula e aplica o rateio sob o teto de MDR de 3,6% e o repasse de 15 dias (Decreto 12.712/2025), <b>emite a boletagem já com o split aplicado</b> e concilia por casamento; <b>não transaciona nem custodia dinheiro</b>. O <b>gateway PCI</b> (contratado pelo cliente, fora do escopo Salesforce) executa as transações bancárias e custodia. <span class="pill ok">accepted</span> <span class="chip">Source: client-supplied</span><br><b>Repousa sobre isto:</b> dimensiona E03 como <b>XL</b> e coloca a seleção/contratação do gateway PCI como pré-requisito de Fase 0 (blocker G0309).</span></div>
+      <div class="kv"><span class="k">ADR 0004 · Sales Cloud reusando objetos nativos (Opportunity/Quote)</span><span class="v"><b>Regra:</b> a plataforma é construída sobre <b>Sales Cloud</b>, mapeando o leilão reverso em objetos nativos para encurtar o tempo de implementação — <b>Opportunity</b> = demanda da beneficiária; <b>Quote</b> = resposta da facilitadora recebida <b>exclusivamente via API</b> (sem UI, sem assento). <b>Equidade por construção</b> (facilitadora API-only não vê propostas concorrentes — sem Apex managed sharing custom); beneficiária seleciona <b>manualmente e só quando a janela de vigência fecha</b> (não é seleção cega). <span class="pill warn">accepted (a validar com o cliente)</span> <span class="chip">Source: scopezilla-recommended</span><br><b>Repousa sobre isto:</b> re-shapeia E02 (sai Cotacao__c/Proposta__c custom); o driver de licença de portal é a <b>beneficiária</b> (facilitadora API-only não consome assento — grill 31/jul); versão de licença a requalificar (G0103/G0108). Reverter re-molda E02 + licenciamento de E01.</span></div>
+      <div class="kv"><span class="k">ADR 0005 · Greenfield + MuleSoft on-premise</span><span class="v"><b>Regra:</b> org <b>100% greenfield</b> — instância nova, sem ORG existente, isolada de qualquer ambiente/admins Dataprev; o <b>MuleSoft on-premise</b> é o mecanismo de <b>soberania/isolamento de dados</b> (a integração fica no perímetro Dataprev). <span class="pill warn">accepted (a validar com o cliente)</span> <span class="chip">Source: scopezilla-recommended</span><br><b>Repousa sobre isto:</b> resolve o gap de hospedagem do MuleSoft (G0504); provisionamento greenfield + infra on-premise são pré-requisitos de marco da Fase 0 — lead-times externos entre os maiores riscos à data fixa.</span></div>
     </div>
 
     <div class="card">
-      <h2>Log de decisões <span class="small muted">(8 de 8 — verbatim)</span></h2>
+      <h2>Log de decisões <span class="small muted">(10 de 10 — verbatim)</span></h2>
       <ol class="declist">
         <li>Discover: escopo 4 módulos, residência híbrida (ADR0001), migração cadastros iniciais, PS + Licenças SF.</li>
         <li>Strategy: visão aprovada; eixo narrativo = choque regulatório Decreto 12.712/2025; prioridade 1 marketplace.</li>
-        <li><b>Revenue Cloud fora desta rodada</b>; leilão custom na Core Platform (Cotacao__c 1→N Proposta__c); split financeiro via MuleSoft. <span class="small muted">(Rejeitado: Revenue Cloud CLM+Billing dentro de E03 — RLM é sell-side, sem RFQ/leilão reverso nem split multi-parte nativos.)</span></li>
+        <li><b>Revenue Cloud fora desta rodada</b>; leilão custom na Core Platform (Cotacao__c 1→N Proposta__c); split financeiro via MuleSoft. <span class="small muted">(Rejeitado: Revenue Cloud CLM+Billing dentro de E03 — RLM é sell-side, sem RFQ/leilão reverso nem split multi-parte nativos.) <b>⚠ Superseado por ADR 0004 (31/jul):</b> o leilão migra de Cotacao__c/Proposta__c custom para Opportunity/Quote nativos do Sales Cloud.</span></li>
         <li><b>9 épicas</b>; E09 Gestão de Mudança &amp; Adoção adicionada explicitamente. <span class="small muted">(Change/adoção implícita pelo alcance do programa — Risk #6.)</span></li>
         <li><b>Âncora do dual-track = AI-native</b> (número comprometido); tradicional = gross-up notional invertendo a native_band. <span class="small muted">(Rejeitado: âncora tradicional com AI-native derivado por compressão — não aplicável, o deal comprometeu-se ao modo AI-native.)</span></li>
         <li><b>Instância dedicada e apartada (ADR 0002)</b> — o MTE/PAT roda numa org isolada das demais orgs de clientes da Dataprev; provisionamento vira pré-requisito de Fase 0 com lead-time externo. <span class="small muted">(Revise 31/jul — forçado por segurança/volumetria/auditabilidade TCU-CGU-ANPD/administração pelo cliente; premissa ainda verbal, a ratificar por escrito.)</span></li>
         <li><b>Fronteira CRM-não-transacional (ADR 0003) → E03 sobe de L para XL</b> — o Salesforce é o motor de regras de split (emite boletagem com split, concilia por casamento), o gateway PCI do cliente executa e custodia. <span class="small muted">(Revise 31/jul — a premissa que o design havia sinalizado se realizou; motor de split + conciliação vivem no CRM; contratação do gateway PCI é pré-requisito de Fase 0, G0309.)</span></li>
         <li><b>Go-live fixo 15/nov/2026 + MVP de 8 épicas</b> — modo data-fixa, planejado de trás pra frente; janela de ~13 semanas; E06/Agentforce (mais Data Cloud, Marketing Cloud, carga massiva, adoção completa) fora do MVP como buffer de cronograma. <span class="small muted">(Revise 31/jul — a data é regulatória e imóvel; a trilha tradicional 18–38 sem não a alcança, o que torna o AI-native uma escolha de viabilidade, não de custo.)</span></li>
+        <li><b>Sales Cloud reusando objetos nativos (ADR 0004) + greenfield &amp; MuleSoft on-premise (ADR 0005)</b> — leilão reverso em Opportunity (demanda) / Quote (resposta via API); facilitadora API-only → equidade por construção, seleção manual travada até o fechamento da vigência; org 100% greenfield + MuleSoft on-premise como soberania de dados (resolve G0504). <span class="small muted">(Revise 31/jul — premissas ditadas pela equipe Salesforce, a validar com o cliente; ambos scopezilla-recommended/Assumed.)</span></li>
+        <li><b>Driver de licença de portal = beneficiária, não facilitadora</b> — como a facilitadora é API-only (sem tela), não consome assento de Experience Cloud; as ~600–700 facilitadoras são integrações MuleSoft. A versão de licença da beneficiária (Partner Community vs. Customer Community Plus) segue a requalificar. <span class="small muted">(Grill 31/jul — resolve a contradição de volumetria de licença; Customer Community Plus não expõe Opportunity/Quote nativamente, G0103/G0108.)</span></li>
       </ol>
     </div>
 
@@ -1013,8 +1181,11 @@
       <div class="thread"><span class="ic">▸</span> Prazos do Decreto 12.712/2025 sujeitos a ADI no STF (ABBT).</div>
       <div class="thread"><span class="ic">▸</span> Todos os 9 sizes em Assumed atrás dos 4 blockers — a Fase 0 aperta as faixas.</div>
       <div class="thread"><span class="ic">▸</span> <b>Resolvido (revise 31/jul):</b> E03 subiu a XL (ADR 0003 — motor de split no CRM). E08 mantido L; E07 sobe a L se volume &gt;500k registros.</div>
-      <div class="thread"><span class="ic">▸</span> <b>Data fixa 15/nov/2026</b> (regulatória, imóvel): janela de ~13 sem a partir de proposta assinada ~15/ago; escopo é a variável de flexão (MVP de 8 épicas, E06/Agentforce como buffer). A trilha tradicional 18–38 sem não alcança a data.</div>
-      <div class="thread"><span class="ic">▸</span> <b>Novo pré-requisito de arranque:</b> provisionamento da instância dedicada (ADR 0002) + contratação do gateway PCI (ADR 0003) — lead-times externos são o maior risco à data fixa.</div>
+      <div class="thread"><span class="ic">▸</span> <b>Datas comprometidas:</b> início <b>17/ago/2026</b> → homologação (UAT) início nov → go-live PROD <b>15/nov/2026</b> (regulatória, imóvel). Janela de ~13 sem; escopo é a variável de flexão (MVP de 8 épicas, E06/Agentforce como buffer). A trilha tradicional 18–38 sem não alcança a data.</div>
+      <div class="thread"><span class="ic">▸</span> <b>Pré-requisitos de arranque (Fase 0):</b> provisionamento da org 100% greenfield (ADR 0002/0005) + infra do MuleSoft on-premise (ADR 0005) + contratação do gateway PCI (ADR 0003) — lead-times externos são o maior risco à data fixa.</div>
+      <div class="thread"><span class="ic">▸</span> <b>Resolvido (grill 31/jul):</b> mecânica E02 sobre Opportunity/Quote nativos — facilitadora API-only → equidade por construção (sem Apex managed sharing); beneficiária seleciona manualmente e só quando a janela de vigência fecha (não é seleção cega).</div>
+      <div class="thread"><span class="ic">▸</span> <b>Licenciamento (grill 31/jul):</b> driver de licença de portal = beneficiária; facilitadora API-only sem assento (as ~600–700 são integrações MuleSoft). Versão da beneficiária (Partner Community vs. Customer Community Plus) segue a requalificar — G0103/G0108.</div>
+      <div class="thread"><span class="ic">▸</span> <b>Notificação às facilitadoras (decisão 31/jul):</b> MVP entrega <b>endpoint de consulta (pull via API)</b> — a facilitadora descobre as demandas abertas consultando, sem push ativo. A <b>notificação ativa (push) é roadmap futuro</b> e o <b>canal ainda é indefinido</b> (e-mail, webhook/evento, WhatsApp/BSP, in-app ou jornada Marketing Cloud) — a escolha do canal é o que decide se posicionamos ou não Marketing Cloud (G0207 resolvido para pull; G0211 aberto para o canal).</div>
       <div class="thread"><span class="ic">▸</span> Compressão por IA: banda augmented honesta ~10–18% NÃO alcança o alvo ≥25%; os 25% só existem na banda AI-native condicional (~28–38%) — é o que sustenta a janela de 13 sem.</div>
       <div class="thread"><span class="ic">▸</span> Tensão âncora: AI-native condicional/provisória vs. prontidão de IA medida Low (2/8) — decisão do Solution Lead.</div>
       <div class="thread"><span class="ic">▸</span> Change &amp; Adoção sem correspondente exato na tabela de rates Dataprev — mapeado a Solution Consultant (R$ 573,98); confirmar.</div>
@@ -1047,10 +1218,10 @@
     <div class="card">
       <h3>Estágios exercitados</h3>
       <div style="display:flex;flex-wrap:wrap;gap:8px">
-        <span class="chip">discover</span><span class="chip">strategy</span><span class="chip">requirements</span><span class="chip">design</span><span class="chip">roadmap</span><span class="chip">efficiency</span><span class="chip">narratives</span><span class="chip">export</span><span class="chip">estimate</span><span class="chip">revise</span>
-        <span class="chip dim">commercials</span><span class="chip dim">slides</span><span class="chip dim">grill-me-on-scope</span><span class="chip dim">quantum-leap</span><span class="chip dim">backlog</span>
+        <span class="chip">discover</span><span class="chip">strategy</span><span class="chip">requirements</span><span class="chip">design</span><span class="chip">roadmap</span><span class="chip">efficiency</span><span class="chip">narratives</span><span class="chip">export</span><span class="chip">estimate</span><span class="chip">revise</span><span class="chip">grill-me-on-scope</span>
+        <span class="chip dim">commercials</span><span class="chip dim">slides</span><span class="chip dim">quantum-leap</span><span class="chip dim">backlog</span>
       </div>
-      <p class="small muted">Sólidos = executados (9 estágios do ciclo + estimate + <b>revise</b> em 31/jul, que reprocessou o escopo com os 3 ADRs, a data fixa 15/nov e o motor de split). Esmaecidos = side-quests disponíveis, não rodados. <b>grill-me-on-scope</b> recomendado antes do handoff dado o volume de Assumed.</p>
+      <p class="small muted">Sólidos = executados (9 estágios do ciclo + estimate + <b>revise</b> + <b>grill-me-on-scope</b>, ambos em 31/jul). O revise reprocessou o escopo com os 5 ADRs, a data fixa 15/nov, o motor de split e os objetos nativos Sales Cloud; o grill (2º sweep) estressou E02 nativo, o fluxo folha de 8 passos e greenfield/on-premise — confirmou a equidade por construção (facilitadora API-only) e a seleção travada (não cega). Esmaecidos = side-quests disponíveis, não rodados.</p>
     </div>
 
     <div class="card">
@@ -1088,15 +1259,15 @@
 
     <div class="card">
       <h3>Frescor por arquivo (data/última escrita)</h3>
-      <div class="kv"><span class="k">decisions/0001–0003 (ADRs)</span><span class="v">2026-07-31 <small>(0002 instância dedicada, 0003 fronteira CRM/split adicionados no revise)</small></span></div>
+      <div class="kv"><span class="k">decisions/0001–0005 (ADRs)</span><span class="v">2026-07-31 <small>(0002 instância dedicada, 0003 fronteira CRM/split, 0004 Sales Cloud objetos nativos, 0005 greenfield/MuleSoft on-premise adicionados no revise)</small></span></div>
       <div class="kv"><span class="k">00-discovery-brief.md · data/strategy.json</span><span class="v">2026-07-27/28</span></div>
-      <div class="kv"><span class="k">outputs/01-solution.md</span><span class="v">2026-07-31 <small>(reprocessado — 3 ADRs, data fixa, E03 XL)</small></span></div>
+      <div class="kv"><span class="k">outputs/01-solution.md</span><span class="v">2026-07-31 <small>(reprocessado — 5 ADRs, data fixa, E03 XL, objetos nativos)</small></span></div>
       <div class="kv"><span class="k">data/epics.json · estimates.json</span><span class="v">2026-07-31 <small>(E03 L→XL; E06 fora do MVP)</small></span></div>
       <div class="kv"><span class="k">data/roadmap.json · gaps.json · 02-delivery-plan.md</span><span class="v">2026-07-31 <small>(5 fases, 13 sem, data-fixa; 69 gaps)</small></span></div>
       <div class="kv"><span class="k">data/efficiency.json</span><span class="v">2026-07-28 14:26</span></div>
       <div class="kv"><span class="k">data/estimate-comparison.json · resource-plan.json</span><span class="v">2026-07-31 <small>(13 sem fixas; roster financeiro; ~8,9/~10,6 FTE)</small></span></div>
       <div class="kv"><span class="k">outputs/artifacts/executive-summary.md · memory.json</span><span class="v">2026-07-31</span></div>
-      <div class="recon"><b>Nota de reprocessamento:</b> o <code>revise</code> de 31/jul propagou 3 mudanças confirmadas (instância dedicada ADR 0002; fronteira CRM/motor de split ADR 0003 → E03 L→XL; go-live fixo 15/nov + MVP de 8 épicas) por toda a ordem de derivação — épicas → estimates → roadmap → estimate/roster/comparison → narrativas → outputs. Trabalho Confirmed não afetado foi preservado.</div>
+      <div class="recon"><b>Nota de reprocessamento:</b> o <code>revise</code> de 31/jul rodou em dois sweeps. 1º sweep: instância dedicada (ADR 0002); fronteira CRM/motor de split (ADR 0003 → E03 L→XL); go-live fixo 15/nov + MVP de 8 épicas. 2º sweep: Sales Cloud reusando objetos nativos Opportunity/Quote (ADR 0004, facilitadora API-only → equidade por construção); greenfield + MuleSoft on-premise (ADR 0005, resolve G0504); datas comprometidas 17/ago→homolog início nov→PROD 15/nov; fluxo folha de 8 passos com linhas não persistidas (roadmap futuro). Propagado por toda a ordem de derivação — épicas → estimates → roadmap → estimate/roster/comparison → narrativas → outputs. O <code>grill-me-on-scope</code> estressou o slice do 2º sweep. Trabalho Confirmed não afetado foi preservado.</div>
     </div>
 
     <div class="card">
@@ -1107,7 +1278,7 @@
         <div class="kv"><span class="k">Fase atual</span><span class="v">EXPORT concluído · ciclo de 9 fases + estimate · <b>revise 31/jul</b> reprocessou o escopo</span></div>
         <div class="kv"><span class="k">Ambiente Salesforce</span><span class="v">Nenhum Heroku / org de handoff (HEROKU=nenhum)</span></div>
         <div class="kv"><span class="k">Sessões</span><span class="v">14 sessões (discover → estimate → revise)</span></div>
-        <div class="kv"><span class="k">Decisões logadas</span><span class="v">8 entradas · 3 ADRs (0001 residência · 0002 instância dedicada · 0003 fronteira CRM/split)</span></div>
+        <div class="kv"><span class="k">Decisões logadas</span><span class="v">10 entradas · 5 ADRs (0001 residência · 0002 instância dedicada · 0003 fronteira CRM/split · 0004 Sales Cloud objetos nativos · 0005 greenfield/on-premise)</span></div>
       </div>
     </div>
 
@@ -1117,6 +1288,97 @@
         <li>Algum arquivo está materialmente atrás do escopo atual e precisa de <code>revise</code>?</li>
         <li>Roda <code>validate</code> — há inconsistências cross-file antes do handoff?</li>
         <li>Qual o próximo passo: <code>commercials</code>, <code>slides</code>, <code>grill-me-on-scope</code> ou <code>quantum-leap</code>?</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="tab" id="capacidade">
+    <div class="card">
+      <h2>Capacidade, Concorrência &amp; Hard Limits — Experience Cloud</h2>
+      <p class="hint">Racional de dimensionamento para as duas cargas do PAT no Experience Cloud (Customer Community). <strong>A pergunta certa não é "quantos usuários simultâneos", e sim "quanto processamento síncrono cada login dispara".</strong> O gargalo não é a página logada — é o que roda por trás do upload da folha.</p>
+      <div class="recon">
+        <strong>Veredito.</strong> Não existe um teto fixo de "N usuários conectados". A instabilidade aparece quando a fila de <em>transações Apex síncronas longas</em> estoura o limite de <strong>25 concorrentes por org</strong>. Fazer a crítica da folha de pagamento de forma <strong>síncrona</strong> no clique é <strong>inviável</strong> no pico da beneficiária (~28 logins/s). Com arquitetura <strong>assíncrona</strong> (upload rápido → processamento em fila → notificação), as duas cargas cabem com folga.
+      </div>
+    </div>
+
+    <div class="card" data-shot>
+      <h3>As duas cargas do PAT</h3>
+      <table>
+        <thead><tr><th>Perfil</th><th>Volume</th><th>Padrão</th><th>Pico estimado</th><th>Peso por acesso</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Estabelecimento / adquirência</strong><br><span class="small muted">consulta credenciamento, extrato</span></td>
+            <td>800 mil<br>1 acesso/mês</td>
+            <td>Difuso ao longo do mês</td>
+            <td class="small">~0,3–5 logins/s<br>(mesmo concentrado)</td>
+            <td class="small">Leve — leitura/consulta. Cacheável.</td>
+          </tr>
+          <tr>
+            <td><strong>Beneficiária (folha)</strong><br><span class="small muted">upload do CSV da folha — E03</span></td>
+            <td>1 milhão logins<br>janela de 5 dias</td>
+            <td>Concentrado no prazo</td>
+            <td class="small">~11 logins/s médio<br><strong>~28 logins/s no pico</strong><br>(≈40% no último dia)</td>
+            <td class="small">Pesado — parse + crítica de arquivo. Custoso.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="small muted">Base do pico da beneficiária: 40% de 1 M ≈ 400 mil no último dia ÷ ~10 h úteis ÷ 3.600 s ≈ 11/s médio; picos intra-hora ~2,5× → ~28/s. Volumetria a <strong>ratificar</strong> com o cliente (ver Gaps).</p>
+    </div>
+
+    <div class="card" data-shot>
+      <h3>Onde bate o hard limit</h3>
+      <p class="hint">Os limites que derrubam o Experience Cloud sob carga <strong>não</strong> são "número de sessões" — são limites de <em>execução</em>, por org, compartilhados entre todos os usuários:</p>
+      <div class="kv"><span class="k">Apex síncrono longo (&gt;5s)</span><span class="v"><strong>25 concorrentes/org</strong> → 26º recebe <code>CONCURRENT_REQUESTS_LIMIT_EXCEEDED</code>. <strong>Este é o gargalo.</strong></span></div>
+      <div class="kv"><span class="k">Requisições API &gt;20s</span><span class="v">~25 concorrentes/org</span></div>
+      <div class="kv"><span class="k">Governor por transação</span><span class="v">SOQL 100 · DML 150 · CPU 10s (sync) · heap 6 MB</span></div>
+      <div class="kv"><span class="k">Row lock</span><span class="v"><code>UNABLE_TO_LOCK_ROW</code> quando muitas transações tocam o mesmo registro-pai (ex.: mesma competência/lote)</span></div>
+      <div class="kv"><span class="k">Licença</span><span class="v">Pool baseado em <strong>login</strong> (1 login = janela de 24h) — dimensionar pelo mês de pico</span></div>
+
+      <h3 style="margin-top:18px">Se a crítica da folha fosse SÍNCRONA (no clique)</h3>
+      <table>
+        <thead><tr><th>Tempo por upload</th><th>Vazão máx. (25 slots)</th><th>Demanda no pico</th><th>Resultado</th></tr></thead>
+        <tbody>
+          <tr><td>5 s</td><td>~5 uploads/s</td><td rowspan="3">~28/s</td><td class="contra">Estoura</td></tr>
+          <tr><td>10 s</td><td>~2,5 uploads/s</td><td class="contra">Estoura</td></tr>
+          <tr><td>20 s</td><td>~1,25 uploads/s</td><td class="contra">Estoura feio</td></tr>
+        </tbody>
+      </table>
+      <p class="small muted">Fórmula: <code>usuários_seguros ≈ 25 ÷ (fração de requisições &gt;5s)</code>. Com processamento síncrono pesado, a vazão fica &lt;5/s contra ~28/s de pico — a fila explode e a org fica instável para <em>todos</em> (inclusive os 800 mil estabelecimentos).</p>
+    </div>
+
+    <div class="card">
+      <h3>Arquitetura de referência — desacoplar upload de processamento</h3>
+      <p class="hint">Alinhada ao fluxo de 8 passos da <strong>E03</strong> (upload → validação de layout → crítica). Vantagem para o go-live de 15/nov: no MVP as <em>linhas</em> da folha <strong>não persistem</strong> em objeto (roadmap futuro, G0310), então o risco se concentra em <strong>upload + crítica</strong> — exatamente o que a fila resolve.</p>
+      <ol>
+        <li><strong>Upload rápido e "burro"</strong> — o clique só grava o arquivo (Salesforce Files/<code>ContentVersion</code> ou S3 externo) e devolve resposta em &lt;1s. Nenhuma crítica no request síncrono.</li>
+        <li><strong>Processamento em fila (assíncrono)</strong> — <strong>Bulk API 2.0</strong> (150 M registros/24h; ~50 M linhas em 5 dias ≈ 10 M/dia → folgado), <strong>Batch Apex</strong> (5 concorrentes, Flex Queue) ou <strong>Platform Events</strong> fazem parse + crítica fora do caminho do usuário.</li>
+        <li><strong>Notificação assíncrona</strong> — beneficiária recebe status (ok / erros de layout) por Platform Event/e-mail; a tela consulta o resultado, não o gera.</li>
+        <li><strong>CDN/cache para o guest e leitura</strong> — páginas de consulta do estabelecimento cacheadas; 800 mil acessos leves saem antes de tocar Apex.</li>
+      </ol>
+      <p class="small">MuleSoft entra no agendamento/orquestração de lote quando a origem for sistema-a-sistema (facilitadora API-only); a beneficiária de menor porte usa o upload manual pela community.</p>
+    </div>
+
+    <div class="card">
+      <h3>Impacto no licenciamento</h3>
+      <p class="hint">Community é <strong>login-based</strong>: 1 login consome 1 crédito por janela de 24h, independente de quantas vezes a pessoa entra no dia. Dimensionar o pool pelo <strong>mês de pico</strong> — para a beneficiária, os 5 dias de folha definem o mês mais pesado (não a média anual). Ver G0103/G0108 na aba Gaps.</p>
+    </div>
+
+    <div class="contra">
+      <strong>Ressalvas honestas.</strong>
+      <ul style="margin:6px 0 0">
+        <li>Números de pico dependem de volumetria <strong>ainda a ratificar</strong> (G0706/G0701) — 40% no último dia é premissa, não dado do cliente.</li>
+        <li>Os tetos (25 concorrentes etc.) são de plataforma; picos reais dependem do tamanho médio do CSV da folha (linhas/arquivo), ainda não conhecido.</li>
+        <li>Validar tudo com <strong>load test aprovado pela Salesforce</strong> antes de comprometer SLA. Sizing ≠ garantia.</li>
+      </ul>
+    </div>
+
+    <div class="ask">
+      <div class="lead">⧉ Perguntas / próximos passos</div>
+      <ul>
+        <li>Qual o <strong>tamanho médio</strong> do CSV da folha (linhas por beneficiária)? Define o custo real do parse.</li>
+        <li>Decidir storage do upload: <strong>Salesforce Files vs. S3 externo</strong> (custo, retenção, LGPD).</li>
+        <li>Agendar <strong>load test</strong> homologado pela Salesforce simulando o pico dos 5 dias.</li>
+        <li>Fechar o <strong>pool login-based</strong> dimensionado pelo mês de pico da beneficiária.</li>
       </ul>
     </div>
   </section>

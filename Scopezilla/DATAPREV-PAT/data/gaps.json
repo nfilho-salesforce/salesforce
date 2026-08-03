@@ -15,7 +15,7 @@
     "gap_id": "G0103",
     "category": "Missing Requirement",
     "gap_or_question": "Qual o volume de usuários nomeados e o padrão de acesso do portal (beneficiárias ativas, picos simultâneos, logins/mês) para dimensionar as licenças Experience Cloud? O modelo é login-based, member-based ou page-view? ~450 mil (ou ~300-327 mil) empresas beneficiárias, cada uma com múltiplos representantes, muda ordens de grandeza a licença.",
-    "impact_or_notes": "O tipo e volume de licença Experience Cloud é o maior driver de custo recorrente do portal e ainda está em aberto (Open Question 7). Divergência de base (450k vs 300k) amplia a incerteza."
+    "impact_or_notes": "O tipo e volume de licença Experience Cloud é o maior driver de custo recorrente do portal e ainda está em aberto (Open Question 7). Divergência de base (450k vs 300k) amplia a incerteza. [Nota grill 31/jul: as ~600–700 FACILITADORAS NÃO consomem licença de portal — são API-only (integração MuleSoft, E05). O driver de volumetria de licença é a BENEFICIÁRIA. Refina o escopo desta pergunta para a base de beneficiárias, não facilitadoras.]"
   },
   {
     "gap_id": "G0104",
@@ -45,7 +45,7 @@
     "gap_id": "G0202",
     "category": "Ambiguity",
     "gap_or_question": "A seleção do vencedor é automática (ranking por algoritmo objetivo) ou manual (a beneficiária escolhe livremente)? O protótipo sugere escolha humana; a dinâmica de 'leilão reverso' sugere ranking automático. As hipóteses implicam arquiteturas e esforços muito diferentes.",
-    "impact_or_notes": "Divisor de escopo/sizing de E02: seleção manual assistida é substancialmente mais leve que um motor de scoring com regras de desempate e trilha de justificativa. Afeta diretamente o T-shirt size."
+    "impact_or_notes": "Divisor de escopo/sizing de E02: seleção manual assistida é substancialmente mais leve que um motor de scoring com regras de desempate e trilha de justificativa. Afeta diretamente o T-shirt size. [Resolvido grill 31/jul: seleção MANUAL pela beneficiária, TRAVADA até o fechamento da janela de vigência — não é ranking automático nem seleção cega. Confirma o sizing mais leve (seleção manual assistida + trava de janela), sem motor de scoring. Ver G0210.]"
   },
   {
     "gap_id": "G0203",
@@ -73,9 +73,9 @@
   },
   {
     "gap_id": "G0207",
-    "category": "Capability Gap",
+    "category": "Ambiguity",
     "gap_or_question": "A mecânica de lance das facilitadoras via API não está especificada: polling ou push (webhook/evento)? Como a proposta é submetida (payload, auth, idempotência), validada e confirmada? Como garantir que só facilitadoras credenciadas e elegíveis por UF concorram? Lance aberto ou envelope fechado?",
-    "impact_or_notes": "Sem suporte nativo a RFQ/leilão, todo o canal de lance é custom (API MuleSoft + objetos + Apex). Aberto vs. fechado tem implicações de anticolusão e arquitetura. Depende de contratos de API das facilitadoras (mock-first em E05)."
+    "impact_or_notes": "RESOLVIDO na direção de descoberta/notificação (decisão 31/jul): no MVP (até 15/nov) a plataforma ENTREGA UM ENDPOINT DE CONSULTA (pull via API/MuleSoft, E05) — a facilitadora CONSULTA e descobre as demandas abertas na vigência; NÃO há push ativo. Notificação ativa (push) fica no roadmap futuro, com o canal a definir (ver G0211). Coerente com facilitadora API-only (ADR 0004). PENDENTE ainda: o payload/auth/idempotência da submissão da Quote e a garantia de elegibilidade por UF (a especificar no workshop de regras do leilão, E02/Fase 2) — a mecânica de envelope fechado é resolvida por construção (facilitadora sem UI não vê concorrentes)."
   },
   {
     "gap_id": "G0208",
@@ -188,8 +188,9 @@
   {
     "gap_id": "G0504",
     "category": "Logical Gap",
-    "gap_or_question": "O local de hospedagem do MuleSoft nao esta decidido e colide com a residencia hibrida (ADR 0001). CloudHub (nuvem MuleSoft) ou runtime auto-hospedado em nuvem gov/on-prem Dataprev (Runtime Fabric)? Onde ocorre a des-tokenizacao/resolucao do CPF em runtime?",
-    "impact_or_notes": "Se MuleSoft orquestra CPF e roda em CloudHub fora do controle Dataprev, viola a premissa de residencia. O ponto de tokenizacao precisa estar dentro da fronteira Dataprev. Pre-requisito de arquitetura de conformidade LGPD/ANPD."
+    "confidence": "Confirmed",
+    "gap_or_question": "RESOLVIDO (ADR 0005, premissa 31/jul): o MuleSoft roda ON-PREMISE, dentro do perímetro Dataprev — não CloudHub. Isso cumpre a soberania de dados e mantém o ponto de des-tokenização/resolução de CPF em runtime dentro da fronteira Dataprev (aderente ao ADR 0001). Combinado com a org 100% greenfield e apartada, é o eixo de isolamento do programa.",
+    "impact_or_notes": "Fechado na direção 'on-premise'. Ainda scopezilla-recommended/Assumed no nível de premissa (a ratificar com o cliente por escrito). A infra on-premise é pré-requisito de marco da Fase 0 e carrega lead-time externo (ver risco de arranque). Não é mais bloqueador de design."
   },
   {
     "gap_id": "G0505",
@@ -363,7 +364,7 @@
     "gap_id": "G0108",
     "category": "Assumption",
     "gap_or_question": "Modelo de licenca Experience Cloud (login-based vs member-based) para beneficiarias + estabelecimentos",
-    "impact_or_notes": "Assumcao de design (org unica, Experience Cloud external). Validar contra o volume de usuarios ativos (G0103) — define custo de licenciamento."
+    "impact_or_notes": "Assumcao de design (org unica, Experience Cloud external). Validar contra o volume de usuarios ativos (G0103) — define custo de licenciamento. [Nota grill 31/jul: driver de licença = beneficiária (opera Opportunity/Quote no portal); facilitadora API-only sem assento. Customer Community Plus não expõe Opportunity/Quote nativamente → Partner Community é a candidata para a beneficiária, a requalificar contra o padrão de acesso real (ADR 0004).]"
   },
   {
     "gap_id": "G0808",
@@ -406,12 +407,39 @@
     "gap_id": "G0209",
     "category": "Ambiguity",
     "gap_or_question": "Marketing Cloud para alertas automáticos (vencimento de contrato, atualização de folha) foi DISCUTIDO mas NÃO TRAVADO na sync (30/jul). É escopo real desta rodada ou 'plus'/nice-to-have para fase posterior? Se dentrar, adiciona produto (licença + configuração de jornadas) a E02/E03.",
-    "impact_or_notes": "Candidato a de-escopo/buffer sob a janela fixa de 15/nov. Alertas transacionais mínimos podem ser cobertos por notificação nativa/Flow sem Marketing Cloud. Grillar escopo vs. plus antes de dimensionar; não somar licença/esforço enquanto não travado."
+    "impact_or_notes": "Candidato a de-escopo/buffer sob a janela fixa de 15/nov. Alertas transacionais mínimos podem ser cobertos por notificação nativa/Flow sem Marketing Cloud. REFORÇADO (31/jul): a decisão de posicionar ou não Marketing Cloud fica CONDICIONADA à escolha do CANAL da notificação ativa/push às facilitadoras (roadmap futuro — G0211). Enquanto o canal não for definido, NÃO travar Marketing Cloud nem somar licença/esforço."
   },
   {
     "gap_id": "G0607",
     "category": "Ambiguity",
     "gap_or_question": "Agentforce / IA generativa para 'sugerir resumo dos termos do contrato em linguagem acessível' (sync 30/jul) é sinal fraco — 'sugere resumo'. É caso de uso real de E06 nesta rodada ou nice-to-have? Distinto do escopo informacional/transacional já aberto em G0601.",
     "impact_or_notes": "Se real, é um caso de uso pontual de IA generativa acoplado a E02→E03 (resumo de contrato), mais leve que o agente transacional de G0601. Candidato a de-escopo/buffer sob a janela fixa. Grillar antes de dimensionar E06."
+  },
+  {
+    "gap_id": "G0210",
+    "category": "Assumption",
+    "confidence": "Confirmed",
+    "gap_or_question": "Premissa (ADR 0004, 31/jul): a plataforma é construída sobre SALES CLOUD reusando objetos nativos — Opportunity = demanda de leilão reverso registrada pela beneficiária; Quote = resposta da facilitadora recebida EXCLUSIVAMENTE via API. CONFIRMADO no grill 31/jul (conhecimento firsthand do Solution Manager sobre a mecânica): a facilitadora NÃO tem acesso à plataforma (sem UI, sem licença de portal) — submete a proposta informando o ID da cotação/oportunidade aberta dentro da vigência. Logo a EQUIDADE é POR CONSTRUÇÃO (uma facilitadora não enxerga a proposta da outra porque não tem UI) — NÃO é necessário Apex managed sharing. A beneficiária VÊ as cotações conforme chegam, mas só PODE SELECIONAR quando a janela de vigência fecha (seleção manual TRAVADA, não cega).",
+    "impact_or_notes": "CONFIRMADO grill 31/jul. Reforça ADR 0004 e ENXUGA a camada custom de E02 (some o Apex managed sharing; entra apenas a trava de seleção até o fechamento + a tela Comparar Propostas). Dispara correção de licenciamento em E01/ADR 0004: como a facilitadora é API-only, o driver de licença de portal é a beneficiária, não a facilitadora (ver G0103/G0108). Substitui a leitura anterior de 'leilão 100% custom'. Ligado a G0202 (seleção manual+trava confirmada)."
+  },
+  {
+    "gap_id": "G0810",
+    "category": "Assumption",
+    "confidence": "Assumed",
+    "gap_or_question": "Premissa (ADR 0005, 31/jul): a org é 100% GREENFIELD — instância nova, sem ORG existente, apartada de qualquer ambiente/admins Dataprev — e o MULESOFT roda ON-PREMISE. O isolamento greenfield + on-premise é o mecanismo de soberania de dados e reforça o ADR 0001 (residência) e o ADR 0002 (instância dedicada). A infra estará pronta nos marcos do projeto. A confirmar por escrito: provisionamento greenfield, infra on-premise e prazos de prontidão.",
+    "impact_or_notes": "Premissa scopezilla-recommended, a ratificar com o cliente. Resolve G0504 (hospedagem MuleSoft). Cria três pré-requisitos externos de lead-time na Fase 0 (org greenfield, infra on-premise, gateway) — o maior risco à data fixa de 15/nov. Se a infra atrasar, a data não é alcançável só com esforço."
+  },
+  {
+    "gap_id": "G0310",
+    "category": "Assumption",
+    "confidence": "Confirmed",
+    "gap_or_question": "Premissa (premissa 6, 31/jul): o fluxo da folha tem 8 passos definidos — upload CSV (portal/API) → validação de layout + integridade ('não quebrada') → crítica via melhor alternativa Salesforce (Einstein/agente); as LINHAS DA FOLHA NÃO PERSISTEM em objeto da plataforma (roadmap futuro) → facilitadora baixa por contrato/vigência (mês-ano) → retorna 'processado' + valor via API → plataforma envia valor ao gateway → recebe boleto registrado + metadados/link → boleto disponível à beneficiária → recebe movimentações bancárias → identificação de pagamento em lotes incrementais via agendamento MuleSoft → consulta regras de split → calcula repasse → registra todo o racional/datas/split/ordens, entregando via MuleSoft ao gateway (executor único das transações). A confirmar: layout do CSV, regra de integridade, alternativa de crítica IA, e o contrato de API facilitadora↔plataforma.",
+    "impact_or_notes": "CONFIRMADO grill 31/jul (conhecimento firsthand do Solution Manager): NÃO há requisito de persistir linhas da folha até 15/nov — a persistência linha-a-linha é roadmap futuro (registrada em outputs/02-delivery-plan.md). A decisão de NÃO persistir linhas é load-bearing e agora firme: limita o modelo de dados de E03 ao cabeçalho/competência e adia relatório de folha linha-a-linha. O fluxo de 8 passos permanece Assumed nos detalhes de contrato (layout CSV, regra de integridade, alternativa de crítica IA, contrato de API facilitadora↔plataforma) — só a decisão de persistência está confirmada. Ligado a G0309 (gateway) e G0509 (CTPS)."
+  },
+  {
+    "gap_id": "G0211",
+    "category": "Missing Requirement",
+    "gap_or_question": "Roadmap futuro: qual o CANAL da NOTIFICAÇÃO ATIVA (push) às facilitadoras quando uma beneficiária publica uma demanda/leilão no portal? (e-mail, webhook/evento à API da facilitadora, WhatsApp/BSP, notificação in-app, ou jornada Marketing Cloud). No MVP entregamos apenas endpoint de consulta (pull, G0207); a notificação ativa e a escolha do canal ficam para versão futura.",
+    "impact_or_notes": "A escolha do canal é o que DECIDE se posicionamos ou não Marketing Cloud (G0209): um push transacional simples pode sair por webhook/Flow/e-mail nativo sem produto novo; uma jornada rica justificaria Marketing Cloud (licença + configuração). Não dimensionar o push nem somar produto enquanto o canal não for definido com o cliente."
   }
 ]

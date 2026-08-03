@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<!-- Marketplace Digital do PAT (DATAPREV-PAT) — deck executivo · Gerado: 2026-07-31 · Scopezilla brand kit (deck shell) -->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marketplace Digital do PAT — DATAPREV / MTE</title>
+<style>
+  :root {
+    --sf-navy:#001E5B; --sf-type:#002775; --sf-container:#022AC0; --sf-blue:#066AFE;
+    --sf-cloud:#00B3FF; --sf-cloud-80:#90D0FE; --sf-bg:#CFE9FE; --sf-light-bg:#EAF5FE;
+    --sf-text:#002775; --sf-text-weak:#4A5578;
+    --ext-teal:#06A59A; --ext-teal-80:#04E1CB; --ext-teal-95:#DEF9F3;
+    --ext-yellow:#FCC003; --ext-yellow-70:#E4A201; --ext-yellow-95:#FBF3E0;
+    --ext-pink:#FF538A; --ext-pink-40:#B60554; --ext-pink-95:#FEF0F3;
+    --ext-violet:#D17DFE; --ext-violet-30:#730394; --ext-violet-95:#F9F0FF;
+    --client-primary:#066AFE; --client-dark:#022AC0;
+    --font-heading:'ITC Avant Garde Gothic Demi','Avant Garde','Century Gothic','Salesforce Sans','Source Sans 3',Arial,sans-serif;
+    --font-body:'Salesforce Sans','Source Sans 3','Helvetica Neue',Arial,sans-serif;
+    --fs-title:54px; --fs-subtitle:36px; --fs-l1:30px; --fs-cat:26px; --fs-l2:24px; --fs-desc:22px; --fs-body:16px;
+    --space-xs:4px; --space-sm:8px; --space-md:16px; --space-lg:24px; --space-xl:32px; --space-2xl:48px;
+    --radius-sm:4px; --radius-md:8px; --radius-lg:16px;
+    --shadow-brand:2.6px 9.7px 25px rgba(6,106,254,0.15);
+  }
+  /* ── Base ── */
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:var(--font-body); color:var(--sf-text); background:var(--sf-light-bg);
+         -webkit-font-smoothing:antialiased; line-height:1.55; }
+  h1,h2,h3,.sz-title,.sz-stat-num { font-family:var(--font-heading); color:var(--sf-navy); line-height:1.15; }
+  a { color:var(--sf-blue); }
+  :focus-visible { outline:3px solid var(--sf-blue); outline-offset:2px; border-radius:2px; }
+  @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none !important; transition:none !important; } }
+  /* ── Card ── */
+  .sz-card { background:#fff; border-radius:var(--radius-md); padding:var(--space-lg); box-shadow:var(--shadow-brand); }
+  .sz-card + .sz-card { margin-top:var(--space-md); }
+  .sz-card h3 { font-size:18px; margin-bottom:6px; }
+  .sz-card p { font-size:15px; color:var(--sf-text); }
+  /* ── Stat tiles ── */
+  .sz-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:var(--space-md); }
+  .sz-stat { background:#fff; border-radius:var(--radius-md); padding:var(--space-lg) var(--space-md);
+    text-align:center; box-shadow:var(--shadow-brand); }
+  .sz-stat-num { font-size:42px; color:var(--client-primary); }
+  .sz-stat-lbl { font-size:14px; color:var(--sf-text-weak); margin-top:var(--space-xs); }
+  /* ── Table ── */
+  .sz-table { width:100%; border-collapse:collapse; background:#fff; border-radius:var(--radius-md);
+    overflow:hidden; box-shadow:var(--shadow-brand); }
+  .sz-table th { background:var(--sf-container); color:#fff; font-family:var(--font-heading);
+    text-align:left; padding:var(--space-sm) var(--space-md); font-size:14px; }
+  .sz-table td { padding:7px var(--space-md); border-top:1px solid var(--sf-light-bg); font-size:14px; }
+  .sz-table tbody tr:nth-child(even) { background:var(--sf-light-bg); }
+  /* ── Tags ── */
+  .sz-tag { display:inline-block; font-size:12px; font-weight:700; padding:2px 10px; border-radius:999px; line-height:1.6; }
+  .sz-tag--critical { background:var(--ext-pink-95); color:var(--ext-pink-40); }
+  .sz-tag--high { background:var(--ext-yellow-95); color:var(--ext-yellow-70); }
+  .sz-tag--medium { background:var(--ext-yellow-95); color:var(--ext-yellow-70); }
+  .sz-tag--low { background:var(--ext-teal-95); color:var(--ext-teal); }
+  .sz-tag--info { background:var(--sf-light-bg); color:var(--sf-blue); }
+  .sz-tag--sz-m { background:#DCEBFF; color:var(--sf-blue); }
+  .sz-tag--sz-l { background:var(--sf-cloud); color:var(--sf-navy); }
+  .sz-tag--sz-xl { background:var(--sf-container); color:#fff; }
+  /* ── TL;DR / callout ── */
+  .sz-tldr { background:var(--sf-light-bg); border-left:4px solid var(--sf-blue);
+    border-radius:var(--radius-sm); padding:var(--space-md) var(--space-lg); margin:var(--space-md) 0; }
+  .sz-tldr-label { font-family:var(--font-heading); font-size:12px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--sf-blue); margin-bottom:var(--space-xs); }
+  .sz-tldr p { font-size:14px; }
+  /* ── Timeline ── */
+  .sz-timeline { display:flex; gap:2px; border-radius:var(--radius-sm); overflow:hidden; box-shadow:var(--shadow-brand); }
+  .sz-phase { flex:1; padding:var(--space-md); color:#fff; text-align:center; font-size:14px; }
+  .sz-phase:nth-child(1){background:var(--sf-navy);} .sz-phase:nth-child(2){background:var(--sf-container);}
+  .sz-phase:nth-child(3){background:var(--sf-blue);} .sz-phase:nth-child(4){background:var(--sf-cloud); color:var(--sf-navy);}
+  .sz-phase:nth-child(5){background:var(--sf-cloud-80); color:var(--sf-navy);}
+  .sz-phase-name { font-family:var(--font-heading); }
+  .sz-phase-dur { opacity:.9; font-size:12px; }
+  /* ── Chips ── */
+  .sz-chips { display:flex; flex-wrap:wrap; gap:var(--space-xs); }
+  .sz-chip { background:var(--sf-light-bg); color:var(--sf-container); border:1px solid var(--sf-cloud-80);
+    border-radius:999px; padding:4px 12px; font-size:13px; }
+  /* ── Panorama ── */
+  .sz-panorama { position:relative; background:var(--sf-cloud); color:var(--sf-navy);
+    padding:var(--space-2xl) var(--space-xl); text-align:center; border-radius:var(--radius-lg);
+    box-shadow:var(--shadow-brand); overflow:hidden; }
+  .sz-panorama--navy { background:linear-gradient(135deg,var(--sf-navy),var(--sf-container)); color:#fff; }
+  .sz-panorama h2 { color:inherit; font-size:34px; }
+
+  /* Deck-shell layout */
+  html,body { height:100%; }
+  body { background:var(--sf-navy); overflow:hidden; display:flex; align-items:center; justify-content:center; }
+  .slide { width:1280px; height:720px; background:var(--sf-light-bg); position:relative;
+    display:none; flex-direction:column; padding:48px 64px; overflow:hidden;
+    transform:scale(var(--scale,1)); transform-origin:center center; }
+  .slide.active { display:flex; }
+  .slide::before { content:''; position:absolute; top:0; left:0; right:0; height:4px;
+    background:linear-gradient(90deg,var(--client-primary),var(--sf-cloud)); }
+  .slide-eyebrow { font-family:var(--font-heading); font-size:13px; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--sf-blue); }
+  .slide-title { font-size:var(--fs-subtitle); margin:var(--space-xs) 0 var(--space-lg); color:var(--sf-navy); }
+  .slide-title.sm { font-size:30px; }
+  .slide-num { position:absolute; bottom:20px; right:28px; font-size:12px; color:var(--sf-text-weak); }
+  .cover { justify-content:center; background:linear-gradient(135deg,var(--sf-navy),var(--sf-container)); }
+  .cover .slide-title { font-size:var(--fs-title); color:#fff; }
+  .cover .slide-eyebrow, .cover .cover-sub { color:var(--sf-cloud-80); }
+  .cover-sub { font-size:22px; margin-top:8px; max-width:900px; }
+  .lead { font-size:19px; color:var(--sf-text); max-width:1050px; margin-bottom:var(--space-md); }
+  .foot { position:absolute; bottom:18px; left:64px; right:120px; font-size:11px; color:var(--sf-text-weak); }
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-md); }
+  .three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:var(--space-md); }
+  .arch-band { display:flex; flex-direction:column; gap:8px; }
+  .arch-row { border-radius:var(--radius-md); padding:12px 18px; box-shadow:var(--shadow-brand); }
+  .arch-row .lbl { font-family:var(--font-heading); font-size:15px; }
+  .arch-row .dsc { font-size:13px; }
+  .flow { display:flex; align-items:stretch; gap:6px; }
+  .flow-step { flex:1; background:#fff; border-radius:var(--radius-md); padding:12px; box-shadow:var(--shadow-brand);
+    font-size:13px; position:relative; }
+  .flow-step .n { font-family:var(--font-heading); color:var(--client-primary); font-size:22px; }
+  .flow-arrow { align-self:center; color:var(--sf-blue); font-size:22px; font-weight:bold; }
+  .nav { position:fixed; bottom:20px; left:50%; transform:translateX(-50%); display:flex;
+    gap:8px; align-items:center; background:rgba(0,30,91,.9); border-radius:999px; padding:8px 16px;
+    z-index:50; transition:opacity .4s ease; }
+  .nav.idle { opacity:0; pointer-events:none; }
+  .nav button { background:var(--sf-blue); color:#fff; border:none; border-radius:999px;
+    padding:6px 14px; cursor:pointer; font-family:var(--font-heading); }
+  .nav span { color:#fff; font-size:13px; padding:0 8px; }
+  @media print {
+    @page { size:1280px 720px; margin:0; }
+    html,body { background:#fff; width:1280px; height:auto; display:block; overflow:visible; }
+    .slide { display:flex !important; page-break-after:always; box-shadow:none; transform:none !important; }
+    .slide:last-of-type { page-break-after:auto; }
+    .nav, .slide-num { display:none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 1 — Cover -->
+<section class="slide cover active">
+  <div class="slide-eyebrow">DATAPREV para o Ministério do Trabalho e Emprego · 31 jul 2026</div>
+  <h1 class="slide-title">Marketplace Digital do PAT</h1>
+  <div class="cover-sub">A plataforma pública da reforma — do bilateral fragmentado ao leilão aberto, em jornada 100% gov.br.</div>
+  <span class="slide-num"></span>
+</section>
+
+<!-- 2 — A reforma -->
+<section class="slide">
+  <div class="slide-eyebrow">Situação</div>
+  <h2 class="slide-title">O Decreto 12.712/2025 reescreve as regras econômicas do vale-alimentação</h2>
+  <p class="lead">A maior reforma do PAT em quase 50 anos comprime a margem das operadoras e impõe transparência e interoperabilidade.</p>
+  <div class="sz-stats">
+    <div class="sz-stat"><div class="sz-stat-num">3,6%</div><div class="sz-stat-lbl">Teto de administração (MDR)</div></div>
+    <div class="sz-stat"><div class="sz-stat-num">15 dias</div><div class="sz-stat-lbl">Repasse ao estabelecimento</div></div>
+    <div class="sz-stat"><div class="sz-stat-num">Fim</div><div class="sz-stat-lbl">Do rebate · pré-pagamento obrigatório</div></div>
+    <div class="sz-stat"><div class="sz-stat-num">nov/2026</div><div class="sz-stat-lbl">Interoperabilidade total</div></div>
+  </div>
+  <span class="slide-num"></span>
+</section>
+
+<!-- 3 — A oportunidade -->
+<section class="slide">
+  <div class="slide-eyebrow">Situação</div>
+  <h2 class="slide-title">A reforma abre espaço para uma plataforma pública neutra que o MTE não tem hoje</h2>
+  <div class="two-col">
+    <div class="sz-card">
+      <h3>Hoje</h3>
+      <p>Negociação bilateral fragmentada e opaca entre estabelecimentos e operadoras. O MTE não tem visibilidade sistêmica sobre um setor que movimenta centenas de bilhões de reais por ano.</p>
+    </div>
+    <div class="sz-card">
+      <h3>Amanhã</h3>
+      <p>Leilão aberto entre facilitadoras, em jornada 100% gov.br, numa org Salesforce <strong>100% greenfield e apartada</strong> do MTE/PAT. Visibilidade sistêmica para o governo; concorrência real para a beneficiária.</p>
+    </div>
+  </div>
+  <div class="sz-tldr">
+    <div class="sz-tldr-label">Prioridade estratégica</div>
+    <p>Marketplace de cotação e contratação (#1) · fluxo financeiro com split e repasse de 15 dias (#2) · credenciamento + identidade gov.br (#3).</p>
+  </div>
+  <span class="slide-num"></span>
+</section>
+
+<!-- 4 — A data é fixa -->
+<section class="slide">
+  <div class="slide-eyebrow">Complicação</div>
+  <h2 class="slide-title">A data de go-live não é preferência — é regulatória, externa e fixa</h2>
+  <div class="sz-stats">
+    <div class="sz-stat"><div class="sz-stat-num">17/ago</div><div class="sz-stat-lbl">Início comprometido</div></div>
+    <div class="sz-stat"><div class="sz-stat-num">início nov</div><div class="sz-stat-lbl">Homologação (UAT)</div></div>
+    <div class="sz-stat"><div class="sz-stat-num">15/nov/2026</div><div class="sz-stat-lbl">Go-live PRODUÇÃO</div></div>
+    <div class="sz-stat"><div class="sz-stat-num">~13 sem</div><div class="sz-stat-lbl">Janela de construção</div></div>
+  </div>
+  <div class="sz-tldr">
+    <div class="sz-tldr-label">Leitura honesta</div>
+    <p>A trilha tradicional (18–38 semanas por benchmark) <strong>não alcança</strong> 15/nov — por isso o modelo AI-native é escolha de viabilidade de cronograma, não de custo. A data é o âncora; o escopo é a variável de flexão. <em>(ADI 7962 tramita no STF — premissas dependentes de data carregam a ressalva.)</em></p>
+  </div>
+  <span class="slide-num"></span>
+</section>
+
+<!-- 5 — Arquitetura -->
+<section class="slide">
+  <div class="slide-eyebrow">Resolução</div>
+  <h2 class="slide-title sm">Uma plataforma sobre Sales Cloud nativo, com a integração no perímetro da DATAPREV</h2>
+  <div class="arch-band">
+    <div class="arch-row" style="background:var(--sf-cloud-80);color:var(--sf-navy);">
+      <div class="lbl">Experience Cloud — portal gov.br</div>
+      <div class="dsc">Beneficiária e estabelecimento acessam por login gov.br. A facilitadora não tem tela.</div>
+    </div>
+    <div class="arch-row" style="background:var(--sf-blue);color:#fff;">
+      <div class="lbl">Sales Cloud — objetos nativos</div>
+      <div class="dsc">Opportunity = demanda de leilão reverso · Quote = resposta da facilitadora (via API) · motor de regras de split.</div>
+    </div>
+    <div class="arch-row" style="background:var(--sf-container);color:#fff;">
+      <div class="lbl">MuleSoft — integração on-premise (soberania de dados)</div>
+      <div class="dsc">Novo PAT (sem API hoje — mock), gov.br, eSocial, ~600–700 facilitadoras (API), gateway. Tokenização de CPF em runtime.</div>
+    </div>
+    <div class="arch-row" style="background:var(--sf-navy);color:#fff;">
+      <div class="lbl">Gateway do cliente — fora do CRM</div>
+      <div class="dsc">Conta custódia, execução bancária e boletagem. O Salesforce aciona; não transaciona nem custodia dinheiro.</div>
+    </div>
+  </div>
+  <span class="slide-num"></span>
+</section>
+
+<!-- 6 — Leilão reverso -->
+<section class="slide">
+  <div class="slide-eyebrow">Resolução · Marketplace</div>
+  <h2 class="slide-title sm">As facilitadoras respondem só por API — logo não veem a proposta concorrente, sem regra custom de ocultamento</h2>
+  <div class="flow">
+    <div class="flow-step"><div class="n">1</div>Beneficiária registra a demanda (<strong>Opportunity</strong>) no portal gov.br.</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="n">2</div>Facilitadoras respondem <strong>só via API</strong> (<strong>Quote</strong>) — sem tela. No MVP descobrem as demandas por <strong>endpoint de consulta (pull)</strong>.</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="n">3</div>Beneficiária compara lado a lado, mas <strong>só seleciona quando a vigência fecha</strong>.</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="n">4</div><strong>Termo de aceite</strong> · contrato sem CLM (PDF imutável versionado).</div>
+  </div>
+  <div class="sz-tldr">
+    <div class="sz-tldr-label">Equidade por construção</div>
+    <p>A facilitadora não tem tela — logo não vê a proposta concorrente. A equidade cai fora do design, sem regra de ocultamento custom. Notificação ativa (push) às facilitadoras é roadmap futuro, com o canal a definir.</p>
+  </div>
+  <span class="slide-num"></span>
+</section>
+
+<!-- 7 — Motor financeiro -->
+<section class="slide">
+  <div class="slide-eyebrow">Resolução · Financeiro</div>
+  <h2 class="slide-title sm">O Salesforce é o motor de regras de split — não transaciona nem custodia dinheiro <span class="sz-tag sz-tag--sz-xl">XL</span></h2>
+  <div class="flow">
+    <div class="flow-step"><div class="n">1</div>Recebe a folha (CSV via portal/API) e valida layout e integridade.</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="n">2</div><strong>Calcula e aplica o rateio</strong> sob o teto MDR 3,6% e o repasse de 15 dias.</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="n">3</div>Aciona o <strong>gateway</strong> para boletagem com o split aplicado.</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><div class="n">4</div><strong>Concilia por casamento</strong> em lotes via MuleSoft e registra todo o racional.</div>
+  </div>
+  <div class="sz-tldr">
+    <div class="sz-tldr-label">Fronteira CRM × financeiro (ADR 0003)</div>
+    <p>A execução bancária e a custódia ficam no gateway do cliente. É o que dimensiona o financeiro como XL — o coração regulado da solução.</p>
+  </div>
+  <span class="slide-num"></span>
+</section>
+
+<!-- 8 — Escopo -->
+<section class="slide">
+  <div class="slide-eyebrow">Prova · Escopo</div>
+  <h2 class="slide-title sm">Nove épicas cobrem o fluxo completo; o MVP comprometido entrega oito</h2>
+  <table class="sz-table">
+    <thead><tr><th>Épica</th><th style="width:70px">Tamanho</th><th>No MVP</th></tr></thead>
+    <tbody>
+      <tr><td>Marketplace de cotação e contratação</td><td><span class="sz-tag sz-tag--sz-xl">XL</span></td><td>Sim</td></tr>
+      <tr><td>Folha, Motor de Split & Conciliação</td><td><span class="sz-tag sz-tag--sz-xl">XL</span></td><td>Sim</td></tr>
+      <tr><td>Integração Corporativa MuleSoft</td><td><span class="sz-tag sz-tag--sz-xl">XL</span></td><td>Sim</td></tr>
+      <tr><td>Portal & Identidade gov.br</td><td><span class="sz-tag sz-tag--sz-l">L</span></td><td>Sim</td></tr>
+      <tr><td>Segurança & Residência de Dados</td><td><span class="sz-tag sz-tag--sz-l">L</span></td><td>Sim</td></tr>
+      <tr><td>Atendimento Inteligente Agentforce</td><td><span class="sz-tag sz-tag--sz-l">L</span></td><td><span class="sz-tag sz-tag--high">Fora — buffer</span></td></tr>
+      <tr><td>Credenciamento + vigilância sanitária</td><td><span class="sz-tag sz-tag--sz-m">M</span></td><td>Sim</td></tr>
+      <tr><td>Migração & Carga</td><td><span class="sz-tag sz-tag--sz-m">M</span></td><td>Sim</td></tr>
+      <tr><td>Gestão de Mudança & Adoção</td><td><span class="sz-tag sz-tag--sz-m">M</span></td><td>Sim</td></tr>
+    </tbody>
+  </table>
+  <p class="foot">Tamanho (T-shirt) = complexidade relativa — não é esforço, não converte em horas, não multiplica por uma taxa. Agentforce é o primeiro candidato a de-escopo, tratado como buffer de cronograma.</p>
+  <span class="slide-num"></span>
+</section>
+
+<!-- 9 — Roadmap -->
+<section class="slide">
+  <div class="slide-eyebrow">Prova · Cronograma</div>
+  <h2 class="slide-title sm">Cinco fases, planejadas de trás pra frente a partir da data fixa</h2>
+  <div class="sz-timeline">
+    <div class="sz-phase"><div class="sz-phase-name">Fase 0 — Arranque & Provisionamento</div><div class="sz-phase-dur">17–30 ago · 2 sem</div></div>
+    <div class="sz-phase"><div class="sz-phase-name">Fase 1 — Fundação</div><div class="sz-phase-dur">31 ago–27 set · 4 sem</div></div>
+    <div class="sz-phase"><div class="sz-phase-name">Fase 2 — Marketplace & Credenciamento</div><div class="sz-phase-dur">28 set–18 out · 3 sem</div></div>
+    <div class="sz-phase"><div class="sz-phase-name">Fase 3 — Financeiro & Split</div><div class="sz-phase-dur">19 out–8 nov · 3 sem</div></div>
+    <div class="sz-phase"><div class="sz-phase-name">Fase 4 — Homologação & Go-live</div><div class="sz-phase-dur">9–15 nov · 1 sem</div></div>
+  </div>
+  <div class="sz-tldr">
+    <div class="sz-tldr-label">Caminho crítico</div>
+    <p>Fase 0 (org greenfield + MuleSoft on-premise + gateway) → <strong>modelo de dados fundacional</strong> com o time inteiro (o marco que libera a paralelização) → integração → folha/split → homologação → go-live.</p>
+  </div>
+  <span class="slide-num"></span>
+</section>
+
+<!-- 10 — Segurança & residência -->
+<section class="slide">
+  <div class="slide-eyebrow">Prova · Segurança</div>
+  <h2 class="slide-title sm">Isolamento + tokenização são a espinha de segurança — formalizados em cinco decisões de arquitetura</h2>
+  <div class="three-col">
+    <div class="sz-card"><h3>Residência híbrida (ADR 0001)</h3><p>CPF e dados sensíveis não persistem na nuvem — ficam na DATAPREV, resolvidos em runtime por MuleSoft. Aderente à LGPD Art. 11.</p></div>
+    <div class="sz-card"><h3>Instância dedicada (ADR 0002)</h3><p>Forçada por segurança, volumetria e auditabilidade (TCU/CGU/ANPD). Provisionamento com lead-time externo.</p></div>
+    <div class="sz-card"><h3>Fronteira não-transacional (ADR 0003)</h3><p>O Salesforce aplica o split e orquestra a conciliação; não custodia dinheiro. O gateway do cliente executa.</p></div>
+    <div class="sz-card"><h3>Objetos nativos (ADR 0004)</h3><p>Opportunity/Quote nativos; facilitadora API-only, sem assento de portal. Licença da beneficiária a requalificar.</p></div>
+    <div class="sz-card"><h3>Greenfield + on-premise (ADR 0005)</h3><p>Org 100% nova e isolada; MuleSoft no perímetro DATAPREV = soberania de dados. Resolve o gap de hospedagem.</p></div>
+    <div class="sz-card" style="background:var(--sf-bg);"><h3>Status</h3><p>Os cinco ADRs são recomendados e <strong>Assumed</strong> — a ratificar com o cliente. A instância dedicada segue verbal, a ratificar por escrito.</p></div>
+  </div>
+  <span class="slide-num"></span>
+</section>
+
+<!-- 11 — Riscos -->
+<section class="slide">
+  <div class="slide-eyebrow">Prova · Riscos</div>
+  <h2 class="slide-title sm">Os riscos são conhecidos — o maior é o lead-time externo da Fase 0</h2>
+  <table class="sz-table">
+    <thead><tr><th>Risco</th><th style="width:110px">Severidade</th><th>Mitigação</th></tr></thead>
+    <tbody>
+      <tr><td>Lead-time da org greenfield + MuleSoft on-premise + seleção do gateway</td><td><span class="sz-tag sz-tag--critical">Crítico</span></td><td>Pedido no dia 1; escalonar com plataforma/cliente; contrato de integração mock na Fase 1.</td></tr>
+      <tr><td>Modelo de dados fundacional atrasa e bloqueia a paralelização</td><td><span class="sz-tag sz-tag--high">Alto</span></td><td>Time inteiro no arranque; marco explícito antes de abrir frentes (ADR 0004).</td></tr>
+      <tr><td>Prontidão de IA baixa vs. modelo AI-native que a data exige</td><td><span class="sz-tag sz-tag--high">Alto</span></td><td>Nomear o gate AI-native; de-escopo como buffer; sign-off do Solution Lead.</td></tr>
+      <tr><td>Ausência de contratos de API (Novo PAT sem API)</td><td><span class="sz-tag sz-tag--medium">Médio</span></td><td>Mock-first cedo; inventário na Fase 0; governança da virada mock→real.</td></tr>
+      <tr><td>Incerteza jurídica (ADI 7962 no STF)</td><td><span class="sz-tag sz-tag--medium">Médio</span></td><td>Premissas dependentes de data carregam a ressalva; monitorar a decisão.</td></tr>
+    </tbody>
+  </table>
+  <span class="slide-num"></span>
+</section>
+
+<!-- 12 — Investimento -->
+<section class="slide">
+  <div class="slide-eyebrow">Investimento indicativo</div>
+  <h2 class="slide-title sm">Investimento indicativo do MVP na janela fixa: R$ 3,74M (com imposto)</h2>
+  <div class="sz-stats">
+    <div class="sz-stat"><div class="sz-stat-num">R$ 3,74M</div><div class="sz-stat-lbl">Com imposto (R$ 3,50M sem)</div></div>
+    <div class="sz-stat"><div class="sz-stat-num">AI-native</div><div class="sz-stat-lbl">Trilha comprometida</div></div>
+    <div class="sz-stat"><div class="sz-stat-num">13 sem</div><div class="sz-stat-lbl">Janela fixa (data-fixa)</div></div>
+    <div class="sz-stat"><div class="sz-stat-num">11</div><div class="sz-stat-lbl">Funções PS no roster</div></div>
+  </div>
+  <div class="sz-tldr">
+    <div class="sz-tldr-label">Validated-Rate Disclaimer</div>
+    <p><em>This range is based on the rate of the official Salesforce PS LATAM rate table (per-role, R$ 573,98–R$ 884,68/h sem imposto, mapeado por função no roster) you supplied and validated on 2026-07-31. Indicative for planning only; final commercial structure is confirmed through the applicable commercial agreement.</em></p>
+  </div>
+  <p class="foot">Ponto indicativo, não faixa. É o valor cobrado ao cliente (bill rate) — não custo, não margem, não preço fechado. O número se move com o escopo; o de-escopo (E03 primeiro) é o trilho se um pré-requisito da Fase 0 escorregar.</p>
+  <span class="slide-num"></span>
+</section>
+
+<!-- 13 — O pedido -->
+<section class="slide">
+  <div class="slide-eyebrow">O pedido</div>
+  <h2 class="slide-title sm">Executar a Fase 0 agora e ratificar os cinco ADRs — a data não espera</h2>
+  <div class="sz-panorama sz-panorama--navy" style="margin-bottom:var(--space-md)">
+    <h2>O único risco real à data é o lead-time da Fase 0. Ele começa a correr no dia 17/ago.</h2>
+  </div>
+  <div class="two-col">
+    <div class="sz-card"><h3>1 · Fase 0 em 17/ago</h3><p>Provisionar a org 100% greenfield + a infra do MuleSoft on-premise e iniciar a seleção do gateway.</p></div>
+    <div class="sz-card"><h3>2 · Ratificar os cinco ADRs</h3><p>Em especial instância greenfield/dedicada, objetos nativos e fronteira de residência.</p></div>
+    <div class="sz-card"><h3>3 · Confirmar o modelo AI-native</h3><p>É o que torna a janela de 13 semanas viável; sem ele, o MVP encolhe mais.</p></div>
+    <div class="sz-card"><h3>4 · Confirmar volumetria + gateway</h3><p>Antes de qualquer artefato client-facing (a volumetria vem de imprensa, não de fonte primária).</p></div>
+  </div>
+  <span class="slide-num"></span>
+</section>
+
+<div class="nav">
+  <button onclick="go(-1)">← Prev</button>
+  <span id="count"></span>
+  <button onclick="go(1)">Next →</button>
+</div>
+
+<script>
+  const slides = [...document.querySelectorAll('.slide')];
+  let i = 0;
+  function fit(){ document.documentElement.style.setProperty('--scale', Math.min(innerWidth/1280, innerHeight/720)); }
+  addEventListener('resize', fit); fit();
+  const nav = document.querySelector('.nav'); let idleTimer;
+  function wake(){ nav.classList.remove('idle'); clearTimeout(idleTimer);
+    idleTimer = setTimeout(()=>nav.classList.add('idle'), 2500); }
+  ['mousemove','keydown','touchstart'].forEach(ev=>addEventListener(ev, wake)); wake();
+  function show(n){ i = Math.max(0, Math.min(slides.length-1, n));
+    slides.forEach((s,k)=>s.classList.toggle('active', k===i));
+    document.getElementById('count').textContent = (i+1)+' / '+slides.length;
+    slides.forEach((s,k)=>{const el=s.querySelector('.slide-num'); if(el) el.textContent=k+1;});
+  }
+  function go(d){ show(i+d); }
+  addEventListener('keydown', e=>{
+    if(['ArrowRight','ArrowDown',' '].includes(e.key)){e.preventDefault(); go(1);}
+    if(['ArrowLeft','ArrowUp'].includes(e.key)){e.preventDefault(); go(-1);}
+  });
+  addEventListener('beforeprint', ()=>slides.forEach(s=>s.classList.add('active')));
+  addEventListener('afterprint', ()=>show(i));
+  show(0);
+</script>
+</body>
+</html>

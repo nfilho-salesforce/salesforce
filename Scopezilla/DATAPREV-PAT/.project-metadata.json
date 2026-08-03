@@ -15,13 +15,13 @@
     "roadmap": "complete",
     "efficiency": "complete",
     "estimate": "complete",
-    "commercials": "not-started",
-    "validate": "not-started",
+    "commercials": "complete",
+    "validate": "complete",
     "narratives": "complete",
     "export": "complete",
-    "backlog": "not-started",
+    "backlog": "complete",
     "quantum-leap": "not-started",
-    "slides": "not-started",
+    "slides": "complete",
     "rfp": "not-started",
     "cleanup": "not-started",
     "wrapup": "not-started",
@@ -36,7 +36,43 @@
     },
     "user_commitment": {
       "total_weeks": 13,
-      "rationale": "Data de go-live FIXA e externa: 15/nov/2026 (marco de interoperabilidade total do Decreto 12.712/2025 + entrada do financeiro em produção). Proposta ~15/ago → janela de construção ~13 semanas. A data é o âncora imóvel; o ESCOPO é a variável de flexão — MVP definido, com candidatos a de-escopo (Data Cloud em E02, Marketing Cloud/alertas, Agentforce E06) como buffer de cronograma.",
+      "start_date": "2026-08-17",
+      "homologacao_start": "2026-11-01",
+      "prod_go_live": "2026-11-15",
+      "milestones": [
+        {
+          "type": "projeto",
+          "label": "Início do projeto / kick-off",
+          "date": "2026-08-17"
+        },
+        {
+          "type": "projeto",
+          "label": "Ambiente pronto (org greenfield + MuleSoft on-premise + gateway selecionado)",
+          "date": "2026-08-30"
+        },
+        {
+          "type": "projeto",
+          "label": "Modelo de dados fundacional ratificado (habilita paralelização)",
+          "date": "2026-09-27"
+        },
+        {
+          "type": "jornada",
+          "label": "Homologação (UAT) início — jornadas em ambiente de homologação",
+          "date": "2026-11-01"
+        },
+        {
+          "type": "projeto",
+          "label": "Go-live PRODUÇÃO",
+          "date": "2026-11-15"
+        },
+        {
+          "type": "decreto",
+          "label": "Marco de interoperabilidade total — Decreto 12.712/2025 (reforma do PAT em vigor)",
+          "date": "2026-11-15"
+        }
+      ],
+      "viability_flag": "AGRESSIVO — 13 semanas para build XL regulado (financeiro com split/conciliação/boleto) sobre 3 pré-requisitos externos de lead-time (org greenfield, MuleSoft on-premise, gateway). Margem mínima; estabilização de 1 semana. Se pré-requisitos da Fase 0 atrasarem ou a homologação achar defeito no financeiro, 15/nov NÃO é alcançável só com esforço adicional — o de-escopo (E03 financeiro primeiro) é o único trilho para preservar a data.",
+      "rationale": "Data de go-live FIXA e externa: 15/nov/2026 (marco de interoperabilidade total do Decreto 12.712/2025 + entrada do financeiro em produção). Início 17/ago/2026 → janela de construção ~13 semanas → homologação início nov → PROD 15/nov. Estratégia: definição fundacional de objetos + mapeamento de dados com o time inteiro primeiro, depois paralelização das frentes de baixa dependência. A data é o âncora imóvel; o ESCOPO é a variável de flexão — MVP definido, com candidatos a de-escopo (Data Cloud em E02, Marketing Cloud/alertas, Agentforce E06) como buffer de cronograma.",
       "set_by": "user",
       "mode": "fixed-date-backward-planned",
       "scope_flex": true
@@ -72,9 +108,9 @@
     }
   },
   "products_in_scope": [
+    "sales-cloud",
     "mulesoft",
     "experience-cloud",
-    "core-service-cloud",
     "agentforce"
   ],
   "products_with_overlay": []
