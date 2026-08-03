@@ -1,0 +1,10 @@
+# Large media / meeting recordings must not be committed (GitHub 100 MB limit).
+# Keep them on disk; they stay out of version control.
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.webm
+
+# macOS cruft
+.DS_Store
