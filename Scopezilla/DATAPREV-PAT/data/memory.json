@@ -671,6 +671,33 @@
         "Ratificar ADR 0006 + instância dedicada por escrito.",
         "Se a Fundação re-scopear sizes novos, considerar grill-me-on-scope na fatia tocada."
       ]
+    },
+    {
+      "date": "2026-08-03",
+      "skills_used": [
+        "grill-me-on-scope",
+        "revise"
+      ],
+      "summary": "Resolução do grill 03/ago sobre a fatia re-derivada do re-plano (ADR 0006). Duas apostas avaliadas pelo usuário. APOSTA B (time Scale/Hypercare sub-escopado): usuário CONCORDA com o risco e corrige na origem — o Dev MuleSoft do Scale (S14-S17) sobe de 0,5 FTE (20h/sem) para 1,0 FTE integral (40h/sem) nas 4 semanas → +80h; Scale 240h→320h; total do programa 5.120h→5.200h. Preço: build inalterado (4.880h · sem R$ 3.679.104,40 · com R$ 3.936.976,35); Scale sem R$ 177.779,20→231.281,60, com R$ 190.239,91→247.492,35; TOTAL sem R$ 3.856.883,60→3.910.386,00, com R$ 4.127.216,27→4.184.468,70 (÷0,9345). APOSTA A (E05 com um único builder MuleSoft servindo Marketplace+Financeiro em paralelo): usuário ENDOSSA sem mudança — segue 1 Dev MuleSoft + o Arquiteto MuleSoft que ele pediu para incluir; G0510 mantido como watch. Blast radius propagado em TODOS os outputs sem exceção: data/{resource-plan(S02 half→full,80→160h),commercials(ps_person_hours 5200, indicative_range),estimate-comparison(committed_price/capacity/roster/delta),roadmap(Fase 5 objectives/kb_sources)}.json; outputs/02-delivery-plan.md; outputs/artifacts/{estimate-comparison,commercials,presentation-outline}.md; outputs/artifacts/{rom-cliente,deal-review,presentation-deck}.html; presentation-deck.pptx re-renderizado (13 slides 1280×720, slide 12 verificado). Gap G0511 marcado RESOLVIDO. Execução dividida em passos pequenos por instrução do usuário (falha de API).",
+      "friction": [
+        "Falha de API em operações grandes — execução dividida em Edits pequenos, um por vez, por instrução do usuário"
+      ],
+      "decisions": [
+        {
+          "decision": "Scale Dev MuleSoft reforçado 0,5→1,0 FTE integral (APOSTA B)",
+          "rationale": "Pico de incidência dos primeiros ciclos financeiros reais sob dinheiro real numa plataforma regulada — dev integral cobre o surge na origem em vez de acionamento reativo"
+        },
+        {
+          "decision": "E05 mantém 1 Dev MuleSoft + Arquiteto MuleSoft, sem 2º builder (APOSTA A)",
+          "rationale": "User-endorsed; carga pesada concentrada no Financeiro, Marketplace só pull-endpoint leve; G0510 mantido como watch a confirmar na Fundação"
+        }
+      ],
+      "open_threads": [
+        "G0510 (watch de sub-escopo E05: 2º Dev MuleSoft na sobreposição S6-S11 se Marketplace exigir mais que pull ou gateway PCI escorregar) — a confirmar quando contratos de API/gateway forem conhecidos na Fundação"
+      ],
+      "next_steps": [
+        "Aguardar resolução dos destravamentos externos na Fundação (org greenfield, gateway, acessos MuleSoft on-premise)"
+      ]
     }
   ],
   "preferences": {},
@@ -787,6 +814,15 @@
       "rejected": [
         "Conservar as 4.180h ao re-planejar — rejeitado: instrução explícita de re-derivar aumentando horas com frente MuleSoft contínua + Arquiteto Técnico MuleSoft dedicado.",
         "Manter Engagement Manager separado — rejeitado: coordenação duplicada; Senior PM integral cobre a accountability."
+      ]
+    },
+    {
+      "date": "2026-08-03",
+      "area": "estimate/resourcing",
+      "decision": "Time de Scale/Hypercare reforçado: Dev MuleSoft de 0,5 FTE (20h/sem) para 1,0 FTE integral (40h/sem) nas 4 semanas (S14-S17) — Scale 240h→320h, total do programa 5.120h→5.200h, ROM com imposto R$ 4.127.216,27→4.184.468,70",
+      "rationale": "Grill 03/ago APOSTA B: usuário aceitou o risco de sub-escopo do watch G0511 e corrigiu na origem — o pico de incidência dos primeiros ciclos folha→boleto→split→conciliação sob dinheiro real exige um dev integral, não meio-período reativo",
+      "rejected": [
+        "Manter 0,5 Dev MuleSoft e acionar surge reativo se aparecer defeito de split/conciliação"
       ]
     }
   ]

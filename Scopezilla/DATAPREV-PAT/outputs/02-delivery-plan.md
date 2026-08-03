@@ -61,7 +61,7 @@ Com o **reuso do MuleSoft on-premise (ADR 0006)**, some o pré-requisito "instal
 
 ### Scale / Hypercare (16/nov – 13/dez · 4 semanas · S14-S17) · *pós-go-live*
 - **Time enxuto de sustentação, escopo estritamente delimitado.** Responsabilidade **restrita a três atividades: sustentar, manter e conduzir o cutover** para a Dataprev. **Não há novo desenvolvimento de escopo** nesta fase.
-- **Time (reusa perfis do build):** **0,5 Consultor Técnico** (20h/sem), **0,5 Dev MuleSoft** (20h/sem), **10h/sem de Arquiteto Técnico** e **10h/sem de Senior PM** — nas 4 semanas.
+- **Time (reusa perfis do build):** **0,5 Consultor Técnico** (20h/sem), **1 Dev MuleSoft integral** (40h/sem — reforçado de 0,5 para 1,0 no grill de 03/ago, pelo pico de incidência dos primeiros ciclos financeiros reais), **10h/sem de Arquiteto Técnico** e **10h/sem de Senior PM** — nas 4 semanas.
   - **Sustentar:** estabilização em produção, triagem e correção de defeitos, apoio aos primeiros ciclos financeiros reais.
   - **Manter:** manter rotas MuleSoft on-premise, conciliação e split operando; ajustes finos de configuração.
   - **Cutover:** transferência ordenada de operação e conhecimento à Dataprev (handover) ao fim da Sem. 17.

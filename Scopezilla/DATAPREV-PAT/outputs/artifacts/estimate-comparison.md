@@ -68,8 +68,8 @@ Preço indicativo por trilha, derivado da tabela de rates da Dataprev que você 
 | Trilha | Horas | Sem imposto | **Com imposto** | Duração | FTE média |
 |---|---:|---|---|---|---|
 | **AI-native — Build (âncora)** | 4.880h | R$ 3.679.104,40 | **R$ 3.936.976,35** | 13 sem | ~9,4 |
-| **AI-native — Scale/Hypercare** | 240h | R$ 177.779,20 | **R$ 190.239,91** | 4 sem | fracional |
-| **AI-native — TOTAL PROGRAMA** | 5.120h | **R$ 3.856.883,60** | **R$ 4.127.216,27** | 17 sem | — |
+| **AI-native — Scale/Hypercare** | 320h | R$ 231.281,60 | **R$ 247.492,35** | 4 sem | fracional (Dev MuleSoft integral) |
+| **AI-native — TOTAL PROGRAMA** | 5.200h | **R$ 3.910.386,00** | **R$ 4.184.468,70** | 17 sem | — |
 | Tradicional (notional, escopo completo) | 7.420–15.670h | R$ 5,44M – 11,48M | **R$ 5,8M – 12,3M** | 18–38 sem | ~10,6 |
 
 > *Valores são indicativos e apenas para discussão de planejamento. Estimativas finais, modelo de esforço e estrutura comercial serão confirmados por meio do acordo comercial aplicável. Viagens e despesas são faturadas conforme incorridas e não estão incluídas nas estimativas.*

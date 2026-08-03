@@ -15,8 +15,8 @@ Esta é uma **faixa de preço indicativa**, não um custo, uma margem, nem um pr
 | Medida | Horas | Sem imposto | Com imposto (÷ 0,9345) |
 |---|---:|---:|---:|
 | Build (Fase 1) | **4.880 h** | **R$ 3.679.104,40** | **R$ 3.936.976,35** |
-| Scale/Hypercare | **240 h** | **R$ 177.779,20** | **R$ 190.239,91** |
-| **TOTAL PROGRAMA** | **5.120 h** | **R$ 3.856.883,60** | **R$ 4.127.216,27** |
+| Scale/Hypercare | **320 h** | **R$ 231.281,60** | **R$ 247.492,35** |
+| **TOTAL PROGRAMA** | **5.200 h** | **R$ 3.910.386,00** | **R$ 4.184.468,70** |
 
 *Ponto indicativo na janela fixa — não faixa. As 17 semanas são compromisso do usuário (planejamento de trás pra frente a partir do go-live de 15/nov/2026, seguido de 4 semanas de Scale/Hypercare até 13/dez/2026); o escopo é a variável de flexão, com E06/Agentforce, Data Cloud e Marketing Cloud de-escopados como buffer de cronograma. Pico de 13 pessoas no build.*
 
@@ -47,16 +47,16 @@ Preço = Σ sobre as linhas do roster de (horas-por-pessoa × contagem × rate s
 | Technical Consultant (carga) | 40 | 668,78 | 715,66 | 26.751,20 | 28.626,22 |
 | **SUBTOTAL BUILD** | **4.880** | | | **3.679.104,40** | **3.936.976,35** |
 
-**Scale/Hypercare (S14-S17) — 240h, reusa perfis do build:**
+**Scale/Hypercare (S14-S17) — 320h, reusa perfis do build:**
 
 | Função (roster) | Horas | Rate s/ imp. (R$/h) | Rate c/ imp. (R$/h) | Subtotal s/ imp. (R$) | Subtotal c/ imp. (R$) |
 |---|---:|---:|---:|---:|---:|
 | 0,5 Consultor Técnico (20h/sem) | 80 | 668,78 | 715,66 | 53.502,40 | 57.252,43 |
-| 0,5 Dev MuleSoft (20h/sem) | 80 | 668,78 | 715,66 | 53.502,40 | 57.252,43 |
+| 1 Dev MuleSoft integral (40h/sem) | 160 | 668,78 | 715,66 | 107.004,80 | 114.504,87 |
 | Arquiteto Técnico (10h/sem) | 40 | 884,68 | 946,69 | 35.387,20 | 37.867,52 |
 | Senior PM (10h/sem) | 40 | 884,68 | 946,69 | 35.387,20 | 37.867,52 |
-| **SUBTOTAL SCALE** | **240** | | | **177.779,20** | **190.239,91** |
-| **TOTAL PROGRAMA** | **5.120** | | | **3.856.883,60** | **4.127.216,27** |
+| **SUBTOTAL SCALE** | **320** | | | **231.281,60** | **247.492,35** |
+| **TOTAL PROGRAMA** | **5.200** | | | **3.910.386,00** | **4.184.468,70** |
 
 *Rate com imposto por função = rate sem imposto da tabela oficial ÷ 0,9345 (Senior Architect/PM/MuleSoft TA 884,68→946,69; Experience Architect 789,88→845,24; Developer/Technical Consultant 668,78→715,66; QA/Solution Consultant 573,98→614,21).*
 
