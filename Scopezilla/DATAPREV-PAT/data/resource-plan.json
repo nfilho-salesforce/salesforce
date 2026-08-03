@@ -46,14 +46,14 @@
     "active_weeks": "S1-S4 full + S5-S11 (20h/sem)",
     "hours": 300,
     "side": "ps",
-    "rate_no_tax": 884.68,
+    "rate_no_tax": 821.49,
     "justification": "NOVO — arquiteto técnico dedicado à FRENTE MULESOFT contínua (E05), que se estende por todo o P&D e DEV (S1-S11). Reuso da instalação on-premise existente (ADR 0006) não elimina o desenho da camada API-led: contratos, roteamento, de-tokenização em runtime, agendamento de conciliação por lotes e a integração do gateway PCI seguem no caminho crítico. Alocação INTEGRAL nas 4 primeiras semanas (arquitetura + P&D da camada de integração, Sem. 1-4 = 160h) e 20h/sem nas semanas de DEV (Sem. 5-11 = 140h). Onshore pela soberania on-premise e acoplamento de timezone."
   },
   {
     "resource_id": "R12",
-    "role": "Technical Architect",
-    "table_role": "Payments/Financial Architecture Specialist",
-    "seniority": "senior",
+    "role": "Developer",
+    "table_role": "Technical Consultant",
+    "seniority": "regular",
     "location": "onshore",
     "count": 1,
     "allocation": "half-then-full",
@@ -65,9 +65,8 @@
     "active_weeks": "S1-S4 half + S6-S11 full",
     "hours": 320,
     "side": "ps",
-    "rate_no_tax": 884.68,
-    "rate_flag": "⚠ Sem correspondente exato na tabela Dataprev; mapeado a Senior Technical Architect (R$ 884,68). A confirmar role/taxa de conversão de especialista de pagamentos/bancário.",
-    "justification": "E03 é XL (ADR 0003): o Salesforce é o MOTOR DE REGRAS DE SPLIT — calcula/aplica o rateio (governo/facilitadora/estabelecimento) com teto de MDR 3,6% e repasse ≤15 dias (Decreto 12.712/2025), emite boletagem com o split aplicado e concilia por casamento. Especialista de arquitetura financeira/bancária: define as regras de split e conciliação (G0304) e o contrato de integração com o gateway PCI/banco custódia (G0309) na Fundação (half, Sem. 1-4 = 80h) e conduz o build da frente Financeiro em paralelo ao Marketplace (full, Sem. 6-11 = 240h). Onshore por acoplamento regulatório e de timezone."
+    "rate_no_tax": 668.78,
+    "justification": "E03 é XL (ADR 0003): o Salesforce é o MOTOR DE REGRAS DE SPLIT — calcula/aplica o rateio (governo/facilitadora/estabelecimento) com teto de MDR 3,6% e repasse ≤15 dias (Decreto 12.712/2025), emite boletagem com o split aplicado e concilia por casamento. Consultor Técnico dedicado à frente Financeiro: implementa as regras de split e conciliação (G0304) e o contrato de integração com o gateway PCI/banco custódia (G0309) na Fundação (half, Sem. 1-4 = 80h) e conduz o build da frente Financeiro em paralelo ao Marketplace (full, Sem. 6-11 = 240h). Onshore por acoplamento regulatório e de timezone. Rate corrigido para Technical Consultant (R$ 668,78) em 03/ago — antes mapeado provisoriamente a Senior TA."
   },
   {
     "resource_id": "R04",
@@ -182,14 +181,14 @@
     "seniority": "regular",
     "location": "offshore",
     "count": 1,
-    "allocation": "half",
+    "allocation": "full",
     "phases_active": "5",
     "active_weeks": "S14-S17",
-    "hours": 80,
+    "hours": 160,
     "side": "ps",
     "rate_no_tax": 668.78,
     "scale_reuse": "reusa perfil de Consultor Técnico do build",
-    "justification": "SCALE/HYPERCARE — meio Consultor Técnico (0,5 FTE = 20h/sem × 4 sem = 80h). Responsabilidades: SUSTENTAR (triar/corrigir incidentes de estabilização) e MANTER a plataforma em produção. Sem build de nova funcionalidade."
+    "justification": "SCALE/HYPERCARE — Consultor Técnico INTEGRAL (1,0 FTE = 40h/sem × 4 sem = 160h). Reforçado de 0,5→1,0 FTE em 03/ago: nas 4 semanas pós-go-live sob dinheiro real, sustentar e manter a plataforma (triar/corrigir incidentes de estabilização, ajustes de configuração) é trabalho de período integral. Responsabilidades: SUSTENTAR (triar/corrigir incidentes de estabilização) e MANTER a plataforma em produção. Sem build de nova funcionalidade."
   },
   {
     "resource_id": "S02",
@@ -198,14 +197,14 @@
     "seniority": "regular",
     "location": "offshore",
     "count": 1,
-    "allocation": "full",
+    "allocation": "half",
     "phases_active": "5",
     "active_weeks": "S14-S17",
-    "hours": 160,
+    "hours": 80,
     "side": "ps",
     "rate_no_tax": 668.78,
     "scale_reuse": "reusa perfil de Dev MuleSoft do build",
-    "justification": "SCALE/HYPERCARE — 1 Dev MuleSoft INTEGRAL (1,0 FTE = 40h/sem × 4 sem = 160h). Reforçado de 0,5→1,0 FTE no grill 03/ago (APOSTA B): os primeiros ciclos reais folha→boleto→split→conciliação sob dinheiro real são o pico de incidência numa plataforma financeira regulada — meio-período não cobre um defeito de split/conciliação sob carga. Responsabilidades: MANTER a saúde das rotas MuleSoft on-premise e a conciliação/split em produção; apoiar o CUTOVER das integrações. Sem build de nova funcionalidade."
+    "justification": "SCALE/HYPERCARE — meio Dev MuleSoft (0,5 FTE = 20h/sem × 4 sem = 80h). Ajustado de 1,0→0,5 FTE em 03/ago: o esforço integral de sustentação nas 4 semanas migra para o Consultor Técnico (S01); o Dev MuleSoft cobre meio-período para MANTER a saúde das rotas MuleSoft on-premise e a conciliação/split em produção e apoiar o CUTOVER das integrações. Sem build de nova funcionalidade."
   },
   {
     "resource_id": "S03",

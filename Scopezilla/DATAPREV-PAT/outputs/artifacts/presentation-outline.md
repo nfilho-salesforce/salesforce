@@ -110,9 +110,9 @@
 ## Approved Commercials
 
 ### Slide 12 — Investimento indicativo
-- **Título de ação:** Investimento indicativo do programa completo (build + Scale/Hypercare): R$ 4,18M (com imposto)
+- **Título de ação:** Investimento indicativo do programa completo (build + Scale/Hypercare): R$ 4,09M (com imposto)
 - **Existe porque:** o público pediu a cifra; entra com base transparente e disclaimer.
-- **Conteúdo (stats):** total 5.200h · R$ 4.184.468,70 com imposto (R$ 3.910.386,00 sem) — build 4.880h · R$ 3.936.976,35 c.imp (R$ 3.679.104,40 s.imp) + Scale/Hypercare 320h · R$ 247.492,35 c.imp (R$ 231.281,60 s.imp) · trilha AI-native · janela de 17 semanas (13 de build + 4 de Scale/Hypercare) · roster de 11 funções PS de build (13 pessoas no pico) + 4 funções de Scale (Dev MuleSoft integral). **Ponto indicativo, não faixa; escopo é a variável de flexão.**
+- **Conteúdo (stats):** total 5.200h · R$ 4.090.252,54 com imposto (R$ 3.822.341,00 sem) — build 4.880h · R$ 3.842.760,19 c.imp (R$ 3.591.059,40 s.imp) + Scale/Hypercare 320h · R$ 247.492,35 c.imp (R$ 231.281,60 s.imp) · trilha AI-native · janela de 17 semanas (13 de build + 4 de Scale/Hypercare) · roster de 11 funções PS de build (13 pessoas no pico) + 4 funções de Scale (Consultor Técnico integral). **Ponto indicativo, não faixa; escopo é a variável de flexão.**
 - **Visual:** stat tiles + disclaimer box. **Densidade:** balanced.
 - **Fonte:** commercials.md / commercials.json.
 - **Disclaimer (verbatim, Validated-Rate):** "*This range is based on the rate of the official Salesforce PS LATAM rate table (per-role, R$ 573,98–R$ 884,68/h sem imposto, mapeado por função no roster) you supplied and validated on 2026-07-31. Indicative for planning only; final commercial structure is confirmed through the applicable commercial agreement.*"

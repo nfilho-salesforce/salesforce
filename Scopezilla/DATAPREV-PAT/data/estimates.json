@@ -48,7 +48,7 @@
     },
     "size_rationale": "XL — o motor de regras financeiras reside no Salesforce (ADR 0003): cálculo/aplicação de split + emissão de boletagem + conciliação (casamento) são lógica financeira real, não 'instruir e esquecer'. É a realização do size_if_assumption_breaks anterior (L→XL). A execução/custódia sai (gateway externo), mas as regras ficam.",
     "complexity_drivers": "Motor de regras de split custom no CRM (rateio multi-parte, teto MDR 3,6%, repasse regulado ≤15 dias), emissão de boletagem com split, conciliação/casamento e tratamento de divergência, idempotência crítica; execução bancária e custódia FORA de escopo (gateway PCI, cliente).",
-    "skills_needed": "Salesforce Developer, Payments/Financial Architecture Specialist (arquitetura bancária/split), MuleSoft Developer",
+    "skills_needed": "Salesforce Developer, Technical Consultant (arquitetura bancária/split), MuleSoft Developer",
     "risks": "Provedor do gateway PCI não definido — dependência de terceiro, risco 15/nov (G0309); regras de conciliação/divergência ainda indefinidas (G0304); mecânica boleto/Pix e settlement do gateway (G0302/G0301); tratamento de erro de pagamento (G0305); risco do baseline Core-only se financeiro crescer (G0308).",
     "solution_approach": "Objetos custom folha/contrato/regras-de-split; motor de regras de split em Apex/Flow que calcula o rateio e emite a boletagem; orquestração + conciliação (casamento) no CRM; integração com o gateway PCI via MuleSoft (envia boletagem, recebe movimentações via webhook) com idempotência e trilha.",
     "size_if_assumption_breaks": "Já em XL. Pressão adicional para reintroduzir Revenue Cloud Billing se o volume de transações e a complexidade de faturamento/notas crescerem além do motor custom.",

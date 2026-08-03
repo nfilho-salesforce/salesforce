@@ -49,7 +49,7 @@ Com o **reuso do MuleSoft on-premise (ADR 0006)**, some o pré-requisito "instal
 
 ### Financeiro — Folha, Motor de Split & Conciliação (21/set – 1/nov · 6 semanas · S6-S11) · *frente paralelizada, arranca junto com o Marketplace · depende de: Fundação (E05, E08), gateway*
 - **Épicas:** E03 (**XL** — o fluxo folha→pagamento→split completo, 8 passos): upload CSV da folha (portal/API) → validação de layout + integridade → crítica via melhor alternativa Salesforce (Einstein/agente); **linhas da folha NÃO persistem em objeto** (roadmap futuro) → facilitadora baixa por contrato/vigência → retorna "processado" + valor via API → plataforma envia valor ao **gateway** (intermedia conta custódia) → recebe **boleto registrado** + metadados/link → boleto disponível à beneficiária no portal → plataforma recebe movimentações bancárias do gateway → **identificação de pagamento em lotes incrementais via agendamento MuleSoft** → consulta regras de split → calcula repasse à facilitadora + demais → registra todo o racional/datas/split/ordens de transferência, entregando via MuleSoft ao **gateway (executor único das transações bancárias)**.
-- **Paralelizada com o Marketplace** (arranca em S6, logo após o marco fundacional), com o **Payments/Financial Architecture Specialist** em dedicação integral e a frente MuleSoft dando suporte contínuo. Fase XL mais sensível à data fixa; se algo escorrega, a pressão de de-escopo bate aqui primeiro.
+- **Paralelizada com o Marketplace** (arranca em S6, logo após o marco fundacional), com um **Consultor Técnico** dedicado à frente Financeiro em tempo integral e a frente MuleSoft dando suporte contínuo. Fase XL mais sensível à data fixa; se algo escorrega, a pressão de de-escopo bate aqui primeiro.
 
 ### Homologação (UAT) — a partir da entrega do Marketplace (5/out – 14/nov · 6 semanas · S8-S13) · *depende das entregas incrementais das frentes*
 - **UAT antecipado:** arranca a partir da **entrega do Marketplace (S8)** e corre em paralelo às frentes, ganhando **+1 semana de UAT** frente ao plano anterior. QA em teste contínuo, com **surge** no hardening pré-go-live (financeiro regulado, data fixa).
@@ -61,7 +61,7 @@ Com o **reuso do MuleSoft on-premise (ADR 0006)**, some o pré-requisito "instal
 
 ### Scale / Hypercare (16/nov – 13/dez · 4 semanas · S14-S17) · *pós-go-live*
 - **Time enxuto de sustentação, escopo estritamente delimitado.** Responsabilidade **restrita a três atividades: sustentar, manter e conduzir o cutover** para a Dataprev. **Não há novo desenvolvimento de escopo** nesta fase.
-- **Time (reusa perfis do build):** **0,5 Consultor Técnico** (20h/sem), **1 Dev MuleSoft integral** (40h/sem — reforçado de 0,5 para 1,0 no grill de 03/ago, pelo pico de incidência dos primeiros ciclos financeiros reais), **10h/sem de Arquiteto Técnico** e **10h/sem de Senior PM** — nas 4 semanas.
+- **Time (reusa perfis do build):** **1 Consultor Técnico integral** (40h/sem — reforçado de 0,5 para 1,0 em 03/ago, pois sustentar/manter a plataforma sob dinheiro real é trabalho de período integral), **0,5 Dev MuleSoft** (20h/sem), **10h/sem de Arquiteto Técnico** e **10h/sem de Senior PM** (o mesmo arquiteto e o mesmo PM do build) — nas 4 semanas.
   - **Sustentar:** estabilização em produção, triagem e correção de defeitos, apoio aos primeiros ciclos financeiros reais.
   - **Manter:** manter rotas MuleSoft on-premise, conciliação e split operando; ajustes finos de configuração.
   - **Cutover:** transferência ordenada de operação e conhecimento à Dataprev (handover) ao fim da Sem. 17.
@@ -113,7 +113,7 @@ Distinto do buffer de de-escopo acima: estes itens **não fazem parte da Fase 1 
 | Modelo de dados fundacional atrasa (bloqueia paralelização) | Fundação | Time inteiro no arranque; marco explícito antes de abrir frentes | ADR 0004 |
 | Novo PAT sem API hoje (mock→real) | Fundação→frente MuleSoft | Mock-first obrigatório; governança de virada; frente MuleSoft contínua | G0501 |
 | Fronteira de residência não ratificada | Fundação | Ratificar com Jair Bogo antes do data model | G0801 |
-| Regras de split/conciliação indefinidas | Financeiro | Definir na Fundação; Payments/Financial Architecture Specialist dedicado | G0304 |
+| Regras de split/conciliação indefinidas | Financeiro | Definir na Fundação; Consultor Técnico dedicado à frente Financeiro | G0304 |
 | Data fixa 15/nov agressiva para o escopo XL do financeiro | Financeiro→carga | De-escopo E03 como buffer; QA surge; ⚠ sinalizar se pré-requisito escorregar | — |
 | Volume de carga desconhecido | Carga | Carga mínima em 2 semanas na Fase 1; massiva pós-go-live | G0701 |
 
@@ -121,4 +121,4 @@ Distinto do buffer de de-escopo acima: estes itens **não fazem parte da Fase 1 
 
 ## Equipe
 
-As disciplinas e o roster nomeado para entregar isto — com contagens defensáveis, por lane — vêm do **`estimate`**. Este documento é funcionalidade ao longo do tempo; não nomeia time. Observação para o `estimate`: o build foi **re-derivado por janela** (não por índice de fase) sobre o plano paralelizado; E05 é uma **frente MuleSoft contínua** (S1-S11) com um **Arquiteto Técnico MuleSoft** dedicado (integral nas 4 primeiras semanas, 20h/sem nas semanas de dev); E03 XL exige um **especialista de arquitetura financeira/bancária (split)** em dedicação integral na frente Financeiro; e há **4 semanas de Scale/Hypercare** (S14-S17) com time enxuto reusando perfis do build. A accountability antes atribuída a um Engagement Manager separado foi **absorvida pelo Senior PM** em dedicação integral.
+As disciplinas e o roster nomeado para entregar isto — com contagens defensáveis, por lane — vêm do **`estimate`**. Este documento é funcionalidade ao longo do tempo; não nomeia time. Observação para o `estimate`: o build foi **re-derivado por janela** (não por índice de fase) sobre o plano paralelizado; E05 é uma **frente MuleSoft contínua** (S1-S11) com um **Arquiteto Técnico MuleSoft** dedicado (integral nas 4 primeiras semanas, 20h/sem nas semanas de dev); E03 XL exige um **Consultor Técnico** dedicado à frente Financeiro (split/conciliação) em tempo integral; e há **4 semanas de Scale/Hypercare** (S14-S17) com time enxuto reusando perfis do build (1,0 Consultor Técnico integral + 0,5 Dev MuleSoft + 10h/sem Arquiteto Técnico + 10h/sem Senior PM). A accountability antes atribuída a um Engagement Manager separado foi **absorvida pelo Senior PM** em dedicação integral.

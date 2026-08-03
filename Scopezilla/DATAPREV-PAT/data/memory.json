@@ -698,6 +698,37 @@
       "next_steps": [
         "Aguardar resolução dos destravamentos externos na Fundação (org greenfield, gateway, acessos MuleSoft on-premise)"
       ]
+    },
+    {
+      "date": "2026-08-03",
+      "skills_used": [
+        "revise"
+      ],
+      "summary": "Correção de rates e recálculo financeiro em TODOS os pontos do projeto e output (mudança confirmada única, 15:02). Sete correções: (1) MuleSoft Technical Architect ganha faixa própria 884,68→821,49 sem imposto (c.imp 879,07); (2) ex-Payments/Financial Architecture Specialist substituído por Technical Consultant 884,68→668,78 (320h mantidas); (3) Scale Consultor Técnico 0,5→1,0 FTE integral (80→160h); (4) Scale Dev MuleSoft 1,0→0,5 FTE (160→80h) — REVERTE a APOSTA B da sessão anterior; (5) Scale Arquiteto Técnico segue Senior TA 884,68 (mesmo arquiteto do build); (6) Scale Senior PM segue 884,68 (mesmo PM do build); (7) consolidação da matriz semanal — horas de Scale foldadas nas linhas das roles-pai marcadas (+Scale), sem duplicar as 4 linhas 🛟. Swap net-zero: Scale segue 320h e total segue 5.200h; só o preço cai R$ 88.045,00 sem imposto (build 3.679.104,40→3.591.059,40; total sem 3.910.386,00→3.822.341,00; com 4.184.468,70→4.090.252,54). Blast radius propagado sem exceção: data/{resource-plan,commercials,estimate-comparison,roadmap,estimates}.json; outputs/02-delivery-plan.md; outputs/artifacts/{commercials,estimate-comparison,presentation-outline}.md; outputs/artifacts/{rom-cliente,deal-review,presentation-deck}.html; CSVs (json-to-csv) + scoping-deliverables.xlsx (export-deliverables) regenerados; presentation-deck.pptx re-renderizado (13 slides 1280×720, slide 12 verificado R$ 4,09M). Execução quebrada em partes por instrução do usuário (mitigação de falha de API).",
+      "friction": [
+        "PPTX inicialmente escrito no path errado (raiz do projeto em vez de outputs/artifacts/); corrigido — rebuild no path canônico e remoção do arquivo solto"
+      ],
+      "decisions": [
+        {
+          "decision": "MuleSoft Technical Architect em faixa própria (821,49)",
+          "rationale": "Não pertence ao tier sênior onshore 884,68; rate próprio da tabela oficial"
+        },
+        {
+          "decision": "ex-Payments→Technical Consultant (668,78)",
+          "rationale": "Payments/Financial Architecture Specialist não tem correspondente na tabela Dataprev; mapeado a Technical Consultant"
+        },
+        {
+          "decision": "Scale: Consultor Técnico integral + Dev MuleSoft 0,5 (reverte APOSTA B)",
+          "rationale": "O esforço integral de sustentação migra para o Consultor Técnico; net-zero em horas"
+        }
+      ],
+      "open_threads": [
+        "Change & Adoption → Solution Consultant (573,98) segue como mapeamento por nome mais semelhante — taxa de conversão a confirmar com o usuário"
+      ],
+      "next_steps": [
+        "Validar (validate-data.py)",
+        "Checkpoint (commit + push origin)"
+      ]
     }
   ],
   "preferences": {},
@@ -823,6 +854,17 @@
       "rationale": "Grill 03/ago APOSTA B: usuário aceitou o risco de sub-escopo do watch G0511 e corrigiu na origem — o pico de incidência dos primeiros ciclos folha→boleto→split→conciliação sob dinheiro real exige um dev integral, não meio-período reativo",
       "rejected": [
         "Manter 0,5 Dev MuleSoft e acionar surge reativo se aparecer defeito de split/conciliação"
+      ]
+    },
+    {
+      "date": "2026-08-03",
+      "area": "commercials/resourcing",
+      "decision": "Correção de rates: MuleSoft Technical Architect em faixa própria 884,68→821,49; ex-Payments/Financial Architecture Specialist substituído por Technical Consultant 884,68→668,78; Scale Consultor Técnico 0,5→1,0 FTE integral e Dev MuleSoft 1,0→0,5 FTE (reverte APOSTA B). Net-zero em horas (Scale 320h, total 5.200h inalterados); preço cai R$ 88.045,00 sem imposto → total sem R$ 3.822.341,00 / com R$ 4.090.252,54",
+      "rationale": "Rates corrigidos para refletir a tabela oficial (MuleSoft TA tem faixa própria; a role Payments não existe na tabela e mapeia a Technical Consultant) e a composição real do time de Scale (esforço integral de sustentação é do Consultor Técnico, não do Dev MuleSoft). Consolidação da matriz semanal folda as horas de Scale nas roles-pai sem duplicar linhas.",
+      "rejected": [
+        "Manter MuleSoft TA no tier 884,68",
+        "Manter a role Payments/Financial Architecture Specialist a 884,68",
+        "Manter a APOSTA B (Dev MuleSoft integral no Scale)"
       ]
     }
   ]

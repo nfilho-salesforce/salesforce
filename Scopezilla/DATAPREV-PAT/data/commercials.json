@@ -5,13 +5,22 @@
   "tax_rule": "com imposto = sem imposto ÷ 0,9345",
   "rates": [
     {
-      "role": "Sr Solution Architect / Sr Technical Architect / MuleSoft Technical Architect / Payments Architecture Specialist / Senior Project Manager (onshore-senior)",
+      "role": "Sr Solution Architect / Sr Technical Architect / Senior Project Manager (onshore-senior)",
       "rate": 884.68,
       "currency": "BRL",
       "basis": "sem imposto",
       "validated_by": "user",
       "validated_at": "2026-07-31",
       "rate_with_tax": 946.69
+    },
+    {
+      "role": "MuleSoft Technical Architect (onshore-senior)",
+      "rate": 821.49,
+      "currency": "BRL",
+      "basis": "sem imposto",
+      "validated_by": "user",
+      "validated_at": "2026-08-03",
+      "rate_with_tax": 879.07
     },
     {
       "role": "Project Manager / Experience Architect (onshore-regular & offshore-regular design)",
@@ -41,12 +50,12 @@
       "rate_with_tax": 614.21
     }
   ],
-  "rate_source": "Tabela oficial Salesforce PS LATAM (sem imposto), mapeada por table_role no resource-plan.json. Rates fornecidos e validados pelo usuário (também validated_by:user em estimate-comparison.json). O Senior PM e o novo Arquiteto Técnico MuleSoft entram no tier sênior onshore (884,68). Dois papéis carregam rate_flag ⚠ (Payments/Financial Architecture Specialist → Sr Technical Architect 884,68; Change & Adoption → Solution Consultant 573,98) — mapeamento por nome mais semelhante, taxa de conversão a confirmar.",
+  "rate_source": "Tabela oficial Salesforce PS LATAM (sem imposto), mapeada por table_role no resource-plan.json. Rates fornecidos e validados pelo usuário (também validated_by:user em estimate-comparison.json). O Arquiteto Técnico MuleSoft passa a ter faixa própria de R$ 821,49 sem imposto (corrigido em 03/ago — antes agrupado no tier sênior 884,68). O antigo Payments/Financial Architecture Specialist foi substituído por Technical Consultant (R$ 668,78) em 03/ago. Resta um papel com rate_flag ⚠ (Change & Adoption → Solution Consultant 573,98) — mapeamento por nome mais semelhante, taxa de conversão a confirmar.",
   "effort_basis": {
     "source": "re-derived-by-window",
     "duration_weeks_range": "17 (13 de build/Fase 1 + 4 de Scale/Hypercare)",
-    "roster_summary": "15 linhas PS: BUILD (11 linhas, 4.880h) = 5 sênior onshore (SA, TA, Arquiteto Técnico MuleSoft NOVO, Payments TA, Senior PM) + 2 Devs regular offshore + 1 MuleSoft TC offshore + 1 Experience Design offshore + 2 QA offshore + 1 Change & Adoption onshore (fracional) + 1 Technical Consultant offshore (carga, fracional). SCALE/HYPERCARE (4 linhas, 320h) = 0,5 Consultor Técnico + 1,0 Dev MuleSoft INTEGRAL + 10h/sem Arquiteto Técnico + 10h/sem Senior PM, reusando perfis do build. SEM Engagement Manager separado (accountability absorvida pelo Senior PM full).",
-    "derivation_note": "Horas RE-DERIVADAS por janela de cada recurso no plano paralelizado (não por índice de fase): hours = alocação × semanas ativas × 40h. Build = 4.880h nas 13 semanas (Fundação S1-S4, Marketplace S5-S10, Financeiro S6-S11 em paralelo, UAT S8-S13, carga S12-S13). Scale/Hypercare = 320h nas 4 semanas S14-S17 (16/nov-13/dez). Preço = Σ(horas × rate sem imposto por table_role). MuleSoft agora REUSA a instalação on-premise existente (ADR 0006) — sem lead-time de aprovisionamento; a Etapa 0 foi eliminada e a arquitetura mesclada ao P&D da Fundação. E06/Agentforce fora da Fase 1; Data Cloud e Marketing Cloud de-escopados como buffer."
+    "roster_summary": "15 linhas PS: BUILD (11 linhas, 4.880h) = 3 sênior onshore no tier 884,68 (SA, TA, Senior PM) + 1 Arquiteto Técnico MuleSoft no tier 821,49 + 1 Technical Consultant onshore na frente Financeiro (ex-Payments, 668,78) + 2 Devs regular offshore + 1 MuleSoft TC offshore + 1 Experience Design offshore + 2 QA offshore + 1 Change & Adoption onshore (fracional) + 1 Technical Consultant offshore (carga, fracional). SCALE/HYPERCARE (4 linhas, 320h) = 1,0 Consultor Técnico INTEGRAL + 0,5 Dev MuleSoft + 10h/sem Arquiteto Técnico + 10h/sem Senior PM, reusando os mesmos perfis do build (mesmo arquiteto e mesmo PM). SEM Engagement Manager separado (accountability absorvida pelo Senior PM full).",
+    "derivation_note": "Horas RE-DERIVADAS por janela de cada recurso no plano paralelizado (não por índice de fase): hours = alocação × semanas ativas × 40h. Build = 4.880h nas 13 semanas (Fundação S1-S4, Marketplace S5-S10, Financeiro S6-S11 em paralelo, UAT S8-S13, carga S12-S13). Scale/Hypercare = 320h nas 4 semanas S14-S17 (16/nov-13/dez). Preço = Σ(horas × rate sem imposto por table_role). Correção de rates em 03/ago: MuleSoft TA de 884,68→821,49 e ex-Payments para Technical Consultant 884,68→668,78; no Scale, Consultor Técnico 0,5→1,0 FTE e Dev MuleSoft 1,0→0,5 FTE (total Scale inalterado, 320h). MuleSoft REUSA a instalação on-premise existente (ADR 0006) — sem lead-time de aprovisionamento; a Etapa 0 foi eliminada e a arquitetura mesclada ao P&D da Fundação. E06/Agentforce fora da Fase 1; Data Cloud e Marketing Cloud de-escopados como buffer."
   },
   "ps_person_hours": 5200,
   "ps_person_hours_breakdown": {
@@ -55,15 +64,15 @@
     "total": 5200
   },
   "indicative_range": {
-    "low": 4184469,
-    "high": 4184469,
+    "low": 4090253,
+    "high": 4090253,
     "currency": "BRL",
     "confidence": "Assumed",
-    "point_note": "Ponto indicativo do programa (não faixa): Fase 1 re-derivada nas janelas paralelizadas + 4 semanas de Scale/Hypercare. Build: sem imposto R$ 3.679.104,40 · com imposto R$ 3.936.976,35. Scale: sem imposto R$ 231.281,60 · com imposto R$ 247.492,35 (Dev MuleSoft reforçado 0,5→1,0 FTE integral no grill 03/ago). TOTAL: sem imposto R$ 3.910.386,00 · com imposto (÷0,9345) R$ 4.184.468,70. Sizes ainda Assumed atrás dos blockers de arquitetura (residência, contratos de API, gateway).",
-    "no_tax": 3910386,
-    "with_tax": 4184469,
-    "no_tax_build": 3679104,
-    "with_tax_build": 3936976,
+    "point_note": "Ponto indicativo do programa (não faixa): Fase 1 re-derivada nas janelas paralelizadas + 4 semanas de Scale/Hypercare. Build: sem imposto R$ 3.591.059,40 · com imposto R$ 3.842.760,19. Scale: sem imposto R$ 231.281,60 · com imposto R$ 247.492,35 (Consultor Técnico 1,0 FTE integral + 0,5 Dev MuleSoft). TOTAL: sem imposto R$ 3.822.341,00 · com imposto (÷0,9345) R$ 4.090.252,54. Rates corrigidos em 03/ago (MuleSoft TA 821,49; ex-Payments→Technical Consultant 668,78) reduziram o total em R$ 88.045,00 sem imposto vs. a versão anterior. Sizes ainda Assumed atrás dos blockers de arquitetura (residência, contratos de API, gateway).",
+    "no_tax": 3822341,
+    "with_tax": 4090253,
+    "no_tax_build": 3591059,
+    "with_tax_build": 3842760,
     "no_tax_scale": 231282,
     "with_tax_scale": 247492
   },

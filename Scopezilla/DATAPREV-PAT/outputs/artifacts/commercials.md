@@ -14,9 +14,9 @@ Esta é uma **faixa de preço indicativa**, não um custo, uma margem, nem um pr
 
 | Medida | Horas | Sem imposto | Com imposto (÷ 0,9345) |
 |---|---:|---:|---:|
-| Build (Fase 1) | **4.880 h** | **R$ 3.679.104,40** | **R$ 3.936.976,35** |
+| Build (Fase 1) | **4.880 h** | **R$ 3.591.059,40** | **R$ 3.842.760,19** |
 | Scale/Hypercare | **320 h** | **R$ 231.281,60** | **R$ 247.492,35** |
-| **TOTAL PROGRAMA** | **5.200 h** | **R$ 3.910.386,00** | **R$ 4.184.468,70** |
+| **TOTAL PROGRAMA** | **5.200 h** | **R$ 3.822.341,00** | **R$ 4.090.252,54** |
 
 *Ponto indicativo na janela fixa — não faixa. As 17 semanas são compromisso do usuário (planejamento de trás pra frente a partir do go-live de 15/nov/2026, seguido de 4 semanas de Scale/Hypercare até 13/dez/2026); o escopo é a variável de flexão, com E06/Agentforce, Data Cloud e Marketing Cloud de-escopados como buffer de cronograma. Pico de 13 pessoas no build.*
 
@@ -36,8 +36,8 @@ Preço = Σ sobre as linhas do roster de (horas-por-pessoa × contagem × rate s
 |---|---:|---:|---:|---:|---:|
 | Senior Solution Architect | 520 | 884,68 | 946,69 | 460.033,60 | 492.277,80 |
 | Senior Technical Architect | 480 | 884,68 | 946,69 | 424.646,40 | 454.410,27 |
-| MuleSoft Technical Architect (NOVO) | 300 | 884,68 | 946,69 | 265.404,00 | 284.006,42 |
-| Payments/Financial Architecture Specialist ⚠ | 320 | 884,68 | 946,69 | 283.097,60 | 302.940,18 |
+| MuleSoft Technical Architect (NOVO — faixa própria) | 300 | 821,49 | 879,07 | 246.447,00 | 263.720,71 |
+| Technical Consultant (frente Financeiro, ex-Payments) | 320 | 668,78 | 715,66 | 214.009,60 | 228.988,87 |
 | Senior Project Manager | 520 | 884,68 | 946,69 | 460.033,60 | 492.277,80 |
 | Developer ×2 | 1.040 | 668,78 | 715,66 | 695.531,20 | 744.281,65 |
 | MuleSoft Technical Consultant | 440 | 668,78 | 715,66 | 294.263,20 | 314.888,39 |
@@ -45,22 +45,22 @@ Preço = Σ sobre as linhas do roster de (horas-por-pessoa × contagem × rate s
 | Quality Assurance ×2 | 640 | 573,98 | 614,21 | 367.347,20 | 393.094,92 |
 | Change & Adoption / Solution Consultant ⚠ | 260 | 573,98 | 614,21 | 149.234,80 | 159.694,81 |
 | Technical Consultant (carga) | 40 | 668,78 | 715,66 | 26.751,20 | 28.626,22 |
-| **SUBTOTAL BUILD** | **4.880** | | | **3.679.104,40** | **3.936.976,35** |
+| **SUBTOTAL BUILD** | **4.880** | | | **3.591.059,40** | **3.842.760,19** |
 
 **Scale/Hypercare (S14-S17) — 320h, reusa perfis do build:**
 
 | Função (roster) | Horas | Rate s/ imp. (R$/h) | Rate c/ imp. (R$/h) | Subtotal s/ imp. (R$) | Subtotal c/ imp. (R$) |
 |---|---:|---:|---:|---:|---:|
-| 0,5 Consultor Técnico (20h/sem) | 80 | 668,78 | 715,66 | 53.502,40 | 57.252,43 |
-| 1 Dev MuleSoft integral (40h/sem) | 160 | 668,78 | 715,66 | 107.004,80 | 114.504,87 |
+| 1 Consultor Técnico integral (40h/sem) | 160 | 668,78 | 715,66 | 107.004,80 | 114.504,87 |
+| 0,5 Dev MuleSoft (20h/sem) | 80 | 668,78 | 715,66 | 53.502,40 | 57.252,43 |
 | Arquiteto Técnico (10h/sem) | 40 | 884,68 | 946,69 | 35.387,20 | 37.867,52 |
 | Senior PM (10h/sem) | 40 | 884,68 | 946,69 | 35.387,20 | 37.867,52 |
 | **SUBTOTAL SCALE** | **320** | | | **231.281,60** | **247.492,35** |
-| **TOTAL PROGRAMA** | **5.200** | | | **3.910.386,00** | **4.184.468,70** |
+| **TOTAL PROGRAMA** | **5.200** | | | **3.822.341,00** | **4.090.252,54** |
 
-*Rate com imposto por função = rate sem imposto da tabela oficial ÷ 0,9345 (Senior Architect/PM/MuleSoft TA 884,68→946,69; Experience Architect 789,88→845,24; Developer/Technical Consultant 668,78→715,66; QA/Solution Consultant 573,98→614,21).*
+*Rate com imposto por função = rate sem imposto da tabela oficial ÷ 0,9345 (Senior Architect/PM 884,68→946,69; MuleSoft Technical Architect 821,49→879,07 — faixa própria; Experience Architect 789,88→845,24; Developer/Technical Consultant/MuleSoft TC 668,78→715,66; QA/Solution Consultant 573,98→614,21). Correção de rates em 03/ago: o Arquiteto Técnico MuleSoft passou a ter faixa própria (884,68→821,49) e o antigo Payments/Financial Architecture Specialist foi substituído por Technical Consultant (884,68→668,78), reduzindo o total em R$ 88.045,00 sem imposto.*
 
-⚠ Dois papéis sem correspondente exato na tabela Dataprev, mapeados por nome mais semelhante (Payments/Financial Architecture Specialist → tier **Senior** R$ 884,68/946,69; Change & Adoption → **Solution Consultant** R$ 573,98/614,21). Taxa de conversão a confirmar com você. O Engagement Manager foi removido do roster — sua accountability foi absorvida pelo Senior Project Manager (alocação plena, tier sênior 884,68).
+⚠ Resta um papel sem correspondente exato na tabela Dataprev, mapeado por nome mais semelhante (Change & Adoption → **Solution Consultant** R$ 573,98/614,21). Taxa de conversão a confirmar com você. O antigo Payments/Financial Architecture Specialist foi corrigido para **Technical Consultant** (R$ 668,78) em 03/ago. O Engagement Manager foi removido do roster — sua accountability foi absorvida pelo Senior Project Manager (alocação plena, tier sênior 884,68).
 
 **Provenance dos rates:** tabela oficial Salesforce PS LATAM (sem imposto), fornecida e validada por Nelson em 2026-07-21 e reafirmada nesta precificação (2026-07-31). Também marcada `validated_by: user` em `estimate-comparison.json`.
 

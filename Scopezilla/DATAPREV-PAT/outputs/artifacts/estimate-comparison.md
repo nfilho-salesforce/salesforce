@@ -38,7 +38,7 @@ Uma linha por pessoa. `phases_active` = time-box (não fração); `allocation` =
 |---|---|---|---|---|---|
 | Senior Solution Architect | sênior | onshore | 1 | 1 | 884,68 |
 | Senior Technical Architect | sênior | onshore | 1 | 1 | 884,68 |
-| MuleSoft Technical Architect (NOVO — reuso on-premise, ADR 0006) | sênior | onshore | 1 | 1 | 884,68 |
+| MuleSoft Technical Architect (NOVO — reuso on-premise, ADR 0006; faixa própria) | sênior | onshore | 1 | 1 | 821,49 |
 | Senior Project Manager (absorve accountability do Engagement Manager, removido) | sênior | onshore | 1 | 1 | 884,68 |
 | Developer Core/Service (pod) | regular | offshore | **3** | **2** | 668,78 |
 | MuleSoft Technical Consultant | regular | offshore | **2** | **1** | 668,78 |
@@ -67,9 +67,9 @@ Preço indicativo por trilha, derivado da tabela de rates da Dataprev que você 
 
 | Trilha | Horas | Sem imposto | **Com imposto** | Duração | FTE média |
 |---|---:|---|---|---|---|
-| **AI-native — Build (âncora)** | 4.880h | R$ 3.679.104,40 | **R$ 3.936.976,35** | 13 sem | ~9,4 |
-| **AI-native — Scale/Hypercare** | 320h | R$ 231.281,60 | **R$ 247.492,35** | 4 sem | fracional (Dev MuleSoft integral) |
-| **AI-native — TOTAL PROGRAMA** | 5.200h | **R$ 3.910.386,00** | **R$ 4.184.468,70** | 17 sem | — |
+| **AI-native — Build (âncora)** | 4.880h | R$ 3.591.059,40 | **R$ 3.842.760,19** | 13 sem | ~9,4 |
+| **AI-native — Scale/Hypercare** | 320h | R$ 231.281,60 | **R$ 247.492,35** | 4 sem | fracional (Consultor Técnico integral) |
+| **AI-native — TOTAL PROGRAMA** | 5.200h | **R$ 3.822.341,00** | **R$ 4.090.252,54** | 17 sem | — |
 | Tradicional (notional, escopo completo) | 7.420–15.670h | R$ 5,44M – 11,48M | **R$ 5,8M – 12,3M** | 18–38 sem | ~10,6 |
 
 > *Valores são indicativos e apenas para discussão de planejamento. Estimativas finais, modelo de esforço e estrutura comercial serão confirmados por meio do acordo comercial aplicável. Viagens e despesas são faturadas conforme incorridas e não estão incluídas nas estimativas.*

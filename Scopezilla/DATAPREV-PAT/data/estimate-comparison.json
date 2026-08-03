@@ -20,15 +20,15 @@
         "build": 4880,
         "scale_hypercare": 320
       },
-      "no_tax": 3910386,
-      "with_tax": 4184469,
-      "no_tax_build": 3679104,
-      "with_tax_build": 3936976,
+      "no_tax": 3822341,
+      "with_tax": 4090253,
+      "no_tax_build": 3591059,
+      "with_tax_build": 3842760,
       "no_tax_scale": 231282,
       "with_tax_scale": 247492,
       "tax_rule": "com imposto = sem imposto ÷ 0,9345",
       "program_avg_fte": 9.4,
-      "note": "Ponto indicativo do programa (não faixa). Build Fase 1 (13 sem) = 4.880h re-derivadas nas janelas paralelizadas + novo Arquiteto Técnico MuleSoft sênior. Scale/Hypercare (4 sem) = 320h. Total 5.200h. Sobe vs. o ponto anterior (R$ 3,74M) pela re-derivação nas janelas longas + o arquiteto MuleSoft + o Scale; parte compensada pelo reuso do MuleSoft (sem Etapa 0). Sizes Assumed atrás dos blockers de arquitetura.",
+      "note": "Ponto indicativo do programa (não faixa). Build Fase 1 (13 sem) = 4.880h re-derivadas nas janelas paralelizadas + Arquiteto Técnico MuleSoft (rate 821,49). Scale/Hypercare (4 sem) = 320h. Total 5.200h. Rates corrigidos em 03/ago: MuleSoft TA 884,68→821,49 e ex-Payments→Technical Consultant 884,68→668,78 reduzem o total em R$ 88.045 sem imposto vs. a versão anterior (R$ 3,91M). Sizes Assumed atrás dos blockers de arquitetura.",
       "disclaimers": [
         "rom",
         "validated-rate"
@@ -82,8 +82,8 @@
         "ps_person_hours": 5200,
         "ps_person_hours_build": 4880,
         "ps_person_hours_scale": 320,
-        "blended_rate_no_tax": 754.0,
-        "note": "FTE média do build = 4.880 PS person-hours / (13 sem × 40) = 9,4. Roster re-derivado por janela no plano paralelizado: Arquiteto Técnico MuleSoft sênior ADICIONADO (frente E05 contínua S1-S11), Senior PM absorve a accountability antes do Engagement Manager (removido), devs full por todo o build (janelas longas). + 4 semanas de Scale/Hypercare (320h, reusa perfis do build; Dev MuleSoft reforçado 0,5→1,0 FTE no grill 03/ago). Pico de 13 pessoas no meio do build."
+        "blended_rate_no_tax": 735.9,
+        "note": "FTE média do build = 4.880 PS person-hours / (13 sem × 40) = 9,4. Roster re-derivado por janela no plano paralelizado: Arquiteto Técnico MuleSoft (frente E05 contínua S1-S11, rate 821,49), Senior PM absorve a accountability antes do Engagement Manager (removido), devs full por todo o build (janelas longas). + 4 semanas de Scale/Hypercare (320h, reusa perfis do build; Consultor Técnico 1,0 FTE integral + 0,5 Dev MuleSoft, corrigido 03/ago). Blended de build = R$ 3.591.059,40 / 4.880h = 735,9. Pico de 13 pessoas no meio do build."
       },
       "qualification": "qualified",
       "qualification_basis": "Solution Lead (usuário) atesta que o cliente qualifica para o modelo operacional AI-native. Compromisso do usuário — carregado com a tensão de prontidão como risco #1 (ver provisional_note).",
@@ -133,13 +133,13 @@
           "active_weeks": "S1-S4 full (160h) + S5-S11 a 20h/sem (140h)",
           "hours": 300,
           "side": "ps",
-          "rate_no_tax": 884.68,
-          "justification": "NOVO — arquiteto técnico dedicado à FRENTE MULESOFT contínua (E05), que se estende por todo o P&D e DEV (S1-S11). Reuso on-premise (ADR 0006) não elimina o desenho da camada API-led (contratos, roteamento, de-tokenização em runtime, conciliação por lotes, gateway PCI). Integral nas 4 primeiras semanas (160h) + 20h/sem nas semanas de DEV S5-S11 (140h) = 300h."
+          "rate_no_tax": 821.49,
+          "justification": "NOVO — arquiteto técnico dedicado à FRENTE MULESOFT contínua (E05), que se estende por todo o P&D e DEV (S1-S11). Reuso on-premise (ADR 0006) não elimina o desenho da camada API-led (contratos, roteamento, de-tokenização em runtime, conciliação por lotes, gateway PCI). Integral nas 4 primeiras semanas (160h) + 20h/sem nas semanas de DEV S5-S11 (140h) = 300h. Rate próprio de MuleSoft Technical Architect = R$ 821,49 sem imposto (corrigido 03/ago)."
         },
         {
-          "role": "Technical Architect",
-          "table_role": "Payments/Financial Architecture Specialist",
-          "seniority": "senior",
+          "role": "Developer",
+          "table_role": "Technical Consultant",
+          "seniority": "regular",
           "location": "onshore",
           "count": 1,
           "allocation": "half-then-full",
@@ -151,9 +151,8 @@
           "active_weeks": "S1-S4 half (80h) + S6-S11 full (240h)",
           "hours": 320,
           "side": "ps",
-          "rate_no_tax": 884.68,
-          "rate_flag": "⚠ Sem correspondente exato na tabela Dataprev; mapeado a Senior Technical Architect (R$ 884,68). A confirmar role/taxa.",
-          "justification": "E03 XL (ADR 0003): define regras de split e conciliação (G0304) + contrato de integração com o gateway PCI (G0309) na Fundação (half S1-S4 = 80h) e conduz o build da frente Financeiro em PARALELO ao Marketplace (full S6-S11 = 240h). Onshore por acoplamento regulatório/timezone."
+          "rate_no_tax": 668.78,
+          "justification": "E03 XL (ADR 0003): Consultor Técnico dedicado à frente Financeiro — implementa as regras de split e conciliação (G0304) + contrato de integração com o gateway PCI (G0309) na Fundação (half S1-S4 = 80h) e conduz o build da frente Financeiro em PARALELO ao Marketplace (full S6-S11 = 240h). Onshore por acoplamento regulatório/timezone. Rate corrigido para Technical Consultant (R$ 668,78) em 03/ago — antes mapeado provisoriamente a Senior TA (884,68)."
         },
         {
           "role": "Project/Program Manager",
@@ -260,21 +259,6 @@
           "seniority": "regular",
           "location": "offshore",
           "count": 1,
-          "allocation": "half",
-          "phases_active": "5",
-          "active_weeks": "S14-S17",
-          "hours": 80,
-          "side": "ps",
-          "rate_no_tax": 668.78,
-          "scale": true,
-          "justification": "SCALE/HYPERCARE — 0,5 Consultor Técnico (20h/sem × 4 = 80h): sustentar e manter em produção."
-        },
-        {
-          "role": "Developer (Scale)",
-          "table_role": "MuleSoft Technical Consultant",
-          "seniority": "regular",
-          "location": "offshore",
-          "count": 1,
           "allocation": "full",
           "phases_active": "5",
           "active_weeks": "S14-S17",
@@ -282,7 +266,22 @@
           "side": "ps",
           "rate_no_tax": 668.78,
           "scale": true,
-          "justification": "SCALE/HYPERCARE — 1,0 Dev MuleSoft INTEGRAL (40h/sem × 4 = 160h): reforçado 0,5→1,0 no grill 03/ago (pico de incidência dos primeiros ciclos financeiros reais); manter rotas on-premise + conciliação/split, apoiar o cutover."
+          "justification": "SCALE/HYPERCARE — 1,0 Consultor Técnico INTEGRAL (40h/sem × 4 = 160h): reforçado 0,5→1,0 em 03/ago; sustentar e manter em produção sob dinheiro real é trabalho de período integral nas 4 semanas."
+        },
+        {
+          "role": "Developer (Scale)",
+          "table_role": "MuleSoft Technical Consultant",
+          "seniority": "regular",
+          "location": "offshore",
+          "count": 1,
+          "allocation": "half",
+          "phases_active": "5",
+          "active_weeks": "S14-S17",
+          "hours": 80,
+          "side": "ps",
+          "rate_no_tax": 668.78,
+          "scale": true,
+          "justification": "SCALE/HYPERCARE — 0,5 Dev MuleSoft (20h/sem × 4 = 80h): ajustado 1,0→0,5 em 03/ago (o esforço integral de sustentação migra para o Consultor Técnico S01); manter rotas on-premise + conciliação/split, apoiar o cutover."
         },
         {
           "role": "Technical Architect (Scale)",
@@ -364,15 +363,15 @@
         }
       ],
       "indicative_price_committed": {
-        "no_tax": 3910386,
-        "with_tax": 4184469,
-        "no_tax_build": 3679104,
-        "with_tax_build": 3936976,
+        "no_tax": 3822341,
+        "with_tax": 4090253,
+        "no_tax_build": 3591059,
+        "with_tax_build": 3842760,
         "no_tax_scale": 231282,
         "with_tax_scale": 247492,
         "tax_rule": "com imposto = sem imposto ÷ 0,9345",
         "formula": "Σ(horas PS do papel × rate sem imposto por table_role); horas RE-DERIVADAS por janela de cada recurso no plano paralelizado (não por índice de fase). Build = 4.880h nas 13 semanas + Scale/Hypercare = 320h nas 4 semanas S14-S17.",
-        "note": "Ponto do programa (não faixa): Fase 1 re-derivada nas janelas paralelizadas (Fundação S1-S4, Marketplace S5-S10, Financeiro S6-S11, UAT S8-S13, carga S12-S13) + 4 semanas de Scale/Hypercare. Build sem imposto R$ 3.679.104,40 · Scale sem imposto R$ 231.281,60 · TOTAL sem imposto R$ 3.910.386,00 (com imposto ÷0,9345 = R$ 4.184.468,70). Arquiteto Técnico MuleSoft sênior ADICIONADO (frente E05 contínua) e Senior PM absorve accountability (Engagement Manager removido). +22% vs. o ponto anterior de janela curta por conta do build re-derivado e do Scale.",
+        "note": "Ponto do programa (não faixa): Fase 1 re-derivada nas janelas paralelizadas (Fundação S1-S4, Marketplace S5-S10, Financeiro S6-S11, UAT S8-S13, carga S12-S13) + 4 semanas de Scale/Hypercare. Build sem imposto R$ 3.591.059,40 · Scale sem imposto R$ 231.281,60 · TOTAL sem imposto R$ 3.822.341,00 (com imposto ÷0,9345 = R$ 4.090.252,54). Rates corrigidos em 03/ago: MuleSoft Technical Architect 884,68→821,49 e ex-Payments substituído por Technical Consultant 884,68→668,78 (−R$ 88.045 sem imposto). No Scale, Consultor Técnico 0,5→1,0 FTE e Dev MuleSoft 1,0→0,5 FTE (total Scale inalterado, 320h). Arquiteto Técnico MuleSoft dedicado (frente E05 contínua) e Senior PM absorve accountability (Engagement Manager removido).",
         "disclaimers": [
           "rom",
           "validated-rate"
@@ -439,9 +438,9 @@
           "justification": "Risco #1: hub de integração E05 sem contratos, mock-first, gateway PCI como alvo. Sênior no caminho crítico; onshore por acoplamento de timezone."
         },
         {
-          "role": "Technical Architect",
-          "table_role": "Payments/Financial Architecture Specialist",
-          "seniority": "senior",
+          "role": "Developer",
+          "table_role": "Technical Consultant",
+          "seniority": "regular",
           "location": "onshore",
           "count": 1,
           "allocation": "half",
@@ -451,9 +450,8 @@
           },
           "phases_active": "0-3",
           "side": "ps",
-          "rate_no_tax": 884.68,
-          "rate_flag": "⚠ Sem correspondente exato na tabela Dataprev; mapeado a Senior Technical Architect (R$ 884,68). A confirmar role/taxa.",
-          "justification": "NOVO — E03 XL (ADR 0003): regras de split/conciliação (G0304) + integração do gateway PCI (G0309) + build de E03. Sem amplificação de agentes, carga financeira maior que na trilha AI-native — full nas etapas 2-3."
+          "rate_no_tax": 668.78,
+          "justification": "E03 XL (ADR 0003): Consultor Técnico da frente Financeiro — regras de split/conciliação (G0304) + integração do gateway PCI (G0309) + build de E03. Sem amplificação de agentes, carga financeira maior que na trilha AI-native — full nas etapas 2-3. Rate corrigido para Technical Consultant (R$ 668,78) em 03/ago."
         },
         {
           "role": "Project/Program Manager",
@@ -573,7 +571,7 @@
     }
   },
   "delta": {
-    "summary": "A comparação tem duas camadas. (1) COMPROMETIDO: Fase 1 AI-native = 13 semanas de build (17/ago-14/nov) + 4 semanas de Scale/Hypercare (16/nov-13/dez) = ponto indicativo de R$ 3,91M sem imposto / R$ 4,18M com imposto (~9,4 FTE média no build). Build R$ 3,68M sem imposto; Scale R$ 0,23M sem imposto. (2) NOTIONAL: o escopo completo pelo jeito tradicional custaria ~R$ 5,8-12,3M com imposto E não alcançaria 15/nov. O delta portanto não é só de custo — é de VIABILIDADE: a trilha tradicional está fora da data.",
+    "summary": "A comparação tem duas camadas. (1) COMPROMETIDO: Fase 1 AI-native = 13 semanas de build (17/ago-14/nov) + 4 semanas de Scale/Hypercare (16/nov-13/dez) = ponto indicativo de R$ 3,82M sem imposto / R$ 4,09M com imposto (~9,4 FTE média no build). Build R$ 3,59M sem imposto; Scale R$ 0,23M sem imposto. Rates corrigidos em 03/ago (MuleSoft TA 821,49; ex-Payments→Technical Consultant 668,78) reduziram o total em R$ 88.045 sem imposto. (2) NOTIONAL: o escopo completo pelo jeito tradicional custaria ~R$ 5,8-12,3M com imposto E não alcançaria 15/nov. O delta portanto não é só de custo — é de VIABILIDADE: a trilha tradicional está fora da data.",
     "decomposition": [
       {
         "lever": "Viabilidade de cronograma",
@@ -593,12 +591,12 @@
       {
         "lever": "Scale/Hypercare (NOVO, +4 semanas)",
         "share": "novo",
-        "detail": "16/nov-13/dez: 0,5 Consultor Técnico + 1,0 Dev MuleSoft integral + 10h/sem Arquiteto Técnico + 10h/sem Senior PM = 320h / R$ 231.281,60 sem imposto. Responsabilidade restrita: sustentar, manter e conduzir o cutover."
+        "detail": "16/nov-13/dez: 1,0 Consultor Técnico integral + 0,5 Dev MuleSoft + 10h/sem Arquiteto Técnico + 10h/sem Senior PM = 320h / R$ 231.281,60 sem imposto (mesmo arquiteto e mesmo PM do build). Responsabilidade restrita: sustentar, manter e conduzir o cutover."
       },
       {
         "lever": "E03 L→XL (motor de split no CRM)",
         "share": "contra-pressão",
-        "detail": "ADR 0003 realizou a premissa de size_if_assumption_breaks: mais lógica financeira no Salesforce, +1 especialista sênior onshore. A viabilidade de cronograma ainda domina a decisão."
+        "detail": "ADR 0003 realizou a premissa de size_if_assumption_breaks: mais lógica financeira no Salesforce, +1 Consultor Técnico onshore dedicado à frente Financeiro (rate corrigido 668,78 em 03/ago). A viabilidade de cronograma ainda domina a decisão."
       }
     ]
   },

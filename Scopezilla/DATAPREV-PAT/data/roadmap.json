@@ -66,7 +66,7 @@
   {
     "phase_number": 5,
     "phase_name": "Scale / Hypercare — Sustentação, Manutenção & Cutover (16/nov – 13/dez · Sem. 14-17 · 4 semanas)",
-    "objectives": "4 semanas de Scale/Hypercare A PARTIR DE 16/nov/2026 (dia seguinte ao go-live), com uma equipe enxuta cujas responsabilidades são EXCLUSIVAMENTE: SUSTENTAR a operação em produção (monitorar, triar e corrigir incidentes de estabilização), MANTER a plataforma e as integrações on-premise (ajustes finos, saúde das rotas MuleSoft, conciliação/split em produção) e conduzir o CUTOVER (virada operacional completa, escalonamento da carga pós-mínima e handover à operação Dataprev). NÃO há build de nova funcionalidade no Scale — é janela de estabilização, não de escopo novo. Equipe: meio Consultor Técnico (0,5 FTE = 20h/sem), UM Dev MuleSoft integral (1,0 FTE = 40h/sem — reforçado de 0,5 para 1,0 no grill de 03/ago, dado o pico de incidência dos primeiros ciclos financeiros reais sob dinheiro real), 10h/sem de um Arquiteto Técnico e 10h/sem de um Senior PM, nas 4 semanas.",
+    "objectives": "4 semanas de Scale/Hypercare A PARTIR DE 16/nov/2026 (dia seguinte ao go-live), com uma equipe enxuta cujas responsabilidades são EXCLUSIVAMENTE: SUSTENTAR a operação em produção (monitorar, triar e corrigir incidentes de estabilização), MANTER a plataforma e as integrações on-premise (ajustes finos, saúde das rotas MuleSoft, conciliação/split em produção) e conduzir o CUTOVER (virada operacional completa, escalonamento da carga pós-mínima e handover à operação Dataprev). NÃO há build de nova funcionalidade no Scale — é janela de estabilização, não de escopo novo. Equipe: UM Consultor Técnico integral (1,0 FTE = 40h/sem — reforçado de 0,5 para 1,0 em 03/ago, pois sustentar/manter a plataforma sob dinheiro real é trabalho de período integral), meio Dev MuleSoft (0,5 FTE = 20h/sem), 10h/sem de um Arquiteto Técnico e 10h/sem de um Senior PM (o mesmo arquiteto e o mesmo PM do build), nas 4 semanas.",
     "epics_included": "",
     "success_criteria": "Operação estável em produção (incidentes de estabilização decrescentes); integrações on-premise saudáveis; conciliação e split rodando em regime; cutover concluído e operação transferida à Dataprev ao fim da Sem. 17 (13/dez).",
     "dependencies": "Go-live PROD 15/nov (Etapa 4 concluída). Reusa recursos-chave do build (Arquiteto Técnico, Senior PM, Consultor Técnico, Dev MuleSoft) em alocação fracional — não é novo headcount.",
@@ -74,7 +74,7 @@
     "duration_weeks": 4,
     "duration_source": "user",
     "kb_sources": [
-      "[assumption: 4 semanas de Scale/Hypercare a partir de 16/nov com 0,5 Consultor Técnico + 1,0 Dev MuleSoft integral + 10h/sem Arquiteto Técnico + 10h/sem Senior PM; responsabilidades = apenas sustentar, manter e cutover — re-plano ditado em 03/ago, Dev MuleSoft reforçado 0,5→1,0 no grill 03/ago]"
+      "[assumption: 4 semanas de Scale/Hypercare a partir de 16/nov com 1,0 Consultor Técnico integral + 0,5 Dev MuleSoft + 10h/sem Arquiteto Técnico + 10h/sem Senior PM (mesmo arquiteto e mesmo PM do build); responsabilidades = apenas sustentar, manter e cutover — re-plano ditado em 03/ago, composição revista em 03/ago (Consultor Técnico 0,5→1,0 integral, Dev MuleSoft 1,0→0,5)]"
     ]
   },
   {
