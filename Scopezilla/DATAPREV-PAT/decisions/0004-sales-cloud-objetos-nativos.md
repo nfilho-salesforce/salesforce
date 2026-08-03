@@ -1,0 +1,25 @@
+# 0004 — Plataforma sobre Sales Cloud, reusando objetos nativos (Opportunity/Quote) para o leilão reverso
+
+**Date:** 2026-07-31 · **Status:** accepted · **Source:** scopezilla-recommended
+
+## Context
+O marketplace do PAT tem um padrão comprador→N-vendedores (a beneficiária publica uma demanda; N facilitadoras respondem com propostas). O baseline anterior (`decisions/0003` e o desenho de E02) assumia esse padrão como **build 100% custom na Core Platform** — objetos `Cotacao__c` 1→N `Proposta__c` com Flow/Apex. Sob a janela fixa de 15/nov/2026, o custo de construir do zero o ciclo de vida completo (estados, sharing, comparação, seleção→contrato) compete diretamente com o prazo. Premissa assumida pela equipe Salesforce (31/jul/2026): **usar Sales Cloud como plataforma de gestão dessas jornadas, reusando objetos e funcionalidades nativas em prol do curto tempo de implantação.**
+
+## Decision
+A plataforma é construída sobre **Sales Cloud**, mapeando o leilão reverso em **objetos nativos** em vez de objetos custom:
+
+- **Opportunity (nativo)** = a **demanda** que a beneficiária cadastra para o leilão reverso (nº de trabalhadores, valor, vigência, distribuição por UF, recursos obrigatórios). Reusa estágios, ownership, activity history e relatórios nativos.
+- **Quote (nativo)** = a **resposta da facilitadora** ao leilão reverso, recebida **exclusivamente via API** (MuleSoft). A facilitadora **NÃO tem acesso à plataforma** — sem UI, sem licença de portal; submete a Quote informando o ID da cotação/oportunidade aberta dentro da vigência (confirmado no grill 31/jul). Cada facilitadora responde com uma Quote associada à Opportunity; a comparação lado a lado e a seleção manual da beneficiária operam sobre as Quotes.
+- **Portal Experience Cloud para a BENEFICIÁRIA e o estabelecimento** (não para a facilitadora, que é API-only). O driver de licença que exige acesso a objetos nativos do Sales (Opportunity = demanda; Quote = comparação/seleção) é a **beneficiária** — a facilitadora não consome licença de portal. A **versão** (Partner Community vs. Customer Community Plus) segue a requalificar contra o volume e o padrão de acesso da beneficiária (G0103/G0108): Customer Community Plus não expõe Opportunity/Quote nativamente; se a beneficiária precisar operar esses objetos no portal, a Partner Community é a candidata — a confirmar.
+
+EQUIDADE POR CONSTRUÇÃO (revisado no grill 31/jul): como a facilitadora é **API-only e não tem UI**, ela não enxerga as propostas concorrentes — **não é necessário Apex managed sharing** para ocultar Quotes entre concorrentes. A camada custom fica reservada ao que os nativos não entregam: a tela "Comparar Propostas" (LWC) para a beneficiária, a **trava de seleção até o fechamento da janela de vigência** (a beneficiária vê as cotações conforme chegam, mas só seleciona quando a janela fecha — não é seleção cega) e a transição seleção→contrato.
+
+## Consequences
+- **E02 re-shapeado**: sai o par `Cotacao__c`/`Proposta__c`; entram **Opportunity (demanda) + Quote (resposta via API)**. O modelo de dados, o sharing e as telas do marketplace passam a assentar em objetos nativos. Reduz build custom, mas **adiciona o esforço de dobrar objetos nativos** (feitos para venda sell-side) ao padrão comprador→N-vendedores — a complexidade migra de "construir do zero" para "adaptar o nativo".
+- **E01 (licenciamento) — corrigido no grill 31/jul**: o driver de licença de portal é a **beneficiária** (precisa operar Opportunity/Quote no portal), **não a facilitadora** — que é API-only e **não consome licença de portal** (é integração, não assento). Isso muda a volumetria: as ~600–700 facilitadoras são integrações via MuleSoft (E05), não assentos de Experience Cloud. A **versão** de licença da beneficiária (Partner Community vs. Customer Community Plus) segue a requalificar (G0103/G0108) — Customer Community Plus não expõe Opportunity/Quote; se a beneficiária precisar operá-los no portal, Partner Community é a candidata, a confirmar contra o padrão de acesso real.
+- **Coexiste com `decisions/0001`** (residência híbrida): Account/Opportunity/Quote carregam **referências tokenizadas**, não CPF — a fronteira de residência é preservada; o CNPJ da beneficiária vive no Account.
+- **Coexiste com `decisions/0003`**: o motor de regras de split (E03) permanece; Opportunity/Quote cobrem a etapa comercial (cotação→contratação), não a financeira.
+- Reverter (voltar a objetos 100% custom) re-shapearia E02 e o licenciamento de E01 — daí ser premissa (ADR), não uma escolha de objeto isolada.
+
+## Grounds
+Premissa assumida pela equipe Salesforce em 31/jul/2026 (ditada pelo Solution Manager), **a validar com o cliente**. Cruza com [[0001-residencia-dados-hibrida]] (objetos nativos carregam referência tokenizada) e [[0003-fronteira-crm-nao-transacional]] (Opportunity/Quote = etapa comercial; split = etapa financeira). Sem base em `knowledge/` para RFQ/leilão reverso nativo — a KB central do Salesforce está degradada nesta sessão; a decisão é `scopezilla-recommended` e marcada Assumed até validação de arquitetura.

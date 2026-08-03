@@ -1,0 +1,95 @@
+[
+  {
+    "phase_number": 0,
+    "phase_name": "Arranque, Provisionamento & Arquitetura (17/ago – 30/ago · Sem. 1-2)",
+    "objectives": "Início em 17/ago/2026. Destravar os pré-requisitos de arranque que têm lead-time externo e competem com a janela fixa: (1) provisionamento da INSTÂNCIA DEDICADA E APARTADA do MTE/PAT em ambiente 100% GREENFIELD (ADR 0002/0005) — pedido junto ao fornecedor/plataforma tem prazo próprio; (2) INFRAESTRUTURA MuleSoft ON-PREMISE pronta e acessível (ADR 0005) — instalação na infra soberana Dataprev/gov, pré-requisito de marco; (3) SELEÇÃO DO PROVEDOR DO GATEWAY / banco custódia (G0309, ADR 0003) — contratação de terceiro no caminho crítico do financeiro; (4) os blockers de arquitetura: fronteira campo-a-campo da residência híbrida (G0801, ratificar com Jair Bogo), inventário de contratos/Swaggers de API dos sistemas externos (G0501, Novo PAT sem API hoje), identidade Experience Cloud Partner Community × CPF-não-persiste (G0106). Iniciar engajamento CTID/ANPD e inventário das APIs das facilitadoras.",
+    "epics_included": "",
+    "success_criteria": "Org dedicada greenfield provisionada e acessível; MuleSoft on-premise instalado e acessível na infra soberana; provedor do gateway selecionado/contratação iniciada com escopo de integração acordado; ADR 0001 ratificado com fronteira campo-a-campo definida; inventário de contratos de API por sistema (existe/não existe). MARCO DE PROJETO: kick-off e ambiente pronto ao fim da Sem. 2.",
+    "dependencies": "Nenhuma — é a fase que precede tudo. Requer disponibilidade da arquitetura Dataprev (Jair Bogo), dos donos dos sistemas externos, a INFRA (org + MuleSoft on-premise) pronta nos marcos, e a decisão do cliente sobre o provedor do gateway.",
+    "risks": "PROVISIONAMENTO DA ORG + INFRA MuleSoft ON-PREMISE + CONTRATAÇÃO DO GATEWAY SÃO O MAIOR RISCO À DATA FIXA — três lead-times de terceiros que consomem a janela e não estão sob controle da entrega. Se qualquer um atrasar além da Fase 0, o go-live de 15/nov fica em risco e o financeiro (E03) é o primeiro candidato a fatiar. Se a infra on-premise não estiver pronta no marco, a Fundação não arranca. Novo PAT sem API mantém E05 mock-first — caminho crítico aberto.",
+    "duration_weeks": 2,
+    "duration_source": "user",
+    "kb_sources": [
+      "[decisions/0002-instancia-dedicada-mte-pat]",
+      "[decisions/0003-fronteira-crm-nao-transacional]",
+      "[decisions/0005-greenfield-mulesoft-onpremise]",
+      "[assumption: provisionamento greenfield + infra MuleSoft on-premise + contratação do gateway entram na Fase 0 por terem lead-time externo que compete com a data fixa de 15/nov]"
+    ]
+  },
+  {
+    "phase_number": 1,
+    "phase_name": "Fundação — Modelo de Dados + Identidade + Integração + Residência (31/ago – 27/set · Sem. 3-6)",
+    "objectives": "ARRANCAR COM A DEFINIÇÃO FUNDACIONAL DE OBJETOS E MAPEAMENTO DE DADOS, COM O TIME DE IMPLEMENTAÇÃO INTEIRO (ADR 0004, premissa de arranque) — o modelo de dados Sales Cloud nativo (Account = beneficiária/CNPJ; Opportunity = demanda do leilão reverso; Quote = resposta da facilitadora via API; termo de aceite/faixa salarial; matriz/filial) é a base compartilhada de que TODAS as frentes dependem. Só depois de o modelo estar acordado é que as frentes de baixa/nenhuma dependência PARALELIZAM — a paralelização é a estratégia que torna a data fixa viável. Sobre essa base: hub de integração MuleSoft ON-PREMISE mock-first (E05 — o risco #1, começado cedo, já com o gateway como alvo; Novo PAT sem API mantém mock obrigatório), o modelo de residência/tokenização (E08 — greenfield + soberania, ADR 0005) que governa o data model das demais épicas, e o portal Experience Cloud PARTNER COMMUNITY com login gov.br (E01). Iniciar a comunicação de mudança com as facilitadoras (E09 arranca aqui, mesmo com pico depois).",
+    "epics_included": "E05,E08,E01",
+    "success_criteria": "MODELO DE DADOS FUNDACIONAL definido e ratificado com o time inteiro (objetos nativos Opportunity/Quote/Account + termo de aceite) — MARCO que libera a paralelização das demais frentes; camada API-led MuleSoft on-premise de pé com mocks (incluindo o contrato de integração com o gateway); modelo de referência tokenizada implementado e resolvendo em runtime na org greenfield dedicada; portal Partner Community com login gov.br funcional e Contact por referência tokenizada. Base pronta para o marketplace.",
+    "dependencies": "Fase 0 (org greenfield provisionada, MuleSoft on-premise instalado, blockers resolvidos, gateway selecionado). A definição fundacional do modelo de dados É o pré-requisito interno que precede a paralelização de E02/E04 na Fase 2. E01 depende de E05 (resolução de identidade) e E08 (Contact tokenizado).",
+    "risks": "Se o modelo de dados fundacional não fechar cedo, a paralelização não arranca e a data fixa fica em risco — é o gargalo de sequenciamento interno. Ausência de contratos de API (G0501, Novo PAT sem API) trava a virada mock→real; fronteira de residência (G0801) não ratificada re-molda o data model; conector gov.br OIDC nativo inexistente (G0101); adaptar objetos nativos sell-side (Opportunity/Quote) ao padrão comprador→N-vendedores adiciona esforço (ADR 0004). Fase de maior carga dentro da janela mais apertada da história do projeto.",
+    "duration_weeks": 4,
+    "duration_source": "user",
+    "kb_sources": [
+      "[decisions/0002-instancia-dedicada-mte-pat]",
+      "[decisions/0004-sales-cloud-objetos-nativos]",
+      "[decisions/0005-greenfield-mulesoft-onpremise]",
+      "[assumption: definição fundacional de objetos + mapeamento de dados com o time inteiro precede e habilita a paralelização das frentes — premissa de arranque ditada em 31/jul; paralelização é a estratégia para caber na data fixa]"
+    ]
+  },
+  {
+    "phase_number": 2,
+    "phase_name": "Marketplace & Credenciamento — Frentes Paralelas (28/set – 18/out · Sem. 7-9)",
+    "objectives": "FRENTE PARALELIZADA sobre o modelo de dados fundacional da Fase 1 (premissa de paralelização). Construir o valor mais visível da reforma sobre objetos nativos Sales Cloud (ADR 0004): o leilão reverso (E02 — beneficiária cadastra a demanda como Opportunity → facilitadoras respondem com Quote via API, ocultas até o fechamento → comparação lado a lado → seleção manual → contrato SEM CLM, PDF imutável versionado) e o credenciamento unificado de estabelecimentos (E04 — com vigilância sanitária + consulta à adquirente via API). E02 e E04 correm em paralelo por terem baixa dependência entre si. MVP de E02 SEM Data Cloud (enriquecimento é de-escopo/buffer).",
+    "epics_included": "E02,E04",
+    "success_criteria": "MARCO DE ENTREGA DE JORNADA (UAT): beneficiária publica a demanda (Opportunity), facilitadoras enviam Quotes via API (ocultas até o fechamento), tela 'Comparar Propostas' operante, seleção manual registra o vencedor; estabelecimentos se credenciam via gov.br PJ (CNPJ) com aprovação da facilitadora e checagem de vigilância sanitária. Capacidades principais: leilão reverso + credenciamento.",
+    "dependencies": "Fase 1 (modelo de dados fundacional ratificado — habilitador da paralelização; E01 portal/identidade Partner Community, E05 integração on-premise). E02 e E04 dependem de E01 + E05; entre si, baixa dependência (paralelizáveis).",
+    "risks": "Regras de seleção/desempate e conformidade Lei 14.133/2021 indefinidas (G0202/G0203); tela de comparação ausente no protótipo (G0201); conflito de system-of-record do credenciamento (G0401); 5000+ padrões municipais de vigilância sanitária (extração IA + transbordo humano). Data Cloud para enriquecimento fica FORA do MVP — buffer de cronograma.",
+    "duration_weeks": 3,
+    "duration_source": "user",
+    "kb_sources": [
+      "[KB: salesforce-revenue-cloud-marketplace-arch.md] — leilão reverso é custom na Core Platform; não é capability nativa",
+      "[assumption: Data Cloud em E02 é de-escopo/buffer da data fixa — G0209]"
+    ]
+  },
+  {
+    "phase_number": 3,
+    "phase_name": "Financeiro — Folha, Motor de Split & Conciliação (19/out – 8/nov · Sem. 10-12)",
+    "objectives": "Fechar o núcleo regulatório da reforma (E03, XL — ADR 0003), seguindo o fluxo folha→pagamento→split detalhado (premissa 6): (1) upload da folha por portal/API → plataforma VALIDA layout + integridade ('não quebrada'); (2) análise de crítica pela melhor alternativa Salesforce (Einstein/agente) — se não houver, disponibiliza o arquivo para download da facilitadora (SEM persistir as linhas da folha em objeto — roadmap futuro); (3) facilitadora baixa a folha por contrato/mês-ano de vigência, devolve status 'processado' + valor a pagar via API; (4) plataforma envia o valor ao GATEWAY (intermedia conta custódia), recebe boleto registrado + metadados/link; (5) boleto disponível à beneficiária no portal; (6) plataforma recebe movimentações bancárias do gateway, identifica o pagamento em LOTES INCREMENTAIS via agendamento MuleSoft; (7) consulta regras de cálculo de split → calcula repasse à facilitadora + demais; (8) registra toda a memória de cálculo/datas/rateio/ordens de transferência e entrega, via MuleSoft, ao GATEWAY (executor único das transações bancárias). O Salesforce é o MOTOR DE REGRAS (teto MDR 3,6%, repasse ≤15 dias — Decreto 12.712/2025); execução bancária e custódia ficam FORA (gateway, contratado pelo cliente).",
+    "epics_included": "E03",
+    "success_criteria": "MARCO DE ENTREGA DE JORNADA (UAT/homologação): upload de folha → validação de layout/integridade → crítica → download pela facilitadora → 'processado'+valor via API → gateway emite boleto registrado → beneficiária vê o boleto no portal → conciliação por lotes incrementais via MuleSoft → motor calcula o split → ordens de transferência entregues ao gateway com trilha e idempotência; UI simplificada a status consolidado 'crédito concedido'. Capacidade principal: fluxo financeiro folha→boleto→conciliação→split completo. HOMOLOGAÇÃO INÍCIO NOVEMBRO abre ao fim desta fase.",
+    "dependencies": "Fase 0 (gateway selecionado — dependência dura), Fase 1 (E05 integração on-premise com o gateway, E08 residência/soberania). E03 depende de E01 + E05 + E08 + o gateway contratado.",
+    "risks": "Provedor do gateway não definido a tempo (G0309) é o risco #1 desta fase — sem o parceiro contratado e integrado, o financeiro não vai a produção em 15/nov; regras de conciliação/divergência por lote incremental ainda indefinidas (G0304); mecânica boleto/Pix e settlement (G0302/G0301); a crítica da folha depende de qual alternativa Salesforce (Einstein/agente) se confirma viável. É a fase XL mais sensível à data fixa; se algo escorregar, é aqui que a pressão de de-escopo bate.",
+    "duration_weeks": 3,
+    "duration_source": "user",
+    "kb_sources": [
+      "[decisions/0003-fronteira-crm-nao-transacional]",
+      "[KB: salesforce-revenue-cloud-marketplace-arch.md] — motor de split custom no CRM; execução externa via gateway PCI"
+    ]
+  },
+  {
+    "phase_number": 4,
+    "phase_name": "Homologação, Carga Mínima, Adoção & Go-live PROD (9/nov – 15/nov · Sem. 13)",
+    "objectives": "Fechar a HOMOLOGAÇÃO (UAT) aberta início de novembro e virar para PRODUÇÃO em 15/nov/2026. Popular a plataforma com a carga inicial MÍNIMA necessária ao go-live (E07 — beneficiárias, facilitadoras e estabelecimentos a partir do Novo PAT/MTE; Novo PAT permanece system-of-record), conduzir a adoção enxuta (E09 — capacitação e materiais essenciais, com o pico da comunicação já iniciado na Fase 1) e estabilizar/hypercare até o marco de PROD. MARCOS: (projeto) go-live PROD 15/nov; (decreto) entrada em vigor da reforma do PAT — Decreto 12.712/2025; (jornada UAT→PROD) portal/identidade, leilão reverso, credenciamento e fluxo financeiro folha→boleto→split disponíveis nos dois ambientes.",
+    "epics_included": "E07,E09",
+    "success_criteria": "HOMOLOGAÇÃO (UAT) concluída sobre as jornadas entregues (portal, marketplace, credenciamento, financeiro); cadastros mínimos carregados com dedup; facilitadoras e beneficiárias com capacitação essencial; GO-LIVE PROD 15/nov estabilizado com hypercare ativo. Capacidades principais em PROD: identidade gov.br, leilão reverso, credenciamento, financeiro folha→boleto→conciliação→split.",
+    "dependencies": "Fase 1 (E05 para extração/carga). E07 depende de E05. E09 é transversal — sua comunicação começa na Fase 1 e culmina aqui. A homologação depende do encerramento das jornadas da Fase 2 e 3.",
+    "risks": "⚠ VIABILIDADE DA DATA FIXA — SINALIZAR: 13 semanas para um build XL regulado (financeiro com split, conciliação e emissão de boleto) sobre 3 pré-requisitos externos de lead-time (org greenfield, MuleSoft on-premise, gateway) é um cronograma AGRESSIVO com margem mínima. A janela de estabilização de 1 semana entre o fim do build (8/nov), a homologação e o PROD (15/nov) é o ponto mais frágil: se qualquer pré-requisito da Fase 0 atrasar, ou a homologação achar defeito no financeiro, a data de 15/nov não é alcançável com esforço adicional — nesse caso o de-escopo (E03 financeiro é o primeiro candidato, adiando parte do split/conciliação para pós-go-live) é o único trilho para preservar a data. Volume de carga desconhecido (G0701, ~450k) pode estourar a janela; resistência das facilitadoras (perda de margem no modelo transparente). Adoção completa e carga massiva ficam pós-go-live (buffer).",
+    "duration_weeks": 1,
+    "duration_source": "user",
+    "kb_sources": [
+      "[assumption: comms-de-change antecipadas — E09 arranca na Fase 1 apesar do pico na Fase 4; carga inicial mínima para caber na data fixa, carga massiva pós-go-live]",
+      "[assumption: homologação início novembro → PROD 15/nov; timeline mostra marcos de projeto, decreto e entrega de jornadas (UAT+PROD) — premissa de cronograma ditada em 31/jul; viabilidade da data fixa sinalizada como agressiva]"
+    ]
+  },
+  {
+    "phase_number": 5,
+    "phase_name": "Onda 2 — Pós-MVP (FORA do escopo do go-live 15/nov/2026) — Atendimento Inteligente (Agentforce)",
+    "objectives": "Atendimento Inteligente com Agentforce (agente informacional e transacional em WhatsApp/webchat para beneficiárias, facilitadoras e estabelecimentos) — DEFERIDO para onda futura após o go-live do MVP. Fora do escopo comprometido de 15/nov/2026; retido como buffer de cronograma da janela fixa. Canais, casos de uso (informacional vs. transacional) e integração com o marketplace a confirmar com o cliente antes de dimensionar a onda.",
+    "epics_included": "E06",
+    "success_criteria": "Escopo do Agentforce ratificado com o cliente (canais, casos de uso, integração) e agente em produção atendendo participantes em escala — em onda posterior, sem impacto na data fixa do MVP.",
+    "dependencies": "MVP em produção (Fase 4 concluída); E05 (hub de integração) e E08 (residência/tokenização) estáveis em produção. Onda não iniciada dentro das 13 semanas comprometidas.",
+    "risks": "Escopo do Agentforce ainda Assumed (Open Question 8 do discovery) — não dimensionar antes de confirmar canais/casos de uso/integração. Prontidão de IA e volumetria de atendimento a validar.",
+    "duration_weeks": 0,
+    "duration_source": "user",
+    "kb_sources": [
+      "[assumption: escopo Agentforce (canais, casos de uso, integração) a definir — Open Question 8 do discovery brief; épica deferida para pós-MVP]"
+    ]
+  }
+]

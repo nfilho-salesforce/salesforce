@@ -20,7 +20,7 @@
     "narratives": "complete",
     "export": "complete",
     "backlog": "complete",
-    "quantum-leap": "not-started",
+    "quantum-leap": "complete",
     "slides": "complete",
     "rfp": "not-started",
     "cleanup": "not-started",
@@ -113,5 +113,12 @@
     "experience-cloud",
     "agentforce"
   ],
-  "products_with_overlay": []
+  "products_with_overlay": [],
+  "target_org": {
+    "name": "DATAPREV-PAT Greenfield",
+    "type": "scratch",
+    "state": "greenfield",
+    "build_allowed": true
+  },
+  "quantum_leap_blueprint": "Mixed / multi-cloud"
 }

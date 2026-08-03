@@ -1,0 +1,2502 @@
+{
+  "intents": [
+    {
+      "id": "INT-001",
+      "title": "Contract-first mock harness for external systems (mock→real governance)",
+      "epic_id": "E05",
+      "phase": 1,
+      "priority": null,
+      "confidence": "Confirmed",
+      "surface": "integration",
+      "outcome": {
+        "summary": "Every external system the Novo PAT marketplace depends on is reachable through a versioned, contract-first mock behind a stable System API, so build proceeds before any real Swagger exists and swaps to the real endpoint without rework."
+      },
+      "build_target": "- Author a ratified OpenAPI contract per external system (Novo PAT, GOV.BR/Geride, eSocial, SDC, INIS PJ/Kinis PJ, gateway/banco custódia, adquirente) before dev, versioned in source\n- Stand up a mock service per contract on the on-premise MuleSoft runtime that returns contract-shaped responses (happy path + named error/edge cases)\n- Add automated contract tests that assert both the mock and (later) the real endpoint conform to the ratified contract\n- Provide a per-system toggle (mock ↔ real) resolved by config, so cutover is a switch, not a rebuild\n- Keep a dependency register of each contract with owner + committed availability date",
+      "guardrails": [
+        "Must not code any consumer against an unratified or assumption-based contract — the OpenAPI spec is ratified first, then dev",
+        "Must not let a mock diverge from its contract silently — a contract change breaks the contract test before it breaks the build",
+        "Must not persist real payloads captured for mocking that contain CPF or other sensitive worker data"
+      ],
+      "out_of_scope": [
+        "Must not build the real external endpoints themselves — those are owned by each source system (Novo PAT, gateway, adquirente, federal sources)",
+        "Must not deliver the mock harness as a production runtime — it retires as each real contract lands"
+      ],
+      "acceptance": "A MuleSoft developer points the Novo PAT regularity consumer at the mock, runs the marketplace flow end-to-end, and it returns a contract-shaped 'situação regular' response; the developer then flips the config toggle to 'real', the contract test suite runs, and the same consumer calls the (later-available) real Novo PAT endpoint with no code change — only the toggle moved.",
+      "dependencies": {
+        "external": [
+          {
+            "system": "Novo PAT / GOV.BR / eSocial / SDC / INIS PJ / gateway / adquirente",
+            "need": "Ratified OpenAPI/Swagger contract per system with a committed delivery date and named owner",
+            "owner": "MTE/Dataprev integration owners (contracts do not exist today — G0501)"
+          }
+        ]
+      },
+      "grounding": {
+        "requirements": [],
+        "artifacts": [
+          {
+            "type": "decision",
+            "ref": "0005 — Greenfield + MuleSoft on-premise",
+            "location": "decisions/0005-greenfield-mulesoft-onpremise.md"
+          },
+          {
+            "type": "decision",
+            "ref": "0001 — Residência de dados híbrida",
+            "location": "decisions/0001-residencia-dados-hibrida.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "What is the committed availability date and owner for each external system's API contract? (No Swaggers exist today — highest integration risk.)",
+          "resolver": "MTE/Dataprev integration lead",
+          "answer": null
+        },
+        {
+          "question": "Will mocks follow a ratified, versioned contract (contract-first/OpenAPI) with contract tests, or be assumption-based? Governance for mock→real without rework is undefined.",
+          "resolver": "Integration architect / Dataprev",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-002",
+      "title": "CPF de-tokenization / identity-resolution service on-premise",
+      "epic_id": "E05",
+      "phase": 1,
+      "priority": null,
+      "confidence": "Confirmed",
+      "surface": "integration",
+      "outcome": {
+        "summary": "The Salesforce core references workers and establishments by non-sensitive token; nominal/CPF data is resolved at runtime, only when authorized, inside the Dataprev sovereign perimeter and never persisted in the Salesforce cloud."
+      },
+      "build_target": "- Build a de-tokenization/resolution API on the on-premise MuleSoft runtime that maps a non-sensitive reference token to nominal/CPF data held at source (Dataprev bases)\n- Enforce authorization on every resolution call, so nominal data is returned only for an authorized actor and purpose\n- Emit an audit trail of each resolution (who, when, why) without writing CPF into the audit record\n- Ensure Salesforce-bound responses carry only the token plus non-sensitive attributes; nominal fields are resolved to the UI/experience layer at runtime, not stored",
+      "guardrails": [
+        "Must not persist CPF or nominal worker data in any Salesforce object or Salesforce-hosted store",
+        "Must not run the resolution point outside the Dataprev sovereign perimeter (on-premise only, never CloudHub)",
+        "Must not return nominal data to an unauthorized caller or without a logged purpose"
+      ],
+      "out_of_scope": [
+        "Must not build the sovereign source data stores themselves (Dataprev/Oracle on-premise bases) — those are Dataprev-owned",
+        "Must not own the portal login/authorization decision — that is the Experience/portal capability; this service enforces the decision it is handed"
+      ],
+      "acceptance": "A monitoring analyst opens a flagged transaction in Salesforce that shows only a token and non-sensitive attributes; when authorized, the UI requests resolution, MuleSoft on-premise returns the worker's nominal data at runtime, an audit entry is written without storing the CPF, and no CPF ever lands in a Salesforce object.",
+      "dependencies": {
+        "external": [
+          {
+            "system": "Dataprev sovereign data bases",
+            "need": "Runtime lookup interface from token to nominal/CPF data at source",
+            "owner": "Dataprev architecture (Jair Bogo)"
+          },
+          {
+            "system": "On-premise MuleSoft infrastructure",
+            "need": "Provisioned, accessible on-premise runtime by the project milestone",
+            "owner": "Dataprev infra (Fase 0 lead-time prerequisite)"
+          }
+        ]
+      },
+      "grounding": {
+        "requirements": [],
+        "artifacts": [
+          {
+            "type": "decision",
+            "ref": "0001 — Residência de dados híbrida (dado sensível fora da nuvem SF)",
+            "location": "decisions/0001-residencia-dados-hibrida.md"
+          },
+          {
+            "type": "decision",
+            "ref": "0005 — MuleSoft on-premise = ponto de de-tokenização",
+            "location": "decisions/0005-greenfield-mulesoft-onpremise.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "Which exact fields are tokenized and where is the residency boundary drawn (final data-flow design under LGPD)?",
+          "resolver": "Dataprev architecture (Jair Bogo)",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-003",
+      "title": "External-caller authentication & rate-limited token validation gateway",
+      "epic_id": "E05",
+      "phase": 1,
+      "priority": null,
+      "confidence": "Confirmed",
+      "surface": "security",
+      "outcome": {
+        "summary": "External callers (facilitadoras, adquirente) authenticate by CNPJ via client-credentials flow against a scope-restricted connected app; tokens are validated with rate limiting and caching before any integration endpoint runs."
+      },
+      "build_target": "- Configure a connected app per external caller class with least-privilege OAuth scopes\n- Implement client-credentials (server-to-server) flow keyed to the caller's CNPJ identity\n- Validate the presented token on every inbound call, with a token cache to avoid revalidation storms and per-caller rate limiting\n- Define secret storage, rotation, and trust-store handling for the caller credentials on the on-premise runtime",
+      "guardrails": [
+        "Must not grant a connected app broader scope than the endpoints that caller class is entitled to",
+        "Must not accept an unvalidated or expired token, and must not let the cache serve a revoked token past its TTL",
+        "Must not hard-code or log caller secrets; secrets are stored and rotated, not embedded"
+      ],
+      "out_of_scope": [
+        "Must not build citizen/portal login (GOV.BR OIDC / procuração digital) — that is the Experience/portal authentication capability",
+        "Must not define the per-system auth standard for federal sources (mTLS, ICP-Brasil, gov.br OIDC) beyond what a ratified contract specifies — see open question"
+      ],
+      "acceptance": "A facilitadora's system presents its CNPJ-scoped client credentials, MuleSoft issues a token, and a subsequent call to the open-demand consultation endpoint is admitted only after token validation succeeds; a burst of calls from the same facilitadora is throttled at the configured rate, and a revoked credential is rejected within the cache TTL.",
+      "dependencies": {
+        "external": [
+          {
+            "system": "Federal source systems",
+            "need": "Declared auth standard per system (OAuth2 client-credentials, mTLS, ICP-Brasil cert, gov.br OIDC)",
+            "owner": "Dataprev / each federal system owner (not specified today — G0505)"
+          }
+        ]
+      },
+      "grounding": {
+        "requirements": [],
+        "artifacts": [
+          {
+            "type": "decision",
+            "ref": "0002 — Instância dedicada e apartada",
+            "location": "decisions/0002-instancia-dedicada-mte-pat.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "What auth/authz standard does each external system require, and how are secrets, rotation, and trust store managed across 600–700 facilitadoras plus federal systems?",
+          "resolver": "Integration security architect / Dataprev",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-004",
+      "title": "Federal-source read & validation System APIs (mock-first)",
+      "epic_id": "E05",
+      "phase": 1,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "integration",
+      "outcome": {
+        "summary": "The platform validates a beneficiária's/facilitadora's regular standing and reads required reference data from federal sources (Novo PAT regularity, GOV.BR/Geride, eSocial, SDC) through System APIs, running on mocks now and cutting over to real endpoints when contracts land."
+      },
+      "build_target": "- Build a System API per federal source that normalizes its response into a canonical, non-sensitive shape for the core\n- Implement the Novo PAT 'situação regular' validation call used to gate marketplace participation (Novo PAT has no API today — mock-first is mandatory)\n- Wire read integrations for GOV.BR/Geride (identity/auth reference), eSocial and SDC as reference-data reads\n- Route each System API through the de-tokenization and auth capabilities rather than handling sensitive data or credentials itself",
+      "guardrails": [
+        "Must not persist sensitive federal-source data in Salesforce — reads resolve at runtime and reference by token",
+        "Must not block the build on real endpoints — every federal source runs mock-first until its contract is ratified",
+        "Must not treat a mock response shape as authoritative once the real contract is available without re-running contract tests"
+      ],
+      "out_of_scope": [
+        "Must not build or host the federal systems' APIs — Novo PAT, GOV.BR, eSocial, SDC endpoints are owned outside the Salesforce/MuleSoft build",
+        "Must not own the CTPS Digital 'expectativa de crédito' notification — that is monitoring-only in the MVP and its ownership boundary is unresolved"
+      ],
+      "acceptance": "A beneficiária's regularity is checked during marketplace onboarding: the core calls the Novo PAT System API, MuleSoft returns a canonical 'regular/irregular' result from the mock, and the marketplace gates participation accordingly; when the real Novo PAT contract lands, the same System API serves live data after contract tests pass.",
+      "dependencies": {
+        "external": [
+          {
+            "system": "Novo PAT (novopat.trabalho.gov.br)",
+            "need": "Real API contract for regularity validation — none exists today (mock-first mandatory)",
+            "owner": "MTE / Novo PAT"
+          },
+          {
+            "system": "GOV.BR/Geride, eSocial, SDC",
+            "need": "Ratified read contracts and auth standards",
+            "owner": "Respective federal system owners"
+          }
+        ]
+      },
+      "grounding": {
+        "requirements": [],
+        "artifacts": [
+          {
+            "type": "decision",
+            "ref": "0001 — Residência de dados híbrida",
+            "location": "decisions/0001-residencia-dados-hibrida.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "Is the CTPS Digital 'crédito concedido' activation notification in Salesforce (via MuleSoft) scope, or MTE/Novo PAT responsibility? Does a CTPS Digital API contract exist?",
+          "resolver": "MTE / Dataprev integration lead",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-005",
+      "title": "INIS PJ / Kinis PJ termo-de-aceite data ingest",
+      "epic_id": "E05",
+      "phase": 1,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "integration",
+      "outcome": {
+        "summary": "The platform ingests the acceptance-term data originated in INIS PJ/Kinis PJ — worker counts by salary band and matriz/filial structure — as the source of the beneficiária's termo de aceite, referenced by non-sensitive identifier in the core."
+      },
+      "build_target": "- Build a System API that reads the INIS PJ/Kinis PJ acceptance-term dataset: number of workers by salary band and matriz/filial breakdown\n- Normalize it into a canonical shape the marketplace/quote flow consumes to shape the beneficiária's demand\n- Reference the beneficiária/establishment by non-sensitive identifier; resolve any sensitive fields at runtime via the de-tokenization service\n- Run mock-first against a ratified contract until the real INIS PJ endpoint is available",
+      "guardrails": [
+        "Must not persist sensitive worker-level data from INIS PJ in Salesforce — ingest aggregates (counts by band) and reference by token",
+        "Must not proceed on an assumed INIS PJ payload shape — the contract is ratified before dev",
+        "Must not silently drop matriz/filial structure — the split/quote logic downstream depends on it"
+      ],
+      "out_of_scope": [
+        "Must not compute the split or quote itself — that is the E03 split-rules engine; this capability delivers the input data",
+        "Must not own the INIS PJ source system"
+      ],
+      "acceptance": "When a beneficiária begins a demand, the platform reads the INIS PJ termo-de-aceite via MuleSoft and receives worker counts by salary band plus matriz/filial structure in canonical form (mock now); the quote flow uses those counts to shape the demand, and no worker-level sensitive data is stored in Salesforce.",
+      "dependencies": {
+        "external": [
+          {
+            "system": "INIS PJ / Kinis PJ",
+            "need": "Ratified contract for acceptance-term data (worker counts by salary band, matriz/filial)",
+            "owner": "MTE/Dataprev (contract not available today — G0501)"
+          }
+        ]
+      },
+      "grounding": {
+        "requirements": [],
+        "artifacts": [
+          {
+            "type": "decision",
+            "ref": "0001 — Residência de dados híbrida",
+            "location": "decisions/0001-residencia-dados-hibrida.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "Confirm the INIS PJ/Kinis PJ contract shape for salary-band buckets and matriz/filial, and whether any field crosses the sensitive-data boundary.",
+          "resolver": "Dataprev architecture",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-006",
+      "title": "Facilitadora standard contract: Quote hand-off, processed-return, open-demand pull endpoint",
+      "epic_id": "E05",
+      "phase": 1,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "integration",
+      "outcome": {
+        "summary": "Every one of the ~600–700 facilitadoras integrates through one standard API contract: it receives Quotes, returns the processed result plus value, and can pull the open demands in the current vigência — a certifiable single contract, not a bespoke connector per facilitadora."
+      },
+      "build_target": "- Define one standard, versioned API contract all facilitadoras integrate against (no N-to-N bespoke connectors)\n- Build the outbound Quote hand-off from the marketplace to the facilitadora and the inbound processed-result + value return\n- Expose a consultation (pull) endpoint that returns the beneficiária demands open during the current vigência (MVP is pull only)\n- Route facilitadora calls through the CNPJ auth gateway; reference beneficiárias/establishments by token",
+      "guardrails": [
+        "Must not build per-facilitadora custom connectors — the scale (600–700) requires one standard contract behind a certification path",
+        "Must not expose sensitive data on the pull endpoint — open demands are returned by non-sensitive reference",
+        "Must not admit an unauthenticated facilitadora call — every call passes the CNPJ client-credentials gateway"
+      ],
+      "out_of_scope": [
+        "Must not build active push notification to facilitadoras when a demand is published — push (channel undefined) is roadmap-future; the MVP delivers pull only",
+        "Must not build a self-service certification portal/sandbox in Phase 1 unless the onboarding model is ratified — see open question",
+        "Must not execute the financial split — the returned value feeds E03, it is not computed here"
+      ],
+      "acceptance": "A facilitadora, authenticated by its CNPJ credentials, calls the consultation endpoint and receives the list of open demands in the current vigência (by reference, no sensitive data); it submits a processed Quote result with value through the standard contract, and the marketplace records the return against the correct demand.",
+      "dependencies": {
+        "external": [
+          {
+            "system": "Facilitadoras (~600–700, e.g. Visa Vale, Pluxee, Caju)",
+            "need": "Adoption of and certification against the standard API contract",
+            "owner": "Facilitadoras + MTE onboarding process (model undefined — G0503)"
+          }
+        ]
+      },
+      "grounding": {
+        "requirements": [],
+        "artifacts": [
+          {
+            "type": "decision",
+            "ref": "0003 — Fronteira CRM não-transacional",
+            "location": "decisions/0003-fronteira-crm-nao-transacional.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "What is the facilitadora onboarding model — one standard contract with self-service certification sandbox, or per-facilitadora connectors? Is there a homologation/versioning process? (Dominant MuleSoft sizing driver.)",
+          "resolver": "MTE / Dataprev integration lead",
+          "answer": null
+        },
+        {
+          "question": "For the future active-push notification to facilitadoras when a demand is published, which channel (webhook/event to facilitadora API, email, WhatsApp/BSP, in-app, Marketing Cloud)? MVP is pull only.",
+          "resolver": "Client / MTE",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-007",
+      "title": "Adquirente credenciamento-check API & transaction-monitoring ingest",
+      "epic_id": "E05",
+      "phase": 1,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "integration",
+      "outcome": {
+        "summary": "An adquirente can query an establishment's accreditation status before processing a transaction, and sends all transactions into the platform for monitoring — the a-posteriori visibility feed for the MTE."
+      },
+      "build_target": "- Expose a credenciamento-status query API the adquirente calls (by establishment identifier) before processing a transaction, returning accredited/not-accredited\n- Build the inbound transaction-monitoring ingest that receives all transactions from the adquirente (establishment, value, date/time, buyer reference)\n- Reference the buyer by token; resolve CPF only at runtime for authorized monitoring, never persist it\n- Route adquirente calls through the CNPJ auth gateway; apply rate limiting to the transaction feed",
+      "guardrails": [
+        "Must not persist the buyer's CPF in Salesforce — the monitoring feed references by token and resolves nominal data only when authorized",
+        "Must not return accreditation status to an unauthenticated adquirente",
+        "Must not process or settle the transaction — the platform monitors a-posteriori, it does not authorize the payment"
+      ],
+      "out_of_scope": [
+        "Must not build the anomaly-detection/monitoring analytics itself — that is the E04 monitoring capability; this delivers the ingest feed and the credential-check API",
+        "Must not own the adquirente's transaction system"
+      ],
+      "acceptance": "Before processing, the adquirente calls the credenciamento-check API with an establishment identifier and receives 'accredited'; it then processes and sends the transaction to the monitoring ingest, which lands it (referencing the buyer by token) for the MTE's a-posteriori visibility — with the CPF resolvable only under authorization and never stored.",
+      "dependencies": {
+        "external": [
+          {
+            "system": "Adquirente(s)",
+            "need": "Ratified contract for the credenciamento-check call and the transaction-monitoring feed, plus expected volumes/peaks",
+            "owner": "Adquirente + MTE (contract not available today — G0501)"
+          }
+        ]
+      },
+      "grounding": {
+        "requirements": [],
+        "artifacts": [
+          {
+            "type": "decision",
+            "ref": "0001 — Residência de dados híbrida",
+            "location": "decisions/0001-residencia-dados-hibrida.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "What are the expected transaction volumes/peaks from the adquirente feed, and the resilience RNFs (idempotency, retry/backoff, dead-letter) required for the monitoring ingest?",
+          "resolver": "Integration architect / MTE",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-008",
+      "title": "Scheduled incremental bank-movement reconciliation feed (gateway → CRM)",
+      "epic_id": "E05",
+      "phase": 1,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "integration",
+      "outcome": {
+        "summary": "On a MuleSoft schedule, the platform pulls the registered boleto and the incremental bank movements returned by the gateway/banco custódia and lands them in the CRM so the split boletagem can be matched to what was actually paid."
+      },
+      "build_target": "- Build a scheduled MuleSoft job that pulls, on an interval, the incremental bank movements and registered-boleto confirmations from the gateway/banco custódia (batch incremental, not real-time — ADR 0003)\n- Track a high-water mark so each run pulls only new movements (incremental, not full re-pull)\n- Land the movements into the CRM as non-transactional records to update boleto/contract status for reconciliation\n- Make ingestion idempotent so a re-run or overlapping window cannot double-post a movement (financial duplicate risk)",
+      "guardrails": [
+        "Must not execute or custody any financial transaction — the platform receives movements for reconciliation; execution and custody are the external gateway's (ADR 0003)",
+        "Must not double-post a movement — ingestion is idempotent, keyed on the gateway's movement identifier",
+        "Must not re-pull the full dataset each run — the feed is incremental via high-water mark"
+      ],
+      "out_of_scope": [
+        "Must not emit the boletagem or compute the split — that is the E03 split-rules engine; this capability ingests the gateway's return",
+        "Must not build the matching/conciliation business logic UI — this delivers the feed the reconciliation consumes (name the owning E03 capability)",
+        "Must not build the gateway/banco custódia itself"
+      ],
+      "acceptance": "On its scheduled run, the MuleSoft job pulls only bank movements newer than the last high-water mark from the gateway, posts each once (a re-run of the same window posts nothing new), and updates the corresponding boleto's status in the CRM so a reconciliation view can match emitted boletagem to settled payments.",
+      "dependencies": {
+        "external": [
+          {
+            "system": "Gateway PCI / banco custódia",
+            "need": "Provider selection plus a contract returning registered boleto and incremental bank movements; PCI provider is undefined",
+            "owner": "Client (gateway not yet contracted — Fase 0 prerequisite, ADR 0003)"
+          }
+        ]
+      },
+      "grounding": {
+        "requirements": [],
+        "artifacts": [
+          {
+            "type": "decision",
+            "ref": "0003 — Fronteira CRM não-transacional; gateway devolve movimentações",
+            "location": "decisions/0003-fronteira-crm-nao-transacional.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "What are the resilience RNFs for the financial feed — idempotency guarantees, retry/backoff, dead-letter, reconciliation SLA — given duplicate-payment risk under the 15-day repasse (Decreto 12.712/2025)?",
+          "resolver": "Integration architect / banking-finance specialist",
+          "answer": null
+        },
+        {
+          "question": "Who is the PCI gateway/banco custódia provider, and what is the committed contract-availability date? (Undefined third-party dependency against the fixed 15/nov/2026 go-live.)",
+          "resolver": "Client / MTE",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-009",
+      "title": "Modelo de dados de referências tokenizadas — CPF e dados sensíveis nunca persistem na org",
+      "epic_id": "E08",
+      "phase": 1,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "data-model",
+      "outcome": {
+        "summary": "Os objetos do PAT (cotação, proposta, contrato, folha, beneficiária, estabelecimento) referenciam pessoas e estabelecimentos por um identificador não-sensível; nenhum CPF ou dado pessoal sensível é gravado em campo, anexo, histórico ou log da org Salesforce."
+      },
+      "build_target": "- Definir, campo a campo, quais atributos podem transitar/persistir na org e quais permanecem exclusivamente na infraestrutura Dataprev (a fronteira de residência do ADR 0001)\n- Modelar os objetos de negócio para chavear por um identificador tokenizado (referência opaca, não derivável do CPF) em vez do CPF ou de qualquer dado pessoal\n- Garantir que campos de exibição do dado nominal sejam calculados/preenchidos em runtime e não gravados em repouso (sem persistência do valor resolvido)\n- Aplicar Shield Platform Encryption aos campos-fronteira que, por decisão ratificada, precisarem transitar, como defesa em profundidade",
+      "guardrails": [
+        "Nenhum CPF ou dado pessoal sensível pode ser gravado em campo, texto livre, anexo, histórico de campo ou log da org",
+        "O identificador tokenizado não pode ser reversível para o CPF por lógica dentro da org (a resolução só ocorre no perímetro soberano Dataprev)",
+        "Não modelar a fronteira campo-a-campo sem ratificação escrita da arquitetura Dataprev (Jair Bogo) — modelar sobre suposição re-desenha E01/E02/E03/E06"
+      ],
+      "out_of_scope": [
+        "Persistência de qualquer dado sensível em repouso na nuvem Salesforce",
+        "Armazenamento do CPF como chave natural ou identificador externo dos objetos",
+        "Cópia de tabelas transacionais vinculadas a CPF para dentro da org"
+      ],
+      "acceptance": "Um encarregado de dados (DPO) inspeciona o modelo de dados e uma amostra de registros de beneficiária, estabelecimento, cotação e contrato e não encontra CPF nem dado pessoal sensível gravado em nenhum campo, anexo, histórico ou log; toda referência a pessoa/estabelecimento aparece como identificador tokenizado não-reversível, e o dado nominal só aparece quando resolvido em runtime.",
+      "dependencies": {
+        "external": [
+          {
+            "system": "Arquitetura de dados Dataprev",
+            "need": "Ratificação escrita da fronteira campo-a-campo de residência (quais atributos persistem na org vs. permanecem exclusivamente na infra Dataprev)",
+            "owner": "Dataprev (Jair Bogo)"
+          }
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "decision",
+            "ref": "ADR 0001 — Residência de dados híbrida",
+            "location": "decisions/0001-residencia-dados-hibrida.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "Qual a fronteira exata de residência campo a campo — quais atributos podem transitar/persistir na org e quais ficam exclusivamente na infra Dataprev (CPF, transações vinculadas)?",
+          "resolver": "Arquitetura Dataprev (Jair Bogo) — ratificação escrita",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-010",
+      "title": "Contrato de de-tokenização em runtime via MuleSoft on-premise",
+      "epic_id": "E08",
+      "phase": 1,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "data-model",
+      "outcome": {
+        "summary": "Quando um usuário autorizado precisa ver o dado nominal de uma beneficiária/estabelecimento, a org resolve o identificador tokenizado em runtime por uma chamada ao MuleSoft on-premise, que de-tokeniza no perímetro soberano Dataprev — sem que o dado resolvido seja gravado na org."
+      },
+      "build_target": "- Definir o contrato de resolução em runtime (entrada: identificador tokenizado + contexto de autorização; saída: dado nominal apenas para exibição transitória) exposto pelo MuleSoft on-premise\n- Modelar o acesso ao dado sensível como objeto/entidade externa ou callout — o dado vive na origem e é lido sob demanda, nunca replicado\n- Tratar timeout, indisponibilidade e negação de autorização com caminho de exceção explícito (degradação previsível, sem vazar dado parcial nem persistir cache)\n- Registrar cada resolução como evento de acesso a dado sensível (alimenta a trilha de auditoria)",
+      "guardrails": [
+        "O dado nominal resolvido não pode ser persistido, cacheado em repouso nem gravado em campo/log após a exibição transitória",
+        "A de-tokenização não pode ocorrer dentro da org — só no MuleSoft on-premise, dentro do perímetro soberano",
+        "Toda resolução deve carregar contexto de autorização; uma chamada sem direito de acesso não retorna o dado nominal"
+      ],
+      "out_of_scope": [
+        "Hospedagem do MuleSoft em CloudHub ou fora da infra soberana Dataprev (ADR 0005: on-premise)",
+        "De-tokenização executada por lógica interna da org Salesforce",
+        "Cache persistente do dado sensível resolvido para desempenho"
+      ],
+      "acceptance": "Um auditor acompanha um atendente autorizado abrindo o cadastro de uma beneficiária: o nome/CPF aparece na tela resolvido em runtime; ao inspecionar a org após fechar a tela, o auditor confirma que nada do dado nominal foi gravado; uma tentativa da mesma leitura por usuário sem direito de acesso não retorna o dado, e a indisponibilidade do MuleSoft degrada de forma previsível sem expor dado parcial.",
+      "dependencies": {
+        "external": [
+          {
+            "system": "MuleSoft on-premise (infra Dataprev)",
+            "need": "Serviço de de-tokenização/resolução no perímetro soberano, pronto e acessível nos marcos do projeto (pré-requisito de arranque, lead-time externo)",
+            "owner": "Dataprev"
+          }
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "decision",
+            "ref": "ADR 0001 — Residência híbrida (data-at-source / tokenização)",
+            "location": "decisions/0001-residencia-dados-hibrida.md"
+          },
+          {
+            "type": "decision",
+            "ref": "ADR 0005 — Greenfield + MuleSoft on-premise (soberania)",
+            "location": "decisions/0005-greenfield-mulesoft-onpremise.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "Como criar/gerenciar o usuário do portal (Experience Cloud) sem persistir CPF — via identificador tokenizado resolvido em runtime — e como isso é compatível com SSO gov.br e a sessão do Experience Cloud?",
+          "resolver": "Arquitetura Dataprev (Jair Bogo) + time de Experience Cloud",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-011",
+      "title": "Trilha de auditoria imutável de acesso a dado sensível",
+      "epic_id": "E08",
+      "phase": 1,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "security",
+      "outcome": {
+        "summary": "Todo acesso a dado sensível (resolução de identificador, leitura de campo-fronteira, ação sobre registro financeiro) gera um registro de trilha imutável — quem, o quê, quando — que sustenta escrutínio de TCU/CGU/ANPD e não pode ser alterado nem apagado por administrador."
+      },
+      "build_target": "- Definir o conjunto de eventos auditáveis: resolução de dado nominal via MuleSoft, acesso a campos-fronteira, ações sobre objetos financeiros (split, boletagem, conciliação)\n- Materializar a trilha com Field Audit Trail e Event Monitoring (produtos reais), retendo o histórico pelo horizonte regulatório exigido\n- Garantir a imutabilidade da trilha — nem administrador da org pode editar ou apagar registros de acesso\n- Expor a trilha de forma consultável por auditor/DPO (quem acessou qual referência, quando, sob qual autorização)",
+      "guardrails": [
+        "Registros de trilha de acesso a dado sensível não podem ser editáveis nem deletáveis por nenhum perfil, inclusive administrador",
+        "A trilha não pode registrar o valor do dado sensível em claro — registra a referência tokenizada e o evento de acesso, não o CPF",
+        "A retenção não pode ser menor que o horizonte regulatório a confirmar com o cliente"
+      ],
+      "out_of_scope": [
+        "Trilha de auditoria de eventos não relacionados a dado sensível ou a operações financeiras (fora do gatilho regulatório)",
+        "Ferramenta externa de SIEM/observabilidade fora da org (responsabilidade da infra Dataprev)"
+      ],
+      "acceptance": "Um auditor do TCU/CGU consulta a trilha por um período e vê, para cada acesso a dado sensível, quem acessou, qual referência tokenizada, quando e sob qual autorização; ao tentar alterar ou apagar um registro da trilha — mesmo com perfil de administrador — a ação é negada, comprovando a imutabilidade.",
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "decision",
+            "ref": "ADR 0002 — Instância dedicada (auditabilidade TCU/CGU/ANPD)",
+            "location": "decisions/0002-instancia-dedicada-mte-pat.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "Qual o horizonte de retenção da trilha de auditoria exigido pelo cliente/regulador (TCU/CGU/ANPD)?",
+          "resolver": "Cliente MTE + jurídico/compliance",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-012",
+      "title": "Mascaramento de CPF em logs, depuração e mensagens de erro",
+      "epic_id": "E08",
+      "phase": 1,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "security",
+      "outcome": {
+        "summary": "CPF e dados pessoais sensíveis nunca aparecem em claro em logs de sistema, logs de depuração, mensagens de erro, notificações ou telas de diagnóstico — são mascarados ou substituídos pela referência tokenizada em toda saída observável."
+      },
+      "build_target": "- Estabelecer o padrão de mascaramento (ex.: exibir só a referência tokenizada, ou dígitos parcialmente ocultos) aplicado a toda saída de log/erro/diagnóstico\n- Garantir que integrações (callouts MuleSoft, gateway PCI) não ecoem CPF em payloads de erro ou logs de request/response gravados na org\n- Cobrir os pontos onde dado sensível pode vazar por engano: mensagens de exceção, notificações, debug logs, telas de erro para o usuário",
+      "guardrails": [
+        "CPF em claro não pode aparecer em log de sistema, debug log, mensagem de exceção, notificação ou tela de diagnóstico",
+        "Payloads de erro de integração não podem gravar o dado nominal na org",
+        "O mascaramento não pode ser contornável por elevação de log level ou por perfil de administrador"
+      ],
+      "out_of_scope": [
+        "Mascaramento em sistemas de log da infra Dataprev fora da org (responsabilidade Dataprev)",
+        "Anonimização de dados para ambientes de teste (tratado em provisionamento/dados de sandbox, não aqui)"
+      ],
+      "acceptance": "Um engenheiro de operações eleva o nível de log e reproduz um erro numa transação com dado sensível; ao inspecionar debug logs, mensagens de erro e notificações resultantes, um DPO confirma que nenhum CPF aparece em claro — só a referência tokenizada ou dígitos mascarados.",
+      "open_questions": []
+    },
+    {
+      "id": "INT-013",
+      "title": "Modelo de isolamento e acesso de menor privilégio na org dedicada",
+      "epic_id": "E08",
+      "phase": 1,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "security",
+      "outcome": {
+        "summary": "Dentro da instância dedicada e apartada do MTE/PAT, o acesso a dado sensível e a operações financeiras é concedido por menor privilégio via permission sets e modelo de compartilhamento, de modo que só perfis autorizados resolvem dado nominal e nenhum administrador de outro ambiente Dataprev enxerga estes dados."
+      },
+      "build_target": "- Definir os perfis/personas e mapear quem pode resolver dado nominal, quem vê apenas referências tokenizadas e quem opera funções financeiras\n- Implementar o acesso por permission sets (concessão aditiva, menor privilégio) e desenhar o modelo de compartilhamento (org-wide defaults restritivos + compartilhamento explícito) para os objetos sensíveis/financeiros\n- Assegurar que a autorização de resolução em runtime (contrato MuleSoft) respeite o mesmo modelo de permissão da org\n- Documentar a matriz de acesso como evidência para auditoria",
+      "guardrails": [
+        "Nenhum administrador ou perfil de outro ambiente Dataprev pode ter acesso a esta org ou a estes dados (isolamento por construção — greenfield, ADR 0005)",
+        "O acesso a dado sensível e a operações financeiras não pode ser concedido por padrão — só por permission set explícito, menor privilégio",
+        "A resolução de dado nominal em runtime não pode contornar o modelo de permissão da org"
+      ],
+      "out_of_scope": [
+        "Provisionamento físico da org dedicada e do MuleSoft on-premise (pré-requisito de Fase 0, procurement — dependência externa, não build Salesforce)",
+        "Modelo de administração de outros ambientes Dataprev (esta org é apartada)",
+        "Integração de identidade/SSO gov.br em si (tratado em E01, aqui só o alinhamento do modelo de permissão)"
+      ],
+      "acceptance": "Um administrador de segurança verifica que um atendente sem o permission set de dado sensível vê apenas referências tokenizadas e não consegue disparar a resolução em runtime; que um operador financeiro só acessa o que sua função exige; e o cliente confirma que nenhum administrador de outro ambiente Dataprev tem qualquer acesso a esta org.",
+      "dependencies": {
+        "external": [
+          {
+            "system": "Provisionamento de infra (org dedicada + MuleSoft on-premise)",
+            "need": "Instância dedicada e apartada provisionada do zero (greenfield) e MuleSoft on-premise instalado, prontos nos marcos do projeto — lead-time externo que compete com a data fixa 15/nov/2026",
+            "owner": "Dataprev / MTE"
+          }
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "decision",
+            "ref": "ADR 0002 — Instância dedicada e apartada (isolamento forçado, administração pelo MTE)",
+            "location": "decisions/0002-instancia-dedicada-mte-pat.md"
+          },
+          {
+            "type": "decision",
+            "ref": "ADR 0005 — Greenfield + MuleSoft on-premise (isolamento por construção)",
+            "location": "decisions/0005-greenfield-mulesoft-onpremise.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "A decisão de instância dedicada e apartada (Cenário B) ainda é verbal (call 30/jul/2026) — precisa de ratificação escrita do cliente antes do build.",
+          "resolver": "Cliente MTE (diretoria) — ratificação escrita na proposta",
+          "answer": null
+        },
+        {
+          "question": "Como o User/Contact do portal Experience Cloud é criado/gerenciado sob menor privilégio sem persistir CPF, de forma compatível com SSO gov.br?",
+          "resolver": "Arquitetura Dataprev (Jair Bogo) + time de Experience Cloud",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-014",
+      "title": "Autenticação gov.br via OpenID Connect no Experience Cloud",
+      "epic_id": "E01",
+      "phase": 1,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "security",
+      "outcome": {
+        "summary": "Uma representante de uma empresa beneficiária entra no portal do PAT usando sua conta gov.br, sem senha própria da plataforma — a identidade gov.br é a única porta de entrada."
+      },
+      "build_target": "- Auth Provider OpenID Connect (OIDC) customizado apontando para o provedor gov.br, com o portal registrado como Relying Party (client_id/redirect_uri de produção)\n- Registration Handler em Apex que resolve a pessoa autenticada para um User de portal do Experience Cloud, sem persistir CPF (referência tokenizada, aderente à residência híbrida)\n- Botão único 'Entrar com gov.br' na landing/login do portal (tema LWR), sem cadastro local de credenciais\n- Nível mínimo de garantia da conta gov.br (Bronze/Prata/Ouro) checado/exigido no fluxo de login",
+      "guardrails": [
+        "Must not persistir CPF (nem identificador pessoal derivado que seja dado sensível) no User/Contact do portal — a identidade se resolve por referência tokenizada em runtime",
+        "Must not oferecer cadastro/senha local: gov.br é o único provedor de identidade da beneficiária",
+        "Must not tratar a facilitadora como usuária de portal — ela é API-only (E05) e não autentica pela tela"
+      ],
+      "out_of_scope": [
+        "Must not autenticar o estabelecimento por identidade PJ distinta (e-CNPJ/certificado) nesta capacidade — tratado à parte se confirmado (G0402)",
+        "Must not implementar o provedor de identidade gov.br em si — apenas consumi-lo como Relying Party"
+      ],
+      "acceptance": "Uma analista de RH da empresa beneficiária abre o portal, clica em 'Entrar com gov.br', é redirecionada ao gov.br, autentica com a conta no nível de garantia exigido e retorna ao portal já reconhecida como usuária, sem ter criado ou digitado qualquer senha da plataforma. Nenhum CPF fica gravado no registro de usuário do Salesforce.",
+      "dependencies": {
+        "external": [
+          {
+            "system": "gov.br",
+            "need": "Credenciamento do portal como Relying Party (client_id/redirect_uri de produção) e definição do nível mínimo de garantia (Prata/Ouro)",
+            "owner": "MTE/Dataprev junto ao gov.br"
+          }
+        ],
+        "internal": [
+          "INT-001",
+          "INT-009"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "decision",
+            "ref": "0001 — residência de dados híbrida (CPF não persiste no SF)",
+            "location": "decisions/0001-residencia-dados-hibrida.md"
+          },
+          {
+            "type": "wireframe",
+            "ref": "Protótipo Figma tela 1 — Landing/Login, botão único 'Entrar com gov.br'",
+            "location": ".discovery-context.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "O gov.br autoriza o cadastro do marketplace como Relying Party em produção (client_id/redirect_uri) e qual o nível mínimo de conta (Prata/Ouro) exigido da beneficiária?",
+          "resolver": "MTE/Dataprev junto ao gov.br",
+          "answer": null
+        },
+        {
+          "question": "Como criar/gerir o User de portal sem persistir CPF, mantendo compatibilidade com a sessão do Experience Cloud e o SSO gov.br (identificador tokenizado resolvido via MuleSoft)?",
+          "resolver": "Arquitetura Dataprev (Jair Bogo)",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-015",
+      "title": "Seleção 'representar empresa' dirigida por procuração",
+      "epic_id": "E01",
+      "phase": 1,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "experience-cloud",
+      "outcome": {
+        "summary": "Após o login, a representante vê apenas os CNPJs que sua procuração digital a autoriza a operar, escolhe uma empresa (Matriz ou Filial) e passa a navegar o portal naquele contexto — podendo trocar de empresa pelo menu superior."
+      },
+      "build_target": "- Tela pós-login 'Selecionar empresa que deseja representar' (LWC no Experience Cloud) listando os vínculos válidos da pessoa: Razão Social + CNPJ + tipo (Matriz/Filial) + situação (Ativa)\n- Busca por Razão Social/CNPJ e ação Selecionar/Continuar; estado 'empresa selecionada' que estabelece o contexto de operação\n- Troca de empresa a qualquer momento pelo menu superior, sem novo login\n- Contexto de empresa selecionada propagado às telas subsequentes (Cotações, Folha) — a beneficiária opera Opportunity (demanda) e Quote (comparação/seleção) no escopo daquele CNPJ",
+      "guardrails": [
+        "Must not exibir empresa para a qual a pessoa não tenha vínculo válido e ativo — a lista é a interseção da procuração vigente",
+        "Must not deixar a sessão sem contexto de empresa: nenhuma operação de negócio ocorre antes de uma seleção válida",
+        "Must not permitir operar dados de uma empresa após a troca para outra (isolamento por contexto selecionado)"
+      ],
+      "out_of_scope": [
+        "Must not ser a fonte de verdade do vínculo CPF→CNPJ — a autorização vem do gov.br/Novo PAT; esta capacidade consome e apresenta o vínculo validado",
+        "Must not tratar a comparação/seleção de propostas em si (é E02) — aqui só se estabelece o contexto de empresa"
+      ],
+      "acceptance": "Uma representante autorizada a operar três empresas entra no portal e vê exatamente esses três cards (com Matriz/Filial e chip 'Ativa'); busca por Razão Social, seleciona uma Filial, confirma em Continuar e passa a ver as cotações daquela Filial. Pelo menu superior troca para outra empresa e o portal recarrega o contexto sem pedir novo login.",
+      "dependencies": {
+        "internal": [
+          "INT-001",
+          "INT-009"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "wireframe",
+            "ref": "Protótipo Figma telas 2 e 3 — 'Selecionar/Empresa selecionada', vínculos válidos, Matriz/Filial, troca pelo menu superior",
+            "location": ".discovery-context.md"
+          },
+          {
+            "type": "decision",
+            "ref": "0004 — beneficiária opera Opportunity/Quote no portal (driver de licença)",
+            "location": "decisions/0004-sales-cloud-objetos-nativos.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "A autorização de representante (procuração) vem do próprio gov.br (procuração eletrônica/e-CNPJ/Novo PAT) ou o marketplace mantém seu próprio modelo de vínculo pessoa-empresa? Quem é a fonte de verdade e como se revoga?",
+          "resolver": "MTE/Dataprev (Ramon Pontes / Jair Bogo)",
+          "answer": null
+        },
+        {
+          "question": "Regra de Matriz/Filial: uma procuração no CNPJ raiz autoriza todas as filiais, ou o vínculo é por estabelecimento (CNPJ completo)? Como isso mapeia para os cards exibidos?",
+          "resolver": "MTE/Dataprev",
+          "answer": null
+        },
+        {
+          "question": "Versão da licença Experience Cloud da beneficiária (Partner Community vs Customer Community Plus) — Customer Community Plus não expõe Opportunity/Quote nativamente; a operação desses objetos no portal empurra para Partner Community, a requalificar contra volume/padrão de acesso.",
+          "resolver": "Arquitetura Salesforce + Dataprev (G0103/G0108)",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-016",
+      "title": "Validação de vínculo CPF↔CNPJ via Geride",
+      "epic_id": "E01",
+      "phase": 1,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "automation",
+      "outcome": {
+        "summary": "A lista de empresas que a representante pode operar reflete os vínculos válidos e ativos apurados na fonte oficial em tempo de acesso — vínculo revogado ou empresa irregular não aparece nem é operável."
+      },
+      "build_target": "- Chamada de validação (via MuleSoft) ao Geride/gov.br que retorna os vínculos válidos CPF→CNPJ da pessoa autenticada, com situação (ativo/revogado) e tipo (Matriz/Filial)\n- Resolução em runtime dos vínculos para o contexto de portal, sem persistir CPF no Salesforce (referência tokenizada)\n- Filtro que expõe à tela de seleção somente vínculos válidos e ativos; tratamento de exceção quando a pessoa não tem nenhum vínculo válido (mensagem/fluxo de saída)",
+      "guardrails": [
+        "Must not confiar em cache local de vínculo como fonte de verdade — a autorização é apurada contra a fonte oficial no acesso",
+        "Must not expor vínculo revogado, suspenso ou de empresa irregular no Novo PAT",
+        "Must not logar/persistir CPF na chamada de validação nem no registro do vínculo (aderente à residência híbrida e à trilha de auditoria sem CPF)"
+      ],
+      "out_of_scope": [
+        "Must not construir o Geride nem o cadastro de procuração — esta capacidade apenas consome o contrato de API de validação",
+        "Must not orquestrar o split ou qualquer fluxo financeiro (E03/E05)"
+      ],
+      "acceptance": "Uma representante que teve a procuração de uma das empresas revogada no gov.br entra no portal; ao carregar a seleção, a validação via Geride retorna apenas os vínculos ainda ativos e a empresa revogada não aparece na lista — sem que qualquer CPF tenha sido gravado no Salesforce.",
+      "dependencies": {
+        "external": [
+          {
+            "system": "gov.br/Geride",
+            "need": "Contrato de API (Swagger) de validação de vínculo/situação e autenticação de acesso ao Geride",
+            "owner": "Dataprev (Geride) / gov.br"
+          }
+        ],
+        "internal": [
+          "INT-001",
+          "INT-009"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "decision",
+            "ref": "0001 — residência híbrida; resolução tokenizada em runtime",
+            "location": "decisions/0001-residencia-dados-hibrida.md"
+          },
+          {
+            "type": "wireframe",
+            "ref": "Protótipo Figma tela 2 — aviso 'apenas empresas com vínculos válidos'",
+            "location": ".discovery-context.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "Existe contrato de API (Swagger) do Geride para validação de vínculo, e qual o padrão de autenticação (OAuth2/mTLS/certificado ICP-Brasil)? Cronograma de disponibilização mock→real.",
+          "resolver": "Dataprev (Jair Bogo) — registro de dependências de API",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-017",
+      "title": "Controle de acesso e navegação do portal por papel",
+      "epic_id": "E01",
+      "phase": 1,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "security",
+      "outcome": {
+        "summary": "Cada tipo de usuário vê e opera somente o que seu papel permite — a representante da beneficiária navega cotação/folha da(s) empresa(s) que representa; o estabelecimento vê seu próprio escopo; o administrador do MTE tem sua visão de gestão — sem cruzar dados entre empresas."
+      },
+      "build_target": "- Permission sets por papel (beneficiária, estabelecimento, administrador MTE) governando objetos, campos e componentes visíveis\n- Menu lateral do portal renderizado conforme o papel (ex.: beneficiária vê Início, Cotação, Folha de Pagamento, Empresas Credenciadas, Facilitadores, Sair)\n- Modelo de sharing que isola registros ao contexto de empresa selecionada — a beneficiária só alcança dados dos CNPJs que representa\n- Base de identidade e acesso sobre a qual E02/E03/E04 são renderizados (fundação, não as telas de negócio em si)",
+      "guardrails": [
+        "Must not permitir que uma beneficiária veja dados de outra beneficiária ou de qualquer facilitadora",
+        "Must not conceder acesso a objetos/telas fora do permission set do papel (princípio do menor privilégio)",
+        "Must not depender de segurança apenas na camada de UI — o isolamento é imposto por sharing/permission set, não só por ocultar itens de menu"
+      ],
+      "out_of_scope": [
+        "Must not implementar Apex managed sharing para ocultar Quotes entre facilitadoras concorrentes — a equidade é por construção (facilitadora é API-only, sem UI; ADR 0004)",
+        "Must not construir as telas de negócio de cotação/folha/credenciamento — são E02/E03/E04; aqui só o arcabouço de papel/acesso"
+      ],
+      "acceptance": "Uma representante de beneficiária entra e vê o menu e os registros apenas das empresas que representa; ao tentar acessar por URL um registro de outra empresa, o sharing nega. Um administrador do MTE, com outro permission set, vê sua visão de gestão e não as telas operacionais da beneficiária.",
+      "dependencies": {
+        "internal": [
+          "INT-001",
+          "INT-009"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "wireframe",
+            "ref": "Protótipo Figma — menu lateral da Beneficiária (Início/Registros/Empresas Credenciadas/Cotação/Folha/Facilitadores/Sair)",
+            "location": ".discovery-context.md"
+          },
+          {
+            "type": "decision",
+            "ref": "0004 — equidade por construção; facilitadora API-only sem licença de portal",
+            "location": "decisions/0004-sales-cloud-objetos-nativos.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "O estabelecimento acessa o portal (e como se autentica — identidade PJ distinta?) ou é apenas objeto de credenciamento operado por outros papéis? Define se há um terceiro perfil de portal (G0402).",
+          "resolver": "MTE/Dataprev",
+          "answer": null
+        },
+        {
+          "question": "O administrador do MTE opera dentro do Experience Cloud (portal) ou na org interna (não é usuário de portal)? Define se seu acesso consome licença de portal ou de plataforma.",
+          "resolver": "Arquitetura Salesforce + Dataprev",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-018",
+      "title": "Sessão e logout federado gov.br",
+      "epic_id": "E01",
+      "phase": 1,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "experience-cloud",
+      "outcome": {
+        "summary": "A sessão do portal tem começo e fim claros: ao sair, a representante encerra a sessão do Experience Cloud e o vínculo com a identidade gov.br, sem deixar contexto de empresa aberto para um próximo acesso indevido."
+      },
+      "build_target": "- Ação 'Sair' no portal que encerra a sessão do Experience Cloud e limpa o contexto de empresa selecionada\n- Comportamento de logout coerente com o provedor gov.br (encerramento/expiração da sessão federada) e destino pós-logout definido (landing pública)\n- Política de timeout/expiração de sessão do portal apropriada para acesso a dado sensível",
+      "guardrails": [
+        "Must not manter o contexto de empresa selecionada ativo após o logout ou a expiração da sessão",
+        "Must not deixar a sessão do portal viva de forma indefinida — timeout coerente com a sensibilidade dos dados"
+      ],
+      "out_of_scope": [
+        "Must not gerir a sessão do provedor gov.br em si — apenas coordenar o encerramento no lado do Relying Party",
+        "Must not implementar trilha de auditoria de acesso a CPF (é E08/residência) — aqui só o ciclo de vida da sessão"
+      ],
+      "acceptance": "Uma representante clica em 'Sair'; a sessão do portal é encerrada, o contexto de empresa é limpo e ela é levada à landing pública. Ao voltar, precisa autenticar novamente pelo gov.br antes de reselecionar uma empresa.",
+      "dependencies": {
+        "internal": [
+          "INT-001",
+          "INT-009"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "wireframe",
+            "ref": "Protótipo Figma — item 'Sair' no menu lateral da Beneficiária",
+            "location": ".discovery-context.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "O logout deve encerrar também a sessão gov.br (single logout) ou apenas a sessão do portal? Qual o destino pós-logout e a política de timeout exigida para dado sensível?",
+          "resolver": "MTE/Dataprev + Arquitetura Salesforce",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-019",
+      "title": "Publicação da demanda como Opportunity nativa (leilão reverso)",
+      "epic_id": "E02",
+      "phase": 2,
+      "priority": null,
+      "confidence": "Confirmed",
+      "surface": "experience-cloud",
+      "outcome": {
+        "summary": "A beneficiária registra sua demanda de leilão reverso como uma Opportunity nativa do Sales Cloud, com todos os parâmetros que as facilitadoras precisam para cotar."
+      },
+      "build_target": "- Record type/estágios de Opportunity dedicados ao leilão reverso (demanda aberta → em vigência → fechada → selecionada → contratada)\n- Campos da demanda: nº de trabalhadores, valor, janela de vigência (início/fim), distribuição por UF, recursos obrigatórios, tipo PAT vs. não-PAT\n- Fluxo de autoria no portal Experience Cloud para a beneficiária publicar a demanda\n- Account/Opportunity carregam referência tokenizada, nunca CPF (coexiste com ADR 0001)",
+      "guardrails": [
+        "Must not persist CPF on the Account/Opportunity — carry a tokenized reference resolved at runtime (ADR 0001)",
+        "Must not expose demand authoring to a facilitadora — the facilitadora is API-only, without portal UI or license"
+      ],
+      "out_of_scope": [
+        "Must not compute or apply payment split (owned by the E03 financial split engine)",
+        "Must not build any facilitadora-facing UI (facilitadora is API-only)"
+      ],
+      "acceptance": "Cenário de verificação — A beneficiária registra sua demanda de leilão reverso como uma Opportunity nativa do Sales Cloud, com todos os parâmetros que as facilitadoras precisam para cotar.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not persist CPF on the Account/Opportunity — carry a tokenized reference resolved at runtime (ADR 0001)).",
+      "dependencies": {
+        "internal": [
+          "INT-001",
+          "INT-014"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "decision",
+            "ref": "ADR 0004 — Sales Cloud objetos nativos (Opportunity = demanda)",
+            "location": "decisions/0004-sales-cloud-objetos-nativos.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "Quais campos são obrigatórios na publicação da demanda e como os 'recursos obrigatórios' são estruturados (picklist controlada, multi-seleção)?",
+          "resolver": "Workshop de regras do leilão (MTE/Dataprev)",
+          "answer": null
+        },
+        {
+          "question": "A janela de vigência é prazo fixo, configurável pela beneficiária ou por norma?",
+          "resolver": "Workshop de regras do leilão (G0205)",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-020",
+      "title": "Recepção de Quotes das facilitadoras via API dentro da vigência",
+      "epic_id": "E02",
+      "phase": 2,
+      "priority": null,
+      "confidence": "Confirmed",
+      "surface": "automation",
+      "outcome": {
+        "summary": "N facilitadoras submetem propostas como Quotes nativas associadas à Opportunity aberta, exclusivamente via API, sem UI nem licença de portal — a equidade é por construção."
+      },
+      "build_target": "- Quote nativo associado 1-Opportunity-para-N-Quotes, criado por ingestão de API (via a integração MuleSoft do E05)\n- Validação de janela: só aceita Quote enquanto a vigência da Opportunity está aberta\n- Submissão informando o ID da cotação/oportunidade aberta; validação de elegibilidade da facilitadora (credenciada + por UF)\n- Idempotência na submissão para evitar Quotes duplicadas",
+      "guardrails": [
+        "Must not reveal competing Quotes to a facilitadora (equity by construction — facilitadora has no UI)",
+        "Must not accept a Quote after the vigência window closes",
+        "Must not require a portal license for the facilitadora — she is an API integration, not a seat",
+        "Must not implement Apex managed sharing to hide Quotes — unnecessary given the API-only facilitadora (ADR 0004)"
+      ],
+      "out_of_scope": [
+        "Must not push notifications to facilitadoras — the MVP exposes only a pull consultation endpoint (owned by E05); active push is future roadmap (G0211)",
+        "Must not enrich facilitadora history via Data Cloud (de-scope/buffer candidate)"
+      ],
+      "acceptance": "Cenário de verificação — N facilitadoras submetem propostas como Quotes nativas associadas à Opportunity aberta, exclusivamente via API, sem UI nem licença de portal — a equidade é por construção.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not reveal competing Quotes to a facilitadora (equity by construction — facilitadora has no UI)).",
+      "dependencies": {
+        "internal": [
+          "INT-001",
+          "INT-014"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "decision",
+            "ref": "ADR 0004 + G0210 — Quote via API, facilitadora API-only, equidade por construção",
+            "location": "decisions/0004-sales-cloud-objetos-nativos.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "Qual o payload/auth/idempotência da submissão da Quote e como se garante a elegibilidade por UF?",
+          "resolver": "Workshop de regras do leilão + contrato de API E05 (G0207)",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-021",
+      "title": "Máquina de estados da janela de vigência + trava de seleção até o fechamento",
+      "epic_id": "E02",
+      "phase": 2,
+      "priority": null,
+      "confidence": "Confirmed",
+      "surface": "automation",
+      "outcome": {
+        "summary": "O ciclo da demanda transita por estados regidos pela janela de vigência; a beneficiária vê as Quotes conforme chegam, mas a seleção fica travada até a janela fechar (não é seleção cega)."
+      },
+      "build_target": "- Máquina de estados: aberta → em vigência → fechada → selecionada → contratada, com caminhos de exceção (concluída sem contrato, cancelada)\n- Job agendado / Platform Event que fecha a janela no fim da vigência e libera a ação de seleção\n- Trava de seleção: a seleção manual só é habilitada após o fechamento da janela",
+      "guardrails": [
+        "Must not allow selection before the vigência window closes",
+        "Must not accept new or revised Quotes after the window closes"
+      ],
+      "out_of_scope": [
+        "Must not auto-rank or score Quotes — selection is manual by the beneficiária (G0202), no scoring engine",
+        "Must not compute payment split (E03 financial engine)"
+      ],
+      "acceptance": "Cenário de verificação — O ciclo da demanda transita por estados regidos pela janela de vigência; a beneficiária vê as Quotes conforme chegam, mas a seleção fica travada até a janela fechar (não é seleção cega).; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not allow selection before the vigência window closes).",
+      "dependencies": {
+        "internal": [
+          "INT-001",
+          "INT-014"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "decision",
+            "ref": "ADR 0004 + G0210/G0202 — seleção manual travada até o fechamento",
+            "location": "decisions/0004-sales-cloud-objetos-nativos.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "O que ocorre no vencimento da janela — fecha automaticamente, permite prorrogação? Facilitadoras podem revisar/retirar proposta?",
+          "resolver": "Workshop de regras do leilão (G0205)",
+          "answer": null
+        },
+        {
+          "question": "Quais gatilhos definem 'concluída sem contrato' (ninguém propôs, beneficiária não selecionou, rejeitou todas) e há relançamento?",
+          "resolver": "Workshop de regras do leilão (G0206)",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-022",
+      "title": "Tela Comparar Propostas (LWC) lado a lado",
+      "epic_id": "E02",
+      "phase": 2,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "lwc",
+      "outcome": {
+        "summary": "A beneficiária compara as Quotes recebidas lado a lado numa tela custom, com os atributos decisórios normalizados para comparação justa."
+      },
+      "build_target": "- LWC 'Comparar Propostas' que popula conforme as Quotes chegam\n- Atributos comparados: preço por trabalhador, SLA/prazo, cobertura por UF, atendimento aos recursos obrigatórios, taxa/desconto — distinguindo decisórios de informativos\n- Normalização das propostas para comparação justa (split Alimentação/Refeição, preço regional por UF, recursos obrigatórios)",
+      "guardrails": [
+        "Must not enable the selection action before the vigência window closes",
+        "Must not reveal Quotes to any facilitadora (view is beneficiária-only)"
+      ],
+      "out_of_scope": [
+        "Must not implement a scoring/ranking engine — the beneficiária selects manually (owned by the selection→contract capability)"
+      ],
+      "acceptance": "Cenário de verificação — A beneficiária compara as Quotes recebidas lado a lado numa tela custom, com os atributos decisórios normalizados para comparação justa.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not enable the selection action before the vigência window closes).",
+      "dependencies": {
+        "internal": [
+          "INT-001",
+          "INT-014"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "decision",
+            "ref": "ADR 0004 — camada custom fina (tela Comparar Propostas)",
+            "location": "decisions/0004-sales-cloud-objetos-nativos.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "Quais atributos são comparados, como são exibidos lado a lado e quais são decisórios vs. informativos? (tela ausente no protótipo Figma)",
+          "resolver": "Cliente / design de serviço (G0201, G0104)",
+          "answer": null
+        },
+        {
+          "question": "Como as propostas são normalizadas — a facilitadora cota valor único, por UF ou por combinação? Comparação por custo total, por trabalhador/mês ou por UF?",
+          "resolver": "Workshop de regras do leilão (G0208)",
+          "answer": null
+        },
+        {
+          "question": "Há regra de desempate e de conformidade mínima quando propostas ficam equivalentes?",
+          "resolver": "Posição jurídica MTE/Dataprev (G0204)",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-023",
+      "title": "Seleção do vencedor → firmamento do contrato",
+      "epic_id": "E02",
+      "phase": 2,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "screen-flow",
+      "outcome": {
+        "summary": "Após o fechamento da janela, a beneficiária seleciona uma Quote e a plataforma transita a demanda para contrato firmado, com trilha de justificativa."
+      },
+      "build_target": "- Ação de seleção habilitada somente após o fechamento da janela\n- Transição da Quote selecionada → contrato firmado (mudança de estado da Opportunity)\n- Registro de justificativa/motivação da escolha para auditabilidade",
+      "guardrails": [
+        "Must not allow selection before the window closes",
+        "Must not firm a contract without a recorded rationale (auditability for TCU/CGU)"
+      ],
+      "out_of_scope": [
+        "Must not run contract lifecycle management — no CLM (redlining, clause library, e-signature); the PDF-upload capability owns the document",
+        "Must not compute payment split (E03 financial engine)"
+      ],
+      "acceptance": "Cenário de verificação — Após o fechamento da janela, a beneficiária seleciona uma Quote e a plataforma transita a demanda para contrato firmado, com trilha de justificativa.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not allow selection before the window closes).",
+      "dependencies": {
+        "internal": [
+          "INT-001",
+          "INT-014"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "decision",
+            "ref": "ADR 0004 — transição seleção→contrato na camada custom fina",
+            "location": "decisions/0004-sales-cloud-objetos-nativos.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "A seleção entre propostas está sujeita à Lei 14.133/2021 (critério de julgamento, motivação obrigatória, publicidade, direito de recurso)?",
+          "resolver": "Posição jurídica MTE/Dataprev (G0203)",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-024",
+      "title": "Upload e versionamento do PDF de contrato (sem CLM)",
+      "epic_id": "E02",
+      "phase": 2,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "data-model",
+      "outcome": {
+        "summary": "A facilitadora anexa o PDF imutável do contrato com metadados e versões (aditivo = nova versão), sem gestão de ciclo de vida de contrato."
+      },
+      "build_target": "- Armazenamento do PDF via Files/ContentVersion, imutável\n- Metadados do contrato + relação com a Opportunity/Quote vencedora\n- Versionamento: cada aditivo entra como nova versão, preservando as anteriores",
+      "guardrails": [
+        "Must not build contract lifecycle management — no CLM redlining, clause library, obligations or e-signature (MVP)",
+        "Must not mutate a prior version — versions are immutable, aditivo = nova versão"
+      ],
+      "out_of_scope": [
+        "Must not compute payment split (E03 financial engine)"
+      ],
+      "acceptance": "Cenário de verificação — A facilitadora anexa o PDF imutável do contrato com metadados e versões (aditivo = nova versão), sem gestão de ciclo de vida de contrato.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not build contract lifecycle management — no CLM redlining, clause library, obligations or e-signature (MVP)).",
+      "dependencies": {
+        "internal": [
+          "INT-001",
+          "INT-014"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "decision",
+            "ref": "ADR 0004 — contrato sem CLM (upload de PDF imutável + versões)",
+            "location": "decisions/0004-sales-cloud-objetos-nativos.md"
+          },
+          {
+            "type": "knowledge",
+            "ref": "CLM é componente nativo do Revenue Cloud, explicitamente fora de escopo no MVP",
+            "location": "knowledge/salesforce-revenue-cloud-marketplace-arch.md:14"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "O upload do PDF pela facilitadora é via API (dado que ela é API-only) e qual o conjunto de metadados obrigatórios?",
+          "resolver": "Contrato de API E05 + workshop de regras",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-025",
+      "title": "Termo de aceite: classificação por faixa salarial + matriz/filial → Novo PAT",
+      "epic_id": "E02",
+      "phase": 2,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "screen-flow",
+      "outcome": {
+        "summary": "Após o contrato firmado, a beneficiária classifica o nº de trabalhadores acima/abaixo de 5 salários mínimos por CNPJ e matriz/filial, e o aceite é integrado ao Novo PAT via INIS PJ."
+      },
+      "build_target": "- Fluxo de termo de aceite acionado após o contrato firmado\n- Classificação do nº de trabalhadores acima/abaixo de 5 salários mínimos por CNPJ\n- Regra matriz/filial: ao aderir, todas as filiais entram\n- Integração do aceite ao Novo PAT via INIS PJ (entregue pela camada de integração do E05)",
+      "guardrails": [
+        "Must not persist CPF — classification is by CNPJ and salary band, not by worker identity (ADR 0001)",
+        "Must not let a filial adhere independently of its matriz — all filiais enter on adhesion"
+      ],
+      "out_of_scope": [
+        "Must not build the INIS PJ / Novo PAT integration endpoint itself (owned by E05)"
+      ],
+      "acceptance": "Cenário de verificação — Após o contrato firmado, a beneficiária classifica o nº de trabalhadores acima/abaixo de 5 salários mínimos por CNPJ e matriz/filial, e o aceite é integrado ao Novo PAT via INIS PJ.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not persist CPF — classification is by CNPJ and salary band, not by worker identity (ADR 0001)).",
+      "dependencies": {
+        "internal": [
+          "INT-001",
+          "INT-014"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "decision",
+            "ref": "ADR 0004 — termo de aceite MVP-required, integrado ao Novo PAT",
+            "location": "decisions/0004-sales-cloud-objetos-nativos.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "Qual a fonte da contagem de trabalhadores por faixa salarial e como matriz/filial são resolvidas (CNPJ raiz vs. CNPJ+filial)?",
+          "resolver": "MTE/Dataprev + contrato INIS PJ (E05)",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-026",
+      "title": "Ramificação de regras de cálculo PAT vs. não-PAT",
+      "epic_id": "E02",
+      "phase": 2,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "automation",
+      "outcome": {
+        "summary": "Beneficiárias PAT e não-PAT contratam pela mesma plataforma, mas com regras de cálculo distintas — PAT sob o teto de 3,6%, não-PAT sem benefício fiscal."
+      },
+      "build_target": "- Ramificação por tipo de beneficiária (PAT vs. não-PAT) na demanda/contrato\n- Regra PAT: cálculo sob o teto de 3,6%\n- Regra não-PAT: sem benefício fiscal",
+      "guardrails": [
+        "Must not apply the fiscal benefit to a não-PAT beneficiária",
+        "Must not exceed the 3,6% teto for a PAT beneficiária"
+      ],
+      "out_of_scope": [
+        "Must not execute settlement or payment split (owned by the E03 financial split engine — dinheiro não transita pela plataforma)"
+      ],
+      "acceptance": "Cenário de verificação — Beneficiárias PAT e não-PAT contratam pela mesma plataforma, mas com regras de cálculo distintas — PAT sob o teto de 3,6%, não-PAT sem benefício fiscal.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not apply the fiscal benefit to a não-PAT beneficiária).",
+      "dependencies": {
+        "internal": [
+          "INT-001",
+          "INT-014"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "decision",
+            "ref": "ADR 0004 — beneficiárias PAT e não-PAT, regras de cálculo distintas",
+            "location": "decisions/0004-sales-cloud-objetos-nativos.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "O teto de 3,6% aqui é o mesmo da reforma (taxa a estabelecimentos) ou taxa distinta de operação? Desambiguar com a regra de taxa ao MTE.",
+          "resolver": "MTE/Dataprev (G0307)",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-027",
+      "title": "Carga de contratos legados",
+      "epic_id": "E02",
+      "phase": 2,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "data-model",
+      "outcome": {
+        "summary": "Contratos legados existentes são carregados na plataforma, mapeados à estrutura nativa Opportunity/Quote/Account com seus PDFs e metadados."
+      },
+      "build_target": "- Importação dos contratos legados mapeados para a estrutura nativa (Account/Opportunity/Quote + PDF)\n- Metadados e vínculo à beneficiária correta (por CNPJ, com referência tokenizada)\n- Reconciliação da carga com a fonte legada",
+      "guardrails": [
+        "Must not persist CPF — carry tokenized references (ADR 0001)",
+        "Must not create orphan references — reconcile the load against the legacy source"
+      ],
+      "out_of_scope": [
+        "Must not perform the bulk Novo PAT beneficiary/establishment migration (owned by E07)"
+      ],
+      "acceptance": "Cenário de verificação — Contratos legados existentes são carregados na plataforma, mapeados à estrutura nativa Opportunity/Quote/Account com seus PDFs e metadados.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not persist CPF — carry tokenized references (ADR 0001)).",
+      "dependencies": {
+        "internal": [
+          "INT-001",
+          "INT-014"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "decision",
+            "ref": "ADR 0004 — contratos legados a carregar sobre objetos nativos",
+            "location": "decisions/0004-sales-cloud-objetos-nativos.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "Qual o formato/fonte dos contratos legados e a chave de deduplicação/vínculo à beneficiária?",
+          "resolver": "MTE/Dataprev + escopo de carga (G0404/G0704)",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-028",
+      "title": "Autocadastro de estabelecimento via gov.br (PJ)",
+      "epic_id": "E04",
+      "phase": 2,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "experience-cloud",
+      "outcome": {
+        "summary": "Um estabelecimento se cadastra uma única vez no portal, autenticado como PJ via gov.br, e a plataforma cria um registro pendente na base nacional unificada de estabelecimentos — substituindo o credenciamento repetido facilitadora a facilitadora."
+      },
+      "build_target": "- Portal Experience Cloud com login gov.br (OIDC) no qual o representante da PJ acessa em nome do CNPJ (procuração/e-CNPJ)\n- Ao concluir o pré-cadastro, criar um registro de estabelecimento em status pendente na base unificada, chaveado por CNPJ\n- Capturar os dados cadastrais não sensíveis do estabelecimento (razão social, CNPJ, endereço, CNAE) para instruir a análise\n- Expor ao estabelecimento a visão do seu próprio cadastro e do status de credenciamento",
+      "guardrails": [
+        "Não persistir dado pessoal do representante (CPF) fora da fronteira de residência definida no ADR 0001 — resolver identidade PF em runtime",
+        "Não presumir que a identidade PJ do gov.br está resolvida: o vínculo CPF→CNPJ e o nível de garantia da conta são pré-condição externa"
+      ],
+      "out_of_scope": [
+        "Não deve tratar a autenticação como cadastro de PF avulso — o acesso é sempre em nome de um CNPJ",
+        "Não deve expor ao estabelecimento o acompanhamento de repasses financeiros (fora do escopo desta rodada)"
+      ],
+      "acceptance": "Cenário de verificação — Um estabelecimento se cadastra uma única vez no portal, autenticado como PJ via gov.br, e a plataforma cria um registro pendente na base nacional unificada de estabelecimentos — substituindo o credenciamento repetido facilitadora a facilitadora.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Não persistir dado pessoal do representante (CPF) fora da fronteira de residência definida no ADR 0001 — resolver identidade PF em runtime).",
+      "dependencies": {
+        "external": [
+          {
+            "system": "gov.br (OIDC/identidade PJ)",
+            "need": "Credenciar o portal como Relying Party e confirmar o mecanismo de representação PJ (e-CNPJ/procuração eletrônica) e o nível de garantia mínimo",
+            "owner": "gov.br / Dataprev"
+          }
+        ],
+        "internal": [
+          "INT-001",
+          "INT-014"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "requirement",
+            "ref": "Credenciamento de estabelecimento é via portal (não API); pré-cadastro via gov.br, registro pendente na base nacional unificada",
+            "location": ".discovery-context.md (transcrição da revisão persona-a-persona: estabelecimento/Sr. Antônio)"
+          },
+          {
+            "type": "gap",
+            "ref": "G0402 — identidade gov.br do estabelecimento (PJ/CNPJ) não coberta pelo login PF+procuração de E01",
+            "location": "data/gaps.json"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "Quem é o system-of-record do credenciamento: um cadastro-base único com N status por facilitadora, ou um credenciamento único que todas honram (G0401)?",
+          "resolver": "MTE/Dataprev (Fase 0)",
+          "answer": null
+        },
+        {
+          "question": "O estabelecimento se autentica como PJ por qual mecanismo do gov.br — representante PF com procuração eletrônica, e-CNPJ ou certificado digital (G0402)?",
+          "resolver": "gov.br / Dataprev (Jair Bogo)",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-029",
+      "title": "Envio de documentos do estabelecimento com checklist guiado",
+      "epic_id": "E04",
+      "phase": 2,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "experience-cloud",
+      "outcome": {
+        "summary": "O estabelecimento sobe os documentos exigidos para o credenciamento (licença sanitária, comprovações de regularidade) anexados ao seu registro, com orientação de quais documentos são necessários e por que o cadastro está pendente."
+      },
+      "build_target": "- Componente de upload de arquivos (Files) vinculado ao registro do estabelecimento, um anexo por tipo de documento exigido\n- Checklist do que falta enviar e do estado de cada documento (pendente/enviado/em análise)\n- Orientação ao estabelecimento sobre documentos e pendências (canal de apoio informacional — assistente é escopo de E06)",
+      "guardrails": [
+        "Não deve deixar o registro avançar para análise humana sem o conjunto mínimo de documentos exigido",
+        "Não deve considerar um documento reenviado como novo enquanto o parecer anterior sobre ele não estiver registrado na trilha"
+      ],
+      "out_of_scope": [
+        "Não deve extrair automaticamente todos os campos de todo documento — apenas o que a extração por IA suportar de forma confiável (ver capacidade de captura da licença sanitária)",
+        "Não deve armazenar documento financeiro/de repasse — o escopo é documental de habilitação"
+      ],
+      "acceptance": "Cenário de verificação — O estabelecimento sobe os documentos exigidos para o credenciamento (licença sanitária, comprovações de regularidade) anexados ao seu registro, com orientação de quais documentos são necessários e por que o cadastro está pendente.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Não deve deixar o registro avançar para análise humana sem o conjunto mínimo de documentos exigido).",
+      "dependencies": {
+        "internal": [
+          "INT-001",
+          "INT-014"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "requirement",
+            "ref": "Estabelecimento sobe documentos (licença de vigilância sanitária e outros); sistema aplica rotinas para dizer se pode operar",
+            "location": ".discovery-context.md (fala Dataprev sobre o que o estabelecimento faz no portal)"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "Qual é a lista definitiva de documentos exigidos para o credenciamento (CNPJ ativo, CNAE compatível, regularidade/licença sanitária, outros)?",
+          "resolver": "MTE (em elaboração com o Ministério)",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-030",
+      "title": "Validação documental automatizada com transbordo humano",
+      "epic_id": "E04",
+      "phase": 2,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "automation",
+      "outcome": {
+        "summary": "A plataforma aplica regras determinísticas de validação sobre o cadastro e os documentos (CNPJ ativo, CNAE compatível com alimentação, integridade do documento) e resolve automaticamente os casos claros, transbordando para análise humana somente as exceções."
+      },
+      "build_target": "- Fluxo de validação automatizado que checa as regras verificáveis por máquina e marca cada documento como apto/inapto à decisão automática\n- Caminho de transbordo: exceções e casos não determinísticos entram na fila de análise do Analista MTE\n- Registro do resultado de cada checagem automática na trilha, para reuso pelo analista",
+      "guardrails": [
+        "Não deve aprovar automaticamente documento sinalizado para análise humana",
+        "Não deve descredenciar nem indeferir por conta própria — a validação automática só instrui; a decisão legal é humana"
+      ],
+      "out_of_scope": [
+        "Não deve substituir o parecer do Analista MTE nos casos de exceção",
+        "Não deve validar a licença sanitária por regra rígida de conteúdo (padrões municipais não unificados — ver captura por IA)"
+      ],
+      "acceptance": "Cenário de verificação — A plataforma aplica regras determinísticas de validação sobre o cadastro e os documentos (CNPJ ativo, CNAE compatível com alimentação, integridade do documento) e resolve automaticamente os casos claros, transbordando para análise humana somente as exceções.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Não deve aprovar automaticamente documento sinalizado para análise humana).",
+      "dependencies": {
+        "internal": [
+          "INT-001",
+          "INT-014"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "requirement",
+            "ref": "Sistema aplica rotinas para dizer se o estabelecimento pode ou não vender via auxílio alimentação/refeição; validações herdadas do que a facilitadora fazia (CNPJ ativo, CNAE, regularidade sanitária)",
+            "location": ".discovery-context.md (falas de Lucas e do MTE)"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "Quais checagens são automatizáveis de forma determinística e quais exigem julgamento humano — onde exatamente fica a linha do transbordo?",
+          "resolver": "MTE/Dataprev (workshop de regras de credenciamento)",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-031",
+      "title": "Análise documento a documento e parecer do Analista MTE",
+      "epic_id": "E04",
+      "phase": 2,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "console",
+      "outcome": {
+        "summary": "Um Analista MTE analisa cada documento do estabelecimento (Válido/Inválido + motivo), emite um parecer sobre o credenciamento (Deferido / Exigência complementar / Indeferido) e toda a operação fica registrada em trilha de auditoria."
+      },
+      "build_target": "- Console de análise em que o Analista MTE percorre os documentos do estabelecimento um a um, marcando Válido/Inválido com motivo\n- Emissão de parecer no nível do credenciamento com os três desfechos (Deferido / Exigência complementar / Indeferido)\n- Trilha de auditoria imutável de quem analisou o quê, quando e com qual motivo — insumo para TCU/CGU/ANPD (E08)\n- Notificação ao estabelecimento do desfecho e, em exigência, do que precisa reenviar",
+      "guardrails": [
+        "Não deve permitir parecer Deferido com documento pendente ou marcado Inválido sem justificativa registrada",
+        "Uma exigência complementar deve reabrir o envio apenas dos documentos apontados, sem apagar o histórico de análise"
+      ],
+      "out_of_scope": [
+        "Não deve executar a ação legal de aprovar/descredenciar sem passar pela alçada da facilitadora/MTE (capacidade separada)",
+        "Não deve tratar a folha de pagamento ou o financeiro — o escopo é a habilitação documental"
+      ],
+      "acceptance": "Cenário de verificação — Um Analista MTE analisa cada documento do estabelecimento (Válido/Inválido + motivo), emite um parecer sobre o credenciamento (Deferido / Exigência complementar / Indeferido) e toda a operação fica registrada em trilha de auditoria.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Não deve permitir parecer Deferido com documento pendente ou marcado Inválido sem justificativa registrada).",
+      "dependencies": {
+        "internal": [
+          "INT-001",
+          "INT-014"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "requirement",
+            "ref": "Análise documental (habilitação, licenças, regularidade sanitária) que antes era da facilitadora passa a ser feita na plataforma; MTE quer visão de auditoria de tudo que acontece",
+            "location": ".discovery-context.md (falas de Lucas e do MTE sobre análise e auditoria)"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "Quem de fato emite o parecer de credenciamento — Analista MTE, a facilitadora ou um banco? A transcrição alterna entre os três; os protótipos apontam Analista MTE.",
+          "resolver": "MTE/Dataprev (Fase 0)",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-032",
+      "title": "Ação legal de aprovar e descredenciar (facilitadora/MTE) com propagação de status",
+      "epic_id": "E04",
+      "phase": 2,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "console",
+      "outcome": {
+        "summary": "A facilitadora mantém o papel legal de aprovar e descredenciar o estabelecimento na sua relação, e o MTE pode descredenciar do programa; a mudança de status vira o estado consultável pela base de estabelecimentos que o adquirente lê antes de transacionar."
+      },
+      "build_target": "- Ação de credenciar/descredenciar operada pela facilitadora (e pelo MTE, por motivo: fraude, inadimplência, encerramento de CNPJ, perda de regularidade sanitária)\n- Máquina de estados do credenciamento que reflete o desfecho e o disponibiliza como estado atual do estabelecimento\n- Trilha de auditoria de cada transição de status com ator e motivo",
+      "guardrails": [
+        "A plataforma não deve descredenciar por conta própria — a ação legal pertence à facilitadora/MTE; a plataforma registra e propaga",
+        "Não deve deixar uma transição de status sem ator e motivo registrados"
+      ],
+      "out_of_scope": [
+        "Não deve implementar a API de consulta do adquirente — esse contrato vive em E05 (dependência)",
+        "Não deve decidir se o descredenciamento afeta só a relação daquela facilitadora ou remove do cadastro central antes de a semântica ser ratificada"
+      ],
+      "acceptance": "Cenário de verificação — A facilitadora mantém o papel legal de aprovar e descredenciar o estabelecimento na sua relação, e o MTE pode descredenciar do programa; a mudança de status vira o estado consultável pela base de estabelecimentos que o adquirente lê antes de transacionar.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: A plataforma não deve descredenciar por conta própria — a ação legal pertence à facilitadora/MTE; a plataforma registra e propaga).",
+      "dependencies": {
+        "external": [
+          {
+            "system": "Adquirente (Cielo/Rede/Getnet)",
+            "need": "Consumir o estado de credenciamento antes de processar transações — via API de consulta por CNPJ exposta por E05",
+            "owner": "E05 / adquirentes"
+          }
+        ],
+        "internal": [
+          "INT-001",
+          "INT-014"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "requirement",
+            "ref": "Facilitadora mantém papel legal de aprovar/descredenciar; MTE quer poder descredenciar; adquirente consulta a base periodicamente para não vender a estabelecimento descredenciado",
+            "location": ".discovery-context.md (falas de Lucas, MTE e sobre o adquirente)"
+          },
+          {
+            "type": "gap",
+            "ref": "G0405 — semântica do descredenciamento em cadastro unificado (afeta só a relação da facilitadora ou remove do central?)",
+            "location": "data/gaps.json"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "Descredenciar afeta apenas a relação daquela facilitadora ou remove o estabelecimento do cadastro central, e quais eventos por motivo propagam (G0405)?",
+          "resolver": "MTE/Dataprev",
+          "answer": null
+        },
+        {
+          "question": "Com a interoperabilidade/aceitação universal de bandeiras (~360 dias), o credenciamento por facilitadora vira transitório? Modelar como bilateral legado, universal ou ambos (G0403)?",
+          "resolver": "MTE (fonte oficial do prazo)",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-033",
+      "title": "Captura da licença sanitária com extração de campos por IA",
+      "epic_id": "E04",
+      "phase": 2,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "automation",
+      "outcome": {
+        "summary": "A plataforma captura a data de validade da licença sanitária — o único campo comum aos 5000+ padrões municipais sem base unificada — usando extração por IA sobre o documento enviado, com o analista confirmando o valor quando a extração não for confiável."
+      },
+      "build_target": "- Extração por IA da data de validade (e demais campos quando extraíveis) do documento de licença sanitária enviado\n- Persistir a data de validade como campo estruturado no registro do estabelecimento, base do rastreio de vencimento\n- Fallback de confirmação/entrada manual pelo analista quando a extração não atingir confiança",
+      "guardrails": [
+        "Não deve tratar um campo extraído por IA de baixa confiança como confirmado sem revisão humana",
+        "Não deve depender de layout único de licença — os padrões municipais não são unificados"
+      ],
+      "out_of_scope": [
+        "Não deve tentar validar o conteúdo regulatório da licença contra as 5000+ normas municipais — só extrair e datar",
+        "Não deve extrair dados pessoais sensíveis do documento além do necessário à habilitação"
+      ],
+      "acceptance": "Cenário de verificação — A plataforma captura a data de validade da licença sanitária — o único campo comum aos 5000+ padrões municipais sem base unificada — usando extração por IA sobre o documento enviado, com o analista confirmando o valor quando a extração não for confiável.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Não deve tratar um campo extraído por IA de baixa confiança como confirmado sem revisão humana).",
+      "dependencies": {
+        "internal": [
+          "INT-001",
+          "INT-014"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "requirement",
+            "ref": "Licença sanitária tem prazo de validade; ideal integrar com a sanitária; data de validade é o parâmetro mínimo comum; IA pode extrair alguns campos",
+            "location": ".discovery-context.md (fala do MTE sobre licença sanitária e prazo)"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "Há integração viável com as vigilâncias sanitárias (5000+ padrões municipais, sem base unificada) ou o único campo confiável é mesmo a data de validade extraída do documento?",
+          "resolver": "MTE (em discussão com a sanitária)",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-034",
+      "title": "Rastreio de vencimento, renovação e alertas de expiração",
+      "epic_id": "E04",
+      "phase": 2,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "automation",
+      "outcome": {
+        "summary": "A plataforma rastreia a data de validade da licença de cada estabelecimento, dispara alertas com antecedência antes do vencimento e conduz o fluxo de renovação, de modo que uma licença não expire silenciosamente e o estabelecimento continue apto."
+      },
+      "build_target": "- Job agendado que varre as datas de validade e dispara alertas de expiração com antecedência ao estabelecimento\n- Fluxo de renovação: o estabelecimento reentra, sobe a licença renovada e o documento volta para captura/análise\n- Transição de status ao vencer sem renovação, refletida no estado consultável pelo adquirente (via E05)",
+      "guardrails": [
+        "Não deve marcar o estabelecimento como apto após o vencimento da licença sem renovação analisada",
+        "Alerta de expiração é notificação; não deve, por si, descredenciar — o desfecho legal segue a alçada da facilitadora/MTE"
+      ],
+      "out_of_scope": [
+        "Não deve assumir jornada de acesso frequente do estabelecimento — o acesso é esporádico (renovação periódica), o que orienta o modelo de licença",
+        "Não deve posicionar Marketing Cloud para os alertas enquanto o canal não for definido (G0209/G0211) — alerta transacional nativo/Flow atende"
+      ],
+      "acceptance": "Cenário de verificação — A plataforma rastreia a data de validade da licença de cada estabelecimento, dispara alertas com antecedência antes do vencimento e conduz o fluxo de renovação, de modo que uma licença não expire silenciosamente e o estabelecimento continue apto.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Não deve marcar o estabelecimento como apto após o vencimento da licença sem renovação analisada).",
+      "dependencies": {
+        "internal": [
+          "INT-001",
+          "INT-014"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "requirement",
+            "ref": "Portal absorve a informação de vigência e avisa 'sua licença vai vencer em X meses'; estabelecimento reentra para renovar; gestão dos documentos gera alertas de vencimento",
+            "location": ".discovery-context.md (falas de Rogério e da revisão de jornada do estabelecimento)"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "Qual o canal do alerta de expiração (e-mail nativo, notificação in-app, webhook) e o modelo de licença Experience Cloud coerente com acesso esporádico do estabelecimento?",
+          "resolver": "MTE/Dataprev (licenciamento) — G0108/G0103",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-035",
+      "title": "Recepção assíncrona de folha (upload CSV via portal/API, desacoplado)",
+      "epic_id": "E03",
+      "phase": 3,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "integration",
+      "outcome": {
+        "summary": "A beneficiária envia o CSV da folha da competência pelo portal ou por API e recebe confirmação de recebimento em segundos; o arquivo entra numa fila de processamento sem travar a sessão nem consumir um slot de processamento longo."
+      },
+      "build_target": "- Aceitar upload do CSV da folha por dois canais: portal (beneficiária autenticada) e API (integração)\n- Persistir o arquivo recebido como anexo/conteúdo e registrar o cabeçalho da folha (competência mês-ano, contrato, beneficiária) — sem gravar as linhas do trabalhador\n- Devolver confirmação imediata de recebimento e enfileirar o processamento (validação + crítica) para execução assíncrona\n- Suportar o pico de ~28 uploads/s numa janela de 5 dias sem enfileiramento síncrono nem estouro do teto de processos longos concorrentes",
+      "guardrails": [
+        "Must not process payroll critique synchronously on upload click (peak ~28/s exceeds the 25 concurrent long-Apex ceiling)",
+        "Must not persist payroll line items in MVP (header/competência only)",
+        "Must not block the user session waiting for validation or critique to finish"
+      ],
+      "out_of_scope": [
+        "Must not persist or expose per-worker payroll rows (roadmap futuro)",
+        "Must not normalize N formatos proprietários de facilitadora no MVP — assume layout único da plataforma até definição contrária",
+        "Must not execute or custody funds"
+      ],
+      "acceptance": "Cenário de verificação — A beneficiária envia o CSV da folha da competência pelo portal ou por API e recebe confirmação de recebimento em segundos; o arquivo entra numa fila de processamento sem travar a sessão nem consumir um slot de processamento longo.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not process payroll critique synchronously on upload click (peak ~28/s exceeds the 25 concurrent long-Apex ceiling)).",
+      "dependencies": {
+        "internal": [
+          "INT-001",
+          "INT-009",
+          "INT-014"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "gap",
+            "ref": "G0310 fluxo de 8 passos (premissa confirmada, linhas não persistem)",
+            "location": "data/gaps.json"
+          },
+          {
+            "type": "gap",
+            "ref": "G0306 layout padronizado de folha (formato/validação/volume em aberto)",
+            "location": "data/gaps.json"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "Qual o layout exato do CSV da folha (colunas, formato, encoding) e a contagem média/máxima de linhas por arquivo?",
+          "resolver": "MTE/Dataprev (workshop de regras E03)",
+          "answer": null
+        },
+        {
+          "question": "O layout é único imposto pela plataforma ou cada facilitadora usa o próprio, exigindo normalização?",
+          "resolver": "MTE/Dataprev",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-036",
+      "title": "Validação de layout e integridade da folha (não quebrada)",
+      "epic_id": "E03",
+      "phase": 3,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "automation",
+      "outcome": {
+        "summary": "Toda folha enfileirada passa por uma checagem automática de layout e integridade estrutural; folhas íntegras seguem para disponibilização à facilitadora e as inconsistentes são sinalizadas à beneficiária com o motivo, sem persistir as linhas."
+      },
+      "build_target": "- Validar estrutura do arquivo (colunas esperadas, tipos, encoding, arquivo não corrompido/truncado) de forma assíncrona a partir da fila\n- Marcar a folha como íntegra (apto a download) ou inconsistente, registrando o resultado no cabeçalho da folha\n- Devolver à beneficiária o resultado da validação (aceita / rejeitada com motivo) sem gravar as linhas do trabalhador\n- Emitir evento de conclusão que habilita o próximo passo (download pela facilitadora) apenas para folhas íntegras",
+      "guardrails": [
+        "Must not process payroll critique synchronously on upload click (peak ~28/s exceeds the 25 concurrent long-Apex ceiling)",
+        "Must not persist payroll line items in MVP (header/competência only)",
+        "Must not release a payroll to facilitadora download before validation passes"
+      ],
+      "out_of_scope": [
+        "Must not attempt fraud detection or business-rule scoring here — this is structural integrity only",
+        "Must not persist rejected line content for reprocessing in MVP"
+      ],
+      "acceptance": "Cenário de verificação — Toda folha enfileirada passa por uma checagem automática de layout e integridade estrutural; folhas íntegras seguem para disponibilização à facilitadora e as inconsistentes são sinalizadas à beneficiária com o motivo, sem persistir as linhas.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not process payroll critique synchronously on upload click (peak ~28/s exceeds the 25 concurrent long-Apex ceiling)).",
+      "dependencies": {
+        "internal": [
+          "INT-001",
+          "INT-009",
+          "INT-014"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "gap",
+            "ref": "G0310 validação de layout + integridade ('não quebrada')",
+            "location": "data/gaps.json"
+          },
+          {
+            "type": "gap",
+            "ref": "G0306 regras de validação de arquivo em aberto",
+            "location": "data/gaps.json"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "Qual a regra concreta de integridade ('não quebrada') — só estrutura/parse, ou inclui somatórios/consistência de totais?",
+          "resolver": "MTE/Dataprev",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-037",
+      "title": "Crítica da folha por IA (assíncrona; melhor alternativa Salesforce a definir)",
+      "epic_id": "E03",
+      "phase": 3,
+      "priority": null,
+      "confidence": "Unknown",
+      "surface": "automation",
+      "outcome": {
+        "summary": "Folhas que passam na validação estrutural recebem uma crítica automática mais rica (consistência dos dados da competência) executada de forma assíncrona; o resultado alimenta a liberação para download sem que a crítica rode no clique do upload."
+      },
+      "build_target": "- Executar uma camada de crítica automática da folha após a validação estrutural, de forma 100% assíncrona (fila/batch/evento)\n- Registrar o veredito da crítica no cabeçalho da folha (aprovada / apontamentos) sem persistir linhas\n- Descrever o comportamento esperado (detectar inconsistências da competência) e deixar o agente de build escolher o mecanismo Salesforce — a melhor alternativa (Einstein, agente, Apex) ainda não está travada",
+      "guardrails": [
+        "Must not process payroll critique synchronously on upload click (peak ~28/s exceeds the 25 concurrent long-Apex ceiling)",
+        "Must not persist payroll line items in MVP (header/competência only)",
+        "Must not send worker-level sensitive data (CPF) into an LLM prompt or log it (residência ADR 0001)"
+      ],
+      "out_of_scope": [
+        "Must not commit to a specific AI product before the critique-mechanism decision is made",
+        "Must not gate go-live on a heavy AI capability if a lighter deterministic critique meets the need"
+      ],
+      "acceptance": "Cenário de verificação — Folhas que passam na validação estrutural recebem uma crítica automática mais rica (consistência dos dados da competência) executada de forma assíncrona; o resultado alimenta a liberação para download sem que a crítica rode no clique do upload.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not process payroll critique synchronously on upload click (peak ~28/s exceeds the 25 concurrent long-Apex ceiling)).",
+      "dependencies": {
+        "internal": [
+          "INT-001",
+          "INT-009",
+          "INT-014"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "gap",
+            "ref": "G0310 crítica via melhor alternativa Salesforce (Einstein/agente) a definir",
+            "location": "data/gaps.json"
+          },
+          {
+            "type": "decision",
+            "ref": "ADR 0001 residência híbrida — CPF não persiste/transita para o LLM",
+            "location": "decisions/0001-residencia-dados-hibrida.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "Qual a melhor alternativa Salesforce para a crítica (Einstein, agente Agentforce, Apex determinístico) e o que exatamente ela deve criticar?",
+          "resolver": "Arquitetura Salesforce + MTE/Dataprev",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-038",
+      "title": "Modelo de dados financeiro (folha cabeçalho/competência, contrato, regras de split)",
+      "epic_id": "E03",
+      "phase": 3,
+      "priority": null,
+      "confidence": "Confirmed",
+      "surface": "data-model",
+      "outcome": {
+        "summary": "A plataforma tem os objetos custom que sustentam o ciclo financeiro — folha por competência (só cabeçalho), contrato/vigência e regras de split parametrizáveis — sobre a base Sales Cloud, sem Revenue Cloud e sem persistir linhas de folha."
+      },
+      "build_target": "- Objeto custom de folha: cabeçalho por competência (mês-ano), vínculo a contrato e beneficiária, resultado de validação/crítica e status do ciclo — SEM linhas do trabalhador\n- Objeto custom de contrato/vigência que a facilitadora usa para baixar a folha por contrato e competência\n- Objeto custom de regras de split parametrizáveis (percentuais por parte, teto MDR, prazo de repasse, distinção PAT vs não-PAT)\n- Modelar sobre os objetos nativos já assumidos (ADR 0004: Opportunity/Quote para o leilão) sem introduzir Revenue Cloud/Billing",
+      "guardrails": [
+        "Must not persist payroll line items in MVP (header/competência only)",
+        "Must not adopt Revenue Cloud / Billing — split não é nativo; motor de regras é custom (baseline Core-only)",
+        "Must not execute or custody funds"
+      ],
+      "out_of_scope": [
+        "Must not model per-worker payroll tables or line-item reporting (roadmap futuro)",
+        "Must not persist CPF or worker sensitive data in the core org (residência ADR 0001)"
+      ],
+      "acceptance": "Cenário de verificação — A plataforma tem os objetos custom que sustentam o ciclo financeiro — folha por competência (só cabeçalho), contrato/vigência e regras de split parametrizáveis — sobre a base Sales Cloud, sem Revenue Cloud e sem persistir linhas de folha.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not persist payroll line items in MVP (header/competência only)).",
+      "dependencies": {
+        "internal": [
+          "INT-001",
+          "INT-009",
+          "INT-014"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "decision",
+            "ref": "ADR 0003 Salesforce é o motor de regras de split",
+            "location": "decisions/0003-fronteira-crm-nao-transacional.md"
+          },
+          {
+            "type": "knowledge",
+            "ref": "Split não nativo no Billing → custom + integração externa",
+            "location": "knowledge/salesforce-revenue-cloud-marketplace-arch.md:31-34"
+          },
+          {
+            "type": "gap",
+            "ref": "G0308 baseline Core-only (Billing fora) — E03 Assumed",
+            "location": "data/gaps.json"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "O baseline Core-only aguenta a evolução do financeiro (faturamento, notas, credit memos, múltiplos ciclos) ou há gatilho de migração para Revenue Cloud?",
+          "resolver": "Arquitetura Salesforce + MTE/Dataprev",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-039",
+      "title": "Disponibilização da folha à facilitadora e retorno de 'processado + valor'",
+      "epic_id": "E03",
+      "phase": 3,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "integration",
+      "outcome": {
+        "summary": "A facilitadora baixa a folha íntegra por contrato e vigência (mês-ano) via API e devolve à plataforma o status 'processado' com o valor a pagar, que passa a alimentar a emissão de boleto."
+      },
+      "build_target": "- Expor endpoint (via MuleSoft, E05) para a facilitadora baixar a folha por contrato + competência — facilitadora é API-only, sem UI/licença de portal (ADR 0004)\n- Receber o retorno 'processado' + valor a pagar e registrá-lo no cabeçalho da folha, avançando o status do ciclo\n- Garantir idempotência do retorno (evitar reprocessamento/duplicidade de valor) e rastrear a data do processamento (âncora do prazo de repasse)",
+      "guardrails": [
+        "Must not persist payroll line items in MVP (header/competência only)",
+        "Must not expose a UI/portal seat to facilitadoras — integração é API-only (ADR 0004)",
+        "Must not accept a processed-value return without idempotency guarding against duplicate financial effect"
+      ],
+      "out_of_scope": [
+        "Must not build per-facilitadora bespoke connectors — assume a single standard API contract",
+        "Must not execute or custody funds"
+      ],
+      "acceptance": "Cenário de verificação — A facilitadora baixa a folha íntegra por contrato e vigência (mês-ano) via API e devolve à plataforma o status 'processado' com o valor a pagar, que passa a alimentar a emissão de boleto.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not persist payroll line items in MVP (header/competência only)).",
+      "dependencies": {
+        "external": [
+          {
+            "system": "Facilitadora (integração API)",
+            "need": "Contrato de API (payload/auth/idempotência) para baixar folha por contrato/vigência e devolver 'processado' + valor",
+            "owner": "cliente"
+          }
+        ],
+        "internal": [
+          "INT-001",
+          "INT-009",
+          "INT-014"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "gap",
+            "ref": "G0310 facilitadora baixa por contrato/vigência, retorna processado + valor",
+            "location": "data/gaps.json"
+          },
+          {
+            "type": "decision",
+            "ref": "ADR 0004 facilitadora API-only (sem UI)",
+            "location": "decisions/0004-facilitadora-api-only.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "Qual o contrato de API facilitadora↔plataforma (payload, auth, idempotência) para download e retorno de valor?",
+          "resolver": "MTE/Dataprev + facilitadoras (E05)",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-040",
+      "title": "Solicitação e recebimento de boleto registrado junto ao gateway",
+      "epic_id": "E03",
+      "phase": 3,
+      "priority": null,
+      "confidence": "Unknown",
+      "surface": "integration",
+      "outcome": {
+        "summary": "Com o valor da folha processado, a plataforma envia a instrução de cobrança ao gateway (que intermedia a conta custódia) e recebe de volta o boleto registrado com metadados e link, sem movimentar dinheiro."
+      },
+      "build_target": "- Enviar ao gateway (via MuleSoft, E05) a solicitação de boletagem com o valor processado da folha\n- Receber e registrar o boleto retornado (identificador, metadados, link) vinculado à folha/competência\n- Tratar erro/retentativa na emissão (boleto não gerado, timeout do gateway) com idempotência para não duplicar cobrança",
+      "guardrails": [
+        "Must not execute or custody funds — the gateway does (ADR 0003); Salesforce only requests and records",
+        "Must not persist payroll line items in MVP (header/competência only)",
+        "Must not issue duplicate boletos on retry — enforce idempotency"
+      ],
+      "out_of_scope": [
+        "Must not implement bank settlement rails or escrow logic inside Salesforce",
+        "Must not assume Pix vs boleto mechanics until the gateway contract is defined"
+      ],
+      "acceptance": "Cenário de verificação — Com o valor da folha processado, a plataforma envia a instrução de cobrança ao gateway (que intermedia a conta custódia) e recebe de volta o boleto registrado com metadados e link, sem movimentar dinheiro.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not execute or custody funds — the gateway does (ADR 0003); Salesforce only requests and records).",
+      "dependencies": {
+        "external": [
+          {
+            "system": "Gateway/banco custódia (PCI)",
+            "need": "Contrato de API (Swagger) para receber boletagem e devolver boleto registrado + metadados; provedor ainda não definido",
+            "owner": "cliente"
+          }
+        ],
+        "internal": [
+          "INT-001",
+          "INT-009",
+          "INT-014"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "decision",
+            "ref": "ADR 0003 gateway executa/custodia; Salesforce emite boletagem",
+            "location": "decisions/0003-fronteira-crm-nao-transacional.md"
+          },
+          {
+            "type": "gap",
+            "ref": "G0302 mecanismo de geração de boleto/Pix indefinido; G0309 provedor não definido",
+            "location": "data/gaps.json"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "Qual o provedor do gateway/banco custódia e o contrato de API (boleto e/ou Pix, formato do webhook de retorno)?",
+          "resolver": "cliente (MTE/Dataprev) + especialista arquitetura bancária",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-041",
+      "title": "Disponibilização do boleto à beneficiária no portal",
+      "epic_id": "E03",
+      "phase": 3,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "experience-cloud",
+      "outcome": {
+        "summary": "Assim que o boleto registrado retorna do gateway, a beneficiária o encontra disponível no portal (link/metadados) vinculado à folha da competência."
+      },
+      "build_target": "- Exibir à beneficiária autenticada o boleto da competência (link e metadados) no portal, vinculado à folha/contrato\n- Refletir o status do boleto/ciclo de forma consolidada, sem lista por trabalhador\n- Atualizar a disponibilização conforme o retorno do gateway (emitido, pago) via os eventos do ciclo",
+      "guardrails": [
+        "Must not persist payroll line items in MVP (header/competência only)",
+        "Must not execute or custody funds",
+        "Must not surface per-worker CPF or sensitive data in the portal (residência ADR 0001)"
+      ],
+      "out_of_scope": [
+        "Must not display a per-worker breakdown — consolidated status only in MVP",
+        "Must not host payment execution in the portal — the boleto links to the gateway rails"
+      ],
+      "acceptance": "Cenário de verificação — Assim que o boleto registrado retorna do gateway, a beneficiária o encontra disponível no portal (link/metadados) vinculado à folha da competência.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not persist payroll line items in MVP (header/competência only)).",
+      "dependencies": {
+        "internal": [
+          "INT-001",
+          "INT-009",
+          "INT-014"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "gap",
+            "ref": "G0310 boleto disponível à beneficiária no portal",
+            "location": "data/gaps.json"
+          }
+        ]
+      },
+      "open_questions": []
+    },
+    {
+      "id": "INT-042",
+      "title": "Conciliação agendada de movimentações bancárias (casamento incremental) e identificação de pagamento",
+      "epic_id": "E03",
+      "phase": 3,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "automation",
+      "outcome": {
+        "summary": "A plataforma recebe do gateway as movimentações bancárias em lotes incrementais por agendamento e faz o casamento com os boletos emitidos, identificando o pagamento e avançando o status da folha automaticamente."
+      },
+      "build_target": "- Consumir as movimentações bancárias devolvidas pelo gateway em batch incremental, disparado por agendamento no MuleSoft (E05)\n- Casar cada lançamento com o boleto/folha correspondente (matching por identificador do boleto e valor)\n- Ao identificar o pagamento, avançar o status do ciclo e disparar o cálculo de split\n- Tratar divergência (pagamento parcial, valor a maior/menor, não casado) como exceção registrada, sem falha silenciosa",
+      "guardrails": [
+        "Must not execute or custody funds — reconciliation is matching/record-keeping only (ADR 0003)",
+        "Must not persist payroll line items in MVP (header/competência only)",
+        "Must not silently drop unmatched or divergent movements — route them to an exception path"
+      ],
+      "out_of_scope": [
+        "Must not initiate refunds/estornos or bank reversals — those are gateway actions",
+        "Must not reconcile against per-worker rows (competência-level only)"
+      ],
+      "acceptance": "Cenário de verificação — A plataforma recebe do gateway as movimentações bancárias em lotes incrementais por agendamento e faz o casamento com os boletos emitidos, identificando o pagamento e avançando o status da folha automaticamente.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not execute or custody funds — reconciliation is matching/record-keeping only (ADR 0003)).",
+      "dependencies": {
+        "external": [
+          {
+            "system": "Gateway/banco custódia (PCI)",
+            "need": "Feed de movimentações bancárias (webhook/batch) com formato e cadência definidos",
+            "owner": "cliente"
+          }
+        ],
+        "internal": [
+          "INT-001",
+          "INT-009",
+          "INT-014"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "decision",
+            "ref": "ADR 0003 conciliação = casamento no CRM",
+            "location": "decisions/0003-fronteira-crm-nao-transacional.md"
+          },
+          {
+            "type": "gap",
+            "ref": "G0304 regras concretas de conciliação/divergência em aberto; G0305 tratamento de erros do fluxo de pagamento",
+            "location": "data/gaps.json"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "Quais as regras de conciliação e o tratamento de divergência (pagamento parcial, valor a maior/menor, estorno, não casado)?",
+          "resolver": "MTE/Dataprev + especialista arquitetura bancária",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-043",
+      "title": "Motor de regras de split (teto MDR 3,6%, repasse ≤15 dias, ramificação PAT vs não-PAT)",
+      "epic_id": "E03",
+      "phase": 3,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "automation",
+      "outcome": {
+        "summary": "Identificado o pagamento, a plataforma consulta as regras de split e calcula o rateio entre facilitadora, governo/MTE e demais partes, aplicando o teto de MDR de 3,6%, a distinção entre beneficiária PAT e não-PAT e o prazo de repasse de até 15 dias."
+      },
+      "build_target": "- Consultar as regras de split parametrizadas e calcular o rateio do pagamento identificado por competência/contrato\n- Aplicar o teto de MDR de 3,6% (Decreto 12.712/2025) e a taxa distinta de beneficiárias não-PAT\n- Ramificar o cálculo por tipo de beneficiária (PAT com benefício/teto vs não-PAT)\n- Medir o prazo de repasse (≤15 dias) a partir do evento-gatilho definido e sinalizar risco de descumprimento",
+      "guardrails": [
+        "Must not execute or custody funds — the engine computes and applies the split; the gateway settles (ADR 0003)",
+        "Must not exceed the 3,6% MDR cap or breach the ≤15-day repasse window without flagging",
+        "Must not persist payroll line items in MVP (header/competência only)"
+      ],
+      "out_of_scope": [
+        "Must not perform the bank transfers implied by the split — it emits transfer orders only",
+        "Must not adopt Revenue Cloud Billing for the split — it is not native (custom engine)"
+      ],
+      "acceptance": "Cenário de verificação — Identificado o pagamento, a plataforma consulta as regras de split e calcula o rateio entre facilitadora, governo/MTE e demais partes, aplicando o teto de MDR de 3,6%, a distinção entre beneficiária PAT e não-PAT e o prazo de repasse de até 15 dias.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not execute or custody funds — the engine computes and applies the split; the gateway settles (ADR 0003)).",
+      "dependencies": {
+        "internal": [
+          "INT-001",
+          "INT-009",
+          "INT-014"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "decision",
+            "ref": "ADR 0003 Salesforce calcula e aplica as regras de split",
+            "location": "decisions/0003-fronteira-crm-nao-transacional.md"
+          },
+          {
+            "type": "knowledge",
+            "ref": "Billing não cobre split multipartes — custom",
+            "location": "knowledge/salesforce-revenue-cloud-marketplace-arch.md:31-34"
+          },
+          {
+            "type": "gap",
+            "ref": "G0303 gatilho/enforcement do prazo de 15 dias; G0307 cálculo da taxa MTE no split",
+            "location": "data/gaps.json"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "Como a taxa ao MTE/Dataprev é parametrizada no split e como se distingue do teto de 3,6% a estabelecimentos?",
+          "resolver": "MTE/Dataprev",
+          "answer": null
+        },
+        {
+          "question": "A partir de qual evento conta o prazo de ≤15 dias e há enforcement (alerta/bloqueio) ou só registro?",
+          "resolver": "MTE/Dataprev (jurídico)",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-044",
+      "title": "Registro do racional de cálculo (trilha auditável) e entrega das ordens de transferência ao gateway",
+      "epic_id": "E03",
+      "phase": 3,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "automation",
+      "outcome": {
+        "summary": "A plataforma registra todo o racional do repasse — datas, split aplicado, ordens de transferência — como trilha auditável e entrega as ordens de transferência ao gateway via MuleSoft, que executa a movimentação."
+      },
+      "build_target": "- Registrar de forma imutável/auditável o racional completo: datas, regras de split aplicadas, valores por parte, ordens de transferência geradas\n- Entregar as ordens de transferência ao gateway (via MuleSoft, E05) para execução — sem mover dinheiro na plataforma\n- Expor a trilha para consulta de conformidade (TCU/CGU/ANPD), sem persistir CPF/dado sensível do trabalhador",
+      "guardrails": [
+        "Must not execute or custody funds — the platform hands transfer orders to the gateway (ADR 0003)",
+        "Must not persist payroll line items in MVP (header/competência only)",
+        "Must not log CPF/worker sensitive data in the audit trail (residência ADR 0001)"
+      ],
+      "out_of_scope": [
+        "Must not perform the actual bank transfers or settlement",
+        "Must not build per-worker rationale — competência/split-level record only in MVP"
+      ],
+      "acceptance": "Cenário de verificação — A plataforma registra todo o racional do repasse — datas, split aplicado, ordens de transferência — como trilha auditável e entrega as ordens de transferência ao gateway via MuleSoft, que executa a movimentação.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not execute or custody funds — the platform hands transfer orders to the gateway (ADR 0003)).",
+      "dependencies": {
+        "external": [
+          {
+            "system": "Gateway/banco custódia (PCI)",
+            "need": "Contrato de API para receber ordens de transferência e executar a movimentação",
+            "owner": "cliente"
+          }
+        ],
+        "internal": [
+          "INT-001",
+          "INT-009",
+          "INT-014"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "decision",
+            "ref": "ADR 0003 registra racional; gateway é o executor único",
+            "location": "decisions/0003-fronteira-crm-nao-transacional.md"
+          },
+          {
+            "type": "gap",
+            "ref": "G0803 trilha de auditoria sob residência híbrida",
+            "location": "data/gaps.json"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "Onde reside e como se garante a imutabilidade do log auditável (Shield/Event Monitoring vs log MuleSoft/Dataprev) e sua retenção?",
+          "resolver": "Arquitetura Salesforce + Dataprev (Jair Bogo)",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-045",
+      "title": "Status consolidado 'crédito concedido' e gatilho de notificação (empresa + CTPS Digital)",
+      "epic_id": "E03",
+      "phase": 3,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "automation",
+      "outcome": {
+        "summary": "Concluído o repasse, a folha exibe um status consolidado 'crédito concedido' em uma única linha (não por trabalhador) e dispara a notificação à empresa e, via CTPS Digital, a 'expectativa de crédito' ao trabalhador — monitoramento apenas no MVP."
+      },
+      "build_target": "- Consolidar o status da competência em 'crédito concedido' (uma linha por folha, não lista por trabalhador)\n- Disparar notificação à empresa beneficiária quando o status é atingido\n- Disparar a notificação de 'expectativa de crédito' via CTPS Digital (via MuleSoft, E05), tratada como monitoramento no MVP\n- Não persistir dado sensível do trabalhador ao acionar a notificação (residência ADR 0001)",
+      "guardrails": [
+        "Must not persist payroll line items in MVP (header/competência only)",
+        "Must not display a per-worker status list — consolidated 'crédito concedido' line only",
+        "Must not persist or log the worker's CPF when triggering the CTPS notification (residência ADR 0001)"
+      ],
+      "out_of_scope": [
+        "Must not build active worker-level credit tracking beyond monitoring in MVP",
+        "Must not execute or custody funds"
+      ],
+      "acceptance": "Cenário de verificação — Concluído o repasse, a folha exibe um status consolidado 'crédito concedido' em uma única linha (não por trabalhador) e dispara a notificação à empresa e, via CTPS Digital, a 'expectativa de crédito' ao trabalhador — monitoramento apenas no MVP.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not persist payroll line items in MVP (header/competência only)).",
+      "dependencies": {
+        "external": [
+          {
+            "system": "CTPS Digital (Carteira de Trabalho Digital)",
+            "need": "Contrato de API para receber a notificação de 'expectativa de crédito'; fronteira de responsabilidade (SF via MuleSoft vs MTE) a confirmar",
+            "owner": "cliente"
+          }
+        ],
+        "internal": [
+          "INT-001",
+          "INT-009",
+          "INT-014"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "gap",
+            "ref": "G0509 notificação via CTPS Digital — fronteira de escopo a confirmar; G0807 trabalhador é titular mas não usuário",
+            "location": "data/gaps.json"
+          },
+          {
+            "type": "decision",
+            "ref": "ADR 0001 residência híbrida (CPF do trabalhador)",
+            "location": "decisions/0001-residencia-dados-hibrida.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "A entrega da notificação via CTPS Digital é escopo Salesforce (via MuleSoft) ou responsabilidade do MTE/Novo PAT, e existe contrato de API?",
+          "resolver": "MTE/Dataprev",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-046",
+      "title": "Carga inicial idempotente de referências não-sensíveis (Bulk API 2.0 + upsert por external ID)",
+      "epic_id": "E07",
+      "phase": 4,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "integration",
+      "outcome": {
+        "summary": "O conjunto mínimo de beneficiárias, facilitadoras e estabelecimentos necessário ao go-live de 15/nov entra no Salesforce como referências tokenizadas não-sensíveis, sem CPF nem dado nominal persistido, por uma carga re-executável que não duplica registros ao rodar de novo."
+      },
+      "build_target": "- Carregar via Bulk API 2.0 as três entidades como registros de referência não-sensíveis: identificador tokenizado que liga cada registro à origem Dataprev/Novo PAT, mais os poucos campos não-sensíveis necessários ao go-live (o dado nominal resolve-se em runtime via API, ADR 0001)\n- Idempotência por upsert em external ID (a chave tokenizada é o external ID): re-rodar a carga atualiza em vez de duplicar\n- Carga MÍNIMA de go-live apenas — o subconjunto que E02/E03/módulo financeiro precisam referenciar em produção; a base completa (~450k/~800k) fica para depois do go-live\n- Beneficiárias e facilitadoras originam do Novo PAT / bases MTE; estabelecimentos NÃO existem de forma unificada hoje e vêm de arquivos internos das facilitadoras, consolidados em um extrato de carga",
+      "guardrails": [
+        "Não persistir CPF nem dado sensível — apenas referências tokenizadas (ADR 0001); o dado nominal resolve-se em runtime via API quando autorizado",
+        "Não tentar carga massiva no MVP — só o conjunto mínimo do go-live; a base completa é pós-go-live",
+        "Não recriar registros ao re-executar — o upsert por external ID é a garantia de que a carga é segura de repetir"
+      ],
+      "out_of_scope": [
+        "Não fazer sincronização delta contínua nesta rodada — se o extrato exigir sync recorrente, o escopo migra de evento pontual para pipeline permanente e sobrepõe E05 (G0703)",
+        "Não persistir o dicionário completo de campos do Novo PAT — apenas os campos não-sensíveis do go-live",
+        "Não incluir a extração do lado do Novo PAT — isso vive em E05 (Novo PAT sem API hoje → mock-first)"
+      ],
+      "acceptance": "Um líder de migração de dados dispara a carga inicial a partir do extrato consolidado; ao final, beneficiárias, facilitadoras e estabelecimentos aparecem no Salesforce como registros de referência com a chave tokenizada preenchida e nenhum CPF gravado; ele roda a mesma carga uma segunda vez e a contagem de registros não muda (upsert atualiza, não duplica).",
+      "dependencies": {
+        "external": [
+          {
+            "system": "Novo PAT / bases MTE + arquivos das facilitadoras",
+            "need": "extrato consolidado dos cadastros para carga (Novo PAT sem API hoje → mock-first; estabelecimentos vêm de tabelas internas das facilitadoras)",
+            "owner": "MTE/Dataprev"
+          }
+        ],
+        "internal": [
+          "INT-001"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "decision",
+            "ref": "ADR 0001 residência híbrida — CPF não persiste, só referência tokenizada",
+            "location": "decisions/0001-residencia-dados-hibrida.md"
+          },
+          {
+            "type": "discovery",
+            "ref": "carga inicial de estabelecimentos a partir de arquivos das facilitadoras ('entrar marcado, sem batimento')",
+            "location": ".discovery-context.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "Qual a fonte, o formato (CSV/API/dump) e a janela do extrato de carga, e quem o provê? É carga one-time ou exige sync delta recorrente?",
+          "resolver": "Dataprev/MTE (arquitetura Novo PAT)",
+          "answer": null
+        },
+        {
+          "question": "O volume-alvo real (~450k beneficiárias / ~800k estabelecimentos falado na call) confirma-se por escrito contra o extrato oficial do Novo PAT? Fontes públicas citam ~300–327k.",
+          "resolver": "MTE/Dataprev (extrato oficial)",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-047",
+      "title": "Deduplicação na carga por chave não-sensível",
+      "epic_id": "E07",
+      "phase": 4,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "data-model",
+      "outcome": {
+        "summary": "Registros duplicados de estabelecimentos e beneficiárias não entram como referências redundantes: a carga reconhece o mesmo CNPJ (ou CNPJ+UF) vindo de fontes diferentes e colapsa em uma única referência tokenizada."
+      },
+      "build_target": "- Aplicar regras de duplicidade / regras de correspondência (duplicate rules / matching rules) sobre a chave de negócio não-sensível — candidata: CNPJ, possivelmente CNPJ+UF para estabelecimentos multi-facilitadora\n- Colapsar em uma referência única quando o mesmo estabelecimento chega de arquivos de facilitadoras diferentes (o mesmo restaurante credenciado por várias facilitadoras não vira N registros)\n- Registrar a decisão de dedup (o que colapsou com o quê) para trilha de auditoria",
+      "guardrails": [
+        "Não deduplicar por dado sensível — a chave de match é não-sensível (CNPJ), coerente com ADR 0001",
+        "Não descartar silenciosamente um registro colapsado — manter trilha do que foi unificado para auditoria (TCU/CGU/ANPD)"
+      ],
+      "out_of_scope": [
+        "Não assumir a limpeza contínua no credenciamento (E04) — há sobreposição de escopo E07↔E04 a resolver; esta capability cobre a dedup da carga inicial, não o data-cleansing recorrente (G0704)",
+        "Não fazer enriquecimento/correção de dados — dedup colapsa duplicatas, não conserta campos ruins"
+      ],
+      "acceptance": "O líder de migração roda a carga sobre um extrato em que o mesmo CNPJ de estabelecimento aparece em arquivos de duas facilitadoras; ao final existe uma única referência para aquele estabelecimento, e o registro de dedup mostra que os dois registros de origem foram reconhecidos como o mesmo pela regra de correspondência.",
+      "dependencies": {
+        "internal": [
+          "INT-001"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "discovery",
+            "ref": "cliente sinalizou 'entrar marcado, sem batimento' para estabelecimentos vindos das facilitadoras — tensão com a exigência de qualidade",
+            "location": ".discovery-context.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "Qual é a chave de dedup (CNPJ? CNPJ+UF?) e como tratar estabelecimentos credenciados por múltiplas facilitadoras?",
+          "resolver": "workshop de regras (Dataprev/MTE)",
+          "answer": null
+        },
+        {
+          "question": "A limpeza/dedup acontece na carga inicial (E07) ou no credenciamento contínuo (E04), e quem é o dono do data cleansing? O cliente sinalizou 'sem batimento' na carga de estabelecimentos — isso rebate a necessidade de dedup no MVP?",
+          "resolver": "Dataprev/MTE + Solution Lead (fronteira E07/E04)",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-048",
+      "title": "Validação de qualidade e reconciliação pós-carga",
+      "epic_id": "E07",
+      "phase": 4,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "automation",
+      "outcome": {
+        "summary": "Ao fim da carga há prova de que ela bateu com a fonte-de-verdade e de que nenhum dado sensível foi persistido, com critério de aceite e reprocessamento idempotente em caso de falha parcial — condição para defender a carga em auditoria."
+      },
+      "build_target": "- Reconciliar a carga contra a fonte-de-verdade (contagem, amostragem e/ou checksum) e emitir um relatório de aceite\n- Verificar conformidade de residência: spot-check confirmando que só referências tokenizadas foram gravadas e nenhum CPF/dado sensível persistiu (ADR 0001)\n- Tratar falha parcial de forma idempotente: reprocessar o lote falho sem duplicar nem deixar referências órfãs que quebrem E02/E03\n- Definir o critério de aceite da carga (o que caracteriza carga 'boa' para liberar o go-live)",
+      "guardrails": [
+        "Não declarar a carga aceita sem trilha de reconciliação — carga sem prova de batimento é passivo em auditoria TCU/CGU/ANPD",
+        "Não deixar referências órfãs após falha parcial — o reprocessamento é idempotente (casado com o upsert por external ID)",
+        "Não gravar amostras de verificação com dado sensível — o spot-check opera sobre a referência tokenizada"
+      ],
+      "out_of_scope": [
+        "Não implementar rollback transacional completo da base — a estratégia é reprocessamento idempotente + reconciliação, não um desfazer atômico de toda a carga",
+        "Não construir observabilidade fim-a-fim da integração em runtime — isso é operação pós-carga (G0507), não a validação da carga inicial"
+      ],
+      "acceptance": "Depois da carga, o líder de migração abre o relatório de reconciliação: a contagem de referências carregadas bate com a fonte dentro do critério de aceite, uma amostra confirma que só a chave tokenizada foi gravada e nenhum CPF aparece, e um lote propositalmente falho é reprocessado sem gerar duplicatas nem referências órfãs.",
+      "dependencies": {
+        "internal": [
+          "INT-001"
+        ]
+      },
+      "grounding": {
+        "artifacts": [
+          {
+            "type": "decision",
+            "ref": "ADR 0001 residência híbrida — base do spot-check de não-persistência de CPF",
+            "location": "decisions/0001-residencia-dados-hibrida.md"
+          }
+        ]
+      },
+      "open_questions": [
+        {
+          "question": "Qual a estratégia de reconciliação/validação pós-carga (contagem, amostragem, checksum) e o critério de aceite? O que acontece em falha parcial — reprocessamento idempotente basta ou exige rollback?",
+          "resolver": "Solution Lead + Dataprev (plano de teste/RNF)",
+          "answer": null
+        },
+        {
+          "question": "Qual o inventário de campos não-sensíveis por entidade e a chave de referência tokenizada que liga cada registro à origem Dataprev? Sem o dicionário de dados de referência não há como definir objetos-alvo nem mapeamento origem→destino.",
+          "resolver": "arquitetura Dataprev (fronteira de residência — Jair Bogo)",
+          "answer": null
+        }
+      ]
+    },
+    {
+      "id": "INT-049",
+      "title": "Painel de adoção do portal da beneficiária",
+      "epic_id": "E09",
+      "phase": 4,
+      "priority": null,
+      "confidence": "Unknown",
+      "surface": "lightning-record-page",
+      "outcome": {
+        "summary": "Um patrocinador do programa (MTE/Dataprev) enxerga, num painel, o quanto as beneficiárias estão de fato usando o portal e progredindo no funil de cotação — logins, necessidades publicadas, propostas recebidas, seleções e contratos — para dirigir o esforço de adoção onde ele trava."
+      },
+      "build_target": "- Relatórios e dashboards do Salesforce sobre a atividade do portal da beneficiária, alimentados por objetos que a plataforma já autora (o ciclo de Cotação/Contratação de E02) e por Login History dos usuários do Experience Cloud\n- Métricas de funil: necessidades publicadas → propostas recebidas → seleção travada na janela → contrato firmado, com contagem de 'Concluída sem contrato' como sinal de fricção\n- Métricas de engajamento: logins de beneficiárias no período, usuários ativos, tempo até a primeira cotação concluída\n- Recortes por dimensão não-pessoal (UF, porte, período) para localizar onde a adoção emperra",
+      "guardrails": [
+        "Must not persistir ou exibir CPF nem identificador pessoal da beneficiária no painel — agrega sobre usuário tokenizado e registros, respeitando a residência híbrida (ADR 0001)",
+        "Must not fixar meta/baseline de adoção inventada — os alvos de % de adoção dependem de KPIs ainda em aberto (G0905 / Open Question 6); o painel mostra o observado, não uma meta cravada",
+        "Must not tratar atividade de facilitadora como login de portal — as ~600-700 facilitadoras são API-only (ADR 0004); a adoção delas é onboarding/certificação de API (E05), não uso de portal"
+      ],
+      "out_of_scope": [
+        "Must not incluir campanha de comunicação, roteiro de treinamento, sessões de capacitação ou autoria de material de apoio — são atividades de serviço da PS/MTE, não build de plataforma",
+        "Must not construir corpo de governança pós go-live / CoE / data stewardship — responsabilidade recorrente, não entrega de projeto (G0904)",
+        "Must not medir ou orquestrar a adoção das facilitadoras via portal — pertence à integração de API (E05)"
+      ],
+      "acceptance": "Uma analista de adoção do MTE/Dataprev abre a aba do painel no início da Fase 4, filtra por UF e pelo mês corrente e vê: logins de beneficiárias, necessidades publicadas, propostas recebidas, seleções travadas e contratos firmados, além da contagem de cotações 'Concluída sem contrato'. Nenhuma célula do painel exibe CPF ou dado pessoal — os números são agregados sobre usuários tokenizados e registros de cotação. Ela identifica que uma UF tem muitas necessidades publicadas mas poucas seleções e direciona o esforço de adoção para lá.",
+      "open_questions": [
+        {
+          "question": "Esta épica é entregue pela PS ou pelo cliente (Dataprev/MTE)? E quais audiências (beneficiárias no portal, facilitadoras via API, estabelecimentos, equipe interna) estão no escopo de entrega da PS? Isso decide se sequer há build de painel a fazer e para quem.",
+          "resolver": "MTE/Dataprev (patrocínio do programa) — G0901/G0906",
+          "answer": null
+        },
+        {
+          "question": "Como se define e mede sucesso de adoção (ex.: % de beneficiárias que concluem cotação, tempo até primeira contratação)? Sem baseline/alvo acordado o painel não tem critério de aceite quantitativo — só mostra o observado.",
+          "resolver": "MTE/Dataprev — G0905 / Open Question 6",
+          "answer": null
+        },
+        {
+          "question": "A adesão das facilitadoras é mandatória por lei (Decreto 12.712/2025) ou voluntária? Se voluntária, há resistência ativa esperada (transparência comprime margem — ADI no STF pela ABBT) e o painel de adoção da facilitadora ganha peso; se mandatória, vira conformidade de onboarding de API (E05), fora deste painel.",
+          "resolver": "MTE (posição jurídica) — G0902",
+          "answer": null
+        }
+      ]
+    }
+  ]
+}

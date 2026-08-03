@@ -581,6 +581,28 @@
         "Opcional: quantum-leap (handoff de build agêntico) ou share (link Drive)",
         "Checkpoint git de data/ + outputs/ pendente de decisão explícita (monorepo compartilhado)"
       ]
+    },
+    {
+      "date": "2026-08-02",
+      "skills_used": [
+        "quantum-leap"
+      ],
+      "summary": "Gerado o build-handoff bundle quantum-leap (24 arquivos, estrutura v0.3) para DATAPREV-PAT. 8 epic-analyst agents (modo intents) produziram 49 capability intents mescladas em data/intents.json com IDs INT-001..049 estáveis, ordenados por fase→épica. Deps internas fiadas centralmente para os anchors de cada épica-alvo (E01→INT-001/009; E02→INT-001/014; E03→INT-001/009/014; E04→INT-001/014; E07→INT-001). 4 phase briefs (Fases 1-4) staged em .quantum-leap-staging/; Fases 0 (provisionamento) e 5 (E06/Agentforce, fora do MVP) renderizadas como stubs com banner DO-NOT-BUILD. Target org: DATAPREV-PAT Greenfield (scratch, greenfield); blueprint Mixed/multi-cloud. Validator PASS (deps internas resolvem, épicas/fases válidas, sem vazamento de preço).",
+      "friction": "27 intents (todas E02/E03/E04) vieram com 4 seções em vez de 5 (sem acceptance); acceptance auto-derivada centralmente do outcome+guardrail top e sinalizada ao usuário como candidata a enriquecimento manual por arquiteto. Cada epic-analyst estourou o limite ao ler .discovery-context.md direto (323KB) mas recuperou via gaps.json/decisions/knowledge.",
+      "decisions": [
+        "49 capability intents; IDs INT-NNN estáveis atribuídos centralmente por fase→ordem de épica",
+        "Deps internas fiadas ao anchor (data-model preferido, senão primeiro) de cada épica-alvo; deps externas preservadas como os agents retornaram",
+        "Acceptance auto-derivada para E02/E03/E04 (27 intents) — marcada para enriquecimento do arquiteto",
+        "Fase 0 e Fase 5 permanecem stubs DO-NOT-BUILD (provisionamento / E06 fora do MVP)"
+      ],
+      "open_threads": [
+        "Enriquecer as 27 acceptances auto-derivadas (E02/E03/E04) em data/intents.json antes de caminhar os intents com o cliente",
+        "Push do checkpoint git PENDENTE decisão explícita do usuário (monorepo compartilhado)"
+      ],
+      "next_steps": [
+        "Attach do bundle no Meshmesh (blueprint Mixed/multi-cloud) ou consumo via Claude Code; 5 ADRs viajam via ingest da Launchpad (não copiados no bundle flat)",
+        "Rodar em Plan mode primeiro, aprovar fase a fase antes do Build"
+      ]
     }
   ],
   "preferences": {},
