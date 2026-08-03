@@ -75,7 +75,7 @@
     "gap_id": "G0207",
     "category": "Ambiguity",
     "gap_or_question": "A mecânica de lance das facilitadoras via API não está especificada: polling ou push (webhook/evento)? Como a proposta é submetida (payload, auth, idempotência), validada e confirmada? Como garantir que só facilitadoras credenciadas e elegíveis por UF concorram? Lance aberto ou envelope fechado?",
-    "impact_or_notes": "RESOLVIDO na direção de descoberta/notificação (decisão 31/jul): no MVP (até 15/nov) a plataforma ENTREGA UM ENDPOINT DE CONSULTA (pull via API/MuleSoft, E05) — a facilitadora CONSULTA e descobre as demandas abertas na vigência; NÃO há push ativo. Notificação ativa (push) fica no roadmap futuro, com o canal a definir (ver G0211). Coerente com facilitadora API-only (ADR 0004). PENDENTE ainda: o payload/auth/idempotência da submissão da Quote e a garantia de elegibilidade por UF (a especificar no workshop de regras do leilão, E02/Fase 2) — a mecânica de envelope fechado é resolvida por construção (facilitadora sem UI não vê concorrentes)."
+    "impact_or_notes": "RESOLVIDO na direção de descoberta/notificação (decisão 31/jul): na Fase 1 (até 15/nov) a plataforma ENTREGA UM ENDPOINT DE CONSULTA (pull via API/MuleSoft, E05) — a facilitadora CONSULTA e descobre as demandas abertas na vigência; NÃO há push ativo. Notificação ativa (push) fica no roadmap futuro, com o canal a definir (ver G0211). Coerente com facilitadora API-only (ADR 0004). PENDENTE ainda: o payload/auth/idempotência da submissão da Quote e a garantia de elegibilidade por UF (a especificar no workshop de regras do leilão, E02/Etapa 2) — a mecânica de envelope fechado é resolvida por construção (facilitadora sem UI não vê concorrentes)."
   },
   {
     "gap_id": "G0208",
@@ -135,7 +135,7 @@
     "gap_id": "G0401",
     "category": "Source Conflict",
     "gap_or_question": "Cadastro unificado de estabelecimentos vs. facilitadoras mantendo o papel legal de aprovar/descredenciar: quem e o system-of-record do credenciamento? Cadastro-base unico com N status por facilitadora, ou credenciamento unico que todas honram?",
-    "impact_or_notes": "Define o modelo de dados central de E04 (Estabelecimento unico vs. Credenciamento__c 1->N por facilitadora). Afeta E02 e E05. Alto impacto de sizing. Contexto de negócio (base: discovery-notes/reforma-pat-decreto-12712-2025.md): a reforma (Decreto 12.712/2025 — MDR 3,6%, repasse 15 dias, interoperabilidade) torna o cadastro unificado o value driver do estabelecimento, mas NÃO extingue o papel legal da facilitadora de aprovar/descredenciar — é essa dupla natureza (registro central único vs. relação legal por facilitadora) que gera o conflito de fonte a resolver na Fase 0. Decreto sub judice (ADI 7962/STF)."
+    "impact_or_notes": "Define o modelo de dados central de E04 (Estabelecimento unico vs. Credenciamento__c 1->N por facilitadora). Afeta E02 e E05. Alto impacto de sizing. Contexto de negócio (base: discovery-notes/reforma-pat-decreto-12712-2025.md): a reforma (Decreto 12.712/2025 — MDR 3,6%, repasse 15 dias, interoperabilidade) torna o cadastro unificado o value driver do estabelecimento, mas NÃO extingue o papel legal da facilitadora de aprovar/descredenciar — é essa dupla natureza (registro central único vs. relação legal por facilitadora) que gera o conflito de fonte a resolver na Etapa 0. Decreto sub judice (ADI 7962/STF)."
   },
   {
     "gap_id": "G0402",
@@ -190,7 +190,7 @@
     "category": "Logical Gap",
     "confidence": "Confirmed",
     "gap_or_question": "RESOLVIDO (ADR 0005, premissa 31/jul): o MuleSoft roda ON-PREMISE, dentro do perímetro Dataprev — não CloudHub. Isso cumpre a soberania de dados e mantém o ponto de des-tokenização/resolução de CPF em runtime dentro da fronteira Dataprev (aderente ao ADR 0001). Combinado com a org 100% greenfield e apartada, é o eixo de isolamento do programa.",
-    "impact_or_notes": "Fechado na direção 'on-premise'. Ainda scopezilla-recommended/Assumed no nível de premissa (a ratificar com o cliente por escrito). A infra on-premise é pré-requisito de marco da Fase 0 e carrega lead-time externo (ver risco de arranque). Não é mais bloqueador de design."
+    "impact_or_notes": "Fechado na direção 'on-premise'. Ainda scopezilla-recommended/Assumed no nível de premissa (a ratificar com o cliente por escrito). A infra on-premise é pré-requisito de marco da Etapa 0 e carrega lead-time externo (ver risco de arranque). Não é mais bloqueador de design."
   },
   {
     "gap_id": "G0505",
@@ -214,13 +214,13 @@
     "gap_id": "G0601",
     "category": "Ambiguity",
     "gap_or_question": "Escopo do agente indefinido entre informacional (FAQ grounded) e transacional (criar cotacao, enviar folha, credenciar) - Open Question 8. Diferenca de sizing enorme: informacional e XS-S; transacional exige acoes custom (Apex/Flow topics), integracao com E02-E05 e testes de seguranca por acao.",
-    "impact_or_notes": "Bloqueia a estimativa de E06 - T-shirt pode variar de S a XL. Recomenda-se decompor em fase informacional (MVP) + transacional (futura) ate o cliente definir casos de uso."
+    "impact_or_notes": "Bloqueia a estimativa de E06 - T-shirt pode variar de S a XL. Recomenda-se decompor em fase informacional (Fase 1) + transacional (futura) ate o cliente definir casos de uso."
   },
   {
     "gap_id": "G0602",
     "category": "Potential Risk",
     "gap_or_question": "Canal WhatsApp: exige WhatsApp Business API via BSP Meta, aprovacao de templates, numero verificado, custo por conversa e opt-in. Para orgao federal, qual entidade (MTE/Dataprev) detem a conta Meta e a politica de custo? Webchat (Experience Cloud) tem barreira menor.",
-    "impact_or_notes": "WhatsApp adiciona dependencia externa, custo recorrente e lead time de aprovacao Meta fora do controle. Se nao confirmado, MVP em webchat e WhatsApp fase posterior. Impacta cronograma e custeio."
+    "impact_or_notes": "WhatsApp adiciona dependencia externa, custo recorrente e lead time de aprovacao Meta fora do controle. Se nao confirmado, Fase 1 em webchat e WhatsApp fase posterior. Impacta cronograma e custeio."
   },
   {
     "gap_id": "G0603",
@@ -382,13 +382,13 @@
   {
     "gap_id": "G0508",
     "category": "Assumption",
-    "gap_or_question": "Assunção de faseamento: fundação-antes-de-marketplace com E05 (integração) iniciada mock-first já na Fase 1 — sequenciamento por caminho crítico (E05/E08 → E01 → E02/E03). Válida enquanto o risco #1 for a ausência de contratos de API; se os contratos existirem cedo, a fundação e o marketplace podem paralelizar mais.",
-    "impact_or_notes": "Valida-se com o inventário de contratos de API na Fase 0. Se a integração deixar de ser o gargalo, o roadmap comprime. Revise se G0501 se resolver."
+    "gap_or_question": "Assunção de faseamento: fundação-antes-de-marketplace com E05 (integração) iniciada mock-first já na Etapa 1 — sequenciamento por caminho crítico (E05/E08 → E01 → E02/E03). Válida enquanto o risco #1 for a ausência de contratos de API; se os contratos existirem cedo, a fundação e o marketplace podem paralelizar mais.",
+    "impact_or_notes": "Valida-se com o inventário de contratos de API na Etapa 0. Se a integração deixar de ser o gargalo, o roadmap comprime. Revise se G0501 se resolver."
   },
   {
     "gap_id": "G0907",
     "category": "Assumption",
-    "gap_or_question": "Assunção de faseamento: E09 (Change & Adoção) tem pico na Fase 4, mas a comunicação com as ~600-700 facilitadoras arranca na Fase 1 — a resistência esperada (perda de margem no modelo transparente) exige antecipação. Válida enquanto a fronteira de escopo change PS vs. Dataprev/MTE (G0901/G0906) não for definida.",
+    "gap_or_question": "Assunção de faseamento: E09 (Change & Adoção) tem pico na Etapa 4, mas a comunicação com as ~600-700 facilitadoras arranca na Etapa 1 — a resistência esperada (perda de margem no modelo transparente) exige antecipação. Válida enquanto a fronteira de escopo change PS vs. Dataprev/MTE (G0901/G0906) não for definida.",
     "impact_or_notes": "Valida-se ao confirmar a divisão PS vs. Dataprev do change. Se a Dataprev/MTE assumir a comunicação, o esforço PS em E09 recua para capacitação/adoção."
   },
   {
@@ -427,7 +427,7 @@
     "category": "Assumption",
     "confidence": "Assumed",
     "gap_or_question": "Premissa (ADR 0005, 31/jul): a org é 100% GREENFIELD — instância nova, sem ORG existente, apartada de qualquer ambiente/admins Dataprev — e o MULESOFT roda ON-PREMISE. O isolamento greenfield + on-premise é o mecanismo de soberania de dados e reforça o ADR 0001 (residência) e o ADR 0002 (instância dedicada). A infra estará pronta nos marcos do projeto. A confirmar por escrito: provisionamento greenfield, infra on-premise e prazos de prontidão.",
-    "impact_or_notes": "Premissa scopezilla-recommended, a ratificar com o cliente. Resolve G0504 (hospedagem MuleSoft). Cria três pré-requisitos externos de lead-time na Fase 0 (org greenfield, infra on-premise, gateway) — o maior risco à data fixa de 15/nov. Se a infra atrasar, a data não é alcançável só com esforço."
+    "impact_or_notes": "Premissa scopezilla-recommended, a ratificar com o cliente. Resolve G0504 (hospedagem MuleSoft). Cria três pré-requisitos externos de lead-time na Etapa 0 (org greenfield, infra on-premise, gateway) — o maior risco à data fixa de 15/nov. Se a infra atrasar, a data não é alcançável só com esforço."
   },
   {
     "gap_id": "G0310",
@@ -439,7 +439,7 @@
   {
     "gap_id": "G0211",
     "category": "Missing Requirement",
-    "gap_or_question": "Roadmap futuro: qual o CANAL da NOTIFICAÇÃO ATIVA (push) às facilitadoras quando uma beneficiária publica uma demanda/leilão no portal? (e-mail, webhook/evento à API da facilitadora, WhatsApp/BSP, notificação in-app, ou jornada Marketing Cloud). No MVP entregamos apenas endpoint de consulta (pull, G0207); a notificação ativa e a escolha do canal ficam para versão futura.",
+    "gap_or_question": "Roadmap futuro: qual o CANAL da NOTIFICAÇÃO ATIVA (push) às facilitadoras quando uma beneficiária publica uma demanda/leilão no portal? (e-mail, webhook/evento à API da facilitadora, WhatsApp/BSP, notificação in-app, ou jornada Marketing Cloud). Na Fase 1 entregamos apenas endpoint de consulta (pull, G0207); a notificação ativa e a escolha do canal ficam para versão futura.",
     "impact_or_notes": "A escolha do canal é o que DECIDE se posicionamos ou não Marketing Cloud (G0209): um push transacional simples pode sair por webhook/Flow/e-mail nativo sem produto novo; uma jornada rica justificaria Marketing Cloud (licença + configuração). Não dimensionar o push nem somar produto enquanto o canal não for definido com o cliente."
   }
 ]

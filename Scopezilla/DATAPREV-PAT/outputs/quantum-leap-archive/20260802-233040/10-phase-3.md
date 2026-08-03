@@ -40,7 +40,7 @@ You should find these already deployed in the sandbox:
 
 The phase brief is authoritative. Epics below are listed for cross-reference only — when an automation cites `(E04)`, this is what it refers to. For deeper epic narrative, see `90-epics-context.md`.
 
-- **E03: Folha & Financeiro** — Ciclo folha→pagamento→split sob a regra de repasse em até 15 dias (Decreto 12.712/2025). FLUXO (premissa 31/jul): (1) a beneficiária faz UPLOAD do CSV de folha da competência via PORTAL ou API; (2) a plataforma VALIDA o layout do arquivo e a integridade ('não quebrado') — avaliar a melhor alternativa Salesforce para as críticas (Einstein / agente / outro); (3) SEM crítica, habilita o arquivo para DOWNLOAD da facilitadora — as LINHAS DA FOLHA NÃO SÃO CARREGADAS em objeto da plataforma (necessidade futura de roadmap, não agora); (4) a facilitadora baixa a folha associada ao contrato do beneficiário na vigência mês/ano específica e DEVOLVE via API o status 'processado' + o valor a pagar; (5) a plataforma envia o valor ao GATEWAY (que intermedia a conta custódia) e recebe de volta o BOLETO REGISTRADO + metadados/link; (6) o boleto é disponibilizado à beneficiária no portal para download e pagamento; (7) a plataforma recebe do gateway as MOVIMENTAÇÕES BANCÁRIAS de forma BATCH INCREMENTAL via AGENDAMENTO no MuleSoft (E05) para identificar o pagamento e avançar status; (8) identificado o pagamento, o sistema consulta as REGRAS DE CÁLCULO DE SPLIT, calcula o repasse à facilitadora e demais empresas, e REGISTRA todo o racional (datas, split, ordens/boletagens de transferência), entregando via MuleSoft ao gateway. FRONTEIRA (ADR 0003): o Salesforce é o MOTOR DE REGRAS DE SPLIT (calcula, aplica, emite boletagem, orquestra, concilia por casamento, registra racional); o GATEWAY é o ÚNICO responsável pela EXECUÇÃO das transações bancárias e pela custódia — FORA do escopo Salesforce. UI simplificada: status consolidado 'crédito concedido' (uma linha, não lista por trabalhador); marca é o gatilho de notificação à empresa e via CTPS Digital ('expectativa de crédito', só monitoramento no MVP). Objetos custom para folha (cabeçalho/competência, sem linhas), contrato e regras de split; Revenue Cloud fora desta rodada. Lógica financeira real → XL.
+- **E03: Folha & Financeiro** — Ciclo folha→pagamento→split sob a regra de repasse em até 15 dias (Decreto 12.712/2025). FLUXO (premissa 31/jul): (1) a beneficiária faz UPLOAD do CSV de folha da competência via PORTAL ou API; (2) a plataforma VALIDA o layout do arquivo e a integridade ('não quebrado') — avaliar a melhor alternativa Salesforce para as críticas (Einstein / agente / outro); (3) SEM crítica, habilita o arquivo para DOWNLOAD da facilitadora — as LINHAS DA FOLHA NÃO SÃO CARREGADAS em objeto da plataforma (necessidade futura de roadmap, não agora); (4) a facilitadora baixa a folha associada ao contrato do beneficiário na vigência mês/ano específica e DEVOLVE via API o status 'processado' + o valor a pagar; (5) a plataforma envia o valor ao GATEWAY (que intermedia a conta custódia) e recebe de volta o BOLETO REGISTRADO + metadados/link; (6) o boleto é disponibilizado à beneficiária no portal para download e pagamento; (7) a plataforma recebe do gateway as MOVIMENTAÇÕES BANCÁRIAS de forma BATCH INCREMENTAL via AGENDAMENTO no MuleSoft (E05) para identificar o pagamento e avançar status; (8) identificado o pagamento, o sistema consulta as REGRAS DE CÁLCULO DE SPLIT, calcula o repasse à facilitadora e demais empresas, e REGISTRA todo o racional (datas, split, ordens/boletagens de transferência), entregando via MuleSoft ao gateway. FRONTEIRA (ADR 0003): o Salesforce é o MOTOR DE REGRAS DE SPLIT (calcula, aplica, emite boletagem, orquestra, concilia por casamento, registra racional); o GATEWAY é o ÚNICO responsável pela EXECUÇÃO das transações bancárias e pela custódia — FORA do escopo Salesforce. UI simplificada: status consolidado 'crédito concedido' (uma linha, não lista por trabalhador); marca é o gatilho de notificação à empresa e via CTPS Digital ('expectativa de crédito', só monitoramento na Fase 1). Objetos custom para folha (cabeçalho/competência, sem linhas), contrato e regras de split; Revenue Cloud fora desta rodada. Lógica financeira real → XL.
 
 ## Build targets — orchestration summary
 
@@ -56,7 +56,7 @@ O coração regulado da solução, todo assíncrono. Validação de layout/integ
 Superfície mínima no portal (Experience Cloud): a beneficiária envia a folha e encontra o boleto registrado disponível, vinculado à competência (INT-041), com status consolidado do ciclo — sem lista por trabalhador. UI simplificada; a facilitadora não tem tela (API-only).
 
 ### Security & access
-Herda a residência híbrida e a trilha de auditoria da Fase 1 (ADR 0001, INT-011, INT-012). A trilha do racional de split é imutável e consultável por conformidade (TCU/CGU/ANPD) sem persistir CPF (INT-044). Nenhuma linha de folha nem dado sensível do trabalhador persiste; a crítica por IA não recebe CPF em prompt/log (INT-037).
+Herda a residência híbrida e a trilha de auditoria da Etapa 1 (ADR 0001, INT-011, INT-012). A trilha do racional de split é imutável e consultável por conformidade (TCU/CGU/ANPD) sem persistir CPF (INT-044). Nenhuma linha de folha nem dado sensível do trabalhador persiste; a crítica por IA não recebe CPF em prompt/log (INT-037).
 
 ### Reports & dashboards
 [TODO: phase brief body not yet generated — populate via the `quantum-leap` skill]
@@ -66,7 +66,7 @@ _(optional — load only on user request)_
 
 ### Data sources
 
-MuleSoft on-premise (Fase 1) como hub. Fontes: portal/API para recepção assíncrona da folha (INT-035); facilitadora para download da folha e retorno 'processado'+valor (INT-039, contrato INT-006); gateway/banco custódia para solicitação e retorno do boleto registrado (INT-040), feed agendado de movimentações bancárias para conciliação (INT-008, INT-042) e recepção das ordens de transferência (INT-044); CTPS Digital para a notificação de 'expectativa de crédito' (INT-045, fronteira a confirmar).
+MuleSoft on-premise (Etapa 1) como hub. Fontes: portal/API para recepção assíncrona da folha (INT-035); facilitadora para download da folha e retorno 'processado'+valor (INT-039, contrato INT-006); gateway/banco custódia para solicitação e retorno do boleto registrado (INT-040), feed agendado de movimentações bancárias para conciliação (INT-008, INT-042) e recepção das ordens de transferência (INT-044); CTPS Digital para a notificação de 'expectativa de crédito' (INT-045, fronteira a confirmar).
 
 ## Acceptance — user-outcome checks (phase-level)
 
@@ -88,7 +88,7 @@ _(none surfaced in gaps.json — confirm with user during plan-mode review)_
 
 ## Dependencies and risks
 
-**Dependencies:** Fase 0 (gateway selecionado — dependência dura), Fase 1 (E05 integração on-premise com o gateway, E08 residência/soberania). E03 depende de E01 + E05 + E08 + o gateway contratado.
+**Dependencies:** Etapa 0 (gateway selecionado — dependência dura), Etapa 1 (E05 integração on-premise com o gateway, E08 residência/soberania). E03 depende de E01 + E05 + E08 + o gateway contratado.
 
 **Risks:** Provedor do gateway não definido a tempo (G0309) é o risco #1 desta fase — sem o parceiro contratado e integrado, o financeiro não vai a produção em 15/nov; regras de conciliação/divergência por lote incremental ainda indefinidas (G0304); mecânica boleto/Pix e settlement (G0302/G0301); a crítica da folha depende de qual alternativa Salesforce (Einstein/agente) se confirma viável. É a fase XL mais sensível à data fixa; se algo escorregar, é aqui que a pressão de de-escopo bate.
 
@@ -103,7 +103,7 @@ _(none surfaced in gaps.json — confirm with user during plan-mode review)_
 - (US-0307) Como plataforma, quero habilitar o arquivo validado para download da facilitadora, para que ela obtenha a folha vinculada ao contrato na vigência mês/ano.
 - (US-0308) Como facilitadora, quero baixar via API a folha associada ao meu contrato na vigência da competência, para processá-la no meu sistema de crédito.
 - (US-0309) Como facilitadora, quero devolver via API o status 'processado' e o valor a pagar da folha, para que a plataforma inicie a emissão do boleto.
-- (US-0310) Como plataforma, quero modelar um objeto custom de cabeçalho/competência da folha (sem linhas), para rastrear o ciclo sem carregar os itens da folha no MVP.
+- (US-0310) Como plataforma, quero modelar um objeto custom de cabeçalho/competência da folha (sem linhas), para rastrear o ciclo sem carregar os itens da folha na Fase 1.
 - (US-0311) Como administrador financeiro do MTE, quero cadastrar e versionar as regras de cálculo de split, para que o motor aplique os percentuais corretos de repasse.
 - (US-0312) Como plataforma, quero enviar o valor a pagar ao gateway (conta custódia), para solicitar a emissão do boleto registrado.
 - (US-0313) Como gateway, quero devolver à plataforma o boleto registrado com seus metadados e link, para que a plataforma o disponibilize à beneficiária.
@@ -120,7 +120,7 @@ _(none surfaced in gaps.json — confirm with user during plan-mode review)_
 - (US-0324) Como administrador financeiro do MTE, quero que o sistema registre o racional completo do ciclo (datas, split, boletagens), para dispor de trilha de auditoria do repasse.
 - (US-0325) Como beneficiária, quero ver um status consolidado 'crédito concedido' no portal, para acompanhar de forma simples o resultado do ciclo sem detalhes financeiros internos.
 - (US-0326) Como plataforma, quero disparar notificação à empresa quando o crédito é concedido, para informar a beneficiária sobre a conclusão do ciclo.
-- (US-0327) Como plataforma, quero enviar à CTPS Digital a 'expectativa de crédito' do trabalhador, para monitoramento no MVP, sem gestão de saldo.
+- (US-0327) Como plataforma, quero enviar à CTPS Digital a 'expectativa de crédito' do trabalhador, para monitoramento na Fase 1, sem gestão de saldo.
 - (US-0328) Como administrador financeiro do MTE, quero tratar as movimentações não casadas e as exceções do ciclo, para resolver pagamentos que não conciliaram automaticamente.
 - (US-0329) Como administrador financeiro do MTE, quero relatórios de conciliação e repasses por competência, para acompanhar volumes, prazos e taxas aplicadas.
 - (US-0330) Como plataforma, quero orquestrar as transições de status da folha ao longo do ciclo, para dar rastreabilidade fim-a-fim de recebido a crédito concedido.

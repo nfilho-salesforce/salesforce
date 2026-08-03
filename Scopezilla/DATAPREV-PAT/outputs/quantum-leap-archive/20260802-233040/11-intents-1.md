@@ -84,7 +84,7 @@ A monitoring analyst opens a flagged transaction in Salesforce that shows only a
 ### 6. Dependencies
 
 - **External:** Dataprev sovereign data bases — Runtime lookup interface from token to nominal/CPF data at source _(owner: Dataprev architecture (Jair Bogo))_
-- **External:** On-premise MuleSoft infrastructure — Provisioned, accessible on-premise runtime by the project milestone _(owner: Dataprev infra (Fase 0 lead-time prerequisite))_
+- **External:** On-premise MuleSoft infrastructure — Provisioned, accessible on-premise runtime by the project milestone _(owner: Dataprev infra (Etapa 0 lead-time prerequisite))_
 
 ### 7. Grounding
 
@@ -165,7 +165,7 @@ The platform validates a beneficiária's/facilitadora's regular standing and rea
 ### 4. Out of scope
 
 - Must not build or host the federal systems' APIs — Novo PAT, GOV.BR, eSocial, SDC endpoints are owned outside the Salesforce/MuleSoft build
-- Must not own the CTPS Digital 'expectativa de crédito' notification — that is monitoring-only in the MVP and its ownership boundary is unresolved
+- Must not own the CTPS Digital 'expectativa de crédito' notification — that is monitoring-only in the Fase 1 and its ownership boundary is unresolved
 
 ### 5. Acceptance
 
@@ -242,7 +242,7 @@ Every one of the ~600–700 facilitadoras integrates through one standard API co
 
 - Define one standard, versioned API contract all facilitadoras integrate against (no N-to-N bespoke connectors)
 - Build the outbound Quote hand-off from the marketplace to the facilitadora and the inbound processed-result + value return
-- Expose a consultation (pull) endpoint that returns the beneficiária demands open during the current vigência (MVP is pull only)
+- Expose a consultation (pull) endpoint that returns the beneficiária demands open during the current vigência (Fase 1 is pull only)
 - Route facilitadora calls through the CNPJ auth gateway; reference beneficiárias/establishments by token
 
 ### 3. Guardrails
@@ -253,7 +253,7 @@ Every one of the ~600–700 facilitadoras integrates through one standard API co
 
 ### 4. Out of scope
 
-- Must not build active push notification to facilitadoras when a demand is published — push (channel undefined) is roadmap-future; the MVP delivers pull only
+- Must not build active push notification to facilitadoras when a demand is published — push (channel undefined) is roadmap-future; the Fase 1 delivers pull only
 - Must not build a self-service certification portal/sandbox in Phase 1 unless the onboarding model is ratified — see open question
 - Must not execute the financial split — the returned value feeds E03, it is not computed here
 
@@ -272,7 +272,7 @@ A facilitadora, authenticated by its CNPJ credentials, calls the consultation en
 ### Open questions
 
 - [ ] What is the facilitadora onboarding model — one standard contract with self-service certification sandbox, or per-facilitadora connectors? Is there a homologation/versioning process? (Dominant MuleSoft sizing driver.) (Resolver: MTE / Dataprev integration lead)
-- [ ] For the future active-push notification to facilitadoras when a demand is published, which channel (webhook/event to facilitadora API, email, WhatsApp/BSP, in-app, Marketing Cloud)? MVP is pull only. (Resolver: Client / MTE)
+- [ ] For the future active-push notification to facilitadoras when a demand is published, which channel (webhook/event to facilitadora API, email, WhatsApp/BSP, in-app, Marketing Cloud)? Fase 1 is pull only. (Resolver: Client / MTE)
 
 ---
 
@@ -353,7 +353,7 @@ On its scheduled run, the MuleSoft job pulls only bank movements newer than the 
 
 ### 6. Dependencies
 
-- **External:** Gateway PCI / banco custódia — Provider selection plus a contract returning registered boleto and incremental bank movements; PCI provider is undefined _(owner: Client (gateway not yet contracted — Fase 0 prerequisite, ADR 0003))_
+- **External:** Gateway PCI / banco custódia — Provider selection plus a contract returning registered boleto and incremental bank movements; PCI provider is undefined _(owner: Client (gateway not yet contracted — Etapa 0 prerequisite, ADR 0003))_
 
 ### 7. Grounding
 
@@ -555,7 +555,7 @@ Dentro da instância dedicada e apartada do MTE/PAT, o acesso a dado sensível e
 
 ### 4. Out of scope
 
-- Provisionamento físico da org dedicada e do MuleSoft on-premise (pré-requisito de Fase 0, procurement — dependência externa, não build Salesforce)
+- Provisionamento físico da org dedicada e do MuleSoft on-premise (pré-requisito de Etapa 0, procurement — dependência externa, não build Salesforce)
 - Modelo de administração de outros ambientes Dataprev (esta org é apartada)
 - Integração de identidade/SSO gov.br em si (tratado em E01, aqui só o alinhamento do modelo de permissão)
 

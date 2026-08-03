@@ -72,7 +72,7 @@ N facilitadoras submetem propostas como Quotes nativas associadas à Opportunity
 
 ### 4. Out of scope
 
-- Must not push notifications to facilitadoras — the MVP exposes only a pull consultation endpoint (owned by E05); active push is future roadmap (G0211)
+- Must not push notifications to facilitadoras — the Fase 1 exposes only a pull consultation endpoint (owned by E05); active push is future roadmap (G0211)
 - Must not enrich facilitadora history via Data Cloud (de-scope/buffer candidate)
 
 ### 5. Acceptance
@@ -237,7 +237,7 @@ A facilitadora anexa o PDF imutável do contrato com metadados e versões (aditi
 
 ### 3. Guardrails
 
-- Must not build contract lifecycle management — no CLM redlining, clause library, obligations or e-signature (MVP)
+- Must not build contract lifecycle management — no CLM redlining, clause library, obligations or e-signature (Fase 1)
 - Must not mutate a prior version — versions are immutable, aditivo = nova versão
 
 ### 4. Out of scope
@@ -246,7 +246,7 @@ A facilitadora anexa o PDF imutável do contrato com metadados e versões (aditi
 
 ### 5. Acceptance
 
-Cenário de verificação — A facilitadora anexa o PDF imutável do contrato com metadados e versões (aditivo = nova versão), sem gestão de ciclo de vida de contrato.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not build contract lifecycle management — no CLM redlining, clause library, obligations or e-signature (MVP)).
+Cenário de verificação — A facilitadora anexa o PDF imutável do contrato com metadados e versões (aditivo = nova versão), sem gestão de ciclo de vida de contrato.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not build contract lifecycle management — no CLM redlining, clause library, obligations or e-signature (Fase 1)).
 
 ### 6. Dependencies
 
@@ -255,7 +255,7 @@ Cenário de verificação — A facilitadora anexa o PDF imutável do contrato c
 ### 7. Grounding
 
 - **Source artifact:** decision: ADR 0004 — contrato sem CLM (upload de PDF imutável + versões) _(decisions/0004-sales-cloud-objetos-nativos.md)_
-- **Source artifact:** knowledge: CLM é componente nativo do Revenue Cloud, explicitamente fora de escopo no MVP _(knowledge/salesforce-revenue-cloud-marketplace-arch.md:14)_
+- **Source artifact:** knowledge: CLM é componente nativo do Revenue Cloud, explicitamente fora de escopo na Fase 1 _(knowledge/salesforce-revenue-cloud-marketplace-arch.md:14)_
 
 ### Open questions
 
@@ -297,7 +297,7 @@ Cenário de verificação — Após o contrato firmado, a beneficiária classifi
 
 ### 7. Grounding
 
-- **Source artifact:** decision: ADR 0004 — termo de aceite MVP-required, integrado ao Novo PAT _(decisions/0004-sales-cloud-objetos-nativos.md)_
+- **Source artifact:** decision: ADR 0004 — termo de aceite Fase 1-required, integrado ao Novo PAT _(decisions/0004-sales-cloud-objetos-nativos.md)_
 
 ### Open questions
 
@@ -428,7 +428,7 @@ Cenário de verificação — Um estabelecimento se cadastra uma única vez no p
 
 ### Open questions
 
-- [ ] Quem é o system-of-record do credenciamento: um cadastro-base único com N status por facilitadora, ou um credenciamento único que todas honram (G0401)? (Resolver: MTE/Dataprev (Fase 0))
+- [ ] Quem é o system-of-record do credenciamento: um cadastro-base único com N status por facilitadora, ou um credenciamento único que todas honram (G0401)? (Resolver: MTE/Dataprev (Etapa 0))
 - [ ] O estabelecimento se autentica como PJ por qual mecanismo do gov.br — representante PF com procuração eletrônica, e-CNPJ ou certificado digital (G0402)? (Resolver: gov.br / Dataprev (Jair Bogo))
 
 ---
@@ -556,7 +556,7 @@ Cenário de verificação — Um Analista MTE analisa cada documento do estabele
 
 ### Open questions
 
-- [ ] Quem de fato emite o parecer de credenciamento — Analista MTE, a facilitadora ou um banco? A transcrição alterna entre os três; os protótipos apontam Analista MTE. (Resolver: MTE/Dataprev (Fase 0))
+- [ ] Quem de fato emite o parecer de credenciamento — Analista MTE, a facilitadora ou um banco? A transcrição alterna entre os três; os protótipos apontam Analista MTE. (Resolver: MTE/Dataprev (Etapa 0))
 
 ---
 

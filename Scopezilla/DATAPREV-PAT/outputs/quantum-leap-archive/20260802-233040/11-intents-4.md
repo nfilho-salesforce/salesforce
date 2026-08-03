@@ -22,7 +22,7 @@ O conjunto mínimo de beneficiárias, facilitadoras e estabelecimentos necessár
 ### 3. Guardrails
 
 - Não persistir CPF nem dado sensível — apenas referências tokenizadas (ADR 0001); o dado nominal resolve-se em runtime via API quando autorizado
-- Não tentar carga massiva no MVP — só o conjunto mínimo do go-live; a base completa é pós-go-live
+- Não tentar carga massiva na Fase 1 — só o conjunto mínimo do go-live; a base completa é pós-go-live
 - Não recriar registros ao re-executar — o upsert por external ID é a garantia de que a carga é segura de repetir
 
 ### 4. Out of scope
@@ -91,7 +91,7 @@ O líder de migração roda a carga sobre um extrato em que o mesmo CNPJ de esta
 ### Open questions
 
 - [ ] Qual é a chave de dedup (CNPJ? CNPJ+UF?) e como tratar estabelecimentos credenciados por múltiplas facilitadoras? (Resolver: workshop de regras (Dataprev/MTE))
-- [ ] A limpeza/dedup acontece na carga inicial (E07) ou no credenciamento contínuo (E04), e quem é o dono do data cleansing? O cliente sinalizou 'sem batimento' na carga de estabelecimentos — isso rebate a necessidade de dedup no MVP? (Resolver: Dataprev/MTE + Solution Lead (fronteira E07/E04))
+- [ ] A limpeza/dedup acontece na carga inicial (E07) ou no credenciamento contínuo (E04), e quem é o dono do data cleansing? O cliente sinalizou 'sem batimento' na carga de estabelecimentos — isso rebate a necessidade de dedup na Fase 1? (Resolver: Dataprev/MTE + Solution Lead (fronteira E07/E04))
 
 ---
 
@@ -169,7 +169,7 @@ Um patrocinador do programa (MTE/Dataprev) enxerga, num painel, o quanto as bene
 
 ### 5. Acceptance
 
-Uma analista de adoção do MTE/Dataprev abre a aba do painel no início da Fase 4, filtra por UF e pelo mês corrente e vê: logins de beneficiárias, necessidades publicadas, propostas recebidas, seleções travadas e contratos firmados, além da contagem de cotações 'Concluída sem contrato'. Nenhuma célula do painel exibe CPF ou dado pessoal — os números são agregados sobre usuários tokenizados e registros de cotação. Ela identifica que uma UF tem muitas necessidades publicadas mas poucas seleções e direciona o esforço de adoção para lá.
+Uma analista de adoção do MTE/Dataprev abre a aba do painel no início da Etapa 4, filtra por UF e pelo mês corrente e vê: logins de beneficiárias, necessidades publicadas, propostas recebidas, seleções travadas e contratos firmados, além da contagem de cotações 'Concluída sem contrato'. Nenhuma célula do painel exibe CPF ou dado pessoal — os números são agregados sobre usuários tokenizados e registros de cotação. Ela identifica que uma UF tem muitas necessidades publicadas mas poucas seleções e direciona o esforço de adoção para lá.
 
 ### Open questions
 

@@ -6,15 +6,15 @@
 ## Intent
 
 - **For:** A equipe de go-live e hypercare, as beneficiárias e facilitadoras (adoção/capacitação), e o Novo PAT/MTE como system-of-record das cargas iniciais.
-- **Outcome:** Fechar a homologação (UAT) aberta no início de novembro e virar para PRODUÇÃO em 15/nov/2026. Popular a plataforma com a carga inicial MÍNIMA necessária ao go-live (E07 — beneficiárias, facilitadoras, estabelecimentos a partir do Novo PAT, que permanece system-of-record) e conduzir a adoção enxuta (E09 — capacitação e materiais essenciais, com o pico da comunicação já iniciado na Fase 1).
+- **Outcome:** Fechar a homologação (UAT) aberta no início de novembro e virar para PRODUÇÃO em 15/nov/2026. Popular a plataforma com a carga inicial MÍNIMA necessária ao go-live (E07 — beneficiárias, facilitadoras, estabelecimentos a partir do Novo PAT, que permanece system-of-record) e conduzir a adoção enxuta (E09 — capacitação e materiais essenciais, com o pico da comunicação já iniciado na Etapa 1).
 - **Measured by:** Homologação (UAT) concluída sobre as jornadas entregues (portal, marketplace, credenciamento, financeiro); cadastros mínimos carregados com dedup e reconciliação (INT-046, INT-047, INT-048); facilitadoras e beneficiárias com capacitação essencial (INT-049); GO-LIVE PROD 15/nov estabilizado com hypercare ativo.
-- **Must not:** Não carregar dado sensível/CPF na org — só referências não-sensíveis (ADR 0001, INT-046). Não recriar registros em recarga — a carga é idempotente por external ID (INT-046). Não fazer batimento pesado de dedup no MVP — entrar marcado, sem batimento profundo (INT-047, temperado pelo discovery). Não expandir E09 além de adoção enxuta (change management, não build pesado).
+- **Must not:** Não carregar dado sensível/CPF na org — só referências não-sensíveis (ADR 0001, INT-046). Não recriar registros em recarga — a carga é idempotente por external ID (INT-046). Não fazer batimento pesado de dedup na Fase 1 — entrar marcado, sem batimento profundo (INT-047, temperado pelo discovery). Não expandir E09 além de adoção enxuta (change management, não build pesado).
 
 ## Pre-decided (do not re-litigate)
 - **Novo PAT permanece system-of-record** dos cadastros; a plataforma recebe a carga mínima ao go-live (roadmap, decision_log).
 - **Carga idempotente**: Bulk API 2.0 + upsert por external ID (INT-046 — dimensionado para o pico ~28/s / 1M registros analisado em 2026-07-31).
-- **Dedup leve no MVP**: entrar marcado por chave não-sensível, sem batimento profundo (INT-047).
-- **E09 é transversal e enxuto**: a comunicação começou na Fase 1 e culmina aqui; capacitação e materiais essenciais, não uma frente de build.
+- **Dedup leve na Fase 1**: entrar marcado por chave não-sensível, sem batimento profundo (INT-047).
+- **E09 é transversal e enxuto**: a comunicação começou na Etapa 1 e culmina aqui; capacitação e materiais essenciais, não uma frente de build.
 - **Data fixa imóvel**: go-live PROD 15/nov/2026 (ADR de modo data-fixa; decision_log).
 
 ## Starting state (from Financeiro — Folha, Motor de Split & Conciliação (19/out – 8/nov · Sem. 10-12))
@@ -45,7 +45,7 @@ The phase brief is authoritative. Epics below are listed for cross-reference onl
 These sections orient the build agent on the shape of the phase. Per-capability buildable detail (Outcome, Build target, Guardrails, Out of scope, Acceptance, Open questions) lives in `11-intents-4.md` per intent. When a section below cites `INT-NNN`, look up the intent there.
 
 ### Data model
-Deduplicação na carga por chave não-sensível (INT-047) — dado que CPF não persiste, a chave de unicidade é um external ID não-sensível vindo do Novo PAT. Sem novos objetos de negócio nesta fase; a carga popula os objetos fundacionais das Fases 1–3.
+Deduplicação na carga por chave não-sensível (INT-047) — dado que CPF não persiste, a chave de unicidade é um external ID não-sensível vindo do Novo PAT. Sem novos objetos de negócio nesta fase; a carga popula os objetos fundacionais das Etapas 1–3.
 
 ### Automation
 Carga inicial idempotente de referências não-sensíveis via Bulk API 2.0 com upsert por external ID (INT-046 — a arquitetura assíncrona que evita o teto de Apex concorrente) e validação de qualidade + reconciliação pós-carga (INT-048). O detalhe vive nesses intents.
@@ -54,7 +54,7 @@ Carga inicial idempotente de referências não-sensíveis via Bulk API 2.0 com u
 Painel de adoção do portal da beneficiária (INT-049) — Lightning Record Page/monitoramento leve para a adoção enxuta. Sem novas jornadas de negócio nesta fase.
 
 ### Security & access
-Herda a residência híbrida (ADR 0001): a carga traz apenas referências não-sensíveis; nenhum CPF entra na org. Acesso por papel e trilha de auditoria já estabelecidos na Fase 1.
+Herda a residência híbrida (ADR 0001): a carga traz apenas referências não-sensíveis; nenhum CPF entra na org. Acesso por papel e trilha de auditoria já estabelecidos na Etapa 1.
 
 ### Reports & dashboards
 [TODO: phase brief body not yet generated — populate via the `quantum-leap` skill]
@@ -64,7 +64,7 @@ _(optional — load only on user request)_
 
 ### Data sources
 
-Novo PAT/MTE como origem da carga inicial via MuleSoft (INT-046, camada E05 da Fase 1). Novo PAT permanece system-of-record.
+Novo PAT/MTE como origem da carga inicial via MuleSoft (INT-046, camada E05 da Etapa 1). Novo PAT permanece system-of-record.
 
 ## Acceptance — user-outcome checks (phase-level)
 
@@ -86,9 +86,9 @@ _(none surfaced in gaps.json — confirm with user during plan-mode review)_
 
 ## Dependencies and risks
 
-**Dependencies:** Fase 1 (E05 para extração/carga). E07 depende de E05. E09 é transversal — sua comunicação começa na Fase 1 e culmina aqui. A homologação depende do encerramento das jornadas da Fase 2 e 3.
+**Dependencies:** Etapa 1 (E05 para extração/carga). E07 depende de E05. E09 é transversal — sua comunicação começa na Etapa 1 e culmina aqui. A homologação depende do encerramento das jornadas da Etapa 2 e 3.
 
-**Risks:** ⚠ VIABILIDADE DA DATA FIXA — SINALIZAR: 13 semanas para um build XL regulado (financeiro com split, conciliação e emissão de boleto) sobre 3 pré-requisitos externos de lead-time (org greenfield, MuleSoft on-premise, gateway) é um cronograma AGRESSIVO com margem mínima. A janela de estabilização de 1 semana entre o fim do build (8/nov), a homologação e o PROD (15/nov) é o ponto mais frágil: se qualquer pré-requisito da Fase 0 atrasar, ou a homologação achar defeito no financeiro, a data de 15/nov não é alcançável com esforço adicional — nesse caso o de-escopo (E03 financeiro é o primeiro candidato, adiando parte do split/conciliação para pós-go-live) é o único trilho para preservar a data. Volume de carga desconhecido (G0701, ~450k) pode estourar a janela; resistência das facilitadoras (perda de margem no modelo transparente). Adoção completa e carga massiva ficam pós-go-live (buffer).
+**Risks:** ⚠ VIABILIDADE DA DATA FIXA — SINALIZAR: 13 semanas para um build XL regulado (financeiro com split, conciliação e emissão de boleto) sobre 3 pré-requisitos externos de lead-time (org greenfield, MuleSoft on-premise, gateway) é um cronograma AGRESSIVO com margem mínima. A janela de estabilização de 1 semana entre o fim do build (8/nov), a homologação e o PROD (15/nov) é o ponto mais frágil: se qualquer pré-requisito da Etapa 0 atrasar, ou a homologação achar defeito no financeiro, a data de 15/nov não é alcançável com esforço adicional — nesse caso o de-escopo (E03 financeiro é o primeiro candidato, adiando parte do split/conciliação para pós-go-live) é o único trilho para preservar a data. Volume de carga desconhecido (G0701, ~450k) pode estourar a janela; resistência das facilitadoras (perda de margem no modelo transparente). Adoção completa e carga massiva ficam pós-go-live (buffer).
 
 ## Story citations covered in this phase
 

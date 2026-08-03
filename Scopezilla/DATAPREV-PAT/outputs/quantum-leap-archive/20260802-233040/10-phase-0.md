@@ -21,7 +21,7 @@ _(no epics tied to this phase)_
 
 **Dependencies:** Nenhuma — é a fase que precede tudo. Requer disponibilidade da arquitetura Dataprev (Jair Bogo), dos donos dos sistemas externos, a INFRA (org + MuleSoft on-premise) pronta nos marcos, e a decisão do cliente sobre o provedor do gateway.
 
-**Risks:** PROVISIONAMENTO DA ORG + INFRA MuleSoft ON-PREMISE + CONTRATAÇÃO DO GATEWAY SÃO O MAIOR RISCO À DATA FIXA — três lead-times de terceiros que consomem a janela e não estão sob controle da entrega. Se qualquer um atrasar além da Fase 0, o go-live de 15/nov fica em risco e o financeiro (E03) é o primeiro candidato a fatiar. Se a infra on-premise não estiver pronta no marco, a Fundação não arranca. Novo PAT sem API mantém E05 mock-first — caminho crítico aberto.
+**Risks:** PROVISIONAMENTO DA ORG + INFRA MuleSoft ON-PREMISE + CONTRATAÇÃO DO GATEWAY SÃO O MAIOR RISCO À DATA FIXA — três lead-times de terceiros que consomem a janela e não estão sob controle da entrega. Se qualquer um atrasar além da Etapa 0, o go-live de 15/nov fica em risco e o financeiro (E03) é o primeiro candidato a fatiar. Se a infra on-premise não estiver pronta no marco, a Fundação não arranca. Novo PAT sem API mantém E05 mock-first — caminho crítico aberto.
 
 ---
 

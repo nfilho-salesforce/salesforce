@@ -91,7 +91,7 @@
           {
             "system": "On-premise MuleSoft infrastructure",
             "need": "Provisioned, accessible on-premise runtime by the project milestone",
-            "owner": "Dataprev infra (Fase 0 lead-time prerequisite)"
+            "owner": "Dataprev infra (Etapa 0 lead-time prerequisite)"
           }
         ]
       },
@@ -186,7 +186,7 @@
       ],
       "out_of_scope": [
         "Must not build or host the federal systems' APIs — Novo PAT, GOV.BR, eSocial, SDC endpoints are owned outside the Salesforce/MuleSoft build",
-        "Must not own the CTPS Digital 'expectativa de crédito' notification — that is monitoring-only in the MVP and its ownership boundary is unresolved"
+        "Must not own the CTPS Digital 'expectativa de crédito' notification — that is monitoring-only in the Fase 1 and its ownership boundary is unresolved"
       ],
       "acceptance": "A beneficiária's regularity is checked during marketplace onboarding: the core calls the Novo PAT System API, MuleSoft returns a canonical 'regular/irregular' result from the mock, and the marketplace gates participation accordingly; when the real Novo PAT contract lands, the same System API serves live data after contract tests pass.",
       "dependencies": {
@@ -281,14 +281,14 @@
       "outcome": {
         "summary": "Every one of the ~600–700 facilitadoras integrates through one standard API contract: it receives Quotes, returns the processed result plus value, and can pull the open demands in the current vigência — a certifiable single contract, not a bespoke connector per facilitadora."
       },
-      "build_target": "- Define one standard, versioned API contract all facilitadoras integrate against (no N-to-N bespoke connectors)\n- Build the outbound Quote hand-off from the marketplace to the facilitadora and the inbound processed-result + value return\n- Expose a consultation (pull) endpoint that returns the beneficiária demands open during the current vigência (MVP is pull only)\n- Route facilitadora calls through the CNPJ auth gateway; reference beneficiárias/establishments by token",
+      "build_target": "- Define one standard, versioned API contract all facilitadoras integrate against (no N-to-N bespoke connectors)\n- Build the outbound Quote hand-off from the marketplace to the facilitadora and the inbound processed-result + value return\n- Expose a consultation (pull) endpoint that returns the beneficiária demands open during the current vigência (Fase 1 is pull only)\n- Route facilitadora calls through the CNPJ auth gateway; reference beneficiárias/establishments by token",
       "guardrails": [
         "Must not build per-facilitadora custom connectors — the scale (600–700) requires one standard contract behind a certification path",
         "Must not expose sensitive data on the pull endpoint — open demands are returned by non-sensitive reference",
         "Must not admit an unauthenticated facilitadora call — every call passes the CNPJ client-credentials gateway"
       ],
       "out_of_scope": [
-        "Must not build active push notification to facilitadoras when a demand is published — push (channel undefined) is roadmap-future; the MVP delivers pull only",
+        "Must not build active push notification to facilitadoras when a demand is published — push (channel undefined) is roadmap-future; the Fase 1 delivers pull only",
         "Must not build a self-service certification portal/sandbox in Phase 1 unless the onboarding model is ratified — see open question",
         "Must not execute the financial split — the returned value feeds E03, it is not computed here"
       ],
@@ -319,7 +319,7 @@
           "answer": null
         },
         {
-          "question": "For the future active-push notification to facilitadoras when a demand is published, which channel (webhook/event to facilitadora API, email, WhatsApp/BSP, in-app, Marketing Cloud)? MVP is pull only.",
+          "question": "For the future active-push notification to facilitadoras when a demand is published, which channel (webhook/event to facilitadora API, email, WhatsApp/BSP, in-app, Marketing Cloud)? Fase 1 is pull only.",
           "resolver": "Client / MTE",
           "answer": null
         }
@@ -402,7 +402,7 @@
           {
             "system": "Gateway PCI / banco custódia",
             "need": "Provider selection plus a contract returning registered boleto and incremental bank movements; PCI provider is undefined",
-            "owner": "Client (gateway not yet contracted — Fase 0 prerequisite, ADR 0003)"
+            "owner": "Client (gateway not yet contracted — Etapa 0 prerequisite, ADR 0003)"
           }
         ]
       },
@@ -613,7 +613,7 @@
         "A resolução de dado nominal em runtime não pode contornar o modelo de permissão da org"
       ],
       "out_of_scope": [
-        "Provisionamento físico da org dedicada e do MuleSoft on-premise (pré-requisito de Fase 0, procurement — dependência externa, não build Salesforce)",
+        "Provisionamento físico da org dedicada e do MuleSoft on-premise (pré-requisito de Etapa 0, procurement — dependência externa, não build Salesforce)",
         "Modelo de administração de outros ambientes Dataprev (esta org é apartada)",
         "Integração de identidade/SSO gov.br em si (tratado em E01, aqui só o alinhamento do modelo de permissão)"
       ],
@@ -1000,7 +1000,7 @@
         "Must not implement Apex managed sharing to hide Quotes — unnecessary given the API-only facilitadora (ADR 0004)"
       ],
       "out_of_scope": [
-        "Must not push notifications to facilitadoras — the MVP exposes only a pull consultation endpoint (owned by E05); active push is future roadmap (G0211)",
+        "Must not push notifications to facilitadoras — the Fase 1 exposes only a pull consultation endpoint (owned by E05); active push is future roadmap (G0211)",
         "Must not enrich facilitadora history via Data Cloud (de-scope/buffer candidate)"
       ],
       "acceptance": "Cenário de verificação — N facilitadoras submetem propostas como Quotes nativas associadas à Opportunity aberta, exclusivamente via API, sem UI nem licença de portal — a equidade é por construção.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not reveal competing Quotes to a facilitadora (equity by construction — facilitadora has no UI)).",
@@ -1186,13 +1186,13 @@
       },
       "build_target": "- Armazenamento do PDF via Files/ContentVersion, imutável\n- Metadados do contrato + relação com a Opportunity/Quote vencedora\n- Versionamento: cada aditivo entra como nova versão, preservando as anteriores",
       "guardrails": [
-        "Must not build contract lifecycle management — no CLM redlining, clause library, obligations or e-signature (MVP)",
+        "Must not build contract lifecycle management — no CLM redlining, clause library, obligations or e-signature (Fase 1)",
         "Must not mutate a prior version — versions are immutable, aditivo = nova versão"
       ],
       "out_of_scope": [
         "Must not compute payment split (E03 financial engine)"
       ],
-      "acceptance": "Cenário de verificação — A facilitadora anexa o PDF imutável do contrato com metadados e versões (aditivo = nova versão), sem gestão de ciclo de vida de contrato.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not build contract lifecycle management — no CLM redlining, clause library, obligations or e-signature (MVP)).",
+      "acceptance": "Cenário de verificação — A facilitadora anexa o PDF imutável do contrato com metadados e versões (aditivo = nova versão), sem gestão de ciclo de vida de contrato.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not build contract lifecycle management — no CLM redlining, clause library, obligations or e-signature (Fase 1)).",
       "dependencies": {
         "internal": [
           "INT-001",
@@ -1208,7 +1208,7 @@
           },
           {
             "type": "knowledge",
-            "ref": "CLM é componente nativo do Revenue Cloud, explicitamente fora de escopo no MVP",
+            "ref": "CLM é componente nativo do Revenue Cloud, explicitamente fora de escopo na Fase 1",
             "location": "knowledge/salesforce-revenue-cloud-marketplace-arch.md:14"
           }
         ]
@@ -1251,7 +1251,7 @@
         "artifacts": [
           {
             "type": "decision",
-            "ref": "ADR 0004 — termo de aceite MVP-required, integrado ao Novo PAT",
+            "ref": "ADR 0004 — termo de aceite Fase 1-required, integrado ao Novo PAT",
             "location": "decisions/0004-sales-cloud-objetos-nativos.md"
           }
         ]
@@ -1401,7 +1401,7 @@
       "open_questions": [
         {
           "question": "Quem é o system-of-record do credenciamento: um cadastro-base único com N status por facilitadora, ou um credenciamento único que todas honram (G0401)?",
-          "resolver": "MTE/Dataprev (Fase 0)",
+          "resolver": "MTE/Dataprev (Etapa 0)",
           "answer": null
         },
         {
@@ -1538,7 +1538,7 @@
       "open_questions": [
         {
           "question": "Quem de fato emite o parecer de credenciamento — Analista MTE, a facilitadora ou um banco? A transcrição alterna entre os três; os protótipos apontam Analista MTE.",
-          "resolver": "MTE/Dataprev (Fase 0)",
+          "resolver": "MTE/Dataprev (Etapa 0)",
           "answer": null
         }
       ]
@@ -1706,12 +1706,12 @@
       "build_target": "- Aceitar upload do CSV da folha por dois canais: portal (beneficiária autenticada) e API (integração)\n- Persistir o arquivo recebido como anexo/conteúdo e registrar o cabeçalho da folha (competência mês-ano, contrato, beneficiária) — sem gravar as linhas do trabalhador\n- Devolver confirmação imediata de recebimento e enfileirar o processamento (validação + crítica) para execução assíncrona\n- Suportar o pico de ~28 uploads/s numa janela de 5 dias sem enfileiramento síncrono nem estouro do teto de processos longos concorrentes",
       "guardrails": [
         "Must not process payroll critique synchronously on upload click (peak ~28/s exceeds the 25 concurrent long-Apex ceiling)",
-        "Must not persist payroll line items in MVP (header/competência only)",
+        "Must not persist payroll line items in Fase 1 (header/competência only)",
         "Must not block the user session waiting for validation or critique to finish"
       ],
       "out_of_scope": [
         "Must not persist or expose per-worker payroll rows (roadmap futuro)",
-        "Must not normalize N formatos proprietários de facilitadora no MVP — assume layout único da plataforma até definição contrária",
+        "Must not normalize N formatos proprietários de facilitadora na Fase 1 — assume layout único da plataforma até definição contrária",
         "Must not execute or custody funds"
       ],
       "acceptance": "Cenário de verificação — A beneficiária envia o CSV da folha da competência pelo portal ou por API e recebe confirmação de recebimento em segundos; o arquivo entra numa fila de processamento sem travar a sessão nem consumir um slot de processamento longo.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not process payroll critique synchronously on upload click (peak ~28/s exceeds the 25 concurrent long-Apex ceiling)).",
@@ -1763,12 +1763,12 @@
       "build_target": "- Validar estrutura do arquivo (colunas esperadas, tipos, encoding, arquivo não corrompido/truncado) de forma assíncrona a partir da fila\n- Marcar a folha como íntegra (apto a download) ou inconsistente, registrando o resultado no cabeçalho da folha\n- Devolver à beneficiária o resultado da validação (aceita / rejeitada com motivo) sem gravar as linhas do trabalhador\n- Emitir evento de conclusão que habilita o próximo passo (download pela facilitadora) apenas para folhas íntegras",
       "guardrails": [
         "Must not process payroll critique synchronously on upload click (peak ~28/s exceeds the 25 concurrent long-Apex ceiling)",
-        "Must not persist payroll line items in MVP (header/competência only)",
+        "Must not persist payroll line items in Fase 1 (header/competência only)",
         "Must not release a payroll to facilitadora download before validation passes"
       ],
       "out_of_scope": [
         "Must not attempt fraud detection or business-rule scoring here — this is structural integrity only",
-        "Must not persist rejected line content for reprocessing in MVP"
+        "Must not persist rejected line content for reprocessing in Fase 1"
       ],
       "acceptance": "Cenário de verificação — Toda folha enfileirada passa por uma checagem automática de layout e integridade estrutural; folhas íntegras seguem para disponibilização à facilitadora e as inconsistentes são sinalizadas à beneficiária com o motivo, sem persistir as linhas.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not process payroll critique synchronously on upload click (peak ~28/s exceeds the 25 concurrent long-Apex ceiling)).",
       "dependencies": {
@@ -1814,7 +1814,7 @@
       "build_target": "- Executar uma camada de crítica automática da folha após a validação estrutural, de forma 100% assíncrona (fila/batch/evento)\n- Registrar o veredito da crítica no cabeçalho da folha (aprovada / apontamentos) sem persistir linhas\n- Descrever o comportamento esperado (detectar inconsistências da competência) e deixar o agente de build escolher o mecanismo Salesforce — a melhor alternativa (Einstein, agente, Apex) ainda não está travada",
       "guardrails": [
         "Must not process payroll critique synchronously on upload click (peak ~28/s exceeds the 25 concurrent long-Apex ceiling)",
-        "Must not persist payroll line items in MVP (header/competência only)",
+        "Must not persist payroll line items in Fase 1 (header/competência only)",
         "Must not send worker-level sensitive data (CPF) into an LLM prompt or log it (residência ADR 0001)"
       ],
       "out_of_scope": [
@@ -1864,7 +1864,7 @@
       },
       "build_target": "- Objeto custom de folha: cabeçalho por competência (mês-ano), vínculo a contrato e beneficiária, resultado de validação/crítica e status do ciclo — SEM linhas do trabalhador\n- Objeto custom de contrato/vigência que a facilitadora usa para baixar a folha por contrato e competência\n- Objeto custom de regras de split parametrizáveis (percentuais por parte, teto MDR, prazo de repasse, distinção PAT vs não-PAT)\n- Modelar sobre os objetos nativos já assumidos (ADR 0004: Opportunity/Quote para o leilão) sem introduzir Revenue Cloud/Billing",
       "guardrails": [
-        "Must not persist payroll line items in MVP (header/competência only)",
+        "Must not persist payroll line items in Fase 1 (header/competência only)",
         "Must not adopt Revenue Cloud / Billing — split não é nativo; motor de regras é custom (baseline Core-only)",
         "Must not execute or custody funds"
       ],
@@ -1872,7 +1872,7 @@
         "Must not model per-worker payroll tables or line-item reporting (roadmap futuro)",
         "Must not persist CPF or worker sensitive data in the core org (residência ADR 0001)"
       ],
-      "acceptance": "Cenário de verificação — A plataforma tem os objetos custom que sustentam o ciclo financeiro — folha por competência (só cabeçalho), contrato/vigência e regras de split parametrizáveis — sobre a base Sales Cloud, sem Revenue Cloud e sem persistir linhas de folha.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not persist payroll line items in MVP (header/competência only)).",
+      "acceptance": "Cenário de verificação — A plataforma tem os objetos custom que sustentam o ciclo financeiro — folha por competência (só cabeçalho), contrato/vigência e regras de split parametrizáveis — sobre a base Sales Cloud, sem Revenue Cloud e sem persistir linhas de folha.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not persist payroll line items in Fase 1 (header/competência only)).",
       "dependencies": {
         "internal": [
           "INT-001",
@@ -1920,7 +1920,7 @@
       },
       "build_target": "- Expor endpoint (via MuleSoft, E05) para a facilitadora baixar a folha por contrato + competência — facilitadora é API-only, sem UI/licença de portal (ADR 0004)\n- Receber o retorno 'processado' + valor a pagar e registrá-lo no cabeçalho da folha, avançando o status do ciclo\n- Garantir idempotência do retorno (evitar reprocessamento/duplicidade de valor) e rastrear a data do processamento (âncora do prazo de repasse)",
       "guardrails": [
-        "Must not persist payroll line items in MVP (header/competência only)",
+        "Must not persist payroll line items in Fase 1 (header/competência only)",
         "Must not expose a UI/portal seat to facilitadoras — integração é API-only (ADR 0004)",
         "Must not accept a processed-value return without idempotency guarding against duplicate financial effect"
       ],
@@ -1928,7 +1928,7 @@
         "Must not build per-facilitadora bespoke connectors — assume a single standard API contract",
         "Must not execute or custody funds"
       ],
-      "acceptance": "Cenário de verificação — A facilitadora baixa a folha íntegra por contrato e vigência (mês-ano) via API e devolve à plataforma o status 'processado' com o valor a pagar, que passa a alimentar a emissão de boleto.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not persist payroll line items in MVP (header/competência only)).",
+      "acceptance": "Cenário de verificação — A facilitadora baixa a folha íntegra por contrato e vigência (mês-ano) via API e devolve à plataforma o status 'processado' com o valor a pagar, que passa a alimentar a emissão de boleto.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not persist payroll line items in Fase 1 (header/competência only)).",
       "dependencies": {
         "external": [
           {
@@ -1979,7 +1979,7 @@
       "build_target": "- Enviar ao gateway (via MuleSoft, E05) a solicitação de boletagem com o valor processado da folha\n- Receber e registrar o boleto retornado (identificador, metadados, link) vinculado à folha/competência\n- Tratar erro/retentativa na emissão (boleto não gerado, timeout do gateway) com idempotência para não duplicar cobrança",
       "guardrails": [
         "Must not execute or custody funds — the gateway does (ADR 0003); Salesforce only requests and records",
-        "Must not persist payroll line items in MVP (header/competência only)",
+        "Must not persist payroll line items in Fase 1 (header/competência only)",
         "Must not issue duplicate boletos on retry — enforce idempotency"
       ],
       "out_of_scope": [
@@ -2036,15 +2036,15 @@
       },
       "build_target": "- Exibir à beneficiária autenticada o boleto da competência (link e metadados) no portal, vinculado à folha/contrato\n- Refletir o status do boleto/ciclo de forma consolidada, sem lista por trabalhador\n- Atualizar a disponibilização conforme o retorno do gateway (emitido, pago) via os eventos do ciclo",
       "guardrails": [
-        "Must not persist payroll line items in MVP (header/competência only)",
+        "Must not persist payroll line items in Fase 1 (header/competência only)",
         "Must not execute or custody funds",
         "Must not surface per-worker CPF or sensitive data in the portal (residência ADR 0001)"
       ],
       "out_of_scope": [
-        "Must not display a per-worker breakdown — consolidated status only in MVP",
+        "Must not display a per-worker breakdown — consolidated status only in Fase 1",
         "Must not host payment execution in the portal — the boleto links to the gateway rails"
       ],
-      "acceptance": "Cenário de verificação — Assim que o boleto registrado retorna do gateway, a beneficiária o encontra disponível no portal (link/metadados) vinculado à folha da competência.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not persist payroll line items in MVP (header/competência only)).",
+      "acceptance": "Cenário de verificação — Assim que o boleto registrado retorna do gateway, a beneficiária o encontra disponível no portal (link/metadados) vinculado à folha da competência.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not persist payroll line items in Fase 1 (header/competência only)).",
       "dependencies": {
         "internal": [
           "INT-001",
@@ -2077,7 +2077,7 @@
       "build_target": "- Consumir as movimentações bancárias devolvidas pelo gateway em batch incremental, disparado por agendamento no MuleSoft (E05)\n- Casar cada lançamento com o boleto/folha correspondente (matching por identificador do boleto e valor)\n- Ao identificar o pagamento, avançar o status do ciclo e disparar o cálculo de split\n- Tratar divergência (pagamento parcial, valor a maior/menor, não casado) como exceção registrada, sem falha silenciosa",
       "guardrails": [
         "Must not execute or custody funds — reconciliation is matching/record-keeping only (ADR 0003)",
-        "Must not persist payroll line items in MVP (header/competência only)",
+        "Must not persist payroll line items in Fase 1 (header/competência only)",
         "Must not silently drop unmatched or divergent movements — route them to an exception path"
       ],
       "out_of_scope": [
@@ -2136,7 +2136,7 @@
       "guardrails": [
         "Must not execute or custody funds — the engine computes and applies the split; the gateway settles (ADR 0003)",
         "Must not exceed the 3,6% MDR cap or breach the ≤15-day repasse window without flagging",
-        "Must not persist payroll line items in MVP (header/competência only)"
+        "Must not persist payroll line items in Fase 1 (header/competência only)"
       ],
       "out_of_scope": [
         "Must not perform the bank transfers implied by the split — it emits transfer orders only",
@@ -2196,12 +2196,12 @@
       "build_target": "- Registrar de forma imutável/auditável o racional completo: datas, regras de split aplicadas, valores por parte, ordens de transferência geradas\n- Entregar as ordens de transferência ao gateway (via MuleSoft, E05) para execução — sem mover dinheiro na plataforma\n- Expor a trilha para consulta de conformidade (TCU/CGU/ANPD), sem persistir CPF/dado sensível do trabalhador",
       "guardrails": [
         "Must not execute or custody funds — the platform hands transfer orders to the gateway (ADR 0003)",
-        "Must not persist payroll line items in MVP (header/competência only)",
+        "Must not persist payroll line items in Fase 1 (header/competência only)",
         "Must not log CPF/worker sensitive data in the audit trail (residência ADR 0001)"
       ],
       "out_of_scope": [
         "Must not perform the actual bank transfers or settlement",
-        "Must not build per-worker rationale — competência/split-level record only in MVP"
+        "Must not build per-worker rationale — competência/split-level record only in Fase 1"
       ],
       "acceptance": "Cenário de verificação — A plataforma registra todo o racional do repasse — datas, split aplicado, ordens de transferência — como trilha auditável e entrega as ordens de transferência ao gateway via MuleSoft, que executa a movimentação.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not execute or custody funds — the platform hands transfer orders to the gateway (ADR 0003)).",
       "dependencies": {
@@ -2249,19 +2249,19 @@
       "confidence": "Assumed",
       "surface": "automation",
       "outcome": {
-        "summary": "Concluído o repasse, a folha exibe um status consolidado 'crédito concedido' em uma única linha (não por trabalhador) e dispara a notificação à empresa e, via CTPS Digital, a 'expectativa de crédito' ao trabalhador — monitoramento apenas no MVP."
+        "summary": "Concluído o repasse, a folha exibe um status consolidado 'crédito concedido' em uma única linha (não por trabalhador) e dispara a notificação à empresa e, via CTPS Digital, a 'expectativa de crédito' ao trabalhador — monitoramento apenas na Fase 1."
       },
-      "build_target": "- Consolidar o status da competência em 'crédito concedido' (uma linha por folha, não lista por trabalhador)\n- Disparar notificação à empresa beneficiária quando o status é atingido\n- Disparar a notificação de 'expectativa de crédito' via CTPS Digital (via MuleSoft, E05), tratada como monitoramento no MVP\n- Não persistir dado sensível do trabalhador ao acionar a notificação (residência ADR 0001)",
+      "build_target": "- Consolidar o status da competência em 'crédito concedido' (uma linha por folha, não lista por trabalhador)\n- Disparar notificação à empresa beneficiária quando o status é atingido\n- Disparar a notificação de 'expectativa de crédito' via CTPS Digital (via MuleSoft, E05), tratada como monitoramento na Fase 1\n- Não persistir dado sensível do trabalhador ao acionar a notificação (residência ADR 0001)",
       "guardrails": [
-        "Must not persist payroll line items in MVP (header/competência only)",
+        "Must not persist payroll line items in Fase 1 (header/competência only)",
         "Must not display a per-worker status list — consolidated 'crédito concedido' line only",
         "Must not persist or log the worker's CPF when triggering the CTPS notification (residência ADR 0001)"
       ],
       "out_of_scope": [
-        "Must not build active worker-level credit tracking beyond monitoring in MVP",
+        "Must not build active worker-level credit tracking beyond monitoring in Fase 1",
         "Must not execute or custody funds"
       ],
-      "acceptance": "Cenário de verificação — Concluído o repasse, a folha exibe um status consolidado 'crédito concedido' em uma única linha (não por trabalhador) e dispara a notificação à empresa e, via CTPS Digital, a 'expectativa de crédito' ao trabalhador — monitoramento apenas no MVP.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not persist payroll line items in MVP (header/competência only)).",
+      "acceptance": "Cenário de verificação — Concluído o repasse, a folha exibe um status consolidado 'crédito concedido' em uma única linha (não por trabalhador) e dispara a notificação à empresa e, via CTPS Digital, a 'expectativa de crédito' ao trabalhador — monitoramento apenas na Fase 1.; O comportamento é aceito quando um revisor percorre o fluxo ponta a ponta e observa exatamente esse resultado, com os guardrails respeitados (notadamente: Must not persist payroll line items in Fase 1 (header/competência only)).",
       "dependencies": {
         "external": [
           {
@@ -2312,7 +2312,7 @@
       "build_target": "- Carregar via Bulk API 2.0 as três entidades como registros de referência não-sensíveis: identificador tokenizado que liga cada registro à origem Dataprev/Novo PAT, mais os poucos campos não-sensíveis necessários ao go-live (o dado nominal resolve-se em runtime via API, ADR 0001)\n- Idempotência por upsert em external ID (a chave tokenizada é o external ID): re-rodar a carga atualiza em vez de duplicar\n- Carga MÍNIMA de go-live apenas — o subconjunto que E02/E03/módulo financeiro precisam referenciar em produção; a base completa (~450k/~800k) fica para depois do go-live\n- Beneficiárias e facilitadoras originam do Novo PAT / bases MTE; estabelecimentos NÃO existem de forma unificada hoje e vêm de arquivos internos das facilitadoras, consolidados em um extrato de carga",
       "guardrails": [
         "Não persistir CPF nem dado sensível — apenas referências tokenizadas (ADR 0001); o dado nominal resolve-se em runtime via API quando autorizado",
-        "Não tentar carga massiva no MVP — só o conjunto mínimo do go-live; a base completa é pós-go-live",
+        "Não tentar carga massiva na Fase 1 — só o conjunto mínimo do go-live; a base completa é pós-go-live",
         "Não recriar registros ao re-executar — o upsert por external ID é a garantia de que a carga é segura de repetir"
       ],
       "out_of_scope": [
@@ -2402,7 +2402,7 @@
           "answer": null
         },
         {
-          "question": "A limpeza/dedup acontece na carga inicial (E07) ou no credenciamento contínuo (E04), e quem é o dono do data cleansing? O cliente sinalizou 'sem batimento' na carga de estabelecimentos — isso rebate a necessidade de dedup no MVP?",
+          "question": "A limpeza/dedup acontece na carga inicial (E07) ou no credenciamento contínuo (E04), e quem é o dono do data cleansing? O cliente sinalizou 'sem batimento' na carga de estabelecimentos — isso rebate a necessidade de dedup na Fase 1?",
           "resolver": "Dataprev/MTE + Solution Lead (fronteira E07/E04)",
           "answer": null
         }
@@ -2479,7 +2479,7 @@
         "Must not construir corpo de governança pós go-live / CoE / data stewardship — responsabilidade recorrente, não entrega de projeto (G0904)",
         "Must not medir ou orquestrar a adoção das facilitadoras via portal — pertence à integração de API (E05)"
       ],
-      "acceptance": "Uma analista de adoção do MTE/Dataprev abre a aba do painel no início da Fase 4, filtra por UF e pelo mês corrente e vê: logins de beneficiárias, necessidades publicadas, propostas recebidas, seleções travadas e contratos firmados, além da contagem de cotações 'Concluída sem contrato'. Nenhuma célula do painel exibe CPF ou dado pessoal — os números são agregados sobre usuários tokenizados e registros de cotação. Ela identifica que uma UF tem muitas necessidades publicadas mas poucas seleções e direciona o esforço de adoção para lá.",
+      "acceptance": "Uma analista de adoção do MTE/Dataprev abre a aba do painel no início da Etapa 4, filtra por UF e pelo mês corrente e vê: logins de beneficiárias, necessidades publicadas, propostas recebidas, seleções travadas e contratos firmados, além da contagem de cotações 'Concluída sem contrato'. Nenhuma célula do painel exibe CPF ou dado pessoal — os números são agregados sobre usuários tokenizados e registros de cotação. Ela identifica que uma UF tem muitas necessidades publicadas mas poucas seleções e direciona o esforço de adoção para lá.",
       "open_questions": [
         {
           "question": "Esta épica é entregue pela PS ou pelo cliente (Dataprev/MTE)? E quais audiências (beneficiárias no portal, facilitadoras via API, estabelecimentos, equipe interna) estão no escopo de entrega da PS? Isso decide se sequer há build de painel a fazer e para quem.",

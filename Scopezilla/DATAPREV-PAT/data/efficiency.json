@@ -27,7 +27,7 @@
   "readiness": {
     "signals": [
       {"signal": "AI tooling posture", "score": 0, "evidence": "Dataprev é empresa pública federal de TI; nenhuma evidência no discovery de ferramentas de IA aprovadas (Copilot/Claude em IDE) ou postura de adoção. Postura legal/segurança tende a ser restritiva. Assumed — pergunta de esclarecimento."},
-      {"signal": "Delivery velocity / speed bias", "score": 1, "evidence": "Data-alvo agressiva (homologação set/2026, produção 15/nov, ~15-16 sem abaixo do piso de 18) sinaliza viés de velocidade; MAS camadas de aprovação gov, incerteza jurídica (ADI no STF) e os blockers da Fase 0 temperam. Misto."},
+      {"signal": "Delivery velocity / speed bias", "score": 1, "evidence": "Data-alvo agressiva (homologação set/2026, produção 15/nov, ~15-16 sem abaixo do piso de 18) sinaliza viés de velocidade; MAS camadas de aprovação gov, incerteza jurídica (ADI no STF) e os blockers da Etapa 0 temperam. Misto."},
       {"signal": "Data & environment hygiene", "score": 1, "evidence": "Org Salesforce greenfield (sem dívida legada no lado SF), MAS paisagem de integração externa fragmentada — sem contratos/Swaggers de API, ~600-700 facilitadoras em silos, volume de carga desconhecido (G0701). Lado SF limpo, lado integração/dados bagunçado."},
       {"signal": "Legal / security / compliance posture", "score": 0, "evidence": "Pesada — LGPD Art. 11 (dado sensível), auditoria TCU/CGU/ANPD, residência híbrida (CPF não persiste, ADR 0001), ADI no STF. Máximo de restrição para código/dado proprietário em prompts; sem política de manuseio de dados por IA evidenciada."}
     ],
@@ -45,7 +45,7 @@
         "score_range": "3-5",
         "realized_band": "~12-16%",
         "narrative": "Com ferramental aprovado e uma política de dados clara, o ganho sobe para o meio da banda — o time captura o ganho documental e de testes de forma consistente, o custom pesado continua limitado pelo review.",
-        "unlock_to_move_up": ["Ambientes/dados de teste representativos prontos cedo", "Contratos de API resolvidos na Fase 0 (reduz o mock-then-rework)"]
+        "unlock_to_move_up": ["Ambientes/dados de teste representativos prontos cedo", "Contratos de API resolvidos na Etapa 0 (reduz o mock-then-rework)"]
       },
       {
         "scenario": "High readiness",
@@ -92,7 +92,7 @@
       "driving_tasks": ["Status Reports", "Search & Retrieval", "Coordination"],
       "driving_epics": ["E09", "E05"],
       "sources": ["[7]", "[1]", "[5]"],
-      "narrative": "A categoria de menor ganho. A IA sumariza status e recupera informação, mas o núcleo — alinhamento entre MTE × Dataprev × 600-700 facilitadoras, resolução dos blockers da Fase 0, coordenação da virada mock→real de E05 — é trabalho humano que não se move."
+      "narrative": "A categoria de menor ganho. A IA sumariza status e recupera informação, mas o núcleo — alinhamento entre MTE × Dataprev × 600-700 facilitadoras, resolução dos blockers da Etapa 0, coordenação da virada mock→real de E05 — é trabalho humano que não se move."
     }
   ],
   "by_role_type": [],
@@ -107,12 +107,12 @@
   "assumptions": [
     "Benchmarks extraídos de dados publicados 2022-2026 (Peng et al./GitHub 2022, Paradis et al./Google 2024, METR 2025, DORA 2024-2025, McKinsey 2025, GitClear 2025, Stanford HAI AI Index 2026) mais observações internas.",
     "Bandas task-level convertidas para project-level via fator de realização que contabiliza a lei de Amdahl + overhead de review/imposto de IA.",
-    "Todos os 9 sizes permanecem Assumed atrás dos blockers da Fase 0 — a banda realizada herda essa confiança (Assumed)."
+    "Todos os 9 sizes permanecem Assumed atrás dos blockers da Etapa 0 — a banda realizada herda essa confiança (Assumed)."
   ],
   "caveats": [
     "Bandas são qualitativas e específicas do projeto, não garantias.",
     "Nenhuma implicação de horas, FTE ou custo é computada ou implícita.",
     "O gap de percepção é real — times frequentemente sentem-se mais rápidos que os ganhos medidos confirmam (METR 2025).",
-    "MANDATO ≥25% vs. banda honesta: a banda augmented honesta (~10-18%) NÃO alcança 25% para este engajamento regulado, integração-pesada, de baixa prontidão para IA. Os 25% só aparecem na banda AI-native condicional (~28-38%), que é gated + provisória (decisions/0033) e exige o cliente comprometer-se com um modelo operacional native (build/demo/decide diário, decisores empoderados) — postura oposta à de um programa gov com gates TCU/CGU/ANPD e Fase 0 hoje. A banda augmented NÃO foi inflada para atingir o alvo; a native é apresentada como motivador, não como compromisso."
+    "MANDATO ≥25% vs. banda honesta: a banda augmented honesta (~10-18%) NÃO alcança 25% para este engajamento regulado, integração-pesada, de baixa prontidão para IA. Os 25% só aparecem na banda AI-native condicional (~28-38%), que é gated + provisória (decisions/0033) e exige o cliente comprometer-se com um modelo operacional native (build/demo/decide diário, decisores empoderados) — postura oposta à de um programa gov com gates TCU/CGU/ANPD e Etapa 0 hoje. A banda augmented NÃO foi inflada para atingir o alvo; a native é apresentada como motivador, não como compromisso."
   ]
 }

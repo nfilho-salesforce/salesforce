@@ -70,7 +70,7 @@ A Dataprev vai construir, para o Ministério do Trabalho e Emprego (MTE), uma **
 
 ## Open Questions (levar ao cliente)
 **Integrações (crítico — bloqueiam DESIGN/estimativa):**
-1. Existe Swagger/contrato de API do **Novo PAT**, GOV.BR/Geride, CTPS Digital, eSocial, SDC, Kinis? Prazo para disponibilização? (define quanto será mock vs. real na Fase 1)
+1. Existe Swagger/contrato de API do **Novo PAT**, GOV.BR/Geride, CTPS Digital, eSocial, SDC, Kinis? Prazo para disponibilização? (define quanto será mock vs. real na Etapa 1)
 2. Qual **banco público** operará a conta custódia e qual o mecanismo de boleto/Pix e split (Bolex? API própria)?
 
 **Arquitetura / dados:**

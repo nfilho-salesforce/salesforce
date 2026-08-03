@@ -22,13 +22,13 @@ A beneficiária envia o CSV da folha da competência pelo portal ou por API e re
 ### 3. Guardrails
 
 - Must not process payroll critique synchronously on upload click (peak ~28/s exceeds the 25 concurrent long-Apex ceiling)
-- Must not persist payroll line items in MVP (header/competência only)
+- Must not persist payroll line items in Fase 1 (header/competência only)
 - Must not block the user session waiting for validation or critique to finish
 
 ### 4. Out of scope
 
 - Must not persist or expose per-worker payroll rows (roadmap futuro)
-- Must not normalize N formatos proprietários de facilitadora no MVP — assume layout único da plataforma até definição contrária
+- Must not normalize N formatos proprietários de facilitadora na Fase 1 — assume layout único da plataforma até definição contrária
 - Must not execute or custody funds
 
 ### 5. Acceptance
@@ -69,13 +69,13 @@ Toda folha enfileirada passa por uma checagem automática de layout e integridad
 ### 3. Guardrails
 
 - Must not process payroll critique synchronously on upload click (peak ~28/s exceeds the 25 concurrent long-Apex ceiling)
-- Must not persist payroll line items in MVP (header/competência only)
+- Must not persist payroll line items in Fase 1 (header/competência only)
 - Must not release a payroll to facilitadora download before validation passes
 
 ### 4. Out of scope
 
 - Must not attempt fraud detection or business-rule scoring here — this is structural integrity only
-- Must not persist rejected line content for reprocessing in MVP
+- Must not persist rejected line content for reprocessing in Fase 1
 
 ### 5. Acceptance
 
@@ -113,7 +113,7 @@ Folhas que passam na validação estrutural recebem uma crítica automática mai
 ### 3. Guardrails
 
 - Must not process payroll critique synchronously on upload click (peak ~28/s exceeds the 25 concurrent long-Apex ceiling)
-- Must not persist payroll line items in MVP (header/competência only)
+- Must not persist payroll line items in Fase 1 (header/competência only)
 - Must not send worker-level sensitive data (CPF) into an LLM prompt or log it (residência ADR 0001)
 
 ### 4. Out of scope
@@ -157,7 +157,7 @@ A plataforma tem os objetos custom que sustentam o ciclo financeiro — folha po
 
 ### 3. Guardrails
 
-- Must not persist payroll line items in MVP (header/competência only)
+- Must not persist payroll line items in Fase 1 (header/competência only)
 - Must not adopt Revenue Cloud / Billing — split não é nativo; motor de regras é custom (baseline Core-only)
 - Must not execute or custody funds
 
@@ -202,7 +202,7 @@ A facilitadora baixa a folha íntegra por contrato e vigência (mês-ano) via AP
 
 ### 3. Guardrails
 
-- Must not persist payroll line items in MVP (header/competência only)
+- Must not persist payroll line items in Fase 1 (header/competência only)
 - Must not expose a UI/portal seat to facilitadoras — integração é API-only (ADR 0004)
 - Must not accept a processed-value return without idempotency guarding against duplicate financial effect
 
@@ -248,7 +248,7 @@ Com o valor da folha processado, a plataforma envia a instrução de cobrança a
 ### 3. Guardrails
 
 - Must not execute or custody funds — the gateway does (ADR 0003); Salesforce only requests and records
-- Must not persist payroll line items in MVP (header/competência only)
+- Must not persist payroll line items in Fase 1 (header/competência only)
 - Must not issue duplicate boletos on retry — enforce idempotency
 
 ### 4. Out of scope
@@ -292,13 +292,13 @@ Assim que o boleto registrado retorna do gateway, a beneficiária o encontra dis
 
 ### 3. Guardrails
 
-- Must not persist payroll line items in MVP (header/competência only)
+- Must not persist payroll line items in Fase 1 (header/competência only)
 - Must not execute or custody funds
 - Must not surface per-worker CPF or sensitive data in the portal (residência ADR 0001)
 
 ### 4. Out of scope
 
-- Must not display a per-worker breakdown — consolidated status only in MVP
+- Must not display a per-worker breakdown — consolidated status only in Fase 1
 - Must not host payment execution in the portal — the boleto links to the gateway rails
 
 ### 5. Acceptance
@@ -337,7 +337,7 @@ A plataforma recebe do gateway as movimentações bancárias em lotes incrementa
 ### 3. Guardrails
 
 - Must not execute or custody funds — reconciliation is matching/record-keeping only (ADR 0003)
-- Must not persist payroll line items in MVP (header/competência only)
+- Must not persist payroll line items in Fase 1 (header/competência only)
 - Must not silently drop unmatched or divergent movements — route them to an exception path
 
 ### 4. Out of scope
@@ -384,7 +384,7 @@ Identificado o pagamento, a plataforma consulta as regras de split e calcula o r
 
 - Must not execute or custody funds — the engine computes and applies the split; the gateway settles (ADR 0003)
 - Must not exceed the 3,6% MDR cap or breach the ≤15-day repasse window without flagging
-- Must not persist payroll line items in MVP (header/competência only)
+- Must not persist payroll line items in Fase 1 (header/competência only)
 
 ### 4. Out of scope
 
@@ -429,13 +429,13 @@ A plataforma registra todo o racional do repasse — datas, split aplicado, orde
 ### 3. Guardrails
 
 - Must not execute or custody funds — the platform hands transfer orders to the gateway (ADR 0003)
-- Must not persist payroll line items in MVP (header/competência only)
+- Must not persist payroll line items in Fase 1 (header/competência only)
 - Must not log CPF/worker sensitive data in the audit trail (residência ADR 0001)
 
 ### 4. Out of scope
 
 - Must not perform the actual bank transfers or settlement
-- Must not build per-worker rationale — competência/split-level record only in MVP
+- Must not build per-worker rationale — competência/split-level record only in Fase 1
 
 ### 5. Acceptance
 
@@ -463,29 +463,29 @@ epic `E03` · priority _(unassigned)_ · confidence _Assumed_ · surface `automa
 
 ### 1. Outcome
 
-Concluído o repasse, a folha exibe um status consolidado 'crédito concedido' em uma única linha (não por trabalhador) e dispara a notificação à empresa e, via CTPS Digital, a 'expectativa de crédito' ao trabalhador — monitoramento apenas no MVP.
+Concluído o repasse, a folha exibe um status consolidado 'crédito concedido' em uma única linha (não por trabalhador) e dispara a notificação à empresa e, via CTPS Digital, a 'expectativa de crédito' ao trabalhador — monitoramento apenas na Fase 1.
 
 ### 2. Build target
 
 - Consolidar o status da competência em 'crédito concedido' (uma linha por folha, não lista por trabalhador)
 - Disparar notificação à empresa beneficiária quando o status é atingido
-- Disparar a notificação de 'expectativa de crédito' via CTPS Digital (via MuleSoft, E05), tratada como monitoramento no MVP
+- Disparar a notificação de 'expectativa de crédito' via CTPS Digital (via MuleSoft, E05), tratada como monitoramento na Fase 1
 - Não persistir dado sensível do trabalhador ao acionar a notificação (residência ADR 0001)
 
 ### 3. Guardrails
 
-- Must not persist payroll line items in MVP (header/competência only)
+- Must not persist payroll line items in Fase 1 (header/competência only)
 - Must not display a per-worker status list — consolidated 'crédito concedido' line only
 - Must not persist or log the worker's CPF when triggering the CTPS notification (residência ADR 0001)
 
 ### 4. Out of scope
 
-- Must not build active worker-level credit tracking beyond monitoring in MVP
+- Must not build active worker-level credit tracking beyond monitoring in Fase 1
 - Must not execute or custody funds
 
 ### 5. Acceptance
 
-Concluído o repasse da folha 08/2026 da Alfa, o revisor confirma que a folha exibe "crédito concedido" em uma única linha consolidada (não por trabalhador), que a empresa é notificada e que a "expectativa de crédito" é enviada ao trabalhador via CTPS Digital. Ele confirma que nenhuma linha de folha é persistida (header/competência apenas) e que o MVP faz apenas monitoramento.
+Concluído o repasse da folha 08/2026 da Alfa, o revisor confirma que a folha exibe "crédito concedido" em uma única linha consolidada (não por trabalhador), que a empresa é notificada e que a "expectativa de crédito" é enviada ao trabalhador via CTPS Digital. Ele confirma que nenhuma linha de folha é persistida (header/competência apenas) e que a Fase 1 faz apenas monitoramento.
 
 ### 6. Dependencies
 

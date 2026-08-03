@@ -11,13 +11,13 @@ Onde os ganhos aparecem neste projeto:
 
 **Onde a IA não ajuda**: alinhamento MTE × Dataprev × 600-700 facilitadoras, ratificação da fronteira de residência (G0801), regras do leilão/Lei 14.133 (G0202/G0203), incerteza jurídica (ADI/STF) — mais o build de maior imposto de IA: o leilão reverso custom (E02) e a lógica de de-tokenização em runtime (E08).
 
-**Para subir a High readiness (~16-22%)**: aprovar Copilot/Claude em IDE dentro da fronteira de segurança, publicar política de manuseio de dados por IA sob LGPD, resolver contratos de API na Fase 0.
+**Para subir a High readiness (~16-22%)**: aprovar Copilot/Claude em IDE dentro da fronteira de segurança, publicar política de manuseio de dados por IA sob LGPD, resolver contratos de API na Fundação.
 
 > **⚠ Sobre o alvo de ≥25% do programa:** a banda augmented honesta (~10-18%) **não** alcança 25% para este engajamento regulado, integração-pesada e de baixa prontidão. Os 25% só aparecem na banda **AI-native condicional (~28-38%)** — gated e provisória (ver Nota de Honestidade), e que exige o cliente adotar um modelo operacional native. Não inflamos a banda augmented para atingir o alvo.
 
 ## Headline
 
-**Realizada: ~10-18%** (Low readiness) · **Blend task-level: ~30-45%** · **Fator de realização: 0.30-0.40** — governo regulado + zero contratos de API puxam ao piso; org greenfield + mock-first + configurar-antes-de-customizar nudge para cima · **Confiança: Assumed** (todos os 9 sizes seguem Assumed atrás da Fase 0)
+**Realizada: ~10-18%** (Low readiness) · **Blend task-level: ~30-45%** · **Fator de realização: 0.30-0.40** — governo regulado + zero contratos de API puxam ao piso; org greenfield + mock-first + configurar-antes-de-customizar nudge para cima · **Confiança: Assumed** (todos os 9 sizes seguem Assumed atrás dos destravamentos externos da Fundação)
 
 ## Cenários de Prontidão do Cliente
 
@@ -31,13 +31,13 @@ Onde os ganhos aparecem neste projeto:
 
 ### Sinais por trás do score
 - **AI tooling posture**: 0/2 — Dataprev é empresa pública federal de TI; nenhuma evidência de ferramentas de IA aprovadas ou postura de adoção (Assumed — pergunta de esclarecimento).
-- **Delivery velocity / speed bias**: 1/2 — data-alvo agressiva (~15-16 sem, abaixo do piso de 18) sinaliza velocidade, mas camadas de aprovação gov + ADI/STF + blockers da Fase 0 temperam.
+- **Delivery velocity / speed bias**: 1/2 — data-alvo agressiva (~13 sem de build, bem abaixo do piso de 18) sinaliza velocidade, mas camadas de aprovação gov + ADI/STF + destravamentos externos temperam.
 - **Data & environment hygiene**: 1/2 — org Salesforce greenfield limpa, mas integração externa fragmentada (sem contratos/Swaggers, ~600-700 facilitadoras em silos, volume de carga desconhecido G0701).
 - **Legal / security / compliance posture**: 0/2 — LGPD Art. 11, TCU/CGU/ANPD, residência híbrida (CPF não persiste), ADI no STF; máximo de restrição para código/dado em prompts.
 
 ### O que leva a subir
 - **Low → Mid**: aprovar Copilot/Claude em IDE dentro da fronteira de segurança; publicar política de manuseio de dados por IA sob LGPD.
-- **Mid → High**: ambientes/dados de teste representativos cedo; contratos de API resolvidos na Fase 0 (reduz o mock-then-rework).
+- **Mid → High**: ambientes/dados de teste representativos cedo; contratos de API resolvidos na Fundação (reduz o mock-then-rework).
 
 ## Por Categoria
 
@@ -55,7 +55,7 @@ Onde os ganhos aparecem neste projeto:
 
 ### Gestão de Projeto & Operações — realizada ~8-12% (task-level ~20-30%)
 - **Épicas motoras**: E09 (M), E05 (XL)
-- **Como aparece aqui**: A categoria de menor ganho. A IA sumariza status e recupera informação, mas o núcleo — alinhamento entre MTE × Dataprev × 600-700 facilitadoras, resolução dos blockers da Fase 0, coordenação da virada mock→real de E05 — é trabalho humano que não se move [5].
+- **Como aparece aqui**: A categoria de menor ganho. A IA sumariza status e recupera informação, mas o núcleo — alinhamento entre MTE × Dataprev × 600-700 facilitadoras, resolução dos blockers da Fundação, coordenação da virada mock→real de E05 — é trabalho humano que não se move [5].
 
 ## Trabalho Só-Humano
 - **Project Pulse Reports** — construção de confiança que a IA sumariza mas não facilita.
@@ -69,14 +69,14 @@ Onde os ganhos aparecem neste projeto:
 
 **~28-38%, qualificação: condicional.** Esta banda usa o fator de realização AI-native (0.55-0.75), cujo denominador maior é ganho pelo *modelo operacional* native encolhendo o overhead de coordenação — não por um ganho de ferramenta maior. Está temperada abaixo da faixa genérica de 35-40% porque um programa gov com gates TCU/CGU/ANPD e incerteza jurídica tem um piso de coordenação irredutível estruturalmente grande, mesmo num modelo native.
 
-**É esta — e só esta — a trilha que cruza o alvo de ≥25% do programa.** Mas ela é condicional: exige o cliente comprometer-se com um modelo operacional native (build/demo/decide diário, decisores empoderados no momento, mandato AI-first). Um programa gov com Fase 0 travada, camadas de aprovação e ADI no STF mostra hoje a postura *oposta*. Apresentamos a banda como motivador — o "*se* vocês adotarem esse jeito de trabalhar…" — não como compromisso.
+**É esta — e só esta — a trilha que cruza o alvo de ≥25% do programa.** Mas ela é condicional: exige o cliente comprometer-se com um modelo operacional native (build/demo/decide diário, decisores empoderados no momento, mandato AI-first). Um programa gov com destravamentos externos pendentes, camadas de aprovação e ADI no STF mostra hoje a postura *oposta*. Apresentamos a banda como motivador — o "*se* vocês adotarem esse jeito de trabalhar…" — não como compromisso.
 
 > **Nota de honestidade (dois lados):** o *diagnóstico* de que um modelo operacional native encolhe o overhead de coordenação é fundamentado (DORA 2024-2025; METR 2025). A *magnitude* (~28-38%) é reportada por fornecedores e ainda não calibrada de forma independente para este contexto — por isso a banda é provisória e não é aplicada por padrão (decisions/0033).
 
 ## Premissas
 - Benchmarks extraídos de dados publicados 2022-2026 (Peng et al./GitHub 2022, Paradis et al./Google 2024, METR 2025, DORA 2024-2025, McKinsey 2025, GitClear 2025, Stanford HAI AI Index 2026) mais observações internas.
 - Bandas task-level convertidas para project-level via fator de realização que contabiliza a lei de Amdahl + overhead de review/imposto de IA.
-- Todos os 9 sizes permanecem Assumed atrás dos blockers da Fase 0 — a banda realizada herda essa confiança.
+- Todos os 9 sizes permanecem Assumed atrás dos blockers da Fundação — a banda realizada herda essa confiança.
 
 ## Ressalvas
 - Bandas são qualitativas e específicas do projeto, não garantias.

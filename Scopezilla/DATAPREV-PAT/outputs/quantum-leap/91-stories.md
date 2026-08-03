@@ -123,7 +123,7 @@ Como Beneficiária, quero que minha demanda tenha um prazo (SLA) de recebimento 
 ### US-0207 — Facilitadora [via API]
 Como Facilitadora operando exclusivamente via API (sem UI, sem licença de portal), quero consultar as demandas abertas dentro da vigência através de um endpoint de consulta, para descobrir oportunidades de proposta no modelo pull.
 
-**Acceptance:** Dado que sou uma facilitadora autenticada na API, Quando chamo o endpoint de consulta de demandas, Então recebo as demandas em janela aberta com seus atributos (funcionários, valor, vigência, distribuição por UF, recursos obrigatórios); Dado que uma demanda já fechou a janela, Quando consulto, Então ela não é retornada como aberta; Dado que não tenho credencial válida, Quando chamo o endpoint, Então recebo erro de autenticação; Dado que o MVP é pull, Quando não consulto, Então não recebo nenhuma notificação ativa (push é roadmap futuro)
+**Acceptance:** Dado que sou uma facilitadora autenticada na API, Quando chamo o endpoint de consulta de demandas, Então recebo as demandas em janela aberta com seus atributos (funcionários, valor, vigência, distribuição por UF, recursos obrigatórios); Dado que uma demanda já fechou a janela, Quando consulto, Então ela não é retornada como aberta; Dado que não tenho credencial válida, Quando chamo o endpoint, Então recebo erro de autenticação; Dado que a Fase 1 é pull, Quando não consulto, Então não recebo nenhuma notificação ativa (push é roadmap futuro)
 **Priority:** High
 
 ### US-0208 — Facilitadora [via API]
@@ -175,7 +175,7 @@ Como Beneficiária, quero cancelar uma demanda antes do fechamento da janela, pa
 **Priority:** Low
 
 ### US-0216 — Facilitadora [via API]
-Como Facilitadora, após ser selecionada, quero fazer upload de um contrato em PDF imutável com metadados via API, para firmar a contratação sem um módulo de gestão de ciclo de vida de contrato (sem CLM no MVP).
+Como Facilitadora, após ser selecionada, quero fazer upload de um contrato em PDF imutável com metadados via API, para firmar a contratação sem um módulo de gestão de ciclo de vida de contrato (sem CLM na Fase 1).
 
 **Acceptance:** Dado que fui selecionada em uma cotação, Quando envio o PDF do contrato + metadados (vigência, valor mensal, partes) via API, Então um registro de Contrato é criado ligando Facilitadora ↔ Beneficiária com o PDF anexado imutável; Dado que o PDF é anexado, Quando alguém tenta editá-lo, Então o arquivo é somente-leitura (imutável); Dado que envio sem os metadados obrigatórios, Quando a API valida, Então a submissão é rejeitada
 **Priority:** High
@@ -189,7 +189,7 @@ Como Facilitadora, quero registrar aditivos e renovações como novas versões d
 ### US-0218 — Beneficiária
 Como Beneficiária, após o contrato firmado, quero dar o termo de aceite classificando o nº de trabalhadores acima e abaixo de 5 salários mínimos por CNPJ, para atender à regra fiscal do PAT.
 
-**Acceptance:** Dado que um contrato foi firmado, Quando acesso o termo de aceite, Então informo, por CNPJ, a quantidade de trabalhadores acima e abaixo de 5 salários mínimos; Dado que a soma das faixas não bate com o nº de trabalhadores do CNPJ, Quando submeto, Então recebo aviso de inconsistência; Dado que o termo é dado como MVP-required, Quando concluo, Então o contrato só é considerado apto quando o termo está preenchido
+**Acceptance:** Dado que um contrato foi firmado, Quando acesso o termo de aceite, Então informo, por CNPJ, a quantidade de trabalhadores acima e abaixo de 5 salários mínimos; Dado que a soma das faixas não bate com o nº de trabalhadores do CNPJ, Quando submeto, Então recebo aviso de inconsistência; Dado que o termo é dado como Fase 1-required, Quando concluo, Então o contrato só é considerado apto quando o termo está preenchido
 **Priority:** High
 
 ### US-0219 — Beneficiária
@@ -253,15 +253,15 @@ Como Admin da plataforma, quero uma trilha de auditoria das ações-chave do cic
 **Priority:** Medium
 
 ### US-0229 — Admin plataforma
-Como Admin da plataforma, quero enriquecer o histórico das facilitadoras com dados do Data Cloud, para dar mais contexto na avaliação de propostas — reconhecendo que este item é candidato a de-escopo no MVP.
+Como Admin da plataforma, quero enriquecer o histórico das facilitadoras com dados do Data Cloud, para dar mais contexto na avaliação de propostas — reconhecendo que este item é candidato a de-escopo na Fase 1.
 
-**Acceptance:** Dado que o Data Cloud está disponível, Quando visualizo uma facilitadora, Então vejo indicadores de histórico enriquecidos; Dado que o Data Cloud é de-escopado do MVP, Quando o recurso está desligado, Então a comparação de propostas continua funcionando sem enriquecimento; Dado o status Assumed deste item, Quando a decisão de escopo é tomada, Então o requisito é confirmado ou movido para roadmap
+**Acceptance:** Dado que o Data Cloud está disponível, Quando visualizo uma facilitadora, Então vejo indicadores de histórico enriquecidos; Dado que o Data Cloud é de-escopado da Fase 1, Quando o recurso está desligado, Então a comparação de propostas continua funcionando sem enriquecimento; Dado o status Assumed deste item, Quando a decisão de escopo é tomada, Então o requisito é confirmado ou movido para roadmap
 **Priority:** Low
 
 ### US-0230 — Facilitadora [via API]
-Como Facilitadora, quero que a notificação ativa (push) de novas demandas seja reconhecida como roadmap futuro com canal a definir, para que o MVP dependa apenas do modelo pull.
+Como Facilitadora, quero que a notificação ativa (push) de novas demandas seja reconhecida como roadmap futuro com canal a definir, para que a Fase 1 dependa apenas do modelo pull.
 
-**Acceptance:** Dado que o MVP entrega apenas consulta pull, Quando uma nova demanda é publicada, Então nenhuma notificação push é enviada às facilitadoras; Dado que push é roadmap futuro, Quando o item é planejado, Então o canal (e-mail, webhook, etc.) é definido em fase posterior; Dado que dependo do pull, Quando não consulto o endpoint, Então posso perder a janela — risco documentado
+**Acceptance:** Dado que a Fase 1 entrega apenas consulta pull, Quando uma nova demanda é publicada, Então nenhuma notificação push é enviada às facilitadoras; Dado que push é roadmap futuro, Quando o item é planejado, Então o canal (e-mail, webhook, etc.) é definido em fase posterior; Dado que dependo do pull, Quando não consulto o endpoint, Então posso perder a janela — risco documentado
 **Priority:** Low
 
 ## E03: Folha & Financeiro
@@ -293,7 +293,7 @@ Como plataforma, quero validar a integridade e as críticas de negócio do arqui
 ### US-0305 — Sistema/plataforma
 Como plataforma, quero avaliar o uso de Einstein/agente para apoiar as críticas do arquivo, para acelerar a detecção de anomalias sem depender só de regras fixas.
 
-**Acceptance:** Dado um conjunto de folhas históricas, quando avalio a abordagem de críticas (regras determinísticas vs. Einstein/agente), então documento fit, precisão esperada e custo; Dado a decisão de arquitetura, quando registro o resultado, então fica claro se a detecção assistida entra no MVP ou é diferida; Dado que a abordagem assistida não entra no MVP, quando processo a folha, então as críticas determinísticas cobrem o mínimo obrigatório
+**Acceptance:** Dado um conjunto de folhas históricas, quando avalio a abordagem de críticas (regras determinísticas vs. Einstein/agente), então documento fit, precisão esperada e custo; Dado a decisão de arquitetura, quando registro o resultado, então fica claro se a detecção assistida entra na Fase 1 ou é diferida; Dado que a abordagem assistida não entra na Fase 1, quando processo a folha, então as críticas determinísticas cobrem o mínimo obrigatório
 **Priority:** Medium
 
 ### US-0306 — Beneficiária
@@ -321,7 +321,7 @@ Como facilitadora, quero devolver via API o status 'processado' e o valor a paga
 **Priority:** High
 
 ### US-0310 — Sistema/plataforma
-Como plataforma, quero modelar um objeto custom de cabeçalho/competência da folha (sem linhas), para rastrear o ciclo sem carregar os itens da folha no MVP.
+Como plataforma, quero modelar um objeto custom de cabeçalho/competência da folha (sem linhas), para rastrear o ciclo sem carregar os itens da folha na Fase 1.
 
 **Acceptance:** Dado um upload aceito, quando crio o registro de folha, então persisto cabeçalho (contrato, competência, beneficiária, facilitadora, status, hashes/metadados do arquivo) sem as linhas de beneficiários; Dado o requisito futuro de carregar linhas, quando modelo o objeto, então o desenho não impede evolução para itens; Dado uma consulta ao registro, quando exibo o ciclo, então mostro o histórico de status da folha
 **Priority:** High
@@ -423,9 +423,9 @@ Como plataforma, quero disparar notificação à empresa quando o crédito é co
 **Priority:** Medium
 
 ### US-0327 — Sistema/plataforma
-Como plataforma, quero enviar à CTPS Digital a 'expectativa de crédito' do trabalhador, para monitoramento no MVP, sem gestão de saldo.
+Como plataforma, quero enviar à CTPS Digital a 'expectativa de crédito' do trabalhador, para monitoramento na Fase 1, sem gestão de saldo.
 
-**Acceptance:** Dado um ciclo com crédito concedido, quando aciono a integração da CTPS Digital, então envio um aviso de 'expectativa de crédito' (modelo similar ao FGTS); Dado que o MVP é só monitoramento, quando envio, então não há gestão de saldo nem consulta de extrato; Dado falha de integração, quando ocorre, então o evento é reenfileirado sem bloquear o ciclo financeiro
+**Acceptance:** Dado um ciclo com crédito concedido, quando aciono a integração da CTPS Digital, então envio um aviso de 'expectativa de crédito' (modelo similar ao FGTS); Dado que a Fase 1 é só monitoramento, quando envio, então não há gestão de saldo nem consulta de extrato; Dado falha de integração, quando ocorre, então o evento é reenfileirado sem bloquear o ciclo financeiro
 **Priority:** Low
 
 ### US-0328 — Admin financeiro MTE
@@ -649,9 +649,9 @@ Como plataforma, quero integrar identidade e autenticação via GOV.BR/Geride, p
 **Priority:** High
 
 ### US-0514 — Sistema/plataforma
-Como plataforma, quero enviar à CTPS Digital a 'expectativa de crédito' ao trabalhador (apenas monitoramento no MVP), para notificar o trabalhador de forma análoga ao aviso de crédito do FGTS.
+Como plataforma, quero enviar à CTPS Digital a 'expectativa de crédito' ao trabalhador (apenas monitoramento na Fase 1), para notificar o trabalhador de forma análoga ao aviso de crédito do FGTS.
 
-**Acceptance:** Dado um crédito processado para uma folha, Quando o evento é gerado, Então uma notificação de expectativa de crédito é enviada à CTPS Digital (sem gestão de saldo); Dado o MVP, Quando avalio o escopo, Então é apenas envio/monitoramento — não há débito, gestão de saldo nem transação financeira via CTPS; Dado indisponibilidade da CTPS, Quando o envio falha, Então o evento entra em reprocessamento sem impactar o crédito
+**Acceptance:** Dado um crédito processado para uma folha, Quando o evento é gerado, Então uma notificação de expectativa de crédito é enviada à CTPS Digital (sem gestão de saldo); Dado a Fase 1, Quando avalio o escopo, Então é apenas envio/monitoramento — não há débito, gestão de saldo nem transação financeira via CTPS; Dado indisponibilidade da CTPS, Quando o envio falha, Então o evento entra em reprocessamento sem impactar o crédito
 **Priority:** Medium
 
 ### US-0515 — Sistema/plataforma
@@ -693,7 +693,7 @@ Como plataforma, quero garantir idempotência e controle de checkpoint no batch 
 ### US-0521 — Facilitadora [API]
 Como facilitadora, quero consultar via endpoint um pull das demandas/leilões (cotações) abertos na vigência, para captar oportunidades e decidir sobre o envio de propostas.
 
-**Acceptance:** Dado cotações abertas dentro do prazo, Quando a facilitadora chama o endpoint de consulta, Então recebe a lista de demandas abertas com nº de funcionários, valor, UF e prazo; Dado uma cotação fora da vigência/prazo, Quando a consulta é feita, Então ela não aparece na lista; Dado o MVP, Quando avalio o modelo, Então é pull (a facilitadora consulta) — push é roadmap futuro
+**Acceptance:** Dado cotações abertas dentro do prazo, Quando a facilitadora chama o endpoint de consulta, Então recebe a lista de demandas abertas com nº de funcionários, valor, UF e prazo; Dado uma cotação fora da vigência/prazo, Quando a consulta é feita, Então ela não aparece na lista; Dado a Fase 1, Quando avalio o modelo, Então é pull (a facilitadora consulta) — push é roadmap futuro
 **Priority:** High
 
 ### US-0522 — Facilitadora [API]
@@ -709,9 +709,9 @@ Como facilitadora, quero receber a folha e devolver o processado + o valor apura
 **Priority:** High
 
 ### US-0524 — Facilitadora [API]
-Como facilitadora, quero (roadmap futuro) receber push de notificação de novas demandas, para reagir mais rápido do que no modelo pull do MVP.
+Como facilitadora, quero (roadmap futuro) receber push de notificação de novas demandas, para reagir mais rápido do que no modelo pull da Fase 1.
 
-**Acceptance:** Dado o MVP, Quando avalio o escopo, Então push NÃO está incluído (apenas pull); Dado o roadmap, Quando push for priorizado, Então uma facilitadora poderá registrar um endpoint/callback para receber notificações de novas demandas; Dado o design MVP, Quando construo o endpoint de consulta, Então ele não impede a evolução para push (não cria dependência que bloqueie)
+**Acceptance:** Dado a Fase 1, Quando avalio o escopo, Então push NÃO está incluído (apenas pull); Dado o roadmap, Quando push for priorizado, Então uma facilitadora poderá registrar um endpoint/callback para receber notificações de novas demandas; Dado o design Fase 1, Quando construo o endpoint de consulta, Então ele não impede a evolução para push (não cria dependência que bloqueie)
 **Priority:** Low
 
 ### US-0525 — Adquirente [API]
@@ -729,7 +729,7 @@ Como adquirente, quero enviar transações à plataforma para monitoramento (nea
 ### US-0527 — Adquirente [API]
 Como MTE/plataforma, quero (V2 roadmap) o analytics completo das transações da adquirente, para identificar padrões anômalos e irregularidades além da simples consulta.
 
-**Acceptance:** Dado o MVP/near-term, Quando avalio o escopo, Então analytics completo NÃO está incluído (apenas ingestão para consulta); Dado o roadmap V2, Quando for priorizado, Então as transações ingeridas alimentarão análise de padrões (ex.: Data Cloud/Tableau, a reavaliar); Dado o design de ingestão near-term, Quando o construo, Então o modelo de dados suporta a evolução para analytics sem reingestão
+**Acceptance:** Dado a Fase 1/near-term, Quando avalio o escopo, Então analytics completo NÃO está incluído (apenas ingestão para consulta); Dado o roadmap V2, Quando for priorizado, Então as transações ingeridas alimentarão análise de padrões (ex.: Data Cloud/Tableau, a reavaliar); Dado o design de ingestão near-term, Quando o construo, Então o modelo de dados suporta a evolução para analytics sem reingestão
 **Priority:** Low
 
 ### US-0528 — Sistema/plataforma
@@ -835,13 +835,13 @@ Como Admin de plataforma, quero uma instância Salesforce dedicada e apartada ex
 ### US-0804 — Admin de plataforma
 Como Admin de plataforma, quero que o ambiente seja 100% greenfield, provisionado do zero sem reaproveitar org, metadado ou administração de outros ambientes Dataprev, para que o isolamento de segurança seja garantido por construção.
 
-**Acceptance:** Dado o provisionamento, quando o ambiente é criado, então nenhum metadado, perfil ou configuração é herdado de outras orgs Dataprev; Dada a administração, quando papéis de admin são atribuídos, então não há administração compartilhada com outros ambientes; Dado o marco de prontidão da Fase 0, quando a org greenfield é entregue, então ela é validada como isolada antes do início do build; Dado o lead-time externo, quando o provisionamento é planejado, então é tratado como pré-requisito de marco
+**Acceptance:** Dado o provisionamento, quando o ambiente é criado, então nenhum metadado, perfil ou configuração é herdado de outras orgs Dataprev; Dada a administração, quando papéis de admin são atribuídos, então não há administração compartilhada com outros ambientes; Dado o marco de prontidão da Etapa 0, quando a org greenfield é entregue, então ela é validada como isolada antes do início do build; Dado o lead-time externo, quando o provisionamento é planejado, então é tratado como pré-requisito de marco
 **Priority:** High
 
 ### US-0805 — Arquiteto
 Como Arquiteto, quero que o MuleSoft rode on-premise na infraestrutura soberana Dataprev (não em CloudHub), para que o dado sensível não saia do perímetro soberano em nenhum momento do trânsito.
 
-**Acceptance:** Dado o deploy do MuleSoft, quando a topologia é definida, então o runtime roda on-premise na infra Dataprev/gov, não em CloudHub; Dado que a de-tokenização do CPF ocorre, quando ela é executada, então acontece dentro do perímetro soberano; Dada a prontidão da infra, quando o MuleSoft on-premise é instalado, então é pré-requisito de marco na Fase 0 com lead-time externo mapeado; Dado o trânsito de dados, quando dado sensível é resolvido, então ele não trafega por infraestrutura fora do perímetro soberano
+**Acceptance:** Dado o deploy do MuleSoft, quando a topologia é definida, então o runtime roda on-premise na infra Dataprev/gov, não em CloudHub; Dado que a de-tokenização do CPF ocorre, quando ela é executada, então acontece dentro do perímetro soberano; Dada a prontidão da infra, quando o MuleSoft on-premise é instalado, então é pré-requisito de marco na Etapa 0 com lead-time externo mapeado; Dado o trânsito de dados, quando dado sensível é resolvido, então ele não trafega por infraestrutura fora do perímetro soberano
 **Priority:** High
 
 ### US-0806 — Auditor/DPO

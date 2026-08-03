@@ -233,10 +233,10 @@
     "epic_name": "Marketplace de Cotação e Contratação",
     "persona": "Facilitadora [via API]",
     "user_story": "Como Facilitadora operando exclusivamente via API (sem UI, sem licença de portal), quero consultar as demandas abertas dentro da vigência através de um endpoint de consulta, para descobrir oportunidades de proposta no modelo pull.",
-    "acceptance_criteria": "Dado que sou uma facilitadora autenticada na API, Quando chamo o endpoint de consulta de demandas, Então recebo as demandas em janela aberta com seus atributos (funcionários, valor, vigência, distribuição por UF, recursos obrigatórios); Dado que uma demanda já fechou a janela, Quando consulto, Então ela não é retornada como aberta; Dado que não tenho credencial válida, Quando chamo o endpoint, Então recebo erro de autenticação; Dado que o MVP é pull, Quando não consulto, Então não recebo nenhuma notificação ativa (push é roadmap futuro)",
+    "acceptance_criteria": "Dado que sou uma facilitadora autenticada na API, Quando chamo o endpoint de consulta de demandas, Então recebo as demandas em janela aberta com seus atributos (funcionários, valor, vigência, distribuição por UF, recursos obrigatórios); Dado que uma demanda já fechou a janela, Quando consulto, Então ela não é retornada como aberta; Dado que não tenho credencial válida, Quando chamo o endpoint, Então recebo erro de autenticação; Dado que a Fase 1 é pull, Quando não consulto, Então não recebo nenhuma notificação ativa (push é roadmap futuro)",
     "priority": "High",
     "source": "[KB: salesforce-revenue-cloud-marketplace-arch.md:36-38] MuleSoft API-led; descoberta de demanda via pull (E05) [Assumed]",
-    "assumptions": "Endpoint exposto/orquestrado por MuleSoft (E05); notificação push fica fora do MVP.",
+    "assumptions": "Endpoint exposto/orquestrado por MuleSoft (E05); notificação push fica fora da Fase 1.",
     "uncertainty_level": "Assumed"
   },
   {
@@ -296,7 +296,7 @@
     "acceptance_criteria": "Dado que a janela fechou e há propostas válidas, Quando seleciono uma proposta, Então a cotação transiciona para Contratada e as demais propostas passam a Não Selecionada; Dado que seleciono, Quando confirmo, Então o processo de firmar contrato é iniciado para a facilitadora vencedora; Dado que não seleciono nenhuma até um prazo, Quando o prazo expira, Então a cotação pode ser marcada como Concluída sem contrato",
     "priority": "High",
     "source": "prototipo-figma tela 4 (chips Contratada / Concluída sem contrato) + ADR 0004 (seleção manual) [Confirmed — estados no proto]",
-    "assumptions": "Seleção é manual (não automática por menor taxa) no MVP.",
+    "assumptions": "Seleção é manual (não automática por menor taxa) na Fase 1.",
     "uncertainty_level": "Assumed"
   },
   {
@@ -340,11 +340,11 @@
     "epic_id": "E02",
     "epic_name": "Marketplace de Cotação e Contratação",
     "persona": "Facilitadora [via API]",
-    "user_story": "Como Facilitadora, após ser selecionada, quero fazer upload de um contrato em PDF imutável com metadados via API, para firmar a contratação sem um módulo de gestão de ciclo de vida de contrato (sem CLM no MVP).",
+    "user_story": "Como Facilitadora, após ser selecionada, quero fazer upload de um contrato em PDF imutável com metadados via API, para firmar a contratação sem um módulo de gestão de ciclo de vida de contrato (sem CLM na Fase 1).",
     "acceptance_criteria": "Dado que fui selecionada em uma cotação, Quando envio o PDF do contrato + metadados (vigência, valor mensal, partes) via API, Então um registro de Contrato é criado ligando Facilitadora ↔ Beneficiária com o PDF anexado imutável; Dado que o PDF é anexado, Quando alguém tenta editá-lo, Então o arquivo é somente-leitura (imutável); Dado que envio sem os metadados obrigatórios, Quando a API valida, Então a submissão é rejeitada",
     "priority": "High",
-    "source": "[KB: salesforce-revenue-cloud-marketplace-arch.md:43] CLM não usado no MVP; ADR 0004 (contrato via upload PDF, sem CLM) [Assumed]",
-    "assumptions": "Contrato como objeto nativo/custom com ContentDocument imutável; nenhuma funcionalidade de CLM (redlining, cláusulas, e-signature) no MVP.",
+    "source": "[KB: salesforce-revenue-cloud-marketplace-arch.md:43] CLM não usado na Fase 1; ADR 0004 (contrato via upload PDF, sem CLM) [Assumed]",
+    "assumptions": "Contrato como objeto nativo/custom com ContentDocument imutável; nenhuma funcionalidade de CLM (redlining, cláusulas, e-signature) na Fase 1.",
     "uncertainty_level": "Assumed"
   },
   {
@@ -365,9 +365,9 @@
     "epic_name": "Marketplace de Cotação e Contratação",
     "persona": "Beneficiária",
     "user_story": "Como Beneficiária, após o contrato firmado, quero dar o termo de aceite classificando o nº de trabalhadores acima e abaixo de 5 salários mínimos por CNPJ, para atender à regra fiscal do PAT.",
-    "acceptance_criteria": "Dado que um contrato foi firmado, Quando acesso o termo de aceite, Então informo, por CNPJ, a quantidade de trabalhadores acima e abaixo de 5 salários mínimos; Dado que a soma das faixas não bate com o nº de trabalhadores do CNPJ, Quando submeto, Então recebo aviso de inconsistência; Dado que o termo é dado como MVP-required, Quando concluo, Então o contrato só é considerado apto quando o termo está preenchido",
+    "acceptance_criteria": "Dado que um contrato foi firmado, Quando acesso o termo de aceite, Então informo, por CNPJ, a quantidade de trabalhadores acima e abaixo de 5 salários mínimos; Dado que a soma das faixas não bate com o nº de trabalhadores do CNPJ, Quando submeto, Então recebo aviso de inconsistência; Dado que o termo é dado como Fase 1-required, Quando concluo, Então o contrato só é considerado apto quando o termo está preenchido",
     "priority": "High",
-    "source": "ADR 0004 (termo de aceite MVP-required, faixa 5 SM); discovery (regra fiscal PAT) [Assumed]",
+    "source": "ADR 0004 (termo de aceite Fase 1-required, faixa 5 SM); discovery (regra fiscal PAT) [Assumed]",
     "assumptions": "Faixa de 5 salários mínimos reflete regra do teto fiscal; valor do SM parametrizável.",
     "uncertainty_level": "Assumed"
   },
@@ -496,10 +496,10 @@
     "epic_id": "E02",
     "epic_name": "Marketplace de Cotação e Contratação",
     "persona": "Admin plataforma",
-    "user_story": "Como Admin da plataforma, quero enriquecer o histórico das facilitadoras com dados do Data Cloud, para dar mais contexto na avaliação de propostas — reconhecendo que este item é candidato a de-escopo no MVP.",
-    "acceptance_criteria": "Dado que o Data Cloud está disponível, Quando visualizo uma facilitadora, Então vejo indicadores de histórico enriquecidos; Dado que o Data Cloud é de-escopado do MVP, Quando o recurso está desligado, Então a comparação de propostas continua funcionando sem enriquecimento; Dado o status Assumed deste item, Quando a decisão de escopo é tomada, Então o requisito é confirmado ou movido para roadmap",
+    "user_story": "Como Admin da plataforma, quero enriquecer o histórico das facilitadoras com dados do Data Cloud, para dar mais contexto na avaliação de propostas — reconhecendo que este item é candidato a de-escopo na Fase 1.",
+    "acceptance_criteria": "Dado que o Data Cloud está disponível, Quando visualizo uma facilitadora, Então vejo indicadores de histórico enriquecidos; Dado que o Data Cloud é de-escopado da Fase 1, Quando o recurso está desligado, Então a comparação de propostas continua funcionando sem enriquecimento; Dado o status Assumed deste item, Quando a decisão de escopo é tomada, Então o requisito é confirmado ou movido para roadmap",
     "priority": "Low",
-    "source": "ADR 0004 (Data Cloud para enriquecer histórico — Assumed, candidato a de-escopo) [Assumption: confirmar inclusão no MVP com cliente]",
+    "source": "ADR 0004 (Data Cloud para enriquecer histórico — Assumed, candidato a de-escopo) [Assumption: confirmar inclusão na Fase 1 com cliente]",
     "assumptions": "Data Cloud fora do escopo confirmado da rodada atual; forte candidato a de-escopo para caber no go-live de 15/nov.",
     "uncertainty_level": "TBD"
   },
@@ -508,11 +508,11 @@
     "epic_id": "E02",
     "epic_name": "Marketplace de Cotação e Contratação",
     "persona": "Facilitadora [via API]",
-    "user_story": "Como Facilitadora, quero que a notificação ativa (push) de novas demandas seja reconhecida como roadmap futuro com canal a definir, para que o MVP dependa apenas do modelo pull.",
-    "acceptance_criteria": "Dado que o MVP entrega apenas consulta pull, Quando uma nova demanda é publicada, Então nenhuma notificação push é enviada às facilitadoras; Dado que push é roadmap futuro, Quando o item é planejado, Então o canal (e-mail, webhook, etc.) é definido em fase posterior; Dado que dependo do pull, Quando não consulto o endpoint, Então posso perder a janela — risco documentado",
+    "user_story": "Como Facilitadora, quero que a notificação ativa (push) de novas demandas seja reconhecida como roadmap futuro com canal a definir, para que a Fase 1 dependa apenas do modelo pull.",
+    "acceptance_criteria": "Dado que a Fase 1 entrega apenas consulta pull, Quando uma nova demanda é publicada, Então nenhuma notificação push é enviada às facilitadoras; Dado que push é roadmap futuro, Quando o item é planejado, Então o canal (e-mail, webhook, etc.) é definido em fase posterior; Dado que dependo do pull, Quando não consulto o endpoint, Então posso perder a janela — risco documentado",
     "priority": "Low",
-    "source": "ADR 0004 (notificação push é roadmap futuro, canal a definir; MVP é pull) [Assumption]",
-    "assumptions": "Push explicitamente fora do MVP; incluído para rastrear a fronteira de escopo.",
+    "source": "ADR 0004 (notificação push é roadmap futuro, canal a definir; Fase 1 é pull) [Assumption]",
+    "assumptions": "Push explicitamente fora da Fase 1; incluído para rastrear a fronteira de escopo.",
     "uncertainty_level": "TBD"
   },
   {
@@ -560,7 +560,7 @@
     "acceptance_criteria": "Dado um arquivo com layout válido, quando executo as críticas de integridade (CPF válido, valores não negativos, somatórios, duplicidade de beneficiário), então gero uma lista de críticas classificadas por severidade; Dado ao menos uma crítica bloqueante, quando finalizo a validação, então o arquivo NÃO é habilitado para download; Dado nenhuma crítica bloqueante, quando finalizo, então habilito o arquivo para download da facilitadora",
     "priority": "High",
     "source": "FLUXO passos 2–3 [.discovery-context.md]; [assumption: catálogo de críticas a definir com MTE]",
-    "assumptions": "As linhas da folha NÃO são carregadas em objeto no MVP — validação opera sobre o arquivo; conjunto de críticas a confirmar",
+    "assumptions": "As linhas da folha NÃO são carregadas em objeto na Fase 1 — validação opera sobre o arquivo; conjunto de críticas a confirmar",
     "uncertainty_level": "Assumed"
   },
   {
@@ -569,7 +569,7 @@
     "epic_name": "Folha & Financeiro",
     "persona": "Sistema/plataforma",
     "user_story": "Como plataforma, quero avaliar o uso de Einstein/agente para apoiar as críticas do arquivo, para acelerar a detecção de anomalias sem depender só de regras fixas.",
-    "acceptance_criteria": "Dado um conjunto de folhas históricas, quando avalio a abordagem de críticas (regras determinísticas vs. Einstein/agente), então documento fit, precisão esperada e custo; Dado a decisão de arquitetura, quando registro o resultado, então fica claro se a detecção assistida entra no MVP ou é diferida; Dado que a abordagem assistida não entra no MVP, quando processo a folha, então as críticas determinísticas cobrem o mínimo obrigatório",
+    "acceptance_criteria": "Dado um conjunto de folhas históricas, quando avalio a abordagem de críticas (regras determinísticas vs. Einstein/agente), então documento fit, precisão esperada e custo; Dado a decisão de arquitetura, quando registro o resultado, então fica claro se a detecção assistida entra na Fase 1 ou é diferida; Dado que a abordagem assistida não entra na Fase 1, quando processo a folha, então as críticas determinísticas cobrem o mínimo obrigatório",
     "priority": "Medium",
     "source": "FLUXO passo 2 — 'avaliar Einstein/agente para as críticas' [.discovery-context.md]; [assumption: spike de arquitetura, não build confirmado]",
     "assumptions": "Decisão de usar IA para críticas ainda em aberto — tratada como spike/avaliação",
@@ -620,7 +620,7 @@
     "acceptance_criteria": "Dado que processei a folha baixada, quando chamo a API de retorno com status 'processado' e valor a pagar, então a plataforma valida o vínculo folha↔contrato↔competência e aceita o retorno; Dado um valor ausente, negativo ou fora de faixa esperada, quando retorno, então recebo erro e o status permanece 'em processamento'; Dado retorno aceito, quando a plataforma o registra, então o status da folha passa a 'processado — pronto para boletagem'",
     "priority": "High",
     "source": "FLUXO passo 4 [.discovery-context.md]; [assumption: contrato de API de retorno a definir]",
-    "assumptions": "Valor a pagar é fornecido pela facilitadora; plataforma não recalcula o valor da folha no MVP",
+    "assumptions": "Valor a pagar é fornecido pela facilitadora; plataforma não recalcula o valor da folha na Fase 1",
     "uncertainty_level": "Assumed"
   },
   {
@@ -628,11 +628,11 @@
     "epic_id": "E03",
     "epic_name": "Folha & Financeiro",
     "persona": "Sistema/plataforma",
-    "user_story": "Como plataforma, quero modelar um objeto custom de cabeçalho/competência da folha (sem linhas), para rastrear o ciclo sem carregar os itens da folha no MVP.",
+    "user_story": "Como plataforma, quero modelar um objeto custom de cabeçalho/competência da folha (sem linhas), para rastrear o ciclo sem carregar os itens da folha na Fase 1.",
     "acceptance_criteria": "Dado um upload aceito, quando crio o registro de folha, então persisto cabeçalho (contrato, competência, beneficiária, facilitadora, status, hashes/metadados do arquivo) sem as linhas de beneficiários; Dado o requisito futuro de carregar linhas, quando modelo o objeto, então o desenho não impede evolução para itens; Dado uma consulta ao registro, quando exibo o ciclo, então mostro o histórico de status da folha",
     "priority": "High",
     "source": "'Objetos custom para folha (cabeçalho/competência, sem linhas), contrato e regras de split' [.discovery-context.md]; [assumption: modelo de dados a detalhar]",
-    "assumptions": "Carga de linhas da folha é necessidade futura, fora do MVP",
+    "assumptions": "Carga de linhas da folha é necessidade futura, fora da Fase 1",
     "uncertainty_level": "Assumed"
   },
   {
@@ -740,7 +740,7 @@
     "acceptance_criteria": "Dado o cálculo de split, quando aplico a taxa cobrada dos estabelecimentos, então ela nunca excede 3,6%; Dado uma regra parametrizada acima do teto, quando o motor calcula, então a taxa é limitada a 3,6% e a divergência é registrada; Dado o cálculo concluído, quando registro o racional, então explicito a taxa aplicada e o teto vigente",
     "priority": "High",
     "source": "Reforma nov/2025 — taxa máxima 3,6% [.discovery-context.md L35]",
-    "assumptions": "Teto de 3,6% é o limite regulatório aplicável ao split no MVP",
+    "assumptions": "Teto de 3,6% é o limite regulatório aplicável ao split na Fase 1",
     "uncertainty_level": "Assumed"
   },
   {
@@ -832,11 +832,11 @@
     "epic_id": "E03",
     "epic_name": "Folha & Financeiro",
     "persona": "Sistema/plataforma",
-    "user_story": "Como plataforma, quero enviar à CTPS Digital a 'expectativa de crédito' do trabalhador, para monitoramento no MVP, sem gestão de saldo.",
-    "acceptance_criteria": "Dado um ciclo com crédito concedido, quando aciono a integração da CTPS Digital, então envio um aviso de 'expectativa de crédito' (modelo similar ao FGTS); Dado que o MVP é só monitoramento, quando envio, então não há gestão de saldo nem consulta de extrato; Dado falha de integração, quando ocorre, então o evento é reenfileirado sem bloquear o ciclo financeiro",
+    "user_story": "Como plataforma, quero enviar à CTPS Digital a 'expectativa de crédito' do trabalhador, para monitoramento na Fase 1, sem gestão de saldo.",
+    "acceptance_criteria": "Dado um ciclo com crédito concedido, quando aciono a integração da CTPS Digital, então envio um aviso de 'expectativa de crédito' (modelo similar ao FGTS); Dado que a Fase 1 é só monitoramento, quando envio, então não há gestão de saldo nem consulta de extrato; Dado falha de integração, quando ocorre, então o evento é reenfileirado sem bloquear o ciclo financeiro",
     "priority": "Low",
-    "source": "'via CTPS Digital (expectativa de crédito, só monitoramento no MVP)' [.discovery-context.md]; CTPS Digital [L26]",
-    "assumptions": "Escopo CTPS no MVP restrito a aviso/monitoramento; contrato de integração a confirmar",
+    "source": "'via CTPS Digital (expectativa de crédito, só monitoramento na Fase 1)' [.discovery-context.md]; CTPS Digital [L26]",
+    "assumptions": "Escopo CTPS na Fase 1 restrito a aviso/monitoramento; contrato de integração a confirmar",
     "uncertainty_level": "Assumed"
   },
   {
@@ -992,7 +992,7 @@
     "acceptance_criteria": "Dado que o estabelecimento envia a licença sanitária, Quando o registro é criado, Então o campo obrigatório 'data de validade' é armazenado; Dado que a data de validade está no passado, Quando o sistema avalia, Então a licença é considerada vencida e bloqueia o credenciamento ativo; Dado que existem 5000+ padrões municipais de licença, Quando não há campos estruturados adicionais, Então o sistema opera apenas com a data de validade como mínimo comum",
     "priority": "High",
     "source": ".discovery-context.md L262,L386,L392 (licença sanitária com prazo; sem base unificada; validade como parâmetro)",
-    "assumptions": "Sem base nacional de vigilância sanitária; integração direta com órgãos sanitários é ideal futuro, não garantido no MVP.",
+    "assumptions": "Sem base nacional de vigilância sanitária; integração direta com órgãos sanitários é ideal futuro, não garantido na Fase 1.",
     "uncertainty_level": "Confirmed"
   },
   {
@@ -1088,7 +1088,7 @@
     "acceptance_criteria": "Dado que estou logado, Quando acesso 'Meu cadastro', Então vejo se estou credenciado, pendente ou descredenciado e o motivo quando aplicável; Dado que quero atualizar dados, Quando edito informações permitidas, Então as alterações são registradas e, se necessário, disparam nova análise; Dado que tenho documentos com validade, Quando abro a área de documentos, Então vejo cada documento, sua data de validade e status",
     "priority": "Medium",
     "source": ".discovery-context.md L257,L302,L409 (parte do portal para visualização/gestão do estabelecimento)",
-    "assumptions": "Portal do estabelecimento não exibe repasses financeiros no MVP (fica com adquirente).",
+    "assumptions": "Portal do estabelecimento não exibe repasses financeiros na Fase 1 (fica com adquirente).",
     "uncertainty_level": "Confirmed"
   },
   {
@@ -1276,11 +1276,11 @@
     "epic_id": "E05",
     "epic_name": "Integração Corporativa (MuleSoft)",
     "persona": "Sistema/plataforma",
-    "user_story": "Como plataforma, quero enviar à CTPS Digital a 'expectativa de crédito' ao trabalhador (apenas monitoramento no MVP), para notificar o trabalhador de forma análoga ao aviso de crédito do FGTS.",
-    "acceptance_criteria": "Dado um crédito processado para uma folha, Quando o evento é gerado, Então uma notificação de expectativa de crédito é enviada à CTPS Digital (sem gestão de saldo); Dado o MVP, Quando avalio o escopo, Então é apenas envio/monitoramento — não há débito, gestão de saldo nem transação financeira via CTPS; Dado indisponibilidade da CTPS, Quando o envio falha, Então o evento entra em reprocessamento sem impactar o crédito",
+    "user_story": "Como plataforma, quero enviar à CTPS Digital a 'expectativa de crédito' ao trabalhador (apenas monitoramento na Fase 1), para notificar o trabalhador de forma análoga ao aviso de crédito do FGTS.",
+    "acceptance_criteria": "Dado um crédito processado para uma folha, Quando o evento é gerado, Então uma notificação de expectativa de crédito é enviada à CTPS Digital (sem gestão de saldo); Dado a Fase 1, Quando avalio o escopo, Então é apenas envio/monitoramento — não há débito, gestão de saldo nem transação financeira via CTPS; Dado indisponibilidade da CTPS, Quando o envio falha, Então o evento entra em reprocessamento sem impactar o crédito",
     "priority": "Medium",
-    "source": "discovery-context 00 (notificação ao trabalhador via CTPS Digital, modelo similar ao FGTS — aviso de crédito, não gestão de saldo); E05 (só monitoramento no MVP)",
-    "assumptions": "Contrato CTPS Digital não disponível — mock-first; escopo MVP limitado a notificação",
+    "source": "discovery-context 00 (notificação ao trabalhador via CTPS Digital, modelo similar ao FGTS — aviso de crédito, não gestão de saldo); E05 (só monitoramento na Fase 1)",
+    "assumptions": "Contrato CTPS Digital não disponível — mock-first; escopo Fase 1 limitado a notificação",
     "uncertainty_level": "Assumed"
   },
   {
@@ -1292,7 +1292,7 @@
     "acceptance_criteria": "Dado o eSocial sem contrato disponível, Quando defino sua System API, Então ela responde via mock com payloads representativos; Dado o mock, Quando o Core consulta vínculos, Então recebe dados simulados coerentes com o modelo canônico; Dado o Swagger real do eSocial, Quando substituo o backend, Então os consumidores não precisam mudar",
     "priority": "Medium",
     "source": "E05 (eSocial); discovery-context 00 (integração eSocial)",
-    "assumptions": "Escopo exato do consumo de eSocial no MVP a confirmar",
+    "assumptions": "Escopo exato do consumo de eSocial na Fase 1 a confirmar",
     "uncertainty_level": "Assumed"
   },
   {
@@ -1340,7 +1340,7 @@
     "acceptance_criteria": "Dado a decisão ADR 0003, Quando o job agendado dispara, Então consome apenas as movimentações novas desde o último checkpoint (incremental); Dado o batch recebido, Quando é processado, Então cada movimentação é associada ao boleto/folha correspondente; Dado o agendamento, Quando o job roda, Então respeita a janela configurada e registra o horário/checkpoint da última execução",
     "priority": "High",
     "source": "ADR 0003 (movimentações bancárias em BATCH INCREMENTAL via AGENDAMENTO)",
-    "assumptions": "Push/webhook em tempo real fora do MVP — batch agendado é a decisão",
+    "assumptions": "Push/webhook em tempo real fora da Fase 1 — batch agendado é a decisão",
     "uncertainty_level": "Assumed"
   },
   {
@@ -1361,9 +1361,9 @@
     "epic_name": "Integração Corporativa (MuleSoft)",
     "persona": "Facilitadora [API]",
     "user_story": "Como facilitadora, quero consultar via endpoint um pull das demandas/leilões (cotações) abertos na vigência, para captar oportunidades e decidir sobre o envio de propostas.",
-    "acceptance_criteria": "Dado cotações abertas dentro do prazo, Quando a facilitadora chama o endpoint de consulta, Então recebe a lista de demandas abertas com nº de funcionários, valor, UF e prazo; Dado uma cotação fora da vigência/prazo, Quando a consulta é feita, Então ela não aparece na lista; Dado o MVP, Quando avalio o modelo, Então é pull (a facilitadora consulta) — push é roadmap futuro",
+    "acceptance_criteria": "Dado cotações abertas dentro do prazo, Quando a facilitadora chama o endpoint de consulta, Então recebe a lista de demandas abertas com nº de funcionários, valor, UF e prazo; Dado uma cotação fora da vigência/prazo, Quando a consulta é feita, Então ela não aparece na lista; Dado a Fase 1, Quando avalio o modelo, Então é pull (a facilitadora consulta) — push é roadmap futuro",
     "priority": "High",
-    "source": "E05 (EXPOSIÇÃO DE ENDPOINT DE CONSULTA das demandas/leilões abertos — pull no MVP; push é roadmap futuro)",
+    "source": "E05 (EXPOSIÇÃO DE ENDPOINT DE CONSULTA das demandas/leilões abertos — pull na Fase 1; push é roadmap futuro)",
     "assumptions": "",
     "uncertainty_level": "Confirmed"
   },
@@ -1396,11 +1396,11 @@
     "epic_id": "E05",
     "epic_name": "Integração Corporativa (MuleSoft)",
     "persona": "Facilitadora [API]",
-    "user_story": "Como facilitadora, quero (roadmap futuro) receber push de notificação de novas demandas, para reagir mais rápido do que no modelo pull do MVP.",
-    "acceptance_criteria": "Dado o MVP, Quando avalio o escopo, Então push NÃO está incluído (apenas pull); Dado o roadmap, Quando push for priorizado, Então uma facilitadora poderá registrar um endpoint/callback para receber notificações de novas demandas; Dado o design MVP, Quando construo o endpoint de consulta, Então ele não impede a evolução para push (não cria dependência que bloqueie)",
+    "user_story": "Como facilitadora, quero (roadmap futuro) receber push de notificação de novas demandas, para reagir mais rápido do que no modelo pull da Fase 1.",
+    "acceptance_criteria": "Dado a Fase 1, Quando avalio o escopo, Então push NÃO está incluído (apenas pull); Dado o roadmap, Quando push for priorizado, Então uma facilitadora poderá registrar um endpoint/callback para receber notificações de novas demandas; Dado o design Fase 1, Quando construo o endpoint de consulta, Então ele não impede a evolução para push (não cria dependência que bloqueie)",
     "priority": "Low",
     "source": "E05 (push é roadmap futuro)",
-    "assumptions": "Push explicitamente fora do MVP",
+    "assumptions": "Push explicitamente fora da Fase 1",
     "uncertainty_level": "Assumed"
   },
   {
@@ -1433,7 +1433,7 @@
     "epic_name": "Integração Corporativa (MuleSoft)",
     "persona": "Adquirente [API]",
     "user_story": "Como MTE/plataforma, quero (V2 roadmap) o analytics completo das transações da adquirente, para identificar padrões anômalos e irregularidades além da simples consulta.",
-    "acceptance_criteria": "Dado o MVP/near-term, Quando avalio o escopo, Então analytics completo NÃO está incluído (apenas ingestão para consulta); Dado o roadmap V2, Quando for priorizado, Então as transações ingeridas alimentarão análise de padrões (ex.: Data Cloud/Tableau, a reavaliar); Dado o design de ingestão near-term, Quando o construo, Então o modelo de dados suporta a evolução para analytics sem reingestão",
+    "acceptance_criteria": "Dado a Fase 1/near-term, Quando avalio o escopo, Então analytics completo NÃO está incluído (apenas ingestão para consulta); Dado o roadmap V2, Quando for priorizado, Então as transações ingeridas alimentarão análise de padrões (ex.: Data Cloud/Tableau, a reavaliar); Dado o design de ingestão near-term, Quando o construo, Então o modelo de dados suporta a evolução para analytics sem reingestão",
     "priority": "Low",
     "source": "E05 (V2 para analytics completo); discovery-context 00 (Data Cloud/Tableau fora do escopo confirmado — reavaliar)",
     "assumptions": "Data Cloud/Tableau fora do escopo confirmado nesta rodada",
@@ -1637,7 +1637,7 @@
     "epic_name": "Segurança, Residência de Dados & Conformidade",
     "persona": "Admin de plataforma",
     "user_story": "Como Admin de plataforma, quero que o ambiente seja 100% greenfield, provisionado do zero sem reaproveitar org, metadado ou administração de outros ambientes Dataprev, para que o isolamento de segurança seja garantido por construção.",
-    "acceptance_criteria": "Dado o provisionamento, quando o ambiente é criado, então nenhum metadado, perfil ou configuração é herdado de outras orgs Dataprev; Dada a administração, quando papéis de admin são atribuídos, então não há administração compartilhada com outros ambientes; Dado o marco de prontidão da Fase 0, quando a org greenfield é entregue, então ela é validada como isolada antes do início do build; Dado o lead-time externo, quando o provisionamento é planejado, então é tratado como pré-requisito de marco",
+    "acceptance_criteria": "Dado o provisionamento, quando o ambiente é criado, então nenhum metadado, perfil ou configuração é herdado de outras orgs Dataprev; Dada a administração, quando papéis de admin são atribuídos, então não há administração compartilhada com outros ambientes; Dado o marco de prontidão da Etapa 0, quando a org greenfield é entregue, então ela é validada como isolada antes do início do build; Dado o lead-time externo, quando o provisionamento é planejado, então é tratado como pré-requisito de marco",
     "priority": "High",
     "source": "ADR 0005 greenfield (discovery, outputs/01-solution.md)",
     "assumptions": "ADR 0005 assumida pela equipe em 31/jul/2026, a validar com o cliente",
@@ -1649,7 +1649,7 @@
     "epic_name": "Segurança, Residência de Dados & Conformidade",
     "persona": "Arquiteto",
     "user_story": "Como Arquiteto, quero que o MuleSoft rode on-premise na infraestrutura soberana Dataprev (não em CloudHub), para que o dado sensível não saia do perímetro soberano em nenhum momento do trânsito.",
-    "acceptance_criteria": "Dado o deploy do MuleSoft, quando a topologia é definida, então o runtime roda on-premise na infra Dataprev/gov, não em CloudHub; Dado que a de-tokenização do CPF ocorre, quando ela é executada, então acontece dentro do perímetro soberano; Dada a prontidão da infra, quando o MuleSoft on-premise é instalado, então é pré-requisito de marco na Fase 0 com lead-time externo mapeado; Dado o trânsito de dados, quando dado sensível é resolvido, então ele não trafega por infraestrutura fora do perímetro soberano",
+    "acceptance_criteria": "Dado o deploy do MuleSoft, quando a topologia é definida, então o runtime roda on-premise na infra Dataprev/gov, não em CloudHub; Dado que a de-tokenização do CPF ocorre, quando ela é executada, então acontece dentro do perímetro soberano; Dada a prontidão da infra, quando o MuleSoft on-premise é instalado, então é pré-requisito de marco na Etapa 0 com lead-time externo mapeado; Dado o trânsito de dados, quando dado sensível é resolvido, então ele não trafega por infraestrutura fora do perímetro soberano",
     "priority": "High",
     "source": "ADR 0005 MuleSoft on-premise (discovery, outputs/01-solution.md — resolve G0504)",
     "assumptions": "Prontidão da infra soberana e lead-time de instalação a confirmar com Dataprev",

@@ -14,8 +14,8 @@
           "decision": "Escopo ROM = fluxo completo (4 módulos)",
           "rationale": "Confirmado por Nelson; timeline set→nov cobre cotação→financeiro",
           "rejected": [
-            "Fase 1 apenas",
-            "Fase 1+Financeiro"
+            "Etapa 1 apenas",
+            "Etapa 1+Financeiro"
           ]
         },
         {
@@ -36,7 +36,7 @@
         }
       ],
       "open_threads": [
-        "APIs Novo PAT/GOV.BR/eSocial sem Swagger — mocks na Fase 1 (alto risco)",
+        "APIs Novo PAT/GOV.BR/eSocial sem Swagger — mocks na Etapa 1 (alto risco)",
         "Fronteira exata da residência híbrida a ratificar com Jair Bogo",
         "Tela Comparar Propostas ausente no protótipo — regras de leilão a definir",
         "Data Cloud/Tableau (monitoramento MTE) fora desta rodada",
@@ -97,7 +97,7 @@
         }
       ],
       "open_threads": [
-        "60 gaps / 3 conflitos de fonte → Fase 0 recomendada antes do compromisso de escopo/prazo",
+        "60 gaps / 3 conflitos de fonte → Etapa 0 recomendada antes do compromisso de escopo/prazo",
         "G0801 (bloqueador): fronteira campo-a-campo da residência híbrida — ratificar com Jair Bogo",
         "G0501: sem Swaggers/contratos de API para todos os sistemas externos — caminho crítico",
         "G0504: hospedagem MuleSoft (CloudHub vs. Runtime Fabric gov) × residência — ponto de tokenização",
@@ -106,7 +106,7 @@
         "E09 (G0901/G0906): fronteira de escopo PS vs. Dataprev/MTE e resistência das facilitadoras",
         "Central Salesforce KB degradada (access_denied) — grounding via knowledge/ do projeto"
       ],
-      "next": "DESIGN (arquitetura) via /dataprev — recomendar resolver bloqueadores de arquitetura (G0801/G0501/G0504) idealmente em Fase 0"
+      "next": "DESIGN (arquitetura) via /dataprev — recomendar resolver bloqueadores de arquitetura (G0801/G0501/G0504) idealmente em Etapa 0"
     },
     {
       "summary": "Design DATAPREV-PAT: esqueleto de arquitetura aprovado (org única, Experience Cloud + Core/Service + MuleSoft + Agentforce; residência híbrida ADR 0001 como fundação; 4 blockers de arquitetura carregados como assumções). Escrito outputs/01-solution.md (fundações transversais + mapa por processo de negócio). T-shirt sizing dos 9 épicos pelo rubric dimensional (2 XL, 4 L, 3 M) — todos Assumed pelos blockers em aberto. +3 assumções load-bearing gravadas em gaps.json (G0108 licença Experience Cloud, G0808 org única, G0809 DevOps source-driven).",
@@ -129,7 +129,7 @@
         }
       ],
       "open_threads": [
-        "Todos os 9 sizes em Assumed — 4 blockers de arquitetura (G0801/G0501/G0504/G0106) não resolvidos alargam faixa a jusante; argumento da Fase 0",
+        "Todos os 9 sizes em Assumed — 4 blockers de arquitetura (G0801/G0501/G0504/G0106) não resolvidos alargam faixa a jusante; argumento da Etapa 0",
         "E03 pode subir a XL e E08 a XL conforme size_if_assumption_breaks; E07 sobe a L se volume >500k",
         "Adders de risco para o roadmap: regulada (+15-20%), timeline comprimida set→nov/2026 (+15-25%), integração sem contratos",
         "Central Salesforce KB degradada (access_denied) — grounding via knowledge/ do projeto (1 doc); sugerir /kb-sync"
@@ -141,7 +141,7 @@
       "skills": [
         "roadmap"
       ],
-      "summary": "Roadmap DATAPREV-PAT: 5 fases (0-4) sequenciadas por caminho crítico E05/E08 → E01 → E02/E03. Fase 0 incluída (65 gaps > 15). Faixa de duração derivada top-down: 18-38 semanas (Multi-Cloud Medium/High + adders regulada/integração-sem-contratos/UI-custom, teto +50%), com Benchmark Disclaimer. Analog SGP/MGI ancora o piso, não puxa o teto. Range-drivers: E05/E03/E08. depends_on gravados em epics.json. Sem commitment de duração (faixa derivada, não compromisso) — fases sem semanas.",
+      "summary": "Roadmap DATAPREV-PAT: 5 fases (0-4) sequenciadas por caminho crítico E05/E08 → E01 → E02/E03. Etapa 0 incluída (65 gaps > 15). Faixa de duração derivada top-down: 18-38 semanas (Multi-Cloud Medium/High + adders regulada/integração-sem-contratos/UI-custom, teto +50%), com Benchmark Disclaimer. Analog SGP/MGI ancora o piso, não puxa o teto. Range-drivers: E05/E03/E08. depends_on gravados em epics.json. Sem commitment de duração (faixa derivada, não compromisso) — fases sem semanas.",
       "produced": [
         "data/roadmap.json",
         "outputs/02-delivery-plan.md",
@@ -149,17 +149,17 @@
       ],
       "decisions": [
         {
-          "decision": "5 fases: Fase 0 Discovery/Arquitetura (blockers) → 1 Fundação (E05/E08/E01) → 2 Marketplace (E02/E04) → 3 Financeiro & Atendimento (E03/E06) → 4 Carga/Adoção/Estabilização (E07/E09)",
-          "rationale": "Fundação-primeiro/risco-cedo: E05 mock-first e E08 residência governam o data model; E01 destrava marketplace e financeiro. Fase 0 obrigatória por 65 gaps."
+          "decision": "5 fases: Etapa 0 Discovery/Arquitetura (blockers) → 1 Fundação (E05/E08/E01) → 2 Marketplace (E02/E04) → 3 Financeiro & Atendimento (E03/E06) → 4 Carga/Adoção/Estabilização (E07/E09)",
+          "rationale": "Fundação-primeiro/risco-cedo: E05 mock-first e E08 residência governam o data model; E01 destrava marketplace e financeiro. Etapa 0 obrigatória por 65 gaps."
         },
         {
           "decision": "Duração = faixa derivada 18-38 sem (top-down-shape), sem commitment",
-          "rationale": "Usuário optou por derivar faixa por benchmark, não comprometer nº. Janela do cliente (~15-16 sem set→nov) fica ABAIXO do piso de 18 sem — argumento de Fase 0 + escopo como variável de flexão."
+          "rationale": "Usuário optou por derivar faixa por benchmark, não comprometer nº. Janela do cliente (~15-16 sem set→nov) fica ABAIXO do piso de 18 sem — argumento de Etapa 0 + escopo como variável de flexão."
         }
       ],
       "open_threads": [
         "Janela do cliente (set→nov, ~15-16 sem) abaixo do piso do benchmark (18 sem) mesmo sem compressão IA — escopo é a variável de flexão contra a data",
-        "Faixa aperta ao resolver range-drivers E05 (contratos de API)/E03 (banco custódia/PSP)/E08 (fronteira residência) — idealmente na Fase 0",
+        "Faixa aperta ao resolver range-drivers E05 (contratos de API)/E03 (banco custódia/PSP)/E08 (fronteira residência) — idealmente na Etapa 0",
         "SGP/MGI actual_weeks não capturado (memória tem horas, não semanas) — pedir se precisar apertar reconciliação",
         "Compressão por IA ainda não aplicada — depende de efficiency.json (EFFICIENCY não rodou); dataprev exige ganho ≥25%"
       ],
@@ -179,7 +179,7 @@
       "decisions": [
         {
           "decision": "Banda augmented honesta ~10-18% NÃO alcança o alvo ≥25% do programa; os 25% só existem na banda AI-native condicional (~28-38%)",
-          "rationale": "Engajamento regulado + integração-pesada + baixa prontidão de IA. Banda augmented NÃO inflada para atingir alvo; native apresentada como motivador gated que exige modelo operacional native — postura oposta à de um programa gov com gates TCU/CGU/ANPD e Fase 0 hoje."
+          "rationale": "Engajamento regulado + integração-pesada + baixa prontidão de IA. Banda augmented NÃO inflada para atingir alvo; native apresentada como motivador gated que exige modelo operacional native — postura oposta à de um programa gov com gates TCU/CGU/ANPD e Etapa 0 hoje."
         }
       ],
       "open_threads": [
@@ -194,7 +194,7 @@
       "skills": [
         "narratives"
       ],
-      "summary": "Narratives DATAPREV-PAT: audiência executiva; rota executive-summary-only (sem rfp.json, sem resource-plan, sem arquivo precificado → sem seção de Investimento/dólar). Escrito outputs/artifacts/executive-summary.md sintetizando strategy.json (visão/value drivers/prioridades/business case), 9 épicas, 5 fases, faixa 18-38 sem com Benchmark Disclaimer verbatim, T-shirt como complexidade relativa (não esforço, sem preço), banda de eficiência ~10-18% augmented, e enquadramento honesto de confiança (28% Confirmed/72% Assumed, 65 gaps, Fase 0 recomendada). Sem pacote vertical Government (só pace) → proof points padrão de PS + nota recomendando definir o pack.",
+      "summary": "Narratives DATAPREV-PAT: audiência executiva; rota executive-summary-only (sem rfp.json, sem resource-plan, sem arquivo precificado → sem seção de Investimento/dólar). Escrito outputs/artifacts/executive-summary.md sintetizando strategy.json (visão/value drivers/prioridades/business case), 9 épicas, 5 fases, faixa 18-38 sem com Benchmark Disclaimer verbatim, T-shirt como complexidade relativa (não esforço, sem preço), banda de eficiência ~10-18% augmented, e enquadramento honesto de confiança (28% Confirmed/72% Assumed, 65 gaps, Etapa 0 recomendada). Sem pacote vertical Government (só pace) → proof points padrão de PS + nota recomendando definir o pack.",
       "produced": [
         "outputs/artifacts/executive-summary.md"
       ],
@@ -204,7 +204,7 @@
           "rationale": "Não há rfp.json nem arquivo precificado governado (estimate-comparison/commercials); regra do skill: sem número derivado — investimento a confirmar via estimate/commercials"
         },
         {
-          "decision": "Enquadrar riscos/premissas com a confiança real (28% Confirmed, 65 gaps) e reafirmar Fase 0 como destravadora + escopo como variável de flexão contra a data",
+          "decision": "Enquadrar riscos/premissas com a confiança real (28% Confirmed, 65 gaps) e reafirmar Etapa 0 como destravadora + escopo como variável de flexão contra a data",
           "rationale": "Honestidade: janela do cliente abaixo do piso de benchmark e todos os sizes Assumed atrás dos 4 blockers"
         }
       ],
@@ -253,7 +253,7 @@
         }
       ],
       "open_threads": [
-        "Risco #1: âncora AI-native repousa em native_band condicional/provisória (~28-38%) enquanto a prontidão de IA medida é Low (2/8) — gates TCU/CGU/ANPD, ADI/STF, Fase 0 travada apontam postura oposta. Registrado no artefato; decisão do Solution Lead.",
+        "Risco #1: âncora AI-native repousa em native_band condicional/provisória (~28-38%) enquanto a prontidão de IA medida é Low (2/8) — gates TCU/CGU/ANPD, ADI/STF, Etapa 0 travada apontam postura oposta. Registrado no artefato; decisão do Solution Lead.",
         "Change & Adoção sem correspondente exato na tabela Dataprev — mapeado a Solution Consultant (R$ 573,98); confirmar role/taxa de conversão.",
         "Product Owner empoderado do lado cliente não confirmado — é o gap de prontidão que o gate AI-native testa."
       ],
@@ -335,7 +335,7 @@
         "narratives",
         "validate"
       ],
-      "summary": "Sweep de reprocessamento 'reprocessar tudo afetado' após 2 fontes novas (call de esclarecimento + sync PAT interna) cruzadas com o Decreto 12.712/2025 e o fluxo entre personas. Grillados 13 candidatos; confirmados e propagados: (1) instância dedicada e apartada → ADR 0002; (2) fronteira CRM-não-transacional, Salesforce = motor de regras de split, gateway PCI executa/custodia → ADR 0003; (3) go-live FIXO 15/nov/2026 → modo data-fixa 13 semanas, MVP de 8 épicas, E06/Agentforce de-escopado como buffer. E03 re-sizado L→XL (motor de split). Distribuição {XL:3, L:3, M:3}. Roster ganhou especialista de arquitetura financeira/bancária (R12) em ambas as lanes; R09/E06 removido do roster comprometido. estimate-comparison: âncora AI-native comprometida (~R$3,50M sem imp / R$3,74M com imp, ~8,9 FTE, 4.620 h-pessoa PS); trilha tradicional (18-38 sem) NÃO alcança 15/nov — AI-native é necessidade de cronograma, agrava risco #1 (prontidão de IA Low 2/8). Exec summary e 01-solution.md re-renderizados. validate: G0808 recategorizado de 'Resolved' para 'Assumption'; E06 sem fase é de-escopo intencional (não é breakage).",
+      "summary": "Sweep de reprocessamento 'reprocessar tudo afetado' após 2 fontes novas (call de esclarecimento + sync PAT interna) cruzadas com o Decreto 12.712/2025 e o fluxo entre personas. Grillados 13 candidatos; confirmados e propagados: (1) instância dedicada e apartada → ADR 0002; (2) fronteira CRM-não-transacional, Salesforce = motor de regras de split, gateway PCI executa/custodia → ADR 0003; (3) go-live FIXO 15/nov/2026 → modo data-fixa 13 semanas, Fase 1 de 8 épicas, E06/Agentforce de-escopado como buffer. E03 re-sizado L→XL (motor de split). Distribuição {XL:3, L:3, M:3}. Roster ganhou especialista de arquitetura financeira/bancária (R12) em ambas as lanes; R09/E06 removido do roster comprometido. estimate-comparison: âncora AI-native comprometida (~R$3,50M sem imp / R$3,74M com imp, ~8,9 FTE, 4.620 h-pessoa PS); trilha tradicional (18-38 sem) NÃO alcança 15/nov — AI-native é necessidade de cronograma, agrava risco #1 (prontidão de IA Low 2/8). Exec summary e 01-solution.md re-renderizados. validate: G0808 recategorizado de 'Resolved' para 'Assumption'; E06 sem fase é de-escopo intencional (não é breakage).",
       "friction": [
         "Central Salesforce KB cache degradada (access_denied) — grounding apoiado em knowledge/ do projeto",
         "Volumetria 800k/450k ainda de fonte de imprensa/call, não primária — a ratificar antes de client-facing",
@@ -347,7 +347,7 @@
           "rationale": "Isolamento forçado por segurança/volumetria/auditabilidade (TCU/CGU/ANPD)/admin pelo cliente; usuário escolheu 'só ADR, sem dual pricing'"
         },
         {
-          "decision": "Modo data-fixa 15/nov + MVP",
+          "decision": "Modo data-fixa 15/nov + Fase 1",
           "rationale": "Data regulatória imóvel; escopo é a variável de flexão; E06 primeiro a cair"
         },
         {
@@ -357,7 +357,7 @@
       ],
       "open_threads": [
         "Ratificar por escrito a instância dedicada (ADR 0002) e a fronteira campo-a-campo da residência (ADR 0001) com a arquitetura Dataprev",
-        "Selecionar/contratar o provedor do gateway PCI (G0309) — lead-time de Fase 0, risco #1 à data fixa",
+        "Selecionar/contratar o provedor do gateway PCI (G0309) — lead-time de Etapa 0, risco #1 à data fixa",
         "Confirmar o modelo operacional AI-native com o cliente (gate que torna a janela de 13 semanas viável)",
         "Confirmar volumetria (~800k estabelecimentos / ~450k beneficiárias) em fonte primária",
         "deal-review.html a re-renderizar refletindo o escopo reprocessado"
@@ -395,7 +395,7 @@
       "open_threads": [
         "Ratificar por escrito com o cliente os 5 ADRs — em especial 0004 (modelo Opportunity/Quote nativo sustenta a mecânica do leilão?) e 0005 (provisionamento greenfield + infra on-premise nos prazos)",
         "Confirmar layout do CSV da folha, regra de integridade ('não quebrada'), alternativa de crítica IA e o contrato de API facilitadora↔plataforma (premissa 6)",
-        "3 pré-requisitos externos de lead-time na Fase 0 (org greenfield, MuleSoft on-premise, gateway) são o maior risco à data fixa de 15/nov",
+        "3 pré-requisitos externos de lead-time na Etapa 0 (org greenfield, MuleSoft on-premise, gateway) são o maior risco à data fixa de 15/nov",
         "deal-review.html a re-renderizar refletindo o segundo sweep (objetos nativos, greenfield/on-premise, datas comprometidas, 8-passos)"
       ],
       "next_steps": [
@@ -409,7 +409,7 @@
       "skills_used": [
         "grill-me-on-scope"
       ],
-      "summary": "Grilled the slice touched by the 2nd revise sweep (ADR 0004/0005, G0210/G0310/G0810). Resolved 3 items: (1) reverse-auction mechanic — facilitadora is API-only (no platform UI, no portal seat; submits Quote informing cotação/Opportunity ID open within vigência) → EQUIDADE POR CONSTRUÇÃO, no Apex managed sharing needed; beneficiária sees cotações as they arrive but selection is LOCKED until the vigência window closes (manual, not blind). Thins E02 custom layer. (2) folha lines do NOT persist in MVP — no requirement before 15/nov; persistence → future roadmap. (3) greenfield+MuleSoft on-premise accepted (user-endorsed). Surfaced cross-file contradiction: because facilitadora is API-only, the Experience Cloud portal-license driver is the BENEFICIÁRIA (operates Opportunity/Quote), NOT the facilitadora — the ~600–700 facilitadoras are MuleSoft integrations, not portal seats.",
+      "summary": "Grilled the slice touched by the 2nd revise sweep (ADR 0004/0005, G0210/G0310/G0810). Resolved 3 items: (1) reverse-auction mechanic — facilitadora is API-only (no platform UI, no portal seat; submits Quote informing cotação/Opportunity ID open within vigência) → EQUIDADE POR CONSTRUÇÃO, no Apex managed sharing needed; beneficiária sees cotações as they arrive but selection is LOCKED until the vigência window closes (manual, not blind). Thins E02 custom layer. (2) folha lines do NOT persist in Fase 1 — no requirement before 15/nov; persistence → future roadmap. (3) greenfield+MuleSoft on-premise accepted (user-endorsed). Surfaced cross-file contradiction: because facilitadora is API-only, the Experience Cloud portal-license driver is the BENEFICIÁRIA (operates Opportunity/Quote), NOT the facilitadora — the ~600–700 facilitadoras are MuleSoft integrations, not portal seats.",
       "friction": [],
       "decisions": [
         {
@@ -417,7 +417,7 @@
           "rationale": "Solution Manager firsthand: facilitadora has no platform access — only API, informing cotação/Opportunity ID within vigência. Confirmed G0210; strengthens ADR 0004, thins E02 custom."
         },
         {
-          "decision": "Folha lines do not persist in MVP; line-level persistence deferred to future roadmap",
+          "decision": "Folha lines do not persist in Fase 1; line-level persistence deferred to future roadmap",
           "rationale": "No requirement before 15/nov (firsthand). Confirmed G0310; keeps E03 data model to header/competência."
         },
         {
@@ -438,7 +438,7 @@
     {
       "date": "2026-07-31",
       "skills_used": [],
-      "summary": "Capacity/hard-limits sizing for the two PAT loads on Experience Cloud (Customer Community). Insight: the ceiling is not 'N simultaneous users' but the 25 concurrent synchronous long-running (>5s) Apex transactions per org (CONCURRENT_REQUESTS_LIMIT_EXCEEDED). Load A: 800K estabelecimentos x1 access/month = light, cacheable reads (~0.3-5 logins/s). Load B: 1M beneficiaria logins over a 5-day window uploading payroll CSV (E03), ~40% on the last day -> ~11 logins/s avg, ~28/s peak. Synchronous critique at that peak is INFEASIBLE (25 slots => <5 uploads/s at 5s each vs ~28/s demand -> org-wide instability). Viable design: async decoupling -> fast dumb upload (Files/ContentVersion or external S3, <1s) -> background processing (Bulk API 2.0 150M rec/24h, Batch Apex, or Platform Events) -> async status notify; CDN/cache for guest+read pages. MVP tailwind: folha lines do NOT persist (G0310), so risk concentrates on upload+critique which the queue absorbs. Licensing is login-based (1 login/24h) -> size pool by beneficiaria peak month. Documented as a dedicated 'Capacidade & Hard Limits' tab in deal-review.html.",
+      "summary": "Capacity/hard-limits sizing for the two PAT loads on Experience Cloud (Customer Community). Insight: the ceiling is not 'N simultaneous users' but the 25 concurrent synchronous long-running (>5s) Apex transactions per org (CONCURRENT_REQUESTS_LIMIT_EXCEEDED). Load A: 800K estabelecimentos x1 access/month = light, cacheable reads (~0.3-5 logins/s). Load B: 1M beneficiaria logins over a 5-day window uploading payroll CSV (E03), ~40% on the last day -> ~11 logins/s avg, ~28/s peak. Synchronous critique at that peak is INFEASIBLE (25 slots => <5 uploads/s at 5s each vs ~28/s demand -> org-wide instability). Viable design: async decoupling -> fast dumb upload (Files/ContentVersion or external S3, <1s) -> background processing (Bulk API 2.0 150M rec/24h, Batch Apex, or Platform Events) -> async status notify; CDN/cache for guest+read pages. Fase 1 tailwind: folha lines do NOT persist (G0310), so risk concentrates on upload+critique which the queue absorbs. Licensing is login-based (1 login/24h) -> size pool by beneficiaria peak month. Documented as a dedicated 'Capacidade & Hard Limits' tab in deal-review.html.",
       "friction": [],
       "decisions": [
         {
@@ -464,19 +464,19 @@
         "revise",
         "validate"
       ],
-      "summary": "Revise (3º sweep): mudança confirmada na notificação às facilitadoras quando a beneficiária publica uma demanda. MVP até 15/nov = ENDPOINT DE CONSULTA (pull via API/MuleSoft, E05) — a facilitadora consulta, sem push ativo, coerente com facilitadora API-only (ADR 0004). Notificação ativa (push) = roadmap futuro, com CANAL A DEFINIR — a escolha do canal condiciona posicionar ou não Marketing Cloud. Propagado em epics.json (E02/E05), gaps.json (G0207 resolvido para pull, G0209 reforçado, G0211 novo), CSVs, 02-delivery-plan.md (roadmap-futuro linha 3 + fases 1/2 + de-escopo), 01-solution.md (mecânica de notificação + correção de 7 referências stale de 'Apex managed sharing'/licenciamento que o 2º sweep não alcançara), executive-summary.md, deal-review.html. Sem impacto de sizing/timeline/preço (endpoint de consulta é mais leve; push saiu do MVP). Depois: validate.",
+      "summary": "Revise (3º sweep): mudança confirmada na notificação às facilitadoras quando a beneficiária publica uma demanda. Fase 1 até 15/nov = ENDPOINT DE CONSULTA (pull via API/MuleSoft, E05) — a facilitadora consulta, sem push ativo, coerente com facilitadora API-only (ADR 0004). Notificação ativa (push) = roadmap futuro, com CANAL A DEFINIR — a escolha do canal condiciona posicionar ou não Marketing Cloud. Propagado em epics.json (E02/E05), gaps.json (G0207 resolvido para pull, G0209 reforçado, G0211 novo), CSVs, 02-delivery-plan.md (roadmap-futuro linha 3 + etapas 1/2 + de-escopo), 01-solution.md (mecânica de notificação + correção de 7 referências stale de 'Apex managed sharing'/licenciamento que o 2º sweep não alcançara), executive-summary.md, deal-review.html. Sem impacto de sizing/timeline/preço (endpoint de consulta é mais leve; push saiu da Fase 1). Depois: validate.",
       "friction": [
         "01-solution.md carregava referências stale de 'Apex managed sharing'/'propostas ocultas' do 2º sweep (equidade-por-construção) que não haviam sido propagadas ao doc de solução — corrigidas neste sweep."
       ],
       "decisions": [
         {
-          "decision": "MVP entrega endpoint de consulta (pull), não notificação ativa (push)",
+          "decision": "Fase 1 entrega endpoint de consulta (pull), não notificação ativa (push)",
           "rationale": "Push movido para roadmap futuro; canal a definir gate para Marketing Cloud (G0211)."
         }
       ],
       "open_threads": [
         "G0211: canal da notificação ativa/push às facilitadoras indefinido (e-mail, webhook/evento, WhatsApp/BSP, in-app ou jornada Marketing Cloud) — decide se posicionamos Marketing Cloud (G0209).",
-        "Validate FAIL 'E06 sem fase' é ESPERADO/intencional: E06 (Agentforce) é de-escopo #1 / roadmap futuro, fora do MVP de 13 semanas por decisão. Não é defeito; export exigirá confirmação.",
+        "Validate FAIL 'E06 sem fase' é ESPERADO/intencional: E06 (Agentforce) é de-escopo #1 / roadmap futuro, fora da Fase 1 de 13 semanas por decisão. Não é defeito; export exigirá confirmação.",
         "2 WARN de mtime (estimates vs epics; resource-plan vs roadmap) são falsos-positivos deste sweep — a mudança de notificação não alterou sizing/timeline/roster."
       ],
       "next_steps": [
@@ -512,7 +512,7 @@
       "decisions": [],
       "open_threads": [
         "Rate flags ⚠: Payments/Financial Architecture Specialist e Change & Adoption sem correspondente exato na tabela Dataprev — taxa de conversão a confirmar",
-        "Preço é ponto na janela fixa (não faixa); sizes Assumed atrás dos blockers de Fase 0"
+        "Preço é ponto na janela fixa (não faixa); sizes Assumed atrás dos blockers de Etapa 0"
       ],
       "next_steps": [
         "slides (3º da sequência export→commercials→slides)"
@@ -544,19 +544,19 @@
       "skills_used": [
         "backlog"
       ],
-      "summary": "Backlog (human-delivery handoff) do MVP: geradas 158 histórias INVEST via 8 epic-analysts paralelos, cobertura completa das 8 épicas do MVP (E01=13, E02=30, E03=31, E04=19, E05=30, E07=10, E08=16, E09=9). E06/Agentforce fora (de-escopo/roadmap futuro). Acceptance criteria em Given/When/Then, aterrados em .discovery-context.md + 5 ADRs + KB de marketplace; tags [KB:]/[extends:]/[assumption:] nas alegações load-bearing. Distribuição de confiança: 46 Confirmed / 108 Assumed / 4 TBD. E03 mantida como está por escolha do usuário no gate. Salvo em data/user-stories.json (158 IDs únicos, schema OK) + regenerado data/csv/01-user-stories.csv via json-to-csv.py.",
+      "summary": "Backlog (human-delivery handoff) da Fase 1: geradas 158 histórias INVEST via 8 epic-analysts paralelos, cobertura completa das 8 épicas da Fase 1 (E01=13, E02=30, E03=31, E04=19, E05=30, E07=10, E08=16, E09=9). E06/Agentforce fora (de-escopo/roadmap futuro). Acceptance criteria em Given/When/Then, aterrados em .discovery-context.md + 5 ADRs + KB de marketplace; tags [KB:]/[extends:]/[assumption:] nas alegações load-bearing. Distribuição de confiança: 46 Confirmed / 108 Assumed / 4 TBD. E03 mantida como está por escolha do usuário no gate. Salvo em data/user-stories.json (158 IDs únicos, schema OK) + regenerado data/csv/01-user-stories.csv via json-to-csv.py.",
       "friction": [
         "3 stories retornaram uncertainty_level Unknown (fora do schema Confirmed|Assumed|TBD) — normalizadas para TBD no merge (E02 US-0229/US-0230, E03 US-0305)",
         "Recuperação dos arrays de E02-E09 a partir do transcript da sessão anterior (compaction) para retomar o save em etapas"
       ],
       "decisions": [
         {
-          "decision": "Cobertura completa (full coverage) — sem intents.json, backlog cobre todas as 8 épicas do MVP",
-          "rationale": "quantum-leap não rodou (sem data/intents.json); regra do skill = full coverage; E06 excluída por estar fora do MVP de 13 semanas"
+          "decision": "Cobertura completa (full coverage) — sem intents.json, backlog cobre todas as 8 épicas da Fase 1",
+          "rationale": "quantum-leap não rodou (sem data/intents.json); regra do skill = full coverage; E06 excluída por estar fora da Fase 1 de 13 semanas"
         }
       ],
       "open_threads": [
-        "Muitas histórias Assumed atrás dos blockers de Fase 0 (contratos de API, gateway PCI, fronteira de residência, versão da licença da beneficiária G0103/G0108) — histórias a re-confirmar quando os ADRs forem ratificados",
+        "Muitas histórias Assumed atrás dos blockers de Etapa 0 (contratos de API, gateway PCI, fronteira de residência, versão da licença da beneficiária G0103/G0108) — histórias a re-confirmar quando os ADRs forem ratificados",
         "4 TBD marcam decisões abertas (licença de portal da beneficiária, integração de vínculos/procuração Geride)"
       ],
       "next_steps": [
@@ -570,7 +570,7 @@
       "skills_used": [
         "export"
       ],
-      "summary": "Re-export pós-backlog: scoping-deliverables.xlsx reconstruído com 9 abas (Epics, Gap Analysis, User Stories NOVA, Estimates, Roadmap Phases, Roles & Skills, Efficiency, Commercials, Estimate Comparison). Aba User Stories com as 158 histórias INVEST do MVP. openpyxl presente → workbook primário (sem fallback zip). Validador rodado antes = PASS clean (3 WARN mtime não-bloqueantes, falsos-positivos de sweeps anteriores); sem rfp.json → review de artefato pulado; sem vazamento de preço.",
+      "summary": "Re-export pós-backlog: scoping-deliverables.xlsx reconstruído com 9 abas (Epics, Gap Analysis, User Stories NOVA, Estimates, Roadmap Phases, Roles & Skills, Efficiency, Commercials, Estimate Comparison). Aba User Stories com as 158 histórias INVEST da Fase 1. openpyxl presente → workbook primário (sem fallback zip). Validador rodado antes = PASS clean (3 WARN mtime não-bloqueantes, falsos-positivos de sweeps anteriores); sem rfp.json → review de artefato pulado; sem vazamento de preço.",
       "friction": [],
       "decisions": [],
       "open_threads": [
@@ -587,13 +587,13 @@
       "skills_used": [
         "quantum-leap"
       ],
-      "summary": "Gerado o build-handoff bundle quantum-leap (24 arquivos, estrutura v0.3) para DATAPREV-PAT. 8 epic-analyst agents (modo intents) produziram 49 capability intents mescladas em data/intents.json com IDs INT-001..049 estáveis, ordenados por fase→épica. Deps internas fiadas centralmente para os anchors de cada épica-alvo (E01→INT-001/009; E02→INT-001/014; E03→INT-001/009/014; E04→INT-001/014; E07→INT-001). 4 phase briefs (Fases 1-4) staged em .quantum-leap-staging/; Fases 0 (provisionamento) e 5 (E06/Agentforce, fora do MVP) renderizadas como stubs com banner DO-NOT-BUILD. Target org: DATAPREV-PAT Greenfield (scratch, greenfield); blueprint Mixed/multi-cloud. Validator PASS (deps internas resolvem, épicas/fases válidas, sem vazamento de preço).",
+      "summary": "Gerado o build-handoff bundle quantum-leap (24 arquivos, estrutura v0.3) para DATAPREV-PAT. 8 epic-analyst agents (modo intents) produziram 49 capability intents mescladas em data/intents.json com IDs INT-001..049 estáveis, ordenados por fase→épica. Deps internas fiadas centralmente para os anchors de cada épica-alvo (E01→INT-001/009; E02→INT-001/014; E03→INT-001/009/014; E04→INT-001/014; E07→INT-001). 4 phase briefs (Etapas 1-4) staged em .quantum-leap-staging/; Etapas 0 (provisionamento) e 5 (E06/Agentforce, fora da Fase 1) renderizadas como stubs com banner DO-NOT-BUILD. Target org: DATAPREV-PAT Greenfield (scratch, greenfield); blueprint Mixed/multi-cloud. Validator PASS (deps internas resolvem, épicas/fases válidas, sem vazamento de preço).",
       "friction": "27 intents (todas E02/E03/E04) vieram com 4 seções em vez de 5 (sem acceptance); acceptance auto-derivada centralmente do outcome+guardrail top e sinalizada ao usuário como candidata a enriquecimento manual por arquiteto. Cada epic-analyst estourou o limite ao ler .discovery-context.md direto (323KB) mas recuperou via gaps.json/decisions/knowledge.",
       "decisions": [
         "49 capability intents; IDs INT-NNN estáveis atribuídos centralmente por fase→ordem de épica",
         "Deps internas fiadas ao anchor (data-model preferido, senão primeiro) de cada épica-alvo; deps externas preservadas como os agents retornaram",
         "Acceptance auto-derivada para E02/E03/E04 (27 intents) — marcada para enriquecimento do arquiteto",
-        "Fase 0 e Fase 5 permanecem stubs DO-NOT-BUILD (provisionamento / E06 fora do MVP)"
+        "Etapa 0 e Etapa 5 permanecem stubs DO-NOT-BUILD (provisionamento / E06 fora da Fase 1)"
       ],
       "open_threads": [
         "Enriquecer as 27 acceptances auto-derivadas (E02/E03/E04) em data/intents.json antes de caminhar os intents com o cliente",
@@ -637,6 +637,40 @@
         "Se houver RFP formal, rodar rfp; caso contrário, deck-cycle está completo e o bundle está pronto para consumo por build agent",
         "Abrir o presentation-deck.pptx para conferência de layout se for apresentar"
       ]
+    },
+    {
+      "date": "2026-08-03",
+      "skills_used": [
+        "revise"
+      ],
+      "summary": "Re-plan de cronograma/estimativa propagado por TODOS os outputs (revise). Mudança confirmada: MuleSoft passa a REUSAR a instalação on-premise existente (não greenfield) → ADR 0006 supersede parcialmente 0005. Blast radius: eliminadas as 2 sem de aprovisionamento (antiga Etapa 0); arquitetura mesclada ao P&D da Fundação (4 sem, inicia S1); frentes paralelizadas (Marketplace S5-S10, Financeiro XL S6-S11); UAT antecipado desde a entrega do Marketplace (S8-S13, +1 sem); carga mínima em 2 sem (S12-S13); go-live 15/nov; +4 sem Scale/Hypercare (S14-S17). Build RE-DERIVADO por janela (não conservado): 5.120h = 4.880 build + 240 Scale; frente MuleSoft contínua E05 (S1-S11) + Arquiteto Técnico MuleSoft novo (integral S1-S4, 20h/sem no dev); Engagement Manager removido, accountability absorvida pelo Senior PM integral. Preço com imposto R$ 4.127.216,27 (÷0,9345), sem imposto R$ 3.856.883,60. Propagado em data/*.json (roadmap, resource-plan, commercials, estimate-comparison), outputs/{01-solution,02-delivery-plan}.md, outputs/artifacts/{executive-summary,presentation-outline,commercials,estimate-comparison,efficiency-analysis}.md, rom-cliente.html (s9 timeline 17-sem + s10 estimate), presentation-deck.html + .pptx (13 slides re-render), deal-review.html.",
+      "friction": [
+        "Subagente de presentation-deck.html morreu com API Error mid-response; refeito diretamente. Subagente de deal-review.html rodou em background até a conclusão.",
+        "Nenhum venv-export persistido da sessão anterior; recriado (.quantum-leap-staging/venv-export) com playwright+python-pptx e chromium próprio.",
+        "validate FAIL de pricing-leak é falso-positivo: valores de domínio (R$ 44/dia, R$ 245.760 folha, R$ 150-200 bi mercado) em walkthroughs de intents/scoping-context, não rates PS."
+      ],
+      "decisions": [
+        {
+          "decision": "Build re-derivado por janela, aumentando horas (não conservado)",
+          "rationale": "Instrução explícita do Solution Manager: janelas de dev mais longas e frente MuleSoft contínua justificam mais esforço; 4.180h→5.120h."
+        },
+        {
+          "decision": "Engagement Manager removido; Senior PM integral absorve a accountability",
+          "rationale": "Evita papel duplicado de coordenação; Senior PM 40h/sem nas 13 semanas de build cobre MTE×Dataprev."
+        },
+        {
+          "decision": "Scale/Hypercare escopo estrito: sustentar, manter, cutover — sem novo desenvolvimento",
+          "rationale": "Time enxuto reusa perfis do build (0,5 CT + 0,5 Dev MuleSoft + 10h TA + 10h Senior PM × 4 sem)."
+        }
+      ],
+      "open_threads": [
+        "ADR 0006 (reuso MuleSoft on-premise) e instância dedicada seguem Assumed — ratificar por escrito com a arquitetura Dataprev.",
+        "Destravamentos externos restantes: provisionamento org 100% greenfield + seleção do gateway + confirmação de acessos/ambientes/capacidade no MuleSoft on-premise existente."
+      ],
+      "next_steps": [
+        "Ratificar ADR 0006 + instância dedicada por escrito.",
+        "Se a Fundação re-scopear sizes novos, considerar grill-me-on-scope na fatia tocada."
+      ]
     }
   ],
   "preferences": {},
@@ -671,7 +705,7 @@
       "date": "2026-07-31",
       "area": "architecture",
       "decision": "Instância Salesforce dedicada e apartada para o MTE/PAT (ADR 0002)",
-      "rationale": "Isolamento forçado por segurança/sensibilidade financeira, volumetria (~800k/~450k), auditabilidade TCU/CGU/ANPD e administração pelo próprio MTE. Ainda verbal, a ratificar por escrito. Provisionamento vira pré-req de Fase 0 (lead-time externo).",
+      "rationale": "Isolamento forçado por segurança/sensibilidade financeira, volumetria (~800k/~450k), auditabilidade TCU/CGU/ANPD e administração pelo próprio MTE. Ainda verbal, a ratificar por escrito. Provisionamento vira pré-req de Etapa 0 (lead-time externo).",
       "rejected": [
         "org compartilhada com demais clientes Dataprev",
         "dual pricing Cenário A (compartilhada) vs B (dedicada)"
@@ -690,8 +724,8 @@
     {
       "date": "2026-07-31",
       "area": "scope+timeline",
-      "decision": "Modo data-fixa: go-live imóvel 15/nov/2026, janela de 13 semanas, MVP de 8 épicas (E06/Agentforce de-escopado como buffer)",
-      "rationale": "Interoperabilidade total do Decreto 12.712/2025 + entrada do financeiro em produção fixam a data. Trilha tradicional (18-38 sem) não alcança; AI-native + MVP é a única trilha viável, o que agrava o risco #1 (prontidão de IA Low 2/8). Escopo é a variável de flexão; de-escopo (E06, Data Cloud em E02, Marketing Cloud, carga massiva, adoção completa) é o buffer.",
+      "decision": "Modo data-fixa: go-live imóvel 15/nov/2026, janela de 13 semanas, Fase 1 de 8 épicas (E06/Agentforce de-escopado como buffer)",
+      "rationale": "Interoperabilidade total do Decreto 12.712/2025 + entrada do financeiro em produção fixam a data. Trilha tradicional (18-38 sem) não alcança; AI-native + Fase 1 é a única trilha viável, o que agrava o risco #1 (prontidão de IA Low 2/8). Escopo é a variável de flexão; de-escopo (E06, Data Cloud em E02, Marketing Cloud, carga massiva, adoção completa) é o buffer.",
       "rejected": [
         "comprimir 18-38 semanas de escopo completo em 13",
         "mover a data"
@@ -711,7 +745,7 @@
       "date": "2026-07-31",
       "area": "architecture",
       "decision": "Org 100% greenfield (nova, apartada de qualquer ambiente/admins Dataprev) + MuleSoft ON-PREMISE (ADR 0005)",
-      "rationale": "Premissa do usuário (31/jul). O isolamento greenfield + on-premise é o mecanismo de soberania de dados: a integração e o ponto de des-tokenização de CPF ficam no perímetro Dataprev (aderente ao ADR 0001). Resolve G0504 (hospedagem MuleSoft). Cria 3 pré-requisitos externos de lead-time na Fase 0 (org, infra on-premise, gateway) — o maior risco à data fixa.",
+      "rationale": "Premissa do usuário (31/jul). O isolamento greenfield + on-premise é o mecanismo de soberania de dados: a integração e o ponto de des-tokenização de CPF ficam no perímetro Dataprev (aderente ao ADR 0001). Resolve G0504 (hospedagem MuleSoft). Cria 3 pré-requisitos externos de lead-time na Etapa 0 (org, infra on-premise, gateway) — o maior risco à data fixa.",
       "rejected": [
         "MuleSoft CloudHub / fora do perímetro Dataprev",
         "build sobre org/ambiente Dataprev existente"
@@ -721,7 +755,7 @@
       "date": "2026-07-31",
       "area": "timeline",
       "decision": "Timeline comprometida com datas fixas: início 17/ago/2026 → homologação (UAT) início nov → go-live PRODUÇÃO 15/nov/2026 (13 semanas), com marcos de projeto/decreto/jornada para UAT e PROD e flag de inviabilidade se um pré-requisito escorregar",
-      "rationale": "Compromisso do usuário (31/jul), modo data-fixa planejado de trás pra frente. Estratégia de viabilidade: definição de objetos fundacionais + mapeamento de dados com o time inteiro primeiro, depois paralelização das frentes de baixa dependência. Se a homologação achar defeito no financeiro ou um pré-req da Fase 0 atrasar, 15/nov não é alcançável só com esforço — de-escopo (E03 primeiro) é o único trilho, sinalizado na timeline.",
+      "rationale": "Compromisso do usuário (31/jul), modo data-fixa planejado de trás pra frente. Estratégia de viabilidade: definição de objetos fundacionais + mapeamento de dados com o time inteiro primeiro, depois paralelização das frentes de baixa dependência. Se a homologação achar defeito no financeiro ou um pré-req da Etapa 0 atrasar, 15/nov não é alcançável só com esforço — de-escopo (E03 primeiro) é o único trilho, sinalizado na timeline.",
       "rejected": [
         "janela set→nov sem datas de arranque comprometidas",
         "paralelizar antes de fixar o modelo de dados fundacional"
@@ -739,10 +773,20 @@
     {
       "date": "2026-07-31",
       "area": "scope",
-      "decision": "Descoberta de demanda pela facilitadora: MVP (até 15/nov) entrega ENDPOINT DE CONSULTA (pull via API/MuleSoft, E05); notificação ATIVA (push) fica no roadmap futuro com o canal a definir.",
+      "decision": "Descoberta de demanda pela facilitadora: Fase 1 (até 15/nov) entrega ENDPOINT DE CONSULTA (pull via API/MuleSoft, E05); notificação ATIVA (push) fica no roadmap futuro com o canal a definir.",
       "rationale": "Coerente com facilitadora API-only (ADR 0004) — sem assento de portal para receber push. Endpoint de consulta é mais leve e cabe na janela fixa; o push depende de uma decisão de canal que ainda não existe (G0211), e essa decisão é o que condiciona posicionar ou não Marketing Cloud (G0209).",
       "rejected": [
-        "Entregar notificação ativa (push) no MVP — rejeitado: canal indefinido, somaria produto/esforço não dimensionável e pressão sobre a data fixa de 15/nov"
+        "Entregar notificação ativa (push) na Fase 1 — rejeitado: canal indefinido, somaria produto/esforço não dimensionável e pressão sobre a data fixa de 15/nov"
+      ]
+    },
+    {
+      "date": "2026-08-03",
+      "area": "roadmap/estimate",
+      "decision": "Re-plan sobre a premissa de reuso do MuleSoft on-premise (ADR 0006): programa passa a 17 semanas (13 build + 4 Scale/Hypercare), 6 frentes + frente MuleSoft contínua (E05, S1-S11), build re-derivado por janela para 5.120h (4.880 build + 240 Scale) e preço indicativo R$ 4.127.216,27 c/ imp. Engagement Manager eliminado (Senior PM integral absorve).",
+      "rationale": "Confirmado com a arquitetura Dataprev (03/ago): reuso da instalação MuleSoft on-premise existente elimina as 2 sem de aprovisionamento (antiga Etapa 0) e devolve folga a janelas de dev mais longas/paralelas — reduz risco de prazo, não a duração do build. Ver ADR 0006 (premissa).",
+      "rejected": [
+        "Conservar as 4.180h ao re-planejar — rejeitado: instrução explícita de re-derivar aumentando horas com frente MuleSoft contínua + Arquiteto Técnico MuleSoft dedicado.",
+        "Manter Engagement Manager separado — rejeitado: coordenação duplicada; Senior PM integral cobre a accountability."
       ]
     }
   ]
