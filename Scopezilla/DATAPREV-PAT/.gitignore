@@ -8,3 +8,7 @@
 
 # macOS cruft
 .DS_Store
+
+# PPTX-export scratch (isolated venv + intermediate slide renders) — not source
+.venv-export/
+.quantum-leap-staging/slides-png/
