@@ -262,7 +262,7 @@
 <!-- 8 — Escopo -->
 <section class="slide">
   <div class="slide-eyebrow">Prova · Escopo</div>
-  <h2 class="slide-title sm">Nove épicas cobrem o fluxo completo; a Fase 1 comprometido entrega oito</h2>
+  <h2 class="slide-title sm">Dez épicas no programa; a Fase 1 regulatória entrega oito, mais a frente Tableau paralela</h2>
   <table class="sz-table">
     <thead><tr><th>Épica</th><th style="width:70px">Tamanho</th><th>Na Fase 1</th></tr></thead>
     <tbody>
@@ -275,16 +275,17 @@
       <tr><td>Credenciamento + vigilância sanitária</td><td><span class="sz-tag sz-tag--sz-m">M</span></td><td>Sim</td></tr>
       <tr><td>Migração & Carga</td><td><span class="sz-tag sz-tag--sz-m">M</span></td><td>Sim</td></tr>
       <tr><td>Gestão de Mudança & Adoção</td><td><span class="sz-tag sz-tag--sz-m">M</span></td><td>Sim</td></tr>
+      <tr><td>Painéis Analíticos — Tableau (E10)</td><td><span class="sz-tag sz-tag--sz-m">M</span></td><td><span class="sz-tag sz-tag--medium">Sim — paralela</span></td></tr>
     </tbody>
   </table>
-  <p class="foot">Tamanho (T-shirt) = complexidade relativa — não é esforço, não converte em horas, não multiplica por uma taxa. Agentforce é o primeiro candidato a de-escopo, tratado como buffer de cronograma.</p>
+  <p class="foot">Tamanho (T-shirt) = complexidade relativa — não é esforço, não converte em horas, não multiplica por uma taxa. Agentforce é o primeiro candidato a de-escopo, tratado como buffer de cronograma. A frente Tableau (E10, incremento 04/ago) roda em paralelo a partir de S10, sobre a instalação Tableau existente, e é a única estimada também pelo esforço real (280h) — off-critical-path, não gateia o go-live de 15/nov.</p>
   <span class="slide-num"></span>
 </section>
 
 <!-- 9 — Roadmap -->
 <section class="slide">
   <div class="slide-eyebrow">Prova · Cronograma</div>
-  <h2 class="slide-title sm">Seis frentes + Scale, planejadas de trás pra frente a partir da data fixa</h2>
+  <h2 class="slide-title sm">Seis frentes + Scale + Tableau paralela, planejadas de trás pra frente a partir da data fixa</h2>
   <div class="sz-timeline">
     <div class="sz-phase"><div class="sz-phase-name">Fundação — Modelo de dados + Arquitetura</div><div class="sz-phase-dur">17 ago–13 set · 4 sem · inicia na Sem. 1</div></div>
     <div class="sz-phase"><div class="sz-phase-name">Frente MuleSoft (E05) — contínua</div><div class="sz-phase-dur">S1–S11 · reuso on-premise</div></div>
@@ -293,6 +294,7 @@
     <div class="sz-phase"><div class="sz-phase-name">Homologação (UAT) — desde o Marketplace</div><div class="sz-phase-dur">5 out–14 nov · 6 sem</div></div>
     <div class="sz-phase"><div class="sz-phase-name">Carga Mínima & Go-live PROD</div><div class="sz-phase-dur">2–15 nov · 2 sem</div></div>
     <div class="sz-phase"><div class="sz-phase-name">Scale / Hypercare</div><div class="sz-phase-dur">16 nov–13 dez · 4 sem</div></div>
+    <div class="sz-phase"><div class="sz-phase-name">Painéis Analíticos (Tableau · E10) — paralela</div><div class="sz-phase-dur">S10–S15 · off-critical-path · não gateia o go-live</div></div>
   </div>
   <div class="sz-tldr">
     <div class="sz-tldr-label">Caminho crítico</div>
@@ -336,18 +338,18 @@
 <!-- 12 — Investimento -->
 <section class="slide">
   <div class="slide-eyebrow">Investimento indicativo</div>
-  <h2 class="slide-title sm">Investimento indicativo do programa completo na janela fixa: R$ 4,09M (com imposto)</h2>
+  <h2 class="slide-title sm">Investimento indicativo do programa completo na janela fixa: R$ 4,30M (com imposto)</h2>
   <div class="sz-stats">
-    <div class="sz-stat"><div class="sz-stat-num">R$ 4,09M</div><div class="sz-stat-lbl">Com imposto (R$ 3,82M sem)</div></div>
+    <div class="sz-stat"><div class="sz-stat-num">R$ 4,30M</div><div class="sz-stat-lbl">Com imposto (R$ 4,02M sem)</div></div>
     <div class="sz-stat"><div class="sz-stat-num">AI-native</div><div class="sz-stat-lbl">Trilha comprometida</div></div>
-    <div class="sz-stat"><div class="sz-stat-num">17 sem</div><div class="sz-stat-lbl">13 build + 4 Scale/Hypercare</div></div>
-    <div class="sz-stat"><div class="sz-stat-num">5.200h</div><div class="sz-stat-lbl">4.880 build + 320 Scale</div></div>
+    <div class="sz-stat"><div class="sz-stat-num">17 sem</div><div class="sz-stat-lbl">13 build + 4 Scale + Tableau paralela</div></div>
+    <div class="sz-stat"><div class="sz-stat-num">5.480h</div><div class="sz-stat-lbl">4.880 build + 320 Scale + 280 Tableau</div></div>
   </div>
   <div class="sz-tldr">
     <div class="sz-tldr-label">Validated-Rate Disclaimer</div>
     <p><em>This range is based on the rate of the official Salesforce PS LATAM rate table (per-role, R$ 573,98–R$ 884,68/h sem imposto, mapeado por função no roster) you supplied and validated on 2026-07-31. Indicative for planning only; final commercial structure is confirmed through the applicable commercial agreement.</em></p>
   </div>
-  <p class="foot">Ponto indicativo, não faixa. É o valor cobrado ao cliente (bill rate) — não custo, não margem, não preço fechado. Inclui as 4 semanas de Scale/Hypercare (R$ 247 mil c/ imp). O número se move com o escopo; o de-escopo (E03 primeiro) é o trilho se um pré-requisito escorregar (org greenfield, gateway, acessos ao MuleSoft on-premise).</p>
+  <p class="foot">Ponto indicativo, não faixa. É o valor cobrado ao cliente (bill rate) — não custo, não margem, não preço fechado. Inclui as 4 semanas de Scale/Hypercare (R$ 247 mil c/ imp) e a frente Tableau/painéis analíticos (E10 · R$ 210 mil c/ imp · 280h · paralela e off-critical-path, não gateia o go-live). O número se move com o escopo; o de-escopo (E03 primeiro) é o trilho se um pré-requisito escorregar (org greenfield, gateway, acessos ao MuleSoft on-premise).</p>
   <span class="slide-num"></span>
 </section>
 

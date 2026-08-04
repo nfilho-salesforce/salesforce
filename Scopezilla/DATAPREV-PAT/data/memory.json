@@ -735,7 +735,7 @@
       "skills_used": [
         "revise"
       ],
-      "summary": "Incremento de escopo: nova FRENTE TABLEAU (E10) — até 3 painéis analíticos (Visão Negócio, Visão Projeto, Visão MTE) com até 12 componentes, sobre a instalação Tableau EXISTENTE. Estimada pelo ESFORÇO REAL: 280h (Analytics - Technical Consultant integral 240h × R$ 668,78 + Solution Architect fracional 40h × R$ 884,68 reusando o SA do build) = R$ 195.894,40 sem imposto / R$ 209.625,89 com imposto. Janela S10-S15, PARALELA e off-critical-path — não gateia o go-live de 15/nov. revise propagou o change set confirmado ao longo da ordem de derivação: epics.json (E10 novo), estimates.json (E10 M, effort_real 280h), roadmap.json (fase 7 paralela), resource-plan.json (T01/T02), commercials.json (total 5.480h / R$ 4.018.235,40 sem / R$ 4.299.877,54 com), estimate-comparison.json (epics 10, size M:4, roster, delta lever), gaps.json (G1001-G1003 assumptions).",
+      "summary": "Incremento de escopo: nova FRENTE TABLEAU (E10) — até 3 painéis analíticos (Visão Negócio, Visão Projeto, Visão MTE) com até 12 componentes, sobre a instalação Tableau EXISTENTE. Estimada pelo ESFORÇO REAL: 280h (Analytics - Technical Consultant integral 240h × R$ 668,78 + Solution Architect fracional 40h × R$ 884,68 reusando o SA do build) = R$ 195.894,40 sem imposto / R$ 209.625,89 com imposto. Janela S10-S15, PARALELA e off-critical-path — não gateia o go-live de 15/nov. revise propagou o change set confirmado ao longo da ordem de derivação: epics.json (E10 novo), estimates.json (E10 M, effort_real 280h), roadmap.json (fase 7 paralela), resource-plan.json (T01/T02), commercials.json (total 5.480h / R$ 4.018.235,40 sem / R$ 4.299.877,54 com), estimate-comparison.json (epics 10, size M:4, roster, delta lever), gaps.json (G1001-G1003 assumptions). CONSISTÊNCIA (04/ago, mesma sessão): fechados os outputs restantes — deal-review.html, presentation-deck.html, cronograma-standalone.html e 02-delivery-plan.md com a frente Tableau; PPTX (13 slides) e cronograma-pat.png (3920×2124) re-renderizados via pipeline Playwright. Corrigidas 2 regressões de validador introduzidas na expansão do resource-plan: allocations compostas inválidas (R13 full-then-fractional→full, R12 half-then-full→half, T02/S03/S04 fractional→quarter, com allocation_by_phase preservado) e commercials.effort_basis.source re-derived-by-window→top-down-shape. Validador: resource-plan.json e commercials.json agora PASS; remanescem apenas os flags soft pré-existentes (categorias descritivas de gaps G0510/G0511/G1001-G1003, soma de fases paralelas no roadmap, e falsos-positivos de $ nas narrativas de intents) — mesmo estado de RESULT:FAIL do baseline pré-E10 (8a606f6), sem novo modo de falha introduzido.",
       "friction": [],
       "decisions": [
         {
@@ -752,8 +752,8 @@
         "E10: confirmar fonte ~80% nativa + 1 blend leve (G1002) e modelo RLS por perfil × 3 audiências (G1003)"
       ],
       "next_steps": [
-        "Grillar a fatia E10 recém-mintada (Assumed) antes que chegue ao cliente",
-        "Atualizar outputs restantes (rom-cliente.html s5b/s6/s9/s10, deal-review, presentation-deck, PPTX) e validar"
+        "Grillar a fatia E10 recém-mintada (Assumed: G1001-G1003) antes que chegue ao cliente — grill-me-on-scope escopado só ao slice Tableau",
+        "Workshop de descoberta E10 para fixar métricas/campos/componentes por painel, ratificar fonte de dados e modelo de RLS"
       ]
     }
   ],

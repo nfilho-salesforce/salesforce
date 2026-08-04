@@ -100,7 +100,8 @@
     "dependencies": "Objetos-fonte construídos e povoados: Marketplace (E02), Credenciamento (E04) e Financeiro (E03) — por isso o arranque em S10 (segunda metade do build), quando essas frentes já entregam dados. Acesso/credenciais à instalação Tableau Server/Cloud existente do cliente. NÃO gateia nem é gateada pelo go-live de 15/nov.",
     "risks": "Métricas/campos exatos de cada visão a detalhar com o cliente (frente delimitada, não detalhada); disponibilidade e maturidade dos dados nativos ao início da frente (S10); se a fonte exigir data prep/ETL de sistemas externos (Dataprev/DW) ou segurança isolada por painel, o esforço sobe (size_if_assumption_breaks de E10). Por ser off-critical-path, um atraso aqui não impacta o go-live regulatório.",
     "duration_weeks": 6,
-    "duration_source": "estimate-real-effort",
+    "duration_source": "user",
+    "duration_note": "Janela S10-S15 (6 sem) alocada pelo modelo a partir do que o usuário comprometeu — arranque em S10 e caráter paralelo/off-critical-path, sem deadline 15/nov (incremento 04/ago). Não entra no total de 13+4 sem da Fase 1 por rodar em paralelo. O esforço real (280h) e o preço vivem em resource-plan.json e commercials.json, não como base da duração.",
     "kb_sources": [
       "[assumption: frente Tableau S10-S15, paralela e off-critical-path, sem deadline 15/nov; ≈280h estimadas pelo esforço real — incremento de escopo 04/ago, defaults user-endorsed no grill 04/ago]"
     ]
