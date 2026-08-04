@@ -9,26 +9,29 @@
     "mode": "fixed-date-backward-planned",
     "go_live": "15/nov/2026",
     "total_weeks": 17,
-    "weeks_note": "13 semanas de build/Fase 1 (17/ago → go-live 15/nov) + 4 semanas de Scale/Hypercare (16/nov → 13/dez).",
-    "scope": "Fase 1 — 8 épicas (E01,E02,E03,E04,E05,E07,E08,E09). E06 (Agentforce) fora da Fase 1; Data Cloud em E02 e Marketing Cloud/alertas também de-escopados como buffer de cronograma. Acrescido de 4 semanas de Scale/Hypercare pós-go-live (sustentar, manter, cutover — sem build de nova funcionalidade).",
+    "weeks_note": "13 semanas de build/Fase 1 (17/ago → go-live 15/nov) + 4 semanas de Scale/Hypercare (16/nov → 13/dez). Frente Tableau (E10) roda em PARALELO S10-S15, off-critical-path — não estende o cronograma nem gateia o go-live.",
+    "scope": "Fase 1 — 8 épicas (E01,E02,E03,E04,E05,E07,E08,E09). E06 (Agentforce) fora da Fase 1; Data Cloud em E02 e Marketing Cloud/alertas também de-escopados como buffer de cronograma. Acrescido de 4 semanas de Scale/Hypercare pós-go-live (sustentar, manter, cutover — sem build de nova funcionalidade). INCREMENTO 04/ago: nova FRENTE TABLEAU (E10) — até 3 painéis (Visão Negócio, Visão Projeto, Visão MTE) com até 12 componentes, reusando a instalação Tableau existente. Paralela e off-critical-path (S10-S15), estimada pelo esforço real (280h).",
     "framing": "A data é o âncora imóvel; o ESCOPO é a variável de flexão. RE-PLANO 03/ago: MuleSoft reusa a instalação on-premise existente (ADR 0006) — elimina o lead-time de aprovisionamento e a Etapa 0; arquitetura mesclada ao Planning & Design da Fundação (inicia na Sem. 1); frentes Marketplace (S5-S10) e Financeiro (S6-S11) paralelizadas em janelas mais longas; UAT antecipado e estendido (S8-S13); carga mínima em 2 semanas. Build re-derivado por janela = 4.880h. + Scale/Hypercare 320h.",
     "committed_lane": "quantum-leap",
     "committed_price": {
       "basis": "roster comprometido (resource-plan.json) RE-DERIVADO por janela de cada recurso no plano paralelizado × 40h, por rate sem imposto",
-      "ps_person_hours": 5200,
+      "ps_person_hours": 5480,
       "ps_person_hours_breakdown": {
         "build": 4880,
-        "scale_hypercare": 320
+        "scale_hypercare": 320,
+        "tableau": 280
       },
-      "no_tax": 3822341,
-      "with_tax": 4090253,
+      "no_tax": 4018235,
+      "with_tax": 4299877,
       "no_tax_build": 3591059,
       "with_tax_build": 3842760,
       "no_tax_scale": 231282,
       "with_tax_scale": 247492,
+      "no_tax_tableau": 195894,
+      "with_tax_tableau": 209625,
       "tax_rule": "com imposto = sem imposto ÷ 0,9345",
       "program_avg_fte": 9.4,
-      "note": "Ponto indicativo do programa (não faixa). Build Fase 1 (13 sem) = 4.880h re-derivadas nas janelas paralelizadas + Arquiteto Técnico MuleSoft (rate 821,49). Scale/Hypercare (4 sem) = 320h. Total 5.200h. Rates corrigidos em 03/ago: MuleSoft TA 884,68→821,49 e ex-Payments→Technical Consultant 884,68→668,78 reduzem o total em R$ 88.045 sem imposto vs. a versão anterior (R$ 3,91M). Sizes Assumed atrás dos blockers de arquitetura.",
+      "note": "Ponto indicativo do programa (não faixa). Build Fase 1 (13 sem) = 4.880h re-derivadas nas janelas paralelizadas + Arquiteto Técnico MuleSoft (rate 821,49). Scale/Hypercare (4 sem) = 320h. Frente Tableau (E10, incremento 04/ago) = 280h paralela/off-critical-path (Analytics - Technical Consultant 240h × 668,78 + Solution Architect 40h × 884,68). Total 5.480h. Rates corrigidos em 03/ago: MuleSoft TA 884,68→821,49 e ex-Payments→Technical Consultant 884,68→668,78 reduzem o total em R$ 88.045 sem imposto vs. a versão anterior (R$ 3,91M). Sizes Assumed atrás dos blockers de arquitetura; E10 delimitada, campos exatos a detalhar.",
       "disclaimers": [
         "rom",
         "validated-rate"
@@ -38,14 +41,14 @@
     "schedule_buffer": "Candidatos a de-escopo, na ordem de primeiro-a-cair: (1) Agentforce E06 inteira; (2) Data Cloud em E02; (3) Marketing Cloud/alertas; (4) carga massiva de dados (E07); (5) adoção completa (E09). Entram na Fase 1 só se a janela permitir; saem primeiro se um risco de caminho crítico se materializar (provisionamento da org dedicada, contratação do gateway PCI)."
   },
   "shared_base": {
-    "epics_count": 9,
+    "epics_count": 10,
     "size_distribution": {
       "XL": 3,
       "L": 3,
-      "M": 3
+      "M": 4
     },
     "size_confidence": "Assumed",
-    "size_confidence_note": "E03 subiu de L para XL: a premissa que o design havia sinalizado em size_if_assumption_breaks se REALIZOU — o ADR 0003 confirma que o motor de regras de split e a conciliação vivem no Salesforce (não no gateway PCI). Distribuição agora {XL:3, L:3, M:3}. Os 9 sizes seguem Assumed atrás dos blockers de arquitetura (G0801 fronteira de residência, G0501 contratos de API, G0504 hospedagem MuleSoft × residência, G0106 identidade gov.br × CPF, G0309 provedor do gateway PCI indefinido). A Etapa 0 aperta essa largura.",
+    "size_confidence_note": "E03 subiu de L para XL: a premissa que o design havia sinalizado em size_if_assumption_breaks se REALIZOU — o ADR 0003 confirma que o motor de regras de split e a conciliação vivem no Salesforce (não no gateway PCI). Incremento 04/ago: E10 (Painéis Analíticos Tableau) somada como M — distribuição agora {XL:3, L:3, M:4}. Os 10 sizes seguem Assumed atrás dos blockers de arquitetura (G0801 fronteira de residência, G0501 contratos de API, G0504 hospedagem MuleSoft × residência, G0106 identidade gov.br × CPF, G0309 provedor do gateway PCI indefinido). E10 é frente delimitada, estimada pelo esforço real. A Etapa 0 aperta essa largura.",
     "ownership_split": "Salesforce PS entrega as 9 épicas (build completo). FRONTEIRA CRM×financeiro (ADR 0003): o Salesforce é o motor de regras de split (calcula/aplica rateio, teto MDR 3,6%, repasse ≤15d), emite boletagem com split, orquestra e concilia; a EXECUÇÃO bancária e a custódia ficam FORA (gateway PCI/banco, contratado pelo cliente). Dataprev é dona da origem dos dados sensíveis e da tokenização (ADR 0001). Confirmado pelo usuário.",
     "range_drivers": [
       {
@@ -78,12 +81,13 @@
       "duration_disclaimer": "benchmark",
       "capacity_summary": {
         "program_avg_fte": 9.4,
-        "peak_distinct_people": 13,
-        "ps_person_hours": 5200,
+        "peak_distinct_people": 14,
+        "ps_person_hours": 5480,
         "ps_person_hours_build": 4880,
         "ps_person_hours_scale": 320,
+        "ps_person_hours_tableau": 280,
         "blended_rate_no_tax": 735.9,
-        "note": "FTE média do build = 4.880 PS person-hours / (13 sem × 40) = 9,4. Roster re-derivado por janela no plano paralelizado: Arquiteto Técnico MuleSoft (frente E05 contínua S1-S11, rate 821,49), Senior PM absorve a accountability antes do Engagement Manager (removido), devs full por todo o build (janelas longas). + 4 semanas de Scale/Hypercare (320h, reusa perfis do build; Consultor Técnico 1,0 FTE integral + 0,5 Dev MuleSoft, corrigido 03/ago). Blended de build = R$ 3.591.059,40 / 4.880h = 735,9. Pico de 13 pessoas no meio do build."
+        "note": "FTE média do build = 4.880 PS person-hours / (13 sem × 40) = 9,4. Roster re-derivado por janela no plano paralelizado: Arquiteto Técnico MuleSoft (frente E05 contínua S1-S11, rate 821,49), Senior PM absorve a accountability antes do Engagement Manager (removido), devs full por todo o build (janelas longas). + 4 semanas de Scale/Hypercare (320h, reusa perfis do build; Consultor Técnico 1,0 FTE integral + 0,5 Dev MuleSoft, corrigido 03/ago). + Frente Tableau (E10, incremento 04/ago) = 280h paralelas S10-S15 (Analytics - Technical Consultant 240h + Solution Architect fracional 40h reusando o SA do build). Blended de build = R$ 3.591.059,40 / 4.880h = 735,9. Pico de ~14 pessoas quando a frente Tableau se sobrepõe ao build (S10)."
       },
       "qualification": "qualified",
       "qualification_basis": "Solution Lead (usuário) atesta que o cliente qualifica para o modelo operacional AI-native. Compromisso do usuário — carregado com a tensão de prontidão como risco #1 (ver provisional_note).",
@@ -314,6 +318,37 @@
           "justification": "SCALE/HYPERCARE — 10h/sem de Senior PM × 4 = 40h: coordenar sustentação/manutenção/cutover e o handover ao fim da Sem. 17."
         },
         {
+          "role": "Developer",
+          "table_role": "Analytics - Technical Consultant",
+          "seniority": "regular",
+          "location": "offshore",
+          "count": 1,
+          "allocation": "full",
+          "phases_active": "7",
+          "active_weeks": "S10-S15",
+          "hours": 240,
+          "side": "ps",
+          "rate_no_tax": 668.78,
+          "front": "tableau",
+          "justification": "FRENTE TABLEAU (E10, incremento 04/ago) — Analytics - Technical Consultant integral na janela S10-S15 (6 sem × 40h = 240h): constrói até 3 painéis (Visão Negócio, Visão Projeto, Visão MTE) com até 12 componentes sobre a instalação Tableau EXISTENTE, fonte ~80% nativa Salesforce (E02/E03/E04 via connector) + 1 blend leve, RLS por perfil. Rate Analytics - Technical Consultant = R$ 668,78 (tier offshore-regular, confirmado pelo usuário 04/ago). Frente paralela e off-critical-path — não gateia o go-live de 15/nov."
+        },
+        {
+          "role": "Solution Architect",
+          "table_role": "Senior Solution Architect",
+          "seniority": "senior",
+          "location": "onshore",
+          "count": 1,
+          "allocation": "fractional",
+          "phases_active": "7",
+          "active_weeks": "S10-S15",
+          "hours": 40,
+          "side": "ps",
+          "rate_no_tax": 884.68,
+          "front": "tableau",
+          "scale_reuse": "reusa o Solution Architect do build (R02) — não é cabeça adicional; 40h fracionais de governança do modelo de dados/segurança dos painéis.",
+          "justification": "FRENTE TABLEAU (E10) — Solution Architect fracional 40h na janela S10-S15: define o modelo de dados dos painéis, o blend leve e o RLS por perfil, garante alinhamento com a arquitetura do build. Reusa o mesmo SA do build (R02), não um recurso novo."
+        },
+        {
           "role": "Product Owner / Decisor",
           "count": 1,
           "allocation": "full",
@@ -363,15 +398,17 @@
         }
       ],
       "indicative_price_committed": {
-        "no_tax": 3822341,
-        "with_tax": 4090253,
+        "no_tax": 4018235,
+        "with_tax": 4299877,
         "no_tax_build": 3591059,
         "with_tax_build": 3842760,
         "no_tax_scale": 231282,
         "with_tax_scale": 247492,
+        "no_tax_tableau": 195894,
+        "with_tax_tableau": 209625,
         "tax_rule": "com imposto = sem imposto ÷ 0,9345",
-        "formula": "Σ(horas PS do papel × rate sem imposto por table_role); horas RE-DERIVADAS por janela de cada recurso no plano paralelizado (não por índice de fase). Build = 4.880h nas 13 semanas + Scale/Hypercare = 320h nas 4 semanas S14-S17.",
-        "note": "Ponto do programa (não faixa): Fase 1 re-derivada nas janelas paralelizadas (Fundação S1-S4, Marketplace S5-S10, Financeiro S6-S11, UAT S8-S13, carga S12-S13) + 4 semanas de Scale/Hypercare. Build sem imposto R$ 3.591.059,40 · Scale sem imposto R$ 231.281,60 · TOTAL sem imposto R$ 3.822.341,00 (com imposto ÷0,9345 = R$ 4.090.252,54). Rates corrigidos em 03/ago: MuleSoft Technical Architect 884,68→821,49 e ex-Payments substituído por Technical Consultant 884,68→668,78 (−R$ 88.045 sem imposto). No Scale, Consultor Técnico 0,5→1,0 FTE e Dev MuleSoft 1,0→0,5 FTE (total Scale inalterado, 320h). Arquiteto Técnico MuleSoft dedicado (frente E05 contínua) e Senior PM absorve accountability (Engagement Manager removido).",
+        "formula": "Σ(horas PS do papel × rate sem imposto por table_role); horas RE-DERIVADAS por janela de cada recurso no plano paralelizado (não por índice de fase). Build = 4.880h nas 13 semanas + Scale/Hypercare = 320h nas 4 semanas S14-S17 + Frente Tableau = 280h nas 6 semanas S10-S15 (paralela).",
+        "note": "Ponto do programa (não faixa): Fase 1 re-derivada nas janelas paralelizadas (Fundação S1-S4, Marketplace S5-S10, Financeiro S6-S11, UAT S8-S13, carga S12-S13) + 4 semanas de Scale/Hypercare + frente Tableau (E10). Build sem imposto R$ 3.591.059,40 · Scale sem imposto R$ 231.281,60 · Tableau sem imposto R$ 195.894,40 · TOTAL sem imposto R$ 4.018.235,40 (com imposto ÷0,9345 = R$ 4.299.877,37). Rates corrigidos em 03/ago: MuleSoft Technical Architect 884,68→821,49 e ex-Payments substituído por Technical Consultant 884,68→668,78 (−R$ 88.045 sem imposto). No Scale, Consultor Técnico 0,5→1,0 FTE e Dev MuleSoft 1,0→0,5 FTE (total Scale inalterado, 320h). Incremento 04/ago: frente Tableau (E10) = Analytics - Technical Consultant 240h × 668,78 (R$ 160.507,20) + Solution Architect fracional 40h × 884,68 (R$ 35.387,20), paralela e off-critical-path. Arquiteto Técnico MuleSoft dedicado (frente E05 contínua) e Senior PM absorve accountability (Engagement Manager removido).",
         "disclaimers": [
           "rom",
           "validated-rate"
@@ -571,7 +608,7 @@
     }
   },
   "delta": {
-    "summary": "A comparação tem duas camadas. (1) COMPROMETIDO: Fase 1 AI-native = 13 semanas de build (17/ago-14/nov) + 4 semanas de Scale/Hypercare (16/nov-13/dez) = ponto indicativo de R$ 3,82M sem imposto / R$ 4,09M com imposto (~9,4 FTE média no build). Build R$ 3,59M sem imposto; Scale R$ 0,23M sem imposto. Rates corrigidos em 03/ago (MuleSoft TA 821,49; ex-Payments→Technical Consultant 668,78) reduziram o total em R$ 88.045 sem imposto. (2) NOTIONAL: o escopo completo pelo jeito tradicional custaria ~R$ 5,8-12,3M com imposto E não alcançaria 15/nov. O delta portanto não é só de custo — é de VIABILIDADE: a trilha tradicional está fora da data.",
+    "summary": "A comparação tem duas camadas. (1) COMPROMETIDO: Fase 1 AI-native = 13 semanas de build (17/ago-14/nov) + 4 semanas de Scale/Hypercare (16/nov-13/dez) + frente Tableau paralela (E10, S10-S15) = ponto indicativo de R$ 4,02M sem imposto / R$ 4,30M com imposto (~9,4 FTE média no build). Build R$ 3,59M sem imposto; Scale R$ 0,23M sem imposto; Tableau R$ 0,20M sem imposto. Rates corrigidos em 03/ago (MuleSoft TA 821,49; ex-Payments→Technical Consultant 668,78) reduziram o total em R$ 88.045 sem imposto; frente Tableau somada em 04/ago (+280h / +R$ 195.894,40 sem imposto). (2) NOTIONAL: o escopo completo pelo jeito tradicional custaria ~R$ 5,8-12,3M com imposto E não alcançaria 15/nov. O delta portanto não é só de custo — é de VIABILIDADE: a trilha tradicional está fora da data.",
     "decomposition": [
       {
         "lever": "Viabilidade de cronograma",
@@ -597,6 +634,11 @@
         "lever": "E03 L→XL (motor de split no CRM)",
         "share": "contra-pressão",
         "detail": "ADR 0003 realizou a premissa de size_if_assumption_breaks: mais lógica financeira no Salesforce, +1 Consultor Técnico onshore dedicado à frente Financeiro (rate corrigido 668,78 em 03/ago). A viabilidade de cronograma ainda domina a decisão."
+      },
+      {
+        "lever": "Frente Tableau (E10, NOVO 04/ago, +280h)",
+        "share": "novo",
+        "detail": "Incremento de escopo: até 3 painéis analíticos (Visão Negócio, Visão Projeto, Visão MTE) com até 12 componentes, sobre a instalação Tableau EXISTENTE (sem provisionamento). Estimada pelo ESFORÇO REAL: Analytics - Technical Consultant integral 240h + Solution Architect fracional 40h = 280h / R$ 195.894,40 sem imposto (R$ 209.624,83 com imposto). Janela S10-S15, PARALELA e off-critical-path — não estende o cronograma nem gateia o go-live de 15/nov. Fonte ~80% nativa Salesforce (E02/E03/E04 via connector) + 1 blend leve; RLS por perfil."
       }
     ]
   },

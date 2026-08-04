@@ -90,5 +90,19 @@
     "kb_sources": [
       "[assumption: escopo Agentforce (canais, casos de uso, integração) a definir — Open Question 8 do discovery brief; épica deferida para Fase 2]"
     ]
+  },
+  {
+    "phase_number": 7,
+    "phase_name": "Painéis Analíticos (Tableau) — Frente Paralela, OFF-CRITICAL-PATH (19/out – 23/nov · Sem. 10-15)",
+    "objectives": "FRENTE NOVA (incremento de escopo 04/ago), PARALELA e FORA DO CAMINHO CRÍTICO do go-live regulatório de 15/nov — inicia em S10 e NÃO tem exigência de concluir junto com a Fase 1 (a janela se estende para dentro do Scale, até S15/23-nov). Construir até 3 painéis (E10) sobre a INSTALAÇÃO TABLEAU EXISTENTE do cliente — sem aprovisionamento de infra: VISÃO NEGÓCIO (adesão, volume de leilões/cotações, contratos, MDR médio, repasses), VISÃO PROJETO (saúde da entrega, marcos, incidentes) e VISÃO MTE (indicadores institucionais/regulatórios). Até 12 componentes no total entre gráficos e tabelas. Arranca em S10 porque depende de que os objetos-fonte já estejam construídos e povoados (Marketplace E02 e Financeiro E03/E04 entregando a partir da segunda metade do build). Estimada pelo ESFORÇO REAL (frente delimitada), fora do teto de cronograma da data fixa.",
+    "epics_included": "E10",
+    "success_criteria": "3 painéis (Negócio/Projeto/MTE) publicados na instalação Tableau existente com até 12 componentes, conectados majoritariamente aos objetos nativos do PAT (Salesforce connector, live/extract) + 1 blend leve opcional, com row-level security por perfil. Entrega desacoplada da data fixa de 15/nov — pode concluir dentro da janela do Scale.",
+    "dependencies": "Objetos-fonte construídos e povoados: Marketplace (E02), Credenciamento (E04) e Financeiro (E03) — por isso o arranque em S10 (segunda metade do build), quando essas frentes já entregam dados. Acesso/credenciais à instalação Tableau Server/Cloud existente do cliente. NÃO gateia nem é gateada pelo go-live de 15/nov.",
+    "risks": "Métricas/campos exatos de cada visão a detalhar com o cliente (frente delimitada, não detalhada); disponibilidade e maturidade dos dados nativos ao início da frente (S10); se a fonte exigir data prep/ETL de sistemas externos (Dataprev/DW) ou segurança isolada por painel, o esforço sobe (size_if_assumption_breaks de E10). Por ser off-critical-path, um atraso aqui não impacta o go-live regulatório.",
+    "duration_weeks": 6,
+    "duration_source": "estimate-real-effort",
+    "kb_sources": [
+      "[assumption: frente Tableau S10-S15, paralela e off-critical-path, sem deadline 15/nov; ≈280h estimadas pelo esforço real — incremento de escopo 04/ago, defaults user-endorsed no grill 04/ago]"
+    ]
   }
 ]

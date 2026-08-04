@@ -729,6 +729,32 @@
         "Validar (validate-data.py)",
         "Checkpoint (commit + push origin)"
       ]
+    },
+    {
+      "date": "2026-08-04",
+      "skills_used": [
+        "revise"
+      ],
+      "summary": "Incremento de escopo: nova FRENTE TABLEAU (E10) — até 3 painéis analíticos (Visão Negócio, Visão Projeto, Visão MTE) com até 12 componentes, sobre a instalação Tableau EXISTENTE. Estimada pelo ESFORÇO REAL: 280h (Analytics - Technical Consultant integral 240h × R$ 668,78 + Solution Architect fracional 40h × R$ 884,68 reusando o SA do build) = R$ 195.894,40 sem imposto / R$ 209.625,89 com imposto. Janela S10-S15, PARALELA e off-critical-path — não gateia o go-live de 15/nov. revise propagou o change set confirmado ao longo da ordem de derivação: epics.json (E10 novo), estimates.json (E10 M, effort_real 280h), roadmap.json (fase 7 paralela), resource-plan.json (T01/T02), commercials.json (total 5.480h / R$ 4.018.235,40 sem / R$ 4.299.877,54 com), estimate-comparison.json (epics 10, size M:4, roster, delta lever), gaps.json (G1001-G1003 assumptions).",
+      "friction": [],
+      "decisions": [
+        {
+          "decision": "E10 estimada pelo esforço real (280h), não só T-shirt",
+          "rationale": "Frente delimitada por alcance (3 painéis/12 componentes) e diretriz explícita do usuário de estimar por esforço real"
+        },
+        {
+          "decision": "Analytics - Technical Consultant mapeado ao tier offshore-regular R$ 668,78",
+          "rationale": "Confirmado pelo usuário em 04/ago; role correta corrigida de 'Tableau Developer'"
+        }
+      ],
+      "open_threads": [
+        "E10: métricas/campos/componentes exatos por painel a detalhar em workshop de descoberta (G1001)",
+        "E10: confirmar fonte ~80% nativa + 1 blend leve (G1002) e modelo RLS por perfil × 3 audiências (G1003)"
+      ],
+      "next_steps": [
+        "Grillar a fatia E10 recém-mintada (Assumed) antes que chegue ao cliente",
+        "Atualizar outputs restantes (rom-cliente.html s5b/s6/s9/s10, deal-review, presentation-deck, PPTX) e validar"
+      ]
     }
   ],
   "preferences": {},
@@ -865,6 +891,16 @@
         "Manter MuleSoft TA no tier 884,68",
         "Manter a role Payments/Financial Architecture Specialist a 884,68",
         "Manter a APOSTA B (Dev MuleSoft integral no Scale)"
+      ]
+    },
+    {
+      "date": "2026-08-04",
+      "area": "scope",
+      "decision": "Adicionada FRENTE TABLEAU (E10) como frente paralela off-critical-path (S10-S15, sem exigência de terminar em 15/nov), estimada pelo esforço real em 280h / R$ 195.894,40 sem imposto. Total do programa: 5.480h / R$ 4.018.235,40 sem imposto / R$ 4.299.877,54 com imposto.",
+      "rationale": "Incremento de escopo solicitado pelo usuário; delimitado a até 3 painéis (Negócio/Projeto/MTE) e até 12 componentes, reusando a instalação Tableau existente. Tratada como frente nova a partir de S10 para não pressionar o caminho crítico do go-live regulatório.",
+      "rejected": [
+        "Dobrar a frente no caminho crítico da Fase 1 (arriscaria o go-live de 15/nov)",
+        "Estimar apenas por T-shirt sem horas (usuário pediu esforço real)"
       ]
     }
   ]

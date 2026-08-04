@@ -1,6 +1,6 @@
 # Plano de Entrega — DATAPREV-PAT (Reforma do PAT / MTE)
 
-**Duração do programa: 17 semanas — 13 de build (Fase 1) + 4 de Scale/Hypercare.** Modo **data-fixa, planejado de trás pra frente**, com datas comprometidas: **build 17/ago/2026 → homologação (UAT) a partir da entrega do Marketplace → go-live PRODUÇÃO 15/nov/2026** (marco de interoperabilidade total do Decreto 12.712/2025 + entrada do financeiro em produção) → **Scale/Hypercare 16/nov – 13/dez/2026**.
+**Duração do programa: 17 semanas — 13 de build (Fase 1) + 4 de Scale/Hypercare.** Modo **data-fixa, planejado de trás pra frente**, com datas comprometidas: **build 17/ago/2026 → homologação (UAT) a partir da entrega do Marketplace → go-live PRODUÇÃO 15/nov/2026** (marco de interoperabilidade total do Decreto 12.712/2025 + entrada do financeiro em produção) → **Scale/Hypercare 16/nov – 13/dez/2026**. Em **paralelo**, a partir de S10, corre a **frente de Painéis Analíticos (Tableau, E10)** — off-critical-path, sem exigência de terminar em 15/nov.
 
 > **A data é o âncora; o escopo é a variável de flexão.** O programa não comprime 18–38 semanas de trabalho em 13 — ele entrega um **Fase 1** dimensionado para a janela e mantém um conjunto de **candidatos a de-escopo** como buffer de cronograma. Se um risco de caminho crítico se materializar (org greenfield, gateway, contratos de API), o buffer é acionado antes da data.
 
@@ -20,6 +20,7 @@
 | 15/nov/2026 (S13) | Projeto (PROD) | **Go-live produção** | Identidade gov.br, leilão reverso, credenciamento, financeiro folha→split |
 | 15/nov/2026 | Decreto | Interoperabilidade total — Decreto 12.712/2025 | Reforma do PAT em vigor |
 | 16/nov – 13/dez/2026 (S14-S17) | Projeto | **Scale / Hypercare** | Sustentar, manter e conduzir o cutover à Dataprev |
+| 19/out – 23/nov/2026 (S10-S15) | Projeto (paralelo) | **Painéis Analíticos (Tableau)** — off-critical-path | Até 3 painéis (Negócio/Projeto/MTE), até 12 componentes, sobre a instalação Tableau existente |
 
 **Leitura honesta do arquiteto:** esta continua sendo uma janela **agressiva** para o escopo em jogo — uma épica XL (E03) + build sobre objetos nativos adaptados, integração multi-sistema sem contratos (Novo PAT sem API). O **reuso do MuleSoft on-premise (ADR 0006)** removeu um dos três pré-requisitos de lead-time e devolveu folga ao cronograma, que foi reinvestida em **janelas de dev mais longas e paralelas** — menor risco de prazo, não menor duração de build. É entregável **como Fase 1** com o de-escopo abaixo tratado como buffer real, disciplina de caminho crítico na Fundação e uma janela de estabilização de 2 semanas seguida de 4 semanas de Scale/Hypercare. **Não é entregável como escopo completo, e a data de 15/nov pode não ser alcançável só com esforço se um pré-requisito escorregar** (org greenfield, gateway, acessos à plataforma MuleSoft existente) — nesse caso o de-escopo (E03 primeiro) é o único trilho. As alavancas de segurança do cronograma estão nomeadas — não escondidas.
 
@@ -65,6 +66,12 @@ Com o **reuso do MuleSoft on-premise (ADR 0006)**, some o pré-requisito "instal
   - **Sustentar:** estabilização em produção, triagem e correção de defeitos, apoio aos primeiros ciclos financeiros reais.
   - **Manter:** manter rotas MuleSoft on-premise, conciliação e split operando; ajustes finos de configuração.
   - **Cutover:** transferência ordenada de operação e conhecimento à Dataprev (handover) ao fim da Sem. 17.
+
+### Painéis Analíticos — Tableau (19/out – 23/nov · 6 semanas · S10-S15) · *frente paralela, OFF-CRITICAL-PATH · incremento 04/ago*
+- **Frente nova, delimitada, fora do caminho crítico.** Inicia em S10 e **não tem exigência de terminar em 15/nov** — roda em paralelo ao build e ao início do Scale, sem gatear o go-live regulatório.
+- **Escopo (E10):** até **3 painéis** — **Visão Negócio**, **Visão Projeto** e **Visão MTE** — com até **12 componentes no total** entre gráficos e tabelas. Reusa a **instalação Tableau EXISTENTE** do cliente (sem provisionamento de infra).
+- **Fonte de dados (premissa):** ~80% nativa Salesforce (E02/E03/E04 via Salesforce connector) + 1 blend leve; **RLS por perfil** com 3 layouts de audiência. Métricas/campos exatos por painel a detalhar em workshop de descoberta no arranque da janela (G1001-G1003).
+- **Time (esforço real, 280h):** 1 **Analytics - Technical Consultant** integral (240h) + **Solution Architect** fracional (40h, reusa o SA do build). Estimada pelo esforço real conforme diretriz — não só por T-shirt.
 
 ---
 
@@ -121,4 +128,4 @@ Distinto do buffer de de-escopo acima: estes itens **não fazem parte da Fase 1 
 
 ## Equipe
 
-As disciplinas e o roster nomeado para entregar isto — com contagens defensáveis, por lane — vêm do **`estimate`**. Este documento é funcionalidade ao longo do tempo; não nomeia time. Observação para o `estimate`: o build foi **re-derivado por janela** (não por índice de fase) sobre o plano paralelizado; E05 é uma **frente MuleSoft contínua** (S1-S11) com um **Arquiteto Técnico MuleSoft** dedicado (integral nas 4 primeiras semanas, 20h/sem nas semanas de dev); E03 XL exige um **Consultor Técnico** dedicado à frente Financeiro (split/conciliação) em tempo integral; e há **4 semanas de Scale/Hypercare** (S14-S17) com time enxuto reusando perfis do build (1,0 Consultor Técnico integral + 0,5 Dev MuleSoft + 10h/sem Arquiteto Técnico + 10h/sem Senior PM). A accountability antes atribuída a um Engagement Manager separado foi **absorvida pelo Senior PM** em dedicação integral.
+As disciplinas e o roster nomeado para entregar isto — com contagens defensáveis, por lane — vêm do **`estimate`**. Este documento é funcionalidade ao longo do tempo; não nomeia time. Observação para o `estimate`: o build foi **re-derivado por janela** (não por índice de fase) sobre o plano paralelizado; E05 é uma **frente MuleSoft contínua** (S1-S11) com um **Arquiteto Técnico MuleSoft** dedicado (integral nas 4 primeiras semanas, 20h/sem nas semanas de dev); E03 XL exige um **Consultor Técnico** dedicado à frente Financeiro (split/conciliação) em tempo integral; e há **4 semanas de Scale/Hypercare** (S14-S17) com time enxuto reusando perfis do build (1,0 Consultor Técnico integral + 0,5 Dev MuleSoft + 10h/sem Arquiteto Técnico + 10h/sem Senior PM). A accountability antes atribuída a um Engagement Manager separado foi **absorvida pelo Senior PM** em dedicação integral. **Frente Tableau (E10, incremento 04/ago):** 1 **Analytics - Technical Consultant** integral (240h) + **Solution Architect** fracional (40h, reusa o SA do build) na janela paralela S10-S15 = 280h, estimadas pelo **esforço real**.

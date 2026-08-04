@@ -1098,7 +1098,7 @@ body{
     <div class="nav-group-title">Escopo</div>
     <a class="nav-item" onclick="showSection('s5b')">
       <span class="ico">🧱</span> Épicas &amp; Solução
-      <span class="nav-badge scope">9 ÉPICAS</span>
+      <span class="nav-badge scope">10 ÉPICAS</span>
     </a>
     <a class="nav-item" onclick="showSection('s5')">
       <span class="ico">📋</span> Casos de Uso
@@ -1119,7 +1119,7 @@ body{
     </a>
     <a class="nav-item" onclick="showSection('s10')">
       <span class="ico">💰</span> Estimativa
-      <span class="nav-badge scope">5.200h</span>
+      <span class="nav-badge scope">5.480h</span>
     </a>
     <div class="nav-group-title">Gestão</div>
     <a class="nav-item" onclick="showSection('s7')">
@@ -2708,14 +2708,14 @@ body{
       <div class="hero" style="background:linear-gradient(135deg,#0C326F,#1351B4);">
         <div class="eyebrow">Escopo · Visão da Solução</div>
         <h1>Épicas &amp; Solução</h1>
-        <p class="sub">O escopo organizado em 9 épicas. Para cada uma: o que ela entrega ao programa, a capacidade Salesforce habilitada ou construída, os casos de uso que ela viabiliza e as premissas a confirmar. Oito épicas compõem a Fase 1 com go-live regulatório; a nona (Atendimento Inteligente) é evolução planejada para a Fase 2.</p>
+        <p class="sub">O escopo organizado em 10 épicas. Para cada uma: o que ela entrega ao programa, a capacidade Salesforce habilitada ou construída, os casos de uso que ela viabiliza e as premissas a confirmar. Oito épicas compõem a Fase 1 com go-live regulatório; a nona (Atendimento Inteligente) é evolução planejada para a Fase 2; e a décima (Painéis Analíticos — Tableau) é uma frente paralela, iniciada em S10, fora do caminho crítico do go-live de 15/nov.</p>
       </div>
 
       <!-- SUMÁRIO -->
       <div class="grid-4" style="margin-bottom:20px;">
-        <div class="kpi"><div class="n">9</div><div class="l">Épicas de escopo</div></div>
+        <div class="kpi"><div class="n">10</div><div class="l">Épicas de escopo</div></div>
         <div class="kpi green"><div class="n">8</div><div class="l">Na Fase 1 · go-live 15/nov/2026</div></div>
-        <div class="kpi purple"><div class="n">1</div><div class="l">Evolução Wave 2 (Agentforce)</div></div>
+        <div class="kpi purple"><div class="n">2</div><div class="l">Fora do go-live (Agentforce Wave 2 + Tableau paralela)</div></div>
         <div class="kpi teal"><div class="n">100%</div><div class="l">Sobre instância dedicada MTE</div></div>
       </div>
 
@@ -2921,6 +2921,31 @@ body{
           <p>Sustenta a adoção efetiva de todos os casos de uso pelos diferentes perfis. Ver o roadmap da Fase 2.</p>
           <div style="background:#fffdf5;border:1px solid #f0e2b8;border-radius:8px;padding:10px 14px;margin-top:12px;font-size:12.5px;line-height:1.6;">
             <b>Premissas a confirmar:</b> a fronteira de responsabilidade entre Salesforce PS e Dataprev; adoção voluntária vs. mandatória; métricas de sucesso de adoção; dono da governança pós go-live.
+          </div>
+        </div>
+      </details>
+
+      <!-- E10 -->
+      <details class="epic-det" style="border:1px solid #b8e0d8;border-radius:12px;margin-bottom:14px;overflow:hidden;">
+        <summary style="padding:16px 20px;cursor:pointer;background:#f2fbf9;font-weight:700;font-size:15px;color:#0b6b5a;list-style:none;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+          <span style="background:#0b8a72;color:#fff;font-size:12px;padding:4px 10px;border-radius:6px;font-weight:800;">E10</span>
+          Painéis Analíticos (Tableau)
+          <span class="nav-badge" style="margin-left:auto;background:#0b8a72;color:#fff;">PARALELA · S10 · OFF-CRITICAL-PATH</span>
+        </summary>
+        <div style="padding:18px 22px;">
+          <div class="alert" style="background:#f2fbf9;border-color:#b8e0d8;margin:0 0 12px;">
+            <span class="ic">🗓️</span>
+            <div style="font-size:12.5px;line-height:1.6;"><b>Frente paralela, incremento de 04/ago.</b> Inicia em S10 e <b>não tem exigência de terminar em 15/nov</b> — corre em paralelo ao build sobre a instalação Tableau existente do cliente, sem gatear o go-live regulatório. Estimada pelo <b>esforço real</b> (280h).</div>
+          </div>
+          <h3>💡 O que entrega</h3>
+          <p>Até <b>3 painéis</b> de acompanhamento do programa — <b>Visão Negócio</b>, <b>Visão Projeto</b> e <b>Visão MTE</b> — com até <b>12 componentes no total</b> entre gráficos e tabelas. Cada painel serve uma audiência: leitura executiva de negócio, saúde de entrega do projeto, e visão operacional/regulatória do MTE.</p>
+          <h3>⚙️ Capacidade Salesforce</h3>
+          <p><b>Tableau</b> sobre a instalação <b>existente</b> do cliente (sem provisionamento de infra). Fonte de dados majoritariamente nativa Salesforce (~80% via conector Salesforce sobre E02/E03/E04) mais um blend leve; <b>segurança por perfil (RLS)</b> com 3 layouts de audiência.</p>
+          <div class="chip-row"><span class="chip teal">Tableau (instalação existente)</span><span class="chip blue">Conector Salesforce ~80% + blend</span><span class="chip dark">RLS · 3 layouts de audiência</span></div>
+          <h3 style="margin-top:14px;">🔗 Casos de uso habilitados</h3>
+          <p>Acompanhamento gerencial e regulatório do programa: volumes de cotação/leilão, saúde financeira (folha→split→conciliação), credenciamento e indicadores de projeto. Consome os dados das épicas de negócio já entregues.</p>
+          <div style="background:#fffdf5;border:1px solid #f0e2b8;border-radius:8px;padding:10px 14px;margin-top:12px;font-size:12.5px;line-height:1.6;">
+            <b>Premissas a confirmar:</b> métricas, campos e os 12 componentes exatos por painel — a detalhar em workshop de descoberta no arranque da janela (G1001); a fonte ~80% nativa + 1 blend leve (G1002); o modelo de segurança RLS por perfil com 3 layouts, sobre a instalação Tableau existente (G1003).
           </div>
         </div>
       </details>
@@ -3551,7 +3576,7 @@ body{
 
       <div class="alert blue">
         <span class="ic">🧭</span>
-        <div><strong>Como isto conecta.</strong> Cada premissa de entrega a confirmar tem um item correspondente em <b>Pendências em Aberto</b>, e cada exclusão de evolução está no <b>Roadmap Fase 2</b>. A estimativa (5.200h) e a janela de 15/nov foram dimensionadas <b>exatamente sobre estas premissas</b> — mudá-las é o gatilho para reabrir número e prazo.</div>
+        <div><strong>Como isto conecta.</strong> Cada premissa de entrega a confirmar tem um item correspondente em <b>Pendências em Aberto</b>, e cada exclusão de evolução está no <b>Roadmap Fase 2</b>. A estimativa (5.480h) e a janela de 15/nov foram dimensionadas <b>exatamente sobre estas premissas</b> — mudá-las é o gatilho para reabrir número e prazo.</div>
       </div>
 
       <div class="sec-nav">
@@ -3633,6 +3658,7 @@ body{
           <span><i style="background:#E67E22;"></i> Financeiro (paralelo)</span>
           <span><i style="background:#168821;"></i> Carga mínima &amp; Go-live</span>
           <span><i style="background:#5C6A7D;"></i> Scale / Hypercare</span>
+          <span><i style="background:#0b8a72;"></i> Painéis Tableau (E10 · paralela)</span>
           <span><i style="background:#7B2FBE;"></i> Transversal</span>
           <span><i style="background:repeating-linear-gradient(45deg,#E52207,#E52207 4px,#c11a05 4px,#c11a05 8px);"></i> Homologação (UAT)</span>
         </div>
@@ -3706,6 +3732,11 @@ body{
               <div class="tl-lbl">🛟 Scale / Hypercare <span class="ep">S14–S17</span></div>
               <div class="tl-cellgrid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
               <div class="tl-bar b5" style="grid-column:15 / 19;">Sustentar · manter · cutover à Dataprev — time enxuto</div>
+            </div>
+            <div class="tl-track">
+              <div class="tl-lbl">📊 Painéis Analíticos (Tableau · E10) <span class="ep">S10–S15 · paralela</span></div>
+              <div class="tl-cellgrid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+              <div class="tl-bar" style="grid-column:11 / 17;background:linear-gradient(135deg,#0b8a72,#0a6f5c);">Até 3 painéis · 12 componentes · Tableau existente — off-critical-path, não gateia o go-live</div>
             </div>
 
             <!-- MILESTONES -->
@@ -3875,20 +3906,20 @@ body{
       </style>
 
       <div class="hero" style="background:linear-gradient(135deg,#0C326F,#1351B4);">
-        <div class="eyebrow">Estimativa · Fase 1 (13 sem. de build) + Scale/Hypercare (4 sem.) · base para o Estimate</div>
+        <div class="eyebrow">Estimativa · Fase 1 (13 sem. de build) + Scale/Hypercare (4 sem.) + frente Tableau paralela (E10) · base para o Estimate</div>
         <h1>Estimativa — Horas &amp; Investimento</h1>
-        <p class="sub">Esforço re-derivado <b>por janela</b> sobre o plano paralelizado. Visão total por papel e a distribuição semana a semana — a base para montar o Estimate. <b>Roster sem Engagement Manager</b> (accountability absorvida pelo <b>Senior PM</b>, integral); <b>Arquiteto Técnico MuleSoft</b> novo para a frente contínua E05; <b>4 semanas de Scale/Hypercare</b> com time enxuto reusando perfis do build.</p>
+        <p class="sub">Esforço re-derivado <b>por janela</b> sobre o plano paralelizado. Visão total por papel e a distribuição semana a semana — a base para montar o Estimate. <b>Roster sem Engagement Manager</b> (accountability absorvida pelo <b>Senior PM</b>, integral); <b>Arquiteto Técnico MuleSoft</b> novo para a frente contínua E05; <b>4 semanas de Scale/Hypercare</b> com time enxuto reusando perfis do build; e a <b>frente Tableau (E10)</b> — 280h estimadas pelo esforço real, janela paralela S10–S15, off-critical-path.</p>
       </div>
 
       <div class="kpi-wrap">
-        <div class="kpi"><div class="n">5.200h</div><div class="l">esforço total PS · 4.880 build + 320 Scale</div></div>
-        <div class="kpi teal"><div class="n">13</div><div class="l">pessoas no pico do build</div></div>
-        <div class="kpi purple"><div class="n">17</div><div class="l">semanas · 13 build + 4 Scale</div></div>
-        <div class="kpi green"><div class="n">440h</div><div class="l">pico semanal (S6–S8)</div></div>
+        <div class="kpi"><div class="n">5.480h</div><div class="l">esforço total PS · 4.880 build + 320 Scale + 280 Tableau</div></div>
+        <div class="kpi teal"><div class="n">14</div><div class="l">pessoas distintas no programa (13 no pico do build)</div></div>
+        <div class="kpi purple"><div class="n">17</div><div class="l">semanas · 13 build + 4 Scale · + Tableau paralela</div></div>
+        <div class="kpi green"><div class="n">448h</div><div class="l">pico semanal (S10–S11, com Tableau)</div></div>
       </div>
 
       <div class="alert green">
-        <b>Ajustes aplicados nesta visão.</b> A role <b>Project/Program Manager (Engagement Manager)</b> foi <b>removida</b> — a accountability de coordenação e a relação MTE × Dataprev foram absorvidas pelo <b>Senior Project Manager</b>, integral (40h/sem) nas 13 semanas de build. Adicionado um <b>Arquiteto Técnico MuleSoft</b> (integral nas 4 primeiras semanas, 20h/sem nas semanas de dev) para a <b>frente MuleSoft contínua (E05, S1–S11)</b>. Incluídas <b>4 semanas de Scale/Hypercare</b> (S14–S17) com time enxuto. O build foi <b>re-derivado por janela</b> (não conservado) sobre o plano paralelizado — janelas de dev mais longas.
+        <b>Ajustes aplicados nesta visão.</b> A role <b>Project/Program Manager (Engagement Manager)</b> foi <b>removida</b> — a accountability de coordenação e a relação MTE × Dataprev foram absorvidas pelo <b>Senior Project Manager</b>, integral (40h/sem) nas 13 semanas de build. Adicionado um <b>Arquiteto Técnico MuleSoft</b> (integral nas 4 primeiras semanas, 20h/sem nas semanas de dev) para a <b>frente MuleSoft contínua (E05, S1–S11)</b>. Incluídas <b>4 semanas de Scale/Hypercare</b> (S14–S17) com time enxuto. O build foi <b>re-derivado por janela</b> (não conservado) sobre o plano paralelizado — janelas de dev mais longas. <b>Incremento 04/ago:</b> nova <b>frente Tableau (E10)</b> — 280h (1 Analytics - Technical Consultant integral 240h + 1 Solution Architect fracional 40h, reusa o SA do build), janela paralela S10–S15, <b>off-critical-path</b> (não gateia o go-live de 15/nov), estimada pelo <b>esforço real</b>.
       </div>
 
       <!-- TABELA 1 · HORAS POR PAPEL -->
@@ -3919,13 +3950,16 @@ body{
               <tr><td class="role">Dev MuleSoft (0,5)</td><td><span class="sen rg">Regular</span></td><td>Offshore</td><td>Half · 20h/sem</td><td>Scale · S14–S17</td><td class="num">1</td><td class="num">80</td></tr>
               <tr><td class="role">Arquiteto Técnico</td><td><span class="sen sr">Sênior</span></td><td>Onshore</td><td>10h/sem</td><td>Scale · S14–S17</td><td class="num">1</td><td class="num">40</td></tr>
               <tr><td class="role">Senior Project Manager</td><td><span class="sen sr">Sênior</span></td><td>Onshore</td><td>10h/sem</td><td>Scale · S14–S17</td><td class="num">1</td><td class="num">40</td></tr>
+              <tr style="background:#eef8f5 !important;"><td class="role" colspan="7" style="font-weight:800;color:#0b6b5a;padding-top:11px;">📊 Frente Tableau · E10 · S10–S15 (paralela, off-critical-path — incremento 04/ago)</td></tr>
+              <tr><td class="role">Analytics - Technical Consultant</td><td><span class="sen rg">Regular</span></td><td>Offshore</td><td>Full · 40h/sem</td><td>Tableau · S10–S15</td><td class="num">1</td><td class="num">240</td></tr>
+              <tr><td class="role">Solution Architect <span style="color:#0b6b5a;font-size:.85em;">(reusa SA do build)</span></td><td><span class="sen sr">Sênior</span></td><td>Onshore</td><td>Fracional</td><td>Tableau · S10–S15</td><td class="num">1</td><td class="num">40</td></tr>
             </tbody>
             <tfoot>
-              <tr><td>TOTAL</td><td></td><td></td><td></td><td>17 semanas · 4.880 build + 320 Scale</td><td class="num">13</td><td class="num">5.200</td></tr>
+              <tr><td>TOTAL</td><td></td><td></td><td></td><td>17 sem + Tableau paralela · 4.880 build + 320 Scale + 280 Tableau</td><td class="num">14</td><td class="num">5.480</td></tr>
             </tfoot>
           </table>
         </div>
-        <p class="est-fnote"><span class="flag">◆</span> Arquiteto Técnico MuleSoft <b>novo</b> para a frente contínua E05 (faixa própria, R$ 821,49/h sem imposto); o Senior PM <b>absorve</b> a accountability antes atribuída a um Engagement Manager separado. O antigo <b>Payments/Financial Architecture Specialist foi corrigido para Technical Consultant</b> (R$ 668,78/h) em 03/ago. <span class="flag">⚠</span> Resta um papel sem correspondente exato na tabela de referência, mapeado por nome mais semelhante (Change &amp; Adoption → Solution Consultant) — taxa de conversão a confirmar. Contagem de pessoas do <b>build no pico = 13</b>; o time de Scale reusa perfis já mobilizados. No Scale: <b>1,0 Consultor Técnico integral + 0,5 Dev MuleSoft</b> (revisto em 03/ago).</p>
+        <p class="est-fnote"><span class="flag">◆</span> Arquiteto Técnico MuleSoft <b>novo</b> para a frente contínua E05 (faixa própria, R$ 821,49/h sem imposto); o Senior PM <b>absorve</b> a accountability antes atribuída a um Engagement Manager separado. O antigo <b>Payments/Financial Architecture Specialist foi corrigido para Technical Consultant</b> (R$ 668,78/h) em 03/ago. <span class="flag">⚠</span> Resta um papel sem correspondente exato na tabela de referência, mapeado por nome mais semelhante (Change &amp; Adoption → Solution Consultant) — taxa de conversão a confirmar. Contagem de pessoas do <b>build no pico = 13</b>; o time de Scale reusa perfis já mobilizados. No Scale: <b>1,0 Consultor Técnico integral + 0,5 Dev MuleSoft</b> (revisto em 03/ago). <b>Frente Tableau (E10, incremento 04/ago):</b> 1 Analytics - Technical Consultant integral (240h) + 1 Solution Architect fracional (40h, reusa o SA do build) = 280h na janela paralela S10–S15, estimada pelo esforço real — soma <b>1 pessoa distinta</b> ao programa (14 no total).</p>
       </div>
 
       <!-- TABELA 2 · SEMANA A SEMANA -->
@@ -3957,14 +3991,16 @@ body{
               <tr><td class="rolecell">Quality Assurance Consultant (×2)</td><td class="z">–</td><td class="z">–</td><td class="z">–</td><td class="z">–</td><td class="z">–</td><td>80</td><td>80</td><td>80</td><td>80</td><td>80</td><td>80</td><td>80</td><td>80</td><td class="z">–</td><td class="z">–</td><td class="z">–</td><td class="z">–</td><td class="num"><b>640</b></td></tr>
               <tr><td class="rolecell">Change &amp; Adoption · Solution Consultant</td><td>20</td><td>20</td><td>20</td><td>20</td><td>20</td><td>20</td><td>20</td><td>20</td><td>20</td><td>20</td><td>20</td><td>20</td><td>20</td><td class="z">–</td><td class="z">–</td><td class="z">–</td><td class="z">–</td><td class="num"><b>260</b></td></tr>
               <tr><td class="rolecell">Technical Consultant · Carga &amp; Scale <span style="color:#5C6A7D;font-size:.85em;">(+Scale)</span></td><td class="z">–</td><td class="z">–</td><td class="z">–</td><td class="z">–</td><td class="z">–</td><td class="z">–</td><td class="z">–</td><td class="z">–</td><td class="z">–</td><td class="z">–</td><td class="z">–</td><td>20</td><td>20</td><td>40</td><td>40</td><td>40</td><td>40</td><td class="num"><b>200</b></td></tr>
+              <tr><td class="rolecell">Analytics - Technical Consultant <span style="color:#0b6b5a;font-size:.85em;">(Tableau · E10)</span></td><td class="z">–</td><td class="z">–</td><td class="z">–</td><td class="z">–</td><td class="z">–</td><td class="z">–</td><td class="z">–</td><td class="z">–</td><td class="z">–</td><td>40</td><td>40</td><td>40</td><td>40</td><td>40</td><td>40</td><td class="z">–</td><td class="z">–</td><td class="num"><b>240</b></td></tr>
+              <tr><td class="rolecell">Solution Architect <span style="color:#0b6b5a;font-size:.85em;">(Tableau · fracional)</span></td><td class="z">–</td><td class="z">–</td><td class="z">–</td><td class="z">–</td><td class="z">–</td><td class="z">–</td><td class="z">–</td><td class="z">–</td><td class="z">–</td><td>8</td><td>8</td><td>8</td><td>8</td><td>4</td><td>4</td><td class="z">–</td><td class="z">–</td><td class="num"><b>40</b></td></tr>
             </tbody>
             <tfoot>
-              <tr><td class="rolecell">Total semanal</td><td>360</td><td>360</td><td>360</td><td>360</td><td>320</td><td>440</td><td>440</td><td>440</td><td>400</td><td>400</td><td>400</td><td>320</td><td>280</td><td>80</td><td>80</td><td>80</td><td>80</td><td class="num">5.200</td></tr>
-              <tr class="cum"><td class="rolecell">Acumulado</td><td>360</td><td>720</td><td>1.080</td><td>1.440</td><td>1.760</td><td>2.200</td><td>2.640</td><td>3.080</td><td>3.480</td><td>3.880</td><td>4.280</td><td>4.600</td><td>4.880</td><td>4.960</td><td>5.040</td><td>5.120</td><td>5.200</td><td class="num">5.200</td></tr>
+              <tr><td class="rolecell">Total semanal</td><td>360</td><td>360</td><td>360</td><td>360</td><td>320</td><td>440</td><td>440</td><td>440</td><td>400</td><td>448</td><td>448</td><td>368</td><td>328</td><td>124</td><td>124</td><td>80</td><td>80</td><td class="num">5.480</td></tr>
+              <tr class="cum"><td class="rolecell">Acumulado</td><td>360</td><td>720</td><td>1.080</td><td>1.440</td><td>1.760</td><td>2.200</td><td>2.640</td><td>3.080</td><td>3.480</td><td>3.928</td><td>4.376</td><td>4.744</td><td>5.072</td><td>5.196</td><td>5.320</td><td>5.400</td><td>5.480</td><td class="num">5.480</td></tr>
             </tfoot>
           </table>
         </div>
-        <p class="est-fnote">Base de derivação: alocação × semanas ativas × 40h/semana. Full = 40h · Half = 20h · Consultor Técnico Scale integral = 40h · Dev MuleSoft Scale = 20h · frações Scale = 10h. Total geral <b>5.200h</b> (4.880 build + 320 Scale) · pico de capacidade nas semanas <b>S6–S8</b> (440h/semana). O build foi re-derivado por janela sobre o plano paralelizado — não conservado do plano anterior.</p>
+        <p class="est-fnote">Base de derivação: alocação × semanas ativas × 40h/semana. Full = 40h · Half = 20h · Consultor Técnico Scale integral = 40h · Dev MuleSoft Scale = 20h · frações Scale = 10h · Tableau: Analytics - Technical Consultant 40h/sem (S10–S15) + Solution Architect fracional (8h S10–S13, 4h S14–S15). Total geral <b>5.480h</b> (4.880 build + 320 Scale + 280 Tableau) · pico de capacidade nas semanas <b>S10–S11</b> (448h/semana, já com a frente Tableau). O build foi re-derivado por janela sobre o plano paralelizado — não conservado do plano anterior. A frente Tableau (E10) é paralela e off-critical-path — não gateia o go-live de 15/nov.</p>
       </div>
 
       <!-- HORAS & PREÇO POR PERFIL -->
@@ -3993,28 +4029,31 @@ body{
               <tr><td class="role">Quality Assurance Consultant</td><td class="num">640</td><td class="num">573,98</td><td class="num">367.347,20</td><td class="num">393.094,92</td></tr>
               <tr><td class="role">Solution Consultant <span class="flag">⚠</span></td><td class="num">260</td><td class="num">573,98</td><td class="num">149.234,80</td><td class="num">159.694,81</td></tr>
               <tr><td class="role">Technical Consultant <span style="color:#5C6A7D;font-size:.85em;">(Financeiro + Carga + Scale)</span></td><td class="num">520</td><td class="num">668,78</td><td class="num">347.765,60</td><td class="num">372.140,82</td></tr>
+              <tr><td class="role">Analytics - Technical Consultant <span style="color:#0b6b5a;font-size:.85em;">(Tableau · E10)</span></td><td class="num">240</td><td class="num">668,78</td><td class="num">160.507,20</td><td class="num">171.757,30</td></tr>
+              <tr><td class="role">Solution Architect <span style="color:#0b6b5a;font-size:.85em;">(Tableau · fracional)</span></td><td class="num">40</td><td class="num">884,68</td><td class="num">35.387,20</td><td class="num">37.867,52</td></tr>
             </tbody>
             <tfoot>
-              <tr><td>TOTAL</td><td class="num">5.200</td><td class="num">—</td><td class="num">3.822.341,00</td><td class="num">4.090.252,54</td></tr>
+              <tr><td>TOTAL</td><td class="num">5.480</td><td class="num">—</td><td class="num">4.018.235,40</td><td class="num">4.299.877,37</td></tr>
             </tfoot>
           </table>
         </div>
-        <p class="est-fnote">Imposto: preço com imposto = preço sem imposto ÷ 0,9345. Horas por perfil incluem Scale/Hypercare onde o perfil é reusado (Senior Technical Architect, Senior Project Manager, MuleSoft Technical Consultant e Technical Consultant somam horas de build + Scale). ◆ Arquiteto Técnico MuleSoft novo para a frente contínua E05, em <b>faixa própria R$ 821,49/h</b> sem imposto. O antigo <b>Payments/Financial Architecture Specialist foi corrigido para Technical Consultant</b> (R$ 668,78/h) em 03/ago e agrupado na linha Technical Consultant (Financeiro + Carga + Scale). <span class="flag">⚠</span> Resta um perfil sem correspondente exato na tabela Dataprev, mapeado por semelhança (Change &amp; Adoption → Solution Consultant R$ 573,98) — taxa de conversão a confirmar. Rates sem imposto validados em 31/07/2026; correção de rates em 03/ago reduziu o total em R$ 88.045,00 sem imposto.</p>
+        <p class="est-fnote">Imposto: preço com imposto = preço sem imposto ÷ 0,9345. Horas por perfil incluem Scale/Hypercare onde o perfil é reusado (Senior Technical Architect, Senior Project Manager, MuleSoft Technical Consultant e Technical Consultant somam horas de build + Scale). ◆ Arquiteto Técnico MuleSoft novo para a frente contínua E05, em <b>faixa própria R$ 821,49/h</b> sem imposto. O antigo <b>Payments/Financial Architecture Specialist foi corrigido para Technical Consultant</b> (R$ 668,78/h) em 03/ago e agrupado na linha Technical Consultant (Financeiro + Carga + Scale). <span class="flag">⚠</span> Resta um perfil sem correspondente exato na tabela Dataprev, mapeado por semelhança (Change &amp; Adoption → Solution Consultant R$ 573,98) — taxa de conversão a confirmar. Rates sem imposto validados em 31/07/2026; correção de rates em 03/ago reduziu o total em R$ 88.045,00 sem imposto. <b>Incremento 04/ago — frente Tableau (E10):</b> Analytics - Technical Consultant 240h × R$ 668,78 = R$ 160.507,20 + Solution Architect 40h × R$ 884,68 = R$ 35.387,20 = <b>R$ 195.894,40 sem imposto</b> (R$ 209.624,83 com), somados ao total do programa. O Analytics - Technical Consultant mapeia ao tier offshore-regular R$ 668,78/h (confirmado em 04/ago).</p>
       </div>
 
       <!-- INVESTIMENTO INDICATIVO -->
       <div class="card" style="border-left:4px solid var(--green-dark);">
         <h2>💰 Investimento indicativo (ROM)</h2>
-        <p class="lead">Ponto indicativo do programa — 13 semanas de build + 4 de Scale/Hypercare (não é uma faixa). Confiança <b>Assumed</b> — premissas de dimensionamento ainda dependem da resolução dos destravamentos externos (org greenfield, gateway, acessos ao MuleSoft on-premise).</p>
+        <p class="lead">Ponto indicativo do programa — 13 semanas de build + 4 de Scale/Hypercare + frente Tableau paralela (E10, off-critical-path) (não é uma faixa). Confiança <b>Assumed</b> — premissas de dimensionamento ainda dependem da resolução dos destravamentos externos (org greenfield, gateway, acessos ao MuleSoft on-premise); a frente Tableau é delimitada, com campos/componentes exatos a detalhar.</p>
         <div class="grid-2" style="margin-top:6px;">
-          <div class="kpi green"><div class="n">R$ 4,09 mi</div><div class="l">com imposto · R$ 4.090.252,54</div></div>
-          <div class="kpi"><div class="n">R$ 3,82 mi</div><div class="l">sem imposto · R$ 3.822.341,00</div></div>
+          <div class="kpi green"><div class="n">R$ 4,30 mi</div><div class="l">com imposto · R$ 4.299.877,37</div></div>
+          <div class="kpi"><div class="n">R$ 4,02 mi</div><div class="l">sem imposto · R$ 4.018.235,40</div></div>
         </div>
-        <div class="grid-2" style="margin-top:10px;">
+        <div class="grid-3" style="margin-top:10px;">
           <div class="kpi"><div class="n">R$ 3,84 mi</div><div class="l">build (4.880h) · com imposto · R$ 3.842.760,19</div></div>
           <div class="kpi purple"><div class="n">R$ 247 mil</div><div class="l">Scale/Hypercare (320h) · com imposto · R$ 247.492,35</div></div>
+          <div class="kpi teal"><div class="n">R$ 210 mil</div><div class="l">Tableau · E10 (280h) · com imposto · R$ 209.624,83</div></div>
         </div>
-        <p class="est-fnote">Imposto: valor com imposto = sem imposto ÷ 0,9345. Cálculo sobre <b>5.200h</b> (4.880 build + 320 Scale) com a role Engagement Manager removida (absorvida pelo Senior PM), o Arquiteto Técnico MuleSoft adicionado e o time de Scale/Hypercare incluído. Faixas: sênior onshore R$ 884,68/h · Arquiteto Técnico MuleSoft R$ 821,49/h (faixa própria) · PM/Experience R$ 789,88/h · desenvolvedor/consultor técnico R$ 668,78/h · QA/consultor de solução R$ 573,98/h (sem imposto). Correção de rates em 03/ago (MuleSoft TA e ex-Payments→Technical Consultant) reduziu o total em R$ 88.045,00 sem imposto. As taxas por papel são aplicadas na ferramenta de Estimate; esta visão entrega horas por papel e semana a semana como base.</p>
+        <p class="est-fnote">Imposto: valor com imposto = sem imposto ÷ 0,9345. Cálculo sobre <b>5.480h</b> (4.880 build + 320 Scale + 280 Tableau) com a role Engagement Manager removida (absorvida pelo Senior PM), o Arquiteto Técnico MuleSoft adicionado, o time de Scale/Hypercare incluído e a <b>frente Tableau (E10)</b> somada. Faixas: sênior onshore R$ 884,68/h · Arquiteto Técnico MuleSoft R$ 821,49/h (faixa própria) · PM/Experience R$ 789,88/h · desenvolvedor/consultor técnico/Analytics - Technical Consultant R$ 668,78/h · QA/consultor de solução R$ 573,98/h (sem imposto). Correção de rates em 03/ago (MuleSoft TA e ex-Payments→Technical Consultant) reduziu o total em R$ 88.045,00 sem imposto; incremento de 04/ago somou a frente Tableau (+280h · R$ 195.894,40 sem · R$ 209.624,83 com), paralela e off-critical-path. As taxas por papel são aplicadas na ferramenta de Estimate; esta visão entrega horas por papel e semana a semana como base.</p>
       </div>
 
       <div class="sec-nav">

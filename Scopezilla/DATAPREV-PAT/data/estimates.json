@@ -147,5 +147,25 @@
     "risks": "Escopo PS vs. cliente indefinido (G0901/G0906); adoção voluntária vs. mandatória (G0902); definição concreta de change/adoção (G0903); dono da governança pós go-live (G0904); métrica de sucesso de adoção (G0905).",
     "solution_approach": "Plano de comunicação, materiais de apoio, capacitação e métricas de adoção. Entrega Salesforce PS; sem arquitetura técnica bespoke.",
     "confidence": "Assumed"
+  },
+  {
+    "item_id": "E10",
+    "item_type": "epic",
+    "t_shirt_size": "M",
+    "size_drivers": {
+      "ui": {"tier": "M", "signal": "Até 3 painéis (Negócio/Projeto/MTE) com até 12 componentes no total entre gráficos e tabelas na instalação Tableau EXISTENTE — sem aprovisionamento de infra [assumption: incremento 04/ago]"},
+      "integration": {"tier": "M", "signal": "~80% fonte NATIVA via Salesforce connector (live/extract) sobre objetos já construídos (E02/E03/E04) + no máximo 1 blend leve (extract Novo PAT) — sem ETL/modelagem pesada [assumption: default user-endorsed grill 04/ago]"},
+      "sharing_security": {"tier": "M", "signal": "1 modelo de dados + row-level security por perfil (user filters), 3 layouts — não 3 modelos isolados [assumption: default user-endorsed grill 04/ago]"},
+      "data_model": {"tier": "S", "signal": "Reusa o data model do PAT; sem objetos novos — só camada semântica/fontes Tableau"}
+    },
+    "size_rationale": "M — frente delimitada de visualização sobre dados que JÁ existem no Salesforce e sobre instalação Tableau EXISTENTE. Nenhuma dimensão em L: a fonte majoritariamente nativa e a RLS por perfil (um modelo, três layouts) contêm o esforço. Estimada pelo ESFORÇO REAL (não só T-shirt) porque é frente bem-delimitada e off-critical-path: ≈280h — Analytics - Technical Consultant 240h + Solution Architect fracional 40h (modelo de dados/camada semântica). Sobe se a fonte exigir data prep/blend externo pesado (Dataprev/DW) ou se cada visão precisar de dado isolado (segurança por painel).",
+    "effort_real_hours": 280,
+    "effort_basis": "Frente delimitada estimada pelo esforço real (incremento 04/ago): Analytics - Technical Consultant 240h (rate R$ 668,78) + Solution Architect 40h fracional (rate R$ 884,68). Janela paralela S10-S15, fora do caminho crítico do go-live 15/nov.",
+    "complexity_drivers": "Modelagem semântica das fontes nativas, construção de até 12 componentes (gráficos+tabelas) em 3 painéis, row-level security por perfil, publicação na instalação Tableau existente.",
+    "skills_needed": "Analytics - Technical Consultant (Tableau), Solution Architect (fracional, modelo de dados)",
+    "risks": "Métricas/campos exatos de cada visão a detalhar com o cliente (frente delimitada, não detalhada); disponibilidade dos dados nativos ao final do build das frentes-fonte (E02/E03/E04); credenciais/acesso à instalação Tableau existente.",
+    "solution_approach": "Salesforce connector (live/extract) sobre objetos nativos do PAT + 1 blend leve opcional; 1 modelo de dados com user filters (RLS por perfil); 3 painéis (Negócio/Projeto/MTE) publicados na instalação Tableau Server/Cloud existente do cliente.",
+    "size_if_assumption_breaks": "L se a fonte exigir consolidação/ETL de dados externos (Dataprev/DW, eSocial) com modelagem, ou se cada visão precisar de modelo/segurança isolado por painel.",
+    "confidence": "Assumed"
   }
 ]

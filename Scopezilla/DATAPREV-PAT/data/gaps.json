@@ -454,5 +454,26 @@
     "status": "resolved",
     "gap_or_question": "Scale/Hypercare (S14-S17) cobre os primeiros 4 ciclos reais de produção com 1,0 Consultor Técnico integral (40h/sem) + 0,5 Dev MuleSoft (20h/sem) + 10h/sem Arquiteto Técnico + 10h/sem Senior PM (mesmo arquiteto e mesmo PM do build). Alocação especificada pelo Solution Manager.",
     "impact_or_notes": "✅ RESOLVIDO. Composição revista em 03/ago (supera a APOSTA B do grill de 03/ago): o esforço integral de sustentação nas 4 semanas passa a ser coberto pelo Consultor Técnico (0,5→1,0 FTE = 160h) e o Dev MuleSoft recua para meio-período (1,0→0,5 FTE = 80h). O total do Scale permanece 320h (troca compensada, ambos @ 668,78) e o total do programa segue 5.200h. Justificativa: sustentar/manter a plataforma sob dinheiro real é trabalho de período integral, e o Consultor Técnico é o perfil primário de estabilização; o Dev MuleSoft cobre meio-período as rotas on-premise + conciliação/split e apoia o cutover. Propagado a todos os outputs (resource-plan, commercials, estimate-comparison, 02-delivery-plan, rom-cliente.html, deal-review.html, presentation-deck.html + PPTX)."
+  },
+  {
+    "gap_id": "G1001",
+    "category": "Analytics / Tableau (E10)",
+    "status": "assumption",
+    "gap_or_question": "Métricas, campos e a distribuição exata dos até 12 componentes entre os 3 painéis (Visão Negócio, Visão Projeto, Visão MTE) ainda não estão detalhados. Premissa de dimensionamento (04/ago): até 3 painéis, até 12 componentes no total entre gráficos e tabelas, esforço real de 280h.",
+    "impact_or_notes": "⚠ ASSUMPTION. E10 foi delimitada por alcance (3 painéis / 12 componentes) mas não por especificação. Se a contagem de componentes ou a complexidade individual (cálculos de nível de detalhe, parâmetros, ações entre painéis) exceder o previsto, o size sobe de M para L. A detalhar em workshop de descoberta dos painéis no início da janela S10. Estimar por esforço real conforme diretriz do usuário."
+  },
+  {
+    "gap_id": "G1002",
+    "category": "Analytics / Tableau (E10)",
+    "status": "assumption",
+    "gap_or_question": "Fonte de dados dos painéis assumida como ~80% nativa Salesforce (E02/E03/E04 via Salesforce connector) + 1 blend leve. Sem consolidação/ETL de dados externos nem camada analítica dedicada (Data Cloud/CRM Analytics).",
+    "impact_or_notes": "⚠ ASSUMPTION (default recomendado, endossado pelo usuário 04/ago). Se a fonte exigir consolidação/ETL de dados externos ou modelagem analítica dedicada, o size sobe para L e entra esforço de engenharia de dados fora das 280h. Reusa a instalação Tableau EXISTENTE — sem provisionamento de infra."
+  },
+  {
+    "gap_id": "G1003",
+    "category": "Analytics / Tableau (E10)",
+    "status": "assumption",
+    "gap_or_question": "Segurança dos painéis assumida como 1 modelo com RLS (row-level security) por perfil, com 3 layouts de audiência (Negócio, Projeto, MTE). Instalação Tableau existente é standalone (Server/Cloud do cliente), sem embedding no Salesforce nesta frente.",
+    "impact_or_notes": "⚠ ASSUMPTION (default recomendado, endossado pelo usuário 04/ago). Se for exigido embedding no Salesforce (Tableau Viz LWC/Analytics), SSO adicional ou mais de um modelo de segurança, entra esforço além das 280h. Mapeamento de perfis × visão a confirmar no workshop de descoberta dos painéis."
   }
 ]

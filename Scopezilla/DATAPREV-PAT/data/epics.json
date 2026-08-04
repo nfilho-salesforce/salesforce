@@ -153,5 +153,24 @@
     "kb_sources": [
       "[assumption: escopo de change/adoção e divisão PS vs. Dataprev a confirmar — decisão do usuário em requirements, 28/jul/2026]"
     ]
+  },
+  {
+    "epic_id": "E10",
+    "epic_name": "Painéis Analíticos (Tableau)",
+    "description": "FRENTE NOVA (incremento de escopo 04/ago), PARALELA e FORA DO CAMINHO CRÍTICO do go-live regulatório de 15/nov — inicia em S10, sem exigência de concluir junto com a Fase 1. Até 3 painéis sobre a INSTALAÇÃO TABLEAU EXISTENTE do cliente (Tableau Server/Cloud já provisionado — sem aprovisionamento de infra): (1) VISÃO NEGÓCIO — indicadores de adesão, volume de leilões/cotações, contratos firmados, MDR médio, valores repassados; (2) VISÃO PROJETO — saúde da entrega, marcos, backlog, incidentes; (3) VISÃO MTE — indicadores institucionais/regulatórios para o órgão. Até 12 componentes no total entre gráficos e tabelas, distribuídos entre os 3 painéis. FONTE DE DADOS: ~80% objetos NATIVOS do Salesforce PAT já construídos (Opportunity/Quote do marketplace E02, folha-cabeçalho/split/conciliação E03, credenciamento E04) via Salesforce connector (live/extract); no máximo 1 blend leve (extract do Novo PAT para volumetria histórica) — sem modelagem/ETL pesada. SEGURANÇA POR AUDIÊNCIA: 1 modelo de dados + row-level security por perfil (user filters), 3 layouts de painel — não 3 modelos isolados. Entrega Salesforce PS pelo ESFORÇO REAL (frente delimitada), não só T-shirt.",
+    "confidence": "Assumed",
+    "products": [
+      "tableau",
+      "sales-cloud"
+    ],
+    "depends_on": [
+      "E02",
+      "E03",
+      "E04"
+    ],
+    "kb_sources": [
+      "[assumption: incremento de escopo 04/ago — 3 painéis (Negócio/Projeto/MTE), até 12 componentes, fonte 80% nativa Salesforce + 1 blend leve, Tableau Server/Cloud existente, RLS por perfil; defaults user-endorsed no grill 04/ago]",
+      "[assumption: campos/métricas exatos de cada visão a detalhar com o cliente — frente delimitada, não detalhada]"
+    ]
   }
 ]
