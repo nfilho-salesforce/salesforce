@@ -170,7 +170,8 @@
     ],
     "kb_sources": [
       "[assumption: incremento de escopo 04/ago — 3 painéis (Negócio/Projeto/MTE), até 12 componentes, fonte 80% nativa Salesforce + 1 blend leve, Tableau Server/Cloud existente, RLS por perfil; defaults user-endorsed no grill 04/ago]",
-      "[assumption: campos/métricas exatos de cada visão a detalhar com o cliente — frente delimitada, não detalhada]"
+      "[assumption: campos/métricas exatos de cada visão a detalhar com o cliente — frente delimitada, não detalhada]",
+      "[assumption: grill 04/ago — 280h MANTIDAS (apresentadas ao cliente); workshop de painéis absorvido no arranque S10 (G1001); enablement/acesso da audiência MTE é fronteira cliente-owned, fora das 280h (G1004)]"
     ]
   }
 ]

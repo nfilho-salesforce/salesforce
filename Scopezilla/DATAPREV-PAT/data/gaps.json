@@ -460,7 +460,7 @@
     "category": "Analytics / Tableau (E10)",
     "status": "assumption",
     "gap_or_question": "Métricas, campos e a distribuição exata dos até 12 componentes entre os 3 painéis (Visão Negócio, Visão Projeto, Visão MTE) ainda não estão detalhados. Premissa de dimensionamento (04/ago): até 3 painéis, até 12 componentes no total entre gráficos e tabelas, esforço real de 280h.",
-    "impact_or_notes": "⚠ ASSUMPTION. E10 foi delimitada por alcance (3 painéis / 12 componentes) mas não por especificação. Se a contagem de componentes ou a complexidade individual (cálculos de nível de detalhe, parâmetros, ações entre painéis) exceder o previsto, o size sobe de M para L. A detalhar em workshop de descoberta dos painéis no início da janela S10. Estimar por esforço real conforme diretriz do usuário."
+    "impact_or_notes": "⚠ ASSUMPTION. E10 foi delimitada por alcance (3 painéis / 12 componentes) mas não por especificação. Se a contagem de componentes ou a complexidade individual (cálculos de nível de detalhe, parâmetros, ações entre painéis) exceder o previsto, o size sobe de M para L. Grill 04/ago: as 280h foram MANTIDAS (apresentadas ao cliente) — o workshop de descoberta dos painéis (levantar métricas/campos com as 3 audiências) fica ABSORVIDO no arranque da janela S10 do Analytics - Technical Consultant, sem linha separada; segue como pendência de especificação a fechar no início de S10. Estimar por esforço real conforme diretriz do usuário."
   },
   {
     "gap_id": "G1002",
@@ -475,5 +475,12 @@
     "status": "assumption",
     "gap_or_question": "Segurança dos painéis assumida como 1 modelo com RLS (row-level security) por perfil, com 3 layouts de audiência (Negócio, Projeto, MTE). Instalação Tableau existente é standalone (Server/Cloud do cliente), sem embedding no Salesforce nesta frente.",
     "impact_or_notes": "⚠ ASSUMPTION (default recomendado, endossado pelo usuário 04/ago). Se for exigido embedding no Salesforce (Tableau Viz LWC/Analytics), SSO adicional ou mais de um modelo de segurança, entra esforço além das 280h. Mapeamento de perfis × visão a confirmar no workshop de descoberta dos painéis."
+  },
+  {
+    "gap_id": "G1004",
+    "category": "Analytics / Tableau (E10)",
+    "status": "assumption",
+    "gap_or_question": "Enablement/treinamento da audiência MTE (órgão externo) e provisionamento de acesso de usuários externos na instalação Tableau existente do cliente. A 'Visão MTE' entrega indicadores institucionais a um stakeholder externo (o Ministério do Trabalho e Emprego); isso implica treinar essa audiência e liberar acesso dos usuários dela na plataforma Tableau.",
+    "impact_or_notes": "⚠ ASSUMPTION (fronteira definida no grill 04/ago). As 280h da frente E10 cobrem CONSTRUÇÃO dos painéis (modelagem semântica, componentes, RLS, publicação) — NÃO cobrem enablement/treinamento da audiência MTE nem administração de acesso de usuários externos na instalação Tableau. Fronteira: essas atividades são CLIENTE-OWNED (Dataprev/MTE), fora do escopo Salesforce PS desta frente. Se o cliente pedir que a Salesforce conduza o enablement da audiência MTE ou o provisionamento de acesso externo, entra esforço além das 280h. A confirmar no workshop de descoberta dos painéis (início de S10)."
   }
 ]

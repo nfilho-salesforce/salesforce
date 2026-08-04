@@ -755,6 +755,20 @@
         "Grillar a fatia E10 recém-mintada (Assumed: G1001-G1003) antes que chegue ao cliente — grill-me-on-scope escopado só ao slice Tableau",
         "Workshop de descoberta E10 para fixar métricas/campos/componentes por painel, ratificar fonte de dados e modelo de RLS"
       ]
+    },
+    {
+      "date": "2026-08-04",
+      "skills_used": [
+        "grill-me-on-scope"
+      ],
+      "summary": "Grill escopado SÓ à fatia E10 (frente Tableau) recém-mintada. Sizing M/280h estressado bottom-up (≈50h camada semântica + 120h build 3 painéis + 25h RLS 3 audiências + 25h publicação/UAT) — defensável, sem over-scope. Dois buracos de UNDER-scope surfados: (A) workshop de descoberta dos painéis e (B) enablement/acesso da audiência MTE (órgão externo). Decisão do usuário: MANTER 280h (já apresentadas ao cliente) e mapear ambos como PENDÊNCIAS EM ABERTO. Write-back: G1001 enriquecido (workshop absorvido no arranque S10); G1004 NOVO (enablement/acesso MTE = fronteira cliente-owned, fora das 280h); confidence_note no estimate E10 e kb_sources no épico E10. Sem resize → sem propagação de número (revise não acionado). Gaps 78→79.",
+      "open_threads": [
+        "Especificação de métricas/campos por painel (Negócio/Projeto/MTE) a fechar no workshop de descoberta no início de S10",
+        "Confirmar com cliente a fronteira de enablement/acesso da audiência MTE (G1004)"
+      ],
+      "next_steps": [
+        "Gerar rom-cliente.html bilíngue (PT-BR padrão + Inglês, seletor de idioma) incluindo as pendências G1001/G1004 na página Pendências em Aberto"
+      ]
     }
   ],
   "preferences": {},

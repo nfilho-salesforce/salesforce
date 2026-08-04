@@ -164,6 +164,7 @@
     "risks": "Métricas/campos exatos de cada visão a detalhar com o cliente (frente delimitada, não detalhada); disponibilidade dos dados nativos ao final do build das frentes-fonte (E02/E03/E04); credenciais/acesso à instalação Tableau existente.",
     "solution_approach": "Salesforce connector (live/extract) sobre objetos nativos do PAT + 1 blend leve opcional; 1 modelo de dados com user filters (RLS por perfil); 3 painéis (Negócio/Projeto/MTE) publicados na instalação Tableau Server/Cloud existente do cliente.",
     "size_if_assumption_breaks": "L se a fonte exigir consolidação/ETL de dados externos (Dataprev/DW, eSocial) com modelagem, ou se cada visão precisar de modelo/segurança isolado por painel.",
-    "confidence": "Assumed"
+    "confidence": "Assumed",
+    "confidence_note": "Sizing M / 280h user-endorsed no grill 04/ago — MANTIDAS por já terem sido apresentadas ao cliente. Buracos de under-scope mapeados como pendências em aberto: workshop de descoberta dos painéis absorvido no arranque S10 (G1001); enablement/acesso da audiência MTE (órgão externo) é fronteira cliente-owned, fora das 280h (G1004). Especificação de métricas/campos por visão segue a detalhar (Assumed)."
   }
 ]
