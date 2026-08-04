@@ -1108,6 +1108,10 @@ body{
       <span class="ico">⚙️</span> Requisitos por Camada
       <span class="nav-badge scope">PARTE 6</span>
     </a>
+    <a class="nav-item" onclick="showSection('s6b')">
+      <span class="ico">📌</span> Premissas &amp; Fora do Escopo
+      <span class="nav-badge scope">FASE 1</span>
+    </a>
     <div class="nav-group-title">Estimativa &amp; Entrega</div>
     <a class="nav-item" onclick="showSection('s9')">
       <span class="ico">🗓️</span> Linha do Tempo &amp; Marcos
@@ -3382,6 +3386,176 @@ body{
 
       <div class="sec-nav">
         <button class="sec-link" onclick="showSection('s5')">← Ver casos de uso</button>
+        <button class="sec-link" onclick="showSection('s6b')">→ Ver premissas &amp; fora do escopo</button>
+      </div>
+
+    </div>
+
+    <!-- ═══ SECTION 6B · PREMISSAS & FORA DO ESCOPO (FASE 1) ═══ -->
+    <div id="s6b" class="section">
+
+      <div class="hero" style="background:linear-gradient(135deg,#0C326F,#1351B4);">
+        <div class="eyebrow">Escopo · Fase 1 · Base de dimensionamento</div>
+        <h1>Premissas &amp; Fora do Escopo</h1>
+        <p class="sub">O que a Fase 1 <b>assume</b> e o que ela <b>deliberadamente não faz</b>. As premissas são a base sobre a qual a estimativa e a janela de 15/nov foram dimensionadas — algumas já ratificadas como decisões de arquitetura (ADRs), outras a confirmar no arranque. O fora do escopo delimita a Fase 1 e aponta para onde cada item foi endereçado (Fase 2, gateway externo ou responsabilidade do cliente). Delimitar não é reduzir: é tornar o compromisso honesto.</p>
+      </div>
+
+      <div class="grid-4" style="margin-bottom:20px;">
+        <div class="kpi"><div class="n">5</div><div class="l">Premissas de arquitetura (ADRs ratificados)</div></div>
+        <div class="kpi teal"><div class="n">8</div><div class="l">Premissas de entrega a confirmar no arranque</div></div>
+        <div class="kpi purple"><div class="n">9</div><div class="l">Itens fora do escopo da Fase 1</div></div>
+        <div class="kpi green"><div class="n">15/nov</div><div class="l">Data-âncora que as premissas sustentam</div></div>
+      </div>
+
+      <div class="card" style="margin-bottom:16px;border-left:4px solid var(--blue-accent);">
+        <h2>📌 Como ler esta seção</h2>
+        <p class="lead">Uma <b>premissa</b> é uma condição que assumimos verdadeira para dimensionar a solução. Se uma premissa cair, o escopo, o prazo ou a estimativa mudam — por isso cada uma diz o que sustenta e qual seu estado. <b>Premissas de arquitetura</b> já foram decididas e registradas como ADRs (decisões de arquitetura); <b>premissas de entrega</b> ainda são suposições de trabalho a confirmar no arranque. O <b>fora do escopo</b> não é lacuna: cada item foi conscientemente diferido, com destino nomeado.</p>
+        <div class="chip-row" style="margin-top:8px;">
+          <span class="chip green">✓ Ratificada (ADR)</span>
+          <span class="chip yellow">◔ A confirmar no arranque</span>
+          <span class="chip purple">→ Diferido / fora do escopo</span>
+        </div>
+      </div>
+
+      <!-- ═══ PREMISSAS DE ARQUITETURA ═══ -->
+      <div class="card">
+        <h2>🏛️ Premissas de arquitetura <span class="nav-badge scope" style="margin-left:6px;">ADRs ratificados</span></h2>
+        <p class="lead">Decisões de arquitetura já fechadas com o cliente (call de 30–31/jul, revisão de 03/ago). São <b>load-bearing</b>: reverter qualquer uma re-desenha múltiplas frentes. Registradas em <code>decisions/</code>.</p>
+
+        <div class="grid-2" style="margin-top:6px;">
+          <div class="alert green" style="margin:0;">
+            <span class="ic">🔒</span>
+            <div><strong>ADR 0001 · Residência de dados híbrida.</strong> CPF e dados sensíveis <b>não persistem</b> na nuvem Salesforce — ficam na Dataprev e são resolvidos em runtime via MuleSoft (LGPD Art. 11). A plataforma opera sobre tokens/identificadores, não sobre o dado sensível bruto.</div>
+          </div>
+          <div class="alert green" style="margin:0;">
+            <span class="ic">🏢</span>
+            <div><strong>ADR 0002 · Instância dedicada e apartada para o MTE.</strong> O isolamento é <b>requisito</b>, não opção — sensibilidade financeira, volumetria (~800k empresas / ~450k estabelecimentos), auditabilidade (TCU/CGU/ANPD) e administração pelo próprio MTE. Só o Cenário B (dedicado). <i>Verbal — a ratificar por escrito.</i></div>
+          </div>
+          <div class="alert green" style="margin:0;">
+            <span class="ic">⚖️</span>
+            <div><strong>ADR 0003 · Fronteira não-transacional.</strong> O Salesforce é o CRM e o <b>motor de regras de split</b>; ele não transaciona nem custodia dinheiro. A execução bancária, a custódia e a boletagem ficam em um <b>gateway PCI externo</b> (banco público a definir — OPEN-01).</div>
+          </div>
+          <div class="alert green" style="margin:0;">
+            <span class="ic">🛒</span>
+            <div><strong>ADR 0004 · Sales Cloud com objetos nativos.</strong> Opportunity = a demanda que a beneficiária cadastra; Quote = a resposta da facilitadora, recebida <b>exclusivamente via API</b>. A facilitadora não tem UI nem licença de portal → a <b>equidade é por construção</b> (uma não vê a proposta da outra), sem Apex managed sharing.</div>
+          </div>
+          <div class="alert green" style="margin:0;grid-column:1 / -1;">
+            <span class="ic">🔌</span>
+            <div><strong>ADR 0006 · MuleSoft reusa a instalação on-premise existente</strong> (supera a ADR 0005). A camada API-led é implantada sobre o MuleSoft que já roda no perímetro soberano da Dataprev — não é greenfield. A Etapa 0 de aprovisionamento do MuleSoft foi <b>eliminada</b>, e a Fundação passa a iniciar já na Semana 1 (17/ago), com a definição de arquitetura mesclada ao Planning &amp; Design.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ PREMISSAS DE ENTREGA ═══ -->
+      <div class="card">
+        <h2>◔ Premissas de entrega <span class="nav-badge open" style="margin-left:6px;">a confirmar no arranque</span></h2>
+        <p class="lead">Suposições de trabalho sobre as quais a estimativa foi construída. Não impedem o desenho — <b>delimitam-no</b>. Cada uma é validada nas primeiras semanas; se cair, dispara revisão (ver Pendências em Aberto).</p>
+
+        <table class="tbl" style="width:100%;border-collapse:collapse;margin-top:8px;font-size:13px;">
+          <thead>
+            <tr style="background:var(--gray-bg);text-align:left;">
+              <th style="padding:10px 12px;border-bottom:2px solid var(--gray-border);width:22%;">Premissa</th>
+              <th style="padding:10px 12px;border-bottom:2px solid var(--gray-border);">O que assumimos</th>
+              <th style="padding:10px 12px;border-bottom:2px solid var(--gray-border);width:24%;">Se cair…</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding:11px 12px;border-bottom:1px solid var(--gray-border);font-weight:700;">Identidade gov.br <span style="color:var(--text-muted);font-weight:600;">(G0101/G0108)</span></td>
+              <td style="padding:11px 12px;border-bottom:1px solid var(--gray-border);">O gov.br credencia o portal como Relying Party em produção e o nível de garantia exigido (Prata/Ouro) está definido. O driver de licença de portal é a <b>beneficiária</b> (facilitadora é API-only, sem assento).</td>
+              <td style="padding:11px 12px;border-bottom:1px solid var(--gray-border);">Login não é buildável sem credenciamento; lead-time governamental pressiona a data.</td>
+            </tr>
+            <tr>
+              <td style="padding:11px 12px;border-bottom:1px solid var(--gray-border);font-weight:700;">Fluxo da folha <span style="color:var(--text-muted);font-weight:600;">(G0310)</span></td>
+              <td style="padding:11px 12px;border-bottom:1px solid var(--gray-border);">As linhas da folha <b>não persistem</b> na plataforma — só cabeçalho/competência (decisão firme). Layout do CSV, regra de integridade, alternativa de crítica por IA e o contrato de API facilitadora↔plataforma seguem a confirmar.</td>
+              <td style="padding:11px 12px;border-bottom:1px solid var(--gray-border);">Persistir linha-a-linha amplia o modelo de dados de E03 (é roadmap futuro).</td>
+            </tr>
+            <tr>
+              <td style="padding:11px 12px;border-bottom:1px solid var(--gray-border);font-weight:700;">Prontidão de infra <span style="color:var(--text-muted);font-weight:600;">(G0810/ADR 0006)</span></td>
+              <td style="padding:11px 12px;border-bottom:1px solid var(--gray-border);">A org dedicada, o <b>acesso ao MuleSoft on-premise</b> e o gateway estarão prontos nos marcos do projeto — pedidos no dia 1 da Fundação.</td>
+              <td style="padding:11px 12px;border-bottom:1px solid var(--gray-border);"><b>Maior risco à data fixa</b> — se a infra atrasar, 15/nov não se alcança só com esforço.</td>
+            </tr>
+            <tr>
+              <td style="padding:11px 12px;border-bottom:1px solid var(--gray-border);font-weight:700;">DevOps &amp; ambientes <span style="color:var(--text-muted);font-weight:600;">(G0809)</span></td>
+              <td style="padding:11px 12px;border-bottom:1px solid var(--gray-border);">Pipeline source-driven (Salesforce CLI + Git, Dev→QA→UAT→Prod) com full sandbox para a homologação.</td>
+              <td style="padding:11px 12px;border-bottom:1px solid var(--gray-border);">Toolchain/política de deploy da Dataprev diferente reabre planejamento de release.</td>
+            </tr>
+            <tr>
+              <td style="padding:11px 12px;border-bottom:1px solid var(--gray-border);font-weight:700;">Sequenciamento <span style="color:var(--text-muted);font-weight:600;">(G0508)</span></td>
+              <td style="padding:11px 12px;border-bottom:1px solid var(--gray-border);">Fundação antes do Marketplace, com a frente MuleSoft (E05) iniciada <b>mock-first</b> na Semana 1 — válido enquanto o risco #1 for a ausência de contratos de API.</td>
+              <td style="padding:11px 12px;border-bottom:1px solid var(--gray-border);">Se os contratos existirem cedo, a Fundação e o Marketplace paralelizam mais (o roadmap comprime).</td>
+            </tr>
+            <tr>
+              <td style="padding:11px 12px;border-bottom:1px solid var(--gray-border);font-weight:700;">Change &amp; comunicação <span style="color:var(--text-muted);font-weight:600;">(G0907)</span></td>
+              <td style="padding:11px 12px;border-bottom:1px solid var(--gray-border);">A comunicação com as ~600–700 facilitadoras arranca já na Fundação (resistência esperada pela perda de margem). A divisão do change entre PS e Dataprev/MTE segue a definir.</td>
+              <td style="padding:11px 12px;border-bottom:1px solid var(--gray-border);">Se a Dataprev/MTE assumir a comunicação, o esforço PS recua para capacitação/adoção.</td>
+            </tr>
+            <tr>
+              <td style="padding:11px 12px;border-bottom:1px solid var(--gray-border);font-weight:700;">Scale / Hypercare <span style="color:var(--text-muted);font-weight:600;">(G0511)</span></td>
+              <td style="padding:11px 12px;border-bottom:1px solid var(--gray-border);">As 4 semanas de Scale (S14–S17) cobrem os <b>primeiros 4 ciclos reais</b> de produção com time enxuto (mesmo arquiteto e PM do build, em fração).</td>
+              <td style="padding:11px 12px;border-bottom:1px solid var(--gray-border);">Volume/incidência acima do previsto exige reforço do time de sustentação.</td>
+            </tr>
+            <tr>
+              <td style="padding:11px 12px;font-weight:700;">Base regulatória <span style="color:var(--text-muted);font-weight:600;">(ADI 7962)</span></td>
+              <td style="padding:11px 12px;">As regras financeiras do Decreto 12.712/2025 (teto de MDR, fim do rebate, pré-pagamento) já estão em vigor. O cronograma de interoperabilidade (15/nov) segue como cenário-base.</td>
+              <td style="padding:11px 12px;">Decisão do STF pode ajustar o cronograma de interoperabilidade — premissa a acompanhar, não parecer jurídico.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ═══ FORA DO ESCOPO ═══ -->
+      <div class="card">
+        <h2>🚫 Fora do escopo da Fase 1 <span class="nav-badge open" style="margin-left:6px;">com destino nomeado</span></h2>
+        <p class="lead">Itens conscientemente diferidos para caber a solução na janela fixa. Cada um aponta <b>para onde foi endereçado</b> — nada some, tudo tem dono.</p>
+
+        <div class="grid-2" style="margin-top:6px;">
+          <div class="alert purple" style="margin:0;">
+            <span class="ic">🤖</span>
+            <div><strong>Atendimento Inteligente (Agentforce).</strong> A nona épica — self-service conversacional em escala aos participantes. <b>Destino:</b> Fase 2 (Wave 2), como evolução planejada. A Fase 1 entrega as 8 épicas com go-live regulatório.</div>
+          </div>
+          <div class="alert purple" style="margin:0;">
+            <span class="ic">📄</span>
+            <div><strong>Persistência linha-a-linha da folha.</strong> A Fase 1 guarda cabeçalho/competência, não cada linha de trabalhador. <b>Destino:</b> roadmap futuro — relatório de folha linha-a-linha entra depois de 15/nov.</div>
+          </div>
+          <div class="alert purple" style="margin:0;">
+            <span class="ic">🔔</span>
+            <div><strong>Notificação ativa (push) às facilitadoras.</strong> Na Fase 1, as facilitadoras descobrem as demandas por <b>endpoint de consulta (pull)</b>. <b>Destino:</b> push é roadmap futuro, com o canal a definir.</div>
+          </div>
+          <div class="alert purple" style="margin:0;">
+            <span class="ic">📑</span>
+            <div><strong>CLM / gestão de ciclo de vida de contrato.</strong> O contrato é um <b>PDF imutável versionado</b>, sem ferramenta de CLM. <b>Destino:</b> avaliar CLM como evolução, se o volume justificar.</div>
+          </div>
+          <div class="alert purple" style="margin:0;">
+            <span class="ic">🏦</span>
+            <div><strong>Execução bancária, custódia e boletagem.</strong> Ficam no <b>gateway PCI externo</b> (ADR 0003). A plataforma integra e comanda o split via MuleSoft, mas <b>não executa</b> a transação. <b>Destino:</b> gateway do cliente.</div>
+          </div>
+          <div class="alert purple" style="margin:0;">
+            <span class="ic">📦</span>
+            <div><strong>Migração / carga histórica massiva.</strong> A Fase 1 faz <b>carga mínima</b> (2 semanas, S12–S13) para o go-live. <b>Destino:</b> migração de histórico volumoso, se necessária, é iniciativa à parte pós-go-live.</div>
+          </div>
+          <div class="alert purple" style="margin:0;">
+            <span class="ic">🖥️</span>
+            <div><strong>Provisionamento de infra do cliente.</strong> A instalação/capacidade do MuleSoft on-premise e a contratação do gateway são <b>responsabilidade da Dataprev/MTE</b>. <b>Destino:</b> cliente — a PS consome, não provisiona.</div>
+          </div>
+          <div class="alert purple" style="margin:0;">
+            <span class="ic">🔗</span>
+            <div><strong>Mudanças na plataforma gov.br.</strong> Ajustes de nível de garantia ou de credenciamento do portal dependem do <b>governo</b>. <b>Destino:</b> gov.br — a PS integra ao que existe.</div>
+          </div>
+          <div class="alert purple" style="margin:0;grid-column:1 / -1;">
+            <span class="ic">🧩</span>
+            <div><strong>Cenário multi-org / compartilhado (Cenário A) e Apex managed sharing.</strong> O Cenário A foi descartado (ADR 0002 — só instância dedicada), e o managed sharing é desnecessário porque a equidade é por construção (ADR 0004 — facilitadora API-only). <b>Destino:</b> descartados por decisão de arquitetura, não por corte de escopo.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert blue">
+        <span class="ic">🧭</span>
+        <div><strong>Como isto conecta.</strong> Cada premissa de entrega a confirmar tem um item correspondente em <b>Pendências em Aberto</b>, e cada exclusão de evolução está no <b>Roadmap Fase 2</b>. A estimativa (5.200h) e a janela de 15/nov foram dimensionadas <b>exatamente sobre estas premissas</b> — mudá-las é o gatilho para reabrir número e prazo.</div>
+      </div>
+
+      <div class="sec-nav">
+        <button class="sec-link" onclick="showSection('s6')">← Ver requisitos por camada</button>
         <button class="sec-link" onclick="showSection('s9')">→ Ver linha do tempo</button>
       </div>
 
@@ -4314,7 +4488,7 @@ function showSection(id){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   const sec = document.getElementById(id);
   if(sec) sec.classList.add('active');
-  const idx = {'s1':0,'s2':1,'s3':2,'s4':3,'s4b':4,'s4c':5,'s5b':6,'s5':7,'s6':8,'s9':9,'s10':10,'s7':11,'s8':12}[id];
+  const idx = {'s1':0,'s2':1,'s3':2,'s4':3,'s4b':4,'s4c':5,'s5b':6,'s5':7,'s6':8,'s6b':9,'s9':10,'s10':11,'s7':12,'s8':13}[id];
   const navItems = document.querySelectorAll('.nav-item');
   if(navItems[idx]) navItems[idx].classList.add('active');
   window.scrollTo(0,0);
