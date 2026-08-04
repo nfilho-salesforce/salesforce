@@ -1,7 +1,7 @@
 # Precificação Indicativa — Marketplace Digital do PAT (DATAPREV-PAT)
 
 **Trilha:** AI-native (trilha comprometida — Build/Fase 1 com go-live PROD em 15/nov/2026, seguido de Scale/Hypercare até 13/dez/2026)
-**Base de esforço:** roster nomeado (15 linhas PS: 11 no Build + 4 no Scale/Hypercare) × janela fixa comprometida de **17 semanas (13 de build + 4 de Scale/Hypercare)** × 40h/semana, alocação-consciente
+**Base de esforço:** roster nomeado (17 linhas PS: 11 no Build + 4 no Scale/Hypercare + 2 na frente Tableau) × janela fixa comprometida de **17 semanas (13 de build + 4 de Scale/Hypercare)** × 40h/semana, alocação-consciente, mais a **frente Tableau paralela (E10, S10-S15, off-critical-path)** estimada pelo esforço real (280h)
 **Moeda:** BRL (R$)
 
 Esta é uma **faixa de preço indicativa**, não um custo, uma margem, nem um preço fechado (fixed-fee). É o valor *cobrado ao cliente*, derivado dos rates que você forneceu e validou multiplicados pelo esforço top-down do roster comprometido.
@@ -10,15 +10,16 @@ Esta é uma **faixa de preço indicativa**, não um custo, uma margem, nem um pr
 
 ## Approved Commercials
 
-**Preço indicativo do Programa (trilha AI-native, janela fixa de 17 semanas — 13 de build + 4 de Scale/Hypercare):**
+**Preço indicativo do Programa (trilha AI-native, janela fixa de 17 semanas — 13 de build + 4 de Scale/Hypercare — mais a frente Tableau paralela):**
 
 | Medida | Horas | Sem imposto | Com imposto (÷ 0,9345) |
 |---|---:|---:|---:|
 | Build (Fase 1) | **4.880 h** | **R$ 3.591.059,40** | **R$ 3.842.760,19** |
 | Scale/Hypercare | **320 h** | **R$ 231.281,60** | **R$ 247.492,35** |
-| **TOTAL PROGRAMA** | **5.200 h** | **R$ 3.822.341,00** | **R$ 4.090.252,54** |
+| Frente Tableau (E10 · paralela, off-critical-path) | **280 h** | **R$ 195.894,40** | **R$ 209.624,83** |
+| **TOTAL PROGRAMA** | **5.480 h** | **R$ 4.018.235,40** | **R$ 4.299.877,37** |
 
-*Ponto indicativo na janela fixa — não faixa. As 17 semanas são compromisso do usuário (planejamento de trás pra frente a partir do go-live de 15/nov/2026, seguido de 4 semanas de Scale/Hypercare até 13/dez/2026); o escopo é a variável de flexão, com E06/Agentforce, Data Cloud e Marketing Cloud de-escopados como buffer de cronograma. Pico de 13 pessoas no build.*
+*Ponto indicativo na janela fixa — não faixa. As 17 semanas são compromisso do usuário (planejamento de trás pra frente a partir do go-live de 15/nov/2026, seguido de 4 semanas de Scale/Hypercare até 13/dez/2026); o escopo é a variável de flexão, com E06/Agentforce, Data Cloud e Marketing Cloud de-escopados como buffer de cronograma. Pico de 13 pessoas no build. A frente Tableau (E10, incremento 04/ago) roda em PARALELO na janela S10-S15, off-critical-path — não estende o cronograma nem gateia o go-live de 15/nov; estimada pelo esforço real (280h) sobre a instalação Tableau existente.*
 
 > *This range is based on the rate of the official Salesforce PS LATAM rate table (per-role, R$ 573,98–R$ 884,68/h sem imposto, mapeado por função no roster) you supplied and validated on 2026-07-31. Indicative for planning only; final commercial structure is confirmed through the applicable commercial agreement.*
 
@@ -56,7 +57,15 @@ Preço = Σ sobre as linhas do roster de (horas-por-pessoa × contagem × rate s
 | Arquiteto Técnico (10h/sem) | 40 | 884,68 | 946,69 | 35.387,20 | 37.867,52 |
 | Senior PM (10h/sem) | 40 | 884,68 | 946,69 | 35.387,20 | 37.867,52 |
 | **SUBTOTAL SCALE** | **320** | | | **231.281,60** | **247.492,35** |
-| **TOTAL PROGRAMA** | **5.200** | | | **3.822.341,00** | **4.090.252,54** |
+
+**Frente Tableau (E10 · S10-S15, paralela e off-critical-path) — 280h, estimada pelo esforço real sobre a instalação Tableau existente:**
+
+| Função (roster) | Horas | Rate s/ imp. (R$/h) | Rate c/ imp. (R$/h) | Subtotal s/ imp. (R$) | Subtotal c/ imp. (R$) |
+|---|---:|---:|---:|---:|---:|
+| Analytics - Technical Consultant (integral, 6 sem) | 240 | 668,78 | 715,66 | 160.507,20 | 171.757,31 |
+| Solution Architect (fracional, ~7h/sem) | 40 | 884,68 | 946,69 | 35.387,20 | 37.867,52 |
+| **SUBTOTAL TABLEAU** | **280** | | | **195.894,40** | **209.624,83** |
+| **TOTAL PROGRAMA** | **5.480** | | | **4.018.235,40** | **4.299.877,37** |
 
 *Rate com imposto por função = rate sem imposto da tabela oficial ÷ 0,9345 (Senior Architect/PM 884,68→946,69; MuleSoft Technical Architect 821,49→879,07 — faixa própria; Experience Architect 789,88→845,24; Developer/Technical Consultant/MuleSoft TC 668,78→715,66; QA/Solution Consultant 573,98→614,21). Correção de rates em 03/ago: o Arquiteto Técnico MuleSoft passou a ter faixa própria (884,68→821,49) e o antigo Payments/Financial Architecture Specialist foi substituído por Technical Consultant (884,68→668,78), reduzindo o total em R$ 88.045,00 sem imposto.*
 

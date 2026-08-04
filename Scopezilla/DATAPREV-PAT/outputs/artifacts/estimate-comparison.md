@@ -69,7 +69,8 @@ Preço indicativo por trilha, derivado da tabela de rates da Dataprev que você 
 |---|---:|---|---|---|---|
 | **AI-native — Build (âncora)** | 4.880h | R$ 3.591.059,40 | **R$ 3.842.760,19** | 13 sem | ~9,4 |
 | **AI-native — Scale/Hypercare** | 320h | R$ 231.281,60 | **R$ 247.492,35** | 4 sem | fracional (Consultor Técnico integral) |
-| **AI-native — TOTAL PROGRAMA** | 5.200h | **R$ 3.822.341,00** | **R$ 4.090.252,54** | 17 sem | — |
+| **AI-native — Frente Tableau (E10 · paralela)** | 280h | R$ 195.894,40 | **R$ 209.624,83** | S10-S15 (off-critical-path) | Analytics-TC integral + SA fracional |
+| **AI-native — TOTAL PROGRAMA** | 5.480h | **R$ 4.018.235,40** | **R$ 4.299.877,37** | 17 sem + Tableau paralela | — |
 | Tradicional (notional, escopo completo) | 7.420–15.670h | R$ 5,44M – 11,48M | **R$ 5,8M – 12,3M** | 18–38 sem | ~10,6 |
 
 > *Valores são indicativos e apenas para discussão de planejamento. Estimativas finais, modelo de esforço e estrutura comercial serão confirmados por meio do acordo comercial aplicável. Viagens e despesas são faturadas conforme incorridas e não estão incluídas nas estimativas.*

@@ -18,7 +18,7 @@
 5. **Resolução:** a solução cabe em uma arquitetura — Sales Cloud 100% greenfield + MuleSoft reaproveitando a instalação on-premise existente da DATAPREV + gateway do cliente.
 6. **Resolução:** o leilão reverso mapeia em objetos nativos e a equidade é por construção (não por customização).
 7. **Resolução:** o motor de split é o coração regulado — e o que dimensiona o financeiro como XL.
-8. **Prova:** nove épicas cobrem o fluxo; a Fase 1 entrega oito, com Agentforce como buffer.
+8. **Prova:** dez épicas no programa; a Fase 1 regulatória entrega oito, com Agentforce como buffer, e a frente Tableau (E10) roda em paralelo off-critical-path.
 9. **Prova:** seis fases, planejadas de trás pra frente a partir da data fixa — a Fundação já inicia na Semana 1.
 10. **Prova:** a espinha de segurança (isolamento + tokenização) está formalizada em seis ADRs.
 11. **Prova:** os riscos são conhecidos e mitigados — o maior é o lead-time do MuleSoft on-premise reaproveitado.
@@ -110,9 +110,9 @@
 ## Approved Commercials
 
 ### Slide 12 — Investimento indicativo
-- **Título de ação:** Investimento indicativo do programa completo (build + Scale/Hypercare): R$ 4,09M (com imposto)
+- **Título de ação:** Investimento indicativo do programa completo (build + Scale/Hypercare + frente Tableau): R$ 4,30M (com imposto)
 - **Existe porque:** o público pediu a cifra; entra com base transparente e disclaimer.
-- **Conteúdo (stats):** total 5.200h · R$ 4.090.252,54 com imposto (R$ 3.822.341,00 sem) — build 4.880h · R$ 3.842.760,19 c.imp (R$ 3.591.059,40 s.imp) + Scale/Hypercare 320h · R$ 247.492,35 c.imp (R$ 231.281,60 s.imp) · trilha AI-native · janela de 17 semanas (13 de build + 4 de Scale/Hypercare) · roster de 11 funções PS de build (13 pessoas no pico) + 4 funções de Scale (Consultor Técnico integral). **Ponto indicativo, não faixa; escopo é a variável de flexão.**
+- **Conteúdo (stats):** total 5.480h · R$ 4.299.877,37 com imposto (R$ 4.018.235,40 sem) — build 4.880h · R$ 3.842.760,19 c.imp (R$ 3.591.059,40 s.imp) + Scale/Hypercare 320h · R$ 247.492,35 c.imp (R$ 231.281,60 s.imp) + frente Tableau 280h · R$ 209.624,83 c.imp (R$ 195.894,40 s.imp, E10 paralela S10-S15 off-critical-path) · trilha AI-native · janela de 17 semanas (13 de build + 4 de Scale/Hypercare) mais a frente Tableau paralela · roster de 11 funções PS de build (13 pessoas no pico) + 4 funções de Scale (Consultor Técnico integral) + 2 na frente Tableau. **Ponto indicativo, não faixa; escopo é a variável de flexão.**
 - **Visual:** stat tiles + disclaimer box. **Densidade:** balanced.
 - **Fonte:** commercials.md / commercials.json.
 - **Disclaimer (verbatim, Validated-Rate):** "*This range is based on the rate of the official Salesforce PS LATAM rate table (per-role, R$ 573,98–R$ 884,68/h sem imposto, mapeado por função no roster) you supplied and validated on 2026-07-31. Indicative for planning only; final commercial structure is confirmed through the applicable commercial agreement.*"
