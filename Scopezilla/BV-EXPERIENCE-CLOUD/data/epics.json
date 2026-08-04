@@ -1,0 +1,65 @@
+[
+  {
+    "epic_id": "E01",
+    "epic_name": "Portal Governança (Experience Cloud)",
+    "description": "Portal de ciclo de vida de APIs sobre Experience Cloud: cadastro de API de Negócio, geração/anexo de API Técnica, validação de contrato via OPA (render do resultado em HTML), processo de aprovação por Flow, fechamento após 3 rejeições e publicação de versões. Inclui segurança/perfis, modelo de dados de catálogos e telas de usuário e gestor. Consome integrações de saída (Jira, OneTrust, ServiceNow, PortalTech, Anypoint). Wizard de geração de API tratado como candidato de fase 2 (desejável).",
+    "confidence": "Confirmed",
+    "kb_sources": [
+      "[KB: experience_cloud_4-2-2026.md:27656-27752]",
+      "[KB: experience_cloud_4-2-2026.md:27155-27318]",
+      "[KB: experience_cloud_4-2-2026.md:30835-30862]"
+    ]
+  },
+  {
+    "epic_id": "E02",
+    "epic_name": "Portal Parceiros (Experience Cloud)",
+    "description": "Portal externo de desenvolvedores/parceiros sobre Experience Cloud: autorregistro de visitante, login diferenciado (senha para acesso básico, IdP para parceiro via Login Discovery), catálogo de APIs público/privado, criação de apps e gestão de credenciais, contratos por versão de produto, páginas estáticas (Soluções, Como começar, Ajuda, Seja Um Parceiro) e regras de compartilhamento para visibilidade de produtos. Páginas LWC aprimoradas tratadas como candidato de fase 2 (desejável).",
+    "confidence": "Confirmed",
+    "kb_sources": [
+      "[KB: experience_cloud_4-2-2026.md:2249-2352]",
+      "[KB: experience_cloud_4-2-2026.md:4088-4410]",
+      "[KB: experience_cloud_4-2-2026.md:63605-63737]",
+      "[KB: experience_cloud_4-2-2026.md:31202-31329]"
+    ]
+  },
+  {
+    "epic_id": "E03",
+    "epic_name": "Portal Parceiros Interno (Experience Cloud)",
+    "description": "Versão interna do Portal Parceiros, com configuração derivada do E02 (reaproveitamento de modelo de dados e componentes) e SSO com IdP interno. Escopo de configuração/adaptação, não de reconstrução.",
+    "confidence": "Confirmed",
+    "kb_sources": [
+      "[KB: experience_cloud_4-2-2026.md:2249-2352]",
+      "[extends: E02 Portal Parceiros — configuração derivada]"
+    ]
+  },
+  {
+    "epic_id": "E04",
+    "epic_name": "Fundações & Segurança Transversal (Experience Cloud)",
+    "description": "Base transversal aos três portais: org de produção e ambientes de desenvolvimento, perfis e permission sets core, DevOps (connected apps, usuário de integração), integrações de entrada ao Salesforce, frameworks de trigger/logging/mocking e parametrização de configuração administrativa.",
+    "confidence": "Confirmed",
+    "kb_sources": [
+      "[KB: experience_cloud_4-2-2026.md:30835-30862]",
+      "[KB: experience_cloud_4-2-2026.md:63739-63834]"
+    ]
+  },
+  {
+    "epic_id": "E05",
+    "epic_name": "Migração de Catálogos e APIs (brownfield)",
+    "description": "Migração das entidades e catálogos existentes para o modelo de dados dos portais: Torre, Sigla, Tribu, Squad, Domínio, Subdomínio, API de Negócio, API Técnica, Produto e Versão de Produto (~80h no assessment). Ownership (Salesforce PS / BV / misto) e status MVP divergentes entre as abas do material — a confirmar com o cliente (riscos R4/R5).",
+    "confidence": "Assumed",
+    "kb_sources": [
+      "[assumption: ownership e status MVP a confirmar com o cliente; reconciliar divergência entre abas Detail3 e Salesforce Portales]"
+    ]
+  },
+  {
+    "epic_id": "E06",
+    "epic_name": "Camada de Integração MuleSoft (API-led)",
+    "description": "Camada de integração API-led (~319h no detalhamento): TLS context de entrada/saída com Apigee; XAPIs segregadas (OneTrust, ServiceNow, OPA, PortalTech, Jira, Site Parceiros) e XAPI de retorno; SAPIs (Jira CRUD/login, Apigee Apps Management, Anypoint OAS); aplicação batch de ETL; testes E2E; e acompanhamento de gestão. Ownership da entrega e limitação do Anypoint a confirmar (riscos R2/R5).",
+    "confidence": "Assumed",
+    "kb_sources": [
+      "[KB: MuleSoft — Catálogo Estratégico Consolidado (EN) (Claude).md:17-52]",
+      "[KB: MuleSoft — Catálogo Estratégico Consolidado (EN) (Claude).md:53-88]",
+      "[assumption: sem guia oficial de implementação MuleSoft em knowledge/; ownership da entrega (319h) e limitação do Anypoint a confirmar]"
+    ]
+  }
+]

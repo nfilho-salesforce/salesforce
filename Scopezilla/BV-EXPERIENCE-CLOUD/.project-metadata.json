@@ -1,0 +1,35 @@
+{
+  "project_name": "BV - Experience Cloud",
+  "created_at": "2026-08-04",
+  "depth_mode": "epic-level",
+  "vertical": null,
+  "rfp_tier": null,
+  "benchmark_source": "model-training-data",
+  "completion_status": {
+    "setup": "complete",
+    "tutorial": "not-started",
+    "discover": "complete",
+    "strategy": "not-started",
+    "requirements": "complete",
+    "design": "not-started",
+    "roadmap": "not-started",
+    "efficiency": "not-started",
+    "estimate": "not-started",
+    "commercials": "not-started",
+    "validate": "not-started",
+    "narratives": "not-started",
+    "export": "not-started",
+    "backlog": "not-started",
+    "quantum-leap": "not-started",
+    "slides": "not-started",
+    "rfp": "not-started",
+    "cleanup": "not-started",
+    "wrapup": "not-started",
+    "help": "not-started",
+    "contribute": "not-started"
+  },
+  "timeline": {
+    "client_target": null,
+    "user_commitment": null
+  }
+}

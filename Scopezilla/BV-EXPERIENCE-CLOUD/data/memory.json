@@ -1,0 +1,82 @@
+{
+  "sessions": [
+    {
+      "date": "2026-08-04",
+      "skills_used": ["setup", "discover"],
+      "summary": "Inicializado o projeto BV - Experience Cloud (BV Financeira, Financial Services). Ingeridos 2 documentos de discovery (Tech Assessment PDF + planilha de alcance) via build-context.py. Rodada extração das 16 áreas, pesquisa de mercado (researcher agent) e produzido o Discovery Brief. Engajamento confirmado como brownfield (3 portais EC em produção + camada MuleSoft + Apigee). Escopo = backlog completo do assessment (~2.222h EC + 319h MuleSoft). Registradas 2 ADRs.",
+      "friction": [
+        "KB central degradada (sync falhando, access_denied) — grounding apoiado em knowledge/ e discovery-notes/",
+        "knowledge/ vazio — outputs downstream serão menos fundamentados até adicionar docs de produto",
+        "researcher agent teve erro de servidor no meio; recuperado via mensagem de resume"
+      ],
+      "decisions": [
+        {"decision": "Tratar como brownfield", "rationale": "Portais EC já em produção; assessment foca em correção de débito técnico + ativação de recursos (ADR 0001)"},
+        {"decision": "Escopo = backlog completo do assessment", "rationale": "Usuário confirmou ~2.222h EC + 319h MuleSoft; itens 'desejável' viram candidatos de fase 2"}
+      ],
+      "open_threads": [
+        "Gap de licença Experience Cloud em aberto — bloqueador de go-live (ADR 0002)",
+        "Contagem de usuários por persona desconhecida — bloqueia sizing de licenças",
+        "Topologia MuleSoft ↔ Apigee a confirmar com cliente",
+        "Ownership da entrega MuleSoft (319h) a definir: SF PS / BV / misto",
+        "Divergências no material: status MVP da migração (80h) e esforço render OPA (60h vs 40h); total MuleSoft (319h vs ~660h de perfis)",
+        "Timeline / go-live desconhecido"
+      ],
+      "next_steps": [
+        "Aprovar Discovery Brief e seguir para requirements",
+        "Levar as 10 Open Questions ao cliente",
+        "Adicionar docs de produto (Experience Cloud / MuleSoft) em knowledge/"
+      ]
+    },
+    {
+      "date": "2026-08-04",
+      "skills_used": ["requirements"],
+      "summary": "Definidas 6 épicas (E01 Portal Governança, E02 Portal Parceiros, E03 Portal Parceiros Interno, E04 Fundações & Segurança Transversal, E05 Migração de Catálogos e APIs, E06 Camada de Integração MuleSoft) espelhando os módulos do assessment; salvo epics.json + 01-epics.csv. Gap analysis com 6 epic-analysts em paralelo produziu 48 gaps (gaps.json + 01-gap-analysis.csv). 3 conflitos de fonte (render OPA 60h/40h, status MVP migração Si/No, MuleSoft 319h vs ~660h). Recomendado Phase 0 (>15 gaps).",
+      "friction": [
+        "KB central degradada (access_denied) — grounding apoiado em knowledge/ (4 docs) e discovery-context",
+        "Divergências entre as duas abas do assessment (Detail3 vs Salesforce Portales) geraram 3 conflitos de fonte"
+      ],
+      "decisions": [
+        {"decision": "6 épicas, E05 Migração separada de E04 Fundações", "rationale": "Tornar visível ownership ambíguo e status MVP divergente (R4/R5); E05/E06 marcadas Assumed"}
+      ],
+      "open_threads": [
+        "48 gaps abertos (21 Missing Requirement, 9 Ambiguity, 8 Potential Risk, 6 Logical Gap, 3 Source Conflict, 1 Assumption)",
+        "Disciplinas commonly-missed a decidir com o cliente: design de experiência (G0106/G0207/G0408) e governança/adoção (G0107/G0208/G0306/G0405/G0508/G0609)",
+        "3 conflitos de fonte pendentes de reconciliação (render OPA, migração MVP, esforço MuleSoft)",
+        "Dependências cruzadas E01↔E06↔E05 e derivação E03←E02 exigem sequenciamento",
+        "Gap de licença EC (R1) sem owner/prazo; contagens de usuário desconhecidas (R6)"
+      ],
+      "next_steps": [
+        "Recomendar Phase 0 ao cliente para reconciliar conflitos de fonte e resolver dependências antes do SOW",
+        "Seguir para design (ou grill-me-on-scope para stress-test das épicas Assumed)",
+        "Levar os gaps de disciplina (UX + governança) para conversa deliberada com o comprador"
+      ]
+    }
+  ],
+  "preferences": {
+    "terminology": {},
+    "audience_default": "executive"
+  },
+  "decision_log": [
+    {
+      "date": "2026-08-04",
+      "area": "architecture",
+      "decision": "Engajamento brownfield — remediação de débito técnico + ativação de recursos sobre portais EC já em produção",
+      "rationale": "Tech Assessment + confirmação do usuário; portais Governança/Parceiros/Parceiros Interno já no ar (ver decisions/0001)",
+      "rejected": ["Tratar como greenfield / build do zero"]
+    },
+    {
+      "date": "2026-08-04",
+      "area": "commercial",
+      "decision": "Licenças Experience Cloud fora do escopo PS — registradas como premissa e bloqueador comercial",
+      "rationale": "Assessment registra que EC não foi contemplado na contratação do Experience Hub; BV precisa contratar antes do go-live (ver decisions/0002)",
+      "rejected": ["Incluir aquisição de licenças no escopo de serviços PS"]
+    },
+    {
+      "date": "2026-08-04",
+      "area": "scope",
+      "decision": "6 épicas aprovadas, espelhando os módulos do assessment: E01 Portal Governança, E02 Portal Parceiros, E03 Portal Parceiros Interno, E04 Fundações & Segurança Transversal, E05 Migração de Catálogos e APIs, E06 Camada de Integração MuleSoft",
+      "rationale": "Estrutura mapeada 1:1 dos 118 itens EC + 39 itens MuleSoft do assessment. E05 (Migração) separada de E04 (Fundações) apesar de o assessment agrupá-la em Transversal, para tornar visíveis o ownership ambíguo e a divergência de status MVP (R4/R5) no roadmap. E05 e E06 marcadas Assumed por ownership não confirmado (e limitação do Anypoint no E06). Itens 'desejável/No' (Wizard ~160h, páginas LWC aprimoradas ~32h) mantidos como candidatos de fase 2 dentro das épicas de portal, não como épicas separadas.",
+      "rejected": ["Estrutura de 5 épicas com Migração fundida em Fundações Transversais", "Criar épica separada de Change & Adoção (surge como gap, não como épica com esforço inventado)"]
+    }
+  ]
+}
