@@ -50,6 +50,29 @@
         "Seguir para design (ou grill-me-on-scope para stress-test das épicas Assumed)",
         "Levar os gaps de disciplina (UX + governança) para conversa deliberada com o comprador"
       ]
+    },
+    {
+      "date": "2026-08-04",
+      "skills_used": ["grill-me-on-scope"],
+      "summary": "Stress-test do escopo persistido (6 épicas + gaps). Matadas as 5 apostas de maior blast radius: E06 MuleSoft e E05 Migração confirmadas como entrega Salesforce PS; E05 fixada em Fase 1 (resolve conflito G0501); padrão 'desejável/No ≠ Fase 2' descoberto — Wizard (~160h, E01) e LWC (~32h, E02) movidos para Fase 1 (under-scope de ~192h capturado); E03 re-escopado de config-derivada-leve para build distinto (público interno BV, licença/personas/segurança próprias). Todos os 3 conflitos de fonte resolvidos: G0501 (migração=Fase 1), G0601 (MuleSoft base=319h, overhead a verificar), G0101 (render OPA=60h/Fase 1). Duas dimensões invisíveis: mudança&adoção (BV dona, PS entrega enablement do portal — G0408), e entrega/QA/release (PS: gestão de entrega + QA; BV: release + UAT — a autorar no roster via estimate).",
+      "friction": [
+        "Sem estimates.json/roadmap ainda (requirements recém-concluído) — resizes ficam capturados em epics.json + decision_log e serão honrados na primeira passada de design/estimate; revise não tem downstream para propagar ainda"
+      ],
+      "decisions": [
+        {"decision": "5 decisões de escopo/entrega gravadas no decision_log", "rationale": "Ownership PS de E05/E06, faseamento (desejável/No→Fase 1), re-escopo E03, atividades transversais PS/BV — todas hard-to-reverse e scope-shaping"}
+      ],
+      "open_threads": [
+        "RESIZES a honrar no primeiro design/estimate: E01 +~160h (Wizard) +render OPA 60h; E02 +~32h (LWC); E03 ↑ (build distinto); base E06=319h",
+        "Novos gaps: G0307 (licença usuário interno E03), G0509 (dupla contagem catálogos E01/E05/E06 — unknown), G0610 (arquitetura MuleSoft ~220h dentro de 319h?), G0611 (autorar roster PS: gestão de entrega + QA)",
+        "Ainda Assumed: E05 e E06 (Anypoint R2 aberto); limitação do Anypoint não confirmada",
+        "Gaps de disciplina de governança ainda não grillados: G0107, G0208, G0306, G0405, G0508, G0609; UX G0106/G0207",
+        "Gap de licença EC externa (R1) e contagens de usuário (R6) seguem abertos"
+      ],
+      "next_steps": [
+        "Nada para revise ainda (sem downstream) — seguir para design, que honra os resizes na primeira passada",
+        "Autorar no estimate as linhas de roster PS: gestão de entrega + QA (G0611)",
+        "Levar à Phase 0/cliente: dupla contagem de catálogos (G0509), arquitetura MuleSoft (G0610), licença interna (G0307), limitação Anypoint (R2)"
+      ]
     }
   ],
   "preferences": {
@@ -70,6 +93,48 @@
       "decision": "Licenças Experience Cloud fora do escopo PS — registradas como premissa e bloqueador comercial",
       "rationale": "Assessment registra que EC não foi contemplado na contratação do Experience Hub; BV precisa contratar antes do go-live (ver decisions/0002)",
       "rejected": ["Incluir aquisição de licenças no escopo de serviços PS"]
+    },
+    {
+      "date": "2026-08-04",
+      "area": "delivery",
+      "decision": "Atividades transversais: Salesforce PS assume gestão de entrega/programa + QA/testes dedicado; BV conduz gestão de release + UAT",
+      "rationale": "Grill de escopo 2026-08-04 (dimensões invisíveis): programa multi-trilha (3 portais + MuleSoft + Apigee) em financial services exige coordenação e QA explícitos, ausentes das 6 épicas de build. PS: gestão de entrega + QA funcional dos 3 portais + aceitação do fluxo de aprovação (não coberto pelos testes E2E de integração do E06). BV: release + UAT (risco de coordenação na virada, client-side). Ambas as linhas PS a serem AUTORADAS no roster via estimate (perfis + esforço justificado — decisions/0026). A parte de 'gestão' do overhead MuleSoft (G0610) fica homed nesta linha; a arquitetura de integração MuleSoft segue em aberto no G0610.",
+      "rejected": ["Tratar testes E2E do E06 como cobertura total de QA (E2E de integração ≠ QA funcional/UAT dos portais)", "Nenhum esforço de coordenação/QA dedicado"]
+    },
+    {
+      "date": "2026-08-04",
+      "area": "scope",
+      "decision": "E03 Portal Parceiros Interno re-escopado de 'configuração derivada leve do E02' para build distinto — público interno BV com personas, tipo de licença (usuário interno vs Partner Community), visibilidade e segurança próprias",
+      "rationale": "Grill de escopo 2026-08-04: minha premissa era reuso leve de E02 (só SSO interno); usuário confirmou público e regras diferentes. Under-scope capturado — 'reaproveitamento' escondia build de acesso/sharing/personas. RESIZE de E03 (maior) pendente via revise; abre gap de licença de usuário interno (distinto do gap de licença EC externa R1).",
+      "rejected": ["E03 como configuração/adaptação leve derivada de E02 (inferência original)"]
+    },
+    {
+      "date": "2026-08-04",
+      "area": "scope",
+      "decision": "Itens marcados 'desejável/No' no assessment NÃO mapeiam para Fase 2 — o BV os espera no go-live. Wizard (~160h, E01) e páginas LWC aprimoradas (~32h, E02) ambos movidos para Fase 1 (MVP)",
+      "rationale": "Grill de escopo 2026-08-04: padrão confirmado em dois itens seguidos — a marcação 'desejável/No' do assessment reflete prioridade do documento, não a expectativa de go-live do cliente. Premissa original de Scopezilla (desejável/No → Fase 2) invalidada. RESIZE de E01 (+~160h) e E02 (+~32h) na Fase 1, pendente de propagação via revise. Revisar qualquer outro item deferido pela mesma lógica.",
+      "rejected": ["Manter Wizard e LWC como Fase 2 (inferência original baseada em 'desejável/No')"]
+    },
+    {
+      "date": "2026-08-04",
+      "area": "scope",
+      "decision": "E05 (Migração de catálogos e APIs, ~80h) entregue pela Salesforce PS — dentro do escopo/roster/preço",
+      "rationale": "Grill de escopo 2026-08-04: minha inferência era Fase 2 (assessment marca desejável/No); usuário corrigiu — o BV espera o Wizard no go-live. Under-scope de ~160h na Fase 1 capturado antes de sizing. RESIZE do E01 pendente de propagação via revise (estimates/roadmap/commercials).",
+      "rejected": ["Wizard como Fase 2/pós-MVP (inferência original de Scopezilla)", "Wizard fora de escopo"]
+    },
+    {
+      "date": "2026-08-04",
+      "area": "scope",
+      "decision": "E05 (Migração de catálogos e APIs, ~80h) entregue pela Salesforce PS — dentro do escopo/roster/preço",
+      "rationale": "Grill de escopo 2026-08-04: a migração alimenta o modelo de dados do E01 e a batch de ETL do E06 (ambos PS); separar o owner criaria dependência frágil no caminho crítico. Usuário confirmou entrega PS. E05 permanece Assumed pelo status MVP (Fase 1 vs 2) ainda divergente (G0501).",
+      "rejected": ["Time interno do BV migra (removeria ~80h do escopo PS)", "Modelo misto SF+BV"]
+    },
+    {
+      "date": "2026-08-04",
+      "area": "scope",
+      "decision": "E06 (Camada MuleSoft, ~319h) entregue pela prática MuleSoft da Salesforce PS — dentro do escopo/roster/preço do engajamento",
+      "rationale": "Grill de escopo 2026-08-04: ownership era o item de maior blast radius (definia se a trilha inteira entra no SOW). Nome do projeto já cita 'melhorias no MuleSoft'; usuário confirmou entrega pela PS. E06 permanece Assumed pela limitação do Anypoint (R2) ainda não confirmada.",
+      "rejected": ["Time interno do BV entrega MuleSoft (removeria ~319h do escopo PS)", "Modelo misto SF+BV"]
     },
     {
       "date": "2026-08-04",

@@ -3,7 +3,7 @@
     "gap_id": "G0101",
     "category": "Source Conflict",
     "gap_or_question": "O esforço e o status MVP da tarefa 'Renderizar resultado da validação OPA como HTML' divergem entre as duas abas do assessment: na aba Detail3 aparece como 60h e MVP='Si', enquanto na aba 'Salesforce Portales' aparece como 40h e MVP='No' (com nota de que, sem isso, o resultado da OPA é exibido como texto plano). É preciso reconciliar antes de fechar a base de estimativa: são 60h no escopo Fase 1, 40h fora do MVP, ou um valor intermediário?",
-    "impact_or_notes": "Divergência de 20h (~1/3 do item mais caro do épico) e, mais grave, contradição de inclusão no MVP. Afeta diretamente a base de esforço do E01 e a experiência do gestor no fluxo de aprovação. Ligado ao risco R5 do brief."
+    "impact_or_notes": "RESOLVIDO no grill 2026-08-04: render OPA em HTML = 60h, Fase 1 (MVP). É a tela de decisão de aprovação do gestor; texto plano degradaria a decisão no go-live. Base do E01 fixada em 60h para este item. [histórico] Divergência de 20h (~1/3 do item mais caro do épico) e, mais grave, contradição de inclusão no MVP. Afeta diretamente a base de esforço do E01 e a experiência do gestor no fluxo de aprovação. Ligado ao risco R5 do brief."
   },
   {
     "gap_id": "G0102",
@@ -177,7 +177,7 @@
     "gap_id": "G0408",
     "category": "Missing Requirement",
     "gap_or_question": "Gestão de mudança e adoção (change & adoption) não aparece em nenhuma épica. O engajamento ativa novos recursos e fluxos (aprovação de API, autorregistro de parceiros, login diferenciado) para 3 públicos distintos — parceiros externos, gestores de governança e usuários internos. Há plano de onboarding de parceiros e capacitação dos gestores no novo fluxo? Essa atividade é do escopo PS ou responsabilidade do cliente?",
-    "impact_or_notes": "Atividade transversal implícita (Open Question 10 do brief). Novos fluxos com resistência a gerenciar e múltiplas personas implicam trabalho de adoção. Precisa de owner definido — se PS, entra no roster; se BV, vai como risco. Sem isso, risco de baixa adoção pós-go-live."
+    "impact_or_notes": "RESOLVIDO no grill 2026-08-04: BV é dono da gestão de mudança/treinamento (interno + governança + parceiros); PS entrega o enablement embutido no portal externo (páginas Como começar/Seja um Parceiro/Ajuda já no E02). RISCO client-side: adoção fraca se o BV não conduzir a mudança — acompanhar. Nenhum perfil Change & Adoption dedicado no roster PS. [histórico] Atividade transversal implícita (Open Question 10 do brief). Novos fluxos com resistência a gerenciar e múltiplas personas implicam trabalho de adoção. Precisa de owner definido — se PS, entra no roster; se BV, vai como risco. Sem isso, risco de baixa adoção pós-go-live."
   },
   {
     "gap_id": "G0409",
@@ -189,7 +189,7 @@
     "gap_id": "G0501",
     "category": "Source Conflict",
     "gap_or_question": "Status MVP da migração (item 118, ~80h) está divergente entre as duas abas da planilha do assessment: 'Si' na aba Detail3 vs 'No' na aba Salesforce Portales. A migração está dentro do escopo da Fase 1 (go-live) ou é candidata a fase posterior? Precisa ser reconciliado com o cliente antes de fixar a base de estimativa.",
-    "impact_or_notes": "Conflito de fonte — prioridade máxima. Muda diretamente o escopo de go-live: sem os catálogos e APIs migrados, os portais (Governança/Parceiros) não têm dados operacionais na virada. Se a migração cair para fase 2, o go-live precisa de uma estratégia de operação com dados vazios ou carga manual mínima. Reflete R5 do brief."
+    "impact_or_notes": "RESOLVIDO no grill 2026-08-04: migração é Fase 1 (MVP=Si) — portais não têm valor no go-live sem catálogo/APIs carregados; ownership Salesforce PS. Dependência E05→E01 travada. [histórico] Conflito de fonte — prioridade máxima. Muda diretamente o escopo de go-live: sem os catálogos e APIs migrados, os portais (Governança/Parceiros) não têm dados operacionais na virada. Se a migração cair para fase 2, o go-live precisa de uma estratégia de operação com dados vazios ou carga manual mínima. Reflete R5 do brief."
   },
   {
     "gap_id": "G0502",
@@ -237,7 +237,7 @@
     "gap_id": "G0601",
     "category": "Source Conflict",
     "gap_or_question": "Divergência de esforço da camada MuleSoft: a aba de detalhamento soma 319h, mas a tabela de perfis do ROM (PDF) aloca ~660h aos papéis MuleSoft (MuleSoft Technical Architect 220h + MuleSoft Technical Consultant 440h). Qual número é a base de estimativa? As 319h cobrem só design/dev/test das apps Mule, enquanto as 660h incluiriam gestão, arquitetura e overhead? Reconciliar antes de qualquer proposta.",
-    "impact_or_notes": "Diferença de ~340h (>2x). Se a base for 319h, a proposta subdimensiona a trilha MuleSoft; se for 660h, o detalhamento está incompleto. Impacto direto em preço, timeline e alocação de perfis. Highlights ainda registram '-261h de desenvolvimento' e '-160h' no delta de perfil MuleSoft, sugerindo cortes não refletidos no detalhamento."
+    "impact_or_notes": "RESOLVIDO no grill 2026-08-04: base de estimativa MuleSoft = 319h (detalhamento). RESÍDUO ABERTO: verificar se arquitetura/gestão/overhead (~340h na tabela de perfis) está coberta em outra épica (E04/gestão de entrega) — senão é trabalho real caindo no vão. Ver novo gap de overhead. [histórico] Diferença de ~340h (>2x). Se a base for 319h, a proposta subdimensiona a trilha MuleSoft; se for 660h, o detalhamento está incompleto. Impacto direto em preço, timeline e alocação de perfis. Highlights ainda registram '-261h de desenvolvimento' e '-160h' no delta de perfil MuleSoft, sugerindo cortes não refletidos no detalhamento."
   },
   {
     "gap_id": "G0602",
@@ -286,5 +286,29 @@
     "category": "Missing Requirement",
     "gap_or_question": "Governança da camada API-led não está definida (disciplina): política de versionamento de APIs (major/minor), ownership do ciclo de vida das XAPI/SAPI, promoção entre ambientes, e padrão de nomenclatura/reuso das apps Mule. Além disso, há numeração duplicada no detalhamento (SAPI Apigee e SAPI Anypoint ambos numerados 30-32), sugerindo item ou esforço não conciliado.",
     "impact_or_notes": "O Portal Governança gerencia versões de API (major/minor) no lado Salesforce; a camada MuleSoft precisa de política de versionamento espelhada, senão o ciclo de vida quebra na borda. A numeração duplicada deve ser corrigida para confirmar se todos os itens SAPI estão contados. Falta owner de governança da integração."
+  },
+  {
+    "gap_id": "G0307",
+    "category": "Missing Requirement",
+    "gap_or_question": "E03 (Portal Parceiros Interno) atende funcionários internos do BV com tipo de licença distinto do Partner Community usado no E02. Qual o modelo de licença para os usuários internos (Employee Community / usuário interno Salesforce / outro), e quantos usuários? Confirmado no grill 2026-08-04 que E03 é build distinto, não config derivada.",
+    "impact_or_notes": "Bloqueia sizing de licença e de esforço do E03. Distinto do gap de licença EC externa (R1) e das contagens de usuário desconhecidas (R6). Sem o tipo de licença e a contagem, a base comercial do E03 fica em aberto. Ligado ao re-escopo de E03 (decision_log 2026-08-04) e ao G0304 (ownership de config interna vs externa)."
+  },
+  {
+    "gap_id": "G0509",
+    "category": "Logical Gap",
+    "gap_or_question": "Fronteira de catálogos entre E01 (modelo de dados), E05 (migração ~80h) e E06 (aplicação batch de ETL) não está clara — risco de dupla contagem. A migração inicial do E05 é executada PELA batch de ETL do E06 (mesmo trabalho contado 2×) ou são mecanismos separados (carga one-time + de-para vs pipeline contínuo)? O modelo de dados do E01 inclui parte da estruturação atribuída ao E05? Definir na conversa técnica com o BV antes de fixar a base de esforço.",
+    "impact_or_notes": "Possível inflação de esforço de até ~80h se E05 e E06 sobrepõem. Não resolvido no grill 2026-08-04 (usuário: não sei ainda) — mantidas as três épicas com flag. Impacta base de estimativa de E01/E05/E06 e sequenciamento (dependência E05→E01, E06↔E05). Fechar antes de sizing/proposta."
+  },
+  {
+    "gap_id": "G0610",
+    "category": "Potential Risk",
+    "gap_or_question": "Base MuleSoft fixada em 319h (grill 2026-08-04) cobre design/dev/test das apps Mule. A tabela de perfis do ROM alocava ~660h, incluindo MuleSoft Technical Architect e overhead de gestão (~340h de diferença). Onde estão a arquitetura de integração e a gestão/coordenação da trilha MuleSoft — em E04, numa linha de gestão de entrega, ou não estão contabilizadas?",
+    "impact_or_notes": "PARCIAL (grill 2026-08-04): a parte de GESTÃO do overhead está homed na nova linha PS de gestão de entrega/programa. ABERTO: a ARQUITETURA de integração MuleSoft (MuleSoft Technical Architect ~220h) está dentro das 319h de base ou é esforço separado? Se o overhead de arquitetura/gestão não estiver em nenhuma épica, a escolha de 319h subdimensiona a entrega em até ~340h. Ligado à dimensão invisível de gestão de entrega/programa. Fechar antes de sizing."
+  },
+  {
+    "gap_id": "G0611",
+    "category": "Missing Requirement",
+    "gap_or_question": "Autorar no roster (estimate) as linhas transversais PS decididas no grill 2026-08-04: gestão de entrega/programa e QA/testes dedicado (QA funcional dos 3 portais + teste de aceitação do fluxo de aprovação OPA). Não são épicas de build — são perfis + esforço justificado no resource-plan. BV conduz release + UAT (não entra no roster PS).",
+    "impact_or_notes": "Sem essas linhas no roster, o preço subdimensiona coordenação e QA de um programa multi-trilha em financial services. Handoff direto para o estimate (decisions/0026). Ligado ao G0610 (overhead MuleSoft) e ao risco de coordenação na virada (release/UAT client-side)."
   }
 ]
