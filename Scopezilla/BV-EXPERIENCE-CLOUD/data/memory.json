@@ -2,7 +2,10 @@
   "sessions": [
     {
       "date": "2026-08-04",
-      "skills_used": ["setup", "discover"],
+      "skills_used": [
+        "setup",
+        "discover"
+      ],
       "summary": "Inicializado o projeto BV - Experience Cloud (BV Financeira, Financial Services). Ingeridos 2 documentos de discovery (Tech Assessment PDF + planilha de alcance) via build-context.py. Rodada extração das 16 áreas, pesquisa de mercado (researcher agent) e produzido o Discovery Brief. Engajamento confirmado como brownfield (3 portais EC em produção + camada MuleSoft + Apigee). Escopo = backlog completo do assessment (~2.222h EC + 319h MuleSoft). Registradas 2 ADRs.",
       "friction": [
         "KB central degradada (sync falhando, access_denied) — grounding apoiado em knowledge/ e discovery-notes/",
@@ -10,8 +13,14 @@
         "researcher agent teve erro de servidor no meio; recuperado via mensagem de resume"
       ],
       "decisions": [
-        {"decision": "Tratar como brownfield", "rationale": "Portais EC já em produção; assessment foca em correção de débito técnico + ativação de recursos (ADR 0001)"},
-        {"decision": "Escopo = backlog completo do assessment", "rationale": "Usuário confirmou ~2.222h EC + 319h MuleSoft; itens 'desejável' viram candidatos de fase 2"}
+        {
+          "decision": "Tratar como brownfield",
+          "rationale": "Portais EC já em produção; assessment foca em correção de débito técnico + ativação de recursos (ADR 0001)"
+        },
+        {
+          "decision": "Escopo = backlog completo do assessment",
+          "rationale": "Usuário confirmou ~2.222h EC + 319h MuleSoft; itens 'desejável' viram candidatos de fase 2"
+        }
       ],
       "open_threads": [
         "Gap de licença Experience Cloud em aberto — bloqueador de go-live (ADR 0002)",
@@ -29,14 +38,19 @@
     },
     {
       "date": "2026-08-04",
-      "skills_used": ["requirements"],
+      "skills_used": [
+        "requirements"
+      ],
       "summary": "Definidas 6 épicas (E01 Portal Governança, E02 Portal Parceiros, E03 Portal Parceiros Interno, E04 Fundações & Segurança Transversal, E05 Migração de Catálogos e APIs, E06 Camada de Integração MuleSoft) espelhando os módulos do assessment; salvo epics.json + 01-epics.csv. Gap analysis com 6 epic-analysts em paralelo produziu 48 gaps (gaps.json + 01-gap-analysis.csv). 3 conflitos de fonte (render OPA 60h/40h, status MVP migração Si/No, MuleSoft 319h vs ~660h). Recomendado Phase 0 (>15 gaps).",
       "friction": [
         "KB central degradada (access_denied) — grounding apoiado em knowledge/ (4 docs) e discovery-context",
         "Divergências entre as duas abas do assessment (Detail3 vs Salesforce Portales) geraram 3 conflitos de fonte"
       ],
       "decisions": [
-        {"decision": "6 épicas, E05 Migração separada de E04 Fundações", "rationale": "Tornar visível ownership ambíguo e status MVP divergente (R4/R5); E05/E06 marcadas Assumed"}
+        {
+          "decision": "6 épicas, E05 Migração separada de E04 Fundações",
+          "rationale": "Tornar visível ownership ambíguo e status MVP divergente (R4/R5); E05/E06 marcadas Assumed"
+        }
       ],
       "open_threads": [
         "48 gaps abertos (21 Missing Requirement, 9 Ambiguity, 8 Potential Risk, 6 Logical Gap, 3 Source Conflict, 1 Assumption)",
@@ -53,13 +67,18 @@
     },
     {
       "date": "2026-08-04",
-      "skills_used": ["grill-me-on-scope"],
+      "skills_used": [
+        "grill-me-on-scope"
+      ],
       "summary": "Stress-test do escopo persistido (6 épicas + gaps). Matadas as 5 apostas de maior blast radius: E06 MuleSoft e E05 Migração confirmadas como entrega Salesforce PS; E05 fixada em Fase 1 (resolve conflito G0501); padrão 'desejável/No ≠ Fase 2' descoberto — Wizard (~160h, E01) e LWC (~32h, E02) movidos para Fase 1 (under-scope de ~192h capturado); E03 re-escopado de config-derivada-leve para build distinto (público interno BV, licença/personas/segurança próprias). Todos os 3 conflitos de fonte resolvidos: G0501 (migração=Fase 1), G0601 (MuleSoft base=319h, overhead a verificar), G0101 (render OPA=60h/Fase 1). Duas dimensões invisíveis: mudança&adoção (BV dona, PS entrega enablement do portal — G0408), e entrega/QA/release (PS: gestão de entrega + QA; BV: release + UAT — a autorar no roster via estimate).",
       "friction": [
         "Sem estimates.json/roadmap ainda (requirements recém-concluído) — resizes ficam capturados em epics.json + decision_log e serão honrados na primeira passada de design/estimate; revise não tem downstream para propagar ainda"
       ],
       "decisions": [
-        {"decision": "5 decisões de escopo/entrega gravadas no decision_log", "rationale": "Ownership PS de E05/E06, faseamento (desejável/No→Fase 1), re-escopo E03, atividades transversais PS/BV — todas hard-to-reverse e scope-shaping"}
+        {
+          "decision": "5 decisões de escopo/entrega gravadas no decision_log",
+          "rationale": "Ownership PS de E05/E06, faseamento (desejável/No→Fase 1), re-escopo E03, atividades transversais PS/BV — todas hard-to-reverse e scope-shaping"
+        }
       ],
       "open_threads": [
         "RESIZES a honrar no primeiro design/estimate: E01 +~160h (Wizard) +render OPA 60h; E02 +~32h (LWC); E03 ↑ (build distinto); base E06=319h",
@@ -76,14 +95,19 @@
     },
     {
       "date": "2026-08-06",
-      "skills_used": ["design"],
+      "skills_used": [
+        "design"
+      ],
       "summary": "Skeleton arquitetural aprovado e Solution doc escrito (outputs/01-solution.md) em duas camadas: Fundações de Arquitetura (org única/single-org, modelo público-privado com OWD externo + Site User Visibility, Login Discovery, DevOps/não-regressão brownfield, governança multi-time, API-led com Apigee no edge, NFRs FS/Open Finance) + Solução por Processo de Negócio (6 épicas na ordem do fluxo de valor: E05→E01→E02→E03, com E04/E06 horizontais). Resizes do grill honrados: E01 Wizard 160h + render OPA 60h Fase 1; E02 LWC 32h Fase 1; E03 build distinto; E06 base 319h. Sizing das 6 épicas pelo rubric de 8 dimensões (driver dominante + breadth bump): E01 XL, E06 XL, E02 L, E03 L, E04 M, E05 M. size_if_assumption_breaks em E03/E04/E05/E06. Todas as premissas load-bearing do skeleton já mapeavam para gaps existentes — sem novas linhas Assumption; single-org fica ambiguidade aberta (G0403), não ADR ratificada.",
       "friction": [
         "Fork de identidade/login diferenciado apoiado em docs EC layer-1 (KB experience_cloud) — busca layer-2 no KB central retornou KA-0033 (propagação de identidade em gateway), fork distinto; caveat registrado no skeleton",
         "KB central seguiu degradada nesta sessão — grounding em knowledge/ + KAs de sharing/aprovação/API-led já citados"
       ],
       "decisions": [
-        {"decision": "Sizing por complexidade relativa (T-shirt) das 6 épicas: 2 XL (E01, E06), 2 L (E02, E03), 2 M (E04, E05)", "rationale": "Rubric de 8 dimensões, composição por driver dominante + breadth bump; brownfield/não-regressão tratado como Risk Adder transversal, não 9ª dimensão. E05/E06 seguem Assumed (fonte legada / Anypoint R2)."}
+        {
+          "decision": "Sizing por complexidade relativa (T-shirt) das 6 épicas: 2 XL (E01, E06), 2 L (E02, E03), 2 M (E04, E05)",
+          "rationale": "Rubric de 8 dimensões, composição por driver dominante + breadth bump; brownfield/não-regressão tratado como Risk Adder transversal, não 9ª dimensão. E05/E06 seguem Assumed (fonte legada / Anypoint R2)."
+        }
       ],
       "open_threads": [
         "Estimates são complexidade relativa, não esforço — prazo via roadmap (banda top-down + ajuste FSI), preço via commercials (rate validado)",
@@ -97,6 +121,40 @@
         "Autorar roster PS no estimate (G0611) e rodar dual-track se quiser tradicional vs AI-native",
         "Levar à Phase 0/cliente: single-org, IdP, limitação Anypoint, dupla contagem catálogos, licenças EC"
       ]
+    },
+    {
+      "date": "2026-08-06",
+      "skills_used": [
+        "roadmap"
+      ],
+      "summary": "Roadmap concluído: 5 fases (Fase 0 de pré-requisitos incluída — 52 gaps > 15). F1 Fundações&Integração (E04,E06) → F2 Governança&Dados (E01,E05) → F3 Parceiros Externo (E02) → F4 Parceiros Interno (E03). Sem números de semana (usuário escolheu 'sem compromisso'). depends_on gravados em epics.json (E01→E04,E06; E02→E04,E06; E03→E02; E05→E04). Escrito 02-delivery-plan.md, roadmap.json, CSVs regenerados.",
+      "friction": [
+        "Fronteira de catálogos E05/E06 (G0509) mantida como sequência intra-fase na F2, não edge duro, enquanto não resolvida na Fase 0"
+      ],
+      "decisions": [
+        {
+          "decision": "Sem compromisso de prazo — fases só por sequência/dependência",
+          "rationale": "Escolha do usuário no Step 0.6; user_commitment permanece null, sem derivação de banda"
+        },
+        {
+          "decision": "Fase 0 incluída",
+          "rationale": "52 gaps abertos (>15) + 3 conflitos de fonte já logados justificam fase de resolução de pré-requisitos"
+        },
+        {
+          "decision": "5 fases; E01 e E05 co-fase (F2)",
+          "rationale": "Caminho crítico E04+E06→E01; E05 carrega o modelo do E01 na mesma fase; E03 após freeze do E02"
+        }
+      ],
+      "open_threads": [
+        "user_commitment ainda null — prazo a definir; banda derivável via roadmap benchmark ou estimate dual-track",
+        "Roster/time nomeado pendente — autoria no estimate (G0611)",
+        "Bloqueadores da Fase 0 (licença EC ext/int, IdP, single-org, Anypoint R2, fronteira catálogos G0509) a fechar com o cliente"
+      ],
+      "next_steps": [
+        "Rodar estimate para o roster nomeado e faixa indicativa",
+        "Formular perguntas de cliente da Fase 0 via requirements",
+        "commercials quando houver rate validado"
+      ]
     }
   ],
   "preferences": {
@@ -109,63 +167,86 @@
       "area": "architecture",
       "decision": "Engajamento brownfield — remediação de débito técnico + ativação de recursos sobre portais EC já em produção",
       "rationale": "Tech Assessment + confirmação do usuário; portais Governança/Parceiros/Parceiros Interno já no ar (ver decisions/0001)",
-      "rejected": ["Tratar como greenfield / build do zero"]
+      "rejected": [
+        "Tratar como greenfield / build do zero"
+      ]
     },
     {
       "date": "2026-08-04",
       "area": "commercial",
       "decision": "Licenças Experience Cloud fora do escopo PS — registradas como premissa e bloqueador comercial",
       "rationale": "Assessment registra que EC não foi contemplado na contratação do Experience Hub; BV precisa contratar antes do go-live (ver decisions/0002)",
-      "rejected": ["Incluir aquisição de licenças no escopo de serviços PS"]
+      "rejected": [
+        "Incluir aquisição de licenças no escopo de serviços PS"
+      ]
     },
     {
       "date": "2026-08-04",
       "area": "delivery",
       "decision": "Atividades transversais: Salesforce PS assume gestão de entrega/programa + QA/testes dedicado; BV conduz gestão de release + UAT",
       "rationale": "Grill de escopo 2026-08-04 (dimensões invisíveis): programa multi-trilha (3 portais + MuleSoft + Apigee) em financial services exige coordenação e QA explícitos, ausentes das 6 épicas de build. PS: gestão de entrega + QA funcional dos 3 portais + aceitação do fluxo de aprovação (não coberto pelos testes E2E de integração do E06). BV: release + UAT (risco de coordenação na virada, client-side). Ambas as linhas PS a serem AUTORADAS no roster via estimate (perfis + esforço justificado — decisions/0026). A parte de 'gestão' do overhead MuleSoft (G0610) fica homed nesta linha; a arquitetura de integração MuleSoft segue em aberto no G0610.",
-      "rejected": ["Tratar testes E2E do E06 como cobertura total de QA (E2E de integração ≠ QA funcional/UAT dos portais)", "Nenhum esforço de coordenação/QA dedicado"]
+      "rejected": [
+        "Tratar testes E2E do E06 como cobertura total de QA (E2E de integração ≠ QA funcional/UAT dos portais)",
+        "Nenhum esforço de coordenação/QA dedicado"
+      ]
     },
     {
       "date": "2026-08-04",
       "area": "scope",
       "decision": "E03 Portal Parceiros Interno re-escopado de 'configuração derivada leve do E02' para build distinto — público interno BV com personas, tipo de licença (usuário interno vs Partner Community), visibilidade e segurança próprias",
       "rationale": "Grill de escopo 2026-08-04: minha premissa era reuso leve de E02 (só SSO interno); usuário confirmou público e regras diferentes. Under-scope capturado — 'reaproveitamento' escondia build de acesso/sharing/personas. RESIZE de E03 (maior) pendente via revise; abre gap de licença de usuário interno (distinto do gap de licença EC externa R1).",
-      "rejected": ["E03 como configuração/adaptação leve derivada de E02 (inferência original)"]
+      "rejected": [
+        "E03 como configuração/adaptação leve derivada de E02 (inferência original)"
+      ]
     },
     {
       "date": "2026-08-04",
       "area": "scope",
       "decision": "Itens marcados 'desejável/No' no assessment NÃO mapeiam para Fase 2 — o BV os espera no go-live. Wizard (~160h, E01) e páginas LWC aprimoradas (~32h, E02) ambos movidos para Fase 1 (MVP)",
       "rationale": "Grill de escopo 2026-08-04: padrão confirmado em dois itens seguidos — a marcação 'desejável/No' do assessment reflete prioridade do documento, não a expectativa de go-live do cliente. Premissa original de Scopezilla (desejável/No → Fase 2) invalidada. RESIZE de E01 (+~160h) e E02 (+~32h) na Fase 1, pendente de propagação via revise. Revisar qualquer outro item deferido pela mesma lógica.",
-      "rejected": ["Manter Wizard e LWC como Fase 2 (inferência original baseada em 'desejável/No')"]
+      "rejected": [
+        "Manter Wizard e LWC como Fase 2 (inferência original baseada em 'desejável/No')"
+      ]
     },
     {
       "date": "2026-08-04",
       "area": "scope",
       "decision": "E05 (Migração de catálogos e APIs, ~80h) entregue pela Salesforce PS — dentro do escopo/roster/preço",
       "rationale": "Grill de escopo 2026-08-04: minha inferência era Fase 2 (assessment marca desejável/No); usuário corrigiu — o BV espera o Wizard no go-live. Under-scope de ~160h na Fase 1 capturado antes de sizing. RESIZE do E01 pendente de propagação via revise (estimates/roadmap/commercials).",
-      "rejected": ["Wizard como Fase 2/pós-MVP (inferência original de Scopezilla)", "Wizard fora de escopo"]
+      "rejected": [
+        "Wizard como Fase 2/pós-MVP (inferência original de Scopezilla)",
+        "Wizard fora de escopo"
+      ]
     },
     {
       "date": "2026-08-04",
       "area": "scope",
       "decision": "E05 (Migração de catálogos e APIs, ~80h) entregue pela Salesforce PS — dentro do escopo/roster/preço",
       "rationale": "Grill de escopo 2026-08-04: a migração alimenta o modelo de dados do E01 e a batch de ETL do E06 (ambos PS); separar o owner criaria dependência frágil no caminho crítico. Usuário confirmou entrega PS. E05 permanece Assumed pelo status MVP (Fase 1 vs 2) ainda divergente (G0501).",
-      "rejected": ["Time interno do BV migra (removeria ~80h do escopo PS)", "Modelo misto SF+BV"]
+      "rejected": [
+        "Time interno do BV migra (removeria ~80h do escopo PS)",
+        "Modelo misto SF+BV"
+      ]
     },
     {
       "date": "2026-08-04",
       "area": "scope",
       "decision": "E06 (Camada MuleSoft, ~319h) entregue pela prática MuleSoft da Salesforce PS — dentro do escopo/roster/preço do engajamento",
       "rationale": "Grill de escopo 2026-08-04: ownership era o item de maior blast radius (definia se a trilha inteira entra no SOW). Nome do projeto já cita 'melhorias no MuleSoft'; usuário confirmou entrega pela PS. E06 permanece Assumed pela limitação do Anypoint (R2) ainda não confirmada.",
-      "rejected": ["Time interno do BV entrega MuleSoft (removeria ~319h do escopo PS)", "Modelo misto SF+BV"]
+      "rejected": [
+        "Time interno do BV entrega MuleSoft (removeria ~319h do escopo PS)",
+        "Modelo misto SF+BV"
+      ]
     },
     {
       "date": "2026-08-04",
       "area": "scope",
       "decision": "6 épicas aprovadas, espelhando os módulos do assessment: E01 Portal Governança, E02 Portal Parceiros, E03 Portal Parceiros Interno, E04 Fundações & Segurança Transversal, E05 Migração de Catálogos e APIs, E06 Camada de Integração MuleSoft",
       "rationale": "Estrutura mapeada 1:1 dos 118 itens EC + 39 itens MuleSoft do assessment. E05 (Migração) separada de E04 (Fundações) apesar de o assessment agrupá-la em Transversal, para tornar visíveis o ownership ambíguo e a divergência de status MVP (R4/R5) no roadmap. E05 e E06 marcadas Assumed por ownership não confirmado (e limitação do Anypoint no E06). Itens 'desejável/No' (Wizard ~160h, páginas LWC aprimoradas ~32h) mantidos como candidatos de fase 2 dentro das épicas de portal, não como épicas separadas.",
-      "rejected": ["Estrutura de 5 épicas com Migração fundida em Fundações Transversais", "Criar épica separada de Change & Adoção (surge como gap, não como épica com esforço inventado)"]
+      "rejected": [
+        "Estrutura de 5 épicas com Migração fundida em Fundações Transversais",
+        "Criar épica separada de Change & Adoção (surge como gap, não como épica com esforço inventado)"
+      ]
     }
   ]
 }

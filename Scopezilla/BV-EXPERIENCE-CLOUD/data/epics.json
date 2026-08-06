@@ -4,6 +4,7 @@
     "epic_name": "Portal Governança (Experience Cloud)",
     "description": "Portal de ciclo de vida de APIs sobre Experience Cloud: cadastro de API de Negócio, geração/anexo de API Técnica, validação de contrato via OPA (render do resultado em HTML), processo de aprovação por Flow, fechamento após 3 rejeições e publicação de versões. Inclui segurança/perfis, modelo de dados de catálogos e telas de usuário e gestor. Consome integrações de saída (Jira, OneTrust, ServiceNow, PortalTech, Anypoint). Wizard de geração de API incluído na Fase 1 (MVP) — o BV o espera no go-live (grill 2026-08-04); ~160h a mais no E01 contra a marcação 'desejável/No' do assessment. RESIZE pendente de propagação via revise.",
     "confidence": "Confirmed",
+    "depends_on": ["E04", "E06"],
     "kb_sources": [
       "[KB: experience_cloud_4-2-2026.md:27656-27752]",
       "[KB: experience_cloud_4-2-2026.md:27155-27318]",
@@ -15,6 +16,7 @@
     "epic_name": "Portal Parceiros (Experience Cloud)",
     "description": "Portal externo de desenvolvedores/parceiros sobre Experience Cloud: autorregistro de visitante, login diferenciado (senha para acesso básico, IdP para parceiro via Login Discovery), catálogo de APIs público/privado, criação de apps e gestão de credenciais, contratos por versão de produto, páginas estáticas (Soluções, Como começar, Ajuda, Seja Um Parceiro) e regras de compartilhamento para visibilidade de produtos. Páginas LWC aprimoradas incluídas na Fase 1 (MVP) — o BV as espera no go-live (grill 2026-08-04); ~32h a mais no E02 contra a marcação 'desejável/No' do assessment. RESIZE pendente de propagação via revise.",
     "confidence": "Confirmed",
+    "depends_on": ["E04", "E06"],
     "kb_sources": [
       "[KB: experience_cloud_4-2-2026.md:2249-2352]",
       "[KB: experience_cloud_4-2-2026.md:4088-4410]",
@@ -27,6 +29,7 @@
     "epic_name": "Portal Parceiros Interno (Experience Cloud)",
     "description": "Portal interno para funcionários do BV, com público, personas, tipo de licença (usuário interno vs Partner Community do E02), visibilidade e regras de segurança PRÓPRIAS — não é configuração derivada leve do E02 (grill 2026-08-04). Reaproveita a base de componentes/modelo onde possível, mas tem build próprio de acesso, sharing e personas internas. RESIZE (maior que 'config derivada') pendente de propagação via revise; abre gap de licença de usuário interno.",
     "confidence": "Confirmed",
+    "depends_on": ["E02"],
     "kb_sources": [
       "[KB: experience_cloud_4-2-2026.md:2249-2352]",
       "[confirmed: público interno BV com personas/licenças/segurança distintas — grill 2026-08-04; reaproveitamento parcial de E02, não derivação leve]"
@@ -47,6 +50,7 @@
     "epic_name": "Migração de Catálogos e APIs (brownfield)",
     "description": "Migração das entidades e catálogos existentes para o modelo de dados dos portais: Torre, Sigla, Tribu, Squad, Domínio, Subdomínio, API de Negócio, API Técnica, Produto e Versão de Produto (~80h no assessment). Entrega pela Salesforce PS (dentro do escopo/roster/preço — grill 2026-08-04), pois alimenta o modelo de dados do E01 e a batch de ETL do E06. Fase 1 (MVP): os portais não têm valor no go-live sem catálogo/APIs carregados — conflito G0501 resolvido a favor de MVP=Si (grill 2026-08-04).",
     "confidence": "Assumed",
+    "depends_on": ["E04"],
     "kb_sources": [
       "[assumption: ownership (Salesforce PS) e fase (Fase 1/MVP) resolvidos — user-endorsed no grill 2026-08-04; permanece Assumed por falta de base documental independente e escopo de de-para/qualidade da fonte legada a detalhar]"
     ]

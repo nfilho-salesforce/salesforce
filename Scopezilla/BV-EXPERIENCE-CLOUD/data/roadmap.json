@@ -1,0 +1,47 @@
+[
+  {
+    "phase_number": 0,
+    "phase_name": "Resolução de Pré-requisitos",
+    "objectives": "Fechar os bloqueadores que travam o build antes de iniciá-lo: contratação da licença Experience Cloud externa (R1) e interna (G0307), nomeação dos provedores de identidade externo e interno (G0202/G0301), confirmação da topologia single-org (G0403), caracterização da limitação do Anypoint contratado (R2/G0602), delimitação da fronteira de catálogos entre migração one-off e ETL recorrente (G0509), definição do toolchain de DevOps/versionamento (G0404) e da fonte legada da migração (G0503/G0504).",
+    "epics_included": "",
+    "success_criteria": "Licenças EC (externa e interna) contratadas ou com pedido em curso; IdP externo e interno nomeados e federáveis; topologia de org e sandboxes confirmada; limitação do Anypoint documentada; fronteira E05/E06 de catálogos delimitada; toolchain de deploy escolhido; fonte, volume e qualidade dos dados legados conhecidos.",
+    "dependencies": "Nenhuma — é a fase de entrada. Depende de decisões e insumos do BV, não de outra fase.",
+    "risks": "Bloqueadores de licença e de IdP são externos ao time de build e podem represar o início das fases seguintes; a limitação do Anypoint, se severa, pode redimensionar E06."
+  },
+  {
+    "phase_number": 1,
+    "phase_name": "Fundações & Integração",
+    "objectives": "Estabelecer a base técnica transversal aos três portais (E04) e a camada de integração MuleSoft API-led (E06). E06 publica os contratos de XAPI/SAPI que o Portal Governança e o Portal Parceiros consomem — é a interface que sequencia toda a trilha.",
+    "epics_included": "E04,E06",
+    "success_criteria": "Org e ambientes de desenvolvimento operacionais; perfis, permission sets core, connected apps e usuário de integração provisionados; frameworks de trigger/logging/mocking em pé; contratos de XAPI/SAPI acordados e as SAPIs (Jira, Apigee Apps Management, Anypoint OAS) e XAPIs segregadas prontas para consumo; TLS context de borda com Apigee estabelecido.",
+    "dependencies": "Insumos da Fase 0 (topologia de org, toolchain de DevOps, limitação do Anypoint caracterizada). Sem dependência de épica anterior.",
+    "risks": "É o caminho crítico — E04 e E06 alimentam os três portais; atraso aqui cascateia em todas as fases seguintes. A limitação do Anypoint (R2) pode onerar a geração de OAS/render de contrato no E06. Overhead de arquitetura de integração (~220h de Technical Architect, G0610) pode estar fora da base de 319h e subdimensionar a entrega."
+  },
+  {
+    "phase_number": 2,
+    "phase_name": "Governança & Dados",
+    "objectives": "Entregar o Portal Governança (E01) — o núcleo de valor do ciclo de vida de API (cadastro, Wizard de geração de API Técnica, validação de contrato via OPA renderizada em HTML, aprovação por Flow + Approval Process) — e carregar os catálogos (E05) que alimentam o modelo de dados que o portal consome.",
+    "epics_included": "E01,E05",
+    "success_criteria": "Ciclo de vida de API operável ponta a ponta no portal (cadastro → geração → validação OPA → aprovação → publicação); catálogos das dez entidades carregados com integridade referencial e reconciliação pós-carga; integrações de saída do E01 consumindo as XAPIs do E06.",
+    "dependencies": "E04, E06 (Fase 1) — E01 depende das fundações e dos contratos de XAPI; E05 depende das fundações (org/objetos). Dentro da fase, o modelo de dados é construído primeiro (E01), a migração carrega em seguida (E05), e os recursos do E01 consomem os dados carregados.",
+    "risks": "A fronteira exata de catálogos entre E05 (carga one-off) e E06 (ETL recorrente) segue aberta (G0509) — se não resolvida na Fase 0, arrisca dupla contagem ou lacuna. A estratégia de cutover/rollback em produção viva (G0506) precisa estar definida antes da carga."
+  },
+  {
+    "phase_number": 3,
+    "phase_name": "Portal de Parceiros Externo",
+    "objectives": "Entregar o Portal Parceiros externo (E02): autorregistro de visitante, login diferenciado via Login Discovery, catálogo público/privado, criação de apps e gestão de credenciais, contratos por versão de produto e páginas de conteúdo/enablement.",
+    "epics_included": "E02",
+    "success_criteria": "Parceiros externos conseguem se registrar, descobrir APIs, criar apps e gerir credenciais em autoatendimento; regras de compartilhamento público/privado ativas; SAPIs do E06 (Apigee Apps Management, Jira, Anypoint OAS) consumidas; licença EC externa (R1) ativa.",
+    "dependencies": "E04, E06 (Fase 1) — depende das fundações e das SAPIs. Independente da Fase 2 (governança), mas condicionada à Fase 0 (licença EC externa, IdP de parceiros).",
+    "risks": "A relação com o portal Apigee incumbente (substituição, coexistência ou migração de parceiros/apps) segue aberta (G0204). Consentimento LGPD no autorregistro e integração OneTrust (G0203) a definir. Sem a licença EC externa contratada, o go-live externo não ocorre."
+  },
+  {
+    "phase_number": 4,
+    "phase_name": "Portal de Parceiros Interno",
+    "objectives": "Entregar o Portal Parceiros Interno (E03) para funcionários do BV — build distinto, com público, personas, tipo de licença, visibilidade e segurança próprios, reaproveitando a base de componentes/modelo onde couber.",
+    "epics_included": "E03",
+    "success_criteria": "Portal interno operacional com personas e sharing próprios; tipo e contagem de licença interna definidos e provisionados; reaproveitamento do E02 confirmado sem retrabalho de config.",
+    "dependencies": "E02 (Fase 3) — sequenciada após o congelamento (freeze) da configuração do E02 para não cascatear retrabalho.",
+    "risks": "Tipo e contagem de licença interna indefinidos (G0307/G0303) bloqueiam o sizing de licença e abrem um segundo caminho de licenciamento. Sem o freeze do E02, mudanças no portal externo forçam retrabalho no interno (G0302/G0304)."
+  }
+]
