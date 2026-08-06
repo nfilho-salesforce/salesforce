@@ -73,6 +73,30 @@
         "Autorar no estimate as linhas de roster PS: gestão de entrega + QA (G0611)",
         "Levar à Phase 0/cliente: dupla contagem de catálogos (G0509), arquitetura MuleSoft (G0610), licença interna (G0307), limitação Anypoint (R2)"
       ]
+    },
+    {
+      "date": "2026-08-06",
+      "skills_used": ["design"],
+      "summary": "Skeleton arquitetural aprovado e Solution doc escrito (outputs/01-solution.md) em duas camadas: Fundações de Arquitetura (org única/single-org, modelo público-privado com OWD externo + Site User Visibility, Login Discovery, DevOps/não-regressão brownfield, governança multi-time, API-led com Apigee no edge, NFRs FS/Open Finance) + Solução por Processo de Negócio (6 épicas na ordem do fluxo de valor: E05→E01→E02→E03, com E04/E06 horizontais). Resizes do grill honrados: E01 Wizard 160h + render OPA 60h Fase 1; E02 LWC 32h Fase 1; E03 build distinto; E06 base 319h. Sizing das 6 épicas pelo rubric de 8 dimensões (driver dominante + breadth bump): E01 XL, E06 XL, E02 L, E03 L, E04 M, E05 M. size_if_assumption_breaks em E03/E04/E05/E06. Todas as premissas load-bearing do skeleton já mapeavam para gaps existentes — sem novas linhas Assumption; single-org fica ambiguidade aberta (G0403), não ADR ratificada.",
+      "friction": [
+        "Fork de identidade/login diferenciado apoiado em docs EC layer-1 (KB experience_cloud) — busca layer-2 no KB central retornou KA-0033 (propagação de identidade em gateway), fork distinto; caveat registrado no skeleton",
+        "KB central seguiu degradada nesta sessão — grounding em knowledge/ + KAs de sharing/aprovação/API-led já citados"
+      ],
+      "decisions": [
+        {"decision": "Sizing por complexidade relativa (T-shirt) das 6 épicas: 2 XL (E01, E06), 2 L (E02, E03), 2 M (E04, E05)", "rationale": "Rubric de 8 dimensões, composição por driver dominante + breadth bump; brownfield/não-regressão tratado como Risk Adder transversal, não 9ª dimensão. E05/E06 seguem Assumed (fonte legada / Anypoint R2)."}
+      ],
+      "open_threads": [
+        "Estimates são complexidade relativa, não esforço — prazo via roadmap (banda top-down + ajuste FSI), preço via commercials (rate validado)",
+        "E05 e E06 Assumed: alargam banda para cima a jusante (fonte legada G0503/G0504; Anypoint R2/G0602; NFRs Open Finance G0605; arquitetura MuleSoft ~220h dentro/fora das 319h G0610)",
+        "Autorar no estimate o roster PS: gestão de entrega/programa + QA dedicado (G0611)",
+        "single-org (G0403), revogação de sharing (G0205), IdP externo/interno (G0202/G0301), toolchain DevOps (G0404) seguem abertos para Phase 0/cliente",
+        "Gaps de disciplina de governança e UX ainda não grillados; licença EC externa (R1) e interna (G0307) abertas"
+      ],
+      "next_steps": [
+        "Seguir para roadmap (sequência + banda de prazo top-down; E01/E06 XL = caminho crítico)",
+        "Autorar roster PS no estimate (G0611) e rodar dual-track se quiser tradicional vs AI-native",
+        "Levar à Phase 0/cliente: single-org, IdP, limitação Anypoint, dupla contagem catálogos, licenças EC"
+      ]
     }
   ],
   "preferences": {

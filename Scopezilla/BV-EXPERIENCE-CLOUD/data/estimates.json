@@ -1,0 +1,105 @@
+[
+  {
+    "item_id": "E01",
+    "item_type": "epic",
+    "t_shirt_size": "XL",
+    "size_drivers": {
+      "Data model": {"tier": "L", "signal": "10 entidades de catálogo com relações hierárquicas (versões Major/Minor) e junção API Técnica × Versão de Produto; objeto Revisão de API possivelmente substituído pelo Approval Process [KB: experience_cloud_4-2-2026.md:27656-27752]"},
+      "Automation": {"tier": "L", "signal": "Flow orquestrando envio/histórico/notificação + Approval Process nativo com fechamento automático após 3 rejeições [extends: KA-13258]"},
+      "Integration": {"tier": "L", "signal": "consome 6+ XAPIs segregadas do E06 (OPA, YAML→HTML Anypoint, OneTrust, ServiceNow, PortalTech, Jira/CASP); sequência E06→E01"},
+      "UI": {"tier": "L", "signal": "Wizard de geração de API (~160h, Fase 1) + render OPA em HTML (60h) + telas de usuário e gestor"},
+      "Sharing/security": {"tier": "M", "signal": "visibilidade de catálogos e perfis do portal de governança"}
+    },
+    "size_rationale": "Múltiplas dimensões em L (Modelo, Automação, Integração, UI) → breadth bump compõe para XL; é a maior épica Experience Cloud da trilha.",
+    "complexity_drivers": "Wizard custom LWC guiando geração/anexo/validação/envio; mecanismo de aprovação Flow+Approval Process; render OPA em HTML; modelo de 10 entidades hierárquicas; dependência de 6+ XAPIs prontas antes do build.",
+    "skills_needed": "Experience Cloud Developer (LWC), Salesforce Solution Architect, Apex/Flow Developer, Integration Consultant (contratos XAPI)",
+    "risks": "Sequência E06→E01: horas Salesforce pressupõem XAPIs prontas e contratos acordados (G0103). Decisão de modelo Revisão-de-API vs. Approval Process ainda aberta. Dupla contagem de catálogo com E05/E06 (G0509).",
+    "solution_approach": "Portal Experience Cloud de ciclo de vida de API: cadastro de API de Negócio → Wizard de geração da API Técnica → validação OPA renderizada em HTML → aprovação Flow+Approval Process (fecha após 3 rejeições) → versionamento/publicação. Consome XAPIs segregadas do E06.",
+    "confidence": "Confirmed"
+  },
+  {
+    "item_id": "E06",
+    "item_type": "epic",
+    "t_shirt_size": "XL",
+    "size_drivers": {
+      "Integration": {"tier": "XL", "signal": "hub API-led: TLS context Apigee + 6 XAPIs segregadas por destino + XAPI de retorno + 3 SAPIs (Jira, Apigee Apps Mgmt, Anypoint OAS) + testes E2E [KB: MuleSoft — Catálogo Estratégico Consolidado (EN) (Claude).md:53-88]"},
+      "Automation": {"tier": "L", "signal": "app batch de ETL + tratamento de erro/retry/resiliência da camada"},
+      "Data volume/migration": {"tier": "M", "signal": "batch ETL move dados de catálogo entre sistemas"}
+    },
+    "size_rationale": "Integração é o driver dominante em XL (hub API-led multi-sistema com camadas segregadas); Automação em L não altera a headline. Compõe XL.",
+    "complexity_drivers": "Arquitetura API-led de 3 camadas segregada por sistema de destino; coexistência com Apigee no edge; XAPI de retorno; SAPIs; batch ETL; NFRs de Open Finance (mTLS/throughput/idempotência).",
+    "skills_needed": "MuleSoft Technical Architect, MuleSoft Developer(s), Integration/Security specialist (mTLS/Apigee edge), QA (E2E)",
+    "risks": "Limitação do Anypoint contratado ainda não caracterizada (R2/G0602) — pode onerar geração de OAS/render de contrato. Arquitetura de integração (~220h TA) dentro ou fora das 319h de base (G0610). Fronteira ETL↔migração one-off (G0608). Ownership da borda Apigee (G0603).",
+    "solution_approach": "Camada de integração API-led entregue pela prática MuleSoft da Salesforce PS; base de estimativa fixada em 319h pelo grill 2026-08-04; é a interface (contratos XAPI/SAPI) que E01 e E02 consomem.",
+    "confidence": "Assumed",
+    "size_if_assumption_breaks": "XL mantém; banda alarga para cima se a limitação do Anypoint (R2) forçar workarounds de OAS/contrato ou se a arquitetura de integração (~220h TA) estiver fora das 319h de base (G0610)."
+  },
+  {
+    "item_id": "E02",
+    "item_type": "epic",
+    "t_shirt_size": "L",
+    "size_drivers": {
+      "Sharing/security": {"tier": "L", "signal": "OWD externo público/privado nos objetos Produto/Versão + sharing sets na criação do acesso + guest user hardening [KA-10297] [KA-10398] [KA-10395]"},
+      "UI": {"tier": "L", "signal": "páginas LWC aprimoradas (~32h, Fase 1) + catálogo público/privado + criação de apps + gestão de credenciais"},
+      "Integration": {"tier": "M", "signal": "consome SAPIs do E06 (Apigee Apps Mgmt, Jira, Anypoint OAS)"},
+      "Data model": {"tier": "M", "signal": "Produto, Versão de Produto e junção de acesso de parceiro [KB: experience_cloud_4-2-2026.md:63605-63737]"},
+      "Automation": {"tier": "M", "signal": "autorregistro, Login Discovery dual-identity, automação de compartilhamento na criação do acesso"}
+    },
+    "size_rationale": "Sharing externo e UI ambos em L definem a headline; sem dimensão isolada em XL → compõe L.",
+    "complexity_drivers": "Portal externo com autorregistro, login diferenciado (senha vs IdP via Login Discovery), catálogo público/privado, gestão de apps/credenciais, páginas LWC de conteúdo.",
+    "skills_needed": "Experience Cloud Developer (LWC), Identity/SSO specialist (Login Discovery), Salesforce Security Architect (sharing externo/guest), Integration Consultant",
+    "risks": "IdP de parceiros não nomeado (G0202/G0301). Bloqueador de licença EC externa (R1/ADR 0002). Relação com portal Apigee incumbente/migração de credenciais (G0204). LGPD no autorregistro/OneTrust (G0203). Comportamento de revogação de acesso (G0205).",
+    "solution_approach": "Portal externo Experience Cloud de desenvolvedores/parceiros; herda o modelo público/privado das Fundações; consome SAPIs do E06; páginas LWC de conteúdo carregam o enablement de parceiros (grill G0408).",
+    "confidence": "Confirmed"
+  },
+  {
+    "item_id": "E03",
+    "item_type": "epic",
+    "t_shirt_size": "L",
+    "size_drivers": {
+      "Sharing/security": {"tier": "L", "signal": "modelo próprio de visibilidade, personas e segurança internas — build distinto, não config derivada leve (grill 2026-08-04)"},
+      "UI": {"tier": "M", "signal": "reaproveita base de componentes do E02 com desenho próprio de acesso"},
+      "Data model": {"tier": "M", "signal": "reuso do modelo do E02 onde faz sentido [KB: experience_cloud_4-2-2026.md:2249-2352]"}
+    },
+    "size_rationale": "Build distinto com sharing/persona/licença próprios mantém a headline em L; reuso de E02 puxa UI/Modelo para M, mas não desce a épica.",
+    "complexity_drivers": "Portal interno com público, personas, tipo de licença, visibilidade e segurança próprios; reaproveitamento parcial de E02 sem ser derivação leve; sequenciado após freeze do E02.",
+    "skills_needed": "Experience Cloud Developer (LWC), Salesforce Security Architect (visibilidade interna), Solution Architect",
+    "risks": "Tipo/contagem de licença interna não definidos (G0307/G0303) — abre segundo caminho de licenciamento distinto do R1 externo. Grau de reuso real de E02 vs. build exclusivo (G0304). Retrabalho em cascata se E02 não congelar antes (G0302).",
+    "solution_approach": "Build distinto (grill 2026-08-04) para funcionários internos BV; reusa base de componentes/modelo do E02 onde possível, com desenho próprio de sharing/personas/licença; sequenciado após congelamento do E02.",
+    "confidence": "Confirmed",
+    "size_if_assumption_breaks": "L; M se o reuso de componentes/modelo do E02 cobrir mais do que o build distinto de sharing/persona/licença exige."
+  },
+  {
+    "item_id": "E04",
+    "item_type": "epic",
+    "t_shirt_size": "M",
+    "size_drivers": {
+      "Automation": {"tier": "M", "signal": "frameworks de trigger/logging/mocking transversais aos 3 portais [KB: experience_cloud_4-2-2026.md:30835-30862]"},
+      "Sharing/security": {"tier": "M", "signal": "perfis e permission sets core compartilhados pelos 3 portais"},
+      "Integration": {"tier": "M", "signal": "connected apps, usuário de integração DevOps, integrações de entrada ao Salesforce"}
+    },
+    "size_rationale": "Frameworks + config core em M compõem a headline M; o brownfield/não-regressão é Risk Adder transversal (alarga a banda), não uma 9ª dimensão que suba o tamanho.",
+    "complexity_drivers": "Org + ambientes de desenvolvimento, perfis/permission sets core, connected apps, frameworks de trigger/logging/mocking, parametrização administrativa. Logging nível FS com mascaramento de PII/retenção.",
+    "skills_needed": "Salesforce Platform Developer (frameworks), DevOps/Release Engineer, Salesforce Security Architect",
+    "risks": "Toolchain de deploy/versionamento a nomear (G0404/G0409). Não-regressão dos 3 portais em produção viva (G0401) — Risk Adder brownfield. Logging FS com mascaramento/retenção mais pesado que básico (G0406).",
+    "solution_approach": "Base técnica transversal aos 3 portais: org/ambientes, perfis/permission sets core, DevOps, integrações de entrada, frameworks de trigger/logging/mocking; teste de não-regressão como atividade contínua.",
+    "confidence": "Confirmed",
+    "size_if_assumption_breaks": "M; L se o logging FS (observabilidade/mascaramento/retenção) ou a não-regressão dos 3 portais exigir framework de escala."
+  },
+  {
+    "item_id": "E05",
+    "item_type": "epic",
+    "t_shirt_size": "M",
+    "size_drivers": {
+      "Data volume/migration": {"tier": "M", "signal": "carga one-off de 10 entidades com integridade referencial (organizacionais → ciclo de vida → junção API Técnica × Versão por último)"},
+      "Data model": {"tier": "M", "signal": "de-para para o modelo de dados que o E01 consome"}
+    },
+    "size_rationale": "Migração é o driver em M (10 entidades interrelacionadas, ~80h no assessment); sem alto volume/complexidade confirmados, headline M.",
+    "complexity_drivers": "Carga inicial one-off de 10 entidades (Torre→Versão de Produto) com de-para e reconciliação pós-carga; ordem preserva integridade referencial.",
+    "skills_needed": "Data Migration Specialist, Salesforce Developer (de-para/reconciliação)",
+    "risks": "Fonte legada não nomeada; volumes/qualidade desconhecidos (G0503/G0504) — mantém Assumed. Estratégia de cutover/rollback em produção viva (G0506). Fronteira one-off (E05) vs. sincronização recorrente (E06) — dupla contagem (G0509/G0505/G0608).",
+    "solution_approach": "Carga inicial one-off das 10 entidades para o modelo do E01, entregue pela Salesforce PS na Fase 1 (os portais não têm valor no go-live sem catálogo carregado).",
+    "confidence": "Assumed",
+    "size_if_assumption_breaks": "M; L se os dados de origem estiverem sujos/em alto volume ou se a integridade referencial entre as 10 entidades exigir transformação pesada."
+  }
+]
