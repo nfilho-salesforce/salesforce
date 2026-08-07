@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<!-- DATAPREV Data Ágil — Deck de alinhamento de escopo pré-SOW · SLDS/Salesforce brand 2026
+     Fonte: outputs/artifacts/presentation-outline.md (15 slides) · Gerado: 2026-07-20
+     Snapshot assinado pelo humano — números client-facing carregam disclaimer. -->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data Ágil — DATAPREV · Alinhamento de Escopo</title>
+<style>
+:root {
+  --sf-navy:#001E5B; --sf-type:#002775; --sf-container:#022AC0; --sf-blue:#066AFE;
+  --sf-cloud:#00B3FF; --sf-cloud-80:#90D0FE; --sf-bg:#CFE9FE; --sf-light-bg:#EAF5FE;
+  --sf-text:#002775; --sf-text-weak:#4A5578;
+  --ext-teal:#06A59A; --ext-teal-80:#04E1CB; --ext-teal-95:#DEF9F3;
+  --ext-yellow:#FCC003; --ext-yellow-70:#E4A201; --ext-yellow-95:#FBF3E0;
+  --ext-pink:#FF538A; --ext-pink-40:#B60554; --ext-pink-95:#FEF0F3;
+  --ext-violet:#D17DFE; --ext-violet-30:#730394; --ext-violet-95:#F9F0FF;
+  --client-primary:#066AFE; --client-dark:#022AC0;
+  --font-heading:'ITC Avant Garde Gothic Demi','Avant Garde','Century Gothic','Salesforce Sans','Source Sans 3',Arial,sans-serif;
+  --font-body:'Salesforce Sans','Source Sans 3','Helvetica Neue',Arial,sans-serif;
+  --fs-title:54px; --fs-subtitle:36px; --fs-l1:30px; --fs-cat:26px; --fs-l2:24px; --fs-desc:22px; --fs-body:16px;
+  --space-xs:4px; --space-sm:8px; --space-md:16px; --space-lg:24px; --space-xl:32px; --space-2xl:48px;
+  --radius-sm:4px; --radius-md:8px; --radius-lg:16px;
+  --shadow-brand:2.6px 9.7px 25px rgba(6,106,254,0.15);
+}
+/* ── Base ── */
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+body { font-family:var(--font-body); color:var(--sf-text); background:var(--sf-light-bg);
+  -webkit-font-smoothing:antialiased; line-height:1.55; }
+h1,h2,h3,.sz-title,.sz-stat-num { font-family:var(--font-heading); color:var(--sf-navy); line-height:1.15; }
+a { color:var(--sf-blue); }
+:focus-visible { outline:3px solid var(--sf-blue); outline-offset:2px; border-radius:2px; }
+@media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none!important; transition:none!important; } }
+/* ── Components ── */
+.sz-card { background:#fff; border-radius:var(--radius-md); padding:var(--space-md) var(--space-lg); box-shadow:var(--shadow-brand); }
+.sz-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:var(--space-md); }
+.sz-stat { background:#fff; border-radius:var(--radius-md); padding:var(--space-md); text-align:center; box-shadow:var(--shadow-brand); }
+.sz-stat-num { font-size:42px; color:var(--client-primary); }
+.sz-stat-lbl { font-size:13px; color:var(--sf-text-weak); margin-top:var(--space-xs); line-height:1.3; }
+.sz-table { width:100%; border-collapse:collapse; background:#fff; border-radius:var(--radius-md); overflow:hidden; box-shadow:var(--shadow-brand); }
+.sz-table th { background:var(--sf-container); color:#fff; font-family:var(--font-heading); text-align:left; padding:var(--space-sm) var(--space-md); font-size:14px; }
+.sz-table td { padding:var(--space-sm) var(--space-md); border-top:1px solid var(--sf-light-bg); font-size:14px; vertical-align:top; }
+.sz-table tbody tr:nth-child(even) { background:var(--sf-light-bg); }
+.sz-tag { display:inline-block; font-size:12px; font-weight:700; padding:2px 10px; border-radius:999px; line-height:1.6; }
+.sz-tag--critical { background:var(--ext-pink-95); color:var(--ext-pink-40); }
+.sz-tag--high { background:var(--ext-yellow-95); color:var(--ext-yellow-70); }
+.sz-tag--medium { background:var(--ext-yellow-95); color:var(--ext-yellow-70); }
+.sz-tag--low { background:var(--ext-teal-95); color:var(--ext-teal); }
+.sz-tag--info { background:var(--sf-light-bg); color:var(--sf-blue); }
+.sz-tldr { background:var(--sf-light-bg); border-left:4px solid var(--sf-blue); border-radius:var(--radius-sm); padding:var(--space-md) var(--space-lg); }
+.sz-tldr-label { font-family:var(--font-heading); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--sf-blue); margin-bottom:var(--space-xs); }
+.sz-timeline { display:flex; gap:2px; border-radius:var(--radius-sm); overflow:hidden; box-shadow:var(--shadow-brand); }
+.sz-phase { flex:1; padding:var(--space-md); color:#fff; text-align:center; font-size:14px; }
+.sz-phase:nth-child(1){background:var(--sf-navy);} .sz-phase:nth-child(2){background:var(--sf-container);}
+.sz-phase:nth-child(3){background:var(--sf-blue);} .sz-phase:nth-child(4){background:var(--sf-cloud); color:var(--sf-navy);}
+.sz-phase-name { font-family:var(--font-heading); }
+.sz-phase-dur { opacity:.85; font-size:12px; }
+.sz-chips { display:flex; flex-wrap:wrap; gap:var(--space-xs); }
+.sz-chip { background:var(--sf-light-bg); color:var(--sf-container); border:1px solid var(--sf-cloud-80); border-radius:999px; padding:4px 12px; font-size:13px; }
+.sz-panorama { position:relative; background:var(--sf-cloud); color:var(--sf-navy); padding:var(--space-2xl) var(--space-xl); text-align:center; border-radius:var(--radius-lg); box-shadow:var(--shadow-brand); }
+.sz-panorama--navy { background:linear-gradient(135deg,var(--sf-navy),var(--sf-container)); color:#fff; }
+.sz-panorama h2 { color:inherit; }
+
+/* ── Deck layout ── */
+html,body { height:100%; }
+body { background:var(--sf-navy); overflow:hidden; display:flex; align-items:center; justify-content:center; }
+.slide { width:1280px; height:720px; background:var(--sf-light-bg); position:relative; display:none;
+  flex-direction:column; padding:44px 64px; overflow:hidden;
+  transform:scale(var(--scale,1)); transform-origin:center center; }
+.slide.active { display:flex; }
+.slide::before { content:''; position:absolute; top:0; left:0; right:0; height:4px;
+  background:linear-gradient(90deg,var(--client-primary),var(--sf-cloud)); }
+.slide-eyebrow { font-family:var(--font-heading); font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:var(--sf-blue); }
+.slide-title { font-size:28px; margin:6px 0 18px; color:var(--sf-navy); line-height:1.2; }
+.slide-num { position:absolute; bottom:20px; right:28px; font-size:12px; color:var(--sf-text-weak); }
+.slide-foot { position:absolute; bottom:18px; left:64px; font-size:11px; color:var(--sf-text-weak); font-family:var(--font-heading); letter-spacing:.06em; }
+.cover { justify-content:center; background:linear-gradient(135deg,var(--sf-navy),var(--sf-container)); }
+.cover .slide-title { font-size:var(--fs-title); color:#fff; }
+.cover .slide-eyebrow { color:var(--sf-cloud); }
+.cover .cover-sub { font-size:var(--fs-desc); color:var(--sf-cloud-80); margin-top:12px; }
+.cover .cover-meta { margin-top:36px; color:#fff; opacity:.85; font-size:15px; line-height:1.8; }
+
+/* content helpers */
+.body-txt { font-size:15px; }
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-lg); }
+.col-head { font-family:var(--font-heading); font-size:15px; color:var(--sf-container); text-transform:uppercase; letter-spacing:.06em; margin-bottom:8px; }
+.bullets { list-style:none; display:flex; flex-direction:column; gap:9px; }
+.bullets li { position:relative; padding-left:20px; font-size:14.5px; line-height:1.45; }
+.bullets li::before { content:''; position:absolute; left:0; top:8px; width:8px; height:8px; border-radius:2px; background:var(--sf-blue); }
+.bullets.teal li::before { background:var(--ext-teal); }
+.bullets.pink li::before { background:var(--ext-pink); }
+.grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:var(--space-md); }
+.grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:var(--space-md); }
+.grid-5 { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; }
+.mini-card { background:#fff; border-radius:var(--radius-md); padding:14px; box-shadow:var(--shadow-brand); }
+.mini-card h4 { font-family:var(--font-heading); font-size:14px; color:var(--sf-navy); margin-bottom:6px; }
+.mini-card p { font-size:12.5px; color:var(--sf-text-weak); line-height:1.4; }
+.pill-head { display:inline-block; font-family:var(--font-heading); font-size:12px; color:#fff; background:var(--sf-blue); border-radius:999px; padding:3px 12px; margin-bottom:8px; }
+.layer { background:#fff; border-radius:var(--radius-md); padding:12px 16px; box-shadow:var(--shadow-brand); margin-bottom:8px; border-left:5px solid var(--sf-blue); }
+.layer h4 { font-family:var(--font-heading); font-size:14px; color:var(--sf-navy); }
+.layer p { font-size:12.5px; color:var(--sf-text-weak); }
+.ico { width:34px; height:34px; border-radius:8px; background:var(--sf-light-bg); display:flex; align-items:center; justify-content:center; margin-bottom:8px; }
+.ico svg { width:20px; height:20px; }
+.flow { display:flex; align-items:stretch; gap:6px; }
+.flow .step { flex:1; background:#fff; border-radius:var(--radius-md); padding:12px; box-shadow:var(--shadow-brand); border-top:4px solid var(--sf-blue); }
+.flow .arrow { display:flex; align-items:center; color:var(--sf-cloud); font-size:22px; font-weight:700; }
+.check { color:var(--ext-teal); font-weight:700; }
+
+@media print {
+  @page { size:1280px 720px; margin:0; }
+  html,body { background:#fff; width:1280px; height:auto; display:block; overflow:visible; }
+  .slide { display:flex!important; page-break-after:always; box-shadow:none; transform:none!important; }
+  .slide:last-of-type { page-break-after:auto; }
+  .nav, .slide-num { display:none; }
+}
+</style>
+</head>
+<body>
+
+<!-- 1 · CAPA -->
+<section class="slide cover active">
+  <div class="slide-eyebrow">DATAPREV · Julho 2026</div>
+  <h1 class="slide-title">Data Ágil</h1>
+  <div class="cover-sub">Plataforma de Autosserviço e Inteligência via Slack + Agentforce</div>
+  <div class="cover-meta">
+    Audiência: Sponsors Técnicos + Negócio<br>
+    Objetivo: Alinhamento de escopo antes da assinatura do SOW<br>
+    Salesforce Professional Services
+  </div>
+  <span class="slide-num"></span>
+</section>
+
+<!-- 2 · CONTEXTO -->
+<section class="slide">
+  <div class="slide-eyebrow">Onde estamos hoje · O contexto Dataprev</div>
+  <h2 class="slide-title">Crescimento exponencial sem evolução infraestrutural criou gargalos operacionais críticos</h2>
+  <div class="sz-stats" style="margin-bottom:16px">
+    <div class="sz-stat"><div class="sz-stat-num">166×</div><div class="sz-stat-lbl">crescimento base B2B (15 → 2.500 clientes)</div></div>
+    <div class="sz-stat"><div class="sz-stat-num">7</div><div class="sz-stat-lbl">sistemas legados fragmentados, sem camada unificada</div></div>
+    <div class="sz-stat"><div class="sz-stat-num">~30k</div><div class="sz-stat-lbl">tickets/mês geridos manualmente, SLA degradado</div></div>
+    <div class="sz-stat"><div class="sz-stat-num">~30%</div><div class="sz-stat-lbl">adoção CRM — compromete forecast executivo</div></div>
+  </div>
+  <div class="two-col">
+    <div>
+      <div class="col-head">Sistemas desconectados</div>
+      <div class="sz-chips">
+        <span class="sz-chip">Pronto (ServiceNow)</span><span class="sz-chip">Clarity (Broadcom)</span>
+        <span class="sz-chip">Protheus ERP</span><span class="sz-chip">CRM Totvs</span>
+        <span class="sz-chip">Portal Conexão</span><span class="sz-chip">MS Teams</span><span class="sz-chip">SEI</span>
+      </div>
+    </div>
+    <div>
+      <div class="col-head">Pressão regulatória crescente</div>
+      <ul class="bullets pink">
+        <li>Vazamento de 2,8M CPFs (mai/2026)</li>
+        <li>Auditoria TCU ativa</li>
+        <li>Mainframe descomissionado (jan/2026)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="slide-foot">DATAPREV · Data Ágil</div><span class="slide-num"></span>
+</section>
+
+<!-- 3 · IMPACTOS -->
+<section class="slide">
+  <div class="slide-eyebrow">Impactos no negócio</div>
+  <h2 class="slide-title">A fragmentação degrada a experiência do cliente e expõe a Dataprev a riscos de compliance e competitivos</h2>
+  <table class="sz-table">
+    <thead><tr><th style="width:34%">Impacto</th><th>Consequência</th></tr></thead>
+    <tbody>
+      <tr><td><b>SLA degradado</b></td><td>Consultas que deveriam ser instantâneas (valores em aberto, status de chamados) dependem de filas N1 humanas com latência de horas.</td></tr>
+      <tr><td><b>Risco de perda de contratos</b></td><td>Self-service digital e automação com IA viram requisitos tácitos em renovações — o SERPRO (estatal similar) já opera com automação/IA em produção.</td></tr>
+      <tr><td><b>Baixa produtividade interna</b></td><td>Sobrecarga de N1/N2 com consultas repetitivas consome tempo que poderia gerar valor agregado.</td></tr>
+      <tr><td><b>Exposição ao TCU</b></td><td>Sem rastreabilidade de consultas financeiras sensíveis (Protheus ERP), há risco de não-conformidade em auditorias.</td></tr>
+    </tbody>
+  </table>
+  <div class="slide-foot">DATAPREV · Data Ágil</div><span class="slide-num"></span>
+</section>
+
+<!-- 4 · JANELA DE OPORTUNIDADE -->
+<section class="slide">
+  <div class="slide-eyebrow">Por que agora</div>
+  <h2 class="slide-title">Momento convergente — pressão, capacidade e mandato executivo se alinham agora</h2>
+  <div class="grid-5" style="margin-top:8px">
+    <div class="mini-card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#066AFE" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></div><h4>Arquitetural</h4><p>Mainframe descomissionado (jan/2026) abre janela de modernização sem dependência legada crítica.</p></div>
+    <div class="mini-card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#066AFE" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M23 21v-2a4 4 0 0 0-3-3.87"/></svg></div><h4>Executivo</h4><p>Sponsorship bottom-up estabelecido — Saulo já defendeu o Slack antes da discovery oficial.</p></div>
+    <div class="mini-card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#066AFE" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div><h4>Operacional</h4><p>Recesso parlamentar cria janela de deployment sem pressão operacional crítica.</p></div>
+    <div class="mini-card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#066AFE" stroke-width="2"><path d="M12 2v20M2 12h20M4.9 4.9l14.2 14.2M19.1 4.9L4.9 19.1"/></svg></div><h4>Competitivo</h4><p>Gap vs. SERPRO em automação/IA — agir agora estabelece paridade no setor público federal.</p></div>
+    <div class="mini-card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="#066AFE" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h4>Regulatório</h4><p>Breach recente + auditoria TCU ativa = mandato de hardening de governança agora.</p></div>
+  </div>
+  <div class="sz-tldr" style="margin-top:22px"><div class="sz-tldr-label">Leitura</div>Se não agirmos agora, perdemos a janela. As forças de negócio, arquitetura e regulação apontam para o mesmo momento.</div>
+  <div class="slide-foot">DATAPREV · Data Ágil</div><span class="slide-num"></span>
+</section>
+
+<!-- 5 · VISÃO -->
+<section class="slide">
+  <div class="slide-eyebrow">A visão · Futuro</div>
+  <h2 class="slide-title">Uma plataforma conversacional conecta clientes e empregados aos sistemas internos, 24/7</h2>
+  <div class="two-col" style="grid-template-columns:1.15fr 1fr">
+    <div>
+      <div class="layer" style="border-color:var(--sf-cloud)"><h4>Slack — o "sistema operacional" conversacional</h4><p>Interface única substitui 7 logins e sistemas diferentes.</p></div>
+      <div class="layer" style="border-color:var(--sf-blue)"><h4>Agentforce — orquestra 9 agentes</h4><p>5 read-only (F1), 2 de escrita controlada (F2), 2 preditivos (F3).</p></div>
+      <div class="layer" style="border-color:var(--sf-container)"><h4>MuleSoft / MCP — integra os legados</h4><p>Camada segura sobre Pronto, Clarity, Protheus, CRM Totvs, Portal Conexão, Teams — rastreabilidade LGPD/TCU em cada consulta.</p></div>
+      <div class="layer" style="border-color:var(--sf-navy)"><h4>Data Cloud — inteligência preditiva (F3)</h4><p>Alertas proativos de breach de SLA e recomendações comerciais.</p></div>
+    </div>
+    <div style="display:flex; align-items:center">
+      <div class="sz-panorama"><h2 style="font-size:24px; margin-bottom:12px">De reativo para proativo</h2>
+        <p style="font-size:16px; line-height:1.6">Consultas instantâneas (&lt;1 min) &nbsp;+&nbsp; alertas antes do problema &nbsp;+&nbsp; recomendações antes da reunião.</p></div>
+    </div>
+  </div>
+  <div class="slide-foot">DATAPREV · Data Ágil</div><span class="slide-num"></span>
+</section>
+
+<!-- 6 · ESCOPO -->
+<section class="slide">
+  <div class="slide-eyebrow">Escopo · O caminho</div>
+  <h2 class="slide-title">10 épicas em 3 fases + governança — valor cedo na Fase 1, escala na Fase 3</h2>
+  <div class="grid-4" style="margin-bottom:12px">
+    <div class="mini-card" style="border-top:4px solid var(--sf-navy)"><span class="pill-head" style="background:var(--sf-navy)">Fase 0 — Pré-requisito</span><h4>Discovery & Arquitetura</h4><p>Resolver bloqueador G1002 (governança Protheus), auditar volumetrias, travar decisões arquiteturais.</p></div>
+    <div class="mini-card" style="border-top:4px solid var(--sf-container)"><span class="pill-head" style="background:var(--sf-container)">Fase 1 — Foundation</span><h4>Quick wins (read-only)</h4><p>E01 Financeiro · E02 Chamados · E03 Intelligence executiva · E04 KB normativas · E05 Agendamento.</p></div>
+    <div class="mini-card" style="border-top:4px solid var(--sf-blue)"><span class="pill-head" style="background:var(--sf-blue)">Fase 2 — Expansion</span><h4>Escrita controlada</h4><p>E06 Adoção CRM via conversação (+40%) · E07 Abertura de chamados assistida.</p></div>
+    <div class="mini-card" style="border-top:4px solid var(--sf-cloud)"><span class="pill-head" style="background:var(--sf-cloud); color:var(--sf-navy)">Fase 3 — Proactive</span><h4>Inteligência preditiva</h4><p>E08 Demandas evolutivas (Clarity) · E09 Alertas SLA + recomendações (Data Cloud).</p></div>
+  </div>
+  <div class="sz-card" style="border-left:5px solid var(--sf-blue); padding:12px 18px"><b style="font-family:var(--font-heading); color:var(--sf-navy)">E10 — Governança / Compliance / Change Management</b> &nbsp;·&nbsp; atravessa todas as fases (rastreabilidade, treinamento, mandato executivo).</div>
+  <div class="slide-foot">DATAPREV · Data Ágil</div><span class="slide-num"></span>
+</section>
+
+<!-- 7 · FASE 1 -->
+<section class="slide">
+  <div class="slide-eyebrow">Fase 1 · Quick wins</div>
+  <h2 class="slide-title">A Fase 1 entrega valor imediato e estabelece confiança antes de habilitar escritas</h2>
+  <div class="grid-5" style="margin-bottom:14px">
+    <div class="mini-card"><h4>J1 · Financeiro</h4><p>Clientes B2B consultam valores em aberto no Protheus via Slack, sem escalar N1. Governança TI+Jurídico+DPO.</p></div>
+    <div class="mini-card"><h4>J2 · Chamados</h4><p>Status dos ~30k tickets/mês do Pronto — abertos, críticos, SLA, histórico. Reduz fila N1.</p></div>
+    <div class="mini-card"><h4>J5 · Executiva</h4><p>Maik, a caminho do ministério, pergunta ao agente sobre o pipeline (CRM Totvs) e chega pautado.</p></div>
+    <div class="mini-card"><h4>J7 · Normativas</h4><p>Consulta SharePoint — políticas RH, alçadas ("quem assina &gt;R$2M?"). −50% acionamentos repetitivos.</p></div>
+    <div class="mini-card"><h4>J8 · Agendamento</h4><p>Pedro manda áudio "agenda reunião amanhã com X, Y, Z" → calendário no MS Teams.</p></div>
+  </div>
+  <div class="col-head">Critérios de sucesso da Fase 1</div>
+  <ul class="bullets teal" style="display:grid; grid-template-columns:1fr 1fr; gap:8px 32px">
+    <li>5 jornadas live em modo consulta (read-only)</li>
+    <li>Early adopters: 20–50 no piloto, treinados</li>
+    <li>Audit trail operacional (user ID + timestamp + query/response em todo API call)</li>
+    <li>Mandato executivo (Saulo): &gt;60% de uso semanal</li>
+  </ul>
+  <div class="slide-foot">DATAPREV · Data Ágil</div><span class="slide-num"></span>
+</section>
+
+<!-- 8 · FASES 2 e 3 -->
+<section class="slide">
+  <div class="slide-eyebrow">Fases 2 e 3 · Escala + inteligência</div>
+  <h2 class="slide-title">Fase 2 aumenta a adoção do CRM; Fase 3 transforma reativo em proativo</h2>
+  <div class="two-col">
+    <div>
+      <div class="pill-head" style="background:var(--sf-blue)">Fase 2 — Expansion (escrita controlada)</div>
+      <ul class="bullets">
+        <li><b>J4 — Adoção CRM conversacional:</b> comercial atualiza pipeline/forecast por voz/texto no Slack → CRM Totvs. Meta: +40% (30% → 70%).</li>
+        <li><b>J3 — Abertura de chamados assistida:</b> B2B + internos abrem tickets Pronto via Slack, com validação de campos obrigatórios.</li>
+        <li><b>Dependência:</b> Fase 1 acima de 60% de uso semanal — confiança antes de habilitar escritas.</li>
+      </ul>
+    </div>
+    <div>
+      <div class="pill-head" style="background:var(--sf-cloud); color:var(--sf-navy)">Fase 3 — Proactive Intelligence</div>
+      <ul class="bullets teal">
+        <li><b>J9 — Alertas proativos de SLA:</b> Data Cloud ingere eventos do Pronto → identifica cohort de risco → Agentforce alerta N2/gestor <i>antes</i> do breach.</li>
+        <li><b>J10 — Recomendações comerciais:</b> pipeline histórico (CRM Totvs) → modelo preditivo → próxima ação sugerida para o comercial.</li>
+        <li><b>J6 — Demandas evolutivas (Clarity, ~4,5k):</b> decisão arquitetural na F2 — <i>co-living</i> (Agentforce escreve via MuleSoft) OU migração (Service Cloud como sistema de origem).</li>
+      </ul>
+    </div>
+  </div>
+  <div class="slide-foot">DATAPREV · Data Ágil</div><span class="slide-num"></span>
+</section>
+
+<!-- 9 · ARQUITETURA -->
+<section class="slide">
+  <div class="slide-eyebrow">Arquitetura técnica</div>
+  <h2 class="slide-title">Arquitetura nativa Salesforce com governança LGPD/TCU embutida</h2>
+  <div class="layer" style="border-color:var(--sf-cloud)"><h4>Camada de Engajamento — Slack Enterprise Grid</h4><p>2.500 clientes B2B + 3.000 colaboradores · Slack Connect (B2B) · Slack AI KB (J7) · Workflow Builder (J8).</p></div>
+  <div class="layer" style="border-color:var(--sf-blue)"><h4>Camada de Orquestração — Agentforce</h4><p>9 agentes (5 F1 · 2 F2 · 2 F3) com Atlas Reasoning Engine · Slack EKM (master keys AWS KMS sob CISO) · todo API call logged.</p></div>
+  <div class="layer" style="border-color:var(--sf-container)"><h4>Camada de Integração — MuleSoft / MCP (dual deployment)</h4><p>Anypoint (governança de legados, reutilizável) + MCP Server (federação Slack) · System APIs: Protheus, Pronto, CRM Totvs, SharePoint, MS Teams, SEI, Clarity.</p></div>
+  <div class="layer" style="border-color:var(--sf-navy)"><h4>Camada de Inteligência (Fase 3) — Data Cloud</h4><p>Streaming Pronto + CRM Totvs → perfis unificados → segmentação → ativação (alertas J9, recomendações J10).</p></div>
+  <div class="slide-foot">DATAPREV · Data Ágil</div><span class="slide-num"></span>
+</section>
+
+<!-- 10 · TIMELINE -->
+<section class="slide">
+  <div class="slide-eyebrow">Timeline benchmark</div>
+  <h2 class="slide-title">Faixa de 29–54 semanas, derivada top-down da complexidade — ponto de partida, não compromisso</h2>
+  <div class="sz-timeline" style="margin-bottom:14px">
+    <div class="sz-phase"><div class="sz-phase-name">F0 · Discovery</div><div class="sz-phase-dur">4–6 semanas</div></div>
+    <div class="sz-phase"><div class="sz-phase-name">F1 · Foundation</div><div class="sz-phase-dur">12–16 semanas</div></div>
+    <div class="sz-phase"><div class="sz-phase-name">F2 · Expansion</div><div class="sz-phase-dur">10–14 semanas</div></div>
+    <div class="sz-phase"><div class="sz-phase-name">F3 · Proactive</div><div class="sz-phase-dur">8–12 semanas</div></div>
+  </div>
+  <div class="two-col">
+    <div>
+      <div class="col-head">Baseline</div>
+      <p class="body-txt">10 épicas, predominância L/XL (2 XL + 3 L de 10), 7 sistemas legados integrados → <b>26–40 semanas base</b>.</p>
+    </div>
+    <div>
+      <div class="col-head">Ajustes de risco (+35%, sob o teto de +50%)</div>
+      <ul class="bullets">
+        <li>+15% indústria regulada (LGPD Art. 48 + trilha de auditoria TCU + governança Protheus)</li>
+        <li>+10% cliente novo (primeiro engagement, qualidade da org desconhecida, G1002 aberto)</li>
+        <li>+10% alargamento de confiança (68 gaps, volumetrias pendentes, gaps de UX e governança)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="sz-tldr" style="margin-top:16px; border-color:var(--ext-yellow-70)"><div class="sz-tldr-label" style="color:var(--ext-yellow-70)">Disclaimer</div>
+    Baseado em benchmarks de engagements similares (model-training-data). <b>Não é compromisso</b> — é base para discussão de escopo/prazo. A duração final depende das decisões da Fase 0, da resolução dos gaps e da capacidade de staffing.</div>
+  <div class="slide-foot">DATAPREV · Data Ágil</div><span class="slide-num"></span>
+</section>
+
+<!-- 11 · RISCOS -->
+<section class="slide">
+  <div class="slide-eyebrow">Riscos e mitigações</div>
+  <h2 class="slide-title">5 riscos críticos — todos com mitigação definida ou gate de decisão</h2>
+  <table class="sz-table">
+    <thead><tr><th style="width:26%">Risco</th><th style="width:30%">Impacto</th><th>Mitigação</th></tr></thead>
+    <tbody>
+      <tr><td><span class="sz-tag sz-tag--critical">Crítico</span> <b>G1002 — governança Protheus</b></td><td>TI+Jurídico+DPO não aprovam acesso a dados financeiros → J1 inviável, atraso no kick-off.</td><td>Fase 0 mandatória: reunião tri-party pré-kick-off. Fallback: diferir J1 para F2, lançar F1 com 4 jornadas.</td></tr>
+      <tr><td><span class="sz-tag sz-tag--high">Alto</span> <b>Gap de Experience Design</b></td><td>10k+ usuários externos em onboarding sem pesquisa de UX → baixa adoção, retrabalho na F1.</td><td>Adicionar UX Researcher em F0/F1: service design + content strategy + jornada de onboarding.</td></tr>
+      <tr><td><span class="sz-tag sz-tag--high">Alto</span> <b>Volumetrias desconhecidas</b></td><td>Sizing de MuleSoft/Agentforce/Heroku errado — over-provisioning ou throttling.</td><td>Auditoria na Fase 0 (2 semanas): volumetrias por sistema, peak load, usuários concorrentes.</td></tr>
+      <tr><td><span class="sz-tag sz-tag--medium">Médio</span> <b>APIs de legados não validadas</b></td><td>Bloqueio técnico em F2/F3 (CRM Totvs write, Clarity, Pronto case creation).</td><td>API discovery sprint na F0: specs Swagger/OpenAPI + sandbox + validação de field mapping.</td></tr>
+      <tr><td><span class="sz-tag sz-tag--medium">Médio</span> <b>Governança/CoE indefinido</b></td><td>Ownership multi-team não alinhado → deadlock operacional pós go-live.</td><td>RACI workshop na F0: papéis e responsabilidades travados antes do build da F1.</td></tr>
+    </tbody>
+  </table>
+  <div class="slide-foot">DATAPREV · Data Ágil</div><span class="slide-num"></span>
+</section>
+
+<!-- 12 · DISCIPLINAS -->
+<section class="slide">
+  <div class="slide-eyebrow">Disciplinas necessárias</div>
+  <h2 class="slide-title">O engagement requer 11 disciplinas — uma pessoa cobre múltiplas, várias podem cobrir uma</h2>
+  <div class="grid-3">
+    <div class="sz-card"><div class="pill-head">Arquitetura e liderança técnica</div>
+      <ul class="bullets"><li>Senior Technical Architect (Salesforce + Security + Governance)</li><li>MuleSoft Technical Architect</li><li>Data Cloud Technical Architect</li><li>Solution Architect (Salesforce + Slack Admin)</li></ul>
+    </div>
+    <div class="sz-card"><div class="pill-head">Implementação especializada</div>
+      <ul class="bullets"><li>Agentforce Technical Consultant (9 agentes J1–J10)</li><li>MuleSoft Technical Consultant (7 System APIs)</li><li>Einstein Analytics Developer (dashboards F3)</li><li>Solution Consultant (BA + Release Manager)</li></ul>
+    </div>
+    <div class="sz-card"><div class="pill-head">Qualidade e adoção</div>
+      <ul class="bullets teal"><li>Quality Assurance Consultant (surge nos go-lives F1/F2/F3)</li><li>UX Researcher (F0/F1 — service design + onboarding 10k+ externos)</li><li>Change Management Lead (treinamento por persona, mandato executivo, KPIs)</li></ul>
+    </div>
+  </div>
+  <div class="sz-tldr" style="margin-top:18px"><div class="sz-tldr-label">Nota</div>
+    Headcount não é a soma das roles — pessoas são multidisciplinares. Sizing de equipe e staffing não estão no escopo deste alinhamento; requerem julgamento humano (capacidade Salesforce PS, modelo de entrega, termos comerciais).</div>
+  <div class="slide-foot">DATAPREV · Data Ágil</div><span class="slide-num"></span>
+</section>
+
+<!-- 13 · PREMISSAS E EXCLUSÕES -->
+<section class="slide">
+  <div class="slide-eyebrow">Premissas e exclusões</div>
+  <h2 class="slide-title">O que assumimos verdadeiro — e o que explicitamente NÃO está no escopo</h2>
+  <div class="two-col">
+    <div>
+      <div class="col-head" style="color:var(--ext-teal)">Premissas (assumimos)</div>
+      <ul class="bullets teal">
+        <li>Slack Enterprise Grid já contratado e provisionado</li>
+        <li>TI Dataprev fornece specs Swagger/OpenAPI + sandbox dos 7 legados na F0</li>
+        <li>Decisão de Workspace Slack (B2B segregado vs. único) travada na F0</li>
+        <li>Volumetrias auditadas na F0 — concurrent users, peak load, data volumes</li>
+        <li>AWS KMS master keys sob controle do CISO para o Slack EKM</li>
+        <li>Dataprev staffa 0% das roles técnicas (100% Salesforce PS)</li>
+      </ul>
+    </div>
+    <div>
+      <div class="col-head" style="color:var(--ext-pink-40)">Exclusões (NÃO fazemos)</div>
+      <ul class="bullets pink">
+        <li>Migração de dados históricos — apenas integração read/write via APIs</li>
+        <li>Customizações nos legados — integramos "as-is"</li>
+        <li>Treinamento dos 2.500 clientes B2B — Dataprev conduz; PS faz train-the-trainer</li>
+        <li>Licenças Salesforce — provisionadas separadamente</li>
+        <li>Migração para Service Cloud (E08 Clarity) — decision gate na F2; execução fora deste SOW se aprovada</li>
+      </ul>
+    </div>
+  </div>
+  <div class="slide-foot">DATAPREV · Data Ágil</div><span class="slide-num"></span>
+</section>
+
+<!-- 14 · PHASE 0 -->
+<section class="slide">
+  <div class="slide-eyebrow">Próximos passos · Fase 0 obrigatória</div>
+  <h2 class="slide-title">A Fase 0 resolve blockers críticos antes do build da Fase 1 — 4–6 semanas, não pulável</h2>
+  <div class="flow" style="margin-bottom:14px">
+    <div class="step"><b>1 · Tri-party</b><p style="font-size:12px; color:var(--sf-text-weak); margin-top:6px">TI+Jurídico+DPO resolvem o G1002 (Protheus). Fallback: diferir J1 para F2.</p></div>
+    <div class="arrow">›</div>
+    <div class="step"><b>2 · Volumetrias</b><p style="font-size:12px; color:var(--sf-text-weak); margin-top:6px">Auditoria (2 sem): concurrent users, peak load, data volumes → sizing.</p></div>
+    <div class="arrow">›</div>
+    <div class="step"><b>3 · API discovery</b><p style="font-size:12px; color:var(--sf-text-weak); margin-top:6px">Specs + sandbox dos 7 legados. Field mapping validado (2 sem).</p></div>
+    <div class="arrow">›</div>
+    <div class="step"><b>4 · Workspace Slack</b><p style="font-size:12px; color:var(--sf-text-weak); margin-top:6px">B2B segregado vs. único. Impacto: licensing + security model.</p></div>
+    <div class="arrow">›</div>
+    <div class="step"><b>5 · RACI Governance</b><p style="font-size:12px; color:var(--sf-text-weak); margin-top:6px">Ownership multi-team travado (Agentforce, MuleSoft, Slack admin, CRM).</p></div>
+  </div>
+  <div class="two-col">
+    <div>
+      <div class="col-head">Entregáveis da Fase 0</div>
+      <ul class="bullets"><li>G1002 aprovado ou fallback travado</li><li>Volumetrias documentadas → capacity plan</li><li>API specs validadas → backlog de integração</li><li>Workspace Slack travado → modelo de licenciamento</li><li>RACI documentado → playbook de governança</li></ul>
+    </div>
+    <div style="display:flex; align-items:center">
+      <div class="sz-panorama--navy sz-panorama" style="padding:24px"><h2 style="font-size:18px; margin-bottom:8px">Gate para a Fase 1</h2><p style="font-size:14px">Entregáveis da Fase 0 aprovados por sponsors técnicos + negócio antes do kick-off da Fase 1.</p></div>
+    </div>
+  </div>
+  <div class="slide-foot">DATAPREV · Data Ágil</div><span class="slide-num"></span>
+</section>
+
+<!-- 15 · CALL TO ACTION -->
+<section class="slide">
+  <div class="slide-eyebrow">Call to action</div>
+  <h2 class="slide-title">Hoje alinhamos escopo; nos próximos 10 dias finalizamos comerciais e assinamos o SOW</h2>
+  <div class="two-col">
+    <div>
+      <div class="col-head">O que precisamos alinhar hoje</div>
+      <ul class="bullets teal">
+        <li><span class="check">✓</span> Escopo aprovado? 10 épicas em 3 fases + E10 governança</li>
+        <li><span class="check">✓</span> Fase 0 obrigatória? 4–6 semanas resolvendo blockers</li>
+        <li><span class="check">✓</span> Riscos conhecidos e mitigações? Top 5 + gates de decisão</li>
+        <li><span class="check">✓</span> Premissas e exclusões? O que assumimos e o que não fazemos</li>
+      </ul>
+    </div>
+    <div>
+      <div class="col-head">Próximos passos (10 dias)</div>
+      <div class="sz-timeline" style="flex-direction:column; box-shadow:var(--shadow-brand)">
+        <div class="sz-phase" style="text-align:left"><b>Hoje</b> · Feedback e ajustes finais no escopo</div>
+        <div class="sz-phase" style="text-align:left"><b>Semana 1</b> · Comerciais finalizados (pricing aprovado com Solution Lead)</div>
+        <div class="sz-phase" style="text-align:left"><b>Semana 2</b> · SOW redigido e circulado para aprovação</div>
+        <div class="sz-phase" style="text-align:left; color:var(--sf-navy)"><b>Dia 10</b> · Assinatura do SOW + kick-off da Fase 0 agendado</div>
+      </div>
+    </div>
+  </div>
+  <div class="sz-panorama" style="margin-top:18px"><h2 style="font-size:20px">"Há algo no escopo, premissas ou riscos que precisa ser ajustado antes de finalizarmos o SOW?"</h2></div>
+  <div class="slide-foot">DATAPREV · Data Ágil</div><span class="slide-num"></span>
+</section>
+
+<div class="nav">
+  <button onclick="go(-1)">← Anterior</button>
+  <span id="count"></span>
+  <button onclick="go(1)">Próximo →</button>
+</div>
+<style>
+.nav { position:fixed; bottom:20px; left:50%; transform:translateX(-50%); display:flex; gap:8px; align-items:center;
+  background:rgba(0,30,91,.9); border-radius:999px; padding:8px 16px; z-index:50; transition:opacity .4s ease; }
+.nav.idle { opacity:0; pointer-events:none; }
+.nav button { background:var(--sf-blue); color:#fff; border:none; border-radius:999px; padding:6px 14px; cursor:pointer; font-family:var(--font-heading); }
+.nav span { color:#fff; font-size:13px; padding:0 8px; }
+</style>
+<script>
+  const slides = [...document.querySelectorAll('.slide')];
+  let i = 0;
+  function fit(){ document.documentElement.style.setProperty('--scale', Math.min(innerWidth/1280, innerHeight/720)); }
+  addEventListener('resize', fit); fit();
+  const nav = document.querySelector('.nav'); let idleTimer;
+  function wake(){ nav.classList.remove('idle'); clearTimeout(idleTimer); idleTimer = setTimeout(()=>nav.classList.add('idle'), 2500); }
+  ['mousemove','keydown','touchstart'].forEach(ev=>addEventListener(ev, wake)); wake();
+  function show(n){ i = Math.max(0, Math.min(slides.length-1, n));
+    slides.forEach((s,k)=>s.classList.toggle('active', k===i));
+    document.getElementById('count').textContent = (i+1)+' / '+slides.length;
+    slides.forEach((s,k)=>{const el=s.querySelector('.slide-num'); if(el) el.textContent=k+1;});
+  }
+  function go(d){ show(i+d); }
+  addEventListener('keydown', e=>{
+    if(['ArrowRight','ArrowDown',' '].includes(e.key)){e.preventDefault(); go(1);}
+    if(['ArrowLeft','ArrowUp'].includes(e.key)){e.preventDefault(); go(-1);}
+  });
+  addEventListener('beforeprint', ()=>slides.forEach(s=>s.classList.add('active')));
+  addEventListener('afterprint', ()=>show(i));
+  show(0);
+</script>
+</body>
+</html>

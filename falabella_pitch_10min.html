@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Falabella — Pitch Script 10 Min | Salesforce PS LATAM</title>
+<style>
+  :root {
+    --dark: #032D60;
+    --blue: #0070D2;
+    --teal: #00A1E0;
+    --green: #2E844A;
+    --orange: #E65000;
+    --yellow: #FFC849;
+    --red: #C23B22;
+    --purple: #7B5EA7;
+    --gray: #706E6B;
+    --lgray: #F3F3F3;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 14px;
+    color: #1a1a1a;
+    background: #0d1117;
+    line-height: 1.6;
+  }
+
+  /* ── HEADER ── */
+  .hero {
+    background: linear-gradient(135deg, #032D60 0%, #0a3f7a 50%, #0d1117 100%);
+    padding: 56px 72px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 480px; height: 480px;
+    background: radial-gradient(circle, rgba(0,161,224,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: 30%;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(230,80,0,0.06) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-size: 40px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  .hero h1 span { color: var(--yellow); }
+  .hero .sub {
+    font-size: 15px;
+    color: rgba(255,255,255,0.65);
+    max-width: 640px;
+    margin-bottom: 32px;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .hm-pill {
+    background: rgba(255,255,255,0.09);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 100px;
+    padding: 5px 14px;
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+  }
+  .hm-pill span { color: var(--yellow); margin-left: 4px; }
+
+  /* ── SCORE SUMMARY BAR ── */
+  .score-bar {
+    background: #161b22;
+    border-top: 1px solid #21262d;
+    border-bottom: 1px solid #21262d;
+    padding: 20px 72px;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    overflow-x: auto;
+  }
+  .sc-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #21262d;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 8px 14px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .sc-emoji { font-size: 16px; }
+  .sc-label { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.75); }
+  .sc-pts {
+    font-size: 13px;
+    font-weight: 900;
+    background: var(--dark);
+    color: var(--yellow);
+    border-radius: 20px;
+    padding: 1px 9px;
+  }
+  .sc-div { width: 1px; height: 28px; background: #30363d; flex-shrink: 0; margin: 0 4px; }
+  .sc-total {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--teal);
+    white-space: nowrap;
+    margin-left: 6px;
+  }
+
+  /* ── MAIN LAYOUT ── */
+  .main { max-width: 960px; margin: 0 auto; padding: 48px 36px 80px; }
+
+  /* ── TIMING OVERVIEW ── */
+  .timing-track {
+    display: flex;
+    height: 10px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+  .timing-bar {
+    height: 100%;
+    transition: opacity 0.2s;
+  }
+  .timing-labels {
+    display: flex;
+    font-size: 9.5px;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 40px;
+  }
+  .timing-labels span { flex: 1; text-align: center; }
+
+  /* ── SLIDE BLOCK ── */
+  .slide {
+    background: #161b22;
+    border: 1px solid #21262d;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    transition: border-color 0.2s;
+  }
+  .slide:hover { border-color: #30363d; }
+
+  .slide-head {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    border-bottom: 1px solid #21262d;
+  }
+  .slide-num {
+    width: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.15);
+    flex-shrink: 0;
+    border-right: 1px solid #21262d;
+  }
+  .slide-meta {
+    flex: 1;
+    padding: 16px 20px;
+  }
+  .slide-meta .sm-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+  .slide-meta .sm-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: #fff;
+  }
+  .slide-meta .sm-sub {
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.45);
+  }
+  .slide-timing {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 20px;
+    flex-shrink: 0;
+    border-left: 1px solid #21262d;
+  }
+  .clock-icon { font-size: 14px; color: rgba(255,255,255,0.3); }
+  .timing-badge {
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--yellow);
+    line-height: 1;
+  }
+  .timing-unit {
+    font-size: 10px;
+    color: rgba(255,255,255,0.35);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── SCORE BADGE ── */
+  .score-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    border-radius: 6px;
+    padding: 3px 9px;
+    font-size: 10.5px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  /* ── SLIDE BODY ── */
+  .slide-body { padding: 24px 24px 24px 72px; }
+
+  /* ── TALKING POINTS ── */
+  .tp-label {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--teal);
+    margin-bottom: 10px;
+  }
+  .tp-list { list-style: none; margin-bottom: 20px; }
+  .tp-list li {
+    font-size: 13.5px;
+    color: rgba(255,255,255,0.82);
+    padding: 7px 0 7px 20px;
+    border-bottom: 1px solid #21262d;
+    position: relative;
+    line-height: 1.55;
+  }
+  .tp-list li:last-child { border-bottom: none; }
+  .tp-list li::before {
+    content: '▸';
+    position: absolute; left: 0;
+    color: var(--teal);
+    font-size: 11px;
+    top: 9px;
+  }
+  .tp-list li strong { color: var(--yellow); }
+  .tp-list li em { color: var(--teal); font-style: normal; }
+
+  /* ── QUOTE BOX ── */
+  .quote-box {
+    background: linear-gradient(135deg, rgba(3,45,96,0.6), rgba(0,112,210,0.2));
+    border-left: 4px solid var(--yellow);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 14px;
+    font-style: italic;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.65;
+  }
+  .quote-box strong { color: var(--yellow); font-style: normal; }
+  .quote-label {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(255,200,73,0.6);
+    margin-bottom: 6px;
+  }
+
+  /* ── KPI ROW ── */
+  .kpi-row {
+    display: flex;
+    gap: 10px;
+    margin: 16px 0;
+    flex-wrap: wrap;
+  }
+  .kpi-chip {
+    background: #21262d;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 10px 14px;
+    text-align: center;
+    flex: 1;
+    min-width: 80px;
+  }
+  .kpi-chip .kv {
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+  .kpi-chip .kl {
+    font-size: 9.5px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.3;
+  }
+
+  /* ── COMPARISON TABLE ── */
+  .cmp-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 12px; }
+  .cmp-table th {
+    background: #21262d;
+    color: rgba(255,255,255,0.6);
+    padding: 8px 12px;
+    text-align: left;
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+  }
+  .cmp-table th.ps-col { color: var(--teal); }
+  .cmp-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #21262d;
+    color: rgba(255,255,255,0.75);
+    vertical-align: top;
+  }
+  .cmp-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .cmp-table .ps-cell { color: var(--teal); font-weight: 600; }
+  .cmp-table .no-cell { color: rgba(255,100,80,0.7); }
+  .cmp-table .dim-cell { color: rgba(255,255,255,0.35); font-style: italic; font-size: 11px; }
+
+  /* ── OUTCOMES GRID ── */
+  .outcomes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 16px 0;
+  }
+  .oc-card {
+    background: #21262d;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .oc-hito {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 3px;
+  }
+  .oc-title {
+    font-size: 12.5px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .oc-kpis { font-size: 11px; color: rgba(255,255,255,0.6); line-height: 1.55; }
+  .oc-kpis strong { color: var(--green); }
+
+  /* ── FLEX VISUAL ── */
+  .flex-row {
+    display: flex;
+    gap: 10px;
+    margin: 16px 0;
+    align-items: stretch;
+  }
+  .flex-card {
+    background: #21262d;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 14px;
+    flex: 1;
+    text-align: center;
+  }
+  .flex-card .fc-emoji { font-size: 24px; margin-bottom: 6px; }
+  .flex-card .fc-title { font-size: 11px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+  .flex-card .fc-desc { font-size: 10.5px; color: rgba(255,255,255,0.5); line-height: 1.45; }
+  .flex-arrow {
+    display: flex;
+    align-items: center;
+    color: rgba(255,255,255,0.2);
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  /* ── AI BADGE ── */
+  .ai-proof {
+    background: linear-gradient(135deg, rgba(123,94,167,0.25), rgba(0,161,224,0.15));
+    border: 1px solid rgba(123,94,167,0.4);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 14px 0;
+  }
+  .ai-proof .ap-title {
+    font-size: 12px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 6px;
+  }
+  .ai-proof .ap-list {
+    list-style: none;
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.6;
+  }
+  .ai-proof .ap-list li { padding: 2px 0 2px 16px; position: relative; }
+  .ai-proof .ap-list li::before { content: '✦'; position: absolute; left: 0; color: var(--purple); font-size: 8px; top: 5px; }
+
+  /* ── SPEAKER NOTES ── */
+  .speaker-note {
+    background: rgba(255,200,73,0.06);
+    border: 1px solid rgba(255,200,73,0.15);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-top: 14px;
+    font-size: 12px;
+    color: rgba(255,200,73,0.75);
+    line-height: 1.55;
+  }
+  .speaker-note .sn-label {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(255,200,73,0.5);
+    margin-bottom: 5px;
+  }
+
+  /* ── WARNING / ALERT ── */
+  .tip {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin: 10px 0;
+    font-size: 12px;
+    line-height: 1.55;
+  }
+  .tip.t-red { background: rgba(194,59,34,0.1); border-left: 3px solid var(--red); color: rgba(255,150,130,0.9); }
+  .tip.t-green { background: rgba(46,132,74,0.1); border-left: 3px solid var(--green); color: rgba(100,220,130,0.9); }
+  .tip.t-blue { background: rgba(0,112,210,0.1); border-left: 3px solid var(--blue); color: rgba(100,180,255,0.9); }
+
+  /* ── FINAL CTA ── */
+  .cta-block {
+    background: linear-gradient(135deg, #032D60, #0a4a8c);
+    border-radius: 14px;
+    padding: 32px 36px;
+    text-align: center;
+    margin-top: 32px;
+    border: 1px solid rgba(0,161,224,0.2);
+  }
+  .cta-block h2 { font-size: 24px; font-weight: 900; color: #fff; margin-bottom: 10px; }
+  .cta-block .cta-sub { font-size: 14px; color: rgba(255,255,255,0.6); margin-bottom: 24px; }
+  .cta-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .cta-btn {
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    font-weight: 700;
+    cursor: default;
+  }
+  .cta-btn.primary { background: var(--yellow); color: var(--dark); }
+  .cta-btn.secondary { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: #0d1117;
+    border-top: 1px solid #21262d;
+    padding: 18px 72px;
+    font-size: 10px;
+    color: rgba(255,255,255,0.25);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @media (max-width: 700px) {
+    .hero { padding: 36px 20px; }
+    .score-bar { padding: 16px 20px; }
+    .main { padding: 32px 16px 60px; }
+    .slide-body { padding: 18px 16px; }
+    .outcomes-grid { grid-template-columns: 1fr; }
+    .flex-row { flex-direction: column; }
+    .flex-arrow { transform: rotate(90deg); align-self: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="eyebrow">Salesforce Professional Services · LATAM · Jun 2026</div>
+  <h1>Pitch Script — <span>10 Minutos</span><br/>Programa Falabella</h1>
+  <p class="sub">Guia do apresentador: falas, números-chave, momentos de impacto e critérios de avaliação por segmento.</p>
+  <div class="hero-meta">
+    <span class="hm-pill">Duração:<span>10 min</span></span>
+    <span class="hm-pill">Segmentos:<span>7 blocos</span></span>
+    <span class="hm-pill">Score total:<span>100 pts</span></span>
+    <span class="hm-pill">Deal target:<span>$400–700K</span></span>
+    <span class="hm-pill">Audiência:<span>Economic Buyer + Champion</span></span>
+  </div>
+</div>
+
+<!-- ── SCORE BAR ── -->
+<div class="score-bar">
+  <div class="sc-item"><span class="sc-emoji">💼</span><span class="sc-label">Por qué PS</span><span class="sc-pts">25 pts</span></div>
+  <div class="sc-div"></div>
+  <div class="sc-item"><span class="sc-emoji">📊</span><span class="sc-label">Business Case ROI</span><span class="sc-pts">25 pts</span></div>
+  <div class="sc-div"></div>
+  <div class="sc-item"><span class="sc-emoji">🎯</span><span class="sc-label">Outcomes medibles</span><span class="sc-pts">20 pts</span></div>
+  <div class="sc-div"></div>
+  <div class="sc-item"><span class="sc-emoji">⚡</span><span class="sc-label">Modelo Flex</span><span class="sc-pts">15 pts</span></div>
+  <div class="sc-div"></div>
+  <div class="sc-item"><span class="sc-emoji">🤖</span><span class="sc-label">Propuesta con AI</span><span class="sc-pts">15 pts</span></div>
+  <div class="sc-div"></div>
+  <span class="sc-total">= 100 pts</span>
+</div>
+
+<!-- ── TIMING OVERVIEW ── -->
+<div class="main">
+
+  <!-- Timeline visual -->
+  <div class="timing-track">
+    <div class="timing-bar" style="width:10%;background:#30363d;"></div>
+    <div class="timing-bar" style="width:20%;background:var(--blue);"></div>
+    <div class="timing-bar" style="width:20%;background:#0095D9;"></div>
+    <div class="timing-bar" style="width:15%;background:var(--green);"></div>
+    <div class="timing-bar" style="width:12%;background:var(--orange);"></div>
+    <div class="timing-bar" style="width:12%;background:var(--purple);"></div>
+    <div class="timing-bar" style="width:11%;background:var(--yellow);opacity:0.8;"></div>
+  </div>
+  <div class="timing-labels">
+    <span style="flex:0.5;text-align:left">0:00</span>
+    <span>1:00</span>
+    <span>3:00</span>
+    <span>5:00</span>
+    <span>6:30</span>
+    <span>7:30</span>
+    <span>8:30</span>
+    <span style="text-align:right">10:00</span>
+  </div>
+
+<!-- ═══════════════════════════════════════════
+     BLOQUE 0 — HOOK DE APERTURA
+═══════════════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-head">
+    <div class="slide-num">0</div>
+    <div class="slide-meta">
+      <div class="sm-top">
+        <div class="sm-title">🔴 Hook de Apertura — El número que abre la puerta</div>
+      </div>
+      <div class="sm-sub">Sección de impacto · Sin criterio de puntuación propio · Prepara el terreno para todo</div>
+    </div>
+    <div class="slide-timing">
+      <span class="clock-icon">⏱</span>
+      <div>
+        <div class="timing-badge">1:00</div>
+        <div class="timing-unit">min</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-body">
+    <div class="tp-label">Fala sugerida</div>
+    <div class="quote-box">
+      <div class="quote-label">Abertura — dizer em voz alta</div>
+      "Gracias por el tiempo. Voy a ser directo. Falabella pierde aproximadamente <strong>$2.5 millones de dólares cada mes que no actúa</strong> — no por falta de datos, no por falta de tecnología, sino porque la plataforma que ya compraron no está conectada entre sí.<br/><br/>
+      En los próximos 10 minutos voy a explicarles cómo Salesforce PS entra, cuánto vale el retorno, cuándo se mide, y por qué esto no se puede ejecutar sin nosotros."
+    </div>
+    <div class="kpi-row">
+      <div class="kpi-chip"><div class="kv" style="color:var(--red)">$2.5M</div><div class="kl">costo inacción / mes</div></div>
+      <div class="kpi-chip"><div class="kv" style="color:var(--orange)">$440K</div><div class="kl">tickets evitables / mes</div></div>
+      <div class="kpi-chip"><div class="kv" style="color:var(--blue)">$1.1M</div><div class="kl">e-commerce sin personalizar</div></div>
+      <div class="kpi-chip"><div class="kv" style="color:var(--green)">2.8%</div><div class="kl">conversión actual (bench: 4–5%)</div></div>
+    </div>
+    <div class="speaker-note">
+      <div class="sn-label">Nota do apresentador</div>
+      Deixar o número de $2.5M/mês no ar por 3 segundos antes de continuar. Não apressar. É o gancho que mantém o Economic Buyer na sala.
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     BLOCO 1 — POR QUÉ PS  (25 pts)
+═══════════════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-head">
+    <div class="slide-num">1</div>
+    <div class="slide-meta">
+      <div class="sm-top">
+        <div class="sm-title">💼 Por qué PS — Diferenciación vs. DIY</div>
+        <span class="score-badge" style="background:rgba(0,112,210,0.2);color:var(--teal);border:1px solid rgba(0,161,224,0.3);">💼 25 pts</span>
+      </div>
+      <div class="sm-sub">Argumento central: Salesforce PS vs. hacerlo solo o con un integrador genérico</div>
+    </div>
+    <div class="slide-timing">
+      <span class="clock-icon">⏱</span>
+      <div>
+        <div class="timing-badge">2:00</div>
+        <div class="timing-unit">min</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-body">
+    <div class="tp-label">Pontos-chave a cobrir</div>
+    <ul class="tp-list">
+      <li>Falabella ya tiene la plataforma — <strong>el gap no es tecnológico, es de activación.</strong> Un integrador genérico aprende Salesforce con el tiempo y el dinero del cliente.</li>
+      <li>PS trae los <strong>únicos arquitectos certificados en la plataforma que vamos a activar</strong> — Agent Builder, Data Cloud, Marketing Cloud, Service Cloud — en un solo equipo.</li>
+      <li>Tenemos el <strong>blueprint de 9 semanas</strong> validado con Agentforce: go-live comprobado en Chile, Perú y Colombia con 60% de resolución autónoma. No estamos estimando — ya lo hicimos.</li>
+      <li>DIY o integrador genérico: <strong>6–12 meses de ramp-up</strong> vs. <strong>30 días de primer valor</strong> con PS. Eso es ~$7.5M más de costo de inacción acumulado.</li>
+      <li>Salesforce PS <strong>transfiere capacidad al equipo interno</strong> — no crea dependencia. Al final del engagement, el equipo de Falabella opera solo.</li>
+    </ul>
+
+    <div class="tp-label">Tabla comparativa — usar si hay objeción DIY</div>
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>Capacidad</th>
+          <th class="ps-col">Salesforce PS</th>
+          <th>Integrador Genérico</th>
+          <th>Equipo Interno (DIY)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Certificación Agent Builder / Data Cloud</td>
+          <td class="ps-cell">✓ Día 1</td>
+          <td class="dim-cell">6–9 meses ramp-up</td>
+          <td class="no-cell">Sin cert. disponible</td>
+        </tr>
+        <tr>
+          <td>Blueprint go-live validado (LATAM)</td>
+          <td class="ps-cell">✓ 9 semanas probadas</td>
+          <td class="no-cell">No existe</td>
+          <td class="no-cell">No existe</td>
+        </tr>
+        <tr>
+          <td>Acceso a product roadmap Salesforce</td>
+          <td class="ps-cell">✓ Directo</td>
+          <td class="no-cell">Indirecto / tardío</td>
+          <td class="no-cell">Público solo</td>
+        </tr>
+        <tr>
+          <td>Primer impacto medible</td>
+          <td class="ps-cell">30 días</td>
+          <td class="dim-cell">90–180 días</td>
+          <td class="dim-cell">12+ meses</td>
+        </tr>
+        <tr>
+          <td>Transferencia de capacidad</td>
+          <td class="ps-cell">✓ Incluida en SOW</td>
+          <td class="no-cell">No garantizada</td>
+          <td class="dim-cell">No aplica</td>
+        </tr>
+        <tr>
+          <td>KPIs de negocio auditables</td>
+          <td class="ps-cell">✓ Con CFO/CIO</td>
+          <td class="no-cell">Entregables técnicos</td>
+          <td class="no-cell">Sin baseline</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="speaker-note">
+      <div class="sn-label">Nota do apresentador</div>
+      Se o Economic Buyer interromper com "temos um parceiro", usar: <em>"¿Ese partner tiene el blueprint validado en Falabella-escala, 216K conversaciones/mes en LATAM? Nosotros sí."</em>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     BLOCO 2 — BUSINESS CASE ROI  (25 pts)
+═══════════════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-head">
+    <div class="slide-num">2</div>
+    <div class="slide-meta">
+      <div class="sm-top">
+        <div class="sm-title">📊 Business Case — ROI para el Economic Buyer</div>
+        <span class="score-badge" style="background:rgba(0,161,224,0.15);color:#00d4ff;border:1px solid rgba(0,161,224,0.3);">📊 25 pts</span>
+      </div>
+      <div class="sm-sub">Tres hipóteses de valor · $30.5M/año · Payback &lt; 4 meses · $215 por cada $1 invertido</div>
+    </div>
+    <div class="slide-timing">
+      <span class="clock-icon">⏱</span>
+      <div>
+        <div class="timing-badge">2:30</div>
+        <div class="timing-unit">min</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-body">
+    <div class="tp-label">Estrutura do argumento — 3 hipóteses em sequência</div>
+    <ul class="tp-list">
+      <li><strong>H1 — Agentforce + Service Cloud:</strong> Deflexión masiva de tickets WhatsApp y web. <em>960h · 14 sem · $5.3M/año</em>. Payback &lt; 3 meses. Ya operativo en CL/PE/CO con 216K conversaciones/mes.</li>
+      <li><strong>H2 — Data Cloud + Marketing Cloud:</strong> 10M perfiles CMR sin activar. Personalizamos. <em>900h · 12 sem · $21M/año</em> por aumento de conversión de 2.8% → 4.5%. Esta es la mayor palanca.</li>
+      <li><strong>H3 — Service Cloud + Einstein Contact Center:</strong> 800–1.200 agentes humanos con IA en consola. <em>960h · 14 sem · $4.2M/año</em>. Reduce OPEX de CC.</li>
+      <li>Total del programa: <strong>$30.5M/año de ROI</strong> contra una inversión de $544K. Eso es <strong>$215 de retorno por cada $1 invertido</strong>. Break-even antes del cierre del primer trimestre de ejecución.</li>
+      <li>Los hipótesis <strong>se ejecutan en paralelo</strong> — no secuencialmente. 28 semanas en secuencia se convierten en ~18 semanas con dos equipos activos simultáneos.</li>
+    </ul>
+
+    <div class="tp-label">Números que el Economic Buyer debe salir recordando</div>
+    <div class="kpi-row">
+      <div class="kpi-chip">
+        <div class="kv" style="color:var(--yellow)">$30.5M</div>
+        <div class="kl">ROI/año<br/>programa completo</div>
+      </div>
+      <div class="kpi-chip">
+        <div class="kv" style="color:var(--green)">$215</div>
+        <div class="kl">retorno por cada<br/>$1 invertido</div>
+      </div>
+      <div class="kpi-chip">
+        <div class="kv" style="color:var(--blue)">&lt;4</div>
+        <div class="kl">meses<br/>payback total</div>
+      </div>
+      <div class="kpi-chip">
+        <div class="kv" style="color:var(--teal)">$544K</div>
+        <div class="kl">inversión PS<br/>90 días T&amp;M</div>
+      </div>
+      <div class="kpi-chip">
+        <div class="kv" style="color:var(--orange)">$2.5M</div>
+        <div class="kl">costo inacción<br/>por mes</div>
+      </div>
+    </div>
+
+    <div class="quote-box">
+      <div class="quote-label">Frase de cierre del bloque ROI</div>
+      "Cada mes que esto no está activo, Falabella pierde <strong>4.5 veces lo que costamos</strong>. No es una propuesta de gasto — es un argumento de recuperación de pérdidas."
+    </div>
+
+    <div class="tip t-blue">
+      <span>💡</span>
+      <span><strong>Si el CFO está en la sala:</strong> Ofrecer correr el Agentforce Sizer en vivo. La calculadora muestra el break-even en tiempo real con los datos reales del cliente. Eso convierte el pitch en una sesión de co-construcción — no una presentación unilateral.</span>
+    </div>
+
+    <div class="speaker-note">
+      <div class="sn-label">Nota do apresentador</div>
+      Não apresentar os 3 hipóteses como "features". Apresentar como: <em>"Tres fuentes de recuperación de pérdida que hoy Falabella está dejando sobre la mesa."</em> Linguagem de Economic Buyer, não de arquiteto.
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     BLOCO 3 — OUTCOMES MEDIBLES  (20 pts)
+═══════════════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-head">
+    <div class="slide-num">3</div>
+    <div class="slide-meta">
+      <div class="sm-top">
+        <div class="sm-title">🎯 Outcomes de Negocio — No entregables técnicos</div>
+        <span class="score-badge" style="background:rgba(46,132,74,0.2);color:#4ade80;border:1px solid rgba(46,132,74,0.3);">🎯 20 pts</span>
+      </div>
+      <div class="sm-sub">SOW estructurado en 3 hitos de 30 días · KPIs auditados con CFO/CIO · No pagás por documentos</div>
+    </div>
+    <div class="slide-timing">
+      <span class="clock-icon">⏱</span>
+      <div>
+        <div class="timing-badge">1:30</div>
+        <div class="timing-unit">min</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-body">
+    <div class="tp-label">Argumento central — outcomes, não entregáveis</div>
+    <ul class="tp-list">
+      <li>El SOW no dice "entregar documentación técnica" — dice <strong>cuántas conversaciones deflectadas, qué % de resolución autónoma, qué reducción de AHT</strong>. KPIs de negocio que el CFO entiende.</li>
+      <li>Estructura de <strong>3 hitos de 30 días</strong>: el cliente paga por resultados demostrados, no por tiempo. Cada hito tiene criterio de éxito antes de activar el siguiente.</li>
+      <li>En el <strong>Día 30</strong>: agente de devoluciones live en WhatsApp + web, ≥500 conversaciones/semana, baseline documentado con el equipo interno.</li>
+      <li>En el <strong>Día 60</strong>: ≥10 casos Agentforce en producción, ≥500K conversaciones/mes, resolución autónoma ≥70%, loop SFMC→WA operativo.</li>
+      <li>En el <strong>Día 90</strong>: Unified Profile con ≥500K perfiles CMR, roadmap AR/BR aprobado por CIO, LoI de expansión LATAM firmado.</li>
+    </ul>
+
+    <div class="outcomes-grid">
+      <div class="oc-card" style="border-left:3px solid var(--blue);">
+        <div class="oc-hito">Hito 1 · Días 1–30 · 840 FC · ~$168K</div>
+        <div class="oc-title">⚡ Quick Win — Valor Inmediato</div>
+        <div class="oc-kpis">
+          <strong>≥500 conv/sem</strong> deflectadas<br/>
+          Agente live WA + web<br/>
+          Einstein AI Console activo<br/>
+          KPI baseline documentado
+        </div>
+      </div>
+      <div class="oc-card" style="border-left:3px solid var(--orange);">
+        <div class="oc-hito">Hito 2 · Días 31–60 · 1.040 FC · ~$208K</div>
+        <div class="oc-title">📈 Adopción — Escala Operacional</div>
+        <div class="oc-kpis">
+          <strong>≥500K conv/mes</strong><br/>
+          Resolución autónoma <strong>≥70%</strong><br/>
+          ≥10 casos Agentforce en prod<br/>
+          Identity Resolution CMR activo
+        </div>
+      </div>
+      <div class="oc-card" style="border-left:3px solid var(--green);">
+        <div class="oc-hito">Hito 3 · Días 61–90 · 840 FC · ~$168K</div>
+        <div class="oc-title">🌎 Escala — Expansion Ready</div>
+        <div class="oc-kpis">
+          <strong>≥500K perfiles</strong> Unified CMR<br/>
+          KPIs auditados CFO/CIO<br/>
+          Roadmap AR/BR aprobado<br/>
+          <strong>LoI expansión LATAM</strong> firmado
+        </div>
+      </div>
+      <div class="oc-card" style="border-left:3px solid var(--yellow);background:rgba(255,200,73,0.05);">
+        <div class="oc-hito">5 Outcomes Contractuales del SOW</div>
+        <div class="oc-title">📋 Lo que el SOW garantiza</div>
+        <div class="oc-kpis">
+          Speed to Value · Adoption Rate<br/>
+          Consumption Growth (+30% FC)<br/>
+          Business KPI (deflexión + CSAT + AHT)<br/>
+          <strong>Expansion Ready</strong> AR/BR
+        </div>
+      </div>
+    </div>
+
+    <div class="tip t-green">
+      <span>✓</span>
+      <span><strong>Diferenciador clave:</strong> "No les estamos pidiendo que confíen en nosotros 90 días antes de ver resultados. El Día 30 tienen el primer agente live y el primer número auditable. Si no lo logramos, hay cláusula de revisión — el riesgo es nuestro."</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     BLOCO 4 — MODELO FLEX  (15 pts)
+═══════════════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-head">
+    <div class="slide-num">4</div>
+    <div class="slide-meta">
+      <div class="sm-top">
+        <div class="sm-title">⚡ Modelo Flex — Crece con el Cliente</div>
+        <span class="score-badge" style="background:rgba(230,80,0,0.2);color:#ff9966;border:1px solid rgba(230,80,0,0.3);">⚡ 15 pts</span>
+      </div>
+      <div class="sm-sub">Flex Credits · Consumo bajo demanda · 2.720 FC en 90 días · No CapEx fijo</div>
+    </div>
+    <div class="slide-timing">
+      <span class="clock-icon">⏱</span>
+      <div>
+        <div class="timing-badge">1:30</div>
+        <div class="timing-unit">min</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-body">
+    <div class="tp-label">Argumento — modelo de consumo diferenciado</div>
+    <ul class="tp-list">
+      <li>Flex Credits no es un contrato fijo — es un <strong>modelo de consumo que escala con el uso real</strong>. Falabella no compra capacidad ociosa; compra resultados probados.</li>
+      <li>El engagement de 90 días consume <strong>2.720 Flex Credits</strong>: H1 (840 FC), H2 (1.040 FC), H3 (840 FC). Cada FC tiene una actividad técnica asociada con KPI.</li>
+      <li>A medida que Agentforce deflecta más conversaciones, el <strong>consumo de FC por conversación cae</strong> — el modelo se vuelve más eficiente cuanto más lo usa Falabella.</li>
+      <li>El objetivo del SOW incluye <strong>+30% de consumo de FC entre M1 y M3</strong> — señal de adopción real, no de gasto forzado. Es un KPI contractual.</li>
+      <li>El modelo Flex habilita <strong>expansión geográfica (AR, BR) como cláusula de Fase 2</strong> sin renegociar el contrato base. Escalar es una acción, no una negociación.</li>
+    </ul>
+
+    <div class="flex-row">
+      <div class="flex-card">
+        <div class="fc-emoji">🏁</div>
+        <div class="fc-title">Día 1 — Base</div>
+        <div class="fc-desc">840 FC activados<br/>H1 Quick Win<br/>~$168K inversión</div>
+      </div>
+      <div class="flex-arrow">→</div>
+      <div class="flex-card">
+        <div class="fc-emoji">📈</div>
+        <div class="fc-title">Día 30–60 — Escala</div>
+        <div class="fc-desc">+1.040 FC<br/>H2 Adopción masiva<br/>500K conv/mes</div>
+      </div>
+      <div class="flex-arrow">→</div>
+      <div class="flex-card">
+        <div class="fc-emoji">🌎</div>
+        <div class="fc-title">Día 60–90 — Expansión</div>
+        <div class="fc-desc">+840 FC<br/>H3 + LoI AR/BR<br/>CMR Unified Profile</div>
+      </div>
+      <div class="flex-arrow">→</div>
+      <div class="flex-card" style="border-color:rgba(255,200,73,0.3);background:rgba(255,200,73,0.06);">
+        <div class="fc-emoji">🔁</div>
+        <div class="fc-title">Post-90d — Orgánico</div>
+        <div class="fc-desc">FC crece con uso<br/>+30% M1→M3<br/>Modelo autosustentable</div>
+      </div>
+    </div>
+
+    <div class="quote-box">
+      <div class="quote-label">Frase para el Economic Buyer sobre Flex</div>
+      "No es un proyecto con fecha de fin — es un modelo que <strong>crece con el negocio de Falabella</strong>. Cuanto más usan Agentforce, más eficiente es el FC. El engagement de PS es el encendedor; Flex Credits es el combustible que Falabella controla."
+    </div>
+
+    <div class="speaker-note">
+      <div class="sn-label">Nota do apresentador</div>
+      Evitar entrar em detalhes técnicos de FC por conversação. O Economic Buyer quer entender: <em>"Pago por resultado, não por hora de consultor."</em> Esse é o único ponto a fixar neste bloco.
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     BLOCO 5 — PROPUESTA CON AI  (15 pts)
+═══════════════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-head">
+    <div class="slide-num">5</div>
+    <div class="slide-meta">
+      <div class="sm-top">
+        <div class="sm-title">🤖 Construida con AI — No en PowerPoint</div>
+        <span class="score-badge" style="background:rgba(123,94,167,0.2);color:#c4a8ff;border:1px solid rgba(123,94,167,0.3);">🤖 15 pts</span>
+      </div>
+      <div class="sm-sub">La propuesta misma demuestra lo que vendemos · Consistencia · Velocidad · Profundidad</div>
+    </div>
+    <div class="slide-timing">
+      <span class="clock-icon">⏱</span>
+      <div>
+        <div class="timing-badge">1:00</div>
+        <div class="timing-unit">min</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-body">
+    <div class="tp-label">Argumento — la propuesta es la demo</div>
+    <ul class="tp-list">
+      <li>Este documento — ROM, Briefing 360°, SOW, calculadora de ROI y pitch — <strong>fue construido íntegramente con AI</strong>. No en PowerPoint, no en Word, no con un consultor junior copiando tablas.</li>
+      <li>Eso significa: <strong>consistencia total</strong> entre todos los artefactos. El número de la calculadora es el mismo del SOW es el mismo del ROM. No hay versiones desactualizadas.</li>
+      <li>La velocidad de construcción de esta propuesta <strong>es la misma velocidad con la que vamos a ejecutar</strong>. Equipos PS que usan AI entregan más rápido, con más profundidad, con menos retrabajo.</li>
+      <li>La propuesta no es estática — <strong>se puede actualizar en minutos</strong> si el cliente cambia un supuesto (deflexión, volumen, precio FC). Eso es una demostración de lo que Agentforce hace con los procesos de Falabella.</li>
+    </ul>
+
+    <div class="ai-proof">
+      <div class="ap-title">🤖 Artefactos generados con AI para esta cuenta</div>
+      <ul class="ap-list">
+        <li><strong>Briefing Comercial 360°</strong> — contexto, KPIs, stakeholders, frases de apertura, guía de discovery</li>
+        <li><strong>Agentforce Conversation Sizer</strong> — calculadora interactiva de ROI con curva de break-even y análisis de sensibilidad</li>
+        <li><strong>ROM del Programa</strong> — estimativa pre-discovery com 15 casos de uso, 3 hipóteses, 10 perfiles, distribución de horas</li>
+        <li><strong>SOW Consolidado</strong> — fusão do draft técnico + draft do equipe, 5 outcomes, 3 hitos, FC desglosados</li>
+        <li><strong>Summary Ejecutivo</strong> — síntese dos 4 artefatos com vista consolidada e próximos passos</li>
+        <li><strong>Este pitch script</strong> — guia do apresentador com timing, falas e critérios de pontuação</li>
+      </ul>
+    </div>
+
+    <div class="tip t-red">
+      <span>⚡</span>
+      <span><strong>El punto que cierra el argumento:</strong> "Si Salesforce PS ya usa AI para construir propuestas de esta profundidad en horas — imaginen lo que vamos a hacer con los procesos de servicio y personalización de Falabella en 90 días."</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     BLOCO 6 — CIERRE Y NEXT STEPS
+═══════════════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-head">
+    <div class="slide-num">6</div>
+    <div class="slide-meta">
+      <div class="sm-top">
+        <div class="sm-title">🏁 Cierre — 3 Acciones, 3 Roles, Esta Semana</div>
+      </div>
+      <div class="sm-sub">Call to action concreto · Sin "los llamamos" · Quién hace qué y cuándo</div>
+    </div>
+    <div class="slide-timing">
+      <span class="clock-icon">⏱</span>
+      <div>
+        <div class="timing-badge">1:30</div>
+        <div class="timing-unit">min</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-body">
+    <div class="tp-label">Fala de fechamento</div>
+    <div class="quote-box">
+      <div class="quote-label">Cierre del pitch</div>
+      "Tenemos el blueprint. Tenemos el equipo. Tenemos los números auditados. Lo que necesitamos es <strong>30 minutos con el CFO esta semana</strong> para correr el Sizer con datos reales de Falabella y confirmar que el ROI de $30.5M/año aplica al escenario conservador, base u optimista del negocio.<br/><br/>
+      No estamos pidiendo un 'sí' hoy. Estamos pidiendo que le pongan número a la pérdida antes de decidir."
+    </div>
+
+    <div class="tp-label">Próximos pasos — salir con fecha y dueño</div>
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>Momento</th>
+          <th>Acción</th>
+          <th>Dueño</th>
+          <th>Deadline</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="color:var(--red);font-weight:700">🔴 Esta semana</td>
+          <td>Resolver 3 conflictos en el SOW (deflexión %, inversión, métrica adoption)</td>
+          <td>PS + AE</td>
+          <td>Jun 13</td>
+        </tr>
+        <tr>
+          <td style="color:var(--orange);font-weight:700">🟠 Antes reunión</td>
+          <td>Validar precio FC con AE · Confirmar proceso Procurement (&gt;$500K)</td>
+          <td>AE</td>
+          <td>Jun 14</td>
+        </tr>
+        <tr>
+          <td style="color:var(--blue);font-weight:700">🔵 En reunión</td>
+          <td>Correr Sizer en vivo con CFO · Llegar con $2.5M/mes validado por champion</td>
+          <td>SC + SSSM</td>
+          <td>Jun 15–16</td>
+        </tr>
+        <tr>
+          <td style="color:var(--green);font-weight:700">🟢 Post-reunión</td>
+          <td>Si discovery confirma dolor → enviar SOW a revisión legal · Value Eng. session CFO</td>
+          <td>PS + Legal</td>
+          <td>Jun 19</td>
+        </tr>
+        <tr>
+          <td style="color:var(--yellow);font-weight:700">⚠ ARI Urgente</td>
+          <td>Marketing Cloud $1.87M cierra 15 Jun · Coordinar Alejandra Acuña</td>
+          <td>AE + Alejandra</td>
+          <td><strong>15 Jun</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="tip t-red">
+      <span>⚠</span>
+      <span><strong>ARI crítico:</strong> MC Enterprise+ cierra 15 Jun 2026. $1.87M at risk. Não sair da reunião sem confirmar se o ARI tem responsável e data de follow-up.</span>
+    </div>
+
+    <div class="speaker-note">
+      <div class="sn-label">Nota do apresentador — técnica de fechamento</div>
+      Perguntar diretamente: <em>"¿Quién en el equipo de Falabella puede validar el número de $2.5M/mes de inacción? ¿El CFO o el VP Digital?"</em> — forçar o Economic Buyer a nomear o validador. Quem nomeia está comprando o processo.
+    </div>
+  </div>
+</div>
+
+<!-- ── CTA FINAL ── -->
+<div class="cta-block">
+  <h2>Total: 10 minutos · 100 puntos posibles</h2>
+  <p class="cta-sub">💼 25 · 📊 25 · 🎯 20 · ⚡ 15 · 🤖 15 — Todos los criterios cubiertos, en orden, con datos auditables</p>
+  <div class="cta-actions">
+    <span class="cta-btn primary">$30.5M/año ROI</span>
+    <span class="cta-btn secondary">$215 por $1 invertido</span>
+    <span class="cta-btn secondary">Payback &lt; 4 meses</span>
+    <span class="cta-btn secondary">Día 30 — primer valor live</span>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<!-- ── FOOTER ── -->
+<div class="footer">
+  <span>Salesforce Professional Services · LATAM · Falabella · Junio 2026 · Pitch Script v1.0</span>
+  <span>🔒 Uso Interno — No compartir con el cliente</span>
+</div>
+
+</body>
+</html>

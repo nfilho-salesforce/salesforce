@@ -1,0 +1,97 @@
+{
+  "roles": [
+    {
+      "role_id": "TA",
+      "title": "Technical Architect",
+      "discipline": "Salesforce Architecture / Agentforce",
+      "phases_active": ["P0", "P1", "P2", "P3"],
+      "allocation": "Full — 8 weeks",
+      "responsibilities": [
+        "Architecture decisions and technical sign-off across all epics",
+        "Agentforce agent design: subagent structure, Atlas Reasoning Engine, action wiring (E06, E07)",
+        "Einstein Trust Layer configuration and LGPD compliance architecture (E10)",
+        "LLM compilation engine design and ConnectApi pattern (E02)",
+        "Knowledge Transfer lead",
+        "RunSpecifiedTests registry ownership",
+        "Sprint 1 CPU/governor spike lead"
+      ],
+      "rationale": "SC-complexity engagement with Agentforce Employee Agents, custom Apex engine, and LGPD compliance gate requires dedicated senior architect throughout. Cannot be shared. [KB:USD:82]"
+    },
+    {
+      "role_id": "TC",
+      "title": "Technical Consultant",
+      "discipline": "Apex Development / LWC",
+      "phases_active": ["P0", "P1", "P2", "P3"],
+      "allocation": "Full — 8 weeks",
+      "responsibilities": [
+        "Apex development: E01 (Queueable chain, cursor), E02 (compiler service), E03 (AST Walker), E04 (DLQ, Finalizer, ZombieReaper), E05 (diagnostic narrative service)",
+        "LWC components: DemandaCsvWizard, plmProcessoHome, plmAvaliacaoPanel, plmRuleSpecsAdmin (E08)",
+        "Unit test authorship — ≥85% coverage per class",
+        "CMDT seed data and Decision Table configuration (E09)",
+        "SIT and production deploy execution via Salesforce CLI + RunSpecifiedTests"
+      ],
+      "rationale": "Custom Apex AST Walker, Queueable chain, and Transaction Finalizer wiring require dedicated Apex developer. LWC components cannot be built by the TA in parallel without timeline risk. [KB:USD:82]"
+    },
+    {
+      "role_id": "QA",
+      "title": "QA Specialist",
+      "discipline": "Quality Assurance / Test Engineering",
+      "phases_active": ["P0", "P1", "P2", "P3"],
+      "allocation": "1.5 — 8 weeks",
+      "responsibilities": [
+        "Test strategy authorship: Unit, SIT, UAT phases (E01–E10)",
+        "RunSpecifiedTests registry co-authorship with TA",
+        "Concurrency and stress testing: CSV at 6M chars / 10k rows",
+        "KPI validation in UAT: <50ms AST Walker, stable ingestion, 95% agent precision",
+        "Parallel run coordination: AST Walker vs. legacy BRE parity testing",
+        "Defect triage and lifecycle management (Jira)",
+        "UAT facilitation with Claro analysts"
+      ],
+      "rationale": "L-complexity testing scope (concurrency, async chain, Finalizer simulation, agent precision) requires more than a fractional QA resource. 1.5 allocation confirmed in USD §2.2 and USB §1.5. [KB:USB:96]"
+    },
+    {
+      "role_id": "PM",
+      "title": "Project Manager",
+      "discipline": "Delivery Governance / PS PMO",
+      "phases_active": ["P0", "P1", "P2", "P3"],
+      "allocation": "Dedicated — 8 weeks (billable, paid by Claro)",
+      "responsibilities": [
+        "Milestone tracking across all 8 weeks",
+        "Client dependency coordination: sandbox provisioning, Knowledge Articles, license activation, LGPD legal scheduling",
+        "Sprint ceremony facilitation (Scrum)",
+        "Risk register ownership and escalation to Claro steering committee",
+        "Gap closure tracking (GAP-001 through GAP-006)",
+        "UAT and go-live coordination",
+        "Formal project close documentation"
+      ],
+      "rationale": "Dedicated PS PM explicitly confirmed as billable Salesforce PS resource paid by Claro — not shared with Luciano/SWE. Decision locked in session 1 discovery. [memory: 2026-06-17 discover session]"
+    }
+  ],
+  "claro_roles_required": [
+    {
+      "role": "Lucas — SME / Technical Discovery Lead",
+      "commitment": "Weekly availability for technical questions and sample CSV provision",
+      "critical_window": "Week 1 (CSV samples, schema confirmation)"
+    },
+    {
+      "role": "Luciano — SWE Lead / Infra",
+      "commitment": "Sandbox provisioning (Week 1), DevOps coordination (Weeks 1–2), deploy sign-off (Week 8)",
+      "critical_window": "Weeks 1–2 (GAP-003, GAP-004)"
+    },
+    {
+      "role": "Fabrício — Operational Sponsor",
+      "commitment": "UAT sign-off, steering committee",
+      "critical_window": "Weeks 6–7 (UAT)"
+    },
+    {
+      "role": "Claro Legal",
+      "commitment": "LGPD data classification review",
+      "critical_window": "Week 6 (GAP-005 — hard go-live gate)"
+    },
+    {
+      "role": "Claro Operational Analysts (2–3)",
+      "commitment": "Knowledge Article curation (Week 1–2), UAT execution (Weeks 6–7)",
+      "critical_window": "Weeks 1–2 (GAP-001) and Weeks 6–7"
+    }
+  ]
+}

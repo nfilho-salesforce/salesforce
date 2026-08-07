@@ -1,0 +1,50 @@
+{
+  "lanes": {
+    "traditional": {
+      "duration_weeks_range": "29-54",
+      "duration_provenance": "Multi-Cloud High (10 epics, predominant L/XL: 2 XL + 3 L out of 10, 7 legacy systems integrated, baseline 26-40 weeks). Adjusted: +15% regulated industry (LGPD Art. 48 + TCU audit trail + perfil de acesso governance TI+Jurídico+DPO), +10% new client (first-time Dataprev, unknown org quality, Protheus governance blocker G1002 unresolved), +10% confidence widening (68 gaps, G1002 blocker, volumetrias pending, Experience Design gap, Governance gap — many Unknowns/Assumed). Total adders +35% (under +50% cap). From timeline.derived (.project-metadata.json).",
+      "capacity_summary": "Scope-scaling team; offshore-weighted build pod (4-7 offshore developers + QA) + onshore core (4 continuous: R01 Senior Tech Architect, R03 MuleSoft Architect, R06 Solution Architect, R10 BA/Release) + onshore fractional specialists (R02 Agentforce F1-F3, R04 MuleSoft dev F1-F3, R05 Data Cloud F3, R07 CM F0-F2 peak, R08 UX F0-F2, R09 Analytics F3, R11 QA surge F1/F2/F3 hardening). Peak capacity F2: ~12-15 pessoas.",
+      "capacity_by_class": {
+        "onshore-architect": "4-5",
+        "onshore-developer": "3-4",
+        "offshore": "4-7"
+      },
+      "indicative_price_range": {
+        "low": 12072207,
+        "high": 31270806,
+        "currency": "BRL"
+      },
+      "confidence": "Assumed"
+    },
+    "quantum-leap": {
+      "duration_weeks_range": "25-49",
+      "duration_provenance": "Traditional baseline 29-54 weeks compressed by efficiency Low readiness realized band ~10-14% (from efficiency.json project_level). Readiness score 2/8 (AI tooling posture 0/2, delivery velocity 1/2, data hygiene 1/2, legal/compliance 0/2) drives Low scenario. Compression = task-level ~30-40% × realization factor 0.40-0.45 = ~12-18% project-level, Low readiness reduces to ~10-14%.",
+      "capacity_summary": "Team derived to need (work→roles + QL adjustments); senior core + agent fleet + fractional specialists. Onshore senior core 6 continuous F0-F3 (R01, R02 Agentforce as agent director, R03, R04 MuleSoft dev as agent director, R06, R10) + fractional specialists 5 (R05 Data Cloud F3, R07 CM F0-F2 peak, R08 UX F0-F2, R09 Analytics F3, R11 QA surge F1/F2/F3 — agent-amplified never replaced, surges hardening) + 0 offshore (agents absorb build volume — 7 legacy API connectors, 9 Agentforce agents, Data Cloud config, test execution). Peak capacity F2: ~10-11 pessoas.",
+      "capacity_by_class": {
+        "onshore-architect": "4-5",
+        "onshore-developer": "3-4",
+        "offshore": "0"
+      },
+      "indicative_price_range": {
+        "low": 7957075,
+        "high": 19971861,
+        "currency": "BRL"
+      },
+      "confidence": "Assumed",
+      "qualification": "qualified",
+      "provisional_note": "Compression band provisional until QL actuals accumulate (decisions/0011). Low readiness ~10-14% based on current client signals; moving to High readiness ~18-22% requires 5 unlocks: AI tooling approval for PS delivery team, G1002 Protheus governance resolution, LGPD/TCU-compliant AI-assisted delivery policy, volumetrias audit, data model reconciliation plan across 7 legacy systems."
+    }
+  },
+  "delta": {
+    "summary": "QL vs Traditional: ~34-36% lower price via (1) compressed duration (25-49w vs 29-54w, ~14-9% faster via AI efficiency Low readiness), (2) team derived to need (10-11 pessoas senior-core vs 12-15 offshore-weighted, ~17-27% fewer — offshore build pod eliminated, agents absorb volume under senior core), (3) rate-class mix (100% onshore senior vs offshore-weighted blend)."
+  },
+  "currency": "BRL",
+  "validated_by": "user",
+  "disclaimer_class": "input-derived",
+  "rate_mapping": {
+    "note": "11 perfis do projeto mapeados às taxas do contrato Salesforce PS Brasil (COM impostos, daily rate 8h/dia). Offshore rate R$ 3.500/day é assumption (market-typical Brasil nearshore) — não consta na tabela do contrato; validar se aplicável ou ajustar.",
+    "onshore_architect_blended": "R$ 7.195/day (R01 R$ 7.573 + R03 R$ 7.033 + R05 R$ 7.033 + R06 R$ 6.762 + R07 R$ 7.573)",
+    "onshore_developer_blended": "R$ 5.563/day (R02 R$ 5.725 + R04 R$ 5.725 + R08 R$ 5.725 + R09 R$ 5.725 + R11 R$ 4.914)",
+    "offshore_assumed": "R$ 3.500/day (assumption — market-typical Brasil nearshore; validate or adjust)"
+  }
+}

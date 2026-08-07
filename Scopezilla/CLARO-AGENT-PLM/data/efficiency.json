@@ -1,0 +1,248 @@
+{
+  "methodology_note": "Benchmark-based. Efficiency estimates derived from model training data on Agentforce/Apex AI-assisted delivery patterns. Not a commitment. Applies to PS delivery effort — not Claro-side dependencies, UAT, or legal gates.",
+  "benchmark_source": "model-training-data",
+  "engagement_profile": {
+    "fit_distribution": {
+      "custom_dev": 5,
+      "config_plus_custom": 2,
+      "configuration": 3,
+      "capability_gap": 1
+    },
+    "overall_fit": "Super Custom (SC)",
+    "fixed_timeline_weeks": 8,
+    "fixed_timeline_note": "Timeline is client-committed and non-negotiable. Efficiency manifests as quality uplift and schedule buffer — not calendar compression."
+  },
+  "ai_leverage_categories": {
+    "high": {
+      "label": "High AI Leverage",
+      "description": "Epics where AI tooling (Claude Code, GitHub Copilot, AI test generation) materially accelerates code authoring, boilerplate generation, and unit test coverage. Estimated 30–40% effort reduction on PS build time.",
+      "epics": ["E01", "E03", "E04"],
+      "rationale": "Apex Queueable chains, AST Walker algorithm, and DLQ/Finalizer patterns are highly repetitive, pattern-driven code. AI code generation eliminates boilerplate; AI test generation reaches ≥85% coverage faster. The cursor and byte-offset patterns in E01 are well-established in training data."
+    },
+    "medium_high": {
+      "label": "Medium-High AI Leverage",
+      "description": "Epics where AI accelerates service scaffolding, Prompt Template authoring, and invocable wiring. Estimated 25–35% effort reduction.",
+      "epics": ["E02", "E05"],
+      "rationale": "LLM compilation engine (E02) and diagnostic narrative (E05) both involve ConnectApi callout service classes and Prompt Template configuration. AI can scaffold the service layer and generate few-shot examples for the Prompt Templates faster than manual authoring."
+    },
+    "medium": {
+      "label": "Medium AI Leverage",
+      "description": "Epics where AI helps with declarative configuration, instruction authoring, and CMDT data generation. Estimated 15–25% effort reduction.",
+      "epics": ["E06", "E07", "E09"],
+      "rationale": "Agent subagent instructions and action wiring (E06/E07) benefit from AI-assisted natural-language instruction authoring and test scenario generation. CMDT seed data (E09) is tedious but AI can generate correctly-structured XML/JSON from a schema spec quickly."
+    },
+    "low": {
+      "label": "Low AI Leverage",
+      "description": "Epics or activities where the constraint is human decisions, Claro dependencies, or click-by-click platform configuration. AI tooling < 15% impact.",
+      "epics": ["E08", "E10"],
+      "activities": ["P0 client dependencies", "P2 UAT", "P2 parallel run", "LGPD legal sign-off"],
+      "rationale": "E08 LWC layout is driven by Claro SME iteration cycles — AI scaffolding helps but iteration speed is capped by the feedback loop with Lucas. E10 LGPD gate is a legal sign-off — ETL click-by-click configuration, documentation drafting benefits from AI but the gate itself is a human dependency. UAT and parallel run are Claro-analyst activities."
+    }
+  },
+  "epic_efficiency": [
+    {
+      "epic_id": "E01",
+      "epic_name": "Async CSV Ingestion",
+      "ai_leverage": "high",
+      "compression_range_pct": [30, 40],
+      "compression_drivers": [
+        "Queueable chain boilerplate generation (cursor, enqueue, retry) — AI produces first draft in minutes",
+        "CRLF/UTF-8 normalization utility code — pattern-matched from training data",
+        "Unit test scaffolding for async Apex — mock Finalizer, test cursor state — AI reaches 85% coverage faster",
+        "DemandaCsvWizard LWC file-upload pattern — well-documented in Salesforce docs AI is trained on"
+      ],
+      "ceiling_constraints": ["CPU spike output determines chunk size — requires real profiling, not AI"],
+      "net_impact": "Sprint 1 completes with buffer time for CPU spike and peer review. Reduces risk of S1 delay cascading to S2."
+    },
+    {
+      "epic_id": "E02",
+      "epic_name": "LLM Rule Compilation Engine",
+      "ai_leverage": "medium_high",
+      "compression_range_pct": [25, 35],
+      "compression_drivers": [
+        "ConnectApi.EinsteinLLM service class scaffolding — AI generates the callout wrapper, error handling, retry logic",
+        "PLM_Rule_Compiler Prompt Template few-shot examples — AI drafts initial examples from schema spec",
+        "PlmRuleSpecSchemaValidator Apex class — schema-validation pattern is fast to generate with AI",
+        "Drift detection logic (Source_Hash__c comparison) — straightforward hash comparison code"
+      ],
+      "ceiling_constraints": [
+        "ConnectApi INTERNAL_ERROR handling requires live testing in sandbox — can't be fully AI-generated",
+        "Prompt Template tuning (few-shot quality) requires iteration with real rule examples from Claro"
+      ],
+      "net_impact": "Compiler service and validator built faster; more time for Prompt Template iteration with Claro rules data."
+    },
+    {
+      "epic_id": "E03",
+      "epic_name": "AST Rule Evaluation Engine",
+      "ai_leverage": "high",
+      "compression_range_pct": [30, 40],
+      "compression_drivers": [
+        "AST walker tree-traversal algorithm in Apex — well-known algorithm; AI generates clean recursive/iterative Apex",
+        "Static Map cache initialization pattern — boilerplate AI handles in one pass",
+        "Id-cursor Queueable pagination — same pattern as E01; reuse + AI accelerates further",
+        "Verdict JSON structure serialization — straightforward Apex, AI reduces authoring time by ~60%",
+        "Unit tests for branch coverage on AST nodes — AI generates test cases for each node type systematically"
+      ],
+      "ceiling_constraints": ["Sub-50ms SLA validation requires live profiling — AI can't substitute for a real Apex profiler run"],
+      "net_impact": "AST Walker built in significantly less time than manual. Sprint 2 CPU/Finalizer spikes resolved within the same week."
+    },
+    {
+      "epic_id": "E04",
+      "epic_name": "Observability, Resilience & DLQ",
+      "ai_leverage": "high",
+      "compression_range_pct": [30, 40],
+      "compression_drivers": [
+        "Platform Event publisher/subscriber trigger boilerplate — very repetitive; AI generates all variants",
+        "SHA-256 idempotency token implementation — standard pattern from Salesforce docs",
+        "Database.Finalizer implementation — AI produces correct error-branch / re-enqueue logic from spec",
+        "ZombieReaper Schedulable pattern — standard Apex Schedulable; AI scaffolds in minutes",
+        "DLQ object trigger handler — event-driven pattern AI handles well"
+      ],
+      "ceiling_constraints": [
+        "Transaction Finalizer quota (1/Queueable) must be validated empirically — AI cannot confirm governor limits",
+        "PE daily limit risk (250k/day) requires volume modeling from real Claro data (GAP-006)"
+      ],
+      "net_impact": "Full observability layer completed within Sprint 2 alongside E02/E03. No overtime risk."
+    },
+    {
+      "epic_id": "E05",
+      "epic_name": "AI Diagnostic Narrative",
+      "ai_leverage": "medium_high",
+      "compression_range_pct": [25, 35],
+      "compression_drivers": [
+        "Context builder JSON assembly — AI generates ContextBuilder class from a field-list spec quickly",
+        "PLM_Diagnostico_Narrativa Prompt Template system prompt drafting — AI writes the HTML-output instruction set",
+        "Queueable wrapper for post-eval invocation — same Queueable pattern as E01/E03; AI reuses",
+        "HTML output parsing and storage — trivial Apex, AI completes in one pass"
+      ],
+      "ceiling_constraints": [
+        "Prompt Template output quality (diagnostic accuracy to 95% target) requires iteration with real validation data",
+        "Context payload size against token limit requires empirical testing — Sprint 2 spike"
+      ],
+      "net_impact": "Service and infrastructure built fast; Sprint 3 time invested in prompt quality iteration, not scaffolding."
+    },
+    {
+      "epic_id": "E06",
+      "epic_name": "Agentforce PLM Admin Agent",
+      "ai_leverage": "medium",
+      "compression_range_pct": [15, 25],
+      "compression_drivers": [
+        "Subagent instruction authoring — AI drafts natural-language instructions for all 4 subagents from a spec",
+        "Agent Action Apex invocable scaffolding — method signatures and parameter mapping AI generates quickly",
+        "Test conversation script generation — AI produces realistic pt-BR test dialogues for UAT scenarios"
+      ],
+      "ceiling_constraints": [
+        "Agentforce Builder is a UI-driven tool — configuration clicks cannot be AI-generated",
+        "Knowledge Article dependency (GAP-001) is a client gate — KB not ready = agent cannot be tested regardless of build speed",
+        "Human-in-the-loop gate behavior requires live agent testing in sandbox"
+      ],
+      "net_impact": "Instruction authoring and invocable wiring faster. Sprint 3 buffer used for agent precision tuning in UAT."
+    },
+    {
+      "epic_id": "E07",
+      "epic_name": "Agentforce PLM Ops Agent",
+      "ai_leverage": "medium",
+      "compression_range_pct": [15, 25],
+      "compression_drivers": [
+        "6 subagent instruction sets — AI drafts all from operational spec; more repetitive than Admin agent",
+        "Agent Action invocables for batch management — mostly query + enqueue patterns; AI handles boilerplate",
+        "UAT conversation test scripts — AI generates Ops persona scenarios from epic description"
+      ],
+      "ceiling_constraints": [
+        "Same Agentforce Builder UI constraint as E06",
+        "DLQ retry action requires E04 to be fully tested first — no shortcut",
+        "FLS confirmation (Diagnostico__c field) is a one-time manual permset check"
+      ],
+      "net_impact": "Ops Agent built in parallel with Admin Agent in Sprint 3 without timeline pressure."
+    },
+    {
+      "epic_id": "E08",
+      "epic_name": "UX & LWC Components",
+      "ai_leverage": "medium",
+      "compression_range_pct": [20, 30],
+      "compression_drivers": [
+        "LWC component scaffolding — AI generates HTML/JS/Apex controller from component spec",
+        "plmAvaliacaoPanel JSON rendering — parsing and displaying verdict JSON is boilerplate; AI generates",
+        "FlexiPage XML configuration — AI generates from a layout spec"
+      ],
+      "ceiling_constraints": [
+        "Layout iteration driven by Lucas (Claro SME) — feedback loop speed capped by Claro availability",
+        "DemandaCsvWizard upload UX requires hands-on sandbox testing for file handling edge cases"
+      ],
+      "net_impact": "Initial component scaffolding fast; time reclaimed is absorbed by SME iteration cycle."
+    },
+    {
+      "epic_id": "E09",
+      "epic_name": "Security, Access Model & Platform Configuration",
+      "ai_leverage": "medium",
+      "compression_range_pct": [15, 25],
+      "compression_drivers": [
+        "Permset XML generation (without required/MD fields) — AI generates correct structure from object/field list",
+        "CMDT seed row JSON/XML — AI generates 66 rows from a schema template",
+        "Decision Table CMDT entries for PLM_RuleCatalog + PLM_FieldRuleMapper — AI fills structured data tables fast"
+      ],
+      "ceiling_constraints": [
+        "CannotQuickDeployError testing requires live sandbox deploy — no AI shortcut",
+        "SSO (Okta) and SailPoint configuration are Claro IT admin tasks"
+      ],
+      "net_impact": "Security foundation built in P0/Sprint 1 with minimal PS effort, freeing TA for architecture oversight."
+    },
+    {
+      "epic_id": "E10",
+      "epic_name": "AI Governance & LGPD Compliance",
+      "ai_leverage": "low",
+      "compression_range_pct": [10, 15],
+      "compression_drivers": [
+        "ETL controls documentation — AI drafts the LGPD evidence package for legal review",
+        "Audit trail schema documentation (Spec_Key, Source_Hash, Snapshot fields) — AI generates quickly from design"
+      ],
+      "ceiling_constraints": [
+        "Einstein Trust Layer configuration is click-by-click in Setup — no AI automation",
+        "LGPD legal sign-off is a human gate — Week 6 is a hard stop regardless of PS effort",
+        "Brazil geo-routing configuration is platform admin work"
+      ],
+      "net_impact": "Documentation for legal review produced faster; PS effort savings are minor — constraint is Claro legal availability."
+    }
+  ],
+  "delivery_efficiency_summary": {
+    "build_phase_compression": {
+      "high_leverage_epics": ["E01", "E03", "E04"],
+      "medium_high_leverage_epics": ["E02", "E05"],
+      "weighted_compression_range_pct": [25, 35],
+      "applies_to": "PS Build sprint effort (Weeks 3–5)",
+      "does_not_apply_to": [
+        "P0 client dependency resolution (sandbox, KB, licenses)",
+        "P2 UAT (Claro analyst activity)",
+        "P2 parallel run (human validation)",
+        "LGPD legal sign-off gate",
+        "P3 production deploy (RunSpecifiedTests execution)"
+      ]
+    },
+    "fixed_timeline_implications": {
+      "note": "Timeline is fixed at 8 weeks. Efficiency does NOT compress the schedule — it creates buffer and quality headroom within the same calendar.",
+      "benefits": [
+        "Sprint 1: CPU ceiling spike and peer review absorb buffer — no S1 overrun risk",
+        "Sprint 2: Three epics (E02+E03+E04) complete within one week without overtime risk — confirmed by 30–40% compression on the two heaviest custom Apex epics",
+        "Sprint 3: Sprint 3 is the most loaded (4 epics + SIT→UAT deploy). AI leverage on E05 and E08 scaffolding creates room for agent precision iteration (E06/E07) within the same week",
+        "P2 UAT: Build sprint buffer means fewer open defects entering UAT — reduces UAT rework cycles",
+        "P0: CMDT seed and permset generation (E09) absorbed into P0 — TA freed for architecture decisions rather than configuration typing"
+      ],
+      "risk_reduction": "The 3-sprint Build window (3 weeks) is the highest-risk phase for an SC engagement. AI-native delivery converts that risk from schedule risk to quality risk — the team ships more complete, better-tested work rather than rushing to meet sprint dates."
+    },
+    "quality_uplifts": [
+      "Unit test coverage reaches ≥85% per class with AI test generation — target met in Sprint 1, not Sprint 3",
+      "Prompt Template few-shot examples richer — more iteration cycles in Sprint 2 before UAT",
+      "Agent subagent instruction quality higher — AI drafts reviewed by TA rather than authored from scratch",
+      "RunSpecifiedTests registry more complete — AI generates from class list rather than manual enumeration"
+    ],
+    "where_ai_does_not_help": [
+      "GAP-001: Knowledge Articles — Claro content dependency, no AI shortcut",
+      "GAP-002: Agentforce license — Salesforce provisioning, no AI shortcut",
+      "GAP-003: Sandbox provisioning — Claro IT, no AI shortcut",
+      "GAP-004: RunSpecifiedTests registry — PS + Claro DevOps must agree manually",
+      "GAP-005: LGPD legal sign-off — human gate, Week 6 is fixed",
+      "GAP-006: CSV volumetry — requires real Claro data, not model prediction"
+    ]
+  },
+  "benchmark_disclaimer": "Efficiency estimates are benchmark-based, derived from model training data on Agentforce and Apex AI-assisted delivery patterns. Actual compression depends on team proficiency with AI tooling, Claro data availability, and sandbox stability. These figures are decision-support for internal PS planning — not a client commitment."
+}

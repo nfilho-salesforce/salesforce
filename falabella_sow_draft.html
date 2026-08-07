@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Falabella — Draft SOW Basado en Outcomes</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f0f2f5;
+    padding: 32px;
+    color: #1a2535;
+  }
+
+  /* ── Header ── */
+  .sow-header {
+    background: linear-gradient(135deg, #012169 0%, #00509E 100%);
+    border-radius: 16px;
+    padding: 28px 36px;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .sow-header h1 { color: #fff; font-size: 21px; font-weight: 800; letter-spacing: 0.2px; }
+  .sow-header .sub { color: #a8c4e8; font-size: 12px; margin-top: 5px; line-height: 1.6; }
+  .sow-meta { text-align: right; }
+  .sow-meta .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 8px;
+    padding: 6px 14px;
+    color: #fff;
+    font-size: 10.5px;
+    font-weight: 600;
+    margin-left: 6px;
+    margin-bottom: 4px;
+  }
+  .sow-meta .confidential {
+    display: block;
+    color: #ffd580;
+    font-size: 10px;
+    margin-top: 8px;
+    font-style: italic;
+  }
+
+  /* ── Two-column layout ── */
+  .two-col { display: flex; gap: 20px; margin-bottom: 20px; }
+  .col-main { flex: 1.55; display: flex; flex-direction: column; gap: 20px; }
+  .col-side  { flex: 1;    display: flex; flex-direction: column; gap: 20px; }
+
+  /* ── Card base ── */
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+    overflow: hidden;
+  }
+  .card-header {
+    padding: 13px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card-header .num {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    color: #fff; font-size: 11px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .card-header h2 { color: #fff; font-size: 12.5px; font-weight: 700; letter-spacing: 0.3px; }
+  .card-body { padding: 16px 20px 18px; }
+
+  /* Section colors */
+  .s1 .card-header { background: linear-gradient(90deg, #032D60, #004FA3); }
+  .s2 .card-header { background: linear-gradient(90deg, #0070D2, #0095D9); }
+  .s3 .card-header { background: linear-gradient(90deg, #FF7A00, #FF9E40); }
+  .s4 .card-header { background: linear-gradient(90deg, #2E844E, #4CAF7D); }
+  .s5 .card-header { background: linear-gradient(90deg, #6A1B9A, #9C27B0); }
+
+  /* ── Objetivo ── */
+  .objetivo-box {
+    background: #F0F6FF;
+    border-left: 4px solid #0070D2;
+    border-radius: 0 8px 8px 0;
+    padding: 14px 16px;
+    font-size: 13px;
+    color: #032D60;
+    font-style: italic;
+    line-height: 1.7;
+  }
+  .objetivo-box strong { font-style: normal; color: #0070D2; }
+
+  /* ── Outcomes table ── */
+  .outcomes-table { width: 100%; border-collapse: collapse; }
+  .outcomes-table th {
+    background: #F4F6F9;
+    padding: 8px 12px;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #546E7A;
+    text-align: left;
+    border-bottom: 2px solid #E8EDF2;
+  }
+  .outcomes-table td {
+    padding: 10px 12px;
+    font-size: 11px;
+    color: #37474F;
+    border-bottom: 1px solid #F0F2F5;
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .outcomes-table tr:last-child td { border-bottom: none; }
+  .outcomes-table tr:hover td { background: #FAFBFF; }
+
+  .ot-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 9px; border-radius: 20px; font-size: 10px; font-weight: 700;
+    border: 1px solid; white-space: nowrap;
+  }
+  .ob1 { background: #E8F4FF; color: #0070D2; border-color: #aed4f8; }
+  .ob2 { background: #FFF3E0; color: #BF5000; border-color: #ffd194; }
+  .ob3 { background: #E0F7FA; color: #006064; border-color: #80DEEA; }
+  .ob4 { background: #F3E5F5; color: #6A1B9A; border-color: #CE93D8; }
+  .ob5 { background: #E8F5EE; color: #1B5E35; border-color: #9fd4b5; }
+
+  /* ── Hitos ── */
+  .hitos-row { display: flex; gap: 12px; }
+  .hito {
+    flex: 1; border-radius: 10px; overflow: hidden;
+    border: 1px solid #E8EDF2;
+  }
+  .hito-head {
+    padding: 10px 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .hito-day {
+    font-size: 20px; font-weight: 900; line-height: 1;
+  }
+  .hito-label { font-size: 10px; font-weight: 600; opacity: 0.85; }
+  .hito-name  { font-size: 11.5px; font-weight: 700; }
+  .hito-body  { padding: 12px 14px; background: #fff; }
+  .hito-body ul { list-style: none; }
+  .hito-body ul li {
+    font-size: 10.5px; color: #455A64;
+    padding: 2px 0 2px 13px; position: relative; line-height: 1.45;
+  }
+  .hito-body ul li::before { content: '✓'; position: absolute; left: 0; font-size: 9px; top: 3px; }
+
+  .h1 .hito-head { background: linear-gradient(135deg, #E8F4FF, #CCE7FF); }
+  .h1 .hito-day  { color: #0070D2; }
+  .h1 .hito-name { color: #004FA3; }
+  .h1 .hito-label { color: #0070D2; }
+  .h1 .hito-body ul li::before { color: #0070D2; }
+
+  .h2 .hito-head { background: linear-gradient(135deg, #FFF3E0, #FFE0B2); }
+  .h2 .hito-day  { color: #E65100; }
+  .h2 .hito-name { color: #BF360C; }
+  .h2 .hito-label { color: #FF7A00; }
+  .h2 .hito-body ul li::before { color: #FF7A00; }
+
+  .h3 .hito-head { background: linear-gradient(135deg, #E8F5EE, #C8E6C9); }
+  .h3 .hito-day  { color: #2E844E; }
+  .h3 .hito-name { color: #1B5E35; }
+  .h3 .hito-label { color: #2E844E; }
+  .h3 .hito-body ul li::before { color: #2E844E; }
+
+  .flex-row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; padding: 7px 10px; background: #F4F6F9; border-radius: 7px; }
+  .flex-row .lbl { font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #78909C; }
+  .flex-bar-bg { flex: 1; margin: 0 10px; background: #E0E5EA; border-radius: 20px; height: 7px; overflow: hidden; }
+  .flex-bar    { height: 100%; border-radius: 20px; }
+  .f1 .flex-bar { width: 28%; background: linear-gradient(90deg, #5BA4CF, #0070D2); }
+  .f2 .flex-bar { width: 55%; background: linear-gradient(90deg, #FF9E40, #FF7A00); }
+  .f3 .flex-bar { width: 85%; background: linear-gradient(90deg, #4CAF7D, #2E844E); }
+  .flex-note { font-size: 9px; color: #90A4AE; white-space: nowrap; }
+
+  /* ── Criterios ── */
+  .criterio-block { margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid #F0F2F5; }
+  .criterio-block:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+  .criterio-title {
+    font-size: 10.5px; font-weight: 700; margin-bottom: 7px;
+    display: flex; align-items: center; gap: 7px;
+  }
+  .c-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .cd1 { background: #0070D2; }
+  .cd2 { background: #FF7A00; }
+  .cd3 { background: #2E844E; }
+  .criterio-block ul { list-style: none; }
+  .criterio-block ul li {
+    font-size: 10.5px; color: #546E7A;
+    padding: 2px 0 2px 12px; position: relative; line-height: 1.45;
+  }
+  .criterio-block ul li::before { content: '▸'; position: absolute; left: 0; font-size: 9px; color: #90A4AE; }
+
+  /* ── Cláusula evolución ── */
+  .trigger-item {
+    display: flex; gap: 12px; margin-bottom: 12px;
+    padding: 12px 14px; border-radius: 9px;
+    border: 1px solid #E8EDF2;
+  }
+  .trigger-item:last-child { margin-bottom: 0; }
+  .trigger-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px; flex-shrink: 0;
+  }
+  .ti1 { background: #E8F4FF; }
+  .ti2 { background: #E8F5EE; }
+  .ti3 { background: #FFF3E0; }
+  .ti4 { background: #FFF8E1; border: 1px solid #FFE082; }
+  .trigger-text strong { font-size: 10.5px; color: #032D60; display: block; margin-bottom: 2px; }
+  .trigger-text span   { font-size: 10px; color: #546E7A; line-height: 1.45; }
+
+  /* ── Inversión sidebar ── */
+  .inversion-card .card-header { background: linear-gradient(90deg, #1A237E, #283593); }
+  .inv-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #F0F2F5; }
+  .inv-row:last-child { border-bottom: none; }
+  .inv-label { font-size: 11px; color: #546E7A; }
+  .inv-val   { font-size: 12px; font-weight: 700; color: #032D60; }
+  .inv-val.highlight { color: #0070D2; font-size: 16px; }
+
+  .roi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px; }
+  .roi-item { background: #F0F6FF; border-radius: 8px; padding: 10px; text-align: center; }
+  .roi-item .rv { color: #0070D2; font-size: 16px; font-weight: 800; }
+  .roi-item .rl { color: #78909C; font-size: 9px; margin-top: 2px; }
+
+  .warning-box {
+    background: #FFF8E1; border: 1px solid #FFE082;
+    border-radius: 8px; padding: 10px 12px;
+    font-size: 10px; color: #7A4F00; line-height: 1.5; margin-top: 12px;
+  }
+  .warning-box strong { color: #5D3500; }
+
+  /* ── Footer ── */
+  .sow-footer {
+    background: #032D60;
+    border-radius: 12px;
+    padding: 16px 28px;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .sf-stat { text-align: center; }
+  .sf-stat .v { color: #fff; font-size: 17px; font-weight: 800; }
+  .sf-stat .l { color: #a8c4e8; font-size: 9.5px; margin-top: 2px; }
+  .sf-div  { width: 1px; height: 30px; background: rgba(255,255,255,0.2); }
+  .sf-quote { flex:1; font-size: 10.5px; color: #a8c4e8; font-style: italic; line-height: 1.6; text-align:right; }
+  .sf-quote strong { color: #fff; }
+</style>
+</head>
+<body>
+
+<!-- SOW HEADER -->
+<div class="sow-header">
+  <div>
+    <h1>Statement of Work — Falabella</h1>
+    <div class="sub">
+      Agentic Customer Experience Program &nbsp;·&nbsp; Service Cloud · Commerce Cloud · Agentforce<br>
+      Salesforce Professional Services LATAM &nbsp;·&nbsp; Junio 2026
+    </div>
+  </div>
+  <div class="sow-meta">
+    <span class="badge">T&amp;M</span>
+    <span class="badge">90 días</span>
+    <span class="badge">Chile / LATAM</span>
+    <span class="badge">MVP Prioritario</span>
+    <span class="confidential">⚠ Confidencial — No compartir con el cliente sin aprobación del EM</span>
+  </div>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="two-col">
+
+  <!-- COL MAIN -->
+  <div class="col-main">
+
+    <!-- SECCIÓN 1 — OBJETIVO -->
+    <div class="card s1">
+      <div class="card-header">
+        <div class="num">1</div>
+        <h2>Objetivo de Negocio — Perspectiva del Economic Buyer</h2>
+      </div>
+      <div class="card-body">
+        <div class="objetivo-box">
+          Falabella opera <strong>4M+ interacciones de servicio al año</strong> con resolución mayoritariamente manual, un stack legado Avaya/Genesys sin visión unificada del cliente y una plataforma Agentforce activa al 60% de su capacidad instalada. Este engagement convierte esa brecha en eficiencia medible: <strong>deflectar el 40–50% de los contactos repetitivos</strong>, reducir el AHT en un 28% y construir la base de datos unificada que habilita la personalización a escala — generando un retorno estimado de <strong>$36M USD/año con payback en menos de 4 meses</strong> desde el Go-Live.
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 2 — ALCANCE POR OUTCOMES -->
+    <div class="card s2">
+      <div class="card-header">
+        <div class="num">2</div>
+        <h2>Alcance Definido por Outcomes</h2>
+      </div>
+      <div class="card-body">
+        <table class="outcomes-table">
+          <thead>
+            <tr>
+              <th style="width:22%">Outcome</th>
+              <th style="width:28%">¿Cómo se ve en Falabella?</th>
+              <th style="width:24%">Métrica</th>
+              <th style="width:26%">Qué hace PS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="ot-badge ob1">⚡ Speed to Value</span></td>
+              <td>Agente de devoluciones omnicanal en producción en 30 días</td>
+              <td>Go-Live ≤ Día 30 · Baseline documentado</td>
+              <td>Workshop diseño acelerado + configuración del primer agente</td>
+            </tr>
+            <tr>
+              <td><span class="ot-badge ob2">📈 Adoption Rate</span></td>
+              <td>Cobertura digital de atención al cliente ≥ 60% en 90 días</td>
+              <td>Usuarios activos / licencias ≥ 60%</td>
+              <td>Programa de habilitación + playbooks de adopción por rol</td>
+            </tr>
+            <tr>
+              <td><span class="ot-badge ob3">🔄 Consumption Growth</span></td>
+              <td>Expansión: Soporte → Personalización → Commerce Agent</td>
+              <td>Flex Credits M1→M2→M3 ≥ +30%/mes</td>
+              <td>3 casos de uso progresivos que jalan consumo</td>
+            </tr>
+            <tr>
+              <td><span class="ot-badge ob4">🎯 Business KPI</span></td>
+              <td>% deflexión ≥ 40% y CSAT ≥ 4.0 validados con CFO/CIO</td>
+              <td>Deflexión · CSAT · AHT -28% · FCR +15%</td>
+              <td>Baseline Day 1 + dashboard ejecutivo + sprint optimización</td>
+            </tr>
+            <tr>
+              <td><span class="ot-badge ob5">🚀 Expansion Ready</span></td>
+              <td>Plataforma lista para Einstein Analytics y personalización CMR</td>
+              <td>≥ 70% componentes reutilizables · Roadmap firmado</td>
+              <td>Blueprint técnico + handoff a Delivery + propuesta siguiente engagement</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:10px; padding:8px 12px; background:#F0F6FF; border-radius:8px; font-size:10px; color:#546E7A;">
+          <strong style="color:#032D60;">Fuera de alcance:</strong> Rediseño de orquestación post-OM · Código personalizado · Migración de datos históricos · Integración nativa Genesys (advisory solamente) · Módulos adicionales de Commerce Cloud
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 3 — HITOS -->
+    <div class="card s3">
+      <div class="card-header">
+        <div class="num">3</div>
+        <h2>Hitos de Negocio — 30 / 60 / 90 Días</h2>
+      </div>
+      <div class="card-body">
+        <div class="hitos-row">
+
+          <div class="hito h1 f1">
+            <div class="hito-head">
+              <div>
+                <div class="hito-day">30</div>
+                <div class="hito-label">DÍAS · Quick Win</div>
+              </div>
+            </div>
+            <div class="hito-body">
+              <ul>
+                <li>Agente devoluciones live (WA + web)</li>
+                <li>Flujo E2E sin escalación humana</li>
+                <li>KPI baseline documentado</li>
+                <li>Equipo habilitado y autónomo</li>
+                <li>500+ interacciones procesadas</li>
+              </ul>
+              <div class="flex-row">
+                <span class="lbl">Flex</span>
+                <div class="flex-bar-bg"><div class="flex-bar"></div></div>
+                <span class="flex-note">Base M1</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hito h2 f2">
+            <div class="hito-head">
+              <div>
+                <div class="hito-day">60</div>
+                <div class="hito-label">DÍAS · Adopción</div>
+              </div>
+            </div>
+            <div class="hito-body">
+              <ul>
+                <li>Adoption Rate ≥ 60% equipo objetivo</li>
+                <li>2° caso de uso activo (WISMO)</li>
+                <li>Deflexión +20% vs. baseline</li>
+                <li>CSAT ≥ 3.8 · AHT -15%</li>
+                <li>Reporte ejecutivo KPI entregado</li>
+              </ul>
+              <div class="flex-row">
+                <span class="lbl">Flex</span>
+                <div class="flex-bar-bg"><div class="flex-bar"></div></div>
+                <span class="flex-note">+30–40% vs. M1</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hito h3 f3">
+            <div class="hito-head">
+              <div>
+                <div class="hito-day">90</div>
+                <div class="hito-label">DÍAS · Expansión</div>
+              </div>
+            </div>
+            <div class="hito-body">
+              <ul>
+                <li>Business KPIs validados con CFO/CIO</li>
+                <li>3° caso de uso o expansión PE/CO</li>
+                <li>Deflexión ≥ 40% · CSAT ≥ 4.0</li>
+                <li>AHT -28% · ≥70% comp. reutilizables</li>
+                <li>Roadmap siguiente engagement firmado</li>
+              </ul>
+              <div class="flex-row">
+                <span class="lbl">Flex</span>
+                <div class="flex-bar-bg"><div class="flex-bar"></div></div>
+                <span class="flex-note">Sostenido · Base renovación</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 4 — CRITERIOS -->
+    <div class="card s4">
+      <div class="card-header">
+        <div class="num">4</div>
+        <h2>Criterios de Éxito Medibles por Hito</h2>
+      </div>
+      <div class="card-body">
+        <div class="criterio-block">
+          <div class="criterio-title"><div class="c-dot cd1"></div> Día 30 — Quick Win</div>
+          <ul>
+            <li>El agente procesa devoluciones end-to-end en escenarios definidos sin intervención humana</li>
+            <li>Baseline de deflexión, CSAT y AHT documentado y aprobado por el Champion del cliente</li>
+            <li>Equipo de operaciones completa sesión de habilitación y opera el agente de forma autónoma</li>
+          </ul>
+        </div>
+        <div class="criterio-block">
+          <div class="criterio-title"><div class="c-dot cd2"></div> Día 60 — Adopción Base</div>
+          <ul>
+            <li>≥ 60% de los agentes del equipo objetivo con actividad en los últimos 7 días (medido en org)</li>
+            <li>Segundo caso de uso en producción con ≥ 500 interacciones procesadas</li>
+            <li>Reporte ejecutivo con comparación baseline vs. M2 entregado al Champion en lenguaje de negocio</li>
+          </ul>
+        </div>
+        <div class="criterio-block">
+          <div class="criterio-title"><div class="c-dot cd3"></div> Día 90 — Expansión</div>
+          <ul>
+            <li>KPIs validados formalmente y presentados al Economic Buyer (CFO / CIO Leonardo Di Nucci)</li>
+            <li>Documento "Expansion Ready" con blueprint técnico y % de componentes reutilizables entregado</li>
+            <li>Letter of Intent o Change Order para el siguiente engagement firmado por el cliente</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- COL SIDE -->
+  <div class="col-side">
+
+    <!-- INVERSIÓN -->
+    <div class="card inversion-card">
+      <div class="card-header">
+        <div class="num" style="background:rgba(255,255,255,0.2);">$</div>
+        <h2>Inversión y Modelo</h2>
+      </div>
+      <div class="card-body">
+        <div class="inv-row">
+          <span class="inv-label">Modelo de engagement</span>
+          <span class="inv-val">T&amp;M</span>
+        </div>
+        <div class="inv-row">
+          <span class="inv-label">Duración</span>
+          <span class="inv-val">90 días</span>
+        </div>
+        <div class="inv-row">
+          <span class="inv-label">Inversión PS estimada</span>
+          <span class="inv-val highlight">$504K USD</span>
+        </div>
+        <div class="inv-row">
+          <span class="inv-label">T&amp;E</span>
+          <span class="inv-val" style="font-size:11px; color:#78909C;">Aprobación previa escrita</span>
+        </div>
+        <div class="inv-row">
+          <span class="inv-label">Validez de propuesta</span>
+          <span class="inv-val" style="font-size:11px;">30 días</span>
+        </div>
+        <div class="inv-row" style="border-bottom:none;">
+          <span class="inv-label">Entry point recomendado</span>
+          <span class="inv-val" style="font-size:11px; color:#0070D2;">Discovery $50–80K</span>
+        </div>
+        <div class="roi-grid">
+          <div class="roi-item"><div class="rv">$36M</div><div class="rl">ROI Año 1</div></div>
+          <div class="roi-item"><div class="rv">&lt;4m</div><div class="rl">Payback</div></div>
+          <div class="roi-item"><div class="rv">$215</div><div class="rl">Por $1 invertido</div></div>
+          <div class="roi-item"><div class="rv">40%</div><div class="rl">Deflexión meta</div></div>
+        </div>
+        <div class="warning-box">
+          ⚠ <strong>RFP Procurement:</strong> Proyectos &gt;$500K en Chile requieren licitación formal. Estrategia: iniciar con Discovery $50–80K para construir preferencia antes de Procurement.
+        </div>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 5 — CLÁUSULA EVOLUCIÓN -->
+    <div class="card s5">
+      <div class="card-header">
+        <div class="num">5</div>
+        <h2>Cláusula de Evolución de Alcance</h2>
+      </div>
+      <div class="card-body">
+        <p style="font-size:10.5px; color:#546E7A; margin-bottom:12px; line-height:1.5;">
+          <em>Este engagement está diseñado para crecer con los resultados. Las siguientes condiciones activan la expansión de alcance:</em>
+        </p>
+
+        <div class="trigger-item">
+          <div class="trigger-icon ti1">📊</div>
+          <div class="trigger-text">
+            <strong>Trigger Consumo — Día 45</strong>
+            <span>Si Flex Credits M2 supera M1 en ≥ 35%, se inicia la planificación del Commerce Agent en los siguientes 15 días hábiles.</span>
+          </div>
+        </div>
+
+        <div class="trigger-item">
+          <div class="trigger-icon ti2">🎯</div>
+          <div class="trigger-text">
+            <strong>Trigger KPI — Día 75</strong>
+            <span>Si deflexión alcanza ≥ 45% antes del Día 75, se presenta expansión acelerada a personalización CMR con Data Cloud (H2 — $21M/año adicional).</span>
+          </div>
+        </div>
+
+        <div class="trigger-item">
+          <div class="trigger-icon ti3">🌎</div>
+          <div class="trigger-text">
+            <strong>Trigger Geo — Día 90</strong>
+            <span>Chile validado activa fast-track a Perú y Colombia reutilizando ≥ 70% de componentes, reduciendo deployment ≥ 40%.</span>
+          </div>
+        </div>
+
+        <div class="trigger-item">
+          <div class="trigger-icon ti4">⚠</div>
+          <div class="trigger-text">
+            <strong>Principio General</strong>
+            <span>Cualquier ampliación de alcance no contemplada en esta SOW requiere <strong>Change Order formal firmado por ambas partes</strong> antes de su ejecución.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="sow-footer">
+  <div class="sf-stat"><div class="v">$2.5M</div><div class="l">COSTO INACCIÓN/MES</div></div>
+  <div class="sf-div"></div>
+  <div class="sf-stat"><div class="v">30d</div><div class="l">PRIMER GO-LIVE</div></div>
+  <div class="sf-div"></div>
+  <div class="sf-stat"><div class="v">$36M</div><div class="l">ROI AÑO 1</div></div>
+  <div class="sf-div"></div>
+  <div class="sf-stat"><div class="v">$504K</div><div class="l">INVERSIÓN PS</div></div>
+  <div class="sf-div"></div>
+  <div class="sf-quote">
+    "No le pedimos que confíe en un proyecto de tecnología.<br>
+    Le mostramos <strong>tres fechas, tres números y una curva que sube</strong>.<br>
+    Si en el Día 90 los KPIs no están — no tiene sentido continuar. Y si están, el siguiente paso se paga solo."
+  </div>
+</div>
+
+</body>
+</html>

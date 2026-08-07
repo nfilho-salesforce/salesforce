@@ -1,0 +1,440 @@
+[
+  {
+    "gap_id": "G0101",
+    "category": "Source Conflict",
+    "gap_or_question": "Workspace Slack segregation (clientes B2B externos vs. 3k funcionários internos) — decisão de segurança/governança não definida impacta autenticação, canais Slack Connect, e políticas DLP",
+    "impact_or_notes": "Bloqueador arquitetura F1 — define se 1 workspace c/ controle DLP ou 2 workspaces isolados; decisão com TI+Jurídico+DPO Dataprev"
+  },
+  {
+    "gap_id": "G0102",
+    "category": "Missing Requirement",
+    "gap_or_question": "Volumetria Protheus ausente: quantas consultas financeiras/mês esperadas, quantos clientes B2B ativos baseline (2,500 orgs contratadas ≠ 2,500 org acessando), distribuição por tipo de query (contratos/pagamentos/valores em aberto)",
+    "impact_or_notes": "Necessário para sizing MuleSoft API rate limiting, Agentforce Conversations usage, infra Heroku/Einstein; sem volumetria, estimate é Assumed"
+  },
+  {
+    "gap_id": "G0103",
+    "category": "Logical Gap",
+    "gap_or_question": "Governança TI+Jurídico+DPO para acesso Protheus financeiro não mapeada — quem aprova quais queries, fluxo aprovação, matriz RACI, janela aprovação pré-kick-off",
+    "impact_or_notes": "Mencionado como 'required' mas não detalhado; risco de bloqueio F1 se aprovação levar semanas/meses; requer processo Change Management não scoped"
+  },
+  {
+    "gap_id": "G0104",
+    "category": "Missing Requirement",
+    "gap_or_question": "Experience Design ausente: clientes B2B (~10k licenças Slack baseline) nunca usaram Slack — UX research, onboarding design, content strategy, service design não scoped",
+    "impact_or_notes": "Epic menciona 'Quick Win' mas onboarding 10k usuários externos requer Design System, help content, tutorial flows — esforço UX/Content não estimado"
+  },
+  {
+    "gap_id": "G0105",
+    "category": "Ambiguity",
+    "gap_or_question": "LGPD/TCU 'rastreabilidade' — retenção audit logs por quanto tempo (5 anos TCU?), onde armazenar (Data Cloud? Big Objects? External storage?), quem acessa, formato export para auditorias",
+    "impact_or_notes": "Compliance crítico setor público mas spec técnica ausente — impacta storage costs, Data Cloud config, Shield Event Monitoring"
+  },
+  {
+    "gap_id": "G0106",
+    "category": "Capability Gap",
+    "gap_or_question": "Autenticação clientes B2B externos — Protheus/Totvs tem SSO/SAML? Ou senha individual? Slack Connect requer email verificado — como onboarding 2,500 orgs clientes sem IdP?",
+    "impact_or_notes": "Se Protheus não tem SSO, alternativa é email magic link ou senha — friction onboarding alto; Slack Connect multi-org requer Identity Provider ou Slack Guest Accounts"
+  },
+  {
+    "gap_id": "G0107",
+    "category": "Potential Risk",
+    "gap_or_question": "F1 scoped 'read-only' mas caso de uso real pode demandar transacional (cliente vê valores em aberto no Protheus, quer pagar — ação fora Slack ou integração Protheus write?)",
+    "impact_or_notes": "Risco scope creep F1→F2; validar com negócio se read-only satisfaz ou se pagamento/negociação de dívida é essencial para ROI"
+  },
+  {
+    "gap_id": "G0201",
+    "category": "Missing Requirement",
+    "gap_or_question": "Volumetria Pronto (ServiceNow) ausente detalhada: 30k tickets/mês total (~13-14k INSS), mas quantos usuários finais consultam status via Slack? Quantas queries/usuário/dia esperadas?",
+    "impact_or_notes": "Necessário para Agentforce Conversations usage forecast, MuleSoft API calls/month, infra sizing; sem volumetria user-side, estimate é Assumed"
+  },
+  {
+    "gap_id": "G0202",
+    "category": "Logical Gap",
+    "gap_or_question": "Pronto (ServiceNow) é Dataprev-managed ou INSS-managed? Se INSS, API access requer aprovação externa (SLA? firewall? contrato?), risco timeline F1",
+    "impact_or_notes": "Dependência externa não mapeada — se Pronto é sistema INSS, acesso API pode exigir governance INSS (não só Dataprev), adicionando 4-8 semanas approval"
+  },
+  {
+    "gap_id": "G0203",
+    "category": "Ambiguity",
+    "gap_or_question": "F2 'abertura assistida' de chamados — 'assistida' significa Agentforce preenche form com NLU + usuário confirma, ou Agentforce abre ticket direto sem aprovação humana?",
+    "impact_or_notes": "Impacta F2 complexity (form pre-fill é config low-code, abertura autônoma é Write API + approval workflow custom code) e governança (quem responde por ticket aberto por IA?)"
+  },
+  {
+    "gap_id": "G0204",
+    "category": "Missing Requirement",
+    "gap_or_question": "SLA tracking — Pronto expõe SLA via API estruturada (tempo restante, % cumprimento) ou apenas data criação/resolução? Agentforce precisa calcular SLA client-side?",
+    "impact_or_notes": "Se SLA não é API field direto, requer custom logic MuleSoft para calcular — adiciona complexity integration layer"
+  },
+  {
+    "gap_id": "G0205",
+    "category": "Capability Gap",
+    "gap_or_question": "Histórico chamados (audit trail) — Pronto API retorna comments/attachments/reassignments ou só status atual? Chat conversacional Slack requer contexto completo",
+    "impact_or_notes": "Se API Pronto é shallow (só status), experiência Slack será limitada vs. portal ServiceNow full; user expectation mismatch, adoção em risco"
+  },
+  {
+    "gap_id": "G0206",
+    "category": "Potential Risk",
+    "gap_or_question": "~30k tickets/mês, 13-14k só INSS — concentração alta em 1 cliente (46%); se INSS migrar sistema ou renegociar contrato Dataprev, volumetria cai pela metade, ROI impactado",
+    "impact_or_notes": "Risco negócio — dependency on single large customer (INSS) para justificar investimento Agentforce; diversificação cliente crítica para sustainability"
+  },
+  {
+    "gap_id": "G0207",
+    "category": "Missing Requirement",
+    "gap_or_question": "Baseline métrico ausente — NPS/CSAT atual portal Conexão/ServiceNow, tempo médio primeira resposta N1, taxa desvio (tickets reabertos), satisfação canal — sem baseline, ROI F1/F2 não mensurável",
+    "impact_or_notes": "Discovery menciona 'coletar antes F1' mas não scoped como activity — requer survey design, coleta, análise (esforço BA/UX 2-3 semanas pré-kick-off)"
+  },
+  {
+    "gap_id": "G0301",
+    "category": "Ambiguity",
+    "gap_or_question": "CRM Totvs — qual produto Totvs? (Totvs CRM, Totvs Fluig, Totvs RM?) API availability, data model, autenticação variam por produto",
+    "impact_or_notes": "Faltando vendor/product ID exato — impacta feasibility study integration (algumas soluções Totvs não expõem API REST moderna, requer SOAP/RPC legacy)"
+  },
+  {
+    "gap_id": "G0302",
+    "category": "Missing Requirement",
+    "gap_or_question": "50 usuários ativos baseline CRM Totvs (~baixa adoção segundo discovery) — quem são os executivos target (~50 pessoas totais ou subset executivo menor, ex. C-level/Diretoria ~10-15)?",
+    "impact_or_notes": "Scoping 'executivos' sem headcount/perfis impede sizing licenças Slack (Einstein 1 vs. Standard), effort onboarding, ROI calculation"
+  },
+  {
+    "gap_id": "G0303",
+    "category": "Logical Gap",
+    "gap_or_question": "Caso de uso 'convocação urgente ministério, briefing no caminho' — mobile-first, mas Slack mobile app requer install (iOS/Android); executivos gov usam smartphone corporativo Dataprev (MDM?) ou pessoal?",
+    "impact_or_notes": "Se smartphone pessoal, política BYOD/segurança não mapeada (dados sensíveis CRM em device não gerenciado); se corporativo, requer IT approval/MDM config (timeline risk)"
+  },
+  {
+    "gap_id": "G0304",
+    "category": "Ambiguity",
+    "gap_or_question": "Dados CRM 'pipeline, forecast, contratos macro' — granularidade? Valores totais agregados (ex. 'R$ 15M pipeline Q3') ou deal-level detail (25 opportunities × R$ 600k cada)?",
+    "impact_or_notes": "Granularidade impacta UX (exec quer dashboard summary ou drill-down?), data volume API calls, e Agentforce prompt complexity (aggregation logic onde? CRM ou Agentforce?)"
+  },
+  {
+    "gap_id": "G0305",
+    "category": "Capability Gap",
+    "gap_or_question": "CRM Totvs baseline 50 users ativos (baixa adoção) — dados estão atualizados/completos ou stale? Agentforce responde com dados desatualizados = perda confiança executivo",
+    "impact_or_notes": "Baixa adoção CRM pode significar data quality ruim (pipeline não reflete realidade, forecast desatualizado 2-3 meses); validar data quality antes F1 ou épica vira fracasso"
+  },
+  {
+    "gap_id": "G0306",
+    "category": "Potential Risk",
+    "gap_or_question": "Épica E03 smallest user base (~10-15 executivos?) vs. E01 10k clientes, E02 3k funcionários — ROI per-user baixo, risco desprioritização ou cancelamento se F1/F2 consomem budget",
+    "impact_or_notes": "Executivos são high-value users mas low-volume; justificar investimento requer storytelling forte (visibilidade C-level > economia escala); risco phase 2+ cut se budget aperta"
+  },
+  {
+    "gap_id": "G0307",
+    "category": "Missing Requirement",
+    "gap_or_question": "Autenticação executivos mobile — CRM Totvs tem SSO/SAML mobile-compatible? Ou senha? Slack mobile SSO requer Identity Provider (Okta/Azure AD/Salesforce Identity) configurado",
+    "impact_or_notes": "Se Totvs CRM não tem mobile SSO, executivo precisa login duplo (Slack + CRM web) — friction alto, adoção em risco; Identity Provider unificado (ex. Salesforce Identity) não scoped"
+  },
+  {
+    "gap_id": "G9901",
+    "category": "Missing Requirement",
+    "gap_or_question": "Centro de Excelência (CoE) / Governança contínua pós-F1 não scoped — quem mantém Agentforce prompts, quem aprova novos use cases Slack Connect, quem monitora usage/costs Agentforce Conversations?",
+    "impact_or_notes": "Três épicas F1 implicam governança multi-sistema (Protheus+Pronto+CRM Totvs + MuleSoft + Agentforce) mas nenhum esforço Change Management/CoE/Governance scoped; risco sprawl/shadow IT"
+  },
+  {
+    "gap_id": "G9902",
+    "category": "Logical Gap",
+    "gap_or_question": "MuleSoft vs. MCP (Model Context Protocol) — discovery menciona 'MuleSoft/MCP' mas MCP é protocolo lightweight (Anthropic) para tool-calling, não substitui MuleSoft enterprise integration; arquitetura híbrida não detalhada",
+    "impact_or_notes": "Se intent é usar MCP direto (Agentforce → backend sem MuleSoft), economiza licensing MuleSoft mas perde enterprise features (rate limiting, monitoring, API governance); trade-off não analisado"
+  },
+  {
+    "gap_id": "G9903",
+    "category": "Ambiguity",
+    "gap_or_question": "Slack Ultimate 'já contratado' — quantas licenças? 10k clientes B2B + 3k internos = 13k licenses? Ou só subset? Impacta se projeto precisa budget licenças adicionais ou só PS",
+    "impact_or_notes": "Slack Ultimate contracted mas não clear se cobre full scope; se shortfall licenças, requer budget approval adicional (risk timeline/approval)"
+  },
+  {
+    "gap_id": "G9904",
+    "category": "Potential Risk",
+    "gap_or_question": "Três épicas F1 são todos read-only systems of record diferentes (Protheus/Pronto/CRM Totvs) — nenhum write/transacional scoped F1, mas user expectation pode ser 'resolver no Slack' (pagar fatura, reabrir ticket, atualizar pipeline)",
+    "impact_or_notes": "Risco expectation mismatch — users veem dados no Slack mas precisam sair para agir (break in flow); adoção em risco se não houver quick wins transacionais F2"
+  },
+  {
+    "gap_id": "G9905",
+    "category": "Missing Requirement",
+    "gap_or_question": "Heroku architecture (discovery context) — será usado para MuleSoft runtime/Agentforce endpoints? Versão Heroku (v22 mencionado em outro projeto DATAPREV)? Dynos sizing/costs não scoped",
+    "impact_or_notes": "Heroku pode ser runtime para APIs MuleSoft e Agentforce Actions, mas infra não detalhada — impacta commercials (Heroku costs separados de PS estimate)"
+  },
+  {
+    "gap_id": "G9906",
+    "category": "Capability Gap",
+    "gap_or_question": "LGPD Art. 48 (comunicação de incidente segurança à ANPD) — se Agentforce vazar dado financeiro Protheus via Slack (ex. query errada retorna CPF/valores third-party), processo incident response não mapeado",
+    "impact_or_notes": "Setor público + dados financeiros sensíveis requer IR plan (quem notifica ANPD? em quanto tempo? log forensics onde?); Security/Compliance workstream ausente estimate"
+  },
+  {
+    "gap_id": "G9907",
+    "category": "Potential Risk",
+    "gap_or_question": "Três sistemas source-of-truth legados diferentes (Protheus Totvs / Pronto ServiceNow / CRM Totvs) — vendor lock-in risk; se um vendor descontinua produto ou API, épica inteira quebra",
+    "impact_or_notes": "Nenhum dos três é Salesforce native; dependência total em vendors third-party para API stability/roadmap; requer exit strategy ou fallback (ex. data replication para Data Cloud)"
+  },
+  {
+    "gap_id": "G0401",
+    "category": "Source Conflict",
+    "gap_or_question": "Portal Conexão (SharePoint) as KB source — integration mechanism undefined. Discovery mentions 'Agentforce KB consulta' but no technical bridge specified (MuleSoft connector, Data Cloud sync, custom API, batch ETL). Conflicts with standard Agentforce Knowledge Article grounding patterns.",
+    "impact_or_notes": "[KB:USB - UNIFIED SOLUTION BLUEPRINT - V2.0  - PT.md:657-705] covers CoE governance and knowledge management strategy but assumes Salesforce Knowledge as native source. SharePoint as external source requires integration architecture (System API layer) not scoped. BLOCKER for F1 Quick Win timeline — integration design + build effort missing."
+  },
+  {
+    "gap_id": "G0402",
+    "category": "Missing Requirement",
+    "gap_or_question": "Experience Design gap: No UX research, content design, or service design effort scoped for conversational interface. 'Políticas RH, delegação competência' implies complex multi-turn dialogues, error handling, escalation paths — requires dialogue flow design, conversation mapping, and user testing before build.",
+    "impact_or_notes": "E04 described as 'Quick Win' but conversational AI for HR policy (high-stakes domain — signing authority, compliance) needs usability validation. Per instructions: new user-facing surfaces with no UX effort = Missing Requirement buyer-facing question. Recommend Phase 0 discovery or F1 pre-sprint design allocation."
+  },
+  {
+    "gap_id": "G0403",
+    "category": "Ambiguity",
+    "gap_or_question": "Alçadas delegation authority (R$ 2M threshold example) — business rule complexity unclear. Is it hierarchical (role-based), conditional (contract type × value), or dynamic (approval matrix)? Is the R$ 2M figure a single threshold or one of many tiers? How many approval scenarios exist?",
+    "impact_or_notes": "Sizing impact: Simple = 1 rule (L), Complex tiered matrix = (XL). Meta '-50% acionamentos time Pessoas' depends on rule coverage — partial automation worse than no automation (exposes gaps, erodes trust). Recommend discovery workshop with Pessoas/Jurídico to map full approval matrix."
+  },
+  {
+    "gap_id": "G0404",
+    "category": "Logical Gap",
+    "gap_or_question": "TCU compliance claim ('Elimina risco alçada incorreta — exposição TCU') not grounded in KB. No audit trail, version control, or change management process defined for KB content updates. Who governs policy updates? How are outdated policies retired? Is there a 'last-reviewed' metadata field?",
+    "impact_or_notes": "[KB:USD - UNIFIED SCOPING DOCUMENT - V2.0  - PT.md:741-760] Section 9.4 covers 'IA Ética e Inovação Responsável' but doesn't address policy KB governance. TCU audits require provenance trail — when was policy consulted, which version, who approved. Gap: no Data Stewardship or Content Governance effort in E04. Recommend CoE oversight + version-control design."
+  },
+  {
+    "gap_id": "G0405",
+    "category": "Potential Risk",
+    "gap_or_question": "LGPD risk: HR policies may reference employee PII (names, roles, salaries in approval examples). Is SharePoint content LGPD-compliant? Does Agentforce KB ingest personal data? Is Einstein Trust Layer (PII masking) scoped?",
+    "impact_or_notes": "[KB:Advanced Strategic Architecture and Value Analysis_ Slack as an Agentic Operating System (Agentic OS) & Agentforce 360.md:33] Section on 'Enterprise-Level Security and Encryption Governance' covers EKM and Einstein Trust Layer but no explicit PII masking plan for E04. Public-sector vertical + HR domain = high LGPD exposure. Recommend data classification workshop + Trust Layer config in F1."
+  },
+  {
+    "gap_id": "G0406",
+    "category": "Capability Gap",
+    "gap_or_question": "No fallback/escalation path defined. When Agentforce KB cannot resolve a query (ambiguous policy, policy gap, edge case), what happens? Does it escalate to time Pessoas (defeating -50% deflection goal), log to a case, or surface 'no answer found'?",
+    "impact_or_notes": "[KB:Advanced Strategic Architecture and Value Analysis_ Slack as an Agentic Operating System (Agentic OS) & Agentforce 360.md:23-24] Service Swarming pattern is defined for complex incident resolution but not mapped to E04. Recommend 'Agent → Human' handoff design: when to escalate, to whom, SLA. Without this, partial coverage KB becomes a CX liability."
+  },
+  {
+    "gap_id": "G0407",
+    "category": "Missing Requirement",
+    "gap_or_question": "Governance gap: Multi-team ownership implied (IT owns Slack/Agentforce, Pessoas owns policy content, Jurídico/DPO owns compliance, TI validates SharePoint sync). No decision rights, RACI, or CoE structure scoped for E04.",
+    "impact_or_notes": "[KB:USB - UNIFIED SOLUTION BLUEPRINT - V2.0  - PT.md:657-705] Section 7 defines CoE model but doesn't allocate governance effort to specific epics. Per instructions: multi-team ownership with no governance/CoE/CM effort = Missing Requirement buyer-facing question. Discovery noted 'Governança Protheus (TI+Jurídico+DPO) — bloqueador pré-kick-off F1' — this applies to E04 too."
+  },
+  {
+    "gap_id": "G0501",
+    "category": "Source Conflict",
+    "gap_or_question": "Microsoft Teams calendar integration mechanism undefined. Discovery says 'Comando voz/texto Slack → Microsoft Teams calendário' but no technical bridge specified. Slack native workflow, MuleSoft API orchestration, or Microsoft Graph API custom connector?",
+    "impact_or_notes": "[KB:USD - UNIFIED SCOPING DOCUMENT - V2.0  - PT.md:335-352] Section 3.9 MuleSoft covers API-led connectivity strategy but E05 doesn't reference it. Microsoft Teams = external system → requires System API design (MuleSoft or custom). Conflicts with 'F1 Quick Win' if integration build effort not scoped. Recommend technical design spike before sizing."
+  },
+  {
+    "gap_id": "G0502",
+    "category": "Ambiguity",
+    "gap_or_question": "Voice input ('áudio comando voz') — is this Slack native voice message transcription, or custom speech-to-text (STT) integration (AWS Transcribe, Google Speech API)? Slack does not natively parse voice messages into structured calendar actions.",
+    "impact_or_notes": "If voice = just a voice message that a human parses, no AI needed (S). If voice = STT → intent parsing → calendar API call (XL custom). Example 'Agenda reunião amanhã X, Y, Z' implies NLP intent extraction (participants, date, time). Sizing depends on interpretation — current 'F1 Quick Win' may be under-scoped if STT + NLP required."
+  },
+  {
+    "gap_id": "G0503",
+    "category": "Logical Gap",
+    "gap_or_question": "Meeting invite delivery — does the bot send calendar invites to participants, or just create an event in one person's calendar? If multi-participant, how are email addresses resolved (Slack handle → email mapping, AD lookup, manual input)?",
+    "impact_or_notes": "Example 'X, Y, Z' participants — are these Slack @mentions, email addresses, or free text? Calendar invites require email addresses. No directory integration (Azure AD, Okta) mentioned in discovery. Gap: identity resolution not scoped. Recommend discovery clarification before F1."
+  },
+  {
+    "gap_id": "G0504",
+    "category": "Potential Risk",
+    "gap_or_question": "Microsoft 365 tenant permission risk — creating calendar events in Teams requires OAuth consent and Graph API app registration. Who owns the Azure AD service principal? What happens if Microsoft revokes API access or changes Graph API versioning?",
+    "impact_or_notes": "Public-sector client (DATAPREV) may have strict policies on third-party app access to Microsoft tenant. No 'IT Security approval' step in discovery. Recommend pre-F1 validation: can IT grant calendar.readwrite scope to Slack/MuleSoft app? Blocker risk if denied."
+  },
+  {
+    "gap_id": "G0505",
+    "category": "Missing Requirement",
+    "gap_or_question": "Experience Design gap: No conversation design for error states. What happens when: (a) requested time slot conflicts with existing meeting, (b) participant not found, (c) invalid date ('amanhã' on Friday → Monday or next business day?), (d) ambiguous time ('manhã' = 9am or 10am?)?",
+    "impact_or_notes": "Per instructions: new conversational interface with no UX/service design effort = Missing Requirement. E05 is thin-feature 'Quick Win' but error handling design still required — bad UX in F1 kills adoption ('atrito cognitivo' the epic claims to eliminate). Recommend dialogue flow mapping before build."
+  },
+  {
+    "gap_id": "G0506",
+    "category": "Capability Gap",
+    "gap_or_question": "No calendar read capability defined — can the bot check for conflicts before booking? If yes, does it access Teams calendar via API (requires additional Graph API scope). If no, users receive double-booked conflicts → manual cleanup → defeats 'Elimina atrito cognitivo' goal.",
+    "impact_or_notes": "[KB:Advanced Strategic Architecture and Value Analysis_ Slack as an Agentic Operating System (Agentic OS) & Agentforce 360.md:30] Workflow Builder + Salesforce Flow orchestration pattern defined, but no mention of bi-directional calendar sync or conflict detection. Recommend capability confirmation: read-only calendar access in scope?"
+  },
+  {
+    "gap_id": "G0601",
+    "category": "Source Conflict",
+    "gap_or_question": "CRM Totvs as external system — integration mechanism undefined. Discovery says 'comercial atualiza pipeline/forecast/oportunidades por voz/texto' but no API bridge specified. Totvs CRM REST API, SOAP, batch file export, or custom connector?",
+    "impact_or_notes": "[KB:USD - UNIFIED SCOPING DOCUMENT - V2.0  - PT.md:335-352] MuleSoft API-led connectivity strategy assumes System API layer for external CRM. E06 doesn't mention MuleSoft — conflicts with architecture. Also: does Totvs CRM support real-time API updates, or batch only? Sizing depends on API maturity. Recommend technical discovery spike."
+  },
+  {
+    "gap_id": "G0602",
+    "category": "Ambiguity",
+    "gap_or_question": "Voice/text input scope unclear. Is this (a) free-form natural language ('Fechei deal com Acme, R$ 500k, etapa Proposta'), or (b) structured command ('/crm update opp=Acme stage=Proposal amount=500000')? NLP complexity vastly different.",
+    "impact_or_notes": "Meta '+40% adoção via escrita controlada' suggests structured input (easier, faster to build — M/L). But 'interface conversacional' + 'voz/texto' suggests free-form NLP (harder, requires intent parsing, entity extraction — XL). Ambiguity impacts F2 timeline. Recommend interaction model definition before sizing."
+  },
+  {
+    "gap_id": "G0603",
+    "category": "Logical Gap",
+    "gap_or_question": "User population mismatch: '~50 users ativos, ~30% do comercial' — implies 170 total comercial headcount (50 / 0.3 ≈ 167). But adoption goal '+40%' would mean 70% final adoption (30% + 40% = 70%) = 119 users. Is Totvs licensed for 119 concurrent users? Is Slack conversational interface replacing Totvs UI or augmenting it?",
+    "impact_or_notes": "If replacing → Totvs license cost reduction (commercial benefit, but UI replication scope grows — XL). If augmenting → Totvs licenses stay, Slack is just input layer (M). Discovery doesn't clarify replacement vs. augmentation strategy. Impacts both sizing and commercial model. Recommend clarification before F2."
+  },
+  {
+    "gap_id": "G0604",
+    "category": "Potential Risk",
+    "gap_or_question": "Data sync latency risk: Totvs CRM update via Slack → how fast does data propagate? If batch (nightly), sales managers see stale pipeline in Totvs during the day → defeats real-time adoption goal. If real-time API, is Totvs CRM performant enough (30-170 concurrent Slack updates)?",
+    "impact_or_notes": "No SLA or latency requirement in discovery. Public-sector CRM systems often batch-oriented (legacy architecture). Recommend non-functional requirements (NFR) discovery: Totvs API response time, throughput limits, retry logic. Blocker if Totvs cannot sustain real-time load."
+  },
+  {
+    "gap_id": "G0605",
+    "category": "Missing Requirement",
+    "gap_or_question": "Experience Design gap: No conversation design for CRM update flows. Minimal: 'Update opp X stage to Y' (single-turn, structured). Complex: multi-turn dialogue ('Which opp?' → 'Acme deal' → 'New stage?' → 'Proposal' → 'Amount?' → '500k' → confirm). Scope undefined.",
+    "impact_or_notes": "Per instructions: new user-facing conversational surface, no UX effort scoped = Missing Requirement. '+40% adoção' goal requires usability validation — if UI is clunky, adoption stays at 30%. Recommend service design workshop: journey mapping, dialogue trees, error states. F2 timeline may need UX sprint."
+  },
+  {
+    "gap_id": "G0606",
+    "category": "Capability Gap",
+    "gap_or_question": "No read capability defined — can users query Totvs CRM via Slack ('Mostre meu pipeline', 'Qual stage do deal Acme?'), or only write (update)? If read required, doubles integration scope (query API + response formatting). If write-only, limits utility → adoption ceiling.",
+    "impact_or_notes": "[KB:Advanced Strategic Architecture and Value Analysis_ Slack as an Agentic Operating System (Agentic OS) & Agentforce 360.md:22-23] Slack Sales Elevate pattern includes read (List Views, deal summaries) + write (stage updates). E06 only mentions 'atualiza pipeline/forecast/oportunidades' (write). Recommend capability confirmation: is CRM read access in scope?"
+  },
+  {
+    "gap_id": "G0607",
+    "category": "Missing Requirement",
+    "gap_or_question": "Governance gap: Who owns Totvs CRM data quality after Slack updates? If commercial team bypasses Totvs UI validation rules via Slack API, dirty data risk (missing required fields, invalid stage transitions). No data stewardship or validation logic scoped.",
+    "impact_or_notes": "[KB:USB - UNIFIED SOLUTION BLUEPRINT - V2.0  - PT.md:657-705] CoE governance model covers Salesforce data stewardship but doesn't address external CRM (Totvs). Per instructions: multi-system data ownership, no governance effort scoped = Missing Requirement. Recommend validation: does Slack integration enforce Totvs business rules, or bypass them?"
+  },
+  {
+    "gap_id": "G0608",
+    "category": "Logical Gap",
+    "gap_or_question": "Jornada J4 (F2 Expansion) dependency on E06 unclear. Discovery lists 'Jornada J4' but no journey map provided. What prerequisites must F1 deliver for J4 to proceed? If E06 is blocked/delayed, does J4 slip?",
+    "impact_or_notes": "No journey architecture in discovery notes. 'Jornada J4' mentioned without context. Recommend journey mapping workshop to clarify E06 → J4 dependency chain and sequence F2 epics correctly. Risk: F2 timeline assumes E06 complete, but if E06 is XL (not M/L), J4 delivery slips."
+  },
+  {
+    "gap_id": "G0609",
+    "category": "Ambiguity",
+    "gap_or_question": "Baseline measurement gap: 'Meta: +40% adoção' — baseline date undefined. Is current 30% adoption measured over last 30 days, 90 days, or 12 months? Seasonal variation (Q4 high sales activity vs. Q1 lull) affects baseline validity.",
+    "impact_or_notes": "Discovery notes 'Baseline NPS/CSAT pendente' — adoption baseline also pending. Without time-bounded baseline, +40% target is unverifiable. Recommend pre-F1 metric collection: 30-day active users in Totvs CRM (login count, transaction count) as adoption baseline."
+  },
+  {
+    "gap_id": "G0610",
+    "category": "Potential Risk",
+    "gap_or_question": "Change management risk: 50 → 119 users (+138% growth) in comercial workforce using new conversational UI. No training, onboarding, or adoption plan scoped in E06. Risk: low adoption despite feature availability → 'meta +40%' missed.",
+    "impact_or_notes": "[KB:USB - UNIFIED SOLUTION BLUEPRINT - V2.0  - PT.md:124-132] Section 2.3 covers change management methodology but no epic-level CM effort allocation. Per public-sector vertical: training/adoption critical for gov workforce. Recommend F2 change management workstream: training content, lunch-and-learns, champions program."
+  },
+  {
+    "gap_id": "G0701",
+    "category": "Missing Requirement",
+    "gap_or_question": "Abertura de Chamados — Volume metrics undefined: How many chamados are created monthly/annually? What is the target response time? What is the baseline resolution SLA per priority? These sizing inputs are critical for determining Agentforce conversation limits, Slack message volume quotas, and MuleSoft API call projections.",
+    "impact_or_notes": "Without volumetrics, capacity planning for Slack Ultimate (message limits), Agentforce (conversations/month), and MuleSoft/MCP (API throughput) cannot be validated. Risk of under-provisioning or over-cost."
+  },
+  {
+    "gap_id": "G0702",
+    "category": "Source Conflict",
+    "gap_or_question": "Abertura de Chamados — F2 'escrita controlada' vs. full write capability: The epic states 'F2 escrita controlada' for ServiceNow case creation, but does not define 'controlada' — does this mean write-only specific fields, approval workflow required before save, or read-verify-before-write? The architectural choice (Slack modal with write-once vs. bidirectional sync vs. approval orchestration) differs significantly.",
+    "impact_or_notes": "Affects MuleSoft/MCP API design (System API vs. Process API complexity), Agentforce intent routing logic, and F2 effort estimate. KB warns that 'L: structured use case like Swarming implies channel lifecycle + specialist routing' — uncontrolled write is simpler (M), approval orchestration is (L)."
+  },
+  {
+    "gap_id": "G0703",
+    "category": "Capability Gap",
+    "gap_or_question": "Abertura de Chamados — Slack-native voice input: Epic states 'voz/texto Slack', but Slack does not natively support voice transcription — voice messages (audio clips) yes, but transcription to text requires a third-party service (e.g., AWS Transcribe, Google Speech-to-Text via MuleSoft). Is this in scope? If yes, which transcription service and what is the latency SLA?",
+    "impact_or_notes": "If voice-to-text transcription is required, adds MuleSoft integration to a transcription API + prompt engineering to Agentforce to handle transcription errors. If not, clarify 'voz' means audio clips only (file attachment, not NLP input). Latter is simpler but does not enable the 'assistida' NLP value prop."
+  },
+  {
+    "gap_id": "G0704",
+    "category": "Missing Requirement",
+    "gap_or_question": "Abertura de Chamados — UX research and service design: 'Reduce friction ofício/reunião to open ticket' implies a behavioral shift for 2,500 external orgs + 3k internal employees. Has UX research been conducted to validate that Slack is the preferred channel vs. email/portal/phone? Is there a service design blueprint for the Slack conversation flow (prompt library, disambiguation logic, escalation to human)? Without this, risk of low adoption and rework.",
+    "impact_or_notes": "Discipline gap per instructions: 'if new user-facing surfaces imply UX research/service design but no effort scoped, raise as Missing Requirement buyer-facing question'. This is a buyer-facing question — needs Executive Mandate (Saulo) + Change Management discovery (persona journey maps, training plan per J3 persona)."
+  },
+  {
+    "gap_id": "G0801",
+    "category": "Ambiguity",
+    "gap_or_question": "Gestão de Demandas Evolutivas — Clarity as 'sistema origem' or 'legado de consulta': The F2+ decision states 'Salesforce Service Cloud vira sistema origem demandas, Clarity vira legado de consulta'. This is a strategic architecture decision with deep implications: (1) Migration strategy — how are the ~4,500 active demands migrated from Clarity to Service Cloud? One-time bulk vs. phased vs. dual-run? (2) Co-living period — how long? (3) Data model — Service Cloud Work Order, Case, or custom object? (4) Clarity API — read-only or does it stay authoritative for closed demands? (5) MuleSoft API-led layering — is Clarity a System API or does Service Cloud own the System API? This is a transformational decision (USB Section 3 warns 'strategic/transformational = multi-cloud, multi-vendor, changes existing systems') but lacks a migration playbook.",
+    "impact_or_notes": "Affects F2+ timeline (co-living period = risk adder), F3 Proactive feasibility (Data Cloud unification cannot happen until Service Cloud is authoritative), and MuleSoft integration complexity (bidirectional sync during co-living = L/XL). This is a 'hard-to-reverse, scope-shaping call' per decision_log rules — should be in data/strategy.json + data/roadmap.json Phase dependencies, but is currently only a one-line assertion in the epic brief."
+  },
+  {
+    "gap_id": "G0802",
+    "category": "Missing Requirement",
+    "gap_or_question": "Gestão de Demandas Evolutivas — Volumetrics and business process: ~4,500 active demands — what is the annual creation rate? Average lifecycle (idea → analysis → approved/rejected → backlog → in-progress → deployed)? How many lifecycle states in Clarity vs. what Service Cloud will model? What is the approval workflow (single approver, multi-tier, steering committee)? These are inputs to Service Cloud data model design (object choice, record types, approval flows, reporting), Agentforce intent complexity (how many states can the agent update vs. must route to human), and F2+ effort.",
+    "impact_or_notes": "Without business process map (L1/L2/L3 per USD Section 2.1), risk of under-scoped data model + approval orchestration. KB warns 'L: flows orquestram processo de negócio = MuleSoft Process API + Salesforce approval automation' — this is L at minimum, possibly XL if multi-tier approval + external stakeholder notifications."
+  },
+  {
+    "gap_id": "G0803",
+    "category": "Potential Risk",
+    "gap_or_question": "Gestão de Demandas Evolutivas — Clarity API availability and performance: Is Broadcom Clarity's API documented, performant, and stable enough for real-time Slack queries? What is the API rate limit? Is there a Clarity champion on DATAPREV's side to unblock API access issues? If Clarity API is undocumented or brittle, this becomes a 'high-risk integration' per RBS A1.",
+    "impact_or_notes": "External dependency risk (RBS B4). If Clarity API is unavailable or slow, the entire F1/F2 value prop (read + create demands from Slack) is blocked. Mitigation: early API discovery + fallback to batch sync if real-time is infeasible."
+  },
+  {
+    "gap_id": "G0804",
+    "category": "Missing Requirement",
+    "gap_or_question": "Gestão de Demandas Evolutivas — Service Cloud license and entitlement strategy: If Service Cloud becomes the system of record for ~4,500 demands (likely Work Orders or Cases), who are the licensed users? Is it the 3k internal employees (all get Service Cloud licenses)? Or a smaller 'demand management squad' (~50-100 people) with everyone else interacting via Slack (Community/Partner licenses or no license)? This is a license architecture decision with direct cost impact.",
+    "impact_or_notes": "Affects commercials (Service Cloud license cost not scoped in discovery brief) and solution architecture (entitlement model: Experience Cloud portal for external clients vs. Slack-only access). This is an Org62 financial input the seller must supply — not a model-invented number."
+  },
+  {
+    "gap_id": "G0901",
+    "category": "Ambiguity",
+    "gap_or_question": "Intelligence Preditiva — Data Cloud data model and unification scope: E09 depends on Data Cloud unifying Pronto (ServiceNow), Clarity, Protheus, CRM Totvs, Conexão (sistema?), and potentially Slack conversation history. What is the CDO (Common Data Object) strategy? Are these systems' data models documented? What is the data quality baseline (deduplication, completeness)? Data Cloud unification is F3 per the brief, but the epic does not specify *which* objects/entities are unified — is it just Cases/Work Orders, or also Accounts (2,500 external orgs), Contacts, Users, and financial data from Protheus?",
+    "impact_or_notes": "Data Cloud effort is notoriously under-estimated when data model discovery is skipped. KB warns 'L: múltiplas fontes de dados, modelo e unificação = 3-5 sistemas' and 'XL: múltiplos sistemas complexos (SAP, Oracle EBS) = conectores especializados'. Protheus (financial ERP) is Oracle/TOTVS — likely XL. Without a CDO blueprint, this is 'Inadequate Discovery' per RBS C1."
+  },
+  {
+    "gap_id": "G0902",
+    "category": "Missing Requirement",
+    "gap_or_question": "Intelligence Preditiva — Agentforce + Data Cloud proactive alerting: J9 (SLA breach alertas proativos) and J10 (sugestões comerciais pipeline histórico) imply Agentforce reads Data Cloud calculated insights and pushes Slack messages. This is a 'Proactive Agentforce' pattern — does this require Einstein Discovery models (regression for SLA breach prediction, opportunity scoring for pipeline suggestions) or just rule-based alerting (SLA countdown threshold)? If ML-based, who trains the models, what is the training data volume, and what is the accuracy target?",
+    "impact_or_notes": "If Einstein Discovery models are required, this is an AI/ML workstream (data scientist + training dataset preparation + model validation + retraining cadence) — not scoped in the epic brief. If rule-based only (simpler), clarify so effort is not under-estimated. This is a 'product/feature dependency' per RBS B4 — Agentforce + Data Cloud proactive capabilities are GA but Einstein Discovery training is a separate deliverable."
+  },
+  {
+    "gap_id": "G0903",
+    "category": "Source Conflict",
+    "gap_or_question": "Intelligence Preditiva — Pipeline histórico = which system? J10 'sugestões comerciais pipeline histórico' — is 'pipeline' in CRM Totvs (commercial opportunities), Clarity (demand backlog), or both? If both, how does Data Cloud unify 'opportunity' concepts from two different systems with likely different stages/definitions? This is a semantic data modeling challenge — needs a business glossary + CDO mapping per USD Section 3.5.",
+    "impact_or_notes": "If CRM Totvs and Clarity both have 'pipeline' objects, Data Cloud must reconcile them into a unified 'Opportunity' or 'Demand' CDO. Without business glossary alignment, risk of 'apples vs. oranges' recommendations. This is a 'Complex Data Model' per RBS C3."
+  },
+  {
+    "gap_id": "G0904",
+    "category": "Potential Risk",
+    "gap_or_question": "Intelligence Preditiva — LGPD consent and data minimization: SLA breach alertas and pipeline suggestions imply profiling internal employees and external clients. Does this require LGPD consent (Art. 7, I — consentimento) or is it 'legitimate interest' (Art. 7, IX)? If consent is required, how is it captured and revoked? Data Cloud must respect LGPD data minimization (Art. 6, III) — are calculated insights anonymized or pseudonymized? Is there a DPO review checkpoint before F3 Proactive go-live?",
+    "impact_or_notes": "LGPD compliance is a blocker per E10 (Governança, Compliance). If consent management is not designed into Data Cloud segmentation + Agentforce proactive flows, this is a 'Compliance or Legal Requirements' risk per RBS D3. Must involve DPO + Jurídico early (pre-F3 kick-off)."
+  },
+  {
+    "gap_id": "G1001",
+    "category": "Missing Requirement",
+    "gap_or_question": "Governança/Compliance/Change Management — MuleSoft/MCP API governance model: E10 states 'MuleSoft/MCP camada integração segura legados' with 'rastreabilidade LGPD/TCU'. What is the API governance framework? Is there an API catalog (Anypoint Exchange), API policies (rate limiting, OAuth, mTLS per USD MS-NFR-002), and audit logging (who called which API when with what payload)? TCU audit trail requirements are stricter than typical private-sector — is there a TCU compliance playbook?",
+    "impact_or_notes": "Without API governance, risk of 'Lack of systems documentation' (RBS A4) and 'Complex Security Solution' (RBS A1). MuleSoft API Manager + Anypoint Monitoring are the tooling, but the *process* (who approves API publication, change control for breaking changes, audit log retention period) must be defined before F1 integration build starts. This is a CoE deliverable (E10's third pillar) — should be scoped as a separate workstream, not just 'assumed operational'."
+  },
+  {
+    "gap_id": "G1002",
+    "category": "Missing Requirement",
+    "gap_or_question": "Governança/Compliance/Change Management — Protheus governance (TI+Jurídico+DPO) blocker resolution: E10 flags 'Governança Protheus (TI+Jurídico+DPO) — bloqueador pré-kick-off F1'. What is the blocker? Is it (1) Protheus API access not approved by TI/Jurídico, (2) DPO has not signed off on data sharing between Protheus and Salesforce, or (3) Protheus system owner (Finance?) has not committed to API SLA? This is a 'Customer compelling event' (RBS B4) — if unresolved, F1 cannot start.",
+    "impact_or_notes": "This is a pre-sales qualification gate — should be surfaced to the seller (Org62 opportunity owner) immediately. If Protheus API access is blocked by Jurídico/DPO, the entire integration strategy (MuleSoft System API to Protheus) is at risk. Mitigation: escalate to Executive Sponsor (Saulo per Change Management brief) + schedule tri-party governance meeting (TI + Jurídico + DPO + Salesforce Architect) before proposal submission."
+  },
+  {
+    "gap_id": "G1003",
+    "category": "Missing Requirement",
+    "gap_or_question": "Governança/Compliance/Change Management — Change Management structured plan: E10 states 'Change Management estruturado — treinamento por persona, executive mandate (Saulo), early adopters 20-50 piloto, KPIs adoção >60% uso semanal'. This is a strong CM vision, but lacks: (1) Persona journey maps (which personas per J3/J6/J9/J10?), (2) Training delivery model (Train-the-Trainer, live sessions, video library, Trailhead modules?), (3) Pilot selection criteria (which orgs/departments for the 20-50 early adopters?), (4) KPI measurement mechanism (Slack Analytics, Salesforce dashboards, weekly survey?), (5) Resistance mitigation plan (what if adoption <60% after 3 months?). Without these, risk of 'Inadequate Change Management strategy' (RBS C4) and low user adoption.",
+    "impact_or_notes": "Discipline gap per instructions: 'if multi-team ownership, data stewardship, decision rights implied but no governance/CoE/CM effort scoped, raise as Missing Requirement buyer-facing question'. This is a buyer-facing question — needs a dedicated CM workstream (likely 1 CM Lead + 2-3 training specialists) spanning F1-F3, not just 'assumed to happen'. Should be scoped separately with its own epics/stories in data/epics.json."
+  },
+  {
+    "gap_id": "G1004",
+    "category": "Ambiguity",
+    "gap_or_question": "Governança/Compliance/Change Management — 'Arquitetura reutilizável Data Ágil + Serviço na Ponta (economia de escopo)': This is stated as a strategic priority but undefined. Does 'reutilizável' mean (1) the MuleSoft APIs built for Data Ágil can be reused by Serviço na Ponta (a separate engagement?), (2) the Agentforce intents/prompts are templatized for multi-engagement reuse, or (3) the Slack workspace setup (channels, workflows, apps) is cloned for Serviço na Ponta? What is the 'economia de escopo' quantified as — % reduction in F1/F2/F3 effort for Serviço na Ponta, or license/infrastructure cost sharing?",
+    "impact_or_notes": "If this is a multi-engagement strategy (Data Ágil is engagement 1, Serviço na Ponta is engagement 2), the architecture must be designed for reuse from F1 — affects MuleSoft API design (generic System APIs vs. Data Ágil-specific), Agentforce prompt library (parameterized intents), and Slack org structure (single workspace with sub-teams vs. separate workspaces). Without clarity, risk of rework if Serviço na Ponta requirements conflict with Data Ágil implementation choices."
+  },
+  {
+    "gap_id": "G1005",
+    "category": "Potential Risk",
+    "gap_or_question": "Governança/Compliance/Change Management — Slack workspace único vs. separado for external clients (2,500 orgs): The brief states '2,500 org clients (B2B self-service) + 3k internal employees' but does not specify workspace architecture. Is it (1) one Slack Enterprise Grid workspace with Slack Connect channels per external org (scales to thousands of external orgs but complex permission model), or (2) separate Slack workspaces per external org (simpler permissions but operationally heavy), or (3) all external clients interact via a Salesforce Experience Cloud portal that *embeds* Slack (hybrid)? This is a foundational architecture decision affecting Slack Ultimate licensing, Agentforce deployment model, and security posture.",
+    "impact_or_notes": "This is flagged as an 'open thread to validate' in the discovery brief, but it's load-bearing — must be resolved before F1 architecture is finalized. If Slack Connect is chosen, need to validate Slack Ultimate entitlements (how many external orgs per contract?). If Experience Cloud is chosen, need to scope portal build effort (not in E07-E09). This is a 'Solution requirements not fully understood' risk (RBS C1)."
+  },
+  {
+    "gap_id": "G1101",
+    "category": "Assumption",
+    "gap_or_question": "Qual superfície de integração está publicada na instância-alvo do SEI: WSDL SOAP (usuário de serviço) e/ou REST mod-wssei v2? Define o caminho de integração (recomendado REST) e o esforço de conector.",
+    "impact_or_notes": "Bloqueador de arquitetura para E11. WSDL SOAP atestado pelo cliente mas não confirmado em repositório público; REST mod-wssei confirmado no código-fonte oficial pengovbr. Confirmar com a Dataprev."
+  },
+  {
+    "gap_id": "G1102",
+    "category": "Unknown",
+    "gap_or_question": "Volumetria de base para metrificar o ganho das jornadas SEI: nº de processos com prazo/mês por órgão, taxa histórica de perda de prazo (cumprimento tácito), custo médio por perda, nº de consultas manuais ao SEI por servidor/dia, tempo médio por consulta.",
+    "impact_or_notes": "Sem esses dados o valor das jornadas SEI-J1/J2/J4 fica ilustrativo (fórmula + premissas sinalizadas), não quantificado. Insumo para recalibrar o coeficiente de ganho com números reais."
+  },
+  {
+    "gap_id": "G1103",
+    "category": "Assumption",
+    "gap_or_question": "SEI não expõe push/webhook (evento descontinuado) → notificação proativa exige polling. Frequência de polling, SLA de detecção de mudança e infra de cache de estado (MuleSoft/MCP) a definir e dimensionar.",
+    "impact_or_notes": "Molda o desenho técnico e o esforço de E11 (SEI-J1/J3/J5). Precisa entrar no dimensionamento se E11 for precificada."
+  },
+  {
+    "gap_id": "G1104",
+    "category": "Open Question",
+    "gap_or_question": "Governança de escrita no SEI via Slack (SEI-J8 ciência, SEI-J9 tramitar, SEI-J10 abrir processo): trilha de auditoria, confirmação de identidade e fluxo de aprovação. Aprovado por TI+Jurídico+DPO?",
+    "impact_or_notes": "Jornadas de escrita (Onda 3) só entram após maturidade das de leitura; governança forte é pré-requisito. Risco de compliance se antecipadas."
+  },
+  {
+    "gap_id": "G1105",
+    "category": "Assumption",
+    "gap_or_question": "Assinatura eletrônica (SEI-J7) permanece integralmente no SEI (ICP-Brasil); Slack apenas notifica bloco pendente + deep-link, sem assinar fora do SEI. Confirmar restrição.",
+    "impact_or_notes": "Define fronteira LGPD/segurança de E11. Assinatura fora do SEI não é escopo."
+  }
+]

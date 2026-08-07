@@ -1,0 +1,80 @@
+[
+  {
+    "gap_id": "GAP-001",
+    "priority": "high",
+    "title": "Knowledge Articles not ready — client Week-1 dependency",
+    "description": "Agentforce Admin and Ops agents require 10–15 pre-approved, taxonomy-structured FAQ entries with correct Data Categories configured in Salesforce Service Cloud Knowledge. Content authoring and governance are explicitly Claro's responsibility. If not delivered before Build starts, agent grounding fails and UAT cannot proceed.",
+    "affected_epics": ["E06", "E07"],
+    "affected_requirements": ["REQ-GOV-001", "REQ-BIZ-001"],
+    "risk_category": "D2 — AI efficacy",
+    "confidence": "Confirmed",
+    "resolution": "Establish formal acceptance gate: Sprint 3 / Intelligence sprint (Week 5) does not start until Claro confirms 10–15 FAQs are live and categorized in the target sandbox. Ask for confirmation by end of Week 2 to avoid schedule pressure — this gates E06 and E07 only, not S1 or S2.",
+    "owner": "Claro (Fabrício / Claro Operational Analysts)",
+    "kb_sources": ["[KB:USD:144]", "[KB:USB:397]"]
+  },
+  {
+    "gap_id": "GAP-002",
+    "priority": "high",
+    "title": "Agentforce Unlimited license + Einstein LLM credits not confirmed as active on Day 1 of Build",
+    "description": "Epics E02 (LLM Rule Compilation), E05 (Diagnostic Narrative), E06 (Admin Agent), and E07 (Ops Agent) all require Agentforce Unlimited and Einstein Flex Credits to be provisioned and active in the sandbox before Build week 3. If licensing is delayed, the entire AI compilation layer cannot be built or tested.",
+    "affected_epics": ["E02", "E05", "E06", "E07"],
+    "affected_requirements": ["REQ-TEC-002", "REQ-BIZ-001"],
+    "risk_category": "A1 — Infrastructure / licensing",
+    "confidence": "Assumed",
+    "resolution": "Claro to confirm license activation on sandbox org by end of Discovery/Design phase (Week 2). PS to validate via ConnectApi test call before Build sprint begins.",
+    "owner": "Claro (Luciano) + PS Architect",
+    "kb_sources": ["[KB:USB:487-490]"]
+  },
+  {
+    "gap_id": "GAP-003",
+    "priority": "high",
+    "title": "Sandbox chain not confirmed: Dev + Partial Copy (SIT) + Full Copy (UAT/Ibuy)",
+    "description": "The delivery model requires three sandbox tiers: a Developer sandbox for build, a Partial Copy for SIT integration testing, and a Full Copy of Ibuy for UAT and parallel-run validation. Without confirmed sandbox availability and proper org configuration (no Platform Cache, RunSpecifiedTests in place), no build work can start.",
+    "affected_epics": ["E01", "E02", "E03", "E04", "E05", "E06", "E07", "E08", "E09", "E10"],
+    "affected_requirements": ["REQ-TEC-001", "REQ-CON-001"],
+    "risk_category": "G1 — Delivery governance",
+    "confidence": "Assumed",
+    "resolution": "Claro DevOps confirms sandbox chain and provides access credentials to the PS team no later than end of Week 1.",
+    "owner": "Claro (Luciano)",
+    "kb_sources": ["[KB:USD:84]", "[KB:USB:489-492]"]
+  },
+  {
+    "gap_id": "GAP-004",
+    "priority": "high",
+    "title": "RunSpecifiedTests mapping for STORM_PLM/Ibuy cross-org deploy not confirmed",
+    "description": "Both STORM_PLM and Ibuy environments reject Quick Deploy (CannotQuickDeployError). Every sprint release requires a manually specified list of test classes via RunSpecifiedTests. This mapping must be agreed and documented before the first Build sprint; without it, each deployment will block on test-class enumeration, adding unbudgeted time per release cycle.",
+    "affected_epics": ["E01", "E02", "E03", "E04", "E05", "E06", "E07", "E08", "E09", "E10"],
+    "affected_requirements": ["REQ-TEC-001"],
+    "risk_category": "G1 — DevOps risk",
+    "confidence": "Confirmed",
+    "resolution": "PS Architect and Claro DevOps produce a RunSpecifiedTests registry (class list per epic) during Discovery/Design (Weeks 1–2). Updated after each Build sprint as new classes are created.",
+    "owner": "PS Architect + Claro DevOps",
+    "kb_sources": ["[KB:USD:84]", "[KB:USB:193-195]"]
+  },
+  {
+    "gap_id": "GAP-005",
+    "priority": "high",
+    "title": "LGPD data classification sign-off pending Claro legal — hard gate before go-live",
+    "description": "LGPD compliance for this pipeline requires Claro's legal team to formally classify the data processed through Einstein Trust Layer (CSV payloads, Custom Metadata pricing snapshots, ConnectApi JSON traffic) and confirm that Zero-Data Retention Policy, Data Masking, and Brazil geo-routing controls are sufficient. This sign-off is a non-negotiable gate: go-live cannot proceed without it.",
+    "affected_epics": ["E10"],
+    "affected_requirements": ["REQ-AI-001", "REQ-LGPD-001"],
+    "risk_category": "Compliance / legal liability",
+    "confidence": "Confirmed",
+    "resolution": "PS activates and documents all Einstein Trust Layer controls in Week 5 (Build). Claro legal review window allocated in Week 6 (UAT start). Sign-off must land before Week 8 go-live.",
+    "owner": "Claro Legal + PS Architect",
+    "kb_sources": ["[KB:USB:644-654]"]
+  },
+  {
+    "gap_id": "GAP-006",
+    "priority": "medium",
+    "title": "CSV volumetry per batch not formally confirmed — avg/max rows open",
+    "description": "The USD assumes a working ceiling of 10,000 rows / 6,000,000 characters per CSV batch. The actual average and peak volumes from Claro's operational pipeline have not been formally confirmed. If real batches regularly approach or exceed the 10k-row bound, the Queueable chunk-size tuning and cursor design in E01 may need adjustment, adding Build complexity.",
+    "affected_epics": ["E01", "E03"],
+    "affected_requirements": ["REQ-TEC-001", "REQ-PRO-001"],
+    "risk_category": "C3 — Heap/governor limit risk",
+    "confidence": "Assumed",
+    "resolution": "Claro (Lucas) provides a sample of 3–5 production Demanda CSVs with representative row counts and string sizes by end of Discovery Week 1. PS sizes Queueable chunks accordingly before committing to E01 design.",
+    "owner": "Lucas (Claro SME) + PS Architect",
+    "kb_sources": ["[KB:USD:142]", "[KB:USB:390-396]"]
+  }
+]

@@ -1,0 +1,276 @@
+{
+  "sessions": [
+    {
+      "date": "2026-06-17",
+      "skill": "discover",
+      "summary": "Ingested 2 docs (Discovery com Lucas.docx, questions_export.xlsx). Ran 16-area extraction matrix. Confirmed scope: Agent 2 (PLM) only; 8-week T&M; PS PM added as billable resource paid by Claro. LGPD confirmed as applicable.",
+      "decisions": [
+        {
+          "decision": "Agent scope limited to Agent 2 (PLM) only",
+          "rationale": "User confirmed; Agents 1/3/4 out of scope",
+          "rejected_alternatives": ["All 4 agents in scope"]
+        },
+        {
+          "decision": "PM role: dedicated Salesforce PS resource, billable, paid by Claro",
+          "rationale": "User clarified — not shared with Luciano/SWE",
+          "rejected_alternatives": ["Shared with Luciano", "No PM"]
+        },
+        {
+          "decision": "LGPD applies to this engagement",
+          "rationale": "User confirmed",
+          "rejected_alternatives": []
+        }
+      ],
+      "open_threads": [
+        "LGPD controls — Claro legal must confirm data classification before go-live",
+        "STORM_PLM / Ibuy concurrency windows — needed before F1 build starts",
+        "Knowledge Article readiness (10-15 FAQs + Data Categories) — Week 1 client dependency",
+        "Budget / investment ceiling — not discussed",
+        "Agentforce Ops FLS scope — field visibility for narrative diagnostic reports"
+      ],
+      "next_steps": ["Run strategy or requirements"]
+    },
+    {
+      "date": "2026-06-17",
+      "skill": "strategy",
+      "summary": "Full strategy run — strategic context, vision statement, objectives, principles, and business case. Vision approved as written. 4 strategic priorities locked: eliminate redeploy bottleneck, stabilize pipeline, LGPD foundations, prove Agentforce model.",
+      "decisions": [
+        {
+          "decision": "Vision statement approved as written",
+          "rationale": "User approved draft — product catalog as strategic asset, PLM POC as beachhead for 4-agent platform",
+          "rejected_alternatives": []
+        }
+      ],
+      "open_threads": [
+        "LGPD controls — Claro legal must confirm data classification before go-live",
+        "STORM_PLM / Ibuy concurrency windows — needed before F1 build starts",
+        "Knowledge Article readiness (10-15 FAQs + Data Categories) — Week 1 client dependency",
+        "Budget / investment ceiling — not discussed",
+        "Agentforce Ops FLS scope — field visibility for narrative diagnostic reports"
+      ],
+      "next_steps": ["Run requirements to define epic skeleton"]
+    },
+    {
+      "date": "2026-06-17",
+      "skill": "requirements",
+      "summary": "Indexed USB + USD into knowledge base (1,855 sections). Produced 11 requirements across 6 categories (TEC/PRO/BIZ/DAT/GOV/CON/SEC/AI/LGPD). Fit profile: 5 Custom Dev · 3 Config · 2 Config+Custom Dev · 1 Capability Gap → confirms SC classification. Enriched epics.json with fit_classification, requirements[], process_hierarchy, gap_refs. Wrote data/gaps.json (6 gaps: 5 HIGH, 1 MEDIUM). Wrote outputs/02-requirements-catalog.md. Salesforce Shield dropped — out of scope for POC.",
+      "decisions": [
+        {
+          "decision": "Salesforce Shield (Platform Encryption + Event Monitoring) out of scope for POC",
+          "rationale": "User confirmed; Einstein Trust Layer alone sufficient for 8-week POC LGPD baseline",
+          "rejected_alternatives": ["Confirmed in scope", "Gap for Claro to confirm"]
+        },
+        {
+          "decision": "Epics enriched with fit_classification, requirements[], process_hierarchy, gap_refs",
+          "rationale": "User confirmed richer epics for downstream design + roadmap skills",
+          "rejected_alternatives": ["Keep epics lean"]
+        }
+      ],
+      "open_threads": [
+        "GAP-001: Knowledge Articles (10-15 FAQs + Data Categories) — Claro must deliver Week 1 or Build blocks",
+        "GAP-002: Agentforce Unlimited + Einstein credits — must be confirmed active by end of Week 2",
+        "GAP-003: Sandbox chain (Dev + SIT + UAT/Ibuy) — Claro DevOps must confirm by end of Week 1",
+        "GAP-004: RunSpecifiedTests class registry for STORM_PLM/Ibuy — PS + Claro DevOps produce in Weeks 1-2",
+        "GAP-005: LGPD legal sign-off — hard go-live gate; legal review Window 6",
+        "GAP-006: CSV volumetry (avg/max rows) — Lucas to provide sample CSVs by end of Week 1",
+        "E07 FLS scope: field visibility for HTML diagnostic reports — open thread from discovery"
+      ],
+      "next_steps": ["Run design to produce architecture reference + solution brief"]
+    },
+    {
+      "date": "2026-06-17",
+      "skill": "design",
+      "summary": "Ran design skill. Produced Architecture Reference (internal) and Solution Brief (client-facing). All 10 epics have full technical design grounded in USB/USD. Key design decisions documented: ConnectApi.EinsteinLLM pattern for E02/E05, static Map cache (no Platform Cache), Atlas reasoning engine + subagent structure for E06/E07, SHA-256 idempotency on Platform Events, Transaction Finalizer per Queueable for DLQ write, RunSpecifiedTests registry structure. Open technical spikes identified for Sprint 1: CPU ceiling profiling (E01), sub-50ms SLA validation (E03), Finalizer quota confirmation (E04). Salesforce Shield confirmed out of scope.",
+      "decisions": [
+        {
+          "decision": "ConnectApi.EinsteinLLM with applicationName='PromptTemplateGenerationsInvocable' is the correct server-side Apex invocation pattern for Prompt Templates",
+          "rationale": "Grounded in Agentforce KB; only supported pattern for Apex-to-PT invocation",
+          "rejected_alternatives": []
+        },
+        {
+          "decision": "Agent Actions (Apex invocables) used to bridge Agentforce agents to Apex engine classes (E06/E07)",
+          "rationale": "Standard Agentforce integration pattern; keeps agent config in no-code layer, engine in Apex",
+          "rejected_alternatives": ["Flow actions", "Direct REST callouts from agent"]
+        },
+        {
+          "decision": "Diagnostic Narrative (E05) runs in a separate Queueable post-evaluation, not inline with E03",
+          "rationale": "Keeps evaluation critical path free from LLM latency; LLM call does not block verdict writes",
+          "rejected_alternatives": ["Inline LLM call during evaluation loop"]
+        }
+      ],
+      "open_threads": [
+        "Sprint 1 spike: Queueable chunk CPU ceiling profiling (E01)",
+        "Sprint 1 spike: AST Walker sub-50ms SLA for multi-spec lines (E03)",
+        "Sprint 1 spike: Transaction Finalizer quota (1/Queueable) confirmation (E04)",
+        "Sprint 2 spike: Prompt Template input token limit vs. context builder payload size (E05)",
+        "E07 FLS: Demanda__c.Diagnostico__c and Resumo_Avaliacao_JSON__c must be added to Validacao_Engine_Access permset",
+        "All GAP-001 through GAP-006 remain open"
+      ],
+      "next_steps": ["Run roadmap to define phases, allocate 8-week timeline, and produce roles output"]
+    },
+    {
+      "date": "2026-06-17",
+      "skill": "roadmap",
+      "summary": "8-week client commitment allocated across 4 phases: P0 (2w Discovery/Arch), P1 (3w Build — 3 sprints), P2 (2w UAT), P3 (1w Go-Live). Sprint sequencing locked by dependency: E01/E09 (S1) → E02/E03/E04 (S2) → E05/E06/E07/E08 (S3). 3 technical spikes placed in Sprint 1 and 2. Critical path documented: all 6 GAPs are on the critical path. PM role confirmed as dedicated billable PS resource. Roles output produced with disciplines matrix.",
+      "decisions": [
+        {
+          "decision": "Sprint sequencing: E01+E09 (S1) → E02+E03+E04 (S2) → E05+E06+E07+E08 (S3)",
+          "rationale": "Hard technical dependency: agents and diagnostic narrative need the compiled spec and DLQ infrastructure to exist first",
+          "rejected_alternatives": ["Parallel epic streams"]
+        },
+        {
+          "decision": "Zero float on Build sprint — P0 slips compress P1, not P2/P3",
+          "rationale": "UAT and go-live windows are fixed by client; any P0 delay must be escalated immediately",
+          "rejected_alternatives": []
+        }
+      ],
+      "open_threads": [
+        "All 6 GAPs remain open — PM tracks weekly from Week 1",
+        "3 Sprint 1 spikes not yet executed: CPU ceiling (E01), AST sub-50ms (E03), Finalizer quota (E04)",
+        "Sprint 2 spike: Prompt Template token limit (E05)"
+      ],
+      "next_steps": ["Run efficiency skill to model AI-native delivery compression, or run validate to quality-check outputs before export"]
+    },
+    {
+      "date": "2026-06-17",
+      "skill": "efficiency",
+      "summary": "Modeled AI-native delivery efficiency across all 10 epics. High leverage on E01/E03/E04 (30-40% build compression) — repetitive Apex patterns well-suited to AI code generation. Medium-high on E02/E05 (25-35%) — service scaffolding + Prompt Template drafting. Medium on E06/E07/E08/E09 (15-25%). Low on E10 (10-15%) — constraint is legal gate, not PS effort. Key insight: AI converts Build sprint schedule risk into quality headroom; the real binding constraint remains P0 client dependencies (6 GAPs). Benchmark-based, internal PS planning only.",
+      "decisions": [
+        {
+          "decision": "AI efficiency applies to Build sprint PS effort only — not UAT, not LGPD gate, not dependency resolution",
+          "rationale": "Client gates (GAP-001 through GAP-006) are the actual critical path; AI cannot accelerate human approvals or Salesforce provisioning",
+          "rejected_alternatives": []
+        }
+      ],
+      "open_threads": ["All prior open threads remain open"],
+      "next_steps": ["Run validate to quality-check all outputs before export, then narratives or export"]
+    },
+    {
+      "date": "2026-06-17",
+      "skill": "validate",
+      "summary": "Full cross-validation pass across all outputs. Verdict: PASS with 3 fixes applied. No ungrounded claims, no pricing, no invented commitments. Fixes: (1) QA 0.5→1.5 in 00-project-summary.md, (2) Engagement Manager→Project Manager (billable), (3) GAP-001 gate timing corrected to Sprint 3 and owner corrected from Luciano to Fabrício/Analysts. Informational: Pim- vs Plm- naming risk flagged for delivery team.",
+      "decisions": [],
+      "open_threads": ["All prior open threads remain — none are output quality blockers"],
+      "next_steps": ["Run narratives to produce executive summary and win themes, then export"]
+    },
+    {
+      "date": "2026-06-17",
+      "skill": "narratives",
+      "summary": "Produced executive summary and 12-slide presentation outline with win themes, objection handling (5 objections), and Portuguese slide structure. Three win themes: (1) proven pattern not experiment, (2) PLM as 4-agent platform beachhead, (3) business teams as catalog authority. Risk table included in slide 10. Pre-requisite checklist in slide 11.",
+      "decisions": [
+        {
+          "decision": "Presentation slides in Portuguese (pt-BR)",
+          "rationale": "Audience is Claro Brasil (Lucas, Luciano, Fabrício) — Portuguese is the working language",
+          "rejected_alternatives": ["English only", "Bilingual slide deck"]
+        }
+      ],
+      "open_threads": ["All prior open threads remain — none blocking"],
+      "next_steps": ["Run export to bundle all deliverables, or run commercials if pricing needed before proposal"]
+    },
+    {
+      "date": "2026-06-17",
+      "skill": "export",
+      "summary": "All deliverables bundled. 10 markdown outputs in outputs/ + scoping-deliverables.xlsx (Epics sheet). All completion_status fields set to complete. Full proposal-ready package: executive summary, solution brief, architecture reference, requirements catalog, roadmap, roles, efficiency analysis, presentation outline, review report, and Excel workbook.",
+      "decisions": [],
+      "open_threads": [
+        "commercials skill not run — no rate supplied or requested; run if Claro asks for indicative pricing",
+        "share skill not run — publish to Google Drive if a shareable link is needed",
+        "All 6 GAPs (client dependencies) remain open — PM to track from Week 1"
+      ],
+      "next_steps": [
+        "Deliver scoping-deliverables.xlsx + outputs/ to internal stakeholders",
+        "Run commercials if indicative pricing range is needed for the proposal",
+        "Run slides to produce PPTX from 06-presentation-outline.md if a PowerPoint is needed",
+        "Run share to publish any deliverable to Google Drive as a shareable link"
+      ]
+    },
+    {
+      "date": "2026-06-17",
+      "skill": "commercials",
+      "summary": "Per-role daily rates supplied and validated by user. Total PS engagement fee: $193,882.40 (180 person-days, 8 weeks). PS delivery (TA+TC+QA): $145,127.20. PM separate billing line: $48,755.20. Rates written to data/commercials.json. Output 09-commercials.md marked internal PS only — rates must not appear in client-facing documents.",
+      "decisions": [
+        {
+          "decision": "Engagement fee framed as 'PS engagement fee paid by Claro to Salesforce' — not as 'investment'",
+          "rationale": "User corrected: Claro pays Salesforce for services rendered; 'investment' framing is incorrect for a services fee",
+          "rejected_alternatives": ["investment framing"]
+        }
+      ],
+      "open_threads": [
+        "Rates are confidential — do not include in any client-facing output",
+        "T&M model: final billing on actual days logged, not a fixed-price ceiling"
+      ],
+      "next_steps": [
+        "Run slides to produce PPTX from 06-presentation-outline.md if a PowerPoint deck is needed",
+        "Run share to publish any deliverable to Google Drive as a shareable link"
+      ]
+    },
+    {
+      "date": "2026-06-17",
+      "skill": "slides",
+      "summary": "12-slide PPTX generated in Portuguese. Salesforce brand palette (navy/blue/white). Slides: Title, Problema, Diagnostico, Solucao, Arquitetura, KPIs, Beachhead, Plano de Entrega, Time PS, Riscos, Pre-requisitos, Proximos Passos. Saved to outputs/CLARO_Agente_PLM_Presentation.pptx (53 KB).",
+      "decisions": [],
+      "open_threads": [],
+      "next_steps": ["Run share to publish to Google Drive as a shareable link if needed"]
+    },
+    {
+      "date": "2026-06-17",
+      "skill": "wrapup",
+      "summary": "Full session wrap-up. All 11 skills complete (discover → strategy → requirements → design → roadmap → efficiency → validate → narratives → export → commercials → slides). Proposal-ready package delivered: 11 markdown outputs + Excel workbook + PPTX (53 KB, 12 slides, Portuguese). PS engagement fee: $193,882.40 total (TA+TC+QA: $145,127.20 / PM separate: $48,755.20), rates confidential. Validate: PASS with 3 minor fixes. No ungrounded claims, no invented commitments. 6 client dependencies (GAPs) remain open — PM tracks from Week 1.",
+      "friction": [
+        "All Skill tool invocations returned 'Unknown skill' — every skill run manually throughout session",
+        "python3 is 3.9.6 (union type syntax failure) — all scripts required python3.12",
+        "knowledge-search.py CLI syntax required trial-and-error to discover correct form"
+      ],
+      "decisions": [
+        "Agent 2 (PLM) only in scope — Agents 1/3/4 out of scope",
+        "PS PM: dedicated, billable, paid by Claro — not shared with Luciano",
+        "LGPD applies — Einstein Trust Layer sufficient for POC; Salesforce Shield out of scope",
+        "Sprint sequencing: E01+E09 → E02+E03+E04 → E05+E06+E07+E08",
+        "Pricing framed as PS engagement fee paid by Claro to Salesforce — not 'investment'"
+      ],
+      "open_threads": [
+        "GAP-001: Knowledge Articles (10-15 FAQs) — Fabrício/Analistas, gate Sprint 3",
+        "GAP-002: Agentforce license + Einstein credits — active by end of Week 2",
+        "GAP-003: Sandbox chain (Dev+SIT+Ibuy) — Luciano, end of Week 1",
+        "GAP-004: RunSpecifiedTests class registry — PS+Luciano, Weeks 1-2",
+        "GAP-005: LGPD legal sign-off — hard go-live gate, Week 6 window",
+        "GAP-006: CSV volumetry samples — Lucas, end of Week 1",
+        "Sprint spikes not yet executed (CPU ceiling, AST sub-50ms, Finalizer quota, PT token limit)"
+      ],
+      "next_steps": [
+        "Deliver outputs/ to Claro (share skill for Google Drive links)",
+        "Present PPTX to Lucas / Luciano / Fabricio",
+        "Confirm PS engagement approval and T&M model",
+        "PM to track all 6 GAPs from Week 1 kickoff"
+      ]
+    }
+  ],
+  "preferences": {},
+  "decision_log": [
+    {
+      "date": "2026-06-17",
+      "decision": "Agent 2 (PLM) only in scope",
+      "rationale": "User confirmed"
+    },
+    {
+      "date": "2026-06-17",
+      "decision": "PS PM added as billable resource paid by Claro",
+      "rationale": "User clarified"
+    },
+    {
+      "date": "2026-06-17",
+      "decision": "LGPD applies",
+      "rationale": "User confirmed"
+    },
+    {
+      "date": "2026-06-17",
+      "decision": "Salesforce Shield out of scope for POC",
+      "rationale": "Einstein Trust Layer sufficient for 8-week POC LGPD baseline"
+    },
+    {
+      "date": "2026-06-17",
+      "decision": "Sprint sequencing: E01+E09 → E02+E03+E04 → E05+E06+E07+E08",
+      "rationale": "Hard technical dependency chain — AST Walker must exist before agents and narrative layer"
+    }
+  ]
+}

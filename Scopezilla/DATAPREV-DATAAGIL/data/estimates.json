@@ -1,0 +1,452 @@
+[
+  {
+    "item_id": "E01",
+    "item_type": "epic",
+    "t_shirt_size": "L",
+    "size_drivers": {
+      "data_model": {
+        "tier": "n/a",
+        "signal": "Read-only query pattern — no Salesforce objects created, Protheus ERP is source"
+      },
+      "automation": {
+        "tier": "M",
+        "signal": "Agentforce agent orchestration + MuleSoft API exposure + perfil de acesso per-user enforcement — hybrid Flow orchestration triggering MuleSoft APIs [extends: MuleSoft secure API exposure pattern for ERP integration]"
+      },
+      "intelligence_ai": {
+        "tier": "L",
+        "signal": "Single-topic Agentforce agent (financial queries) with grounding via MCP federation (Slack channel history + Protheus API responses) — conversational design + hallucination guardrails for financial data [KB: Advanced Strategic Architecture and Value Analysis_ Slack as an Agentic Operating System (Agentic OS) & Agentforce 360.md:134]"
+      },
+      "integration": {
+        "tier": "L",
+        "signal": "MuleSoft API exposure over Protheus ERP REST APIs + OAuth 2.0 client credentials + perfil de acesso per-user authorization middleware + audit trail logging every API call [assumption: Protheus ERP REST API compatibility — validate with Dataprev TI]"
+      },
+      "data_volume_migration": {
+        "tier": "n/a",
+        "signal": "No data migration — read-only queries at runtime"
+      },
+      "sharing_security": {
+        "tier": "XL",
+        "signal": "TI+Jurídico+DPO tri-party governance model (Gap G1002 blocker) — perfil de acesso per user enforced via MuleSoft middleware — LGPD/TCU audit trail mandatory (5 years retention assumed) — Slack EKM (Enterprise Key Management) instant revocation capability [KB: Advanced Strategic Architecture and Value Analysis_ Slack as an Agentic Operating System (Agentic OS) & Agentforce 360.md:128]"
+      },
+      "ui": {
+        "tier": "S",
+        "signal": "Slack conversational UI (text/voice queries) — standard Slack message rendering + Agentforce response cards — no custom LWC"
+      },
+      "analytics_insights": {
+        "tier": "n/a",
+        "signal": "No analytics layer — transactional queries only"
+      }
+    },
+    "size_rationale": "L — driven by Sharing/Security (XL: Protheus governance blocker, perfil de acesso per user, LGPD/TCU audit trail, Slack EKM) + Intelligence/AI (L: Agentforce agent + MCP grounding) + Integration (L: MuleSoft OAuth + middleware + audit logging). Automation + UI modest.",
+    "complexity_drivers": "Protheus ERP governance blocker (TI+Jurídico+DPO tri-party meeting required pre-kick-off — Gap G1002), MuleSoft API exposure + perfil de acesso enforcement per user, LGPD/TCU rastreabilidade (every API call logged, 5-year retention), Slack EKM deployment (AWS KMS master keys under CISO control), Agentforce conversational design for financial queries (grounding via MCP federation)",
+    "skills_needed": "Agentforce developer (agent + prompt engineering), MuleSoft architect (API exposure + OAuth + middleware), Salesforce security architect (perfil de acesso model + audit trail + EKM), integration developer (Protheus ERP API), Slack admin (Enterprise Grid + EKM config)",
+    "risks": "Protheus governance blocker (Gap G1002): tri-party TI+Jurídico+DPO meeting must complete before F1 kick-off — escalate to seller immediately. Fallback: defer J1 to F2, launch F1 with J2/J5/J7/J8 only. Protheus API compatibility unknown (Gap G0102) — validate auth model + rate limits + perfil de acesso enforcement mechanism with TI before F1 build. Volumetria unknown (Gap G0102) — capacity planning for MuleSoft API calls blocked; F1 pre-kick-off audit required.",
+    "solution_approach": "Agentforce agent (J1 Consultas Financeiras) orchestrates conversational financial queries in Slack → MuleSoft Anypoint API exposes Protheus ERP read-only REST APIs → perfil de acesso per user enforced via middleware (TI+Jurídico+DPO governance model) → agent returns valores em aberto + status + vencimento as Slack message cards. Every API call logged (user ID + timestamp + query + response status) for LGPD/TCU audit trail. Slack EKM (Enterprise Key Management) deployed F1 — AWS KMS master keys under Dataprev CISO control for instant revocation capability (motivated by prior 2.8M CPF breach). Agent grounding via MCP federation (Slack channel history + Protheus API responses) to minimize hallucination on financial data.",
+    "confidence": "Assumed"
+  },
+  {
+    "item_id": "E02",
+    "item_type": "epic",
+    "t_shirt_size": "M",
+    "size_drivers": {
+      "data_model": {
+        "tier": "n/a",
+        "signal": "Read-only query pattern — no Salesforce objects created, Pronto (ServiceNow) is source"
+      },
+      "automation": {
+        "tier": "S",
+        "signal": "Agentforce agent orchestration + MuleSoft API exposure — simpler than E01 (no perfil de acesso per-user governance, standard ServiceNow auth model assumed)"
+      },
+      "intelligence_ai": {
+        "tier": "M",
+        "signal": "Single-topic Agentforce agent (ticket status queries) with standard grounding pattern — conversational design for ticket lookup (quantos abertos, SLA, histórico) [KB: Advanced Strategic Architecture and Value Analysis_ Slack as an Agentic Operating System (Agentic OS) & Agentforce 360.md:134]"
+      },
+      "integration": {
+        "tier": "M",
+        "signal": "MuleSoft API exposure over Pronto (ServiceNow) REST APIs + OAuth 2.0 — standard ServiceNow integration pattern [assumption: ServiceNow Pronto REST API compatibility — validate auth model + rate limits with Dataprev TI]"
+      },
+      "data_volume_migration": {
+        "tier": "n/a",
+        "signal": "No data migration — read-only queries at runtime"
+      },
+      "sharing_security": {
+        "tier": "M",
+        "signal": "Standard LGPD/TCU audit trail (every API call logged) — no special governance model like E01 Protheus; ServiceNow auth model assumed standard"
+      },
+      "ui": {
+        "tier": "S",
+        "signal": "Slack conversational UI (text/voice queries) — standard Slack message rendering + Agentforce response cards"
+      },
+      "analytics_insights": {
+        "tier": "n/a",
+        "signal": "No analytics layer — transactional queries only"
+      }
+    },
+    "size_rationale": "M — driven by Integration (M: ServiceNow REST API + OAuth) + Intelligence/AI (M: Agentforce agent + conversational design). Lower complexity than E01 (no Protheus governance blocker, no perfil de acesso per-user enforcement).",
+    "complexity_drivers": "Pronto (ServiceNow) REST API integration (~30k tickets/month volume, ~13-14k from INSS), MuleSoft API exposure + OAuth 2.0, Agentforce conversational design for ticket status queries (quantos abertos, SLA, histórico), LGPD/TCU audit trail (every API call logged)",
+    "skills_needed": "Agentforce developer (agent + prompt engineering), MuleSoft architect (API exposure + OAuth), integration developer (ServiceNow Pronto API), Slack admin",
+    "risks": "Pronto (ServiceNow) API compatibility unknown (Gap G0201) — validate auth model + rate limits + required fields with TI before F1 build. Volumetria unknown (Gap G0201) — ~30k tickets/month assumed, validate with TI for MuleSoft capacity planning.",
+    "solution_approach": "Agentforce agent (J2 Autoatendimento Chamados) orchestrates conversational ticket status queries in Slack → MuleSoft Anypoint API exposes Pronto (ServiceNow) read-only REST APIs → agent returns ticket count, SLA status, resolution history as Slack message cards. F1 read-only eliminates N1 dependency for status queries; F2+ J3 enables ticket creation (controlled writes).",
+    "confidence": "Assumed"
+  },
+  {
+    "item_id": "E03",
+    "item_type": "epic",
+    "t_shirt_size": "M",
+    "size_drivers": {
+      "data_model": {
+        "tier": "n/a",
+        "signal": "Read-only query pattern — no Salesforce objects created, CRM Totvs is source"
+      },
+      "automation": {
+        "tier": "S",
+        "signal": "Agentforce agent orchestration + MuleSoft API exposure — standard CRM integration pattern"
+      },
+      "intelligence_ai": {
+        "tier": "M",
+        "signal": "Single-topic Agentforce agent (executive briefing) with grounding via CRM pipeline data — conversational design for on-demand briefing (pipeline, contratos macro, forecast, last interactions) [KB: Advanced Strategic Architecture and Value Analysis_ Slack as an Agentic Operating System (Agentic OS) & Agentforce 360.md:134]"
+      },
+      "integration": {
+        "tier": "M",
+        "signal": "MuleSoft API exposure over CRM Totvs REST APIs + OAuth 2.0 — CRM integration pattern [assumption: CRM Totvs API equivalence to Salesforce Sales Cloud pattern — validate integration feasibility + data model mapping]"
+      },
+      "data_volume_migration": {
+        "tier": "n/a",
+        "signal": "No data migration — read-only queries at runtime"
+      },
+      "sharing_security": {
+        "tier": "M",
+        "signal": "Standard LGPD/TCU audit trail (every API call logged) — executive-only access (smaller user base than E01/E02), no special governance model"
+      },
+      "ui": {
+        "tier": "M",
+        "signal": "Slack conversational UI mobile-first (Slack mobile app) — executive briefing on-demand during commute — standard Slack message rendering + Agentforce response cards"
+      },
+      "analytics_insights": {
+        "tier": "n/a",
+        "signal": "No analytics layer — transactional briefing queries only"
+      }
+    },
+    "size_rationale": "M — driven by Integration (M: CRM Totvs REST API + OAuth) + Intelligence/AI (M: Agentforce agent + executive briefing conversational design) + UI (M: mobile-first UX). Standard complexity, no special governance or high-volume scaling.",
+    "complexity_drivers": "CRM Totvs REST API integration (~50 active users, ~30% of comercial), MuleSoft API exposure + OAuth 2.0, Agentforce conversational design for executive briefing (pipeline, contratos macro, forecast, last interactions), mobile-first UX (Slack mobile app — executive briefing on-demand during commute)",
+    "skills_needed": "Agentforce developer (agent + prompt engineering), MuleSoft architect (API exposure + OAuth), integration developer (CRM Totvs API), Slack admin, UX designer (mobile-first conversational flow)",
+    "risks": "CRM Totvs API compatibility unknown (Gap G0302) — validate API equivalence to Salesforce Sales Cloud pattern (field mapping + data model) with TI before F1 build. CRM Totvs adoption low (~30% of comercial) — executive briefing may surface stale data if CRM not maintained; flag hygiene as adoption dependency.",
+    "solution_approach": "Agentforce agent (J5 Intelligence Executiva Mobile) orchestrates conversational executive briefing in Slack mobile app → MuleSoft Anypoint API exposes CRM Totvs read-only REST APIs → agent returns pipeline, contratos macro, forecast, last interactions as Slack message cards. Mobile-first UX (Slack mobile app) — executive asks during commute, arrives pautado.",
+    "confidence": "Assumed"
+  },
+  {
+    "item_id": "E04",
+    "item_type": "epic",
+    "t_shirt_size": "L",
+    "size_drivers": {
+      "data_model": {
+        "tier": "S",
+        "signal": "Knowledge object for normativas migration from Portal Conexão/SharePoint — one-time load + delta sync — standard Salesforce Knowledge data model"
+      },
+      "automation": {
+        "tier": "M",
+        "signal": "Agentforce agent orchestration + MuleSoft API exposure (Portal Conexão/SharePoint content extraction) + Slack AI channel recaps integration — hybrid orchestration"
+      },
+      "intelligence_ai": {
+        "tier": "L",
+        "signal": "RAG (Retrieval-Augmented Generation) over Portal Conexão/SharePoint normativas + Slack AI channel recaps — single-topic Agentforce agent (compliance KB queries) with custom grounding strategy (MCP Real-time Search API federation over Slack + SharePoint content indexing) — conversational design for KB lookup [KB: Advanced Strategic Architecture and Value Analysis_ Slack as an Agentic Operating System (Agentic OS) & Agentforce 360.md:127]"
+      },
+      "integration": {
+        "tier": "M",
+        "signal": "MuleSoft API exposure over Portal Conexão (SharePoint) REST APIs + content indexing for RAG corpus [assumption: SharePoint portal Conexão API extraction + content indexing method — validate with Dataprev TI]"
+      },
+      "data_volume_migration": {
+        "tier": "S",
+        "signal": "One-time normativas migration from Portal Conexão/SharePoint to Salesforce Knowledge — moderate volume (hundreds of normativas, not thousands), clean structured content"
+      },
+      "sharing_security": {
+        "tier": "M",
+        "signal": "Compliance-sensitive content (alçadas R$ 2M, políticas RH) — standard Salesforce Knowledge access control + LGPD/TCU audit trail — no special governance model beyond standard"
+      },
+      "ui": {
+        "tier": "S",
+        "signal": "Slack conversational UI (text/voice queries) — standard Slack message rendering + Agentforce response cards with KB article citations"
+      },
+      "analytics_insights": {
+        "tier": "n/a",
+        "signal": "No analytics layer — KB lookup queries only"
+      }
+    },
+    "size_rationale": "L — driven by Intelligence/AI (L: RAG over SharePoint + Slack AI, custom grounding strategy via MCP Real-time Search API, KB corpus indexing) + Integration (M: SharePoint content extraction + indexing). Data model + automation modest.",
+    "complexity_drivers": "RAG (Retrieval-Augmented Generation) corpus indexing over Portal Conexão/SharePoint normativas + Slack AI channel recaps, MCP Real-time Search API federation (Slack conversations + files + Canvases), Agentforce conversational design for KB queries (políticas RH, alçadas R$ 2M, compliance), compliance-sensitive content (TCU audit exposure risk if incorrect alçada surfaced), one-time normativas migration + delta sync",
+    "skills_needed": "Agentforce developer (agent + prompt engineering + RAG grounding strategy), MuleSoft architect (SharePoint API + content indexing), Salesforce Knowledge admin (data model + article lifecycle), Slack admin (Slack AI + MCP federation config), integration developer (SharePoint API)",
+    "risks": "SharePoint portal Conexão API compatibility unknown (Gap G0402) — validate content extraction method + indexing strategy with TI before F1 build. RAG corpus quality dependent on SharePoint content structure — if normativas are unstructured or poorly tagged, KB search quality degrades. Slack AI + MCP Real-time Search API new technology — limited production precedent, may require iterative tuning F1 pilot.",
+    "solution_approach": "Agentforce agent (J7 KB Normativas) indexes Portal Conexão/SharePoint normativas + Slack AI channel recaps into RAG corpus via MCP Real-time Search API federation → employee asks *\"Quem assina contratos acima de R$ 2M?\"* → agent queries RAG corpus (KB article + Slack channel history) → returns exact alçada policy with source citation (KB article + line). Eliminates acionamentos repetitivos (-50% target F1), reduces TCU risk (correct alçada always surfaced). One-time normativas migration from SharePoint to Salesforce Knowledge + delta sync for updates.",
+    "confidence": "Assumed"
+  },
+  {
+    "item_id": "E05",
+    "item_type": "epic",
+    "t_shirt_size": "S",
+    "size_drivers": {
+      "data_model": {
+        "tier": "n/a",
+        "signal": "Write-only to MS Teams calendar — no Salesforce objects created"
+      },
+      "automation": {
+        "tier": "S",
+        "signal": "Agentforce agent orchestration + Salesforce Flow triggering MS Teams Graph API — standard automation pattern"
+      },
+      "intelligence_ai": {
+        "tier": "M",
+        "signal": "Single-topic Agentforce agent (meeting scheduling) with natural language parsing (voice/text command → attendees + date/time + subject extraction) — conversational design for scheduling [KB: Advanced Strategic Architecture and Value Analysis_ Slack as an Agentic Operating System (Agentic OS) & Agentforce 360.md:134]"
+      },
+      "integration": {
+        "tier": "S",
+        "signal": "Direct Microsoft Graph API integration (Teams calendar write) — standard MS Graph connector pattern, no MuleSoft hop needed [extends: Slack Workflow Builder + Microsoft Teams calendar integration pattern via Graph API]"
+      },
+      "data_volume_migration": {
+        "tier": "n/a",
+        "signal": "No data migration — write-only at runtime"
+      },
+      "sharing_security": {
+        "tier": "S",
+        "signal": "Low governance risk (calendar write-only, no sensitive data), standard OAuth 2.0 to MS Teams Graph API"
+      },
+      "ui": {
+        "tier": "S",
+        "signal": "Slack conversational UI (voice/text scheduling commands) — standard Slack message rendering + Agentforce confirmation"
+      },
+      "analytics_insights": {
+        "tier": "n/a",
+        "signal": "No analytics layer — write-only scheduling actions"
+      }
+    },
+    "size_rationale": "S — driven by Intelligence/AI (M: natural language parsing for scheduling commands) balanced by low Integration (S: standard MS Graph API), low Automation (S), low Security (S). Simplest epic in F1.",
+    "complexity_drivers": "Agentforce natural language parsing (voice/text command → attendees + date/time + subject extraction), MS Teams Graph API integration (calendar write), Salesforce Flow orchestration (Slack → Agentforce → Flow → MS Graph API)",
+    "skills_needed": "Agentforce developer (agent + prompt engineering for NLP scheduling), Salesforce admin (Flow builder), integration developer (MS Graph API connector)",
+    "risks": "MS Teams Graph API rate limits unknown — validate with TI for capacity planning (how many scheduling commands/day expected?). Voice command accuracy dependent on Slack voice-to-text quality — may require iterative tuning F1 pilot if accents/background noise degrade transcription.",
+    "solution_approach": "Agentforce agent (J8 Agendamento Automatizado) accepts voice/text scheduling commands in Slack → parses natural language (attendees + date/time + subject) → Salesforce Flow triggers MS Teams Graph API (calendar write) → agent confirms meeting created + sends invites. Eliminates \"não esquece, não esquece\" cognitive friction.",
+    "confidence": "Confirmed"
+  },
+  {
+    "item_id": "E06",
+    "item_type": "epic",
+    "t_shirt_size": "L",
+    "size_drivers": {
+      "data_model": {
+        "tier": "n/a",
+        "signal": "No Salesforce objects created — CRM Totvs remains system of origin"
+      },
+      "automation": {
+        "tier": "M",
+        "signal": "Agentforce agent orchestration + MuleSoft API exposure (CRM Totvs write APIs) + adoption monitoring (KPI tracking: usage semanal, pipeline hygiene metrics) — hybrid orchestration"
+      },
+      "intelligence_ai": {
+        "tier": "L",
+        "signal": "Single-topic Agentforce agent (CRM updates) with conversational design for voice/text CRM field updates (pipeline, forecast, oportunidades) — field mapping + transactional integrity validation [KB: Advanced Strategic Architecture and Value Analysis_ Slack as an Agentic Operating System (Agentic OS) & Agentforce 360.md:134]"
+      },
+      "integration": {
+        "tier": "L",
+        "signal": "MuleSoft API exposure over CRM Totvs write REST APIs (F2 controlled writes) + OAuth 2.0 + field mapping + transactional integrity validation [assumption: CRM Totvs write API equivalence to Salesforce Sales Cloud pattern — validate field mapping + transactional integrity]"
+      },
+      "data_volume_migration": {
+        "tier": "n/a",
+        "signal": "No data migration — write-only at runtime (F2)"
+      },
+      "sharing_security": {
+        "tier": "M",
+        "signal": "Standard LGPD/TCU audit trail (every API call logged) — CRM write operations (pipeline, forecast updates) auditable, no special governance model"
+      },
+      "ui": {
+        "tier": "M",
+        "signal": "Slack conversational UI (voice/text CRM updates) — conversational design for field updates (\"Oportunidade X avançou para proposta, valor R$ 5M\") — standard Slack message rendering + Agentforce confirmation"
+      },
+      "analytics_insights": {
+        "tier": "M",
+        "signal": "Adoption monitoring dashboard (Salesforce CRM Analytics or standard reports) — KPIs: uso semanal %, pipeline hygiene (staleness, completeness), forecast accuracy — derived from CRM Totvs activity logs"
+      }
+    },
+    "size_rationale": "L — driven by Intelligence/AI (L: conversational CRM updates with field mapping + transactional integrity) + Integration (L: CRM Totvs write APIs + field mapping validation) + Analytics (M: adoption monitoring KPIs). F2 controlled writes higher risk than F1 read-only.",
+    "complexity_drivers": "CRM Totvs write API integration (F2 controlled writes — higher risk than F1 read-only), field mapping + transactional integrity validation (Agentforce conversational input → CRM Totvs fields), adoption monitoring (KPI tracking: uso semanal %, pipeline hygiene, forecast accuracy), conversational design for voice/text CRM updates, LGPD/TCU audit trail (every write logged)",
+    "skills_needed": "Agentforce developer (agent + prompt engineering + field mapping logic), MuleSoft architect (write API exposure + field mapping + transactional integrity), integration developer (CRM Totvs write API), Salesforce admin (adoption monitoring dashboard), Slack admin",
+    "risks": "CRM Totvs write API compatibility unknown (Gap G0605) — validate field mapping + transactional integrity mechanism with TI before F2 build. Adoption measurement dependent on CRM Totvs activity logs — if logs don't capture Slack-originated writes distinctly, hygiene KPIs may be inaccurate. F2 controlled writes risk: incorrect field mapping or failed transaction → stale CRM data → forecast inaccuracy (same problem being solved). Requires robust retry logic + error handling.",
+    "solution_approach": "Agentforce agent (J4 Adoção CRM Conversacional) accepts voice/text CRM updates in Slack (F2) → validates field mapping + transactional integrity → MuleSoft Anypoint API writes CRM Totvs via REST → agent confirms update + logs transaction. Adoption monitoring dashboard (Salesforce CRM Analytics or standard reports) tracks KPIs: uso semanal %, pipeline hygiene (staleness, completeness), forecast accuracy. Target: +40% adoption F2 via conversational interface elimination of login + form friction.",
+    "confidence": "Assumed"
+  },
+  {
+    "item_id": "E07",
+    "item_type": "epic",
+    "t_shirt_size": "M",
+    "size_drivers": {
+      "data_model": {
+        "tier": "n/a",
+        "signal": "No Salesforce objects created — Pronto (ServiceNow) remains system of origin"
+      },
+      "automation": {
+        "tier": "M",
+        "signal": "Agentforce agent orchestration + MuleSoft API exposure (Pronto write APIs) + required-fields validation — hybrid orchestration"
+      },
+      "intelligence_ai": {
+        "tier": "M",
+        "signal": "Single-topic Agentforce agent (ticket creation) with conversational design for voice/text ticket creation (subject + priority + description extraction from natural language) — required-fields validation [KB: Advanced Strategic Architecture and Value Analysis_ Slack as an Agentic Operating System (Agentic OS) & Agentforce 360.md:134]"
+      },
+      "integration": {
+        "tier": "M",
+        "signal": "MuleSoft API exposure over Pronto (ServiceNow) write REST APIs (F2 controlled writes) + OAuth 2.0 + required-fields validation [assumption: ServiceNow Pronto case creation API — validate authentication model + required fields]"
+      },
+      "data_volume_migration": {
+        "tier": "n/a",
+        "signal": "No data migration — write-only at runtime (F2)"
+      },
+      "sharing_security": {
+        "tier": "M",
+        "signal": "Standard LGPD/TCU audit trail (every API call logged) — ticket creation operations auditable, no special governance model"
+      },
+      "ui": {
+        "tier": "M",
+        "signal": "Slack conversational UI (voice/text ticket creation) — conversational design for incident reporting (\"Abrir chamado crítico: sistema X fora do ar desde 9h\") — standard Slack message rendering + Agentforce confirmation (ticket number + SLA)"
+      },
+      "analytics_insights": {
+        "tier": "n/a",
+        "signal": "No analytics layer — write-only ticket creation actions"
+      }
+    },
+    "size_rationale": "M — driven by Integration (M: Pronto write API + required-fields validation) + Intelligence/AI (M: conversational ticket creation with NLP extraction) + Automation (M: hybrid orchestration). Standard F2 controlled-write complexity.",
+    "complexity_drivers": "Pronto (ServiceNow) write API integration (F2 controlled writes — case creation), required-fields validation (Agentforce conversational input → Pronto required fields: subject, priority, description, category), conversational design for voice/text ticket creation, LGPD/TCU audit trail (every write logged), incident workflow orchestration (Pronto ticket triggers internal routing/assignment rules)",
+    "skills_needed": "Agentforce developer (agent + prompt engineering + NLP extraction for ticket fields), MuleSoft architect (write API exposure + required-fields validation), integration developer (ServiceNow Pronto write API), Slack admin",
+    "risks": "Pronto (ServiceNow) write API compatibility unknown (Gap G0701) — validate authentication model + required fields + category taxonomy with TI before F2 build. Volumetria unknown (Gap G0701) — ticket creation volume/day needed for MuleSoft capacity planning. F2 controlled writes risk: incomplete ticket data (missing required fields) → ticket creation fails → user frustration. Requires robust validation + retry logic.",
+    "solution_approach": "Agentforce agent (J3 Abertura Chamados Assistida) accepts voice/text ticket creation in Slack (F2) → parses natural language (subject + priority + description) → validates required fields → MuleSoft Anypoint API writes Pronto (ServiceNow) case via REST → agent returns ticket number + SLA. Reduces friction ofício/reunião → faster incident reporting → lower MTTR.",
+    "confidence": "Assumed"
+  },
+  {
+    "item_id": "E08",
+    "item_type": "epic",
+    "t_shirt_size": "XL",
+    "size_drivers": {
+      "data_model": {
+        "tier": "L",
+        "signal": "IF Service Cloud migration chosen (Gap G0801 decision pending F2): Clarity → Service Cloud Case object migration (4.5k active demands + historical archive), custom objects for Clarity-specific fields (projeto, evolutionary demand metadata) — complex data model. IF co-living: n/a (Clarity remains source)."
+      },
+      "automation": {
+        "tier": "M",
+        "signal": "Agentforce agent orchestration + MuleSoft API exposure (Clarity read/write APIs) — IF Service Cloud migration: dual-system orchestration (write Service Cloud, read Clarity archive for historical lookup) — complex"
+      },
+      "intelligence_ai": {
+        "tier": "M",
+        "signal": "Single-topic Agentforce agent (demand queries/creation) with conversational design for demand status queries + creation (F2+) — standard pattern, but complicated by dual-system architecture if Service Cloud migration chosen"
+      },
+      "integration": {
+        "tier": "XL",
+        "signal": "Clarity (Broadcom) API compatibility unknown (Gap G0801) — no KB coverage, must validate with TI. IF co-living: MuleSoft API exposure over Clarity read/write REST APIs. IF Service Cloud migration: dual integration (read Clarity archive, write Service Cloud) + data migration orchestration (4.5k active + historical) — XL complexity. [assumption: Broadcom Clarity API compatibility + governance model — no KB coverage; validate with Dataprev TI]"
+      },
+      "data_volume_migration": {
+        "tier": "XL",
+        "signal": "IF Service Cloud migration chosen: 4.5k active demands + historical archive (unknown volume, assume 10k+ total) — Day-0 migration, Clarity → Service Cloud, multi-object transform (demand → Case, projeto → custom object), data quality unknown — XL complexity. IF co-living: n/a."
+      },
+      "sharing_security": {
+        "tier": "M",
+        "signal": "Standard LGPD/TCU audit trail (every API call logged) — demand operations auditable, no special governance model"
+      },
+      "ui": {
+        "tier": "S",
+        "signal": "Slack conversational UI (text/voice demand queries/creation) — standard Slack message rendering + Agentforce response cards"
+      },
+      "analytics_insights": {
+        "tier": "n/a",
+        "signal": "No analytics layer F1/F2 — transactional queries/writes only. F3 predictive analytics separate (E09)."
+      }
+    },
+    "size_rationale": "XL — driven by Integration (XL: Clarity API unknown + dual-system architecture if Service Cloud migration) + Data Volume/Migration (XL: 4.5k active + 10k+ historical demands Day-0 migration if Service Cloud chosen) + Data Model (L: complex Service Cloud Case + custom objects if migration). Hard-to-reverse decision (Gap G0801) — co-living vs. Service Cloud migration deferred to F2 architecture gate. Highest complexity epic in scope.",
+    "complexity_drivers": "Clarity (Broadcom) API compatibility unknown (Gap G0801 — no KB coverage), co-living vs. Service Cloud migration decision (hard-to-reverse, one-way door), IF Service Cloud migration: 4.5k active + 10k+ historical demands Day-0 migration (Clarity → Service Cloud Case), dual-system orchestration (write Service Cloud, read Clarity archive for historical lookup), data quality unknown (Clarity source), complex data model (Case + custom objects for Clarity-specific metadata). Recommendation: defer to F2 architecture gate after F1 adoption + Clarity API validation.",
+    "skills_needed": "Salesforce architect (Service Cloud data model + migration strategy decision), MuleSoft architect (Clarity API + dual-system orchestration if migration), integration developer (Clarity API), data migration specialist (ETL + data quality + Day-0 migration), Agentforce developer (agent + prompt engineering), Slack admin",
+    "risks": "Clarity API compatibility unknown (Gap G0801) — blocking risk for F2 build; F1 Phase 0 API discovery sprint required (2 weeks, TI provides Swagger/OpenAPI specs + sandbox credentials). Co-living vs. Service Cloud migration decision (Gap G0801) — hard-to-reverse (one-way door); if wrong choice, rollback to Clarity operationally infeasible (reverse data migration + process retraining). Recommendation: defer to F2 gate after F1 adoption validated. Data quality unknown — if Clarity data is incomplete/stale, migration to Service Cloud may surface hidden gaps. F1 pre-kick-off data audit required (sample 20 Clarity demands → validate completeness, accuracy).",
+    "solution_approach": "F1 read-only: Agentforce agent (J6 Gestão Demandas Evolutivas) queries Clarity via MuleSoft read-only API → returns demand count, status, priorities. F2 architecture decision gate: (A) Co-living — Agentforce writes Clarity via MuleSoft write API, Clarity remains system of origin. (B) Service Cloud migration — 4.5k active + historical demands migrate to Service Cloud Case object, Clarity becomes read-only archive, Agentforce writes Service Cloud. Recommendation: defer to F2 gate after F1 adoption + Clarity API validation (3 months F1 production).",
+    "confidence": "Unknown"
+  },
+  {
+    "item_id": "E09",
+    "item_type": "epic",
+    "t_shirt_size": "XL",
+    "size_drivers": {
+      "data_model": {
+        "tier": "L",
+        "signal": "Data Cloud unified data model — Contact (B2B client + internal employee), Case/Ticket history (from Pronto), Opportunity/Demand history (from CRM Totvs) — complex multi-source unified model with 4+ related objects"
+      },
+      "automation": {
+        "tier": "L",
+        "signal": "Data Cloud streaming architecture (Pronto ticket events + CRM Totvs opportunity events → Data Cloud ingestion) + Agentforce activation orchestration (segmentation → alert/recommendation Slack message) — complex event-driven orchestration"
+      },
+      "intelligence_ai": {
+        "tier": "XL",
+        "signal": "Dual-topic Agentforce agents (J9 SLA breach alerts + J10 pipeline recommendations) with Data Cloud segmentation + predictive analytics (high-risk SLA breach cohort, churn-risk cohort) — custom grounding strategy over Data Cloud unified profiles — conversational design for proactive alerts/recommendations [KB: Advanced Strategic Architecture and Value Analysis_ Slack as an Agentic Operating System (Agentic OS) & Agentforce 360.md:22]"
+      },
+      "integration": {
+        "tier": "L",
+        "signal": "Data Cloud streaming ingestion from Pronto (ServiceNow) + CRM Totvs — event-driven CDC pattern (Change Data Capture or equivalent streaming APIs) — multi-system orchestration [assumption: Data Cloud ingestion from Pronto + CRM Totvs — validate data model + streaming architecture]"
+      },
+      "data_volume_migration": {
+        "tier": "M",
+        "signal": "Historical data load into Data Cloud for baseline segmentation (last 6-12 months Pronto tickets + CRM Totvs opportunities) — moderate volume (tens of thousands of records), not Day-0 blocker (F3 phased activation)"
+      },
+      "sharing_security": {
+        "tier": "M",
+        "signal": "Standard LGPD/TCU audit trail (Data Cloud ingestion + segmentation logged) — no special governance model beyond standard"
+      },
+      "ui": {
+        "tier": "M",
+        "signal": "Slack conversational UI (proactive alerts/recommendations) — Agentforce pushes alerts to Slack channels/DMs (\"Alerta: Ticket X risco SLA breach em 2h\") — standard Slack message rendering + interactive buttons (\"Escalar agora\")"
+      },
+      "analytics_insights": {
+        "tier": "XL",
+        "signal": "Data Cloud predictive segmentation (high-risk SLA breach cohort, churn-risk cohort) + Einstein Discovery models (SLA breach prediction, pipeline churn prediction) — complex multi-source analytics"
+      }
+    },
+    "size_rationale": "XL — driven by Intelligence/AI (XL: dual-topic predictive agents + Data Cloud segmentation + Einstein Discovery models) + Analytics (XL: multi-source predictive segmentation) + Data Model (L: unified Contact/Case/Opportunity model) + Automation (L: streaming CDC orchestration). Most complex AI/analytics epic in scope.",
+    "complexity_drivers": "Data Cloud streaming architecture (Pronto ticket events + CRM Totvs opportunity events → CDC ingestion), unified data model (Contact + Case/Ticket + Opportunity/Demand across 3 systems), predictive segmentation (high-risk SLA breach cohort via Einstein Discovery, churn-risk cohort via historical pipeline patterns), dual-topic Agentforce agents (J9 SLA breach alerts + J10 pipeline recommendations) with proactive activation (push alerts to Slack channels/DMs), Data Cloud first-time deployment (no prior Data Cloud in Dataprev), historical data load (6-12 months Pronto + CRM Totvs for baseline)",
+    "skills_needed": "Data Cloud architect (streaming ingestion + unified data model + segmentation), Einstein Analytics developer (Einstein Discovery models for SLA breach + churn prediction), Agentforce developer (dual-topic agents + proactive alert orchestration), MuleSoft architect (CDC streaming from Pronto + CRM Totvs), Salesforce admin (Data Cloud config), integration developer (Pronto + CRM Totvs streaming APIs)",
+    "risks": "Data Cloud streaming architecture unknown (Gap assumption) — validate Pronto (ServiceNow) + CRM Totvs streaming API availability + CDC pattern compatibility with TI before F3 build. Data quality dependency — if Pronto tickets or CRM Totvs opportunities are incomplete/stale, predictive models degrade (GIGO: garbage in, garbage out). Historical data load size unknown — if >500k records, performance/cost implications for Data Cloud ingestion. Einstein Discovery model accuracy unknown — requires F3 pilot tuning (model training + eval loops). Data Cloud first-time deployment — limited Dataprev production precedent, may require vendor support engagement.",
+    "solution_approach": "Data Cloud ingests streaming events from Pronto (ServiceNow) ticket lifecycle + CRM Totvs opportunity lifecycle → unified Contact (B2B client + internal employee) + Case/Ticket + Opportunity/Demand profiles → Einstein Discovery models predict high-risk SLA breach cohort (J9) + churn-risk cohort (J10) → Agentforce agents activate proactive alerts/recommendations in Slack (\"Alerta: Ticket X risco SLA breach em 2h\" / \"Oportunidade Y sem atividade 30 dias — agendar call?\"). Historical data load (6-12 months) for baseline segmentation. F3 phased activation after F1/F2 adoption validated.",
+    "confidence": "Assumed"
+  },
+  {
+    "item_id": "E10",
+    "item_type": "epic",
+    "t_shirt_size": "XL",
+    "size_drivers": {
+      "data_model": {
+        "tier": "M",
+        "signal": "Audit log custom object (logs every MuleSoft API call: user ID + timestamp + query/mutation + response status) — moderate complexity, high volume (every API call logged)"
+      },
+      "automation": {
+        "tier": "L",
+        "signal": "MuleSoft/MCP audit trail orchestration (7 legacy systems: Protheus, Pronto, CRM Totvs, Clarity, Conexão, Teams, SEI) + Slack EKM deployment (AWS KMS master key management) + Salesforce Flow orchestration (alçadas approval routing) — complex multi-system governance orchestration"
+      },
+      "intelligence_ai": {
+        "tier": "n/a",
+        "signal": "No AI/agent scope in E10 — governance + compliance infrastructure, not conversational"
+      },
+      "integration": {
+        "tier": "L",
+        "signal": "MuleSoft audit trail integration (every API call logged to Salesforce custom object) + Slack EKM integration (AWS KMS master keys) — multi-system compliance orchestration"
+      },
+      "data_volume_migration": {
+        "tier": "n/a",
+        "signal": "No data migration — audit trail writes at runtime, retention managed via archive/purge"
+      },
+      "sharing_security": {
+        "tier": "XL",
+        "signal": "Protheus governance model (TI+Jurídico+DPO tri-party perfil de acesso per user — Gap G1002 blocker), Slack EKM deployment (AWS KMS master keys under CISO control), LGPD/TCU audit trail (5-year retention assumed), alçadas approval workflow (R$ 2M threshold routing) — highest security/governance complexity in scope [KB: Advanced Strategic Architecture and Value Analysis_ Slack as an Agentic Operating System (Agentic OS) & Agentforce 360.md:128]"
+      },
+      "ui": {
+        "tier": "M",
+        "signal": "Slack approval workflow UI (alçadas R$ 2M approval buttons) + training materials (Slack Canvas + video) for multi-persona CM (B2B clientes, executivos, comercial, N1/N2)"
+      },
+      "analytics_insights": {
+        "tier": "M",
+        "signal": "Adoption monitoring dashboard (Salesforce CRM Analytics or standard reports) — KPIs: uso semanal %, agent adoption by persona, API call volume/error rate, audit log compliance metrics"
+      }
+    },
+    "size_rationale": "XL — driven by Sharing/Security (XL: Protheus governance blocker, Slack EKM, LGPD/TCU 5-year audit trail, alçadas approval) + Automation (L: 7-system audit trail orchestration + EKM + Flow routing) + Integration (L: MuleSoft audit trail + EKM). Experience Design workstream (6 gaps: G0104, G0402, G0505, G0605, G0704, G0207) + Governance/CoE workstream (5 gaps: G0407, G0607, G9901, G1001, G1003) add breadth.",
+    "complexity_drivers": "Protheus governance model (TI+Jurídico+DPO tri-party meeting — Gap G1002 blocker), Slack EKM deployment (AWS KMS master keys under CISO control for instant revocation), 7-system audit trail orchestration (Protheus + Pronto + CRM Totvs + Clarity + Conexão + Teams + SEI — every API call logged: user ID + timestamp + query/mutation + response status), LGPD/TCU compliance (5-year audit log retention), alçadas approval workflow (R$ 2M threshold → Slack button routing to authorized approver), multi-persona CM (B2B clientes, executivos, comercial, N1/N2 — training matrix by persona, adoption KPIs, executive mandate Saulo), Experience Design workstream (UX research F1 pilot with 20-50 users, service design, accessibility WCAG 2.1 AA), Governance/CoE workstream (RACI by system, data stewardship, CoE charter, decision rights)",
+    "skills_needed": "Salesforce security architect (Protheus governance model + audit trail + EKM + alçadas approval workflow), MuleSoft architect (7-system audit trail orchestration), Slack admin (Enterprise Grid + EKM config), Salesforce admin (audit log custom object + adoption monitoring dashboard + Flow alçadas routing), CM lead (training matrix by persona + adoption KPIs + executive mandate orchestration), UX researcher (Experience Design workstream — F1 pilot usability testing with 20-50 users), service designer (conversational flow design + Slack Canvas UX), accessibility specialist (WCAG 2.1 AA audit), CoE lead (RACI by system + data stewardship + CoE charter)",
+    "risks": "Protheus governance blocker (Gap G1002) — TI+Jurídico+DPO tri-party meeting must complete before F1 kick-off; escalate to seller immediately. Experience Design gap (6 gaps) — no UX research/service design/content strategy scoped; risk of low adoption, high support burden, accessibility non-compliance (10k+ external users). Governance/CoE gap (5 gaps) — multi-team ownership RACI undefined (Agentforce config, MuleSoft APIs, Slack admin), data stewardship (CRM Totvs vs. Salesforce truth?), CoE structure, CM execution plan. CM execution risk — 10k+ users onboarding without structured training → low adoption → F1/F2/F3 ROI failure. Slack EKM new technology — limited production precedent, may require vendor support engagement.",
+    "solution_approach": "MuleSoft audit trail: every API call (Protheus + Pronto + CRM Totvs + Clarity + Conexão + Teams) logged to Salesforce custom object (user ID + timestamp + query/mutation + response status) — 5-year retention for LGPD/TCU compliance. Protheus governance: TI+Jurídico+DPO tri-party meeting defines perfil de acesso per user before F1 kick-off (Gap G1002 blocker). Slack EKM: AWS KMS master keys under Dataprev CISO control — instant revocation capability (motivated by prior 2.8M CPF breach). Alçadas approval workflow: KB Normativas (J7) surfaces alçadas R$ 2M → Salesforce Flow routes to authorized approver via Slack button → logs approval. Multi-persona CM: training matrix (B2B clientes, executivos, comercial, N1/N2), early adopters (20-50 pilot users F1), executive mandate (Saulo enforces adoption KPIs >60% uso semanal F2). Experience Design workstream: UX researcher + service designer embedded F1 (J1/J2 usability testing with pilot) → iterate conversational flows + Slack Canvas UX F1 → scale F2/F3. Governance/CoE workstream: RACI by system (Protheus → TI owner, CRM Totvs → Comercial owner, Agentforce → PS delivery team owner F1, handoff to CoE F2), CoE charter (roles, decision rights, change approval process), data stewardship (CRM Totvs vs. Salesforce truth decision).",
+    "confidence": "Assumed"
+  }
+]

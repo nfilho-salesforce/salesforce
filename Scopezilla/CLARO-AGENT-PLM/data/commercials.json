@@ -1,0 +1,45 @@
+{
+  "rate_basis": "per-role daily rate (USD)",
+  "rate_source": "user-supplied",
+  "rate_validated_date": "2026-06-17",
+  "engagement_model": "Time & Materials",
+  "roles": [
+    {
+      "role_id": "TA",
+      "title": "Technical Architect",
+      "daily_rate_usd": 1267.62,
+      "person_days": 40,
+      "subtotal_usd": 50704.80
+    },
+    {
+      "role_id": "TC",
+      "title": "Technical Consultant",
+      "daily_rate_usd": 1031.98,
+      "person_days": 40,
+      "subtotal_usd": 41279.20
+    },
+    {
+      "role_id": "QA",
+      "title": "QA Specialist",
+      "daily_rate_usd": 885.72,
+      "person_days": 60,
+      "subtotal_usd": 53143.20
+    },
+    {
+      "role_id": "PM",
+      "title": "Project Manager",
+      "daily_rate_usd": 1218.88,
+      "person_days": 40,
+      "subtotal_usd": 48755.20,
+      "billing_note": "Dedicated PS PM — billable, invoiced separately, paid directly by Claro"
+    }
+  ],
+  "totals": {
+    "ps_delivery_fee_usd": 145127.20,
+    "pm_fee_usd": 48755.20,
+    "total_engagement_fee_usd": 193882.40,
+    "total_person_days": 180,
+    "duration_weeks": 8
+  },
+  "disclaimer": "Indicative for planning purposes only. Based on rates supplied and validated by the user on 2026-06-17. T&M engagement — actual billing is on time logged; final invoice reflects actual PS days consumed. Rates are confidential and must not appear in client-facing documents without explicit PS leadership approval."
+}

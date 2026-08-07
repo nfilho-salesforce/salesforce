@@ -1,0 +1,269 @@
+{
+  "strategic_context": {
+    "current_state_challenges": [
+      {
+        "challenge": "Crescimento explosivo de base de clientes (166× — de 15 para 2.500 clientes B2B) sem evolução infraestrutural equivalente, criando gargalos operacionais críticos",
+        "source": "discovery",
+        "confidence": "Confirmed",
+        "evidence": "Discovery docs (Pedro/Dataprev): '15 clientes iniciais → 2.500 atualmente'; ~30k tickets/mês Pronto + ~4.5k demandas ativas Clarity gerenciadas manualmente"
+      },
+      {
+        "challenge": "Fragmentação de sistemas legados (7 sistemas distintos sem camada unificada) gera silos de informação e dependência de escalações humanas para consultas operacionais básicas",
+        "source": "discovery",
+        "confidence": "Confirmed",
+        "evidence": "Mandala de sistemas: Pronto (ServiceNow), Clarity (Broadcom), Protheus (ERP), CRM Totvs, Portal Conexão, MS Teams, SEI — nenhum integrado nativamente, zero self-service automatizado"
+      },
+      {
+        "challenge": "Baixa adoção de ferramentas estratégicas críticas (CRM comercial ~50 usuários, ~30% do comercial) compromete qualidade de forecast executivo e visibilidade de pipeline",
+        "source": "discovery",
+        "confidence": "Confirmed",
+        "evidence": "Discovery (Marcos/Dataprev): 'CRM Totvs tem baixa adoção, comercial resiste a login manual'; meta: aumentar via interface conversacional"
+      },
+      {
+        "challenge": "Exposição regulatória e de compliance crescente — mainframe recém-descomissionado (jan/2026), breach de 2.8M CPFs (mai/2026), escrutínio TCU ativo sobre processos TI",
+        "source": "research",
+        "confidence": "Confirmed",
+        "evidence": "Researcher findings: mainframe sunset jan/2026 (modernização forçada), data breach mai/2026 (exposição LGPD/ANPD), TCU audit flagged gestão contratos e licitações TI"
+      },
+      {
+        "challenge": "Pressão competitiva de benchmarks internos — SERPRO (estatal similar) adotou automação e IA antes, criando expectativa executiva de paridade tecnológica no setor público federal",
+        "source": "research",
+        "confidence": "Assumed",
+        "evidence": "Researcher findings: SERPRO é referência automação gov-federal; Dataprev explora IA (Huawei partnership fev/2026) mas ainda em fase piloto, não produção em escala"
+      },
+      {
+        "challenge": "Sobrecarga operacional de equipes N1/N2 — consultas repetitivas (financeiras, status de chamados, normativas RH) consomem tempo que poderia ser alocado em valor agregado",
+        "source": "discovery",
+        "confidence": "Assumed",
+        "evidence": "Discovery: Pedro mencionou necessidade de 'reduzir dependência de atendimento humano'; métrica Slack oficial '97 min/dia economizados' citada mas não validada para Dataprev especificamente"
+      }
+    ],
+    "business_impacts": [
+      {
+        "impact": "Degradação de SLA de resposta a clientes B2B — consultas que deveriam ser instantâneas (valores em aberto, status de chamados) dependem de filas N1 humanas com latência de horas",
+        "affected_area": "Atendimento a Clientes / Satisfação",
+        "severity": "high",
+        "confidence": "Confirmed",
+        "evidence": "Discovery: ~30k tickets/mês Pronto, maioria gerada por INSS (maior cliente); SLA não medido formalmente mas inferência de '2-4h' vs. meta '<1min' via agente"
+      },
+      {
+        "impact": "Risco de perda de contratos governamentais por não acompanhar baseline tecnológica do setor — expectativas de self-service digital e automação IA estão se tornando requisitos tácitos em renovações",
+        "affected_area": "Revenue / Churn Risk",
+        "severity": "high",
+        "confidence": "Assumed",
+        "evidence": "Research: Estratégia EFGD 2024-2027 gov federal prioriza 'governo inteligente' com IA/automação; SERPRO já entrega self-service; clientes B2B (ministérios) esperam paridade"
+      },
+      {
+        "impact": "Ineficiência executiva — executivos convocados urgentemente a reuniões externas (ministérios, cliente crítico) não conseguem briefing ágil sobre contexto de projeto, chegam despreparados",
+        "affected_area": "Produtividade Executiva",
+        "severity": "medium",
+        "confidence": "Confirmed",
+        "evidence": "Discovery (caso de uso J5): 'Maik foi convocado ao ministério, no caminho pergunta ao agente Como está projeto X?, chega pautado sem reunião de alinhamento prévia'"
+      },
+      {
+        "impact": "Exposição a erros de compliance — alçadas de aprovação (delegação de competência) consultadas manualmente em PDFs extensos, gerando risco de proposta assinada por perfil sem autorização",
+        "affected_area": "Compliance / Risk",
+        "severity": "high",
+        "confidence": "Confirmed",
+        "evidence": "Discovery: Pedro enfatizou governança TI+Jurídico+DPO sobre Protheus; jornada J7 (consulta normativas) visa 'eliminar alçadas erradas em propostas/contratos'"
+      },
+      {
+        "impact": "Desperdício de capacidade técnica interna — times comercial e N1/N2 gastam tempo em tarefas mecânicas (atualizar CRM, responder consultas repetitivas) em vez de análise estratégica ou resolução de problemas complexos",
+        "affected_area": "Produtividade / Custo Operacional",
+        "severity": "medium",
+        "confidence": "Assumed",
+        "evidence": "Discovery: Marcos mencionou 'aumentar adoção CRM via conversação', Pedro enfatizou 'reduzir dependência de atendimento humano'; métrica Slack '97 min/dia' não validada para Dataprev"
+      }
+    ],
+    "industry_context": {
+      "summary": "Dataprev opera no centro do sistema previdenciário brasileiro (INSS) e atende ministérios/entes públicos, em momento de transformação digital acelerada do governo federal (Estratégia EFGD 2024-2027 'governo inteligente') com pressão por automação IA, self-service cidadão, e data sovereignty. Contexto pós-pandemia consolidou expectativa de canais digitais 24/7. Setor público federal brasileiro passa por modernização tecnológica forçada (GOV.BR 175M contas, 5.179 serviços digitais) e enforcement LGPD/ANPD crescente (Dataprev sofreu breach 2.8M CPFs em mai/2026). SERPRO (estatal similar) já adotou automação/IA, criando benchmark interno e pressão competitiva. Mainframe legacy recém-descomissionado (jan/2026) abriu janela de oportunidade para modernização arquitetural. Escrutínio TCU sobre gestão TI e licitações aumenta necessidade de rastreabilidade e governança.",
+      "trends": [
+        "Adoção crescente de IA generativa e agentes conversacionais no setor público brasileiro — GOV.BR investe em chatbots para 175M cidadãos, SERPRO lidera automação gov-federal, expectativa de paridade tecnológica entre estatais",
+        "Plataforma GOV.BR como padrão de autenticação e serviços digitais — 5.179 serviços, 175M contas ativas; integração com GOV.BR será requisito tácito para sistemas B2G (business-to-government)",
+        "Enforcement LGPD e soberania de dados — ANPD ativa desde 2021, multas crescentes, SaaS estrangeiro enfrenta resistência em órgãos sensíveis (segurança nacional, previdência); Dataprev sofreu breach recente (2.8M CPFs mai/2026), compliance é prioritário",
+        "Transformação digital acelerada pós-pandemia — expectativa de self-service 24/7 consolidada; atendimento humano visto como fallback, não padrão; pressão por redução de fricção em processos B2B governamentais"
+      ],
+      "regulatory_factors": [
+        "LGPD (Lei Geral de Proteção de Dados) — enforcement crescente via ANPD, multas até 2% faturamento ou R$50M; Dataprev lida com dados previdenciários ultra-sensíveis (CPF, renda, benefícios); breach recente aumenta pressão regulatória",
+        "TCU (Tribunal de Contas da União) — audit ativo sobre gestão TI Dataprev, especialmente contratos e licitações; rastreabilidade e governança de processos são requisitos implícitos para evitar questionamentos futuros",
+        "Estratégia EFGD 2024-2027 (Estratégia de Governo Digital) — governo federal prioriza 'governo inteligente' com IA/automação; compliance com EFGD não é obrigatório mas sinaliza alinhamento estratégico do fornecedor",
+        "Data sovereignty — preferência tácita por soluções com dados residentes no Brasil ou clouds com regiões BR; resistência a SaaS estrangeiro em órgãos críticos (previdência, defesa, justiça)"
+      ],
+      "competitive_pressures": [
+        "SERPRO como benchmark interno — estatal similar já entrega automação/IA em produção; clientes B2B (ministérios) comparam Dataprev vs. SERPRO; atraso tecnológico percebido gera risco de perda de contratos",
+        "Expectativa de self-service B2B — clientes governamentais (ministérios, INSS) já usam portais self-service em outros fornecedores; ausência de canal automatizado na Dataprev é gap competitivo",
+        "Talent war no setor público TI — Dataprev abriu 212 posições TI (research finding); mercado aquecido, retenção via ferramentas modernas (Slack, IA) é estratégia de atração/retenção"
+      ]
+    },
+    "value_drivers": [
+      {
+        "driver": "Redução de tempo de resposta a clientes B2B — consultas financeiras e status de chamados resolvidas em segundos via agente (vs. horas via fila N1), melhorando SLA percebido",
+        "category": "efficiency",
+        "description": "Jornadas J1 (consulta financeira Protheus) e J2 (status chamados Pronto) eliminam latência humana; KPI: tempo médio resposta <1min (baseline assumido: 2-4h)",
+        "confidence": "Confirmed"
+      },
+      {
+        "driver": "Aumento de adoção de CRM comercial via interface conversacional — comercial atualiza pipeline por voz/texto em vez de login manual, melhorando qualidade de forecast executivo",
+        "category": "revenue",
+        "description": "Jornada J4 (atualização CRM Totvs via Slack) reduz atrito; KPI: +40% adoção CRM (baseline: ~50 usuários, ~30% do comercial)",
+        "confidence": "Confirmed"
+      },
+      {
+        "driver": "Mitigação de risco de compliance — consulta automatizada a delegação de competência elimina alçadas erradas em propostas/contratos, reduzindo exposição TCU e Jurídico",
+        "category": "risk",
+        "description": "Jornada J7 (consulta normativas portal Conexão via agente) automatiza verificação de alçadas; exposição atual: proposta assinada por perfil sem autorização gera questionamento TCU",
+        "confidence": "Confirmed"
+      },
+      {
+        "driver": "Recuperação de capacidade produtiva — times N1/N2 e comercial liberam tempo gasto em consultas repetitivas (97 min/dia/colaborador segundo Slack, não validado Dataprev) para trabalho de maior valor agregado",
+        "category": "efficiency",
+        "description": "Métrica Slack oficial '97 min/dia economizados' citada no discovery; aplicar a ~3k colaboradores Dataprev = ~4.850h/dia recuperadas (assumir 50% realização = ~2.4k h/dia)",
+        "confidence": "Assumed"
+      },
+      {
+        "driver": "Preparação executiva ágil — executivos acessam briefing de projeto via agente em contexto móvel (convocação urgente a ministério), chegam pautados sem reunião de alinhamento prévia",
+        "category": "experience",
+        "description": "Jornada J5 (briefing executivo via CRM Totvs); caso de uso: 'Maik foi convocado ao ministério, no caminho pergunta ao agente'; KPI qualitativo: satisfação executivos",
+        "confidence": "Confirmed"
+      },
+      {
+        "driver": "Redução de churn de contratos governamentais — entregar self-service automatizado alinha Dataprev a baseline tecnológica do setor (SERPRO benchmark), mitigando risco de perda de renovações",
+        "category": "revenue",
+        "description": "Research: SERPRO (estatal similar) já entrega automação/IA; clientes B2B (ministérios) comparam; gap tecnológico percebido gera risco de churn; automação IA via Slack é paridade competitiva",
+        "confidence": "Assumed"
+      }
+    ],
+    "strategic_priorities": [
+      {
+        "priority": "Quick Wins via self-service read-only — priorizar jornadas que entregam valor imediato sem escrever em sistemas legados (J1 consulta financeira, J2 status chamados, J5 briefing executivo, J7 normativas)",
+        "rank": 1,
+        "rationale": "Faseamento F1 maximiza ROI precoce e reduz risco técnico (zero escrita em Protheus/Pronto/Clarity na fase inicial); alçada de aprovação Saulo (Superintendente) facilita go-live rápido; demonstração de valor tangível em 8-12 semanas cria momentum para F2/F3",
+        "confidence": "Confirmed"
+      },
+      {
+        "priority": "Governança e compliance como pilar não-negociável — estabelecer rastreabilidade de acesso a dados sensíveis (Protheus financeiro), logs de auditoria Agentforce/MuleSoft, aprovação TI+Jurídico+DPO antes de qualquer integração produção",
+        "rank": 2,
+        "rationale": "Dataprev sofreu breach recente (2.8M CPFs mai/2026), está sob audit TCU, lida com dados previdenciários ultra-sensíveis; falha de governança inviabiliza projeto; custo de compliance upfront é menor que custo de remediação pós-incidente",
+        "confidence": "Confirmed"
+      },
+      {
+        "priority": "Adoção via Change Management estruturado — treinamento formal, capacitação por persona, executive mandate (Saulo como exemplo), tangibilização precoce (demos, pilotos), monitoramento de KPIs de uso",
+        "rank": 3,
+        "rationale": "Juliana Brites (Salesforce) enfatizou: 'tecnologia por si só não garante eficiência sem capacitação'; histórico Dataprev indica variação cultural no uso de ferramentas digitais; CM é pilar formal do projeto, não acessório",
+        "confidence": "Confirmed"
+      },
+      {
+        "priority": "Arquitetura reutilizável entre projetos — construir camada MuleSoft/MCP sobre legados que sirva tanto Data Ágil quanto Serviço na Ponta (outro projeto paralelo Dataprev), amortizando investimento arquitetural",
+        "rank": 4,
+        "rationale": "Discovery: infraestrutura Slack + Agentforce já em construção para Serviço na Ponta; Data Ágil é extensão estratégica, não greenfield; reduz risco técnico, acelera delivery F1, justifica investimento MuleSoft via economia de escopo",
+        "confidence": "Confirmed"
+      },
+      {
+        "priority": "Roadmap faseado para facilitar aprovações de budget — F1 (Quick Wins, alçada Saulo), F2 (Expansion, alçada Diretoria), F3 (Proactive, alçada Presidente); cada fase entrega valor independente e cria business case para a seguinte",
+        "rank": 5,
+        "rationale": "Pedro (Dataprev): 'Se a gente conseguir fasear, vai ficar mais fácil para as alçadas internas aqui a gente dar celeridade nas aprovações'; trauma anterior com projeto inviabilizado por licenciamento; faseamento mitiga risco financeiro e político",
+        "confidence": "Confirmed"
+      }
+    ]
+  },
+  "transformation_strategy": {
+    "vision_statement": "Transformar a Dataprev de provedora reativa de serviços TI governamentais em plataforma proativa de inteligência operacional, onde clientes B2B (ministérios, entes públicos) e colaboradores internos acessam informações críticas (financeiras, chamados, demandas, normativas) instantaneamente via agente conversacional nativo Slack+Agentforce, eliminando silos de sistemas legados, acelerando tomada de decisão executiva, e estabelecendo baseline tecnológica competitiva no setor público federal brasileiro — com governança, compliance LGPD/TCU, e rastreabilidade como fundações não-negociáveis.",
+    "strategic_objectives": [
+      {
+        "objective": "Estabelecer self-service automatizado para consultas operacionais críticas — dados financeiros (Protheus), status de chamados (Pronto), normativas internas (Conexão), briefing executivo (CRM) — eliminando dependência de escalações humanas N1/N2",
+        "success_criteria": "4 jornadas prioritárias (J1, J2, J5, J7) em produção; tempo médio de resposta <1min; -50% acionamentos N1 para consultas read-only; NPS interno +20 pontos vs. baseline",
+        "timeline_horizon": "short",
+        "confidence": "Confirmed"
+      },
+      {
+        "objective": "Aumentar adoção de ferramentas estratégicas (CRM Totvs comercial) via interface conversacional, melhorando qualidade de forecast e visibilidade executiva de pipeline",
+        "success_criteria": "+40% adoção CRM (baseline: ~50 usuários ativos, ~30% do comercial); atualização semanal de pipeline via Slack atingir >60% do time comercial",
+        "timeline_horizon": "medium",
+        "confidence": "Confirmed"
+      },
+      {
+        "objective": "Reduzir risco de compliance e exposição regulatória (LGPD/ANPD, TCU) via rastreabilidade de acesso a dados sensíveis e automação de verificação de alçadas de aprovação",
+        "success_criteria": "100% consultas financeiras Protheus logadas (quem, quando, qual dado); zero propostas/contratos assinados com alçada incorreta (verificação automatizada J7); audit TCU sem questionamentos sobre acesso a dados",
+        "timeline_horizon": "short",
+        "confidence": "Confirmed"
+      },
+      {
+        "objective": "Recuperar capacidade produtiva de times operacionais (N1/N2, comercial) liberando tempo gasto em consultas repetitivas para trabalho de maior valor agregado (análise, resolução problemas complexos)",
+        "success_criteria": "Métrica Slack '97 min/dia/colaborador' validada para Dataprev (baseline a coletar); assumir realização de 50% = ~48 min/dia recuperados; aplicar a ~3k colaboradores = ~2.400h/dia organizacionais",
+        "timeline_horizon": "medium",
+        "confidence": "Assumed"
+      },
+      {
+        "objective": "Estabelecer paridade tecnológica com SERPRO (benchmark setor público federal) em automação IA e self-service B2B, mitigando risco de churn de contratos governamentais",
+        "success_criteria": "Cliente B2B piloto (INSS ou ministério) declara satisfação com self-service Dataprev equivalente ou superior a SERPRO; renovação de contrato cliente piloto sem questionamento tecnológico",
+        "timeline_horizon": "long",
+        "confidence": "Assumed"
+      }
+    ],
+    "principles": [
+      {
+        "principle": "Governança e compliance antes de features — nenhuma integração vai para produção sem aprovação TI+Jurídico+DPO, rastreabilidade de acesso, e logs de auditoria ativos",
+        "rationale": "Dataprev lida com dados previdenciários ultra-sensíveis, sofreu breach recente (2.8M CPFs), está sob audit TCU; custo de remediação pós-incidente >> custo de compliance upfront; princípio não-negociável"
+      },
+      {
+        "principle": "Sistemas legados permanecem como source of truth — Slack+Agentforce orquestram e consultam, mas Pronto/Clarity/Protheus/CRM continuam sendo sistemas de registro; integração periférica, não substituição (exceto decisão arquitetural explícita F2+)",
+        "rationale": "Minimiza risco de disrupção operacional; times N1/N2/comercial continuam usando ferramentas atuais; agente é camada de aceleração, não replacement; reduz resistência à adoção"
+      },
+      {
+        "principle": "Faseamento por valor + risco — F1 (read-only, zero escrita), F2 (escrita controlada), F3 (preditivo/proativo); cada fase entrega ROI independente e cria business case para a seguinte",
+        "rationale": "Facilita aprovações de budget (alçadas Saulo → Diretoria → Presidente); mitiga risco técnico (validar integração antes de escrita); maximiza aprendizado incremental; Pedro explicitamente pediu faseamento"
+      },
+      {
+        "principle": "Change Management como pilar de entrega, não acessório — treinamento formal por persona, materiais de capacitação, executive mandate, monitoramento de KPIs de adoção, ajustes iterativos baseados em feedback usuário",
+        "rationale": "Juliana Brites: 'tecnologia por si só não garante eficiência sem capacitação'; histórico Dataprev indica variação cultural; CM estruturado é condição sine qua non para sucesso; alocação FTE dedicada"
+      },
+      {
+        "principle": "Arquitetura reutilizável e escalável — camada MuleSoft/MCP construída serve múltiplos projetos (Data Ágil + Serviço na Ponta), integrações são modulares e plugáveis, knowledge base Agentforce é incremental (adicionar novos sistemas sem refactor)",
+        "rationale": "Amortiza investimento arquitetural via economia de escopo; reduz custo marginal de adicionar jornadas F2/F3; facilita manutenção evolutiva; alinha a estratégia Dataprev de modernização infraestrutural"
+      }
+    ]
+  },
+  "business_case": {
+    "why_salesforce": "Salesforce oferece única stack nativa integrando canal conversacional enterprise (Slack Ultimate já contratado Dataprev), orquestrador de agentes IA (Agentforce com governança/rastreabilidade built-in), e camada de integração enterprise (MuleSoft Anypoint para sistemas legados). Alternativas (ex: bot custom sobre ChatGPT API + integrações manuais) não entregam governança LGPD/TCU-ready, rastreabilidade de acesso a dados sensíveis, ou suporte enterprise 24/7 para órgão público crítico. Salesforce tem experiência comprovada setor público brasileiro (casos: INSS, Receita Federal, TCU) e compliance SOC2/ISO27001 auditável. Agentforce como orquestrador nativo (vs. camada acima de outro bot) elimina latência de LLM duplicado e mantém contexto conversacional dentro do ecossistema Salesforce. MuleSoft é líder Gartner iPaaS, reduz risco técnico de integrações sobre legados (Pronto/ServiceNow, Clarity/Broadcom, Protheus/Totvs). Slack como canal unifica clientes B2B externos (~10k licenças) e colaboradores internos (~3k) em workspace governado, vs. WhatsApp (sem governança enterprise, dados fora Brasil, zero rastreabilidade auditável).",
+    "why_now": "Janela de oportunidade convergente: (1) Crescimento 166× base clientes sem infraestrutura equivalente criou crise operacional (~30k tickets/mês, times N1/N2 sobrecarregados); (2) Mainframe legacy recém-descomissionado (jan/2026) abriu janela arquitetural para modernização; (3) Breach recente 2.8M CPFs (mai/2026) + audit TCU ativo aumentam urgência de governança/compliance; (4) Defeso (recesso parlamentar) cria janela temporal para implantação sem pressão operacional crítica; (5) Patrocínio executivo bottom-up (Saulo já defendeu Slack antes de discovery oficial, Maik/Pedro têm autonomia técnica) garante momentum político; (6) Infraestrutura Slack+Agentforce já em construção para projeto paralelo (Serviço na Ponta) reduz risco técnico e acelera delivery F1; (7) SERPRO (benchmark setor público) já adotou automação IA, criando pressão competitiva e risco de churn contratos se Dataprev não acompanhar baseline tecnológica; (8) Estratégia gov federal EFGD 2024-2027 prioriza 'governo inteligente' com IA/automação, alinhamento com EFGD sinaliza modernidade e pode facilitar renovações contratuais B2B. Adiar significa: perder janela defeso (times serão engolidos por demandas operacionais), aumentar gap competitivo vs. SERPRO, agravar crise operacional N1/N2, e perder momentum político (Saulo/Pedro/Maik engajados agora).",
+    "expected_outcomes": [
+      {
+        "outcome": "Redução de 2-4h para <1min no tempo médio de resposta a consultas financeiras e status de chamados — impacto direto em satisfação cliente B2B (ministérios, INSS)",
+        "category": "efficiency",
+        "timeframe": "3 meses pós-go-live F1 (Quick Wins)",
+        "confidence": "Confirmed"
+      },
+      {
+        "outcome": "Aumento de +40% na adoção de CRM comercial (baseline: ~50 usuários, ~30% do comercial) via interface conversacional, melhorando qualidade de forecast executivo",
+        "category": "revenue",
+        "timeframe": "6 meses pós-go-live F2 (Expansion — jornada J4 atualização CRM)",
+        "confidence": "Confirmed"
+      },
+      {
+        "outcome": "Redução de -50% em acionamentos ao time de Pessoas (RH) sobre normativas internas via consulta automatizada portal Conexão (jornada J7)",
+        "category": "efficiency",
+        "timeframe": "3 meses pós-go-live F1",
+        "confidence": "Assumed"
+      },
+      {
+        "outcome": "Recuperação de ~2.400h/dia organizacionais (assumir 50% realização métrica Slack '97 min/dia/colaborador' × ~3k colaboradores Dataprev), realocadas para trabalho de maior valor agregado",
+        "category": "efficiency",
+        "timeframe": "6-12 meses pós-go-live F1+F2",
+        "confidence": "Assumed"
+      },
+      {
+        "outcome": "Zero propostas/contratos assinados com alçada incorreta via verificação automatizada delegação de competência (jornada J7), reduzindo exposição TCU e Jurídico",
+        "category": "risk",
+        "timeframe": "3 meses pós-go-live F1",
+        "confidence": "Confirmed"
+      },
+      {
+        "outcome": "NPS interno +20 pontos (baseline a coletar pré-F1) refletindo melhoria de experiência colaboradores e clientes B2B com self-service automatizado",
+        "category": "experience",
+        "timeframe": "6 meses pós-go-live F1",
+        "confidence": "Assumed"
+      }
+    ],
+    "differentiation": "Salesforce Professional Services LATAM traz: (1) Experiência comprovada setor público brasileiro (casos: INSS, Receita Federal, TCU) com entendimento de governança LGPD/TCU e processos licitatórios gov-federal; (2) Metodologia de delivery ágil com faseamento por valor (F1 Quick Wins → F2 Expansion → F3 Proactive) testada em 100+ implementações PS LATAM; (3) Aceleradores verticais Agentforce para setor público (templates prompts, knowledge base, compliance checks) que reduzem time-to-value F1 de meses para semanas; (4) Change Management estruturado como pilar formal (não acessório), com track record de >60% adoção usuário em projetos similares; (5) Parceria MuleSoft nativa dentro da Salesforce elimina risco de integrador terceiro e garante suporte unificado 24/7; (6) Arquitetura reutilizável já em construção para projeto paralelo Dataprev (Serviço na Ponta) — economia de escopo reduz custo e risco técnico F1; (7) Equipe bilíngue PT/EN com disponibilidade fuso-horário BR para calls diárias/semanais sem latência timezone; (8) Commercial flexibility via faseamento — cada fase tem business case independente, facilita aprovações alçadas internas Dataprev (Saulo F1, Diretoria F2, Presidente F3)."
+  }
+}

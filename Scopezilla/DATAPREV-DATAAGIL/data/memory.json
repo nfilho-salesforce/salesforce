@@ -1,0 +1,274 @@
+{
+  "sessions": [
+    {
+      "date": "2026-07-18",
+      "skills_used": [
+        "discover",
+        "strategy"
+      ],
+      "summary": "Completed discovery (3 docs: HTML, Gemini notes, transcript). Generated project summary (10 jornadas, 7 sistemas legados, 166× growth context). Ran web research (DATAPREV + Brazilian public sector context). Drafted and approved strategic narrative — vision, priorities, business case.",
+      "friction": [],
+      "decisions": [
+        {
+          "decision": "Vision statement approved as drafted — transformation from reactive TI provider to proactive intelligence platform via Slack+Agentforce",
+          "rationale": "Captures core transformation (166× growth without infra, legacy silos, compliance pressure LGPD/TCU, competitive gap vs SERPRO), aligns to Dataprev strategic context (defeso window, executive sponsorship Saulo, parallel Serviço na Ponta reuse)"
+        }
+      ],
+      "open_threads": [
+        "Volumetrias detalhadas pendentes (quantos chamados/mês Pronto por tipo, quantas demandas/mês Clarity, acessos/mês portal Conexão)",
+        "Workspace Slack único vs. separado (clientes externos + internos) — decisão de segurança/governança Dataprev",
+        "Governança Protheus (TI+Jurídico+DPO) — bloqueador pré-kick-off F1, não mapeado ainda",
+        "Baseline NPS/CSAT — coletar antes de F1 para comparação pós-implantação"
+      ],
+      "next_steps": [
+        "Run requirements skill to define epics grounded in strategy"
+      ]
+    },
+    {
+      "date": "2026-07-19",
+      "skills_used": [
+        "requirements",
+        "design"
+      ],
+      "summary": "Defined 10 epics (E01-E10) grounded in strategic priorities — F1 Quick Wins (E01-E05 read-only), F2 Expansion (E06-E07 controlled writes), F3 Proactive (E08-E09 Data Cloud + intelligence), E10 cross-cutting Governança/Compliance/CM. Ran parallel gap analysis via epic-analyst agents (3 batches: E01-E03, E04-E06, E07-E10). Identified 68 gaps total. Designed architecture (18 decisions tagged — 10 KB-grounded, 5 inferred, 3 assumptions flagged: Workspace Slack segregation pending compliance decision, Clarity migration strategy deferred to F2, MuleSoft vs MCP protocol dual deployment recommended). Wrote 02-architecture-reference.md + 02-solution-brief.md. T-shirt sized all 10 epics via 8-dimensional rubric: 2 XL (E08, E09, E10), 3 L (E01, E04, E06), 3 M (E02, E03, E07), 1 S (E05).",
+      "friction": [],
+      "decisions": [
+        {
+          "decision": "10-epic structure approved — E01-E05 F1 Quick Wins, E06-E07 F2 Expansion, E08-E09 F3 Proactive, E10 Governança/Compliance/CM cross-cutting",
+          "rationale": "Maps all 10 jornadas (J1-J10) from discovery to phased delivery aligned with strategic priorities (Quick Wins > Governança > CM > Arquitetura reutilizável > Faseamento); E08 Clarity migration is hard-to-reverse architecture decision flagged as gap G0801"
+        },
+        {
+          "decision": "T-shirt distribution approved — 2 XL, 3 L, 3 M, 1 S — driven by Protheus governance blocker (E01 L), RAG + Slack AI (E04 L), CRM write API (E06 L), Clarity migration (E08 XL), Data Cloud streaming (E09 XL), 7-system audit trail + Slack EKM (E10 XL)",
+          "rationale": "Sizes reflect grounded architectural complexity from design step — each dimensional vector (size_drivers) cites KB sources or assumptions; blockers G1002 (Protheus governance), Experience Design gap (6 gaps), Governance/CoE gap (5 gaps) already flagged"
+        }
+      ],
+      "open_threads": [
+        "G1002 Protheus governance blocker — pre-sales qualification gate, escalate to seller before proposal (TI+Jurídico+DPO tri-party meeting)",
+        "Experience Design discipline gap (6 gaps: G0104, G0402, G0505, G0605, G0704, G0207) — no UX research/service design/content strategy scoped for 10k+ external user onboarding",
+        "Governance/CoE discipline gap (5 gaps: G0407, G0607, G9901, G1001, G1003) — multi-team ownership, data stewardship, CoE structure, CM workstream vision in E10 but no execution plan",
+        "Volumetrias still pending (4 gaps: G0102 Protheus, G0201 Pronto, G0302 CRM Totvs, G0701 Abertura Chamados) — capacity planning for Agentforce/MuleSoft/Heroku blocked",
+        "Source conflicts requiring architecture decisions: G0101 Workspace Slack segregation (B2B vs internos), G0801 Clarity migration strategy (co-living, Service Cloud data model), G9902 MuleSoft vs MCP protocol"
+      ],
+      "next_steps": [
+        "Run roadmap skill to phase E01-E10 across F1/F2/F3 + derive timeline range + identify roles/disciplines"
+      ]
+    },
+    {
+      "date": "2026-07-19",
+      "skills_used": [
+        "roadmap",
+        "efficiency"
+      ],
+      "summary": "Designed phased roadmap (4 phases: F0 Discovery & Architecture Refinement, F1 Quick Wins read-only, F2 Expansion controlled writes, F3 Proactive intelligence) with benchmark-based timeline 29–54 weeks (Multi-Cloud High + risk adders: +15% regulated LGPD/TCU, +10% new client, +10% confidence widening from 68 gaps). Consolidated 14 initial roles to 11 per user mapping (Senior Technical Architect absorbs Security + Governance, Solution Architect absorbs Slack Admin). Analyzed AI delivery efficiency: ~10-14% realized band at Low readiness (task-level ~30-40%, realization factor 0.40-0.45). Client readiness score 2/8 driven by: no AI tooling adoption observed, Protheus governance blocker G1002 unresolved, LGPD breach + TCU audit pressure, 7-system fragmentation + volumetrias unknown. Moving to High readiness (~18-22%) requires 5 unlocks: AI tooling approval, G1002 resolution, LGPD/TCU AI policy, volumetrias audit, data model reconciliation plan.",
+      "friction": [],
+      "decisions": [
+        {
+          "decision": "Timeline: benchmark-based range 29–54 weeks derived top-down from engagement shape (Multi-Cloud High), not user commitment",
+          "rationale": "User chose 'Derive a benchmark-based range from the engagement shape' in Step 0.6. Parametric row: Multi-Cloud High (10 epics, predominant L/XL: 2 XL + 3 L out of 10, 7 legacy systems integrated, baseline 26-40 weeks). Risk adders: +15% regulated (LGPD Art. 48 + TCU audit trail + Protheus governance), +10% new client (first-time Dataprev, G1002 blocker unresolved), +10% confidence (68 gaps, many Unknowns/Assumed). Total adders +35% under +50% cap. Range carries Benchmark Disclaimer verbatim from model-training-data source.",
+          "rejected": []
+        },
+        {
+          "decision": "11 consolidated roles approved — Senior Technical Architect (absorbs Security + Governance), MuleSoft Technical Architect, Data Cloud Technical Architect, Solution Architect (absorbs Slack Admin), Agentforce Technical Consultant, MuleSoft Technical Consultant, Solution Consultant, Quality Assurance Consultant, Change Management Lead, UX Researcher, Einstein Analytics Developer",
+          "rationale": "User provided explicit Portuguese de/para mapping: Salesforce Architect → Senior Technical Architect; Security Architect grouped with Senior; Slack Admin grouped with Solution Architect; BA / Release Manager → Solution Consultant; QA / Test Lead → Quality Assurance Consultant; CoE Lead / Governance Lead grouped with Senior; Agentforce Developer → Agentforce Technical Consultant; Integration Developer → MuleSoft Technical Consultant. Preserves all rationale content while reducing role count from 14 to 11.",
+          "rejected": []
+        },
+        {
+          "decision": "AI delivery efficiency: ~10-14% realized band at Low readiness (current state), not Mid/High — driven by client readiness score 2/8",
+          "rationale": "Discovery signals support Low readiness: (1) AI tooling posture 0/2 — no AI tooling adoption observed (Huawei partnership is pilot research, not delivery tooling); (2) Delivery velocity 1/2 — competing pressures (mainframe sunset + breach urgency vs. 68 gaps + G1002 blocker + federal-gov bureaucracy); (3) Data hygiene 1/2 — 7-system fragmentation + volumetrias unknown (G0102/G0201/G0302/G0701); (4) Legal/compliance 0/2 — G1002 blocker unresolved, LGPD breach mai/2026, TCU audit active. Moving to Mid (~12-18%) requires AI tooling approval + G1002 resolution + LGPD/TCU AI policy; moving to High (~18-22%) requires volumetrias audit + data model reconciliation plan.",
+          "rejected": []
+        }
+      ],
+      "open_threads": [
+        "Protheus governance blocker G1002 still unresolved — escalate to seller before proposal (TI+Jurídico+DPO tri-party meeting mandatory pre-kick-off F1)",
+        "AI tooling approval for PS delivery team — currently no AI adoption signals (GitHub Copilot, Claude, Cursor) observed in discovery; unlocks Mid readiness",
+        "LGPD/TCU-compliant AI-assisted delivery policy — what level of human review required for model-generated code/config/docs? Regulatory conservatism caps velocity",
+        "Volumetrias audit still pending (4 gaps: G0102, G0201, G0302, G0701) — capacity planning for Agentforce/MuleSoft/Heroku blocked until Phase 0 audit complete",
+        "Data model reconciliation plan across 7 legacy systems (Contact B2B + employee unification, Case/Ticket Pronto history, Opportunity/Demand CRM Totvs) — reduces integration rework, unlocks High readiness"
+      ],
+      "next_steps": [
+        "Run validate skill to check data quality before narratives/export",
+        "Consider grill-me-on-scope to stress-test scope confidence + sizing (68 gaps with many Unknowns/Assumed)",
+        "After validate passes: narratives for executive summary → export to package client-facing deliverables"
+      ]
+    },
+    {
+      "date": "2026-07-19",
+      "skills_used": [
+        "validate",
+        "narratives"
+      ],
+      "summary": "Validated data quality before narratives — all per-file JSON validation passed, cross-references valid, knowledge base populated (13 docs), source tags present in architecture-reference.md + solution-brief.md, no pricing/rate leaks. Confidence distribution 45% Confirmed typical for first draft. 68 gaps exceed 15-gap threshold recommending Phase 0. Generated executive summary for Executive audience (CTO, steering committee, sponsors) — framed around Low readiness efficiency (~10-14%), benchmark-based timeline 29-54 weeks (+35% regulatory adders), At a Glance + Overview + 10 epics phased F0-F3 + 11 disciplines + top risks (Protheus G1002 blocker, volumetrics unknown, Clarity API, Experience Design gap, Governance gap, Data Cloud first-time). Expected outcomes post-Phase 1: response time 2-4h → <1min, CRM adoption +40% (baseline 30% → 70%), -50% HR repetitive inquiries, zero incorrect approval thresholds, +20 NPS points.",
+      "friction": [],
+      "decisions": [],
+      "open_threads": [
+        "Protheus governance blocker G1002 — escalate to seller before proposal submission (pre-sales qualification gate)",
+        "Phase 0 approval — 68 gaps exceed 15-gap threshold; volumetrics audit + G1002 resolution + Workspace Slack segregation + Clarity API validation mandatory before Phase 1 build",
+        "Experience Design workstream lock — add UX Researcher + Service Designer Phase 0/Phase 1 to address G0104/G0402/G0505 (10k+ external users onboarding without UX research increases adoption risk)",
+        "Governance/CoE workstream lock — Phase 0 RACI workshop to resolve G9901/G1001/G1003 gaps before Phase 1 build",
+        "Client validation session — 45% Confirmed confidence low for pre-sales; recommend stakeholder validation session (Pedro/Saulo/Maik + TI/Legal/DPO) to promote Assumed → Confirmed before finalizing scope"
+      ],
+      "next_steps": [
+        "Run export skill to package client-facing deliverables into Excel workbook",
+        "Optional: run slides skill if user needs presentation deck"
+      ]
+    },
+    {
+      "date": "2026-07-19",
+      "skills_used": [
+        "estimate"
+      ],
+      "summary": "Completed dual-track estimation (Traditional vs Quantum Leap). Mapped 11 perfis do projeto às taxas do contrato Salesforce PS Brasil (COM impostos, daily 8h/dia). Derived both lanes: (1) Traditional 29-54 semanas, 12-15 pessoas offshore-weighted (onshore-architect 4-5, onshore-developer 3-4, offshore 4-7), indicative price R$ 12.072.207–R$ 31.270.806; (2) Quantum Leap 25-49 semanas (compressed by efficiency Low readiness ~10-14%), 10-11 pessoas senior-core AI-native (onshore-architect 4-5, onshore-developer 3-4, offshore 0 — agents absorb build volume), indicative price R$ 7.957.075–R$ 19.971.861. Delta: ~34-36% lower QL via compressed duration + no offshore rates + team derived to need. QL qualification: committed-delivery (Dataprev meets AI-native joint operating model). SSSL sign-off approved. Offshore rate R$ 3.500/day is assumption (market-typical Brasil nearshore, not on contract table) — validate or adjust.",
+      "friction": [],
+      "decisions": [
+        {
+          "decision": "Dual-track lanes compared — Traditional (offshore-weighted scope-scaling) vs Quantum Leap (AI-native senior-core, QL committed-delivery)",
+          "rationale": "User requested 'as 2 visões' with contract rate table mapping. QL qualifies because Dataprev meets AI-native joint operating model criteria (daily decision-maker availability Saulo/Pedro/Maik, empowered business owners, AI-first mandate confirmed). Not conditional.",
+          "rejected": []
+        },
+        {
+          "decision": "Core continuous F0-F3: R01, R02, R03, R04, R06, R10 (6 roles); fractional specialists: R05 (F3), R07 (F0-F2 peak), R08 (F0-F2), R09 (F3), R11 (surge F1/F2/F3 hardening)",
+          "rationale": "User supplied via resourcing context questions: R02 Agentforce + R04 MuleSoft dev are continuous F1-F3 (critical for 9 agents + 7 system APIs), not fractional. QA surge hardening (not flat). 100% PS staffing, no client co-staffing.",
+          "rejected": [
+            "Core smaller: only R01+R03+R06+R10 continuous, R02+R04 fractional"
+          ]
+        },
+        {
+          "decision": "QL team: 0 offshore (agents absorb build volume), no human builder additional to core",
+          "rationale": "User confirmed 'agents absorvem todo build volume' (7 legacy API connectors, 9 Agentforce agents, Data Cloud config, test execution under senior core R02/R04 as agent directors). No critical-path/high-integrity build problem warrants human builder beyond core.",
+          "rejected": [
+            "QL with 1 human builder F2-F3 for Clarity migration or Data Cloud streaming"
+          ]
+        },
+        {
+          "decision": "11 perfis mapeados às taxas do contrato — COM impostos, daily 8h/dia; offshore rate R$ 3.500/day assumed (market-typical Brasil nearshore, not on contract table)",
+          "rationale": "User provided contract rate table with perfis Salesforce PS Brasil. Offshore rate not on table — used market-typical assumption flagged for validation. 3-class rate model (onshore-architect blended R$ 7.195/day, onshore-developer blended R$ 5.563/day, offshore R$ 3.500/day assumed).",
+          "rejected": []
+        }
+      ],
+      "open_threads": [
+        "Validate offshore rate assumption R$ 3.500/day (Traditional lane only) — confirm applicability to Dataprev engagement or adjust to actual contracted offshore rate if available",
+        "Protheus governance blocker G1002 still unresolved — escalate to seller before proposal submission (pre-sales qualification gate; Phase 1 J1 infeasible without TI+Jurídico+DPO approval)",
+        "Phase 0 approval — 68 gaps + volumetrics audit + Workspace Slack segregation + Clarity API validation mandatory before Phase 1 build",
+        "Experience Design + Governance workstreams lock — UX Researcher R08 Phase 0/Phase 1, Phase 0 RACI workshop for G9901/G1001/G1003",
+        "AI efficiency unlocks for High readiness ~18-22% (vs current Low ~10-14%) — AI tooling approval, G1002 resolution, LGPD/TCU AI policy, volumetrics audit, data model reconciliation"
+      ],
+      "next_steps": [
+        "Run validate → narratives → export to package dual-track comparison into client-ready deliverables",
+        "Optional: run slides skill if presentation deck needed"
+      ]
+    },
+    {
+      "date": "2026-07-19",
+      "skills_used": [
+        "validate"
+      ],
+      "summary": "Validated data quality after estimate completion. All per-file JSON validation PASS, cross-references valid, knowledge base populated (13 docs with source tags). One pricing-leak flag confirmed false-positive (R$2M business context in E04 HR policy threshold description, not a rate). Confidence distribution 45% Confirmed / 50% Assumed / 5% Unknown — low for delivery handoff but expected given 68 gaps + G1002 blocker + volumetrias pending. 68 gaps (6 source conflicts + 8 logical + 22 missing requirements + 12 ambiguities + 12 risks) exceed both Phase 0 thresholds (>15 gaps, >5 conflicts). 1 Unknown item flagged for discovery follow-up.",
+      "friction": [],
+      "decisions": [],
+      "open_threads": [
+        "Offshore rate validation R$ 3.500/day (Traditional lane only) — confirm or adjust",
+        "G1002 Protheus governance blocker — escalate to seller before proposal",
+        "Phase 0 approval — 68 gaps exceed 15-gap threshold; mandatory pre-Phase 1",
+        "Experience Design + Governance workstreams lock — add roles F0/F1 to address gaps",
+        "Client validation session — 45% Confirmed low for pre-sales; stakeholder validation to promote Assumed → Confirmed"
+      ],
+      "next_steps": [
+        "Run narratives for executive summary / RFP packaging",
+        "Optional: grill-me-on-scope to stress-test 68 gaps + confidence tags before export",
+        "After narratives: export to bundle client-facing deliverables into Excel workbook"
+      ]
+    },
+    {
+      "date": "2026-07-19",
+      "skills_used": [
+        "export"
+      ],
+      "summary": "Packaged all deliverables into Excel workbook (scoping-deliverables.xlsx) with 6 sheets: Epics, Gap Analysis, Estimates, Roadmap Phases, Roles & Skills, Efficiency. Pre-export validation confirmed one false-positive pricing leak (R$2M business context in E04, non-blocking). Synced 7 CSVs (10 epics, 68 gaps, 10 estimates, 4 phases, 11 roles, 31 efficiency rows, 2 estimate-comparison lanes). Deliverable ready for client handoff.",
+      "friction": [],
+      "decisions": [],
+      "open_threads": [
+        "Offshore rate validation R$ 3.500/day (Traditional lane) — confirm or adjust before final proposal",
+        "G1002 Protheus governance blocker — escalate to seller before proposal submission",
+        "Phase 0 approval — 68 gaps require resolution before Phase 1 build",
+        "Experience Design + Governance workstreams lock — add UX/CoE roles F0/F1",
+        "Client validation session — 45% Confirmed low for pre-sales; stakeholder validation to promote Assumed → Confirmed"
+      ],
+      "next_steps": [
+        "Optional: run slides skill if presentation deck needed",
+        "Optional: grill-me-on-scope to stress-test 68 gaps + confidence before final proposal"
+      ]
+    },
+    {
+      "date": "2026-07-20",
+      "skills_used": [
+        "slides"
+      ],
+      "summary": "Designed and approved 15-slide presentation deck in Portuguese (PTB) for mixed technical/business sponsors — objetivo: alinhamento de escopo antes de assinatura SOW. Socratic foundations: 'Uma plataforma de autosserviço e comunicação ativa, conectando os clientes e empregados da Dataprev aos seus sistemas internos, via Slack + Agentforce, sem depender de horário de atendimento.' Logic chain: Current → Future → Path. Collaborative tone. Slides 1-4: Situação atual (166× crescimento, 7 sistemas fragmentados, SLA degradado, janela de oportunidade). Slide 5: Visão (Slack Agentic OS + Agentforce + MuleSoft + Data Cloud). Slides 6-10: Escopo + fases + arquitetura + timeline benchmark 29-54 semanas. Slides 11-15: Riscos + disciplinas + premissas + próximos passos + call to action. Cada slide: action title, conteúdo, conceito visual, densidade (sparse/balanced/dense), data source, razão para existência, speaker notes.",
+      "friction": [],
+      "decisions": [
+        {
+          "decision": "15-slide presentation — alinhamento de escopo pré-SOW, tom colaborativo, audiência mista técnico/negócio Dataprev",
+          "rationale": "User requested 'align scope before sow signing, ptb language, the audience is a mix of technical and business sponsors, big idea is Uma plataforma de autosserviço e comunicação ativa, conectando os clientes e empregados da Dataprev aos seus sistemas internos, via Slack + Agentforce, sem depender de horário de atendimento.' Approved in 3 batches: slides 1-5, 6-10, 11-15.",
+          "rejected": []
+        }
+      ],
+      "open_threads": [
+        "Offshore rate validation R$ 3.500/day (Traditional lane) — confirm or adjust before final proposal",
+        "G1002 Protheus governance blocker — escalate to seller before proposal submission",
+        "Phase 0 approval — 68 gaps require resolution before Phase 1 build",
+        "Experience Design + Governance workstreams lock — add UX/CoE roles F0/F1",
+        "Client validation session — 45% Confirmed low for pre-sales; stakeholder validation to promote Assumed → Confirmed",
+        "Deck rendering — 06-presentation-outline.md ready for manual slide-building in PPTX/Google Slides, or invoke Gemini delivery mode for prompts"
+      ],
+      "next_steps": [
+        "Optional: grill-me-on-scope to stress-test 68 gaps + confidence before final proposal",
+        "Optional: share skill to publish deliverable to Google Drive as shareable link",
+        "Optional: Gemini delivery mode (slides skill) to generate copy-paste prompts for Google Slides rendering"
+      ]
+    },
+    {
+      "date": "2026-07-24",
+      "skills_used": [
+        "ad-hoc"
+      ],
+      "summary": "Pesquisa SEI (Sistema Eletrônico de Informações) estruturada e registrada como nova página navegável na apresentação data-agil-rom.html. Superfície de conexão ancorada no código-fonte oficial (pengovbr/mod-wssei v2, ~150+ endpoints REST) + WSDL SOAP atestado pelo cliente. Confirmado: SEI não tem push/webhook → polling obrigatório. 10 jornadas SEI-J1..J10 priorizadas por coeficiente de ganho (Valor÷Esforço): topo SEI-J1 Alerta de prazo/cumprimento tácito (2,50), SEI-J2 consulta linguagem natural (2,33), SEI-J3/J4 (2,00). Metrificação: viável por fórmula, depende de volumetria da Dataprev (entregue metodologia + exemplo ilustrativo, sem número comprometido). Refletido no escopo como épica E11 (expansão, FORA do ROM dual-track atual) + gaps G1101-G1105.",
+      "friction": [],
+      "decisions": [
+        {
+          "decision": "SEI tratado como épica E11 de EXPANSÃO, fora do ROM dual-track atual (não repriça os números validados)",
+          "rationale": "Usuário pediu para refletir jornadas SEI-J1..J10 em gaps/épicas; ROM foi construído sobre 10 épicas. Adicionar E11 como expansão marcada Assumed preserva os números validados. Precificar SEI exige estimate/revise.",
+          "rejected": [
+            "Reprecificar o ROM incluindo SEI agora",
+            "Renumerar J1-J10 (colisão evitada com prefixo SEI-)"
+          ]
+        }
+      ],
+      "open_threads": [
+        "E11 SEI não precificada — rodar estimate/revise se cliente quiser SEI no ROM",
+        "G1101: confirmar superfície SEI publicada na instância-alvo (SOAP e/ou REST)",
+        "G1102: coletar volumetria SEI para quantificar ganho das jornadas"
+      ],
+      "next_steps": [
+        "Validar E11 com cliente",
+        "Coletar volumetria SEI (G1102) para metrificação real"
+      ]
+    }
+  ],
+  "preferences": {},
+  "decision_log": [
+    {
+      "date": "2026-07-18",
+      "area": "strategy",
+      "decision": "Strategic priorities ranked — F1 Quick Wins (read-only) > Governança/compliance > Change Management > Arquitetura reutilizável > Faseamento para alçadas",
+      "rationale": "Faseamento maximiza ROI precoce (alçada Saulo F1), compliance é não-negociável (breach recente 2.8M CPFs + audit TCU), CM estruturado é condição de sucesso (Juliana Brites enfatizou), arquitetura reutilizável amortiza custo via Serviço na Ponta",
+      "rejected": []
+    },
+    {
+      "date": "2026-07-19",
+      "area": "requirements",
+      "decision": "Epic-level depth (epics + gaps) for proposal — user stories are opt-in handoff via backlog skill, not default scoping output",
+      "rationale": "Scoping is for pre-sales proposal; backlog/quantum-leap are delivery-handoff side-quests chosen at the end by destination (human team vs agentic build tool)",
+      "rejected": []
+    }
+  ]
+}

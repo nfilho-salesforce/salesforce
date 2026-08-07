@@ -24,4 +24,4 @@ Historicamente as emissoras (Alelo, Ticket/Edenred, Pluxee/Sodexo, VR) operavam 
 ## Ligação com o projeto
 
 - **E04** — "Estabelecimentos hoje se credenciam facilitadora a facilitadora, com duplicidade e fricção. O programa quer um cadastro unificado via gov.br, mantendo o papel legal das facilitadoras de aprovar e descredenciar."
-- **G0401 (conflito de fonte)** — registro unificado (gov.br) vs. papel legal da facilitadora de aprovar/descredenciar; sistema-of-record a resolver na Fase 0.
+- **G0401 (conflito de fonte)** — registro unificado (gov.br) vs. papel legal da facilitadora de aprovar/descredenciar; sistema-of-record a resolver na Etapa 0.

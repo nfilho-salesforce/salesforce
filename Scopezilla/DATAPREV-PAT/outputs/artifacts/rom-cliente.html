@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>PAT Marketplace · BSA Revisado · Dataprev × Salesforce</title>
+<title>PAT Marketplace · PS Revisado · Dataprev × Salesforce</title>
 <style>
 :root{
   --blue-dark:#071D41; --blue-mid:#0C326F; --blue-accent:#1351B4; --blue-light:#EDF5FF;
@@ -28,7 +28,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
 .logo-tag{display:inline-block;color:#fff;font-size:9.5px;font-weight:700;padding:3px 9px;border-radius:4px;letter-spacing:.8px;text-transform:uppercase;}
 .logo-tag.gov{background:var(--blue-accent);}
 .logo-tag.sf{background:var(--teal);}
-.logo-tag.bsa{background:var(--orange);}
+.logo-tag.ps{background:var(--orange);}
 #sidebar-header h2{color:#fff;font-family:var(--font-display);font-size:14px;font-weight:700;line-height:1.3;}
 #sidebar-header p{color:rgba(255,255,255,.45);font-size:10.5px;margin-top:5px;line-height:1.4;}
 .owner-line{color:rgba(255,255,255,.75);font-size:11px;margin-top:7px;font-weight:600;}
@@ -230,7 +230,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
 .req-id.reg{background:var(--red);}
 .req-card h4{font-size:13px;font-weight:700;color:var(--blue-dark);margin-bottom:8px;}
 .req-card p{font-size:12.5px;color:var(--text-main);line-height:1.6;margin-bottom:8px;}
-.req-card .bsa-note{font-size:11.5px;color:var(--text-muted);font-style:italic;line-height:1.55;}
+.req-card .ps-note{font-size:11.5px;color:var(--text-muted);font-style:italic;line-height:1.55;}
 .complexity-bar{display:flex;gap:3px;margin:8px 0 4px;}
 .cx-block{height:6px;flex:1;border-radius:3px;background:var(--gray-border);}
 .cx-block.fill-1{background:var(--green);}
@@ -552,7 +552,7 @@ body{
 .req-id{box-shadow:0 3px 10px -4px rgba(11,26,58,.4);}
 .cx-block{transition:transform .2s var(--ease);}
 .complexity-bar:hover .cx-block{transform:scaleY(1.5);}
-.bsa-note{background:linear-gradient(180deg,#fffdf3,#fff9e6);border-radius:10px;padding:10px 12px;border:1px solid #ffefb0;}
+.ps-note{background:linear-gradient(180deg,#fffdf3,#fff9e6);border-radius:10px;padding:10px 12px;border:1px solid #ffefb0;}
 
 /* ── KANBAN ──────────────────────────────────────────────── */
 .kanban-col h3{box-shadow:var(--sh-sm);}
@@ -989,6 +989,17 @@ body{
 @media(max-width:640px){.close-band{flex-wrap:wrap;gap:12px;padding:20px;}}
 
 /* ── ROADMAP · TELA DEFINIDORA (cards ricos + destaque) ──── */
+/* Roadmap wave estimate (indicative, AI-native lane) */
+.rm-est{display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px;padding:12px 24px;background:#f4f7fc;border-bottom:1px solid var(--gray-border);}
+.rm-est .m{display:inline-flex;align-items:baseline;gap:5px;font-size:11.5px;color:var(--text-muted);}
+.rm-est .m b{font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--blue-dark);letter-spacing:-.01em;}
+.rm-est .m.price b{color:var(--orange);}
+.rm-est .roster{margin-left:auto;font-size:11px;color:var(--text-muted);font-style:italic;}
+.rm-est-summary{background:linear-gradient(180deg,#fff,#f6f8fc);border:1px solid var(--gray-border);border-left:4px solid var(--orange);border-radius:var(--r-md);padding:18px 22px;margin:22px 0;box-shadow:var(--sh-sm);}
+.rm-est-summary .es-head{font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--blue-dark);display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.rm-est-summary > p{font-size:12.5px;color:var(--text-main);line-height:1.55;margin-bottom:14px;max-width:none;}
+.rm-est-summary .es-disc{font-size:11px;color:var(--text-muted);font-style:italic;line-height:1.5;background:#fffdf3;border:1px solid #ffefb0;border-radius:8px;padding:9px 12px;margin:0;}
+@media(max-width:640px){.rm-est .roster{margin-left:0;width:100%;}}
 .rm-highlight{display:flex;gap:18px;align-items:center;background:linear-gradient(120deg,#071D41 0%,#123a86 55%,#168821 100%);
   border-radius:22px;padding:22px 26px;margin:2px 0 22px;color:#fff;position:relative;overflow:hidden;box-shadow:var(--sh-lg);}
 .rm-highlight::before{content:'';position:absolute;right:-70px;top:-90px;width:280px;height:280px;border-radius:50%;
@@ -1070,7 +1081,7 @@ body.lang-en .t-en{display:inline;}
     <div class="logo-row">
       <span class="logo-tag gov">GOV.BR</span>
       <span class="logo-tag sf">Salesforce</span>
-      <span class="logo-tag bsa">BSA</span>
+      <span class="logo-tag ps">PS</span>
     </div>
     <h2><span class="t-pt">PAT Marketplace<br>Revisado · 2026</span><span class="t-en">PAT Marketplace<br>Revised · 2026</span></h2>
     <p><span class="t-pt">Decreto 12.712/2025 · Instância dedicada MTE</span><span class="t-en">Decree 12.712/2025 · MTE dedicated instance</span></p>
@@ -3236,7 +3247,7 @@ body.lang-en .t-en{display:inline;}
       <div class="hero" style="background:linear-gradient(135deg,#0C326F,#377EC1);">
         <div class="eyebrow">Requisitos · Por Camada Arquitetural</div>
         <h1>Levantamento de Requisitos</h1>
-        <p class="sub">Requisitos técnicos organizados pelas mesmas 6 camadas da arquitetura. Expanda cada camada para ver os cards de requisito com complexidade, tipo e notas BSA. Decisões em aberto referenciadas diretamente.</p>
+        <p class="sub">Requisitos técnicos organizados pelas mesmas 6 camadas da arquitetura. Expanda cada camada para ver os cards de requisito com complexidade, tipo e notas PS. Decisões em aberto referenciadas diretamente.</p>
       </div>
 
       <!-- CAMADA 1: CANAIS -->
@@ -3252,7 +3263,7 @@ body.lang-en .t-en{display:inline;}
             <div style="font-size:10.5px;color:var(--orange);font-weight:700;margin-bottom:8px;">Alta</div>
             <p>Portais de Empresa Beneficiária e Estabelecimento devem autenticar exclusivamente via GovBR. SAML 2.0 para login federado. Atributos mapeados: CPF/CNPJ, nome, email. Sessão vinculada ao Account no Salesforce.</p>
             <div style="margin-top:8px;font-size:11px;font-weight:700;color:var(--text-muted);">Dependências: REQ-INT-03 (endpoint Novo PAT) · OPEN-02 (documentos)</div>
-            <p class="bsa-note">💡 GovBR exige aprovação formal do SISP/SGD para liberação de CNPJ federado. Iniciar processo de homologação imediatamente, prazos são longos na esfera federal.</p>
+            <p class="ps-note">💡 GovBR exige aprovação formal do SISP/SGD para liberação de CNPJ federado. Iniciar processo de homologação imediatamente, prazos são longos na esfera federal.</p>
           </div>
           <div class="req-card">
             <span class="req-id func">REQ-CH-02</span>
@@ -3262,7 +3273,7 @@ body.lang-en .t-en{display:inline;}
             <div class="complexity-bar"><div class="cx-block fill-2"></div><div class="cx-block fill-2"></div><div class="cx-block"></div><div class="cx-block"></div></div>
             <div style="font-size:10.5px;color:var(--yellow);font-weight:700;margin-bottom:8px;">Média</div>
             <p>OmniScript para abertura de cotação com wizard de 3 passos: parâmetros básicos → trabalhadores → confirmação. DataMappers (antes DataRaptor) para leitura/escrita em Cotacao__c. FlexCards para exibição de propostas recebidas em comparativo visual.</p>
-            <p class="bsa-note">💡 OmniStudio requer licença adicional. Confirmar inclusão no bundle de licenças, pode ser substituído por Screen Flow se a licença não estiver disponível, com degradação de UX.</p>
+            <p class="ps-note">💡 OmniStudio requer licença adicional. Confirmar inclusão no bundle de licenças, pode ser substituído por Screen Flow se a licença não estiver disponível, com degradação de UX.</p>
           </div>
           <div class="req-card">
             <span class="req-id func">REQ-CH-03</span>
@@ -3282,7 +3293,7 @@ body.lang-en .t-en{display:inline;}
             <div class="complexity-bar"><div class="cx-block fill-2"></div><div class="cx-block fill-2"></div><div class="cx-block"></div><div class="cx-block"></div></div>
             <div style="font-size:10.5px;color:var(--yellow);font-weight:700;margin-bottom:8px;">Média</div>
             <p>4 perfis internos: Operador Básico (análise de credenciamento) / Supervisor (configuração de regras) / Administrador (gestão plena) / Auditor (somente leitura com exportação). Permission Sets por nível. MFA obrigatório.</p>
-            <p class="bsa-note">💡 Auditor deve ter acesso de leitura a todos os objetos mas sem capacidade de edição, use Permission Set dedicado com OWD Viewer. Evitar perfis Admin para auditores por compliance.</p>
+            <p class="ps-note">💡 Auditor deve ter acesso de leitura a todos os objetos mas sem capacidade de edição, use Permission Set dedicado com OWD Viewer. Evitar perfis Admin para auditores por compliance.</p>
           </div>
         </div>
       </details>
@@ -3299,7 +3310,7 @@ body.lang-en .t-en{display:inline;}
             <div class="complexity-bar"><div class="cx-block fill-4"></div><div class="cx-block fill-4"></div><div class="cx-block fill-4"></div><div class="cx-block fill-4"></div></div>
             <div style="font-size:10.5px;color:var(--red);font-weight:700;margin-bottom:8px;">Crítica</div>
             <p>Autenticação OAuth2 client_credentials por facilitadora. Schema de proposta validado por MuleSoft antes de encaminhar ao Apex. Dead Letter Queue para mensagens com falha. Retry automático com backoff exponencial. Contrato de API versionado (v1.x).</p>
-            <p class="bsa-note">💡 Definir processo de onboarding de facilitadora: quem emite o client_id/secret? MTE ou Dataprev? Documentar no API Portal do MuleSoft Anypoint Exchange.</p>
+            <p class="ps-note">💡 Definir processo de onboarding de facilitadora: quem emite o client_id/secret? MTE ou Dataprev? Documentar no API Portal do MuleSoft Anypoint Exchange.</p>
           </div>
           <div class="req-card">
             <span class="req-id nfunc">REQ-INT-04</span>
@@ -3329,7 +3340,7 @@ body.lang-en .t-en{display:inline;}
             <div class="complexity-bar"><div class="cx-block fill-3"></div><div class="cx-block fill-3"></div><div class="cx-block fill-3"></div><div class="cx-block"></div></div>
             <div style="font-size:10.5px;color:var(--orange);font-weight:700;margin-bottom:8px;">Alta</div>
             <p>Todas as mensagens de saída (webhooks, split, boleto) com retry automático: 3 tentativas com backoff exponencial (30s, 2min, 10min). Falhas persistentes vão para DLQ. Alerta para operador MTE via Service Cloud case automático.</p>
-            <p class="bsa-note">💡 Usar Anypoint MQ como DLQ nativa se MuleSoft for Anypoint Platform cloud. Alternativa: AWS SQS DLQ via conector MuleSoft, mais complexo mas possível.</p>
+            <p class="ps-note">💡 Usar Anypoint MQ como DLQ nativa se MuleSoft for Anypoint Platform cloud. Alternativa: AWS SQS DLQ via conector MuleSoft, mais complexo mas possível.</p>
           </div>
         </div>
       </details>
@@ -3346,7 +3357,7 @@ body.lang-en .t-en{display:inline;}
             <div class="complexity-bar"><div class="cx-block fill-2"></div><div class="cx-block fill-2"></div><div class="cx-block"></div><div class="cx-block"></div></div>
             <div style="font-size:10.5px;color:var(--yellow);font-weight:700;margin-bottom:8px;">Média</div>
             <p>Regra geral: Flow para orquestração de negócio configurável pelo MTE (regras de cotação, parâmetros de prazo). Apex para: processamento de CSV em lote, validações complexas multi-objeto, integrações síncronas de alta performance. Misto em motor de regras de cotação.</p>
-            <p class="bsa-note">💡 Evitar Apex em regras configuráveis pelo MTE, operador não faz deploy. Custom Metadata Types como repositório de parâmetros permite reconfiguração sem código.</p>
+            <p class="ps-note">💡 Evitar Apex em regras configuráveis pelo MTE, operador não faz deploy. Custom Metadata Types como repositório de parâmetros permite reconfiguração sem código.</p>
           </div>
           <div class="req-card">
             <span class="req-id func">REQ-PROC-02</span>
@@ -3356,7 +3367,7 @@ body.lang-en .t-en{display:inline;}
             <div class="complexity-bar"><div class="cx-block fill-3"></div><div class="cx-block fill-3"></div><div class="cx-block fill-3"></div><div class="cx-block"></div></div>
             <div style="font-size:10.5px;color:var(--orange);font-weight:700;margin-bottom:8px;">Alta</div>
             <p>Batch Apex com chunk size 200 para processar CSVs de empresas grandes (até 100k trabalhadores). Erros por linha isolados, lote não falha inteiro. Platform Events para notificação de conclusão. Relatório de erros acessível no portal da empresa.</p>
-            <p class="bsa-note">💡 Para empresas com &gt;50k trabalhadores, CSV pode exceder 10MB, considerar streaming multipart upload via MuleSoft em vez de upload direto no Experience Cloud.</p>
+            <p class="ps-note">💡 Para empresas com &gt;50k trabalhadores, CSV pode exceder 10MB, considerar streaming multipart upload via MuleSoft em vez de upload direto no Experience Cloud.</p>
           </div>
           <div class="req-card">
             <span class="req-id func">REQ-PROC-04</span>
@@ -3366,7 +3377,7 @@ body.lang-en .t-en{display:inline;}
             <div class="complexity-bar"><div class="cx-block fill-3"></div><div class="cx-block fill-3"></div><div class="cx-block fill-3"></div><div class="cx-block"></div></div>
             <div style="font-size:10.5px;color:var(--orange);font-weight:700;margin-bottom:8px;">Alta</div>
             <p>2 agentes Fase 1: (1) Beneficiária, responde dúvidas, resume propostas, orienta upload de folha; (2) MTE Operador, sugere decisão de credenciamento com base nos documentos enviados. Cada agente com contexto delimitado ao seu domínio de dados. LGPD: agentes não retornam CPFs em texto.</p>
-            <p class="bsa-note">💡 Agentforce para Estabelecimento (UC-20) fora da Fase 1, priorizar os 2 agentes core. Adicionar na Wave 1 após validar adoção dos primeiros.</p>
+            <p class="ps-note">💡 Agentforce para Estabelecimento (UC-20) fora da Fase 1, priorizar os 2 agentes core. Adicionar na Wave 1 após validar adoção dos primeiros.</p>
           </div>
         </div>
       </details>
@@ -3383,7 +3394,7 @@ body.lang-en .t-en{display:inline;}
             <div class="complexity-bar"><div class="cx-block fill-2"></div><div class="cx-block fill-2"></div><div class="cx-block"></div><div class="cx-block"></div></div>
             <div style="font-size:10.5px;color:var(--yellow);font-weight:700;margin-bottom:8px;">Média</div>
             <p>Campos obrigatórios definidos pelo MTE: CNPJ_beneficiaria, CNPJ_facilitadora, data_inicio, data_fim, valor_mensal_estimado, tipo_beneficio (VA/VR/ambos), status_contrato, id_externo_facilitadora. Relacionado a: Account (beneficiária), Account (facilitadora), Cotacao__c.</p>
-            <p class="bsa-note">💡 MTE deve validar e homologar o schema antes do desenvolvimento. Mudanças pós-desenvolvimento têm custo alto. Propor workshop de validação do modelo de dados.</p>
+            <p class="ps-note">💡 MTE deve validar e homologar o schema antes do desenvolvimento. Mudanças pós-desenvolvimento têm custo alto. Propor workshop de validação do modelo de dados.</p>
           </div>
           <div class="req-card">
             <span class="req-id reg">REQ-DATA-04</span>
@@ -3393,7 +3404,7 @@ body.lang-en .t-en{display:inline;}
             <div class="complexity-bar"><div class="cx-block fill-3"></div><div class="cx-block fill-3"></div><div class="cx-block fill-3"></div><div class="cx-block"></div></div>
             <div style="font-size:10.5px;color:var(--orange);font-weight:700;margin-bottom:8px;">Alta</div>
             <p>Field Audit Trail ativado em: Contrato__c (todos os campos), Cotacao__c, Account (estabelecimento), FolhaProcessada__c, SplitFinanceiro__c. Retenção: 10 anos (mínimo regulatório sugerido). Event Monitoring: login, API calls, dados exportados.</p>
-            <p class="bsa-note">💡 Shield tem custo adicional por org. Confirmar no orçamento Salesforce. Sem Shield, a auditoria regulatória fica comprometida, item não-negociável para conformidade TCU/BCB.</p>
+            <p class="ps-note">💡 Shield tem custo adicional por org. Confirmar no orçamento Salesforce. Sem Shield, a auditoria regulatória fica comprometida, item não-negociável para conformidade TCU/BCB.</p>
           </div>
           <div class="req-card">
             <span class="req-id reg">REQ-DATA-05</span>
@@ -3403,7 +3414,7 @@ body.lang-en .t-en{display:inline;}
             <div class="complexity-bar"><div class="cx-block fill-3"></div><div class="cx-block fill-3"></div><div class="cx-block fill-3"></div><div class="cx-block"></div></div>
             <div style="font-size:10.5px;color:var(--orange);font-weight:700;margin-bottom:8px;">Alta</div>
             <p>CPFs de trabalhadores presentes apenas no CSV de folha. Após processamento, a plataforma armazena apenas valores agregados por contrato, não CPF individual. Logs de auditoria mascaram CPFs. Comunicação CSV entre plataforma e facilitadora via canal criptografado MuleSoft.</p>
-            <p class="bsa-note">💡 Envolver o DPO do MTE desde o início. O tratamento de CPFs em escala nacional exige RIPD (Relatório de Impacto à Proteção de Dados) aprovado antes do go-live.</p>
+            <p class="ps-note">💡 Envolver o DPO do MTE desde o início. O tratamento de CPFs em escala nacional exige RIPD (Relatório de Impacto à Proteção de Dados) aprovado antes do go-live.</p>
           </div>
           <div class="req-card">
             <span class="req-id integ">REQ-DATA-02</span>
@@ -3413,7 +3424,7 @@ body.lang-en .t-en{display:inline;}
             <div class="complexity-bar"><div class="cx-block fill-2"></div><div class="cx-block fill-2"></div><div class="cx-block"></div><div class="cx-block"></div></div>
             <div style="font-size:10.5px;color:var(--yellow);font-weight:700;margin-bottom:8px;">Média</div>
             <p>Decisão arquitetural em aberto: (a) Salesforce Files nativos, simples, mas custo de storage cresce com volume; (b) S3 via MuleSoft, custo menor mas adiciona complexidade. Decisão deve considerar volume estimado de contratos (nº facilitadoras × nº beneficiárias × anos de retenção).</p>
-            <p class="bsa-note">💡 Para 500k empresas × 40 facilitadoras × 1 PDF/contrato × 10 anos = estimativa de volume expressivo. Calcular custo comparativo antes de decidir. Salesforce Files têm limite de 10GB na org por default (expansível).</p>
+            <p class="ps-note">💡 Para 500k empresas × 40 facilitadoras × 1 PDF/contrato × 10 anos = estimativa de volume expressivo. Calcular custo comparativo antes de decidir. Salesforce Files têm limite de 10GB na org por default (expansível).</p>
           </div>
         </div>
       </details>
@@ -4250,6 +4261,18 @@ body.lang-en .t-en{display:inline;}
         </div>
       </div>
 
+      <!-- ESTIMATIVA INDICATIVA DO ROADMAP -->
+      <div class="rm-est-summary">
+        <div class="es-head">📐 Estimativa indicativa do roadmap · lane AI-native</div>
+        <p>Dimensionamento top-down por onda — esforço, equipe e preço indicativo. As ondas são <b>evolutivas (2027+)</b>, entregues em sequência, sem barreira de data fixa e <b>independentes do escopo da Fase 1</b> (não somam ao ROM do go-live regulatório). Complexidade relativa: <b>W1 25% · W2 28% · W3 46%</b> (pesos S/M/L/XL).</p>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px;">
+          <div class="kpi"><div class="n">~8.820–13.720</div><div class="l">horas PS · total do roadmap (3 ondas)</div></div>
+          <div class="kpi orange"><div class="n">R$ 7,06M – 10,98M</div><div class="l">preço indicativo · c/ imposto (soma das ondas)</div></div>
+          <div class="kpi green"><div class="n">3 ondas · 16 entregas</div><div class="l">equipe enxuta sênior + agentes por onda</div></div>
+        </div>
+        <p class="es-disc">⚠️ Faixas <b>benchmark-based</b>, derivadas dos padrões de entrega do modelo de IA (não validadas pela Salesforce) e <b>indicativas</b> — não constituem compromisso. As horas nascem de <i>equipe × duração</i> e o preço de <i>rate validada × horas</i>; números finais são confirmados no acordo comercial aplicável.</p>
+      </div>
+
       <!-- WAVE 1 -->
       <div class="rm-wave" style="margin-bottom:20px;animation:secFade .4s ease;">
         <div class="rm-wave-header w1">
@@ -4258,6 +4281,13 @@ body.lang-en .t-en{display:inline;}
             <div class="timespan">0–6 meses pós go-live</div>
           </div>
           <div style="margin-left:auto;font-size:24px;">🏛️</div>
+        </div>
+        <div class="rm-est">
+          <span class="m"><b>~2,75</b> FTE médio</span>
+          <span class="m"><b>~10–16</b> sem ativas</span>
+          <span class="m"><b>~1.100–1.760</b> h PS</span>
+          <span class="m price"><b>R$ 0,87M – 1,40M</b> indicativo</span>
+          <span class="roster">Sr TA · Dev · QA (½) · PM (¼)</span>
         </div>
         <div class="rm-items">
 
@@ -4357,6 +4387,13 @@ body.lang-en .t-en{display:inline;}
           </div>
           <div style="margin-left:auto;font-size:24px;">🧠</div>
         </div>
+        <div class="rm-est">
+          <span class="m"><b>~3,75</b> FTE médio</span>
+          <span class="m"><b>~16–24</b> sem ativas</span>
+          <span class="m"><b>~2.400–3.600</b> h PS</span>
+          <span class="m price"><b>R$ 1,85M – 2,78M</b> indicativo</span>
+          <span class="roster">Sr TA · Dev · Analytics/AI-TC · QA (½) · PM (¼)</span>
+        </div>
         <div class="rm-items">
 
           <div class="rm-item">
@@ -4441,6 +4478,13 @@ body.lang-en .t-en{display:inline;}
           </div>
           <div style="margin-left:auto;font-size:24px;">🚀</div>
         </div>
+        <div class="rm-est">
+          <span class="m"><b>~4,75</b> FTE médio</span>
+          <span class="m"><b>~28–44</b> sem ativas</span>
+          <span class="m"><b>~5.320–8.360</b> h PS</span>
+          <span class="m price"><b>R$ 4,33M – 6,80M</b> indicativo</span>
+          <span class="roster">Sr SA · Sr TA · Dev · QA · PM (½) · MuleSoft TA (¼)</span>
+        </div>
         <div class="rm-items">
 
           <div class="rm-item">
@@ -4520,7 +4564,7 @@ body.lang-en .t-en{display:inline;}
       <div class="alert blue" style="margin-top:24px;">
         <span class="ic">🎯</span>
         <div>
-          <strong>Visão de Longo Prazo · BSA Strategy Note</strong><br>
+          <strong>Visão de Longo Prazo · PS Strategy Note</strong><br>
           O PAT Marketplace não é apenas um sistema de VA/VR. É a prova de conceito de que o Estado brasileiro pode operar infraestrutura regulatória de R$200bi/ano em cloud pública Salesforce. Se bem-sucedido, abre caminho para replicação em outros mercados regulados e posiciona a Dataprev como operadora de infraestrutura digital do Governo Federal em parceria com Salesforce. O vetor central é observabilidade estatal, não apenas modernização de processos.
         </div>
       </div>
@@ -4538,7 +4582,7 @@ body.lang-en .t-en{display:inline;}
 <!-- ═══════════════════════════════ LOG PANEL ═══════════════════════════════ -->
 <div id="log-panel">
   <div id="log-header" onclick="toggleLog()">
-    <span>▸ PAT-BSA LOG</span>
+    <span>▸ PAT-PS LOG</span>
     <button id="log-toggle">▾</button>
   </div>
   <div id="log-body">
@@ -4762,11 +4806,11 @@ window.addEventListener('load',()=>{
   let delay = 200;
   parts.forEach((p,i)=>{
     setTimeout(()=>{
-      logMsg('[PAT-BSA] ' + p, 'done');
+      logMsg('[PAT-PS] ' + p, 'done');
     }, delay * (i+1));
   });
   setTimeout(()=>{
-    logMsg('[PAT-BSA] HTML gerado com sucesso ✓', 'done');
+    logMsg('[PAT-PS] HTML gerado com sucesso ✓', 'done');
   }, delay * (parts.length + 1));
 });
 
@@ -4816,7 +4860,7 @@ function setLang(lang){
     var sec=document.getElementById(sid); if(!sec) return;
     if(lang==='en'){
       if(ptCache[sid]==null) ptCache[sid]=sec.innerHTML;
-      var tpl=document.querySelector('#i18n-store template[data-sec="'+sid+'"]');
+      var tpl=document.querySelector('#i18n-store script[data-sec="'+sid+'"]');
       if(tpl) sec.innerHTML=tpl.innerHTML;
     } else if(ptCache[sid]!=null){
       sec.innerHTML=ptCache[sid];
@@ -4832,7 +4876,7 @@ function setLang(lang){
 }
 </script>
 <div id="i18n-store" hidden>
-<template data-sec="s1">
+<script type="text/template" data-sec="s1">
 
       <!-- HERO -->
       <div class="hero">
@@ -5061,8 +5105,8 @@ function setLang(lang){
         <button class="sec-link" onclick="showSection('s2')">→ View decrees and legal basis</button>
       </div>
 
-</template>
-<template data-sec="s2">
+</script>
+<script type="text/template" data-sec="s2">
 
       <div class="hero" style="background:linear-gradient(135deg,#071D41,#0C326F);">
         <div class="eyebrow">Legal Basis · Decree 12,712/2025 · PAT</div>
@@ -5411,8 +5455,8 @@ function setLang(lang){
         <button class="sec-link" onclick="showSection('s3')">→ View journeys by actor</button>
       </div>
 
-</template>
-<template data-sec="s3">
+</script>
+<script type="text/template" data-sec="s3">
 
       <div class="hero" style="background:linear-gradient(135deg,#0C326F,#1351B4);">
         <div class="eyebrow">Journeys · 6 Profiles · PAT Marketplace</div>
@@ -5845,8 +5889,8 @@ function setLang(lang){
         <button class="sec-link" onclick="showSection('s4')">→ View architecture</button>
       </div>
 
-</template>
-<template data-sec="s4">
+</script>
+<script type="text/template" data-sec="s4">
 
       <div class="hero" style="background:linear-gradient(135deg,#071D41,#7B2FBE);">
         <div class="eyebrow">Architecture · Salesforce Individual · MuleSoft · Data Cloud</div>
@@ -6027,8 +6071,8 @@ function setLang(lang){
         <button class="sec-link" onclick="showSection('s4b')">→ View CRM × Bank boundary</button>
       </div>
 
-</template>
-<template data-sec="s4b">
+</script>
+<script type="text/template" data-sec="s4b">
 
       <div class="hero" style="background:linear-gradient(135deg,#071D41,#1351B4 60%,#06A59A);">
         <div class="eyebrow">Responsibility Boundary · CRM × Financial Institution</div>
@@ -6267,8 +6311,8 @@ function setLang(lang){
         <button class="sec-link" onclick="showSection('s4c')">→ View capacity &amp; limits</button>
       </div>
 
-</template>
-<template data-sec="s4c">
+</script>
+<script type="text/template" data-sec="s4c">
 
       <div class="hero" style="background:linear-gradient(135deg,#071D41,#377EC1);">
         <div class="eyebrow">Design · Sizing & Scalability</div>
@@ -6374,8 +6418,8 @@ function setLang(lang){
         <button class="sec-link" onclick="showSection('s5b')">→ View epics &amp; solution</button>
       </div>
 
-</template>
-<template data-sec="s5b">
+</script>
+<script type="text/template" data-sec="s5b">
 
       <div class="hero" style="background:linear-gradient(135deg,#0C326F,#1351B4);">
         <div class="eyebrow">Scope · Solution View</div>
@@ -6627,8 +6671,8 @@ function setLang(lang){
         <button class="sec-link" onclick="showSection('s5')">→ View use cases</button>
       </div>
 
-</template>
-<template data-sec="s5">
+</script>
+<script type="text/template" data-sec="s5">
 
       <div class="hero" style="background:linear-gradient(135deg,#0C326F,#168821);">
         <div class="eyebrow">Use Cases · 20 UCs · Phase 1 + Roadmap</div>
@@ -6889,13 +6933,13 @@ function setLang(lang){
         <button class="sec-link" onclick="showSection('s6')">→ View requirements</button>
       </div>
 
-</template>
-<template data-sec="s6">
+</script>
+<script type="text/template" data-sec="s6">
 
       <div class="hero" style="background:linear-gradient(135deg,#0C326F,#377EC1);">
         <div class="eyebrow">Requirements · By Architectural Layer</div>
         <h1>Requirements Gathering</h1>
-        <p class="sub">Technical requirements organized by the same 6 architecture layers. Expand each layer to see requirement cards with complexity, type, and BSA notes. Open Decisions are referenced directly.</p>
+        <p class="sub">Technical requirements organized by the same 6 architecture layers. Expand each layer to see requirement cards with complexity, type, and PS notes. Open Decisions are referenced directly.</p>
       </div>
 
       <!-- LAYER 1: CHANNELS -->
@@ -6911,7 +6955,7 @@ function setLang(lang){
             <div style="font-size:10.5px;color:var(--orange);font-weight:700;margin-bottom:8px;">High</div>
             <p>Beneficiary Company and Merchant portals must authenticate exclusively via GovBR. SAML 2.0 for federated login. Mapped attributes: CPF/CNPJ, name, email. Session linked to the Account in Salesforce.</p>
             <div style="margin-top:8px;font-size:11px;font-weight:700;color:var(--text-muted);">Dependencies: REQ-INT-03 (New PAT endpoint) · OPEN-02 (documents)</div>
-            <p class="bsa-note">💡 GovBR requires formal SISP/SGD approval to release a federated CNPJ. Start the UAT process immediately — timelines are long at the federal level.</p>
+            <p class="ps-note">💡 GovBR requires formal SISP/SGD approval to release a federated CNPJ. Start the UAT process immediately — timelines are long at the federal level.</p>
           </div>
           <div class="req-card">
             <span class="req-id func">REQ-CH-02</span>
@@ -6921,7 +6965,7 @@ function setLang(lang){
             <div class="complexity-bar"><div class="cx-block fill-2"></div><div class="cx-block fill-2"></div><div class="cx-block"></div><div class="cx-block"></div></div>
             <div style="font-size:10.5px;color:var(--yellow);font-weight:700;margin-bottom:8px;">Medium</div>
             <p>OmniScript for opening a quote with a 3-step wizard: basic parameters → workers → confirmation. DataMappers (formerly DataRaptor) for reading/writing to Cotacao__c. FlexCards to display received proposals in a visual comparison.</p>
-            <p class="bsa-note">💡 OmniStudio requires an additional license. Confirm inclusion in the license bundle — it can be replaced with Screen Flow if the license isn't available, with UX degradation.</p>
+            <p class="ps-note">💡 OmniStudio requires an additional license. Confirm inclusion in the license bundle — it can be replaced with Screen Flow if the license isn't available, with UX degradation.</p>
           </div>
           <div class="req-card">
             <span class="req-id func">REQ-CH-03</span>
@@ -6941,7 +6985,7 @@ function setLang(lang){
             <div class="complexity-bar"><div class="cx-block fill-2"></div><div class="cx-block fill-2"></div><div class="cx-block"></div><div class="cx-block"></div></div>
             <div style="font-size:10.5px;color:var(--yellow);font-weight:700;margin-bottom:8px;">Medium</div>
             <p>4 internal profiles: Basic Operator (accreditation review) / Supervisor (rule configuration) / Administrator (full management) / Auditor (read-only with export). Permission Sets per level. MFA mandatory.</p>
-            <p class="bsa-note">💡 The Auditor must have read access to all objects but no edit capability — use a dedicated Permission Set with OWD Viewer. Avoid Admin profiles for auditors for compliance reasons.</p>
+            <p class="ps-note">💡 The Auditor must have read access to all objects but no edit capability — use a dedicated Permission Set with OWD Viewer. Avoid Admin profiles for auditors for compliance reasons.</p>
           </div>
         </div>
       </details>
@@ -6958,7 +7002,7 @@ function setLang(lang){
             <div class="complexity-bar"><div class="cx-block fill-4"></div><div class="cx-block fill-4"></div><div class="cx-block fill-4"></div><div class="cx-block fill-4"></div></div>
             <div style="font-size:10.5px;color:var(--red);font-weight:700;margin-bottom:8px;">Critical</div>
             <p>OAuth2 client_credentials authentication per facilitator. Proposal schema validated by MuleSoft before forwarding to Apex. Dead Letter Queue for failed messages. Automatic retry with exponential backoff. Versioned API contract (v1.x).</p>
-            <p class="bsa-note">💡 Define the facilitator onboarding process: who issues the client_id/secret — MTE or Dataprev? Document it in the MuleSoft Anypoint Exchange API Portal.</p>
+            <p class="ps-note">💡 Define the facilitator onboarding process: who issues the client_id/secret — MTE or Dataprev? Document it in the MuleSoft Anypoint Exchange API Portal.</p>
           </div>
           <div class="req-card">
             <span class="req-id nfunc">REQ-INT-04</span>
@@ -6988,7 +7032,7 @@ function setLang(lang){
             <div class="complexity-bar"><div class="cx-block fill-3"></div><div class="cx-block fill-3"></div><div class="cx-block fill-3"></div><div class="cx-block"></div></div>
             <div style="font-size:10.5px;color:var(--orange);font-weight:700;margin-bottom:8px;">High</div>
             <p>All outbound messages (webhooks, split, boleto) with automatic retry: 3 attempts with exponential backoff (30s, 2min, 10min). Persistent failures go to the DLQ. Alert to the MTE operator via automatic Service Cloud case.</p>
-            <p class="bsa-note">💡 Use Anypoint MQ as the native DLQ if MuleSoft is on Anypoint Platform cloud. Alternative: AWS SQS DLQ via a MuleSoft connector — more complex but feasible.</p>
+            <p class="ps-note">💡 Use Anypoint MQ as the native DLQ if MuleSoft is on Anypoint Platform cloud. Alternative: AWS SQS DLQ via a MuleSoft connector — more complex but feasible.</p>
           </div>
         </div>
       </details>
@@ -7005,7 +7049,7 @@ function setLang(lang){
             <div class="complexity-bar"><div class="cx-block fill-2"></div><div class="cx-block fill-2"></div><div class="cx-block"></div><div class="cx-block"></div></div>
             <div style="font-size:10.5px;color:var(--yellow);font-weight:700;margin-bottom:8px;">Medium</div>
             <p>General rule: Flow for business orchestration configurable by MTE (quote rules, deadline parameters). Apex for: batch CSV processing, complex multi-object validations, high-performance synchronous integrations. Mixed approach in the quote rules engine.</p>
-            <p class="bsa-note">💡 Avoid Apex for rules configurable by MTE, since the operator doesn't deploy. Custom Metadata Types as a parameter repository allow reconfiguration without code.</p>
+            <p class="ps-note">💡 Avoid Apex for rules configurable by MTE, since the operator doesn't deploy. Custom Metadata Types as a parameter repository allow reconfiguration without code.</p>
           </div>
           <div class="req-card">
             <span class="req-id func">REQ-PROC-02</span>
@@ -7015,7 +7059,7 @@ function setLang(lang){
             <div class="complexity-bar"><div class="cx-block fill-3"></div><div class="cx-block fill-3"></div><div class="cx-block fill-3"></div><div class="cx-block"></div></div>
             <div style="font-size:10.5px;color:var(--orange);font-weight:700;margin-bottom:8px;">High</div>
             <p>Batch Apex with chunk size 200 to process CSVs from large companies (up to 100k workers). Errors isolated per line — the batch does not fail entirely. Platform Events for completion notification. Error report accessible in the company portal.</p>
-            <p class="bsa-note">💡 For companies with &gt;50k workers, the CSV may exceed 10MB — consider streaming multipart upload via MuleSoft instead of direct upload in Experience Cloud.</p>
+            <p class="ps-note">💡 For companies with &gt;50k workers, the CSV may exceed 10MB — consider streaming multipart upload via MuleSoft instead of direct upload in Experience Cloud.</p>
           </div>
           <div class="req-card">
             <span class="req-id func">REQ-PROC-04</span>
@@ -7025,7 +7069,7 @@ function setLang(lang){
             <div class="complexity-bar"><div class="cx-block fill-3"></div><div class="cx-block fill-3"></div><div class="cx-block fill-3"></div><div class="cx-block"></div></div>
             <div style="font-size:10.5px;color:var(--orange);font-weight:700;margin-bottom:8px;">High</div>
             <p>2 Phase 1 agents: (1) Beneficiary Company, answers questions, summarizes proposals, guides payroll upload; (2) MTE Operator, suggests an accreditation decision based on submitted documents. Each agent with context scoped to its own data domain. LGPD (Brazilian data protection law): agents do not return CPFs in plain text.</p>
-            <p class="bsa-note">💡 Agentforce for the Merchant (UC-20) is out of Phase 1 — prioritize the 2 core agents. Add it in Wave 1 after validating adoption of the first two.</p>
+            <p class="ps-note">💡 Agentforce for the Merchant (UC-20) is out of Phase 1 — prioritize the 2 core agents. Add it in Wave 1 after validating adoption of the first two.</p>
           </div>
         </div>
       </details>
@@ -7042,7 +7086,7 @@ function setLang(lang){
             <div class="complexity-bar"><div class="cx-block fill-2"></div><div class="cx-block fill-2"></div><div class="cx-block"></div><div class="cx-block"></div></div>
             <div style="font-size:10.5px;color:var(--yellow);font-weight:700;margin-bottom:8px;">Medium</div>
             <p>Required fields defined by MTE: CNPJ_beneficiaria, CNPJ_facilitadora, data_inicio, data_fim, valor_mensal_estimado, tipo_beneficio (VA/VR/both), status_contrato, id_externo_facilitadora. Related to: Account (beneficiary company), Account (facilitator), Cotacao__c.</p>
-            <p class="bsa-note">💡 MTE must validate and sign off on the schema before development. Post-development changes carry a high cost. Propose a data model validation workshop.</p>
+            <p class="ps-note">💡 MTE must validate and sign off on the schema before development. Post-development changes carry a high cost. Propose a data model validation workshop.</p>
           </div>
           <div class="req-card">
             <span class="req-id reg">REQ-DATA-04</span>
@@ -7052,7 +7096,7 @@ function setLang(lang){
             <div class="complexity-bar"><div class="cx-block fill-3"></div><div class="cx-block fill-3"></div><div class="cx-block fill-3"></div><div class="cx-block"></div></div>
             <div style="font-size:10.5px;color:var(--orange);font-weight:700;margin-bottom:8px;">High</div>
             <p>Field Audit Trail enabled on: Contrato__c (all fields), Cotacao__c, Account (merchant), FolhaProcessada__c, SplitFinanceiro__c. Retention: 10 years (suggested regulatory minimum). Event Monitoring: login, API calls, exported data.</p>
-            <p class="bsa-note">💡 Shield carries an additional cost per org. Confirm it in the Salesforce budget. Without Shield, regulatory audit capability is compromised — a non-negotiable item for TCU/BCB (Brazilian federal audit and central bank) compliance.</p>
+            <p class="ps-note">💡 Shield carries an additional cost per org. Confirm it in the Salesforce budget. Without Shield, regulatory audit capability is compromised — a non-negotiable item for TCU/BCB (Brazilian federal audit and central bank) compliance.</p>
           </div>
           <div class="req-card">
             <span class="req-id reg">REQ-DATA-05</span>
@@ -7062,7 +7106,7 @@ function setLang(lang){
             <div class="complexity-bar"><div class="cx-block fill-3"></div><div class="cx-block fill-3"></div><div class="cx-block fill-3"></div><div class="cx-block"></div></div>
             <div style="font-size:10.5px;color:var(--orange);font-weight:700;margin-bottom:8px;">High</div>
             <p>Worker CPFs present only in the payroll CSV. After processing, the platform stores only values aggregated per contract, not individual CPFs. Audit logs mask CPFs. CSV communication between the platform and the facilitator via an encrypted MuleSoft channel.</p>
-            <p class="bsa-note">💡 Involve the MTE's DPO (Data Protection Officer) from the outset. Processing CPFs at national scale requires an approved RIPD (Data Protection Impact Report) before go-live.</p>
+            <p class="ps-note">💡 Involve the MTE's DPO (Data Protection Officer) from the outset. Processing CPFs at national scale requires an approved RIPD (Data Protection Impact Report) before go-live.</p>
           </div>
           <div class="req-card">
             <span class="req-id integ">REQ-DATA-02</span>
@@ -7072,7 +7116,7 @@ function setLang(lang){
             <div class="complexity-bar"><div class="cx-block fill-2"></div><div class="cx-block fill-2"></div><div class="cx-block"></div><div class="cx-block"></div></div>
             <div style="font-size:10.5px;color:var(--yellow);font-weight:700;margin-bottom:8px;">Medium</div>
             <p>Open architectural decision: (a) native Salesforce Files, simple, but storage cost grows with volume; (b) S3 via MuleSoft, lower cost but adds complexity. The decision should consider the estimated contract volume (number of facilitators × number of beneficiary companies × retention years).</p>
-            <p class="bsa-note">💡 For 500k companies × 40 facilitators × 1 PDF/contract × 10 years = a significant volume estimate. Calculate the comparative cost before deciding. Salesforce Files have a 10GB org limit by default (expandable).</p>
+            <p class="ps-note">💡 For 500k companies × 40 facilitators × 1 PDF/contract × 10 years = a significant volume estimate. Calculate the comparative cost before deciding. Salesforce Files have a 10GB org limit by default (expandable).</p>
           </div>
         </div>
       </details>
@@ -7082,8 +7126,8 @@ function setLang(lang){
         <button class="sec-link" onclick="showSection('s6b')">→ View assumptions &amp; out of scope</button>
       </div>
 
-</template>
-<template data-sec="s6b">
+</script>
+<script type="text/template" data-sec="s6b">
 
       <div class="hero" style="background:linear-gradient(135deg,#0C326F,#1351B4);">
         <div class="eyebrow">Scope · Phase 1 · Sizing basis</div>
@@ -7250,8 +7294,8 @@ function setLang(lang){
         <button class="sec-link" onclick="showSection('s9')">→ View timeline</button>
       </div>
 
-</template>
-<template data-sec="s9">
+</script>
+<script type="text/template" data-sec="s9">
       <style>
         .tl-legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin:6px 0 18px;font-size:11.5px;color:var(--text-muted);}
         .tl-legend span{display:inline-flex;align-items:center;gap:6px;}
@@ -7533,8 +7577,8 @@ function setLang(lang){
         <button class="sec-link" onclick="showSection('s6')">← View requirements</button>
         <button class="sec-link" onclick="showSection('s10')">→ View estimate</button>
       </div>
-</template>
-<template data-sec="s10">
+</script>
+<script type="text/template" data-sec="s10">
       <style>
         .est-scroll{overflow-x:auto;border:1px solid var(--gray-border);border-radius:14px;box-shadow:var(--sh-sm);background:#fff;}
         table.est-tbl{border-collapse:collapse;width:100%;min-width:720px;font-size:12px;}
@@ -7722,8 +7766,8 @@ function setLang(lang){
         <button class="sec-link" onclick="showSection('s9')">← View timeline</button>
         <button class="sec-link" onclick="showSection('s7')">→ View open items</button>
       </div>
-</template>
-<template data-sec="s7">
+</script>
+<script type="text/template" data-sec="s7">
 
       <div class="hero" style="background:linear-gradient(135deg,#071D41,#E52207);">
         <div class="eyebrow">Open Items · 12 Open Items · PAT Marketplace</div>
@@ -7877,8 +7921,8 @@ function setLang(lang){
         <button class="sec-link" onclick="showSection('s8')">→ View roadmap</button>
       </div>
 
-</template>
-<template data-sec="s8">
+</script>
+<script type="text/template" data-sec="s8">
 
       <div class="hero" style="background:linear-gradient(135deg,#071D41,#168821);">
         <div class="eyebrow">Roadmap · 3 Waves · Phase 2 · Use Case-Defining Screen</div>
@@ -7899,6 +7943,18 @@ function setLang(lang){
         </div>
       </div>
 
+      <!-- INDICATIVE ROADMAP ESTIMATE -->
+      <div class="rm-est-summary">
+        <div class="es-head">📐 Indicative roadmap estimate · AI-native lane</div>
+        <p>Top-down sizing per wave — effort, team and indicative price. The waves are <b>evolutionary (2027+)</b>, delivered sequentially, with no fixed date barrier and <b>independent of the Phase 1 scope</b> (they do not add to the regulatory go-live ROM). Relative complexity: <b>W1 25% · W2 28% · W3 46%</b> (S/M/L/XL weights).</p>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px;">
+          <div class="kpi"><div class="n">~8,820–13,720</div><div class="l">PS hours · full roadmap (3 waves)</div></div>
+          <div class="kpi orange"><div class="n">R$ 7.06M – 10.98M</div><div class="l">indicative price · incl. tax (sum of waves)</div></div>
+          <div class="kpi green"><div class="n">3 waves · 16 deliverables</div><div class="l">lean senior team + agents per wave</div></div>
+        </div>
+        <p class="es-disc">⚠️ Ranges are <b>benchmark-based</b>, derived from the AI model's training data and general delivery patterns (not Salesforce-validated) and <b>indicative</b> — not a commitment. Hours come from <i>team × duration</i> and price from <i>validated rate × hours</i>; final figures are confirmed through the applicable commercial agreement.</p>
+      </div>
+
       <!-- WAVE 1 -->
       <div class="rm-wave" style="margin-bottom:20px;animation:secFade .4s ease;">
         <div class="rm-wave-header w1">
@@ -7907,6 +7963,13 @@ function setLang(lang){
             <div class="timespan">0–6 months post go-live</div>
           </div>
           <div style="margin-left:auto;font-size:24px;">🏛️</div>
+        </div>
+        <div class="rm-est">
+          <span class="m"><b>~2.75</b> avg FTE</span>
+          <span class="m"><b>~10–16</b> active wks</span>
+          <span class="m"><b>~1,100–1,760</b> PS hrs</span>
+          <span class="m price"><b>R$ 0.87M – 1.40M</b> indicative</span>
+          <span class="roster">Sr TA · Dev · QA (½) · PM (¼)</span>
         </div>
         <div class="rm-items">
 
@@ -8006,6 +8069,13 @@ function setLang(lang){
           </div>
           <div style="margin-left:auto;font-size:24px;">🧠</div>
         </div>
+        <div class="rm-est">
+          <span class="m"><b>~3.75</b> avg FTE</span>
+          <span class="m"><b>~16–24</b> active wks</span>
+          <span class="m"><b>~2,400–3,600</b> PS hrs</span>
+          <span class="m price"><b>R$ 1.85M – 2.78M</b> indicative</span>
+          <span class="roster">Sr TA · Dev · Analytics/AI-TC · QA (½) · PM (¼)</span>
+        </div>
         <div class="rm-items">
 
           <div class="rm-item">
@@ -8090,6 +8160,13 @@ function setLang(lang){
           </div>
           <div style="margin-left:auto;font-size:24px;">🚀</div>
         </div>
+        <div class="rm-est">
+          <span class="m"><b>~4.75</b> avg FTE</span>
+          <span class="m"><b>~28–44</b> active wks</span>
+          <span class="m"><b>~5,320–8,360</b> PS hrs</span>
+          <span class="m price"><b>R$ 4.33M – 6.80M</b> indicative</span>
+          <span class="roster">Sr SA · Sr TA · Dev · QA · PM (½) · MuleSoft TA (¼)</span>
+        </div>
         <div class="rm-items">
 
           <div class="rm-item">
@@ -8169,7 +8246,7 @@ function setLang(lang){
       <div class="alert blue" style="margin-top:24px;">
         <span class="ic">🎯</span>
         <div>
-          <strong>Long-Term Vision · BSA Strategy Note</strong><br>
+          <strong>Long-Term Vision · PS Strategy Note</strong><br>
           The PAT Marketplace is not just a VA/VR system. It is the proof of concept that the Brazilian government can operate R$200bi/ano regulatory infrastructure on Salesforce public cloud. If successful, it opens the path to replication in other regulated markets and positions Dataprev as the Federal Government's digital infrastructure operator in partnership with Salesforce. The central vector is state observability, not merely process modernization.
         </div>
       </div>
@@ -8179,7 +8256,7 @@ function setLang(lang){
         <button class="sec-link" onclick="showSection('s1')">↑ Back to top</button>
       </div>
 
-</template>
+</script>
 </div>
 </body>
 </html>

@@ -180,6 +180,33 @@
       "next_steps": [
         "Resume estimate: derive both lanes, author named roster, assemble estimate-comparison.json (anchor=traditional), SSSL sign-off gate"
       ]
+    },
+    {
+      "date": "2026-08-07",
+      "skills_used": [
+        "estimate"
+      ],
+      "summary": "Estimate dual-track completo (pricing deferido). Base PS 6 épicos. Anchor=Tradicional (derivada). Tradicional ~18–34 sem / ~7,0 FTE nominal (SA sr + TA/Int dedicado + dev MuleSoft + pod 2 devs Exp offshore + 1 QA full-program + PM). AI-native condicional ~11–24 sem / ~4,5 FTE (comprimida native_band ~30–38%; núcleo sênior + agentes + 1 builder humano ½ + QA amplificado). Lado-cliente BV totalmente nomeado (6 papéis). SSSL assinou. estimate-comparison.json + resource-plan.json + estimate-comparison.md escritos.",
+      "decisions": [
+        {
+          "decision": "Roster tradicional: TA/Integração dedicado + builder MuleSoft; 1 QA full-program (não surge); sem linha Change PS (BV é dono, PS só G0408); 6 papéis lado-cliente nomeados",
+          "rationale": "Respostas SSSL no grill de roster; caminho crítico E06 justifica TA separado do SA"
+        },
+        {
+          "decision": "AI-native qualification = conditional; lado-cliente favorável mas gate lê modelo operacional, não staffing",
+          "rationale": "BV não confirmou modelo AI-first (cadência diária/mandato); magnitude provisória/vendor-reported (decisions/0033)"
+        }
+      ],
+      "open_threads": [
+        "RESIZE de épicos (E01+160h Wizard, E02+32h LWC, E03 build distinto, E05→PS/Fase1, E06→PS) pendente de propagação via revise — estimates.json/gaps.json marcados stale",
+        "Range drivers a fechar: volume/qualidade E05, tier Anypoint E06 (R2/G0610), fronteira Wizard/OPA E01",
+        "Pricing deferido — rodar commercials por trilha ao ter bill rates BV"
+      ],
+      "next_steps": [
+        "revise para propagar os RESIZE de épicos",
+        "commercials por trilha quando houver rates",
+        "validate → narratives/slides ou export para empacotar"
+      ]
     }
   ],
   "preferences": {
@@ -271,6 +298,16 @@
       "rejected": [
         "Estrutura de 5 épicas com Migração fundida em Fundações Transversais",
         "Criar épica separada de Change & Adoção (surge como gap, não como épica com esforço inventado)"
+      ]
+    },
+    {
+      "date": "2026-08-07",
+      "area": "estimate",
+      "decision": "Estimativa dual-track anchor=Tradicional, ambas basis=derived, pricing deferido; AI-native conditional/provisional",
+      "rationale": "Sem rates BV (pricing gated); AI-native não qualificada (modelo operacional não confirmado); comparação de tempo/esforço/resourcing é a entrega completa",
+      "rejected": [
+        "AI-native como número comprometido (gate não atendido)",
+        "QA surge em vez de full-program (SSSL escolheu constante)"
       ]
     }
   ]

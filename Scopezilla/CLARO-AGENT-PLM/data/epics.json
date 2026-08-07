@@ -1,0 +1,193 @@
+[
+  {
+    "epic_id": "E01",
+    "epic_name": "Async CSV Ingestion",
+    "description": "Implements the byte-offset cursor Queueable chain for importing Demanda CSV files (≤6M chars / 10k rows). Covers DemandaCsvWizardController (CPU guard, CRLF/UTF-8 normalization), DemandaCsvImportQueueable, Plm_Csv_Import_State__c (resumable cursor), and the LWC DemandaCsvWizard upload UI. Replaces the synchronous ingest path that overflows at scale.",
+    "confidence": "Confirmed",
+    "fit_classification": "Custom Dev",
+    "requirements": ["REQ-TEC-001", "REQ-CON-001"],
+    "process_hierarchy": {
+      "L1": "Product Lifecycle Management",
+      "L2": "Catalog Management",
+      "L3": "Lifecycle Operations",
+      "L4": "Validação de Lotes Assíncronos",
+      "L5": "Ingestão e Fragmentação CSV via Queueable"
+    },
+    "gap_refs": ["GAP-003", "GAP-004", "GAP-006"],
+    "kb_sources": [
+      "[assumption: validate Queueable chain CPU budget against Apex governor docs — 60k async CPU ceiling]"
+    ]
+  },
+  {
+    "epic_id": "E02",
+    "epic_name": "LLM Rule Compilation Engine",
+    "description": "Implements the LLM-driven compile path: PlmRuleSpecCompilerService calls the PLM_Rule_Compiler Einstein Prompt Template (via ConnectApi.EinsteinLLM, applicationName='PromptTemplateGenerationsInvocable') to compile DSL pt-BR rules into AST JSON (Plm_Rule_Spec__c). Includes PlmRuleSpecSchemaValidator, bulk/queueable invocables, drift detection via Source_Hash__c, and Track B Batchable mode (Compile_Mode__c).",
+    "confidence": "Confirmed",
+    "fit_classification": "Configuration + Custom Dev",
+    "requirements": ["REQ-TEC-002"],
+    "process_hierarchy": {
+      "L1": "Product Lifecycle Management",
+      "L2": "Catalog Governance",
+      "L3": "Rule Creation & Maintenance",
+      "L4": "LLM Automated Compilation",
+      "L5": "Validação de Schema contra Spec JSON"
+    },
+    "gap_refs": ["GAP-002", "GAP-003", "GAP-004"],
+    "kb_sources": [
+      "[KB: agentforce_4-22-2026.pdf:45-56]",
+      "[KB: agentforce_4-22-2026.pdf:1183-1186]"
+    ]
+  },
+  {
+    "epic_id": "E03",
+    "epic_name": "AST Rule Evaluation Engine",
+    "description": "Implements PlmRuleSpecEvaluator — pure-Apex deterministic AST walker evaluating compiled JSON specs at <50ms/record without LLM at runtime. Covers PlmRuleContextInvocable/Queueable (Id-cursor pagination), decision table lookups (PLM_RuleCatalog, PLM_FieldRuleMapper), verdict writes to Item_Demanda__c.Avaliacao_Regras_JSON__c and Demanda__c.Resumo_Avaliacao_JSON__c, and static Map cache (Platform Cache prohibited).",
+    "confidence": "Confirmed",
+    "fit_classification": "Custom Dev",
+    "requirements": ["REQ-PRO-001", "REQ-DAT-001", "REQ-CON-001"],
+    "process_hierarchy": {
+      "L1": "Product Lifecycle Management",
+      "L2": "Catalog Management",
+      "L3": "Lifecycle Operations",
+      "L4": "Validação de Lotes",
+      "L5": "Execução Determinística AST Walker por Registro"
+    },
+    "gap_refs": ["GAP-003", "GAP-004", "GAP-006"],
+    "kb_sources": [
+      "[assumption: validate AST walker sub-50ms CPU benchmark against Apex profiling docs and sync 10k CPU lane limit]"
+    ]
+  },
+  {
+    "epic_id": "E04",
+    "epic_name": "Observability, Resilience & DLQ",
+    "description": "Cross-cutting reliability layer ensuring zero silent failures. Covers Platform Events (Plm_Compile_Chunk__e → Plm_Compile_Chunk_Log__c with SHA-256 idempotency token), Plm_Compile_Snapshot__c rollups, Dead Letter Queues (Plm_Compile_DLQ__c + Plm_Eval_DLQ__c), Database.Finalizer chain-death recovery, PlmZombieReaperService (5-min Schedulable), and Plm_Batch_Error_Event_TriggerHandler.",
+    "confidence": "Confirmed",
+    "fit_classification": "Custom Dev",
+    "requirements": ["REQ-TEC-003"],
+    "process_hierarchy": {
+      "L1": "Product Lifecycle Management",
+      "L2": "Catalog Management",
+      "L3": "Lifecycle Operations",
+      "L4": "Resiliência e Observabilidade de Lotes",
+      "L5": "Captura de Falhas via DLQ e Transaction Finalizer"
+    },
+    "gap_refs": ["GAP-003", "GAP-004"],
+    "kb_sources": [
+      "[assumption: validate Transaction Finalizer quota (1 per Queueable) and PE daily limit (250k/day) against expected batch volumes]"
+    ]
+  },
+  {
+    "epic_id": "E05",
+    "epic_name": "AI Diagnostic Narrative",
+    "description": "Implements the PLM_Diagnostico_Narrativa Einstein Prompt Template pipeline. PlmDiagnosticoNarrativaContextBuilder/Service/Queueable/Invocable assembles validation context per Demanda and invokes the Prompt Template to produce an HTML diagnostic narrative stored in Demanda__c.Diagnostico__c. Reduces analyst investigation time from hours to seconds.",
+    "confidence": "Confirmed",
+    "fit_classification": "Configuration + Custom Dev",
+    "requirements": ["REQ-BIZ-001"],
+    "process_hierarchy": {
+      "L1": "Product Lifecycle Management",
+      "L2": "Catalog Management",
+      "L3": "Lifecycle Operations",
+      "L4": "Validação de Lotes",
+      "L5": "Geração de Diagnóstico Narrativo HTML"
+    },
+    "gap_refs": ["GAP-002", "GAP-003"],
+    "kb_sources": [
+      "[KB: agentforce_4-22-2026.pdf:45-56]",
+      "[KB: agentforce_4-22-2026.pdf:1183-1186]"
+    ]
+  },
+  {
+    "epic_id": "E06",
+    "epic_name": "Agentforce PLM Admin Agent",
+    "description": "Builds and deploys Agentforce_PLM_Admin Employee Agent — compile-time governance surface. Configures 4 subagents (compile rule, recompile drifted rules, status check, bulk compile), Atlas reasoning engine, planner bundles, and GenAI plugin wiring. This is the primary mechanism for business-led, zero-deployment rule authoring.",
+    "confidence": "Confirmed",
+    "fit_classification": "Configuration",
+    "requirements": ["REQ-BIZ-001", "REQ-TEC-002", "REQ-GOV-001"],
+    "process_hierarchy": {
+      "L1": "Product Lifecycle Management",
+      "L2": "Catalog Governance",
+      "L3": "Rule Creation & Maintenance",
+      "L4": "Self-Service Rule Authoring",
+      "L5": "Agentforce Admin — Compile-Time Governance"
+    },
+    "gap_refs": ["GAP-001", "GAP-002", "GAP-003"],
+    "kb_sources": [
+      "[KB: agentforce_4-22-2026.pdf:45-56]"
+    ]
+  },
+  {
+    "epic_id": "E07",
+    "epic_name": "Agentforce PLM Ops Agent",
+    "description": "Builds and deploys Agentforce_PLM_Ops Employee Agent — runtime operations surface. Configures 6 subagents orchestrating the end-to-end import → evaluate → diagnose loop: CSV ingestion trigger, evaluation kickoff, diagnostic narrative generation, and correction feedback cycle. Provides Claro Ops with a natural-language interface to the full validation pipeline.",
+    "confidence": "Confirmed",
+    "fit_classification": "Configuration",
+    "requirements": ["REQ-BIZ-001"],
+    "process_hierarchy": {
+      "L1": "Product Lifecycle Management",
+      "L2": "Catalog Management",
+      "L3": "Lifecycle Operations",
+      "L4": "Validação de Lotes",
+      "L5": "Agentforce Ops — Runtime Monitoring and Diagnostics"
+    },
+    "gap_refs": ["GAP-001", "GAP-002", "GAP-003"],
+    "kb_sources": [
+      "[KB: agentforce_4-22-2026.pdf:45-56]"
+    ]
+  },
+  {
+    "epic_id": "E08",
+    "epic_name": "UX & LWC Components",
+    "description": "Builds the admin and ops UI surface — plmProcessoHome (process overview), plmAvaliacaoPanel (evaluation results), plmRuleSpecsAdmin (rule catalog management) — plus FlexiPage layout, PLM App, and PLM_Rule_Specs_Admin tab. Includes DemandaCsvWizard LWC (upload experience; server-side logic in E01). No UX research in scope — Claro SME drives requirements.",
+    "confidence": "Confirmed",
+    "fit_classification": "Custom Dev",
+    "requirements": ["REQ-TEC-001", "REQ-BIZ-001"],
+    "process_hierarchy": {
+      "L1": "Product Lifecycle Management",
+      "L2": "Catalog Management",
+      "L3": "Lifecycle Operations",
+      "L4": "Interface Operacional",
+      "L5": "LWC Components — Upload, Evaluation Panel, Rule Admin"
+    },
+    "gap_refs": ["GAP-003"],
+    "kb_sources": []
+  },
+  {
+    "epic_id": "E09",
+    "epic_name": "Security, Access Model & Platform Configuration",
+    "description": "Provisions the complete access and tunable configuration layer: Validacao_Engine_Access permset (FLS + CRUD for all PLM objects, excluding required/MD fields from fieldPermissions), async access permset, 5 Aux_*__mdt families (66 seed rows), Decision Tables (PLM_RuleCatalog, PLM_FieldRuleMapper), and runtime tunables (Plm_Tenant__mdt, Plm_Compile_Config__mdt). SSO via Okta; lifecycle management via SailPoint.",
+    "confidence": "Confirmed",
+    "fit_classification": "Configuration",
+    "requirements": ["REQ-SEC-001", "REQ-CON-001"],
+    "process_hierarchy": {
+      "L1": "Product Lifecycle Management",
+      "L2": "Catalog Governance",
+      "L3": "Access Control & Platform Tuning",
+      "L4": "Permission Sets, CMDT, OWD Configuration",
+      "L5": "Deploy-Safe Security — No Required/MD Field Injection in XML"
+    },
+    "gap_refs": ["GAP-003", "GAP-004"],
+    "kb_sources": [
+      "[KB:USB:410]"
+    ]
+  },
+  {
+    "epic_id": "E10",
+    "epic_name": "AI Governance & LGPD Compliance",
+    "description": "Validates and activates Einstein Trust Layer controls required for LGPD go-live: Zero-Data Retention Policy, Secure Data Retrieval/Grounding, Prompt Defense, Data Masking, Toxicity Scoring, and Audit trail for Brazil geo-routing. Engages Claro legal for data classification sign-off. Establishes rule lineage (Spec_Key__c + Source_Hash__c + Compile Snapshots) as the compliance audit trail for ANATEL Res. 680/2020.",
+    "confidence": "Confirmed",
+    "fit_classification": "Configuration + Custom Dev",
+    "requirements": ["REQ-AI-001", "REQ-LGPD-001"],
+    "process_hierarchy": {
+      "L1": "Product Lifecycle Management",
+      "L2": "Catalog Governance",
+      "L3": "AI Governance & Compliance",
+      "L4": "Einstein Trust Layer Activation",
+      "L5": "LGPD Sign-Off Gate — Legal Review and Audit Trail"
+    },
+    "gap_refs": ["GAP-005"],
+    "kb_sources": [
+      "[KB: agentforce_4-22-2026.pdf:1183-1186]",
+      "[KB:USB:643-654]"
+    ]
+  }
+]

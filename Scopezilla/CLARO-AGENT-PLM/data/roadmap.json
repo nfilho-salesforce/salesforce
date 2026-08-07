@@ -1,0 +1,164 @@
+{
+  "methodology": "Agile (Scrum)",
+  "total_duration_weeks": 8,
+  "duration_source": "user",
+  "duration_commitment": "8 weeks fixed — client-stated, non-negotiable per USB §5.3",
+  "phases": [
+    {
+      "phase_id": "P0",
+      "phase_name": "Discovery & Architecture",
+      "duration_weeks": 2,
+      "weeks": "1–2",
+      "duration_source": "user",
+      "objective": "Finalize technical architecture, approve rule schema and JSON spec structure, confirm all client dependencies, establish RunSpecifiedTests registry, schedule LGPD legal review window.",
+      "epics_active": ["E09", "E10"],
+      "deliverables": [
+        "Architecture design document approved",
+        "Rule schema and AST JSON spec structure approved",
+        "Sandbox chain confirmed and accessible (GAP-003)",
+        "RunSpecifiedTests class registry v1 agreed with Claro DevOps (GAP-004)",
+        "10–15 Knowledge Articles confirmed in sandbox by end of week 2 (GAP-001 gate)",
+        "Agentforce Unlimited license + Einstein credits confirmed active (GAP-002)",
+        "3–5 sample production Demanda CSVs received for volume profiling (GAP-006)",
+        "LGPD legal review window scheduled for Week 6 (GAP-005)",
+        "Security model baseline: Validacao_Engine_Access permset skeleton, OWD, SSO configuration",
+        "CMDT families created: Plm_Tenant__mdt, Plm_Compile_Config__mdt seed rows"
+      ],
+      "key_decisions": [
+        "Queueable chunk size finalized after Sprint 1 CPU spike — may affect E01 design",
+        "RunSpecifiedTests registry format agreed (affects every sprint deploy)"
+      ],
+      "dependencies": [
+        "Claro: sandbox provisioning (GAP-003) — must land by end of Week 1",
+        "Claro: Knowledge Articles (GAP-001) — must be confirmed by end of Week 2",
+        "Claro: Agentforce license active (GAP-002) — must be confirmed by end of Week 2",
+        "Claro: sample CSVs for volume profiling (GAP-006) — end of Week 1"
+      ],
+      "risks": ["GAP-001 through GAP-006 all unresolved at phase start — resolve or Build is blocked"]
+    },
+    {
+      "phase_id": "P1",
+      "phase_name": "Build Sprints",
+      "duration_weeks": 3,
+      "weeks": "3–5",
+      "duration_source": "user",
+      "objective": "Build the full engine stack and agent configuration. Three sprints sequenced by dependency: foundation → core engine → intelligence layer.",
+      "sprints": [
+        {
+          "sprint_id": "S1",
+          "week": "3",
+          "name": "Foundation Sprint",
+          "epics_active": ["E01", "E09"],
+          "focus": "Async CSV ingestion engine + platform configuration foundation",
+          "spike": "Queueable chunk CPU ceiling profiling — determines final chunk size for E01 cursor design",
+          "deliverables": [
+            "DemandaCsvWizardController + DemandaCsvImportQueueable — functional with byte-offset cursor",
+            "Plm_Csv_Import_State__c + Demanda__c + Item_Demanda__c objects deployed",
+            "Validacao_Engine_Access permset (FLS/CRUD, excluding required/MD fields) deployed",
+            "5 Aux_*__mdt families with 66 seed rows deployed",
+            "DemandaCsvWizard LWC — upload UI functional",
+            "Unit test coverage ≥85% for E01 classes",
+            "RunSpecifiedTests registry v1 updated with Sprint 1 test classes"
+          ]
+        },
+        {
+          "sprint_id": "S2",
+          "week": "4",
+          "name": "Core Engine Sprint",
+          "epics_active": ["E02", "E03", "E04"],
+          "focus": "LLM compilation engine + AST evaluator + observability/DLQ cross-cutting layer",
+          "spike": "AST Walker sub-50ms SLA validation for multi-spec lines + Transaction Finalizer quota confirmation",
+          "deliverables": [
+            "PlmRuleSpecCompilerService + PLM_Rule_Compiler Prompt Template — compile DSL pt-BR to AST JSON",
+            "Plm_Rule_Spec__c with Spec_Key__c, Source_Hash__c, Compile_Status__c deployed",
+            "PlmRuleSpecSchemaValidator — JSON validation + DLQ write on malformed output",
+            "PlmRuleSpecEvaluator (AST Walker) — deterministic, <50ms target, static Map cache",
+            "PLM_RuleCatalog + PLM_FieldRuleMapper Decision Tables deployed with initial mappings",
+            "Platform Events: Plm_Compile_Chunk__e + SHA-256 idempotent log",
+            "DLQ objects: Plm_Compile_DLQ__c + Plm_Eval_DLQ__c deployed",
+            "Database.Finalizer wiring on all Queueables",
+            "PlmZombieReaperService scheduled + Plm_Compile_Snapshot__c deployed",
+            "Unit test coverage ≥85% for E02/E03/E04 classes",
+            "RunSpecifiedTests registry updated with Sprint 2 test classes"
+          ]
+        },
+        {
+          "sprint_id": "S3",
+          "week": "5",
+          "name": "Intelligence & UX Sprint",
+          "epics_active": ["E05", "E06", "E07", "E08"],
+          "focus": "AI diagnostic narrative + agent configuration + UX components",
+          "spike": "Prompt Template input token limit vs. context builder payload size (E05)",
+          "deliverables": [
+            "PLM_Diagnostico_Narrativa Prompt Template + PlmDiagnosticoNarrativaService/Queueable deployed",
+            "Agentforce_PLM_Admin Employee Agent — 4 subagents configured and functional in sandbox",
+            "Agentforce_PLM_Ops Employee Agent — 6 subagents configured and functional in sandbox",
+            "Human-in-the-loop confirmation gate on Admin Agent compile action active",
+            "LWC components: plmProcessoHome, plmAvaliacaoPanel, plmRuleSpecsAdmin deployed",
+            "FlexiPage layout + PLM App + PLM_Rule_Specs_Admin tab configured",
+            "Einstein Trust Layer controls activated: Zero-Data Retention, Data Masking, Prompt Defense, Toxicity Scoring, Brazil geo-routing (E10)",
+            "Agent FLS scope confirmed: Diagnostico__c + Resumo_Avaliacao_JSON__c added to permset",
+            "Unit test coverage ≥85% for E05 + Agent Action invocable classes",
+            "SIT deploy to Partial Copy sandbox — first full integration pass",
+            "RunSpecifiedTests registry updated with Sprint 3 test classes"
+          ]
+        }
+      ],
+      "dependencies": [
+        "S1 must complete before S2 starts — E02/E03 need objects from E01/E09",
+        "S2 must complete before S3 — E05/E06/E07 need DLQ + compiled spec + eval infrastructure",
+        "Agentforce license active in sandbox before S3 (GAP-002)"
+      ]
+    },
+    {
+      "phase_id": "P2",
+      "phase_name": "UAT & Fine-Tuning",
+      "duration_weeks": 2,
+      "weeks": "6–7",
+      "duration_source": "user",
+      "objective": "Validate all KPIs with real Claro data, run parallel comparison vs. legacy BRE, execute LGPD legal review, close all open gaps.",
+      "epics_active": ["E10", "E06", "E07", "E05"],
+      "deliverables": [
+        "UAT environment (Full Copy / Ibuy) provisioned with all metadata from SIT",
+        "Concurrency test: CSV at 6M char / 10k rows — zero CPU overflow, 100% DLQ capture",
+        "KPI-TI-001 validated: AST Walker <50ms/record confirmed with real production data",
+        "KPI-OPS-001 validated: batch ingestion stable at ≤10k rows",
+        "Agent precision validated: Admin + Ops 95% accuracy target (UAT acceptance criteria)",
+        "Parallel run: AST Walker verdicts vs. legacy BRE — full parity confirmed before cutover",
+        "LGPD legal review completed + data classification sign-off received (GAP-005 closed)",
+        "E10 complete: all Einstein Trust Layer controls documented and legal-signed",
+        "All open bugs triaged: Crítico and Alto defects resolved before Week 7 end",
+        "Formal UAT acceptance document signed by Lucas / Fabrício / Luciano"
+      ],
+      "dependencies": [
+        "Full Copy / Ibuy sandbox available (GAP-003)",
+        "Claro legal review window allocated and stakeholders engaged (GAP-005)",
+        "Production Demanda CSV data available for concurrency testing (GAP-006)"
+      ],
+      "key_gate": "UAT sign-off + LGPD legal sign-off are both required before Phase 3 can proceed"
+    },
+    {
+      "phase_id": "P3",
+      "phase_name": "Go-Live & Hypercare",
+      "duration_weeks": 1,
+      "weeks": "8",
+      "duration_source": "user",
+      "objective": "Production deploy, hypercare monitoring, knowledge transfer, formal project close.",
+      "epics_active": [],
+      "deliverables": [
+        "Production deploy to STORM_PLM via RunSpecifiedTests — all epics deployed",
+        "Smoke test in production: full CSV import → evaluation → diagnostic loop",
+        "Hypercare monitoring: ZombieReaper, DLQ counts, Agentforce conversation logs",
+        "Knowledge Transfer sessions: Admin Agent operation, DLQ retry procedures, CMDT rule management",
+        "Legacy BRE 127-rule backup snapshot (read-only archive) completed",
+        "Formal project close document signed by Claro steering committee",
+        "Post-POC backlog items handed to Claro: W3.1 (Bulk API 2.0), W3.2 (Batchable >50k), W3.3 (Roll-ups), W3.5 (Sweep), W3.4/W3.8 (Security hardening)"
+      ],
+      "dependencies": [
+        "UAT sign-off complete (Phase 2 gate)",
+        "LGPD legal sign-off received (Phase 2 gate)",
+        "Production org access granted to PS team for RunSpecifiedTests deploy"
+      ]
+    }
+  ]
+}

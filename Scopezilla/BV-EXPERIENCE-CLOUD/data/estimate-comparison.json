@@ -1,0 +1,54 @@
+{
+  "anchor": "traditional",
+  "lanes": {
+    "traditional": {
+      "duration_weeks_range": "18-34",
+      "basis": "derived",
+      "duration_provenance": "Linha paramétrica Experience Cloud / Partner Portal (straddle Standard→Full, baseline 18–24 sem); +42% de risk adders (banco regulado +18%, UI customizada render OPA/Wizard +12%, migração E05/volume legado desconhecido +12%; dentro do cap de +50%). Clock = wall-clock elapsed; latência do cliente dentro da banda.",
+      "capacity_summary": "~7,0 FTE nominal/peak (ignora o time-box das fases; média-programa menor) — núcleo sênior onshore + pod de build offshore escalável + QA constante",
+      "roster": [
+        {"resource_id": "R01", "role": "Solution Architect", "seniority": "senior", "location": "onshore", "count": 1, "phases_active": "0-4", "allocation": "full", "side": "ps", "justification": "Dono do design ponta a ponta dos três portais; dobra segurança/perfis/sharing na escala MVP (funde SA + arquitetura de segurança). Onshore — acoplamento com sistemas vivos e SMEs do BV."},
+        {"resource_id": "R02", "role": "Technical Architect", "seniority": "senior", "location": "onshore", "count": 1, "phases_active": "1-2", "allocation": "full", "side": "ps", "justification": "TA/Integração dedicado (decisão SSSL): caminho crítico E06 MuleSoft API-led (XL) + overhead de arquitetura G0610. Onshore — iteração acoplada ao timezone dos sistemas vivos e ao contrato de borda Apigee."},
+        {"resource_id": "R03", "role": "Developer", "seniority": "regular", "location": "offshore", "count": 1, "phases_active": "1-2", "allocation": "full", "side": "ps", "justification": "Builder MuleSoft (decisão SSSL): build do E06 — XAPIs/SAPIs, OAS, batch de ETL, testes E2E. Offshore, volume de build dirigido pelo TA."},
+        {"resource_id": "R04", "role": "Developer", "seniority": "regular", "location": "offshore", "count": 2, "phases_active": "2-4", "allocation": "full", "side": "ps", "justification": "Pod de build Experience Cloud que escala com volume nos três portais: config + custom (render OPA em HTML e Wizard no E01, LWC no E02/E03, automação de sharing). Offshore, escalável ao volume."},
+        {"resource_id": "R05", "role": "QA", "seniority": "regular", "location": "onshore", "count": 1, "phases_active": "2-4", "allocation": "full", "side": "ps", "justification": "1 QA full-program constante (decisão SSSL): não-regressão nos três portais em produção viva + teste do fluxo de aprovação OPA + hardening de serviços financeiros. Onshore pela coordenação de release com o BV."},
+        {"resource_id": "R06", "role": "Project Manager", "seniority": "senior", "location": "onshore", "count": 1, "phases_active": "0-4", "allocation": "full", "side": "ps", "justification": "PM/EM transversal às 5 fases: coordenação, alinhamento com o BV, e coordenação de release/UAT que o BV conduz. Onshore pela cadência com o cliente."},
+        {"resource_id": "C01", "role": "Product Owner", "seniority": "senior", "location": "onshore", "count": 1, "phases_active": "0-4", "allocation": "full", "side": "client", "justification": "Decisor empoderado do BV que destrava a Fase 0 (licença R1, IdP) e prioriza escopo. BV confirmou disponível — insumo forte de prontidão, embora o gate AI-native leia o modelo operacional, não o staffing."},
+        {"resource_id": "C02", "role": "SME", "seniority": "senior", "location": "onshore", "count": 1, "phases_active": "1-4", "allocation": "half", "side": "client", "justification": "SMEs por portal (Governança, Parceiros externo/interno) para regras de negócio, personas e validação de contrato. BV confirmou disponível."},
+        {"resource_id": "C03", "role": "Data Steward", "seniority": "regular", "location": "onshore", "count": 1, "phases_active": "2", "allocation": "half", "side": "client", "justification": "Steward dos catálogos legados para a migração E05 (fonte, volume, qualidade, de-para). BV confirmou disponível; range driver do prazo."},
+        {"resource_id": "C04", "role": "Client IT / Platform", "seniority": "senior", "location": "onshore", "count": 1, "phases_active": "0-2", "allocation": "half", "side": "client", "justification": "TI/plataforma do BV para integração E06 (Anypoint, Apigee, ServiceNow/Jira/OneTrust/PortalTech) e federação de IdP. BV confirmou disponível."},
+        {"resource_id": "C05", "role": "UAT Capacity", "seniority": "regular", "location": "onshore", "count": 1, "phases_active": "2-4", "allocation": "half", "side": "client", "justification": "Capacidade de UAT do BV — o BV é dono de UAT e release. BV confirmou disponível."},
+        {"resource_id": "C06", "role": "Executive Sponsor", "seniority": "senior", "location": "onshore", "count": 1, "phases_active": "0-4", "allocation": "quarter", "side": "client", "justification": "Sponsor executivo do BV para aquisição de licença (R1) e negociação da limitação do Anypoint (R2). BV confirmou disponível."}
+      ],
+      "indicative_price_range": {"low": 0, "high": 0, "currency": "BRL"},
+      "confidence": "Assumed"
+    },
+    "quantum-leap": {
+      "duration_weeks_range": "11-24",
+      "basis": "derived",
+      "duration_provenance": "Baseline tradicional (18–34 sem) comprimida pela efficiency native_band (~30–38%, gated + provisória; efficiency.json): compressed_low = 18×(1−0,38) ≈ 11; compressed_high = 34×(1−0,30) ≈ 24. Pareamento assimétrico mantém a faixa honestamente ampla.",
+      "capacity_summary": "~4,5 FTE nominal/peak (ignora o time-box das fases; média-programa menor) — núcleo sênior onshore agente-amplificado + 1 builder humano ½-time no caminho crítico + QA amplificado constante",
+      "roster": [
+        {"resource_id": "R01", "role": "Solution Architect", "seniority": "senior", "location": "onshore", "count": 1, "phases_active": "0-4", "allocation": "full", "side": "ps", "justification": "Núcleo sênior agente-amplificado; dirige a frota de agentes nos builds dos três portais. A senioridade cobre mais escopo sequenciando os problemas difíceis (adj. 3)."},
+        {"resource_id": "R02", "role": "Technical Architect", "seniority": "senior", "location": "onshore", "count": 1, "phases_active": "1-2", "allocation": "full", "side": "ps", "justification": "Dirige a frota de agentes no E06 MuleSoft; os problemas duros de integração e arquitetura permanecem julgamento humano un-delegável (adj. 2). Domínio de hard-problem distinto mantém o núcleo (adj. 4)."},
+        {"resource_id": "R03", "role": "Developer", "seniority": "senior", "location": "onshore", "count": 1, "phases_active": "2-3", "allocation": "half", "side": "ps", "justification": "Builder humano no caminho crítico de alta integridade (render OPA, Wizard, fluxos MuleSoft) — constrói COM agentes; substitui o pod de 2 devs offshore + dev MuleSoft do tradicional (adj. 1: volume→agentes, mantém o builder un-delegável)."},
+        {"resource_id": "R04", "role": "QA", "seniority": "regular", "location": "onshore", "count": 1, "phases_active": "2-4", "allocation": "full", "side": "ps", "justification": "QA agente-AMPLIFICADO, nunca substituído (adj. 2): um agente não é o check independente do próprio output. Full-program (decisão SSSL); check independente sobre o output dos agentes + hardening regulado."},
+        {"resource_id": "R05", "role": "Project Manager", "seniority": "senior", "location": "onshore", "count": 1, "phases_active": "0-4", "allocation": "full", "side": "ps", "justification": "Pulso de programa, relacionamento e accountability de entrega — trabalho humano un-delegável (adj. 2). Transversal às 5 fases."},
+        {"resource_id": "C01", "role": "Product Owner", "seniority": "senior", "location": "onshore", "count": 1, "phases_active": "0-4", "allocation": "full", "side": "client", "justification": "Decisor empoderado do BV — insumo direto do gate de qualificação AI-native (decisor disponível diariamente). BV confirmou disponível; a lacuna do gate é o compromisso com o modelo operacional AI-first, não o staffing."},
+        {"resource_id": "C02", "role": "SME", "seniority": "senior", "location": "onshore", "count": 1, "phases_active": "1-4", "allocation": "half", "side": "client", "justification": "SMEs por portal — cadência mais intensa exigida pelo ritmo AI-native (demo/decisão frequente). BV confirmou disponível."},
+        {"resource_id": "C03", "role": "Data Steward", "seniority": "regular", "location": "onshore", "count": 1, "phases_active": "2", "allocation": "half", "side": "client", "justification": "Steward dos catálogos legados para E05. BV confirmou disponível; range driver do prazo."},
+        {"resource_id": "C04", "role": "Client IT / Platform", "seniority": "senior", "location": "onshore", "count": 1, "phases_active": "0-2", "allocation": "half", "side": "client", "justification": "TI/plataforma do BV para E06/IdP. BV confirmou disponível."},
+        {"resource_id": "C05", "role": "UAT Capacity", "seniority": "regular", "location": "onshore", "count": 1, "phases_active": "2-4", "allocation": "half", "side": "client", "justification": "Capacidade de UAT do BV — dono de UAT e release. BV confirmou disponível."},
+        {"resource_id": "C06", "role": "Executive Sponsor", "seniority": "senior", "location": "onshore", "count": 1, "phases_active": "0-4", "allocation": "quarter", "side": "client", "justification": "Sponsor executivo do BV para licença (R1) e Anypoint (R2). BV confirmou disponível."}
+      ],
+      "indicative_price_range": {"low": 0, "high": 0, "currency": "BRL"},
+      "confidence": "Assumed",
+      "qualification": "conditional",
+      "provisional_note": "Banda AI-native (~30–38%) PROVISÓRIA e CONDICIONAL: o diagnóstico (o modelo operacional AI-first comprime o overhead de coordenação) é sustentado por DORA/METR; a magnitude é majoritariamente reportada por fornecedor e não calibrada neste engajamento. Só é real se o BV se comprometer com o modelo operacional conjunto (decisor disponível diariamente, business owners empoderados, mandato AI-first). O lado-cliente totalmente nomeado é sinal favorável, mas o gate lê o compromisso com o modo de operar, não o staffing (decisions/0011, decisions/0033)."
+    }
+  },
+  "delta": {"summary": "A AI-native comprime ~30–38% do prazo base (via native_band) E troca a forma do time — de um pod offshore que escala com volume (7,0 FTE nominal) para um núcleo sênior onshore + frota de agentes com 1 builder humano ½-time no build de alta integridade (4,5 FTE nominal), QA amplificado (não substituído). 'AI-native é mais barata' é indefensável isolado; a defesa é a decomposição: forma do roster + duração comprimida + mix de senioridade/location. Magnitude AI-native provisória até haver actuals."},
+  "currency": "BRL",
+  "validated_by": "user",
+  "disclaimer_class": "input-derived"
+}

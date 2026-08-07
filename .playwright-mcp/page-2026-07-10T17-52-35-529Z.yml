@@ -1,0 +1,65 @@
+- generic [ref=f23e1]:
+  - generic [ref=f23e5]:
+    - button "Google Apps" [ref=f23e9] [cursor=pointer]:
+      - img [ref=f23e10]
+    - 'button "Conta do Google: Nelson Stebulaitis Filho (nfilho@salesforce.com)" [ref=f23e15] [cursor=pointer]':
+      - img [ref=f23e17]
+  - generic [ref=f23e20]:
+    - generic [ref=f23e24]:
+      - link "Página inicial do NotebookLM" [ref=f23e26] [cursor=pointer]:
+        - /url: /
+        - img "Logotipo do NotebookLM" [ref=f23e28]
+      - generic [ref=f23e30]: Loading Notebook...
+      - generic [ref=f23e31]:
+        - button "Criar notebook" [ref=f23e33]:
+          - img [ref=f23e34]: add
+          - generic [ref=f23e35]: Criar notebook
+        - generic "Configurações" [ref=f23e40]:
+          - button "Configurações" [ref=f23e42]:
+            - img [ref=f23e43]: settings
+    - generic [ref=f23e46]:
+      - generic [ref=f23e47]:
+        - generic [ref=f23e48]:
+          - navigation [ref=f23e49]:
+            - heading "Fontes" [level=2] [ref=f23e50]:
+              - generic [ref=f23e51]: Fontes
+          - button "Fechar painel de fontes" [ref=f23e53] [cursor=pointer]:
+            - img [ref=f23e54]: dock_to_right
+        - generic [ref=f23e63]:
+          - img [ref=f23e64]: docs
+          - generic [ref=f23e65]: As fontes salvas vão aparecer aqui
+          - generic [ref=f23e66]: Clique em "Adicionar fonte" para incluir arquivos em PDF, de sites, de texto, de vídeo ou de áudio. Ou importe um arquivo do Google Drive.
+      - generic [ref=f23e68]:
+        - generic [ref=f23e69]:
+          - heading "Conversa" [level=2] [ref=f23e71]
+          - button "Opções de conversa" [ref=f23e73] [cursor=pointer]:
+            - img [ref=f23e74]: more_vert
+        - generic [ref=f23e77]:
+          - generic [ref=f23e78]:
+            - progressbar [ref=f23e81]:
+              - img [ref=f23e83]
+              - generic [ref=f23e86]:
+                - img [ref=f23e88]
+                - img [ref=f23e91]
+                - img [ref=f23e94]
+            - generic [ref=f23e97]:
+              - img [ref=f23e98]: landscape_2
+              - generic [ref=f23e99]: 📔
+              - generic [ref=f23e100]:
+                - heading "Loading Notebook..." [level=2] [ref=f23e101]
+                - generic [ref=f23e102]:
+                  - generic [ref=f23e103]: 0 fonte
+                  - generic [ref=f23e104]: ·
+                  - generic "null"
+          - generic [ref=f23e113]:
+            - textbox "Caixa de consulta" [active] [ref=f23e115]:
+              - /placeholder: Comece a digitar…
+            - generic [ref=f23e116]:
+              - generic [ref=f23e118]: 0 fonte
+              - button "Enviar" [disabled]:
+                - img: arrow_forward
+      - generic [ref=f23e120]:
+        - navigation
+        - button "Abrir painel do estúdio" [ref=f23e121] [cursor=pointer]:
+          - img [ref=f23e122]: dock_to_left
+    - contentinfo [ref=f23e128]: O NotebookLM pode gerar respostas incorretas. Por isso, cheque o conteúdo.

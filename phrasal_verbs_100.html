@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>100 Phrasal Verbs — Nelson</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: linear-gradient(135deg, #0a0a18 0%, #1a0d2e 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: white;
+            padding: 24px;
+        }
+
+        h1 {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.35);
+            margin-bottom: 16px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        /* Level filter */
+        .filter-bar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 7px 18px;
+            border-radius: 100px;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.06);
+            color: rgba(255,255,255,0.5);
+            font-size: 0.78rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 0.06em;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover { background: rgba(255,255,255,0.12); color: white; }
+
+        .filter-btn.active-all    { background: rgba(255,255,255,0.15); color: white; border-color: rgba(255,255,255,0.4); }
+        .filter-btn.active-basico { background: rgba(16,185,129,0.2); color: #6ee7b7; border-color: rgba(16,185,129,0.5); }
+        .filter-btn.active-inter  { background: rgba(245,158,11,0.2); color: #fcd34d; border-color: rgba(245,158,11,0.5); }
+        .filter-btn.active-avan   { background: rgba(239,68,68,0.2); color: #fca5a5; border-color: rgba(239,68,68,0.5); }
+
+        /* Progress */
+        .progress-bar-wrap {
+            width: 100%;
+            max-width: 500px;
+            height: 3px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 100px;
+            margin-bottom: 18px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #7c3aed, #0ea5e9);
+            border-radius: 100px;
+            transition: width 0.4s ease;
+        }
+
+        .card-container {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .card {
+            width: 100%;
+            min-height: 340px;
+            border-radius: 28px;
+            padding: 40px 38px;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            user-select: none;
+            transition: box-shadow 0.3s ease, transform 0.15s ease;
+        }
+
+        .card:hover { transform: translateY(-2px); }
+        .card:active { transform: scale(0.98); }
+
+        .card.flip-out { animation: flipOut 0.18s ease forwards; }
+        .card.flip-in  { animation: flipIn  0.18s ease forwards; }
+
+        @keyframes flipOut {
+            to { transform: rotateY(90deg) scale(0.95); opacity: 0; }
+        }
+        @keyframes flipIn {
+            from { transform: rotateY(-90deg) scale(0.95); opacity: 0; }
+            to   { transform: rotateY(0deg) scale(1); opacity: 1; }
+        }
+
+        .card.face-1 {
+            background: linear-gradient(145deg, #2d1b69 0%, #1e3a5f 60%, #0d2137 100%);
+            box-shadow: 0 30px 70px rgba(109,40,217,0.45);
+        }
+        .card.face-2 {
+            background: linear-gradient(145deg, #0c3547 0%, #0d5e7a 60%, #063b50 100%);
+            box-shadow: 0 30px 70px rgba(14,165,233,0.4);
+        }
+        .card.face-3 {
+            background: linear-gradient(145deg, #1a3320 0%, #0d5228 60%, #072e16 100%);
+            box-shadow: 0 30px 70px rgba(16,185,129,0.4);
+        }
+
+        /* Level badge */
+        .level-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 100px;
+            margin-bottom: 22px;
+        }
+
+        .level-badge.basico {
+            background: rgba(16,185,129,0.15);
+            color: #6ee7b7;
+            border: 1px solid rgba(16,185,129,0.3);
+        }
+        .level-badge.intermediario {
+            background: rgba(245,158,11,0.15);
+            color: #fcd34d;
+            border: 1px solid rgba(245,158,11,0.3);
+        }
+        .level-badge.avancado {
+            background: rgba(239,68,68,0.15);
+            color: #fca5a5;
+            border: 1px solid rgba(239,68,68,0.3);
+        }
+
+        .card-number {
+            position: absolute;
+            top: 18px;
+            right: 22px;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.2);
+            font-variant-numeric: tabular-nums;
+            font-weight: 500;
+        }
+
+        .phrasal-verb {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 8px;
+        }
+
+        .face-label {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.28);
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+            margin-top: 24px;
+            font-weight: 500;
+        }
+
+        .translation {
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: #67e8f9;
+            margin-bottom: 20px;
+            letter-spacing: -0.01em;
+        }
+
+        .example {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.82);
+            font-style: italic;
+            line-height: 1.65;
+            padding: 14px 18px;
+            background: rgba(255,255,255,0.07);
+            border-radius: 14px;
+            border-left: 3px solid #0ea5e9;
+            text-align: left;
+            width: 100%;
+        }
+
+        .exercise-badge {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: #86efac;
+            margin-bottom: 16px;
+            font-weight: 600;
+            padding: 4px 13px;
+            background: rgba(16,185,129,0.15);
+            border-radius: 100px;
+            border: 1px solid rgba(16,185,129,0.3);
+        }
+
+        .exercise-sentence {
+            font-size: 1.05rem;
+            color: white;
+            line-height: 1.65;
+            font-weight: 400;
+            margin-bottom: 22px;
+            padding: 16px 18px;
+            background: rgba(255,255,255,0.07);
+            border-radius: 14px;
+            width: 100%;
+            text-align: left;
+        }
+
+        .reveal-btn {
+            background: rgba(16,185,129,0.2);
+            border: 1px solid rgba(16,185,129,0.45);
+            color: #86efac;
+            padding: 10px 26px;
+            border-radius: 100px;
+            font-size: 0.86rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+        }
+
+        .reveal-btn:hover {
+            background: rgba(16,185,129,0.35);
+            border-color: rgba(16,185,129,0.7);
+        }
+
+        .answer-box {
+            margin-top: 12px;
+            padding: 12px 16px;
+            background: rgba(16,185,129,0.12);
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #d1fae5;
+            font-style: italic;
+            border-left: 3px solid #10b981;
+            text-align: left;
+            width: 100%;
+            display: none;
+            animation: fadeUp 0.25s ease;
+        }
+
+        .answer-box.visible { display: block; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .face-dots {
+            display: flex;
+            gap: 9px;
+            margin: 20px 0 16px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.18);
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: white;
+            transform: scale(1.25);
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .nav-btn {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.14);
+            color: white;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: rgba(255,255,255,0.18);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .nav-btn:disabled { opacity: 0.25; cursor: not-allowed; }
+
+        .card-count {
+            font-size: 0.88rem;
+            color: rgba(255,255,255,0.45);
+            min-width: 64px;
+            text-align: center;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .bottom-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .action-btn {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.16);
+            color: rgba(255,255,255,0.45);
+            padding: 8px 18px;
+            border-radius: 100px;
+            font-size: 0.78rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 0.04em;
+        }
+
+        .action-btn:hover {
+            border-color: rgba(255,255,255,0.35);
+            color: rgba(255,255,255,0.75);
+        }
+
+        .empty-state {
+            width: 100%;
+            max-width: 500px;
+            min-height: 340px;
+            border-radius: 28px;
+            background: rgba(255,255,255,0.04);
+            border: 1px dashed rgba(255,255,255,0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.3);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>⚡ 100 Phrasal Verbs — Nelson</h1>
+
+    <div class="filter-bar">
+        <button class="filter-btn active-all" id="filter-all"    onclick="setFilter('all')">Todos (100)</button>
+        <button class="filter-btn"            id="filter-basico" onclick="setFilter('basico')">🟢 Básico (30)</button>
+        <button class="filter-btn"            id="filter-inter"  onclick="setFilter('intermediario')">🟡 Intermediário (35)</button>
+        <button class="filter-btn"            id="filter-avan"   onclick="setFilter('avancado')">🔴 Avançado (35)</button>
+    </div>
+
+    <div class="progress-bar-wrap">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <div class="card-container">
+        <div class="card face-1" id="card" onclick="handleCardClick()"></div>
+    </div>
+
+    <div class="face-dots">
+        <div class="dot active" id="dot-0"></div>
+        <div class="dot" id="dot-1"></div>
+        <div class="dot" id="dot-2"></div>
+    </div>
+
+    <div class="controls">
+        <button class="nav-btn" id="btn-prev" onclick="navigate(-1)">←</button>
+        <span class="card-count" id="card-count">1 / 100</span>
+        <button class="nav-btn" id="btn-next" onclick="navigate(1)">→</button>
+    </div>
+
+    <div class="bottom-controls">
+        <button class="action-btn" onclick="shuffleCards()">⟳ Shuffle</button>
+        <button class="action-btn" onclick="resetCards()">↺ Reset</button>
+    </div>
+
+    <script>
+    const ALL_DATA = [
+        // ── BÁSICO (1–30) ──────────────────────────────────────────────
+        { n:1,  level:"basico", verb:"Get up",       translation:"Acordar / Levantar",       example:"I get up at 6am every day to prepare for the meeting.",                    exercise:"Eu me levanto às 6h toda manhã para me preparar.",                                 answer:"I get up at 6am every morning to get ready." },
+        { n:2,  level:"basico", verb:"Wake up",      translation:"Acordar (ficar desperto)",  example:"She woke up early to review the presentation before the call.",            exercise:"Ele acordou cedo para revisar os slides antes da reunião.",                        answer:"He woke up early to review the slides before the meeting." },
+        { n:3,  level:"basico", verb:"Sit down",     translation:"Sentar",                    example:"Please sit down, we're about to start the session.",                       exercise:"Por favor, sente-se, estamos prestes a começar.",                                  answer:"Please sit down, we are about to start." },
+        { n:4,  level:"basico", verb:"Stand up",     translation:"Levantar / Defender",       example:"He stood up for his team when the client complained.",                     exercise:"Ela defendeu seu time quando o cliente reclamou.",                                 answer:"She stood up for her team when the client complained." },
+        { n:5,  level:"basico", verb:"Turn on",      translation:"Ligar (aparelho)",           example:"Can you turn on the projector before the demo?",                          exercise:"Você pode ligar o projetor antes da demonstração?",                                answer:"Can you turn on the projector before the demo?" },
+        { n:6,  level:"basico", verb:"Turn off",     translation:"Desligar",                  example:"Please turn off your microphone when not speaking.",                       exercise:"Por favor, desligue seu microfone quando não estiver falando.",                    answer:"Please turn off your microphone when you're not speaking." },
+        { n:7,  level:"basico", verb:"Go out",       translation:"Sair",                      example:"We went out for dinner after the client event.",                           exercise:"Saímos para jantar depois do evento com o cliente.",                               answer:"We went out for dinner after the client event." },
+        { n:8,  level:"basico", verb:"Come in",      translation:"Entrar",                    example:"Come in — the door is open and the team is ready.",                       exercise:"Entre, a equipe já está te esperando.",                                            answer:"Come in, the team is already waiting for you." },
+        { n:9,  level:"basico", verb:"Take off",     translation:"Decolar / Remover",         example:"The project really took off after the first quarter.",                    exercise:"O projeto realmente decolou após o primeiro trimestre.",                           answer:"The project really took off after the first quarter." },
+        { n:10, level:"basico", verb:"Give up",      translation:"Desistir",                  example:"Don't give up on this deal — we're close to closing.",                    exercise:"Não desista deste negócio — estamos perto de fechar.",                            answer:"Don't give up on this deal — we're close to closing." },
+        { n:11, level:"basico", verb:"Show up",      translation:"Aparecer / Chegar",         example:"He showed up 20 minutes late to the kickoff.",                            exercise:"Ela chegou 20 minutos atrasada ao kickoff.",                                       answer:"She showed up 20 minutes late to the kickoff." },
+        { n:12, level:"basico", verb:"Look up",      translation:"Pesquisar / Consultar",     example:"Let me look up the contact details in Salesforce.",                       exercise:"Deixa eu pesquisar os dados do contato no Salesforce.",                           answer:"Let me look up the contact details in Salesforce." },
+        { n:13, level:"basico", verb:"Find out",     translation:"Descobrir / Saber",         example:"I need to find out who approved this change request.",                    exercise:"Preciso descobrir quem aprovou essa mudança.",                                     answer:"I need to find out who approved this change." },
+        { n:14, level:"basico", verb:"Go back",      translation:"Voltar",                    example:"Let's go back to the previous slide for a moment.",                       exercise:"Vamos voltar ao slide anterior por um momento.",                                   answer:"Let's go back to the previous slide for a moment." },
+        { n:15, level:"basico", verb:"Come back",    translation:"Retornar",                  example:"She came back from parental leave with fresh energy.",                    exercise:"Ela voltou da licença-maternidade com muita energia.",                            answer:"She came back from parental leave with a lot of energy." },
+        { n:16, level:"basico", verb:"Drop off",     translation:"Deixar alguém",             example:"I'll drop you off at the airport before my next meeting.",                exercise:"Vou te deixar no aeroporto antes da minha próxima reunião.",                      answer:"I'll drop you off at the airport before my next meeting." },
+        { n:17, level:"basico", verb:"Pick up",      translation:"Buscar / Pegar",            example:"Can you pick me up after the client dinner tonight?",                     exercise:"Você pode me buscar depois do jantar com o cliente?",                             answer:"Can you pick me up after the client dinner?" },
+        { n:18, level:"basico", verb:"Go on",        translation:"Continuar / Acontecer",     example:"What's going on with the migration? Any updates?",                        exercise:"O que está acontecendo com a migração? Alguma atualização?",                      answer:"What's going on with the migration? Any updates?" },
+        { n:19, level:"basico", verb:"Carry on",     translation:"Continuar",                 example:"Please carry on with the demo — I'll join in a moment.",                  exercise:"Por favor, continue com a demo — vou entrar em um instante.",                    answer:"Please carry on with the demo — I'll join in a moment." },
+        { n:20, level:"basico", verb:"End up",       translation:"Acabar fazendo",            example:"We ended up working all weekend to meet the deadline.",                   exercise:"Acabamos trabalhando o fim de semana todo para cumprir o prazo.",                 answer:"We ended up working all weekend to meet the deadline." },
+        { n:21, level:"basico", verb:"Break up",     translation:"Separar / Dividir",         example:"Let's break up into smaller groups for the workshop.",                    exercise:"Vamos nos dividir em grupos menores para o workshop.",                            answer:"Let's break up into smaller groups for the workshop." },
+        { n:22, level:"basico", verb:"Run out",      translation:"Acabar / Esgotar",          example:"We're running out of time — let's wrap up the discussion.",               exercise:"Estamos ficando sem tempo — vamos encerrar a discussão.",                        answer:"We're running out of time — let's wrap up the discussion." },
+        { n:23, level:"basico", verb:"Take place",   translation:"Acontecer / Ocorrer",       example:"The kickoff meeting will take place on Monday at 9am.",                   exercise:"A reunião de kickoff vai acontecer na segunda-feira às 9h.",                      answer:"The kickoff meeting will take place on Monday at 9am." },
+        { n:24, level:"basico", verb:"Look for",     translation:"Procurar",                  example:"We're looking for a partner with Financial Services expertise.",           exercise:"Estamos procurando um parceiro com expertise em Serviços Financeiros.",           answer:"We're looking for a partner with Financial Services expertise." },
+        { n:25, level:"basico", verb:"Get back",     translation:"Retornar contato / Voltar", example:"I'll get back to you by end of day with a decision.",                    exercise:"Retorno para você até o final do dia com uma decisão.",                           answer:"I'll get back to you by end of day with a decision." },
+        { n:26, level:"basico", verb:"Go well/wrong",translation:"Correr bem / mal",          example:"The demo went really well — the client was impressed.",                   exercise:"A demonstração correu muito bem — o cliente ficou impressionado.",               answer:"The demo went really well — the client was impressed." },
+        { n:27, level:"basico", verb:"Set up",       translation:"Configurar / Montar",       example:"We need to set up the sandbox before the training session.",              exercise:"Precisamos configurar o sandbox antes da sessão de treinamento.",                 answer:"We need to set up the sandbox before the training session." },
+        { n:28, level:"basico", verb:"Log in",       translation:"Entrar no sistema",         example:"I can't log in to the platform — the password expired.",                  exercise:"Não consigo entrar na plataforma — a senha expirou.",                            answer:"I can't log in to the platform — the password expired." },
+        { n:29, level:"basico", verb:"Put on",       translation:"Organizar / Realizar evento",example:"We put on a great enablement session for the entire team.",             exercise:"Organizamos uma ótima sessão de enablement para todo o time.",                   answer:"We put on a great enablement session for the entire team." },
+        { n:30, level:"basico", verb:"Take away",    translation:"Concluir / Lição principal", example:"What's the main takeaway from today's discovery session?",               exercise:"Qual é a principal lição da sessão de discovery de hoje?",                        answer:"What's the main takeaway from today's discovery session?" },
+
+        // ── INTERMEDIÁRIO (31–65) ──────────────────────────────────────
+        { n:31, level:"intermediario", verb:"Turn down",      translation:"Recusar / Rejeitar",         example:"They offered him the contract, but he turned it down.",                   exercise:"Ofereceram o contrato a ele, mas ele recusou.",                                   answer:"They offered him the contract, but he turned it down." },
+        { n:32, level:"intermediario", verb:"Put off",        translation:"Adiar / Postergar",          example:"We had to put off the kickoff due to budget approval delays.",            exercise:"Tivemos que adiar o kickoff por causa de atrasos na aprovação do orçamento.",    answer:"We had to put off the kickoff due to budget approval delays." },
+        { n:33, level:"intermediario", verb:"Come up with",   translation:"Criar / Inventar / Propor",  example:"Can you come up with a more competitive proposal by Friday?",            exercise:"Você consegue criar uma proposta mais competitiva até sexta?",                   answer:"Can you come up with a more competitive proposal by Friday?" },
+        { n:34, level:"intermediario", verb:"Figure out",     translation:"Entender / Resolver",        example:"Let's figure out the root cause before escalating the issue.",            exercise:"Vamos entender a causa raiz antes de escalar o problema.",                       answer:"Let's figure out the root cause before escalating the issue." },
+        { n:35, level:"intermediario", verb:"Work out",       translation:"Resolver / Funcionar",       example:"We need to work out the pricing before the next executive call.",         exercise:"Precisamos resolver o preço antes da próxima ligação executiva.",                answer:"We need to work out the pricing before the next executive call." },
+        { n:36, level:"intermediario", verb:"Follow up",      translation:"Dar retorno / Acompanhar",   example:"I'll follow up with the client after the proposal is submitted.",         exercise:"Vou dar um retorno para o cliente após enviar a proposta.",                      answer:"I'll follow up with the client after the proposal is submitted." },
+        { n:37, level:"intermediario", verb:"Follow through", translation:"Cumprir / Dar continuidade", example:"He rarely follows through on the action items from meetings.",            exercise:"Ele raramente cumpre as ações acordadas nas reuniões.",                          answer:"He rarely follows through on the action items from meetings." },
+        { n:38, level:"intermediario", verb:"Pull off",       translation:"Conseguir algo difícil",     example:"I can't believe we pulled off the go-live with zero downtime.",           exercise:"Não acredito que conseguimos fazer o go-live sem nenhuma indisponibilidade.",    answer:"I can't believe we pulled off the go-live with zero downtime." },
+        { n:39, level:"intermediario", verb:"Run it by",      translation:"Consultar alguém",           example:"Let me run this SOW by legal before we send it to the client.",           exercise:"Deixa eu passar esse SOW pelo jurídico antes de enviar ao cliente.",             answer:"Let me run this SOW by legal before we send it to the client." },
+        { n:40, level:"intermediario", verb:"Flag up",        translation:"Sinalizar / Alertar",        example:"Please flag up any blockers or risks before the sprint review.",          exercise:"Por favor, sinalize qualquer bloqueio ou risco antes da sprint review.",         answer:"Please flag up any blockers or risks before the sprint review." },
+        { n:41, level:"intermediario", verb:"Pin down",       translation:"Definir / Confirmar",        example:"We need to pin down the project scope before signing the contract.",      exercise:"Precisamos confirmar o escopo do projeto antes de assinar o contrato.",          answer:"We need to pin down the project scope before signing the contract." },
+        { n:42, level:"intermediario", verb:"Ramp up",        translation:"Acelerar / Escalar",         example:"We need to ramp up the delivery team before Phase 2 starts.",             exercise:"Precisamos escalar o time de entrega antes que a Fase 2 comece.",               answer:"We need to ramp up the delivery team before Phase 2 starts." },
+        { n:43, level:"intermediario", verb:"Carry out",      translation:"Executar / Realizar",        example:"The team carried out the data migration successfully last night.",         exercise:"O time executou a migração de dados com sucesso ontem à noite.",                 answer:"The team carried out the data migration successfully last night." },
+        { n:44, level:"intermediario", verb:"Hand in",        translation:"Entregar (documento/tarefa)", example:"Please hand in your timesheet by Friday at noon.",                      exercise:"Por favor, entregue seu timesheet até sexta ao meio-dia.",                       answer:"Please hand in your timesheet by Friday at noon." },
+        { n:45, level:"intermediario", verb:"Hand out",       translation:"Distribuir",                 example:"I'll hand out the agenda before we start the workshop.",                  exercise:"Vou distribuir a pauta antes de começarmos o workshop.",                        answer:"I'll hand out the agenda before we start the workshop." },
+        { n:46, level:"intermediario", verb:"Take over",      translation:"Assumir o controle",         example:"She took over the account after the previous manager resigned.",           exercise:"Ela assumiu a conta depois que o gerente anterior pediu demissão.",              answer:"She took over the account after the previous manager resigned." },
+        { n:47, level:"intermediario", verb:"Back up",        translation:"Fazer backup / Apoiar",      example:"Make sure to back up all project files before the upgrade.",               exercise:"Certifique-se de fazer backup de todos os arquivos antes da atualização.",       answer:"Make sure to back up all project files before the upgrade." },
+        { n:48, level:"intermediario", verb:"Check in",       translation:"Verificar / Check-in",       example:"Let's check in at the end of every sprint to assess progress.",           exercise:"Vamos fazer um check-in ao final de cada sprint para avaliar o progresso.",     answer:"Let's check in at the end of every sprint to assess progress." },
+        { n:49, level:"intermediario", verb:"Bring up",       translation:"Mencionar / Levantar",       example:"I need to bring up a concern about the timeline in today's call.",        exercise:"Preciso mencionar uma preocupação sobre o cronograma na ligação de hoje.",       answer:"I need to bring up a concern about the timeline in today's call." },
+        { n:50, level:"intermediario", verb:"Go over",        translation:"Revisar / Analisar",         example:"Can we go over the contract terms one more time before signing?",          exercise:"Podemos revisar os termos do contrato mais uma vez antes de assinar?",           answer:"Can we go over the contract terms one more time before signing?" },
+        { n:51, level:"intermediario", verb:"Point out",      translation:"Indicar / Apontar",          example:"She pointed out several inconsistencies in the requirements doc.",         exercise:"Ela apontou várias inconsistências no documento de requisitos.",                 answer:"She pointed out several inconsistencies in the requirements doc." },
+        { n:52, level:"intermediario", verb:"Deal with",      translation:"Lidar com",                  example:"How do you deal with stakeholders who resist change?",                    exercise:"Como você lida com stakeholders que resistem às mudanças?",                     answer:"How do you deal with stakeholders who resist change?" },
+        { n:53, level:"intermediario", verb:"Move on",        translation:"Seguir em frente",           example:"Let's move on to the next agenda item — we're running late.",             exercise:"Vamos seguir para o próximo item da pauta — estamos atrasados.",                answer:"Let's move on to the next agenda item — we're running late." },
+        { n:54, level:"intermediario", verb:"Catch up",       translation:"Se atualizar / Alcançar",    example:"Let's catch up on the project status before the steering committee.",     exercise:"Vamos nos atualizar sobre o status do projeto antes do steering committee.",    answer:"Let's catch up on the project status before the steering committee." },
+        { n:55, level:"intermediario", verb:"Keep up",        translation:"Manter o ritmo",             example:"It's hard to keep up with all the product releases in a quarter.",        exercise:"É difícil manter o ritmo com todos os lançamentos de produto no trimestre.",   answer:"It's hard to keep up with all the product releases in a quarter." },
+        { n:56, level:"intermediario", verb:"Wrap up",        translation:"Concluir / Encerrar",        example:"Let's wrap up the meeting — we have 5 minutes left.",                     exercise:"Vamos encerrar a reunião — temos 5 minutos restantes.",                         answer:"Let's wrap up the meeting — we have 5 minutes left." },
+        { n:57, level:"intermediario", verb:"Kick off",       translation:"Dar início",                 example:"We kicked off the Agentforce implementation last Monday.",                exercise:"Demos início à implementação do Agentforce na última segunda-feira.",            answer:"We kicked off the Agentforce implementation last Monday." },
+        { n:58, level:"intermediario", verb:"Reach out",      translation:"Entrar em contato",          example:"Feel free to reach out if you have questions about the SOW.",             exercise:"Fique à vontade para entrar em contato se tiver dúvidas sobre o SOW.",          answer:"Feel free to reach out if you have questions about the SOW." },
+        { n:59, level:"intermediario", verb:"Look into",      translation:"Investigar",                 example:"I'll look into the integration error and get back to you tomorrow.",       exercise:"Vou investigar o erro de integração e retorno para você amanhã.",               answer:"I'll look into the integration error and get back to you tomorrow." },
+        { n:60, level:"intermediario", verb:"Sign off",       translation:"Aprovar / Encerrar",         example:"The VP needs to sign off on the budget before we can proceed.",           exercise:"O VP precisa aprovar o orçamento antes de podermos avançar.",                   answer:"The VP needs to sign off on the budget before we can proceed." },
+        { n:61, level:"intermediario", verb:"Sum up",         translation:"Resumir",                    example:"Can you sum up the key decisions from today's meeting?",                 exercise:"Você consegue resumir as principais decisões da reunião de hoje?",               answer:"Can you sum up the key decisions from today's meeting?" },
+        { n:62, level:"intermediario", verb:"Put forward",    translation:"Propor / Apresentar",        example:"She put forward an innovative approach to the data model.",               exercise:"Ela apresentou uma abordagem inovadora para o modelo de dados.",                 answer:"She put forward an innovative approach to the data model." },
+        { n:63, level:"intermediario", verb:"Draw up",        translation:"Redigir / Elaborar",         example:"Legal will draw up the final contract by end of week.",                   exercise:"O jurídico vai redigir o contrato final até o final da semana.",                answer:"Legal will draw up the final contract by end of week." },
+        { n:64, level:"intermediario", verb:"Check out",      translation:"Conferir / Olhar",           example:"Check out this new Agentforce feature — it's a game changer.",           exercise:"Confira essa nova funcionalidade do Agentforce — vai mudar tudo.",              answer:"Check out this new Agentforce feature — it's a game changer." },
+        { n:65, level:"intermediario", verb:"Get back to",    translation:"Retornar / Responder",       example:"I'll get back to you with the revised estimate by Thursday.",             exercise:"Vou retornar para você com a estimativa revisada até quinta-feira.",            answer:"I'll get back to you with the revised estimate by Thursday." },
+
+        // ── AVANÇADO (66–100) ─────────────────────────────────────────
+        { n:66,  level:"avancado", verb:"Draw on",       translation:"Recorrer a / Basear-se em",      example:"She drew on her 20 years of experience to navigate the negotiation.",    exercise:"Ele se baseou em seus 15 anos de experiência para conduzir a negociação.",      answer:"He drew on his 15 years of experience to navigate the negotiation." },
+        { n:67,  level:"avancado", verb:"Build on",      translation:"Desenvolver a partir de",        example:"We need to build on the Q1 results to accelerate growth in Q2.",          exercise:"Precisamos desenvolver a partir dos resultados do Q1 para acelerar no Q2.",    answer:"We need to build on the Q1 results to accelerate growth in Q2." },
+        { n:68,  level:"avancado", verb:"Account for",   translation:"Justificar / Representar",       example:"How do you account for the 20% cost overrun in Phase 1?",                exercise:"Como você justifica o estouro de 20% no custo da Fase 1?",                      answer:"How do you account for the 20% cost overrun in Phase 1?" },
+        { n:69,  level:"avancado", verb:"Phase out",     translation:"Eliminar gradualmente",          example:"The legacy CRM will be phased out over the next 18 months.",             exercise:"O CRM legado será eliminado gradualmente ao longo dos próximos 18 meses.",     answer:"The legacy CRM will be phased out over the next 18 months." },
+        { n:70,  level:"avancado", verb:"Roll out",      translation:"Lançar / Implementar",           example:"We'll roll out the new features in three phases across LATAM.",           exercise:"Vamos implementar as novas funcionalidades em três fases no LATAM.",            answer:"We'll roll out the new features in three phases across LATAM." },
+        { n:71,  level:"avancado", verb:"Weigh up",      translation:"Avaliar prós e contras",         example:"We need to weigh up all the options before recommending an approach.",    exercise:"Precisamos avaliar todas as opções antes de recomendar uma abordagem.",         answer:"We need to weigh up all the options before recommending an approach." },
+        { n:72,  level:"avancado", verb:"Drill down",    translation:"Aprofundar / Detalhar análise",  example:"Let's drill down into the root cause of this recurring failure.",         exercise:"Vamos aprofundar na causa raiz desta falha recorrente.",                        answer:"Let's drill down into the root cause of this recurring failure." },
+        { n:73,  level:"avancado", verb:"Map out",       translation:"Planejar detalhadamente",        example:"We need to map out the entire migration journey before we start.",        exercise:"Precisamos planejar detalhadamente toda a jornada de migração antes de começar.",answer:"We need to map out the entire migration journey before we start." },
+        { n:74,  level:"avancado", verb:"Stand out",     translation:"Se destacar",                    example:"What makes our proposal stand out from the competition?",                exercise:"O que faz nossa proposta se destacar da concorrência?",                         answer:"What makes our proposal stand out from the competition?" },
+        { n:75,  level:"avancado", verb:"Take on",       translation:"Assumir / Enfrentar desafio",    example:"Are you ready to take on the role of delivery lead for this project?",    exercise:"Você está pronto para assumir o papel de delivery lead neste projeto?",         answer:"Are you ready to take on the role of delivery lead for this project?" },
+        { n:76,  level:"avancado", verb:"Buy into",      translation:"Acreditar em / Aderir a uma ideia",example:"The board didn't fully buy into the new transformation strategy.",     exercise:"A diretoria não acreditou totalmente na nova estratégia de transformação.",     answer:"The board didn't fully buy into the new transformation strategy." },
+        { n:77,  level:"avancado", verb:"Narrow down",   translation:"Reduzir / Filtrar opções",       example:"Let's narrow down the vendor list to three finalists.",                   exercise:"Vamos reduzir a lista de fornecedores para três finalistas.",                   answer:"Let's narrow down the vendor list to three finalists." },
+        { n:78,  level:"avancado", verb:"Spell out",     translation:"Explicar claramente",            example:"Let me spell out exactly what we expect from the implementation partner.", exercise:"Deixa eu explicar claramente o que esperamos do parceiro de implementação.",   answer:"Let me spell out exactly what we expect from the implementation partner." },
+        { n:79,  level:"avancado", verb:"Fall through",  translation:"Não dar certo / Fracassar",      example:"The deal fell through at the last minute due to budget constraints.",      exercise:"O negócio não deu certo no último minuto por restrições orçamentárias.",        answer:"The deal fell through at the last minute due to budget constraints." },
+        { n:80,  level:"avancado", verb:"Cut back",      translation:"Reduzir / Cortar",               example:"They had to cut back on PS resources to meet financial targets.",          exercise:"Eles tiveram que cortar recursos de PS para atingir as metas financeiras.",     answer:"They had to cut back on PS resources to meet financial targets." },
+        { n:81,  level:"avancado", verb:"Branch out",    translation:"Expandir / Diversificar",        example:"Salesforce has branched out significantly into AI and automation.",        exercise:"A Salesforce expandiu significativamente para IA e automação.",                 answer:"Salesforce has branched out significantly into AI and automation." },
+        { n:82,  level:"avancado", verb:"Step up",       translation:"Assumir mais responsabilidade",  example:"She really stepped up during the crisis and led the recovery effort.",    exercise:"Ela realmente assumiu mais responsabilidade durante a crise e liderou a recuperação.", answer:"She really stepped up during the crisis and led the recovery effort." },
+        { n:83,  level:"avancado", verb:"Break down",    translation:"Detalhar / Analisar / Falhar",   example:"Can you break down the costs by workstream and phase?",                   exercise:"Você consegue detalhar os custos por workstream e fase?",                       answer:"Can you break down the costs by workstream and phase?" },
+        { n:84,  level:"avancado", verb:"Scale back",    translation:"Reduzir escopo",                 example:"We had to scale back the project scope due to budget cuts.",              exercise:"Tivemos que reduzir o escopo do projeto por causa de cortes de orçamento.",     answer:"We had to scale back the project scope due to budget cuts." },
+        { n:85,  level:"avancado", verb:"Press ahead",   translation:"Avançar com determinação",       example:"Despite the risks, the client decided to press ahead with the launch.",   exercise:"Apesar dos riscos, o cliente decidiu avançar com determinação no lançamento.",  answer:"Despite the risks, the client decided to press ahead with the launch." },
+        { n:86,  level:"avancado", verb:"Tie in",        translation:"Conectar / Relacionar",          example:"How does this feature tie in with the overall digital transformation?",   exercise:"Como essa funcionalidade se relaciona com a transformação digital geral?",      answer:"How does this feature tie in with the overall digital transformation?" },
+        { n:87,  level:"avancado", verb:"Bear out",      translation:"Confirmar / Comprovar",          example:"The pilot results bear out our initial hypothesis about adoption.",        exercise:"Os resultados do piloto comprovam nossa hipótese inicial sobre adoção.",        answer:"The pilot results bear out our initial hypothesis about adoption." },
+        { n:88,  level:"avancado", verb:"Hold back",     translation:"Conter / Segurar / Impedir",     example:"Don't hold back your ideas — that's what the ideation session is for.",   exercise:"Não segure suas ideias — é para isso que serve a sessão de ideação.",           answer:"Don't hold back your ideas — that's what the ideation session is for." },
+        { n:89,  level:"avancado", verb:"Go through",    translation:"Revisar detalhadamente / Passar por", example:"Let's go through the contract clause by clause before we sign.",  exercise:"Vamos revisar o contrato cláusula por cláusula antes de assinar.",              answer:"Let's go through the contract clause by clause before we sign." },
+        { n:90,  level:"avancado", verb:"See through",   translation:"Levar até o fim / Não se enganar",example:"I'll see this implementation through to a successful go-live.",         exercise:"Vou levar esta implementação até um go-live bem-sucedido.",                     answer:"I'll see this implementation through to a successful go-live." },
+        { n:91,  level:"avancado", verb:"Set aside",     translation:"Reservar / Separar",             example:"Let's set aside 30 minutes to discuss risks before the demo.",           exercise:"Vamos reservar 30 minutos para discutir riscos antes da demo.",                 answer:"Let's set aside 30 minutes to discuss risks before the demo." },
+        { n:92,  level:"avancado", verb:"Ease into",     translation:"Adaptar-se gradualmente",        example:"New consultants should ease into the client culture before making changes.",exercise:"Novos consultores devem se adaptar gradualmente à cultura do cliente antes de propor mudanças.", answer:"New consultants should ease into the client culture before suggesting changes." },
+        { n:93,  level:"avancado", verb:"Take stock of", translation:"Avaliar a situação",             example:"After the sprint failure, we took stock of what went wrong.",             exercise:"Após o fracasso do sprint, avaliamos o que deu errado.",                        answer:"After the sprint failure, we took stock of what went wrong." },
+        { n:94,  level:"avancado", verb:"Bring forward", translation:"Antecipar / Adiantar",           example:"Can we bring the deadline forward by one week to meet the board?",       exercise:"Podemos antecipar o prazo em uma semana para atender à diretoria?",             answer:"Can we bring the deadline forward by one week to meet the board?" },
+        { n:95,  level:"avancado", verb:"Opt out",       translation:"Recusar / Não participar",       example:"Two key sponsors opted out of the steering committee at the last minute.", exercise:"Dois sponsors principais recusaram participar do steering committee no último minuto.", answer:"Two key sponsors opted out of the steering committee at the last minute." },
+        { n:96,  level:"avancado", verb:"Opt in",        translation:"Aderir / Aceitar participar",    example:"All stakeholders must opt in to the new governance process.",             exercise:"Todos os stakeholders devem aderir ao novo processo de governança.",            answer:"All stakeholders must opt in to the new governance process." },
+        { n:97,  level:"avancado", verb:"Tie up",        translation:"Finalizar / Amarrar pontas",     example:"Let's tie up all loose ends before the client's executive review.",       exercise:"Vamos amarrar todas as pontas soltas antes da revisão executiva do cliente.",   answer:"Let's tie up all loose ends before the client's executive review." },
+        { n:98,  level:"avancado", verb:"Level up",      translation:"Melhorar / Subir de nível",      example:"This Agentforce certification will help you level up your career.",       exercise:"Essa certificação do Agentforce vai ajudar você a subir de nível na carreira.", answer:"This Agentforce certification will help you level up your career." },
+        { n:99,  level:"avancado", verb:"Zoom in",       translation:"Focar em detalhes",              example:"Let's zoom in on the compliance risks before we proceed.",                exercise:"Vamos focar nos riscos de conformidade antes de avançar.",                      answer:"Let's zoom in on the compliance risks before we proceed." },
+        { n:100, level:"avancado", verb:"Single out",    translation:"Destacar / Selecionar",          example:"The CEO singled out the PS team for exceptional delivery this quarter.",  exercise:"O CEO destacou o time de PS pela entrega excepcional neste trimestre.",         answer:"The CEO singled out the PS team for exceptional delivery this quarter." },
+    ];
+
+    const LEVEL_LABELS = {
+        basico:        "🟢 Básico",
+        intermediario: "🟡 Intermediário",
+        avancado:      "🔴 Avançado"
+    };
+
+    let currentFilter = "all";
+    let cards = [...ALL_DATA];
+    let currentCard = 0;
+    let currentFace = 0;
+    let isAnimating = false;
+
+    function setFilter(f) {
+        currentFilter = f;
+        ["all","basico","inter","avan"].forEach(k => {
+            document.getElementById("filter-" + k).className = "filter-btn";
+        });
+        if (f === "all")           document.getElementById("filter-all").className    = "filter-btn active-all";
+        if (f === "basico")        document.getElementById("filter-basico").className = "filter-btn active-basico";
+        if (f === "intermediario") document.getElementById("filter-inter").className  = "filter-btn active-inter";
+        if (f === "avancado")      document.getElementById("filter-avan").className   = "filter-btn active-avan";
+
+        cards = f === "all" ? [...ALL_DATA] : ALL_DATA.filter(d => d.level === f);
+        currentCard = 0;
+        currentFace = 0;
+        render(0);
+    }
+
+    function render(animDir) {
+        const cardEl = document.getElementById("card");
+
+        if (!cards.length) {
+            cardEl.outerHTML = '<div class="empty-state">Nenhum card neste nível.</div>';
+            return;
+        }
+
+        const d = cards[currentCard];
+
+        const doRender = () => {
+            for (let i = 0; i < 3; i++) {
+                document.getElementById("dot-" + i).classList.toggle("active", i === currentFace);
+            }
+
+            const pct = ((currentCard + 1) / cards.length) * 100;
+            document.getElementById("progress-bar").style.width = pct + "%";
+            document.getElementById("card-count").textContent = (currentCard + 1) + " / " + cards.length;
+            document.getElementById("btn-prev").disabled = currentCard === 0 && currentFace === 0;
+            document.getElementById("btn-next").disabled = currentCard === cards.length - 1 && currentFace === 2;
+
+            cardEl.className = "card face-" + (currentFace + 1);
+
+            const badge = `<div class="level-badge ${d.level}">${LEVEL_LABELS[d.level]}</div>`;
+            const num   = `<div class="card-number">#${d.n}</div>`;
+
+            if (currentFace === 0) {
+                cardEl.innerHTML = `${num}${badge}<div class="phrasal-verb">${d.verb}</div><div class="face-label">clique para ver a tradução →</div>`;
+            } else if (currentFace === 1) {
+                cardEl.innerHTML = `${num}${badge}<div class="translation">${d.translation}</div><div class="example">"${d.example}"</div><div class="face-label" style="margin-top:20px">clique para o exercício →</div>`;
+            } else {
+                cardEl.innerHTML = `${num}<div class="exercise-badge">🇧🇷 Traduza para o inglês</div><div class="exercise-sentence">${d.exercise}</div><button class="reveal-btn" onclick="revealAnswer(event)">Mostrar resposta</button><div class="answer-box" id="answer-box">${d.answer}</div>`;
+            }
+
+            cardEl.classList.add("flip-in");
+            cardEl.addEventListener("animationend", () => {
+                cardEl.classList.remove("flip-in");
+                isAnimating = false;
+            }, { once: true });
+        };
+
+        if (animDir !== 0) {
+            isAnimating = true;
+            cardEl.classList.add("flip-out");
+            cardEl.addEventListener("animationend", () => {
+                cardEl.classList.remove("flip-out");
+                doRender();
+            }, { once: true });
+        } else {
+            doRender();
+        }
+    }
+
+    function handleCardClick() {
+        if (isAnimating || currentFace === 2) return;
+        currentFace++;
+        render(1);
+    }
+
+    function navigate(dir) {
+        if (isAnimating) return;
+        if (dir === 1) {
+            if (currentFace < 2)                          currentFace++;
+            else if (currentCard < cards.length - 1)    { currentCard++; currentFace = 0; }
+            else return;
+        } else {
+            if (currentFace > 0)      currentFace--;
+            else if (currentCard > 0) { currentCard--; currentFace = 0; }
+            else return;
+        }
+        render(dir);
+    }
+
+    function revealAnswer(e) {
+        e.stopPropagation();
+        const b = document.getElementById("answer-box");
+        if (b) b.classList.toggle("visible");
+    }
+
+    function shuffleCards() {
+        for (let i = cards.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [cards[i], cards[j]] = [cards[j], cards[i]];
+        }
+        currentCard = 0; currentFace = 0; render(1);
+    }
+
+    function resetCards() {
+        cards = currentFilter === "all" ? [...ALL_DATA] : ALL_DATA.filter(d => d.level === currentFilter);
+        currentCard = 0; currentFace = 0; render(1);
+    }
+
+    document.addEventListener("keydown", e => {
+        if (e.key === "ArrowRight" || e.key === " ") { e.preventDefault(); navigate(1); }
+        if (e.key === "ArrowLeft")                   { e.preventDefault(); navigate(-1); }
+    });
+
+    render(0);
+    </script>
+</body>
+</html>

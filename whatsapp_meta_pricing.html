@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WhatsApp Business — Mudança na Cobrança da Meta | Salesforce PS LATAM</title>
+<style>
+:root{
+  --brand:#0176D3; --brand-dark:#014486; --brand-navy:#032D60;
+  --c-mkt:#0176D3; --c-util:#2E844A; --c-auth:#FE9339; --c-serv:#9050E9;
+  --ok:#2E844A; --warn:#FE9339; --err:#EA001E; --info:#0176D3;
+  --bg:#F3F3F3; --surface:#FFFFFF; --surface-2:#FAFAF9;
+  --ink:#181818; --ink-2:#514F4D; --muted:#706E6B; --border:#DDDBDA; --border-2:#E5E5E5;
+  --radius:14px; --shadow:0 2px 8px rgba(0,0,0,.08); --shadow-lg:0 8px 28px rgba(0,0,0,.14);
+  --sidebar-w:264px;
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+.app{display:flex;min-height:100vh}
+
+/* ===== Sidebar ===== */
+.sidebar{width:var(--sidebar-w);flex:0 0 var(--sidebar-w);background:linear-gradient(180deg,#032D60 0%,#01346b 60%,#014486 100%);color:#fff;position:fixed;top:0;bottom:0;left:0;display:flex;flex-direction:column;z-index:40}
+.sb-brand{padding:22px 22px 16px;border-bottom:1px solid rgba(255,255,255,.12)}
+.sb-brand .cloud{display:flex;align-items:center;gap:10px;font-weight:800;font-size:15px;letter-spacing:.2px}
+.sb-brand .cloud svg{flex:0 0 auto}
+.sb-brand .sub{margin-top:8px;font-size:11.5px;color:#B9D4F1;font-weight:500;line-height:1.4}
+.sb-nav{flex:1;overflow-y:auto;padding:14px 12px}
+.sb-group{margin-bottom:16px}
+.sb-group h4{font-size:10.5px;text-transform:uppercase;letter-spacing:1.2px;color:#7FB0E0;padding:6px 12px;font-weight:700}
+.sb-link{display:flex;align-items:center;gap:11px;padding:9px 12px;border-radius:8px;color:#DCE9F7;font-size:13.5px;font-weight:500;cursor:pointer;transition:.15s;border:none;background:none;width:100%;text-align:left}
+.sb-link svg{flex:0 0 auto;opacity:.85}
+.sb-link:hover{background:rgba(255,255,255,.09);color:#fff}
+.sb-link.active{background:#fff;color:var(--brand-navy);font-weight:700}
+.sb-link.active svg{opacity:1}
+.sb-foot{padding:14px 20px;font-size:10.5px;color:#8FB6DE;border-top:1px solid rgba(255,255,255,.12)}
+
+/* ===== Main ===== */
+.main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;min-width:0}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 26px}
+.topbar .crumb{font-size:13px;color:var(--muted);font-weight:500}
+.topbar .crumb b{color:var(--ink);font-weight:700}
+.lang{display:flex;gap:4px;background:var(--bg);border:1px solid var(--border);border-radius:999px;padding:3px}
+.lang button{border:none;background:none;padding:5px 12px;border-radius:999px;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:.15s;font-family:inherit}
+.lang button.active{background:var(--brand);color:#fff;box-shadow:0 1px 3px rgba(1,118,211,.4)}
+#content{padding:32px 40px 60px;max-width:1080px;width:100%;margin:0 auto}
+footer.pg{margin-left:var(--sidebar-w);padding:20px 40px;border-top:1px solid var(--border);color:var(--muted);font-size:11.5px;background:var(--surface)}
+
+/* ===== Typography / blocks ===== */
+.page-head{margin-bottom:26px}
+.eyebrow{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--brand);background:#E8F4FD;padding:4px 11px;border-radius:6px;margin-bottom:12px}
+h1{font-size:30px;font-weight:800;letter-spacing:-.5px;line-height:1.2}
+h2{font-size:21px;font-weight:700;margin:34px 0 14px;letter-spacing:-.3px;display:flex;align-items:center;gap:10px}
+h2 .dot{width:9px;height:9px;border-radius:3px;background:var(--brand)}
+h3{font-size:15.5px;font-weight:700;margin:2px 0 8px}
+p{color:var(--ink-2);font-size:14.5px;margin-bottom:12px}
+.lead{font-size:16px;color:var(--ink-2);max-width:70ch}
+.muted{color:var(--muted);font-size:12.5px}
+ul.clean{list-style:none;margin:6px 0 14px}
+ul.clean li{position:relative;padding:5px 0 5px 24px;font-size:14px;color:var(--ink-2)}
+ul.clean li::before{content:"";position:absolute;left:2px;top:12px;width:8px;height:8px;border-radius:3px;background:var(--brand)}
+
+/* ===== Cards / grid ===== */
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+.card.pad-lg{padding:26px}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow);border-top:3px solid var(--brand)}
+.stat .num{font-size:28px;font-weight:800;letter-spacing:-.5px;line-height:1.1}
+.stat .lbl{font-size:12px;color:var(--muted);font-weight:600;margin-top:6px}
+.stat.s-up{border-top-color:var(--err)} .stat.s-down{border-top-color:var(--ok)} .stat.s-warn{border-top-color:var(--warn)}
+
+/* callouts */
+.callout{border-radius:12px;padding:15px 18px;margin:16px 0;font-size:13.5px;display:flex;gap:12px;align-items:flex-start;border:1px solid}
+.callout .ic{flex:0 0 auto;margin-top:1px}
+.callout.info{background:#E8F4FD;border-color:#B9DDF9;color:#014486}
+.callout.warn{background:#FEF3E7;border-color:#FBD8AE;color:#8A4B08}
+.callout.ok{background:#EBF7EE;border-color:#B7E1C4;color:#1B5E33}
+.callout.crit{background:#FDECEC;border-color:#F7B9BD;color:#A60413}
+.callout b{font-weight:700}
+
+/* pills / badges */
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:999px}
+.pill.up{background:#FDECEC;color:#A60413}.pill.down{background:#EBF7EE;color:#1B5E33}.pill.flat{background:#F3F3F3;color:#514F4D}.pill.new{background:#EDE3FB;color:#5B2AAD}
+
+/* bar chart */
+.bars{margin:14px 0}
+.bar-row{display:grid;grid-template-columns:130px 1fr auto;align-items:center;gap:12px;margin:9px 0;font-size:13px}
+.bar-row .name{font-weight:600;color:var(--ink)}
+.bar-track{background:#EFEFEF;border-radius:6px;height:22px;overflow:hidden;position:relative}
+.bar-fill{height:100%;border-radius:6px 4px 4px 6px}
+.bar-row .val{font-weight:700;font-size:12.5px;white-space:nowrap}
+
+/* timeline */
+.tl{position:relative;margin:18px 0 8px;padding-left:6px}
+.tl::before{content:"";position:absolute;left:14px;top:6px;bottom:6px;width:2px;background:linear-gradient(180deg,var(--brand),#B9DDF9)}
+.tl-item{position:relative;padding:0 0 22px 44px}
+.tl-dot{position:absolute;left:6px;top:2px;width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--brand);z-index:2}
+.tl-item.hot .tl-dot{border-color:var(--err);box-shadow:0 0 0 4px #FDECEC}
+.tl-item.soft .tl-dot{border-color:var(--ok)}
+.tl-date{font-size:11.5px;font-weight:800;color:var(--brand);letter-spacing:.3px;text-transform:uppercase}
+.tl-item.hot .tl-date{color:var(--err)}
+.tl-item.soft .tl-date{color:var(--ok)}
+.tl-title{font-weight:700;font-size:14.5px;margin:2px 0 3px}
+.tl-desc{font-size:13px;color:var(--ink-2)}
+
+/* table */
+table.tbl{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0;background:var(--surface);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--border)}
+table.tbl th{background:var(--brand-navy);color:#fff;text-align:left;padding:11px 14px;font-size:11.5px;text-transform:uppercase;letter-spacing:.6px;font-weight:700}
+table.tbl td{padding:11px 14px;border-top:1px solid var(--border);color:var(--ink-2);vertical-align:top}
+table.tbl tr:nth-child(even) td{background:var(--surface-2)}
+table.tbl td b{color:var(--ink)}
+
+/* win/lose */
+.wl{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.wl .col{border-radius:14px;padding:18px 20px;border:1px solid}
+.wl .win{background:#EBF7EE;border-color:#B7E1C4}
+.wl .lose{background:#FDECEC;border-color:#F7B9BD}
+.wl h3{display:flex;align-items:center;gap:8px}
+.wl ul{list-style:none;margin-top:8px}
+.wl li{padding:6px 0 6px 22px;position:relative;font-size:13px;color:var(--ink-2)}
+.wl .win li::before{content:"▲";position:absolute;left:0;top:6px;color:var(--ok);font-size:10px}
+.wl .lose li::before{content:"▼";position:absolute;left:0;top:6px;color:var(--err);font-size:10px}
+
+/* channel cards */
+.chan{display:flex;flex-direction:column;gap:6px}
+.chan .top{display:flex;align-items:center;justify-content:space-between}
+.chan .nm{font-weight:700;font-size:14.5px}
+.dots{letter-spacing:2px;font-size:12px;color:var(--brand)}
+.dots .off{color:#D8D8D8}
+
+/* calculator */
+.calc-wrap{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.field{margin-bottom:15px}
+.field label{display:block;font-size:12.5px;font-weight:600;color:var(--ink);margin-bottom:6px}
+.field .hint{font-size:11px;color:var(--muted);font-weight:400;margin-top:3px}
+.field input,.field select{width:100%;padding:9px 11px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;color:var(--ink);background:#fff}
+.field input:focus,.field select:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(1,118,211,.15)}
+.mix-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mix-sum{font-size:12px;font-weight:700;margin-top:4px}
+.mix-sum.ok{color:var(--ok)}.mix-sum.bad{color:var(--err)}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{flex:1;min-width:120px;padding:9px;border:1px solid var(--border);background:#fff;border-radius:8px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--ink-2);transition:.15s}
+.seg button.on{border-color:var(--brand);background:#E8F4FD;color:var(--brand-dark)}
+details.adv{margin-top:8px;border:1px dashed var(--border);border-radius:10px;padding:4px 14px}
+details.adv summary{cursor:pointer;font-size:12.5px;font-weight:700;color:var(--brand);padding:8px 0}
+.rate-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-bottom:10px}
+.result-hero{background:linear-gradient(135deg,#032D60,#0176D3);color:#fff;border-radius:16px;padding:24px;box-shadow:var(--shadow-lg)}
+.result-hero .rlbl{font-size:12px;color:#B9D4F1;font-weight:600;text-transform:uppercase;letter-spacing:.6px}
+.result-hero .rbig{font-size:38px;font-weight:800;letter-spacing:-1px;margin:4px 0}
+.result-hero .rsub{font-size:12.5px;color:#CFE3F7}
+.breakdown{margin-top:16px}
+.compare-box{background:#FEF3E7;border:1px solid #FBD8AE;border-radius:12px;padding:14px 16px;margin-top:14px;font-size:13px;color:#8A4B08}
+.step{display:flex;gap:12px;margin:10px 0}
+.step .n{flex:0 0 26px;height:26px;border-radius:50%;background:var(--brand);color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+.step .tx{font-size:13px;color:var(--ink-2)}
+.step .tx b{color:var(--ink)}
+
+/* SF positioning */
+.hero-sf{background:linear-gradient(120deg,#032D60,#0176D3 90%);color:#fff;border-radius:18px;padding:32px;box-shadow:var(--shadow-lg);margin-bottom:24px}
+.hero-sf h1{color:#fff}
+.hero-sf p{color:#DCE9F7;font-size:15px;max-width:62ch}
+.cap{display:flex;gap:14px;align-items:flex-start;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow)}
+.cap .ci{flex:0 0 42px;height:42px;border-radius:10px;background:#E8F4FD;display:flex;align-items:center;justify-content:center}
+.cap h3{margin:0 0 4px}
+.cap p{font-size:13px;margin:0}
+.flow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:14px 0}
+.flow .node{background:#fff;border:1.5px solid var(--brand);color:var(--brand-dark);border-radius:10px;padding:10px 14px;font-size:12.5px;font-weight:700}
+.flow .arr{color:var(--brand);font-weight:800}
+
+.hidden{display:none!important}
+@media(max-width:940px){
+  .sidebar{transform:translateX(-100%);transition:.25s}.sidebar.open{transform:none}
+  .main,footer.pg{margin-left:0}
+  .g2,.g3,.g4,.calc-wrap,.wl,.mix-grid,.rate-grid{grid-template-columns:1fr}
+  #content{padding:24px 18px 50px}
+  .menu-btn{display:flex!important}
+}
+.menu-btn{display:none;background:var(--brand);color:#fff;border:none;border-radius:8px;width:38px;height:38px;align-items:center;justify-content:center;cursor:pointer}
+</style>
+</head>
+<body data-palette="#0176D3,#2E844A,#FE9339,#9050E9">
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-brand">
+      <div class="cloud">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M9.5 6.5a4 4 0 017.6-1.2 3.3 3.3 0 014.3 3.1 3.2 3.2 0 01-1 2.3 3 3 0 01-1.6 5.3H6.2A4.2 4.2 0 015 7.9a3.9 3.9 0 014.5-1.4z" fill="#fff"/></svg>
+        <span>WhatsApp × Meta</span>
+      </div>
+      <div class="sub" data-c="brandsub">Mudança na cobrança · Impacto & Estratégia<br>Salesforce Professional Services · LATAM</div>
+    </div>
+    <nav class="sb-nav" id="nav"></nav>
+    <div class="sb-foot" data-c="foot">Documento consultivo · Jul 2026<br>Valores em BRL são estimativas.</div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div style="display:flex;align-items:center;gap:14px">
+        <button class="menu-btn" id="menuBtn" aria-label="menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+        <div class="crumb"><b data-c="crumbroot">Pesquisa</b> <span id="crumb"></span></div>
+      </div>
+      <div class="lang" id="lang">
+        <button data-l="pt" class="active">PT-BR</button>
+        <button data-l="es">ES</button>
+        <button data-l="en">EN</button>
+      </div>
+    </header>
+    <main id="content"></main>
+    <footer class="pg" id="pgfoot"></footer>
+  </div>
+</div>
+
+<script>
+/* ============ i18n chrome + nav ============ */
+const CHROME = {
+  pt:{ brandsub:"Mudança na cobrança · Impacto & Estratégia<br>Salesforce Professional Services · LATAM",
+       foot:"Documento consultivo · Jul 2026<br>Valores em BRL são estimativas.",
+       crumbroot:"Seção", foot2:"Preparado por Nelson Stebulaitis Filho · Salesforce PS LATAM · Pesquisa consolidada Jul/2026. Valores monetários em BRL são estimativas de ordem de grandeza — confirme os rate cards oficiais no Meta Business Manager.",
+       groups:[["PESQUISA",[["overview","Visão Geral"],["timeline","Linha do Tempo"],["mechanics","Como Funciona a Cobrança"],["impact","Impacto Financeiro"],["reactions","Reações do Mercado"],["alternatives","Alternativas & Mitigação"]]],
+               ["FERRAMENTAS",[["calculator","Calculadora de Impacto"]]],
+               ["SALESFORCE",[["salesforce","Posicionamento Salesforce"]]],
+               ["SOBRE",[["sources","Fontes & Confiança"]]]] },
+  es:{ brandsub:"Cambio en la facturación · Impacto & Estrategia<br>Salesforce Professional Services · LATAM",
+       foot:"Documento consultivo · Jul 2026<br>Los valores en BRL son estimaciones.",
+       crumbroot:"Sección", foot2:"Preparado por Nelson Stebulaitis Filho · Salesforce PS LATAM · Investigación consolidada Jul/2026. Los valores en BRL son estimaciones de orden de magnitud — confirme los rate cards oficiales en Meta Business Manager.",
+       groups:[["INVESTIGACIÓN",[["overview","Resumen General"],["timeline","Línea de Tiempo"],["mechanics","Cómo Funciona el Cobro"],["impact","Impacto Financiero"],["reactions","Reacciones del Mercado"],["alternatives","Alternativas & Mitigación"]]],
+               ["HERRAMIENTAS",[["calculator","Calculadora de Impacto"]]],
+               ["SALESFORCE",[["salesforce","Posicionamiento Salesforce"]]],
+               ["ACERCA",[["sources","Fuentes & Confianza"]]]] },
+  en:{ brandsub:"Billing change · Impact & Strategy<br>Salesforce Professional Services · LATAM",
+       foot:"Advisory document · Jul 2026<br>BRL values are estimates.",
+       crumbroot:"Section", foot2:"Prepared by Nelson Stebulaitis Filho · Salesforce PS LATAM · Consolidated research Jul/2026. BRL monetary values are order-of-magnitude estimates — confirm official rate cards in Meta Business Manager.",
+       groups:[["RESEARCH",[["overview","Overview"],["timeline","Timeline"],["mechanics","How Billing Works"],["impact","Financial Impact"],["reactions","Market Reactions"],["alternatives","Alternatives & Mitigation"]]],
+               ["TOOLS",[["calculator","Impact Calculator"]]],
+               ["SALESFORCE",[["salesforce","Salesforce Positioning"]]],
+               ["ABOUT",[["sources","Sources & Confidence"]]]] }
+};
+const NAV_ICONS={overview:'M3 12l9-9 9 9M5 10v10h14V10',timeline:'M12 8v4l3 3M21 12a9 9 0 11-18 0 9 9 0 0118 0z',mechanics:'M12 2v4m0 12v4m10-10h-4M6 12H2m15.5-6.5l-3 3m-6 6l-3 3m12 0l-3-3m-6-6l-3-3',impact:'M3 3v18h18M7 15l4-4 3 3 5-6',reactions:'M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z',alternatives:'M4 7h16M4 12h16M4 17h10',calculator:'M9 7h6M9 11h6m-6 4h2M5 3h14v18H5z',salesforce:'M9.5 6.5a4 4 0 017.6-1.2 3.3 3.3 0 014.3 3.1 3 3 0 01-2.6 5.6H6.2A4.2 4.2 0 015 7.9a3.9 3.9 0 014.5-1.4z',sources:'M4 4h11l5 5v11H4zM14 4v5h5'};
+const PAGES = {};
+PAGES.overview = {
+pt:`
+<div class="page-head">
+  <span class="eyebrow">Pesquisa consolidada · Jul 2026</span>
+  <h1>WhatsApp Business: a mudança na cobrança da Meta</h1>
+  <p class="lead">Como clientes públicos e privados estão reagindo à troca do modelo de cobrança por conversa para cobrança por mensagem — e agora por resposta — o impacto financeiro e as alternativas.</p>
+</div>
+<div class="grid g4">
+  <div class="stat s-warn"><div class="num">Por mensagem</div><div class="lbl">Novo modelo desde 1º jul 2025 (era por conversa de 24h)</div></div>
+  <div class="stat s-up"><div class="num">R$ 0,035</div><div class="lbl">Cobrança por resposta a partir de 1º out 2026 (antes: grátis)</div></div>
+  <div class="stat s-down"><div class="num">−50% a −77%</div><div class="lbl">Queda no preço de mensagens Utility em escala (Brasil)</div></div>
+  <div class="stat"><div class="num">64%</div><div class="lbl">das prefeituras usam WhatsApp/Telegram (2025, +8pp vs 2023)</div></div>
+</div>
+<div class="callout warn"><span class="ic">⚠️</span><div><b>Calibração de confiança.</b> A estrutura da mudança (datas, mecânica, quem ganha/perde) está confirmada em fonte primária (Meta Developers) e imprensa especializada. Já os <b>valores exatos em BRL divergem entre fontes</b> — a Meta só publica os rate cards logados no Business Manager. Trate todo valor monetário como estimativa de ordem de grandeza.</div></div>
+<h2><span class="dot"></span>As 6 conclusões executivas</h2>
+<div class="grid g2">
+  <div class="card"><h3>1 · O que mudou</h3><p>Em <b>1º jul 2025</b> a Meta trocou a cobrança por conversa de 24h por <b>cobrança por mensagem</b>. Cada template entregue passou a ser cobrado individualmente.</p></div>
+  <div class="card"><h3>2 · A virada que dói</h3><p>Anunciada para <b>1º out 2026</b>: a Meta cobrará <b>~R$ 0,035 por resposta</b> de empresa (mesmo texto livre no atendimento) — o que antes era gratuito.</p></div>
+  <div class="card"><h3>3 · O movimento estratégico</h3><p>Respostas dos <b>Meta Business Agents (IA da própria Meta) são isentas</b>. Chatbots e IA de terceiros pagam. A Meta monetiza a camada de IA e cria desvantagem para concorrentes.</p></div>
+  <div class="card"><h3>4 · Sentimento de mercado</h3><p>Surpresa e sensação de mudança "abrupta". Relato de empresa cujo custo <b>quadruplicou</b>. Utility ficou mais barata; marketing e atendimento por IA ficaram mais caros.</p></div>
+  <div class="card"><h3>5 · Setor público</h3><p>Adoção alta e crescente, mas <b>sem dado público</b> de impacto orçamentário. O baque tende a aparecer em <b>renovações contratuais 2026–2027</b>.</p></div>
+  <div class="card"><h3>6 · Alternativa nº 1</h3><p><b>RCS</b> cresce forte no Brasil (135M+ dispositivos, +371% em 2024, aprovação ABR Telecom em ~48h) — viável para marketing e campanhas.</p></div>
+</div>`,
+es:`
+<div class="page-head">
+  <span class="eyebrow">Investigación consolidada · Jul 2026</span>
+  <h1>WhatsApp Business: el cambio de facturación de Meta</h1>
+  <p class="lead">Cómo reaccionan los clientes públicos y privados al cambio del modelo de cobro por conversación a cobro por mensaje — y ahora por respuesta — el impacto financiero y las alternativas.</p>
+</div>
+<div class="grid g4">
+  <div class="stat s-warn"><div class="num">Por mensaje</div><div class="lbl">Nuevo modelo desde 1 jul 2025 (antes por conversación de 24h)</div></div>
+  <div class="stat s-up"><div class="num">R$ 0,035</div><div class="lbl">Cobro por respuesta desde 1 oct 2026 (antes: gratis)</div></div>
+  <div class="stat s-down"><div class="num">−50% a −77%</div><div class="lbl">Baja de precio en mensajes Utility a escala (Brasil)</div></div>
+  <div class="stat"><div class="num">64%</div><div class="lbl">de municipios usan WhatsApp/Telegram (2025, +8pp vs 2023)</div></div>
+</div>
+<div class="callout warn"><span class="ic">⚠️</span><div><b>Calibración de confianza.</b> La estructura del cambio (fechas, mecánica, ganadores/perdedores) está confirmada en fuente primaria (Meta Developers) y prensa especializada. Pero los <b>valores exactos en BRL difieren entre fuentes</b> — Meta solo publica los rate cards dentro del Business Manager. Trate todo valor monetario como estimación de orden de magnitud.</div></div>
+<h2><span class="dot"></span>Las 6 conclusiones ejecutivas</h2>
+<div class="grid g2">
+  <div class="card"><h3>1 · Qué cambió</h3><p>El <b>1 jul 2025</b> Meta cambió el cobro por conversación de 24h por <b>cobro por mensaje</b>. Cada plantilla entregada se cobra individualmente.</p></div>
+  <div class="card"><h3>2 · El giro que duele</h3><p>Anunciado para <b>1 oct 2026</b>: Meta cobrará <b>~R$ 0,035 por respuesta</b> de empresa (incluso texto libre en atención) — antes gratuito.</p></div>
+  <div class="card"><h3>3 · El movimiento estratégico</h3><p>Las respuestas de los <b>Meta Business Agents (IA de la propia Meta) están exentas</b>. Los chatbots e IA de terceros pagan. Meta monetiza la capa de IA.</p></div>
+  <div class="card"><h3>4 · Sentimiento del mercado</h3><p>Sorpresa y sensación de cambio "abrupto". Caso de empresa cuyo costo se <b>cuadruplicó</b>. Utility bajó; marketing y atención por IA subieron.</p></div>
+  <div class="card"><h3>5 · Sector público</h3><p>Adopción alta y creciente, pero <b>sin datos públicos</b> de impacto presupuestario. El golpe aparecerá en <b>renovaciones 2026–2027</b>.</p></div>
+  <div class="card"><h3>6 · Alternativa n.º 1</h3><p><b>RCS</b> crece fuerte en Brasil (135M+ dispositivos, +371% en 2024, aprobación ABR Telecom en ~48h) — viable para marketing y campañas.</p></div>
+</div>`,
+en:`
+<div class="page-head">
+  <span class="eyebrow">Consolidated research · Jul 2026</span>
+  <h1>WhatsApp Business: Meta's billing change</h1>
+  <p class="lead">How public and private clients are reacting to the shift from per-conversation to per-message — and now per-reply — billing, the financial impact, and the alternatives.</p>
+</div>
+<div class="grid g4">
+  <div class="stat s-warn"><div class="num">Per message</div><div class="lbl">New model since Jul 1 2025 (was per 24h conversation)</div></div>
+  <div class="stat s-up"><div class="num">R$ 0.035</div><div class="lbl">Per-reply charge from Oct 1 2026 (previously free)</div></div>
+  <div class="stat s-down"><div class="num">−50% to −77%</div><div class="lbl">Drop in Utility message price at scale (Brazil)</div></div>
+  <div class="stat"><div class="num">64%</div><div class="lbl">of municipalities use WhatsApp/Telegram (2025, +8pp vs 2023)</div></div>
+</div>
+<div class="callout warn"><span class="ic">⚠️</span><div><b>Confidence calibration.</b> The change's structure (dates, mechanics, winners/losers) is confirmed via primary source (Meta Developers) and specialist press. But <b>exact BRL values differ across sources</b> — Meta only publishes rate cards behind the Business Manager login. Treat every monetary figure as an order-of-magnitude estimate.</div></div>
+<h2><span class="dot"></span>The 6 executive takeaways</h2>
+<div class="grid g2">
+  <div class="card"><h3>1 · What changed</h3><p>On <b>Jul 1 2025</b> Meta swapped 24h per-conversation billing for <b>per-message</b> billing. Every delivered template is now charged individually.</p></div>
+  <div class="card"><h3>2 · The painful turn</h3><p>Announced for <b>Oct 1 2026</b>: Meta will charge <b>~R$ 0.035 per business reply</b> (even free-form service text) — previously free.</p></div>
+  <div class="card"><h3>3 · The strategic move</h3><p>Replies from <b>Meta Business Agents (Meta's own AI) are exempt</b>. Third-party chatbots and AI pay. Meta monetizes the AI layer and disadvantages competitors.</p></div>
+  <div class="card"><h3>4 · Market sentiment</h3><p>Surprise and a sense of an "abrupt" change. One firm's cost <b>quadrupled</b>. Utility got cheaper; marketing and AI-driven service got pricier.</p></div>
+  <div class="card"><h3>5 · Public sector</h3><p>High and growing adoption, but <b>no public data</b> on budget impact. The hit will surface in <b>2026–2027 contract renewals</b>.</p></div>
+  <div class="card"><h3>6 · Alternative #1</h3><p><b>RCS</b> is surging in Brazil (135M+ devices, +371% in 2024, ~48h ABR Telecom approval) — viable for marketing and campaigns.</p></div>
+</div>`
+};
+PAGES.timeline = {
+pt:`
+<div class="page-head"><span class="eyebrow">Cronologia</span><h1>Linha do tempo da mudança</h1>
+<p class="lead">Da gratuidade do atendimento (2024) à cobrança por resposta e à localização em BRL (2026–2027).</p></div>
+<div class="tl">
+  <div class="tl-item soft"><div class="tl-dot"></div><div class="tl-date">Nov 2024</div><div class="tl-title">Atendimento (service) fica gratuito</div><div class="tl-desc">Conversas iniciadas pelo cliente deixam de ser cobradas — ainda no modelo por conversa.</div></div>
+  <div class="tl-item hot"><div class="tl-dot"></div><div class="tl-date">1º Jul 2025 · Crítico</div><div class="tl-title">Fim do modelo por conversa → cobrança por mensagem</div><div class="tl-desc">Cada template passa a ser cobrado individualmente. Introdução dos <b>volume tiers</b> (utility/auth ficam mais baratos em escala).</div></div>
+  <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">1º Ago 2026</div><div class="tl-title">Meta Business Agents cobrados por token</div><div class="tl-desc">~US$ 2 por 1 milhão de tokens. Mas as respostas desses agentes seguem <b>isentas</b> da taxa por resposta.</div></div>
+  <div class="tl-item hot"><div class="tl-dot"></div><div class="tl-date">1º Out 2026 · Crítico</div><div class="tl-title">Cobrança por resposta (~R$ 0,035)</div><div class="tl-desc">Respostas de empresa passam a custar — exceto Meta Business Agents e janela FEP de 72h. <span class="muted">Fonte: Mobile Time.</span></div></div>
+  <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Jul 2026 → Jun 2027</div><div class="tl-title">Localização Brasil (faturamento em BRL)</div><div class="tl-desc">WABAs de clientes brasileiros migram obrigatoriamente para BRL (Facebook Brasil). Após jul/2027, WABAs não-BRL não entregam mensagens.</div></div>
+</div>
+<div class="callout info"><span class="ic">ℹ️</span><div>A Meta anuncia mudanças de modelo com <b>até 6 meses</b> de antecedência e atualizações de rate card com <b>1 mês</b>. Mesmo assim, o mercado brasileiro relatou ter sido pego de surpresa.</div></div>`,
+es:`
+<div class="page-head"><span class="eyebrow">Cronología</span><h1>Línea de tiempo del cambio</h1>
+<p class="lead">De la gratuidad de la atención (2024) al cobro por respuesta y la localización en BRL (2026–2027).</p></div>
+<div class="tl">
+  <div class="tl-item soft"><div class="tl-dot"></div><div class="tl-date">Nov 2024</div><div class="tl-title">La atención (service) pasa a ser gratuita</div><div class="tl-desc">Las conversaciones iniciadas por el cliente dejan de cobrarse — aún en el modelo por conversación.</div></div>
+  <div class="tl-item hot"><div class="tl-dot"></div><div class="tl-date">1 Jul 2025 · Crítico</div><div class="tl-title">Fin del modelo por conversación → cobro por mensaje</div><div class="tl-desc">Cada plantilla se cobra individualmente. Se introducen los <b>volume tiers</b> (utility/auth más baratos a escala).</div></div>
+  <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">1 Ago 2026</div><div class="tl-title">Meta Business Agents cobrados por token</div><div class="tl-desc">~US$ 2 por millón de tokens. Pero sus respuestas siguen <b>exentas</b> del cobro por respuesta.</div></div>
+  <div class="tl-item hot"><div class="tl-dot"></div><div class="tl-date">1 Oct 2026 · Crítico</div><div class="tl-title">Cobro por respuesta (~R$ 0,035)</div><div class="tl-desc">Las respuestas de empresa pasan a costar — excepto Meta Business Agents y ventana FEP de 72h. <span class="muted">Fuente: Mobile Time.</span></div></div>
+  <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Jul 2026 → Jun 2027</div><div class="tl-title">Localización Brasil (facturación en BRL)</div><div class="tl-desc">Las WABAs de clientes brasileños migran obligatoriamente a BRL. Tras jul/2027, las WABAs no-BRL no entregan mensajes.</div></div>
+</div>
+<div class="callout info"><span class="ic">ℹ️</span><div>Meta anuncia cambios de modelo con <b>hasta 6 meses</b> de antelación y actualizaciones de rate card con <b>1 mes</b>. Aun así, el mercado brasileño reportó sorpresa.</div></div>`,
+en:`
+<div class="page-head"><span class="eyebrow">Chronology</span><h1>Timeline of the change</h1>
+<p class="lead">From free service conversations (2024) to per-reply billing and BRL localization (2026–2027).</p></div>
+<div class="tl">
+  <div class="tl-item soft"><div class="tl-dot"></div><div class="tl-date">Nov 2024</div><div class="tl-title">Service conversations become free</div><div class="tl-desc">Customer-initiated conversations stop being charged — still under per-conversation billing.</div></div>
+  <div class="tl-item hot"><div class="tl-dot"></div><div class="tl-date">Jul 1 2025 · Critical</div><div class="tl-title">End of per-conversation → per-message billing</div><div class="tl-desc">Each template is charged individually. <b>Volume tiers</b> introduced (utility/auth cheaper at scale).</div></div>
+  <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Aug 1 2026</div><div class="tl-title">Meta Business Agents charged per token</div><div class="tl-desc">~US$ 2 per million tokens. Yet these agents' replies remain <b>exempt</b> from the per-reply charge.</div></div>
+  <div class="tl-item hot"><div class="tl-dot"></div><div class="tl-date">Oct 1 2026 · Critical</div><div class="tl-title">Per-reply charge (~R$ 0.035)</div><div class="tl-desc">Business replies start to cost — except Meta Business Agents and the 72h FEP window. <span class="muted">Source: Mobile Time.</span></div></div>
+  <div class="tl-item"><div class="tl-dot"></div><div class="tl-date">Jul 2026 → Jun 2027</div><div class="tl-title">Brazil localization (BRL billing)</div><div class="tl-desc">Brazilian clients' WABAs must migrate to BRL (Facebook Brasil). After Jul/2027, non-BRL WABAs won't deliver messages.</div></div>
+</div>
+<div class="callout info"><span class="ic">ℹ️</span><div>Meta announces model changes with <b>up to 6 months</b> notice and rate-card updates with <b>1 month</b>. Even so, the Brazilian market reported being caught off guard.</div></div>`
+};
+PAGES.mechanics = {
+pt:`
+<div class="page-head"><span class="eyebrow">Mecânica</span><h1>Como funciona a nova cobrança</h1>
+<p class="lead">A regra de ouro: o que está <b>dentro</b> de uma janela de atendimento aberta tende a ser gratuito; o que está <b>fora</b> é cobrado por mensagem.</p></div>
+<h2><span class="dot"></span>Grátis × Cobrado</h2>
+<div class="wl">
+  <div class="col win"><h3>✅ Continua gratuito</h3><ul>
+    <li>Mensagens <b>não-template</b> (texto livre, imagem) dentro da janela de atendimento de 24h — <span class="muted">até out/2026, quando respostas passam a custar R$ 0,035</span></li>
+    <li><b>Templates de Utility</b> enviados dentro da janela aberta</li>
+    <li>Tudo dentro da <b>janela FEP de 72h</b> (aberta via anúncio Click-to-WhatsApp)</li>
+    <li>Respostas dos <b>Meta Business Agents</b></li>
+  </ul></div>
+  <div class="col lose"><h3>💳 É cobrado</h3><ul>
+    <li>Templates de <b>Marketing</b> — sempre</li>
+    <li>Templates de <b>Utility</b> enviados <b>fora</b> da janela</li>
+    <li>Templates de <b>Authentication</b> (com volume tiers)</li>
+    <li><b>Respostas</b> de IA de terceiros ou humano (~R$ 0,035, a partir de out/2026)</li>
+  </ul></div>
+</div>
+<h2><span class="dot"></span>As 4 categorias de mensagem</h2>
+<table class="tbl"><thead><tr><th>Categoria</th><th>Para quê</th><th>Modelo antigo</th><th>Modelo novo</th></tr></thead><tbody>
+<tr><td><b>Marketing</b></td><td>Promoções, ofertas, campanhas</td><td>Por conversa</td><td><span class="pill up">Por mensagem · sempre cobrado</span></td></tr>
+<tr><td><b>Utility</b></td><td>Confirmações, notificações transacionais</td><td>Por conversa</td><td><span class="pill down">Grátis na janela · cobrado fora</span></td></tr>
+<tr><td><b>Authentication</b></td><td>Senhas de uso único (OTP)</td><td>Por conversa</td><td><span class="pill down">Por mensagem · com tiers</span></td></tr>
+<tr><td><b>Service</b></td><td>Atendimento ao cliente</td><td>Grátis (desde nov/24)</td><td><span class="pill up">Resposta ~R$ 0,035 (out/26)</span></td></tr>
+</tbody></table>
+<h2><span class="dot"></span>As duas janelas que economizam dinheiro</h2>
+<div class="grid g2">
+  <div class="card"><h3>🕛 Customer Service Window · 24h</h3><p>Abre quando o <b>cliente</b> escreve. Enquanto aberta, você envia texto livre e templates Utility sem custo. Cada nova mensagem do cliente reseta o timer.</p></div>
+  <div class="card"><h3>🎯 Free Entry Point · 72h</h3><p>Abre via anúncio <b>Click-to-WhatsApp</b> ou CTA de página. Por 72h, <b>todas</b> as mensagens (inclusive templates) são gratuitas — ótimo para conversão.</p></div>
+</div>`,
+es:`
+<div class="page-head"><span class="eyebrow">Mecánica</span><h1>Cómo funciona el nuevo cobro</h1>
+<p class="lead">La regla de oro: lo que está <b>dentro</b> de una ventana de atención abierta suele ser gratis; lo que está <b>fuera</b> se cobra por mensaje.</p></div>
+<h2><span class="dot"></span>Gratis × Cobrado</h2>
+<div class="wl">
+  <div class="col win"><h3>✅ Sigue gratis</h3><ul>
+    <li>Mensajes <b>no-plantilla</b> (texto libre, imagen) dentro de la ventana de 24h — <span class="muted">hasta oct/2026, cuando las respuestas costarán R$ 0,035</span></li>
+    <li><b>Plantillas Utility</b> enviadas dentro de la ventana abierta</li>
+    <li>Todo dentro de la <b>ventana FEP de 72h</b> (vía anuncio Click-to-WhatsApp)</li>
+    <li>Respuestas de los <b>Meta Business Agents</b></li>
+  </ul></div>
+  <div class="col lose"><h3>💳 Se cobra</h3><ul>
+    <li>Plantillas de <b>Marketing</b> — siempre</li>
+    <li>Plantillas de <b>Utility</b> enviadas <b>fuera</b> de la ventana</li>
+    <li>Plantillas de <b>Authentication</b> (con volume tiers)</li>
+    <li><b>Respuestas</b> de IA de terceros o humano (~R$ 0,035, desde oct/2026)</li>
+  </ul></div>
+</div>
+<h2><span class="dot"></span>Las 4 categorías de mensaje</h2>
+<table class="tbl"><thead><tr><th>Categoría</th><th>Para qué</th><th>Modelo antiguo</th><th>Modelo nuevo</th></tr></thead><tbody>
+<tr><td><b>Marketing</b></td><td>Promociones, ofertas, campañas</td><td>Por conversación</td><td><span class="pill up">Por mensaje · siempre cobrado</span></td></tr>
+<tr><td><b>Utility</b></td><td>Confirmaciones, notificaciones</td><td>Por conversación</td><td><span class="pill down">Gratis en ventana · cobrado fuera</span></td></tr>
+<tr><td><b>Authentication</b></td><td>Contraseñas de un solo uso (OTP)</td><td>Por conversación</td><td><span class="pill down">Por mensaje · con tiers</span></td></tr>
+<tr><td><b>Service</b></td><td>Atención al cliente</td><td>Gratis (desde nov/24)</td><td><span class="pill up">Respuesta ~R$ 0,035 (oct/26)</span></td></tr>
+</tbody></table>
+<h2><span class="dot"></span>Las dos ventanas que ahorran dinero</h2>
+<div class="grid g2">
+  <div class="card"><h3>🕛 Customer Service Window · 24h</h3><p>Abre cuando el <b>cliente</b> escribe. Mientras esté abierta, envías texto libre y plantillas Utility sin costo. Cada nuevo mensaje del cliente reinicia el temporizador.</p></div>
+  <div class="card"><h3>🎯 Free Entry Point · 72h</h3><p>Abre vía anuncio <b>Click-to-WhatsApp</b> o CTA de página. Por 72h, <b>todos</b> los mensajes (incluso plantillas) son gratis — ideal para conversión.</p></div>
+</div>`,
+en:`
+<div class="page-head"><span class="eyebrow">Mechanics</span><h1>How the new billing works</h1>
+<p class="lead">The golden rule: what's <b>inside</b> an open service window tends to be free; what's <b>outside</b> is charged per message.</p></div>
+<h2><span class="dot"></span>Free × Charged</h2>
+<div class="wl">
+  <div class="col win"><h3>✅ Still free</h3><ul>
+    <li><b>Non-template</b> messages (free text, images) within the 24h service window — <span class="muted">until Oct/2026, when replies start to cost R$ 0.035</span></li>
+    <li><b>Utility templates</b> sent inside the open window</li>
+    <li>Everything within the <b>72h FEP window</b> (opened via Click-to-WhatsApp ad)</li>
+    <li>Replies from <b>Meta Business Agents</b></li>
+  </ul></div>
+  <div class="col lose"><h3>💳 Charged</h3><ul>
+    <li><b>Marketing</b> templates — always</li>
+    <li><b>Utility</b> templates sent <b>outside</b> the window</li>
+    <li><b>Authentication</b> templates (with volume tiers)</li>
+    <li><b>Replies</b> from third-party AI or humans (~R$ 0.035, from Oct/2026)</li>
+  </ul></div>
+</div>
+<h2><span class="dot"></span>The 4 message categories</h2>
+<table class="tbl"><thead><tr><th>Category</th><th>Purpose</th><th>Old model</th><th>New model</th></tr></thead><tbody>
+<tr><td><b>Marketing</b></td><td>Promotions, offers, campaigns</td><td>Per conversation</td><td><span class="pill up">Per message · always charged</span></td></tr>
+<tr><td><b>Utility</b></td><td>Confirmations, transactional notices</td><td>Per conversation</td><td><span class="pill down">Free in window · charged outside</span></td></tr>
+<tr><td><b>Authentication</b></td><td>One-time passwords (OTP)</td><td>Per conversation</td><td><span class="pill down">Per message · with tiers</span></td></tr>
+<tr><td><b>Service</b></td><td>Customer support</td><td>Free (since Nov/24)</td><td><span class="pill up">Reply ~R$ 0.035 (Oct/26)</span></td></tr>
+</tbody></table>
+<h2><span class="dot"></span>The two windows that save money</h2>
+<div class="grid g2">
+  <div class="card"><h3>🕛 Customer Service Window · 24h</h3><p>Opens when the <b>customer</b> writes. While open, you send free text and Utility templates at no cost. Each new customer message resets the timer.</p></div>
+  <div class="card"><h3>🎯 Free Entry Point · 72h</h3><p>Opens via a <b>Click-to-WhatsApp</b> ad or page CTA. For 72h, <b>all</b> messages (templates included) are free — great for conversion.</p></div>
+</div>`
+};
+PAGES.impact = {
+pt:`
+<div class="page-head"><span class="eyebrow">Impacto financeiro</span><h1>Para onde o custo vai</h1>
+<p class="lead">A mudança não é um aumento linear: ela <b>redistribui</b> o custo. Notificação transacional ficou mais barata; marketing e atendimento por IA ficaram mais caros.</p></div>
+<h2><span class="dot"></span>Direção do preço por categoria</h2>
+<div class="card">
+<div class="bars">
+  <div class="bar-row"><span class="name">Utility</span><div class="bar-track"><div class="bar-fill" style="width:30%;background:var(--c-util)"></div></div><span class="val">−50% a −77% ▼</span></div>
+  <div class="bar-row"><span class="name">Authentication</span><div class="bar-track"><div class="bar-fill" style="width:35%;background:var(--c-auth)"></div></div><span class="val">≈ −71% ▼</span></div>
+  <div class="bar-row"><span class="name">Marketing</span><div class="bar-track"><div class="bar-fill" style="width:78%;background:var(--c-mkt)"></div></div><span class="val">+8% a +30% ▲</span></div>
+  <div class="bar-row"><span class="name">Resposta/IA</span><div class="bar-track"><div class="bar-fill" style="width:90%;background:#514F4D"></div></div><span class="val">grátis → R$ 0,035 ▲</span></div>
+</div>
+<p class="muted">Direções confirmadas; percentuais são faixas estimadas (variam por fonte e volume).</p>
+</div>
+<h2><span class="dot"></span>Alto volume: 20M mensagens/mês</h2>
+<p>Ordem de grandeza estimada para uma operação de grande porte (ex.: setor público brasileiro). São estimativas — use a calculadora para o seu caso.</p>
+<table class="tbl"><thead><tr><th>Perfil de mix</th><th>Distribuição</th><th>Custo mensal estimado</th></tr></thead><tbody>
+<tr><td><b>Setor público</b></td><td>70% Utility · 20% Service · 10% Marketing</td><td><b>~R$ 2,5M</b></td></tr>
+<tr><td><b>Balanceado</b></td><td>50% Utility · 30% Service · 20% Marketing</td><td><b>~R$ 3,0M</b></td></tr>
+<tr><td><b>Marketing-heavy</b></td><td>30% Utility · 30% Service · 40% Marketing</td><td><b>~R$ 4,5M</b></td></tr>
+</tbody></table>
+<p class="muted">Inclui ~R$ 350k/mês de respostas (10M respostas × R$ 0,035) a partir de out/2026.</p>
+<h2><span class="dot"></span>Quem ganha e quem perde</h2>
+<div class="wl">
+  <div class="col win"><h3>✅ Ganham</h3><ul>
+    <li>Alto volume de <b>Utility</b> (queda de preço em escala)</li>
+    <li>Operações intensivas em <b>atendimento</b> (grátis na janela até out/26)</li>
+    <li><b>Bancos</b> (Authentication mais barato)</li>
+    <li><b>Meta Business Agents</b> — vantagem estrutural</li>
+  </ul></div>
+  <div class="col lose"><h3>▼ Perdem</h3><ul>
+    <li>Campanhas de <b>marketing em massa</b></li>
+    <li><b>Chatbots / IA de terceiros</b> (nova taxa por resposta)</li>
+    <li><b>PMEs</b> de baixo volume, sem escala para diluir</li>
+    <li>Fluxos conversacionais <b>ineficientes</b></li>
+  </ul></div>
+</div>`,
+es:`
+<div class="page-head"><span class="eyebrow">Impacto financiero</span><h1>Hacia dónde va el costo</h1>
+<p class="lead">El cambio no es un aumento lineal: <b>redistribuye</b> el costo. La notificación transaccional bajó; el marketing y la atención por IA subieron.</p></div>
+<h2><span class="dot"></span>Dirección del precio por categoría</h2>
+<div class="card">
+<div class="bars">
+  <div class="bar-row"><span class="name">Utility</span><div class="bar-track"><div class="bar-fill" style="width:30%;background:var(--c-util)"></div></div><span class="val">−50% a −77% ▼</span></div>
+  <div class="bar-row"><span class="name">Authentication</span><div class="bar-track"><div class="bar-fill" style="width:35%;background:var(--c-auth)"></div></div><span class="val">≈ −71% ▼</span></div>
+  <div class="bar-row"><span class="name">Marketing</span><div class="bar-track"><div class="bar-fill" style="width:78%;background:var(--c-mkt)"></div></div><span class="val">+8% a +30% ▲</span></div>
+  <div class="bar-row"><span class="name">Respuesta/IA</span><div class="bar-track"><div class="bar-fill" style="width:90%;background:#514F4D"></div></div><span class="val">gratis → R$ 0,035 ▲</span></div>
+</div>
+<p class="muted">Direcciones confirmadas; los porcentajes son rangos estimados (varían por fuente y volumen).</p>
+</div>
+<h2><span class="dot"></span>Alto volumen: 20M mensajes/mes</h2>
+<p>Orden de magnitud estimado para una operación grande (ej.: sector público brasileño). Son estimaciones — usa la calculadora para tu caso.</p>
+<table class="tbl"><thead><tr><th>Perfil de mix</th><th>Distribución</th><th>Costo mensual estimado</th></tr></thead><tbody>
+<tr><td><b>Sector público</b></td><td>70% Utility · 20% Service · 10% Marketing</td><td><b>~R$ 2,5M</b></td></tr>
+<tr><td><b>Balanceado</b></td><td>50% Utility · 30% Service · 20% Marketing</td><td><b>~R$ 3,0M</b></td></tr>
+<tr><td><b>Marketing-heavy</b></td><td>30% Utility · 30% Service · 40% Marketing</td><td><b>~R$ 4,5M</b></td></tr>
+</tbody></table>
+<p class="muted">Incluye ~R$ 350k/mes de respuestas (10M respuestas × R$ 0,035) desde oct/2026.</p>
+<h2><span class="dot"></span>Quién gana y quién pierde</h2>
+<div class="wl">
+  <div class="col win"><h3>✅ Ganan</h3><ul>
+    <li>Alto volumen de <b>Utility</b> (baja de precio a escala)</li>
+    <li>Operaciones intensivas en <b>atención</b> (gratis en ventana hasta oct/26)</li>
+    <li><b>Bancos</b> (Authentication más barato)</li>
+    <li><b>Meta Business Agents</b> — ventaja estructural</li>
+  </ul></div>
+  <div class="col lose"><h3>▼ Pierden</h3><ul>
+    <li>Campañas de <b>marketing masivo</b></li>
+    <li><b>Chatbots / IA de terceros</b> (nuevo cobro por respuesta)</li>
+    <li><b>PyMEs</b> de bajo volumen, sin escala para diluir</li>
+    <li>Flujos conversacionales <b>ineficientes</b></li>
+  </ul></div>
+</div>`,
+en:`
+<div class="page-head"><span class="eyebrow">Financial impact</span><h1>Where the cost moves</h1>
+<p class="lead">This isn't a flat increase — it <b>redistributes</b> cost. Transactional notifications got cheaper; marketing and AI-driven service got pricier.</p></div>
+<h2><span class="dot"></span>Price direction by category</h2>
+<div class="card">
+<div class="bars">
+  <div class="bar-row"><span class="name">Utility</span><div class="bar-track"><div class="bar-fill" style="width:30%;background:var(--c-util)"></div></div><span class="val">−50% to −77% ▼</span></div>
+  <div class="bar-row"><span class="name">Authentication</span><div class="bar-track"><div class="bar-fill" style="width:35%;background:var(--c-auth)"></div></div><span class="val">≈ −71% ▼</span></div>
+  <div class="bar-row"><span class="name">Marketing</span><div class="bar-track"><div class="bar-fill" style="width:78%;background:var(--c-mkt)"></div></div><span class="val">+8% to +30% ▲</span></div>
+  <div class="bar-row"><span class="name">Reply/AI</span><div class="bar-track"><div class="bar-fill" style="width:90%;background:#514F4D"></div></div><span class="val">free → R$ 0.035 ▲</span></div>
+</div>
+<p class="muted">Directions confirmed; percentages are estimated ranges (vary by source and volume).</p>
+</div>
+<h2><span class="dot"></span>High volume: 20M messages/month</h2>
+<p>Order-of-magnitude estimate for a large operation (e.g., Brazilian public sector). These are estimates — use the calculator for your case.</p>
+<table class="tbl"><thead><tr><th>Mix profile</th><th>Split</th><th>Estimated monthly cost</th></tr></thead><tbody>
+<tr><td><b>Public sector</b></td><td>70% Utility · 20% Service · 10% Marketing</td><td><b>~R$ 2.5M</b></td></tr>
+<tr><td><b>Balanced</b></td><td>50% Utility · 30% Service · 20% Marketing</td><td><b>~R$ 3.0M</b></td></tr>
+<tr><td><b>Marketing-heavy</b></td><td>30% Utility · 30% Service · 40% Marketing</td><td><b>~R$ 4.5M</b></td></tr>
+</tbody></table>
+<p class="muted">Includes ~R$ 350k/mo in replies (10M replies × R$ 0.035) from Oct/2026.</p>
+<h2><span class="dot"></span>Winners and losers</h2>
+<div class="wl">
+  <div class="col win"><h3>✅ Winners</h3><ul>
+    <li>High-volume <b>Utility</b> (price drop at scale)</li>
+    <li><b>Service</b>-intensive operations (free in window until Oct/26)</li>
+    <li><b>Banks</b> (cheaper Authentication)</li>
+    <li><b>Meta Business Agents</b> — structural advantage</li>
+  </ul></div>
+  <div class="col lose"><h3>▼ Losers</h3><ul>
+    <li><b>Mass marketing</b> campaigns</li>
+    <li><b>Third-party chatbots / AI</b> (new per-reply charge)</li>
+    <li>Low-volume <b>SMBs</b> with no scale to dilute</li>
+    <li><b>Inefficient</b> conversational flows</li>
+  </ul></div>
+</div>`
+};
+PAGES.reactions = {
+pt:`
+<div class="page-head"><span class="eyebrow">Reações · Brasil</span><h1>Como o mercado está reagindo</h1>
+<p class="lead">Setor privado reagiu com surpresa e recálculo de ROI. Setor público tem adoção alta, mas o impacto orçamentário ainda é uma lacuna pública.</p></div>
+<h2><span class="dot"></span>Setor privado</h2>
+<div class="grid g2">
+  <div class="card"><h3>💥 Surpresa e impacto</h3><ul class="clean"><li>Mudança vista como "abrupta"; algumas empresas duvidaram até a confirmação oficial (Mobile Time / Fernando Paiva)</li><li>Caso real de custo mensal que <b>quadruplicou</b> — mantido pelo ROI ainda positivo</li><li>Startups "nascidas dentro do WhatsApp" precisam refazer as contas</li></ul></div>
+  <div class="card"><h3>🗣️ Vozes do mercado (BSPs)</h3><ul class="clean"><li><b>Rafael Souza (CEO, Ubots):</b> "fluxos ineficientes ficarão mais caros" — a mudança força desenhos hiper-resolutivos</li><li><b>Rafael Pacheco (CEO, Wiv):</b> "o que importa mais: o conteúdo ou o canal?" — repensar a dependência</li></ul></div>
+</div>
+<div class="callout crit"><span class="ic">⚠️</span><div><b>Alerta de risco:</b> parte das PMEs cogita migrar para <b>APIs não-homologadas</b> por preço — risco de banimento e perda do selo verde. Não recomendável.</div></div>
+<h2><span class="dot"></span>Setor público</h2>
+<div class="grid g3">
+  <div class="stat"><div class="num">64%</div><div class="lbl">Prefeituras com atendimento por WhatsApp/Telegram (2025)</div></div>
+  <div class="stat"><div class="num">39%</div><div class="lbl">Órgãos federais com mensageria móvel</div></div>
+  <div class="stat"><div class="num">43%</div><div class="lbl">Órgãos estaduais com mensageria móvel</div></div>
+</div>
+<p class="muted">Fonte: TIC Governo / Cetic.br (NIC.br).</p>
+<div class="callout info"><span class="ic">🔎</span><div><b>Lacuna crítica (e oportunidade consultiva):</b> não há dado público sobre impacto orçamentário, licitações ou manifestação de TCU/TCEs. O baque deve aparecer em <b>renovações contratuais 2026–2027</b> — janela ideal para levar diagnóstico + arquitetura de mitigação.</div></div>`,
+es:`
+<div class="page-head"><span class="eyebrow">Reacciones · Brasil</span><h1>Cómo reacciona el mercado</h1>
+<p class="lead">El sector privado reaccionó con sorpresa y recálculo de ROI. El sector público tiene alta adopción, pero el impacto presupuestario sigue siendo una laguna pública.</p></div>
+<h2><span class="dot"></span>Sector privado</h2>
+<div class="grid g2">
+  <div class="card"><h3>💥 Sorpresa e impacto</h3><ul class="clean"><li>Cambio visto como "abrupto"; algunas empresas dudaron hasta la confirmación oficial (Mobile Time / Fernando Paiva)</li><li>Caso real de costo mensual que se <b>cuadruplicó</b> — mantenido por ROI aún positivo</li><li>Startups "nacidas dentro de WhatsApp" deben rehacer los números</li></ul></div>
+  <div class="card"><h3>🗣️ Voces del mercado (BSPs)</h3><ul class="clean"><li><b>Rafael Souza (CEO, Ubots):</b> "los flujos ineficientes serán más caros" — obliga a diseños hiper-resolutivos</li><li><b>Rafael Pacheco (CEO, Wiv):</b> "¿qué importa más: el contenido o el canal?" — repensar la dependencia</li></ul></div>
+</div>
+<div class="callout crit"><span class="ic">⚠️</span><div><b>Alerta de riesgo:</b> parte de las PyMEs considera migrar a <b>APIs no homologadas</b> por precio — riesgo de baneo y pérdida del sello verde. No recomendable.</div></div>
+<h2><span class="dot"></span>Sector público</h2>
+<div class="grid g3">
+  <div class="stat"><div class="num">64%</div><div class="lbl">Municipios con atención por WhatsApp/Telegram (2025)</div></div>
+  <div class="stat"><div class="num">39%</div><div class="lbl">Órganos federales con mensajería móvil</div></div>
+  <div class="stat"><div class="num">43%</div><div class="lbl">Órganos estatales con mensajería móvil</div></div>
+</div>
+<p class="muted">Fuente: TIC Governo / Cetic.br (NIC.br).</p>
+<div class="callout info"><span class="ic">🔎</span><div><b>Laguna crítica (y oportunidad consultiva):</b> no hay datos públicos sobre impacto presupuestario, licitaciones ni pronunciamientos de tribunales de cuentas. El golpe aparecerá en <b>renovaciones 2026–2027</b> — ventana ideal para llevar diagnóstico + arquitectura de mitigación.</div></div>`,
+en:`
+<div class="page-head"><span class="eyebrow">Reactions · Brazil</span><h1>How the market is reacting</h1>
+<p class="lead">The private sector reacted with surprise and ROI recalculation. The public sector shows high adoption, but budget impact remains a public data gap.</p></div>
+<h2><span class="dot"></span>Private sector</h2>
+<div class="grid g2">
+  <div class="card"><h3>💥 Surprise and impact</h3><ul class="clean"><li>Change seen as "abrupt"; some firms doubted it until Meta's official confirmation (Mobile Time / Fernando Paiva)</li><li>Real case of a monthly cost that <b>quadrupled</b> — kept because ROI is still positive</li><li>Startups "born inside WhatsApp" must redo their math</li></ul></div>
+  <div class="card"><h3>🗣️ Market voices (BSPs)</h3><ul class="clean"><li><b>Rafael Souza (CEO, Ubots):</b> "inefficient flows will get more expensive" — forces hyper-resolving designs</li><li><b>Rafael Pacheco (CEO, Wiv):</b> "what matters more: the content or the channel?" — rethink dependency</li></ul></div>
+</div>
+<div class="callout crit"><span class="ic">⚠️</span><div><b>Risk alert:</b> some SMBs are considering migrating to <b>unofficial APIs</b> for price — risk of bans and loss of the verified badge. Not recommended.</div></div>
+<h2><span class="dot"></span>Public sector</h2>
+<div class="grid g3">
+  <div class="stat"><div class="num">64%</div><div class="lbl">Municipalities offering WhatsApp/Telegram support (2025)</div></div>
+  <div class="stat"><div class="num">39%</div><div class="lbl">Federal bodies with mobile messaging</div></div>
+  <div class="stat"><div class="num">43%</div><div class="lbl">State bodies with mobile messaging</div></div>
+</div>
+<p class="muted">Source: TIC Governo / Cetic.br (NIC.br).</p>
+<div class="callout info"><span class="ic">🔎</span><div><b>Critical gap (and advisory opportunity):</b> no public data on budget impact, procurement, or audit-court positions. The hit should surface in <b>2026–2027 contract renewals</b> — the ideal window to bring a diagnostic + mitigation architecture.</div></div>`
+};
+PAGES.alternatives = {
+pt:`
+<div class="page-head"><span class="eyebrow">Alternativas & mitigação</span><h1>O que fazer a respeito</h1>
+<p class="lead">Três frentes: otimizar dentro do WhatsApp, diversificar canais e abstrair o canal com uma arquitetura omnichannel.</p></div>
+<h2><span class="dot"></span>Comparativo de canais (Brasil)</h2>
+<table class="tbl"><thead><tr><th>Canal</th><th>Custo relativo</th><th>Alcance BR</th><th>Melhor uso</th></tr></thead><tbody>
+<tr><td><b>WhatsApp</b></td><td>$$–$$$</td><td>★★★★★ ~150M</td><td>Atendimento, Utility</td></tr>
+<tr><td><b>RCS (Google)</b></td><td>$–$$</td><td>★★★★☆ 135M+</td><td>Marketing, campanhas, jornadas P2A</td></tr>
+<tr><td><b>SMS</b></td><td>$</td><td>★★★★★ 100%</td><td>OTP, alertas críticos, fallback</td></tr>
+<tr><td><b>App próprio + Push</b></td><td>grátis*</td><td>★★☆☆☆ base do app</td><td>Base instalada, notificações</td></tr>
+<tr><td><b>E-mail</b></td><td>¢</td><td>★★★★★</td><td>Comunicações longas, documentos</td></tr>
+</tbody></table>
+<p class="muted">*Custo marginal zero após desenvolvimento do app.</p>
+<div class="callout ok"><span class="ic">📈</span><div><b>RCS é a alternativa nº 1 no Brasil:</b> 135M+ dispositivos, +371% em 2024, aprovação centralizada ABR Telecom em ~48h, rich media e fallback automático para SMS. Ideal para marketing/campanhas.</div></div>
+<h2><span class="dot"></span>Otimização dentro do WhatsApp (quick wins)</h2>
+<ul class="clean">
+<li>Maximizar as <b>janelas gratuitas</b> (FEP 72h via Click-to-WhatsApp; CSW 24h)</li>
+<li>Migrar de <b>Marketing → Utility</b> onde for legítimo (sem forçar classificação)</li>
+<li><b>Consolidar</b> mensagens: otimizar a janela, não a mensagem isolada</li>
+<li>Usar <b>WhatsApp Flows</b> para reduzir o nº de mensagens por jornada</li>
+<li>Concentrar volume para atingir <b>tiers</b> melhores (utility/auth)</li>
+<li>Redesenhar chatbots para <b>hiper-resolução</b> antes de out/2026</li>
+</ul>
+<h2><span class="dot"></span>As 3 horizontes</h2>
+<div class="grid g3">
+  <div class="card"><h3>0–3 meses</h3><p>Otimizar o WhatsApp atual: janelas gratuitas, Flows, mix Utility, segmentação precisa.</p></div>
+  <div class="card"><h3>3–6 meses</h3><p>Pilotar <b>RCS</b> para marketing; avaliar CPaaS (Twilio, Infobip, Sinch, Zenvia, Blip) para failover de canal.</p></div>
+  <div class="card"><h3>6–12 meses</h3><p>Arquitetura <b>omnichannel</b> madura com roteamento por custo/engajamento e IA conversacional.</p></div>
+</div>`,
+es:`
+<div class="page-head"><span class="eyebrow">Alternativas & mitigación</span><h1>Qué hacer al respecto</h1>
+<p class="lead">Tres frentes: optimizar dentro de WhatsApp, diversificar canales y abstraer el canal con una arquitectura omnicanal.</p></div>
+<h2><span class="dot"></span>Comparativo de canales (Brasil)</h2>
+<table class="tbl"><thead><tr><th>Canal</th><th>Costo relativo</th><th>Alcance BR</th><th>Mejor uso</th></tr></thead><tbody>
+<tr><td><b>WhatsApp</b></td><td>$$–$$$</td><td>★★★★★ ~150M</td><td>Atención, Utility</td></tr>
+<tr><td><b>RCS (Google)</b></td><td>$–$$</td><td>★★★★☆ 135M+</td><td>Marketing, campañas, jornadas P2A</td></tr>
+<tr><td><b>SMS</b></td><td>$</td><td>★★★★★ 100%</td><td>OTP, alertas críticos, fallback</td></tr>
+<tr><td><b>App propia + Push</b></td><td>gratis*</td><td>★★☆☆☆ base de la app</td><td>Base instalada, notificaciones</td></tr>
+<tr><td><b>E-mail</b></td><td>¢</td><td>★★★★★</td><td>Comunicaciones largas, documentos</td></tr>
+</tbody></table>
+<p class="muted">*Costo marginal cero tras desarrollar la app.</p>
+<div class="callout ok"><span class="ic">📈</span><div><b>RCS es la alternativa n.º 1 en Brasil:</b> 135M+ dispositivos, +371% en 2024, aprobación centralizada ABR Telecom en ~48h, rich media y fallback automático a SMS. Ideal para marketing/campañas.</div></div>
+<h2><span class="dot"></span>Optimización dentro de WhatsApp (quick wins)</h2>
+<ul class="clean">
+<li>Maximizar las <b>ventanas gratuitas</b> (FEP 72h vía Click-to-WhatsApp; CSW 24h)</li>
+<li>Migrar de <b>Marketing → Utility</b> donde sea legítimo (sin forzar la clasificación)</li>
+<li><b>Consolidar</b> mensajes: optimizar la ventana, no el mensaje aislado</li>
+<li>Usar <b>WhatsApp Flows</b> para reducir el n.º de mensajes por jornada</li>
+<li>Concentrar volumen para alcanzar mejores <b>tiers</b> (utility/auth)</li>
+<li>Rediseñar chatbots para <b>hiper-resolución</b> antes de oct/2026</li>
+</ul>
+<h2><span class="dot"></span>Los 3 horizontes</h2>
+<div class="grid g3">
+  <div class="card"><h3>0–3 meses</h3><p>Optimizar el WhatsApp actual: ventanas gratuitas, Flows, mix Utility, segmentación precisa.</p></div>
+  <div class="card"><h3>3–6 meses</h3><p>Pilotar <b>RCS</b> para marketing; evaluar CPaaS (Twilio, Infobip, Sinch, Zenvia, Blip) para failover de canal.</p></div>
+  <div class="card"><h3>6–12 meses</h3><p>Arquitectura <b>omnicanal</b> madura con enrutamiento por costo/engagement e IA conversacional.</p></div>
+</div>`,
+en:`
+<div class="page-head"><span class="eyebrow">Alternatives & mitigation</span><h1>What to do about it</h1>
+<p class="lead">Three fronts: optimize within WhatsApp, diversify channels, and abstract the channel with an omnichannel architecture.</p></div>
+<h2><span class="dot"></span>Channel comparison (Brazil)</h2>
+<table class="tbl"><thead><tr><th>Channel</th><th>Relative cost</th><th>BR reach</th><th>Best use</th></tr></thead><tbody>
+<tr><td><b>WhatsApp</b></td><td>$$–$$$</td><td>★★★★★ ~150M</td><td>Service, Utility</td></tr>
+<tr><td><b>RCS (Google)</b></td><td>$–$$</td><td>★★★★☆ 135M+</td><td>Marketing, campaigns, P2A journeys</td></tr>
+<tr><td><b>SMS</b></td><td>$</td><td>★★★★★ 100%</td><td>OTP, critical alerts, fallback</td></tr>
+<tr><td><b>Own app + Push</b></td><td>free*</td><td>★★☆☆☆ app base</td><td>Installed base, notifications</td></tr>
+<tr><td><b>Email</b></td><td>¢</td><td>★★★★★</td><td>Long-form comms, documents</td></tr>
+</tbody></table>
+<p class="muted">*Zero marginal cost after app development.</p>
+<div class="callout ok"><span class="ic">📈</span><div><b>RCS is the #1 alternative in Brazil:</b> 135M+ devices, +371% in 2024, centralized ABR Telecom approval in ~48h, rich media and automatic SMS fallback. Ideal for marketing/campaigns.</div></div>
+<h2><span class="dot"></span>Optimizing within WhatsApp (quick wins)</h2>
+<ul class="clean">
+<li>Maximize the <b>free windows</b> (72h FEP via Click-to-WhatsApp; 24h CSW)</li>
+<li>Shift <b>Marketing → Utility</b> where legitimate (don't force classification)</li>
+<li><b>Consolidate</b> messages: optimize the window, not the single message</li>
+<li>Use <b>WhatsApp Flows</b> to cut the number of messages per journey</li>
+<li>Concentrate volume to reach better <b>tiers</b> (utility/auth)</li>
+<li>Redesign chatbots for <b>hyper-resolution</b> before Oct/2026</li>
+</ul>
+<h2><span class="dot"></span>The 3 horizons</h2>
+<div class="grid g3">
+  <div class="card"><h3>0–3 months</h3><p>Optimize current WhatsApp: free windows, Flows, Utility mix, precise segmentation.</p></div>
+  <div class="card"><h3>3–6 months</h3><p>Pilot <b>RCS</b> for marketing; evaluate CPaaS (Twilio, Infobip, Sinch, Zenvia, Blip) for channel failover.</p></div>
+  <div class="card"><h3>6–12 months</h3><p>Mature <b>omnichannel</b> architecture with cost/engagement routing and conversational AI.</p></div>
+</div>`
+};
+PAGES.calculator = {
+pt:`
+<div class="page-head"><span class="eyebrow">Ferramenta interativa</span><h1>Calculadora de impacto</h1>
+<p class="lead">Estime o custo mensal do WhatsApp Business no novo modelo. Preencha em minutos — não precisa ser técnico.</p></div>
+<div class="callout info"><span class="ic">🧭</span><div><b>Como usar em 4 passos:</b>
+<div class="step"><div class="n">1</div><div class="tx"><b>Volume:</b> quantas mensagens sua operação envia por mês (some tudo: avisos, campanhas, atendimento).</div></div>
+<div class="step"><div class="n">2</div><div class="tx"><b>Distribuição:</b> divida esse total em % por tipo. Marketing = promoções; Utility = avisos/confirmações; Authentication = senhas/códigos; Service = respostas de atendimento. As 4 devem somar 100%.</div></div>
+<div class="step"><div class="n">3</div><div class="tx"><b>Respostas:</b> quantas respostas de atendimento você manda por mês. A partir de out/2026 elas custam ~R$ 0,035 cada — <b>a menos</b> que você use a IA da própria Meta.</div></div>
+<div class="step"><div class="n">4</div><div class="tx"><b>Quem responde:</b> escolha entre IA de terceiros/humano (cobra) ou Meta Business Agents (isento). Veja o resultado atualizar sozinho.</div></div>
+</div></div>
+<div class="calc-wrap">
+  <div class="card pad-lg">
+    <div class="field"><label>1 · Total de mensagens por mês</label><input id="cVol" type="number" value="20000000"><div class="hint">Some avisos, campanhas e atendimento.</div></div>
+    <div class="field"><label>2 · Distribuição por tipo (%)</label>
+      <div class="mix-grid">
+        <div><span class="muted">Marketing</span><input id="mMkt" type="number" value="20"></div>
+        <div><span class="muted">Utility</span><input id="mUtil" type="number" value="50"></div>
+        <div><span class="muted">Authentication</span><input id="mAuth" type="number" value="10"></div>
+        <div><span class="muted">Service</span><input id="mServ" type="number" value="20"></div>
+      </div>
+      <div id="mixSum" class="mix-sum ok">Distribuição = 100% ✓</div>
+    </div>
+    <div class="field"><label>3 · Respostas de atendimento por mês</label><input id="cRepl" type="number" value="5000000"><div class="hint">Cobradas a partir de out/2026 (exceto Meta Agents).</div></div>
+    <div class="field"><label>4 · Quem responde no atendimento</label>
+      <div class="seg" id="agentSeg">
+        <button data-v="third" class="on">IA de terceiros / humano</button>
+        <button data-v="meta">Meta Business Agents</button>
+      </div>
+    </div>
+    <details class="adv"><summary>⚙️ Ajustar preços (avançado · estimativas em BRL)</summary>
+      <div class="rate-grid">
+        <div><span class="muted">Marketing (R$/msg)</span><input id="rMkt" type="number" step="0.001" value="0.35"></div>
+        <div><span class="muted">Utility (R$/msg)</span><input id="rUtil" type="number" step="0.001" value="0.10"></div>
+        <div><span class="muted">Authentication (R$/msg)</span><input id="rAuth" type="number" step="0.001" value="0.10"></div>
+        <div><span class="muted">Resposta (R$/msg)</span><input id="rRepl" type="number" step="0.001" value="0.035"></div>
+      </div>
+    </details>
+  </div>
+  <div>
+    <div class="result-hero"><div class="rlbl">Custo mensal estimado (novo modelo)</div><div class="rbig" id="resHero">—</div><div class="rsub">após 1º out 2026, incluindo cobrança por respostas · Projeção anual: <b id="resAnnual">—</b></div></div>
+    <div class="card breakdown"><h3>Onde o custo é gerado</h3><div id="bd" class="bars"></div></div>
+    <div class="compare-box" id="cmpBox"></div>
+    <p class="muted" style="margin-top:12px">Estimativa educacional. Preços em BRL são aproximados — confirme os rate cards oficiais no Meta Business Manager. Service em template é grátis dentro da janela de atendimento.</p>
+  </div>
+</div>`,
+es:`
+<div class="page-head"><span class="eyebrow">Herramienta interactiva</span><h1>Calculadora de impacto</h1>
+<p class="lead">Estima el costo mensual de WhatsApp Business en el nuevo modelo. Complétala en minutos — no necesitas ser técnico.</p></div>
+<div class="callout info"><span class="ic">🧭</span><div><b>Cómo usarla en 4 pasos:</b>
+<div class="step"><div class="n">1</div><div class="tx"><b>Volumen:</b> cuántos mensajes envía tu operación por mes (suma todo: avisos, campañas, atención).</div></div>
+<div class="step"><div class="n">2</div><div class="tx"><b>Distribución:</b> divide ese total en % por tipo. Marketing = promociones; Utility = avisos/confirmaciones; Authentication = contraseñas/códigos; Service = respuestas de atención. Las 4 deben sumar 100%.</div></div>
+<div class="step"><div class="n">3</div><div class="tx"><b>Respuestas:</b> cuántas respuestas de atención envías por mes. Desde oct/2026 cuestan ~R$ 0,035 cada una — <b>salvo</b> que uses la IA de la propia Meta.</div></div>
+<div class="step"><div class="n">4</div><div class="tx"><b>Quién responde:</b> elige entre IA de terceros/humano (cobra) o Meta Business Agents (exento). El resultado se actualiza solo.</div></div>
+</div></div>
+<div class="calc-wrap">
+  <div class="card pad-lg">
+    <div class="field"><label>1 · Total de mensajes por mes</label><input id="cVol" type="number" value="20000000"><div class="hint">Suma avisos, campañas y atención.</div></div>
+    <div class="field"><label>2 · Distribución por tipo (%)</label>
+      <div class="mix-grid">
+        <div><span class="muted">Marketing</span><input id="mMkt" type="number" value="20"></div>
+        <div><span class="muted">Utility</span><input id="mUtil" type="number" value="50"></div>
+        <div><span class="muted">Authentication</span><input id="mAuth" type="number" value="10"></div>
+        <div><span class="muted">Service</span><input id="mServ" type="number" value="20"></div>
+      </div>
+      <div id="mixSum" class="mix-sum ok">Distribución = 100% ✓</div>
+    </div>
+    <div class="field"><label>3 · Respuestas de atención por mes</label><input id="cRepl" type="number" value="5000000"><div class="hint">Cobradas desde oct/2026 (excepto Meta Agents).</div></div>
+    <div class="field"><label>4 · Quién responde en la atención</label>
+      <div class="seg" id="agentSeg">
+        <button data-v="third" class="on">IA de terceros / humano</button>
+        <button data-v="meta">Meta Business Agents</button>
+      </div>
+    </div>
+    <details class="adv"><summary>⚙️ Ajustar precios (avanzado · estimaciones en BRL)</summary>
+      <div class="rate-grid">
+        <div><span class="muted">Marketing (R$/msg)</span><input id="rMkt" type="number" step="0.001" value="0.35"></div>
+        <div><span class="muted">Utility (R$/msg)</span><input id="rUtil" type="number" step="0.001" value="0.10"></div>
+        <div><span class="muted">Authentication (R$/msg)</span><input id="rAuth" type="number" step="0.001" value="0.10"></div>
+        <div><span class="muted">Respuesta (R$/msg)</span><input id="rRepl" type="number" step="0.001" value="0.035"></div>
+      </div>
+    </details>
+  </div>
+  <div>
+    <div class="result-hero"><div class="rlbl">Costo mensual estimado (nuevo modelo)</div><div class="rbig" id="resHero">—</div><div class="rsub">tras el 1 oct 2026, incluyendo cobro por respuestas · Proyección anual: <b id="resAnnual">—</b></div></div>
+    <div class="card breakdown"><h3>Dónde se genera el costo</h3><div id="bd" class="bars"></div></div>
+    <div class="compare-box" id="cmpBox"></div>
+    <p class="muted" style="margin-top:12px">Estimación educativa. Los precios en BRL son aproximados — confirma los rate cards oficiales en Meta Business Manager. Service en plantilla es gratis dentro de la ventana de atención.</p>
+  </div>
+</div>`,
+en:`
+<div class="page-head"><span class="eyebrow">Interactive tool</span><h1>Impact calculator</h1>
+<p class="lead">Estimate your monthly WhatsApp Business cost under the new model. Fill it in minutes — no technical background needed.</p></div>
+<div class="callout info"><span class="ic">🧭</span><div><b>How to use it in 4 steps:</b>
+<div class="step"><div class="n">1</div><div class="tx"><b>Volume:</b> how many messages your operation sends per month (add it all: notices, campaigns, service).</div></div>
+<div class="step"><div class="n">2</div><div class="tx"><b>Split:</b> divide that total into % by type. Marketing = promotions; Utility = notices/confirmations; Authentication = passwords/codes; Service = support replies. The 4 must total 100%.</div></div>
+<div class="step"><div class="n">3</div><div class="tx"><b>Replies:</b> how many support replies you send per month. From Oct/2026 they cost ~R$ 0.035 each — <b>unless</b> you use Meta's own AI.</div></div>
+<div class="step"><div class="n">4</div><div class="tx"><b>Who replies:</b> choose third-party AI/human (charged) or Meta Business Agents (exempt). The result updates itself.</div></div>
+</div></div>
+<div class="calc-wrap">
+  <div class="card pad-lg">
+    <div class="field"><label>1 · Total messages per month</label><input id="cVol" type="number" value="20000000"><div class="hint">Add notices, campaigns and service.</div></div>
+    <div class="field"><label>2 · Split by type (%)</label>
+      <div class="mix-grid">
+        <div><span class="muted">Marketing</span><input id="mMkt" type="number" value="20"></div>
+        <div><span class="muted">Utility</span><input id="mUtil" type="number" value="50"></div>
+        <div><span class="muted">Authentication</span><input id="mAuth" type="number" value="10"></div>
+        <div><span class="muted">Service</span><input id="mServ" type="number" value="20"></div>
+      </div>
+      <div id="mixSum" class="mix-sum ok">Split = 100% ✓</div>
+    </div>
+    <div class="field"><label>3 · Support replies per month</label><input id="cRepl" type="number" value="5000000"><div class="hint">Charged from Oct/2026 (except Meta Agents).</div></div>
+    <div class="field"><label>4 · Who replies in service</label>
+      <div class="seg" id="agentSeg">
+        <button data-v="third" class="on">Third-party AI / human</button>
+        <button data-v="meta">Meta Business Agents</button>
+      </div>
+    </div>
+    <details class="adv"><summary>⚙️ Adjust prices (advanced · BRL estimates)</summary>
+      <div class="rate-grid">
+        <div><span class="muted">Marketing (R$/msg)</span><input id="rMkt" type="number" step="0.001" value="0.35"></div>
+        <div><span class="muted">Utility (R$/msg)</span><input id="rUtil" type="number" step="0.001" value="0.10"></div>
+        <div><span class="muted">Authentication (R$/msg)</span><input id="rAuth" type="number" step="0.001" value="0.10"></div>
+        <div><span class="muted">Reply (R$/msg)</span><input id="rRepl" type="number" step="0.001" value="0.035"></div>
+      </div>
+    </details>
+  </div>
+  <div>
+    <div class="result-hero"><div class="rlbl">Estimated monthly cost (new model)</div><div class="rbig" id="resHero">—</div><div class="rsub">after Oct 1 2026, including per-reply charge · Annual projection: <b id="resAnnual">—</b></div></div>
+    <div class="card breakdown"><h3>Where cost is generated</h3><div id="bd" class="bars"></div></div>
+    <div class="compare-box" id="cmpBox"></div>
+    <p class="muted" style="margin-top:12px">Educational estimate. BRL prices are approximate — confirm official rate cards in Meta Business Manager. Service templates are free within the service window.</p>
+  </div>
+</div>`
+};
+PAGES.salesforce = {
+pt:`
+<div class="hero-sf">
+  <span class="eyebrow" style="background:rgba(255,255,255,.18);color:#fff">Posicionamento · Salesforce PS</span>
+  <h1>Como o Salesforce responde a essa mudança</h1>
+  <p>A cobrança por mensagem transforma o canal em custo variável. A resposta não é "trocar o WhatsApp" — é <b>parar de depender de um único canal</b>. O Salesforce entrega a camada de orquestração que escolhe o canal certo, ao custo certo, com o cliente no centro.</p>
+</div>
+<h2><span class="dot"></span>A tese em uma frase</h2>
+<div class="callout ok"><span class="ic">🎯</span><div>Data Cloud + Marketing/Service Cloud + Agentforce = uma arquitetura <b>omnichannel</b> que abstrai o canal, roteia por custo/engajamento e reduz a dependência de um único fornecedor — protegendo o negócio de futuras mudanças de preço.</div></div>
+<h2><span class="dot"></span>Capacidades que atacam o problema</h2>
+<div class="grid g2">
+  <div class="cap"><div class="ci">🔀</div><div><h3>Digital Engagement (Service Cloud)</h3><p>Console único para WhatsApp, SMS, RCS, chat e e-mail com roteamento Omni-Channel. Troque de canal sem reescrever processos.</p></div></div>
+  <div class="cap"><div class="ci">🧭</div><div><h3>Journey Builder + Einstein</h3><p>Next Best Channel e Send-Time Optimization: a jornada escolhe o canal mais barato e eficaz por cliente e momento.</p></div></div>
+  <div class="cap"><div class="ci">🗄️</div><div><h3>Data Cloud (CDP)</h3><p>Perfil único cross-channel. Segmentação precisa reduz disparos não-engajados — menos mensagens cobradas, mais conversão.</p></div></div>
+  <div class="cap"><div class="ci">🤖</div><div><h3>Agentforce</h3><p>Agentes que resolvem em menos idas e voltas ("hiper-resolução") e fazem handoff inteligente — atacando exatamente o custo por resposta.</p></div></div>
+</div>
+<h2><span class="dot"></span>Fluxo de mitigação</h2>
+<div class="flow">
+  <span class="node">Evento / Intenção</span><span class="arr">→</span>
+  <span class="node">Data Cloud decide canal</span><span class="arr">→</span>
+  <span class="node">WhatsApp · RCS · SMS · Push</span><span class="arr">→</span>
+  <span class="node">Agentforce resolve</span><span class="arr">→</span>
+  <span class="node">Fallback por custo</span>
+</div>
+<div class="callout warn"><span class="ic">⚖️</span><div><b>Posicionamento honesto (importante para a conversa com cliente):</b> aos olhos da Meta, o Agentforce é "IA de terceiros" — respostas via WhatsApp entram na cobrança de R$ 0,035, enquanto Meta Business Agents não. O valor do Agentforce <b>não</b> está em "burlar" a taxa, e sim no CRM 360, na orquestração cross-channel e na redução do número de interações. Venda o resultado, não a evasão de taxa.</div></div>
+<h2><span class="dot"></span>Próximos passos sugeridos</h2>
+<ul class="clean">
+<li>Rodar a <b>calculadora de impacto</b> com os números reais do cliente</li>
+<li>Diagnóstico de mix de mensagens + mapa de jornadas por canal</li>
+<li>Piloto de <b>failover WhatsApp ↔ RCS/SMS</b> via Digital Engagement</li>
+<li>Business case de <b>Agentforce</b> focado em redução de interações e CSAT</li>
+</ul>`,
+es:`
+<div class="hero-sf">
+  <span class="eyebrow" style="background:rgba(255,255,255,.18);color:#fff">Posicionamiento · Salesforce PS</span>
+  <h1>Cómo responde Salesforce a este cambio</h1>
+  <p>El cobro por mensaje convierte el canal en costo variable. La respuesta no es "cambiar WhatsApp" — es <b>dejar de depender de un solo canal</b>. Salesforce aporta la capa de orquestación que elige el canal correcto, al costo correcto, con el cliente en el centro.</p>
+</div>
+<h2><span class="dot"></span>La tesis en una frase</h2>
+<div class="callout ok"><span class="ic">🎯</span><div>Data Cloud + Marketing/Service Cloud + Agentforce = una arquitectura <b>omnicanal</b> que abstrae el canal, enruta por costo/engagement y reduce la dependencia de un único proveedor — protegiendo el negocio de futuros cambios de precio.</div></div>
+<h2><span class="dot"></span>Capacidades que atacan el problema</h2>
+<div class="grid g2">
+  <div class="cap"><div class="ci">🔀</div><div><h3>Digital Engagement (Service Cloud)</h3><p>Consola única para WhatsApp, SMS, RCS, chat y e-mail con enrutamiento Omni-Channel. Cambia de canal sin reescribir procesos.</p></div></div>
+  <div class="cap"><div class="ci">🧭</div><div><h3>Journey Builder + Einstein</h3><p>Next Best Channel y Send-Time Optimization: la jornada elige el canal más barato y eficaz por cliente y momento.</p></div></div>
+  <div class="cap"><div class="ci">🗄️</div><div><h3>Data Cloud (CDP)</h3><p>Perfil único cross-channel. La segmentación precisa reduce envíos no-engajados — menos mensajes cobrados, más conversión.</p></div></div>
+  <div class="cap"><div class="ci">🤖</div><div><h3>Agentforce</h3><p>Agentes que resuelven en menos idas y vueltas ("hiper-resolución") y hacen handoff inteligente — atacando el costo por respuesta.</p></div></div>
+</div>
+<h2><span class="dot"></span>Flujo de mitigación</h2>
+<div class="flow">
+  <span class="node">Evento / Intención</span><span class="arr">→</span>
+  <span class="node">Data Cloud decide canal</span><span class="arr">→</span>
+  <span class="node">WhatsApp · RCS · SMS · Push</span><span class="arr">→</span>
+  <span class="node">Agentforce resuelve</span><span class="arr">→</span>
+  <span class="node">Fallback por costo</span>
+</div>
+<div class="callout warn"><span class="ic">⚖️</span><div><b>Posicionamiento honesto (clave para la conversación con el cliente):</b> para Meta, Agentforce es "IA de terceros" — las respuestas vía WhatsApp entran en el cobro de R$ 0,035, mientras que Meta Business Agents no. El valor de Agentforce <b>no</b> está en "evadir" la tarifa, sino en el CRM 360, la orquestación cross-channel y la reducción del número de interacciones. Vende el resultado, no la evasión.</div></div>
+<h2><span class="dot"></span>Próximos pasos sugeridos</h2>
+<ul class="clean">
+<li>Correr la <b>calculadora de impacto</b> con los números reales del cliente</li>
+<li>Diagnóstico de mix de mensajes + mapa de jornadas por canal</li>
+<li>Piloto de <b>failover WhatsApp ↔ RCS/SMS</b> vía Digital Engagement</li>
+<li>Business case de <b>Agentforce</b> enfocado en reducir interacciones y CSAT</li>
+</ul>`,
+en:`
+<div class="hero-sf">
+  <span class="eyebrow" style="background:rgba(255,255,255,.18);color:#fff">Positioning · Salesforce PS</span>
+  <h1>How Salesforce answers this change</h1>
+  <p>Per-message billing turns the channel into variable cost. The answer isn't "replace WhatsApp" — it's <b>stop depending on a single channel</b>. Salesforce provides the orchestration layer that picks the right channel, at the right cost, with the customer at the center.</p>
+</div>
+<h2><span class="dot"></span>The thesis in one line</h2>
+<div class="callout ok"><span class="ic">🎯</span><div>Data Cloud + Marketing/Service Cloud + Agentforce = an <b>omnichannel</b> architecture that abstracts the channel, routes by cost/engagement, and reduces single-vendor dependency — shielding the business from future price changes.</div></div>
+<h2><span class="dot"></span>Capabilities that attack the problem</h2>
+<div class="grid g2">
+  <div class="cap"><div class="ci">🔀</div><div><h3>Digital Engagement (Service Cloud)</h3><p>One console for WhatsApp, SMS, RCS, chat and email with Omni-Channel routing. Switch channels without rewriting processes.</p></div></div>
+  <div class="cap"><div class="ci">🧭</div><div><h3>Journey Builder + Einstein</h3><p>Next Best Channel and Send-Time Optimization: the journey picks the cheapest, most effective channel per customer and moment.</p></div></div>
+  <div class="cap"><div class="ci">🗄️</div><div><h3>Data Cloud (CDP)</h3><p>One cross-channel profile. Precise segmentation cuts unengaged sends — fewer charged messages, more conversion.</p></div></div>
+  <div class="cap"><div class="ci">🤖</div><div><h3>Agentforce</h3><p>Agents that resolve in fewer back-and-forths ("hyper-resolution") with smart handoff — attacking the per-reply cost directly.</p></div></div>
+</div>
+<h2><span class="dot"></span>Mitigation flow</h2>
+<div class="flow">
+  <span class="node">Event / Intent</span><span class="arr">→</span>
+  <span class="node">Data Cloud picks channel</span><span class="arr">→</span>
+  <span class="node">WhatsApp · RCS · SMS · Push</span><span class="arr">→</span>
+  <span class="node">Agentforce resolves</span><span class="arr">→</span>
+  <span class="node">Cost-based fallback</span>
+</div>
+<div class="callout warn"><span class="ic">⚖️</span><div><b>Honest positioning (key for the client conversation):</b> in Meta's eyes, Agentforce is "third-party AI" — replies via WhatsApp fall under the R$ 0.035 charge, while Meta Business Agents don't. Agentforce's value is <b>not</b> in "dodging" the fee, but in the 360 CRM, cross-channel orchestration, and reducing the number of interactions. Sell the outcome, not fee evasion.</div></div>
+<h2><span class="dot"></span>Suggested next steps</h2>
+<ul class="clean">
+<li>Run the <b>impact calculator</b> with the client's real numbers</li>
+<li>Message-mix diagnostic + per-channel journey map</li>
+<li>Pilot a <b>WhatsApp ↔ RCS/SMS failover</b> via Digital Engagement</li>
+<li><b>Agentforce</b> business case focused on interaction reduction and CSAT</li>
+</ul>`
+};
+PAGES.sources = {
+pt:`
+<span class="eyebrow">Metodologia</span>
+<h1>Fontes & nível de confiança</h1>
+<p class="lead">Transparência sobre o que é <b>confirmado</b> e o que é <b>estimativa</b>. Use isto para calibrar a conversa com o cliente — não apresente valores em R$ como números fechados.</p>
+<h2><span class="dot"></span>Confiança por tema</h2>
+<div class="grid g2">
+  <div class="card"><span class="pill" style="background:#ecfdf3;color:#256b3e">Alta confiança</span><ul class="clean"><li>Estrutura da cobrança por mensagem (Marketing/Utility/Auth/Service)</li><li>Janela de atendimento (CSW) de 24h e janela de entrega (FEP)</li><li>Isenção para Meta Business Agents vs. cobrança de IA de terceiros</li><li>Datas oficiais de transição divulgadas pela Meta</li></ul></div>
+  <div class="card"><span class="pill" style="background:#fff4e5;color:#9a5b00">Estimativa</span><ul class="clean"><li>Valores em R$ por categoria e por resposta (fontes divergem)</li><li>Impacto financeiro anual — depende do mix e volume reais</li><li>R$ 0,035 por resposta usado como referência de ordem de grandeza</li></ul></div>
+</div>
+<h2><span class="dot"></span>Fontes consultadas</h2>
+<ul class="clean">
+<li><b>Meta / WhatsApp Business Platform</b> — documentação oficial de pricing e conversation-based → per-message billing</li>
+<li><b>Mobile Time</b> — cobertura do mercado brasileiro de mensageria e reação de provedores</li>
+<li><b>TIC Governo Eletrônico</b> — uso de canais digitais no setor público brasileiro</li>
+<li>Relatórios internos: pesquisa de reações de mercado e pesquisa de alternativas / mitigação de custo</li>
+</ul>
+<div class="callout note"><span class="ic">ℹ️</span><div>Recomendação: antes de qualquer proposta comercial, valide o mix de mensagens e o volume mensal reais do cliente e rode a <b>calculadora</b> com esses números. Trate os R$ exibidos como cenários, não como cotação.</div></div>`,
+es:`
+<span class="eyebrow">Metodología</span>
+<h1>Fuentes & nivel de confianza</h1>
+<p class="lead">Transparencia sobre lo que está <b>confirmado</b> y lo que es <b>estimación</b>. Úsalo para calibrar la conversación con el cliente — no presentes los valores en R$ como cifras cerradas.</p>
+<h2><span class="dot"></span>Confianza por tema</h2>
+<div class="grid g2">
+  <div class="card"><span class="pill" style="background:#ecfdf3;color:#256b3e">Alta confianza</span><ul class="clean"><li>Estructura del cobro por mensaje (Marketing/Utility/Auth/Service)</li><li>Ventana de atención (CSW) de 24h y ventana de entrega (FEP)</li><li>Exención para Meta Business Agents vs. cobro de IA de terceros</li><li>Fechas oficiales de transición divulgadas por Meta</li></ul></div>
+  <div class="card"><span class="pill" style="background:#fff4e5;color:#9a5b00">Estimación</span><ul class="clean"><li>Valores en R$ por categoría y por respuesta (las fuentes difieren)</li><li>Impacto financiero anual — depende del mix y volumen reales</li><li>R$ 0,035 por respuesta usado como referencia de orden de magnitud</li></ul></div>
+</div>
+<h2><span class="dot"></span>Fuentes consultadas</h2>
+<ul class="clean">
+<li><b>Meta / WhatsApp Business Platform</b> — documentación oficial de pricing y conversation-based → per-message billing</li>
+<li><b>Mobile Time</b> — cobertura del mercado brasileño de mensajería y reacción de proveedores</li>
+<li><b>TIC Gobierno Electrónico</b> — uso de canales digitales en el sector público brasileño</li>
+<li>Reportes internos: investigación de reacciones de mercado e investigación de alternativas / mitigación de costo</li>
+</ul>
+<div class="callout note"><span class="ic">ℹ️</span><div>Recomendación: antes de cualquier propuesta comercial, valida el mix de mensajes y el volumen mensual reales del cliente y corre la <b>calculadora</b> con esos números. Trata los R$ mostrados como escenarios, no como cotización.</div></div>`,
+en:`
+<span class="eyebrow">Methodology</span>
+<h1>Sources & confidence level</h1>
+<p class="lead">Transparency about what is <b>confirmed</b> versus what is an <b>estimate</b>. Use this to calibrate the client conversation — don't present the R$ values as firm figures.</p>
+<h2><span class="dot"></span>Confidence by topic</h2>
+<div class="grid g2">
+  <div class="card"><span class="pill" style="background:#ecfdf3;color:#256b3e">High confidence</span><ul class="clean"><li>Per-message billing structure (Marketing/Utility/Auth/Service)</li><li>Customer Service Window (CSW) of 24h and delivery window (FEP)</li><li>Meta Business Agents exemption vs. third-party AI charge</li><li>Official transition dates announced by Meta</li></ul></div>
+  <div class="card"><span class="pill" style="background:#fff4e5;color:#9a5b00">Estimate</span><ul class="clean"><li>R$ values per category and per reply (sources diverge)</li><li>Annual financial impact — depends on real mix and volume</li><li>R$ 0.035 per reply used as an order-of-magnitude reference</li></ul></div>
+</div>
+<h2><span class="dot"></span>Sources consulted</h2>
+<ul class="clean">
+<li><b>Meta / WhatsApp Business Platform</b> — official pricing docs and conversation-based → per-message billing</li>
+<li><b>Mobile Time</b> — coverage of the Brazilian messaging market and provider reactions</li>
+<li><b>ICT Electronic Government</b> — digital channel usage in the Brazilian public sector</li>
+<li>Internal reports: market-reactions research and alternatives / cost-mitigation research</li>
+</ul>
+<div class="callout note"><span class="ic">ℹ️</span><div>Recommendation: before any commercial proposal, validate the client's real message mix and monthly volume and run the <b>calculator</b> with those numbers. Treat the displayed R$ as scenarios, not a quote.</div></div>`
+};
+
+/* ============ state + render ============ */
+let LANG='pt', PAGE='overview';
+const LOCALE={pt:'pt-BR',es:'es-419',en:'en-US'};
+const brl=v=>new Intl.NumberFormat(LOCALE[LANG],{style:'currency',currency:'BRL',maximumFractionDigits:0}).format(v);
+const brl2=v=>new Intl.NumberFormat(LOCALE[LANG],{style:'currency',currency:'BRL',minimumFractionDigits:3,maximumFractionDigits:3}).format(v);
+const numf=v=>new Intl.NumberFormat(LOCALE[LANG]).format(v);
+
+function buildNav(){
+  const c=CHROME[LANG]; const nav=document.getElementById('nav'); nav.innerHTML='';
+  c.groups.forEach(([title,items])=>{
+    const g=document.createElement('div'); g.className='sb-group';
+    g.innerHTML='<h4>'+title+'</h4>';
+    items.forEach(([id,label])=>{
+      const b=document.createElement('button'); b.className='sb-link'+(id===PAGE?' active':'');
+      b.innerHTML='<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="'+NAV_ICONS[id]+'"/></svg>'+label;
+      b.onclick=()=>{PAGE=id;render();document.getElementById('sidebar').classList.remove('open');window.scrollTo(0,0);};
+      g.appendChild(b);
+    });
+    nav.appendChild(g);
+  });
+}
+function crumbLabel(){
+  for(const [,items] of CHROME[LANG].groups) for(const [id,label] of items) if(id===PAGE) return label;
+  return '';
+}
+function render(){
+  document.documentElement.lang=LANG;
+  buildNav();
+  document.querySelector('[data-c="brandsub"]').innerHTML=CHROME[LANG].brandsub;
+  document.querySelector('[data-c="foot"]').innerHTML=CHROME[LANG].foot;
+  document.querySelector('[data-c="crumbroot"]').textContent=CHROME[LANG].crumbroot;
+  document.getElementById('crumb').innerHTML='› '+crumbLabel();
+  document.getElementById('pgfoot').innerHTML=CHROME[LANG].foot2;
+  const el=document.getElementById('content');
+  el.innerHTML=(PAGES[PAGE]&&PAGES[PAGE][LANG])||'<p>—</p>';
+  if(PAGE==='calculator') initCalculator();
+}
+document.getElementById('lang').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b)return;
+  LANG=b.dataset.l;
+  document.querySelectorAll('#lang button').forEach(x=>x.classList.toggle('active',x===b));
+  render();
+});
+document.getElementById('menuBtn').onclick=()=>document.getElementById('sidebar').classList.toggle('open');
+
+/* ============ calculator engine ============ */
+const CALC_T={
+  pt:{using:"Usando IA de terceiros / atendimento humano",meta:"Usando Meta Business Agents",
+      resherolbl:"Custo mensal estimado (novo modelo)",resherosub:"após 1º out 2026, incluindo cobrança por respostas",
+      annual:"Projeção anual",bd:"Onde o custo é gerado",repl:"Respostas de atendimento",
+      cmp_meta:"Se você migrasse para Meta Business Agents, as respostas ficariam isentas — economia estimada de ",
+      cmp_third:"Como você usa IA de terceiros/humano, as respostas passam a custar R$ 0,035 cada a partir de out/2026 — ",
+      permo:"/mês",peryr:"/ano",free:"grátis na janela",badmix:"A soma das categorias deve dar 100%.",okmix:"Distribuição = 100% ✓"},
+  es:{using:"Usando IA de terceros / atención humana",meta:"Usando Meta Business Agents",
+      resherolbl:"Costo mensual estimado (nuevo modelo)",resherosub:"tras el 1 oct 2026, incluyendo cobro por respuestas",
+      annual:"Proyección anual",bd:"Dónde se genera el costo",repl:"Respuestas de atención",
+      cmp_meta:"Si migraras a Meta Business Agents, las respuestas quedarían exentas — ahorro estimado de ",
+      cmp_third:"Como usas IA de terceros/humano, las respuestas costarán R$ 0,035 cada una desde oct/2026 — ",
+      permo:"/mes",peryr:"/año",free:"gratis en la ventana",badmix:"La suma de categorías debe dar 100%.",okmix:"Distribución = 100% ✓"},
+  en:{using:"Using third-party AI / human agents",meta:"Using Meta Business Agents",
+      resherolbl:"Estimated monthly cost (new model)",resherosub:"after Oct 1 2026, including per-reply charge",
+      annual:"Annual projection",bd:"Where cost is generated",repl:"Service replies",
+      cmp_meta:"If you moved to Meta Business Agents, replies would be exempt — estimated saving of ",
+      cmp_third:"Since you use third-party AI/human, replies will cost R$ 0.035 each from Oct/2026 — ",
+      permo:"/mo",peryr:"/yr",free:"free in window",badmix:"Category split must total 100%.",okmix:"Split = 100% ✓"}
+};
+function initCalculator(){
+  const $=id=>document.getElementById(id);
+  const ids=['cVol','mMkt','mUtil','mAuth','mServ','cRepl','rMkt','rUtil','rAuth','rRepl'];
+  const agentBtns=document.querySelectorAll('#agentSeg button');
+  let agent='third';
+  agentBtns.forEach(b=>b.onclick=()=>{agent=b.dataset.v;agentBtns.forEach(x=>x.classList.toggle('on',x===b));compute();});
+  function compute(){
+    const t=CALC_T[LANG];
+    const vol=+$('cVol').value||0;
+    const mk=+$('mMkt').value||0,ut=+$('mUtil').value||0,au=+$('mAuth').value||0,sv=+$('mServ').value||0;
+    const sum=mk+ut+au+sv;
+    const sumEl=$('mixSum');
+    if(Math.round(sum)!==100){sumEl.className='mix-sum bad';sumEl.textContent='Σ '+sum+'% — '+t.badmix;}
+    else{sumEl.className='mix-sum ok';sumEl.textContent=t.okmix;}
+    const rMkt=+$('rMkt').value||0,rUtil=+$('rUtil').value||0,rAuth=+$('rAuth').value||0,rRepl=+$('rRepl').value||0;
+    const nMkt=vol*mk/100,nUtil=vol*ut/100,nAuth=vol*au/100,nServ=vol*sv/100;
+    const cMkt=nMkt*rMkt,cUtil=nUtil*rUtil,cAuth=nAuth*rAuth,cServ=0;
+    const repl=+$('cRepl').value||0;
+    const cRepl=(agent==='meta')?0:repl*rRepl;
+    const total=cMkt+cUtil+cAuth+cServ+cRepl;
+    $('resHero').textContent=brl(total);
+    $('resAnnual').textContent=brl(total*12);
+    const rows=[['Marketing',cMkt,'var(--c-mkt)'],['Utility',cUtil,'var(--c-util)'],['Authentication',cAuth,'var(--c-auth)'],['Service',cServ,'var(--c-serv)'],[t.repl,cRepl,'#514F4D']];
+    const max=Math.max(...rows.map(r=>r[1]),1);
+    $('bd').innerHTML=rows.map(([n,v,c])=>{
+      const w=Math.max(v/max*100,v>0?4:0);
+      const tag=(n==='Service'&&v===0)?' <span class="muted">('+t.free+')</span>':'';
+      return '<div class="bar-row"><span class="name">'+n+'</span><div class="bar-track"><div class="bar-fill" style="width:'+w+'%;background:'+c+'"></div></div><span class="val">'+brl(v)+tag+'</span></div>';
+    }).join('');
+    const cmp=$('cmpBox');
+    if(agent==='meta'){cmp.innerHTML=t.cmp_meta+'<b>'+brl(repl*rRepl)+t.permo+'</b> ('+brl(repl*rRepl*12)+t.peryr+').';}
+    else{cmp.innerHTML=t.cmp_third+'<b>'+brl(cRepl)+t.permo+'</b> ('+brl(cRepl*12)+t.peryr+').';}
+  }
+  ids.forEach(id=>{const e=$(id);if(e)e.oninput=compute;});
+  compute();
+}
+
+/* boot */
+render();
+</script>
+</body>
+</html>

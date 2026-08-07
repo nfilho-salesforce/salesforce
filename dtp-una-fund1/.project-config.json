@@ -1,0 +1,62 @@
+{
+  "project_name": "DATAPREV-UNA-FUND1",
+  "project_type": "government",
+  "client": "Dataprev",
+  "vertical": "previdencia_social",
+  "created_date": "2026-07-10",
+  "status": "discovery",
+  "priority": "high",
+
+  "context": {
+    "source": "NotebookLM - Project UNA: Implementation Strategy and MVP Scope Planning",
+    "related_projects": [
+      "UNA-FUND2 (R$ 2.93M / 14 sem)",
+      "SGP/MGI (R$ 1.66M)",
+      "SEFIN-CE (R$ 588K)"
+    ],
+    "focus": [
+      "Implementation strategy analysis",
+      "MVP scope definition",
+      "Cost optimization",
+      "Risk assessment"
+    ]
+  },
+
+  "stakeholders": {
+    "solution_manager": "Nelson Stebulaitis Filho",
+    "organization": "Salesforce PS LATAM",
+    "vp_gm": "Paulo Iudicibus"
+  },
+
+  "technical_context": {
+    "compliance": ["LGPD", "Lei 14.133/2021", "ANPD"],
+    "integrations": ["CNIS", "SIAPE", "SIGEPE", "eSocial", "Dataprev-Connect"],
+    "infrastructure": ["on-premise", "OCI", "GovCloud"],
+    "currency": "BRL",
+    "tax_factor": 0.9345,
+    "language": "pt-BR"
+  },
+
+  "deliverables": {
+    "discovery": [
+      "Consolidated strategy analysis",
+      "MVP scope definition document",
+      "Architecture diagrams",
+      "Risk matrix"
+    ],
+    "outputs": [
+      "ROM (Rough Order of Magnitude)",
+      "Implementation roadmap",
+      "Resource allocation plan",
+      "Budget comparison vs UNA-FUND2"
+    ]
+  },
+
+  "next_steps": [
+    "Load NotebookLM documents",
+    "Analyze implementation strategy",
+    "Define MVP scope",
+    "Generate optimized ROM",
+    "Compare with UNA-FUND2 baseline"
+  ]
+}

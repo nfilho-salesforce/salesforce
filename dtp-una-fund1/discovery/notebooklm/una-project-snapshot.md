@@ -1,0 +1,1575 @@
+- generic [ref=f23e1]:
+  - generic [ref=f23e5]:
+    - button "Google Apps" [ref=f23e9] [cursor=pointer]:
+      - img [ref=f23e10]
+    - 'button "Conta do Google: Nelson Stebulaitis Filho (nfilho@salesforce.com)" [ref=f23e15] [cursor=pointer]':
+      - img [ref=f23e17]
+  - generic [ref=f23e20]:
+    - generic [ref=f23e24]:
+      - link "Página inicial do NotebookLM" [ref=f23e26] [cursor=pointer]:
+        - /url: /
+        - img "Logotipo do NotebookLM" [ref=f23e28]
+      - generic [ref=f23e29]:
+        - generic [ref=f23e30]: "Project UNA: Implementation Strategy and MVP Scope Planning"
+        - generic [ref=f23e130]:
+          - img [ref=f23e131]: group
+          - generic [ref=f23e132]: Compartilhado
+      - generic [ref=f23e31]:
+        - button "Criar notebook" [ref=f23e33]:
+          - img [ref=f23e34]: add
+          - generic [ref=f23e35]: Criar notebook
+        - generic [ref=f23e133]:
+          - button [ref=f23e136]:
+            - img [ref=f23e137]: trending_up
+          - generic "Compartilhar notebook" [ref=f23e142]:
+            - button "Compartilhar notebook" [ref=f23e144]:
+              - img [ref=f23e145]: share
+        - generic "Configurações" [ref=f23e40]:
+          - button "Configurações" [ref=f23e42]:
+            - img [ref=f23e43]: settings
+        - generic [ref=f23e150]: PRO
+    - generic [ref=f23e46]:
+      - generic [ref=f23e47]:
+        - generic [ref=f23e48]:
+          - navigation [ref=f23e49]:
+            - heading "Fontes" [level=2] [ref=f23e50]:
+              - generic [ref=f23e51]: Fontes
+          - button "Fechar painel de fontes" [ref=f23e53] [cursor=pointer]:
+            - img [ref=f23e54]: dock_to_right
+        - generic [ref=f23e59]:
+          - generic [ref=f23e151]:
+            - button "Adicionar fonte" [ref=f23e153]:
+              - img [ref=f23e154]: add
+              - generic [ref=f23e155]: Adicionar fontes
+            - generic [ref=f23e158]:
+              - generic [ref=f23e161]:
+                - textbox "Pesquise fontes com base na consulta inserida" [disabled] [ref=f23e164]:
+                  - /placeholder: Hello, this is a test message from setup.
+                - generic [ref=f23e165]:
+                  - generic [ref=f23e166]:
+                    - generic [ref=f23e168]:
+                      - button [disabled]:
+                        - generic:
+                          - generic:
+                            - generic:
+                              - img: language
+                            - img: keyboard_arrow_down
+                    - generic [ref=f23e170]:
+                      - button [disabled]:
+                        - generic:
+                          - generic:
+                            - generic:
+                              - img: search_spark
+                            - img: keyboard_arrow_down
+                  - generic [ref=f23e171]:
+                    - button "Enviar" [disabled]:
+                      - img: search
+              - generic [ref=f23e172]:
+                - generic [ref=f23e173]:
+                  - generic [ref=f23e174]:
+                    - img [ref=f23e175]: search_spark
+                    - generic [ref=f23e176]: Pesquisa rápida concluída.
+                  - button "Ver fontes" [ref=f23e178]:
+                    - generic [ref=f23e179]: Ver
+                - generic [ref=f23e182]:
+                  - generic [ref=f23e183]:
+                    - img [ref=f23e184]
+                    - generic [ref=f23e185]:
+                      - generic [ref=f23e186]: The History of 'Hello, World' - HackerRank Blog
+                      - generic [ref=f23e187]: Você conhecerá a origem histórica do programa 'Hello World' e Kernighan.
+                  - generic [ref=f23e188]:
+                    - img [ref=f23e189]
+                    - generic [ref=f23e190]:
+                      - generic [ref=f23e191]: Hello, world - Wikipedia
+                      - generic [ref=f23e192]: Você verá como o 'Hello World' serve como teste de sanidade.
+                  - generic [ref=f23e193]:
+                    - img [ref=f23e194]
+                    - generic [ref=f23e195]:
+                      - generic [ref=f23e196]: Smoke testing (software) - Wikipedia
+                      - generic [ref=f23e197]: Você entenderá o conceito de 'smoke testing' para falhas críticas iniciais.
+                  - generic [ref=f23e198]:
+                    - img [ref=f23e199]: link
+                    - generic [ref=f23e200]: Mais 7 fontes
+                  - generic [ref=f23e201]:
+                    - generic [ref=f23e204]:
+                      - button "Gostei" [ref=f23e205] [cursor=pointer]:
+                        - img [ref=f23e206]: thumb_up
+                      - button "Não gostei" [ref=f23e209] [cursor=pointer]:
+                        - img [ref=f23e210]: thumb_down
+                    - generic [ref=f23e213]:
+                      - button "Excluir" [ref=f23e214]:
+                        - generic [ref=f23e215]: Excluir
+                      - button "Importar" [ref=f23e218]:
+                        - img [ref=f23e219]: add
+                        - generic [ref=f23e220]: Importar
+            - generic [ref=f23e223]:
+              - button "Rotular suas fontes automaticamente por tema" [ref=f23e226] [cursor=pointer]:
+                - img [ref=f23e227]: label_auto
+              - generic [ref=f23e230]:
+                - generic [ref=f23e231]: Selecionar tudo
+                - generic [ref=f23e235] [cursor=pointer]:
+                  - checkbox "Selecionar todas as fontes" [checked] [ref=f23e236]
+                  - generic:
+                    - img
+          - generic [ref=f23e62]:
+            - generic [ref=f23e237] [cursor=pointer]:
+              - button "Apresentação - Escopo ligue 180 (2).pdf" [ref=f23e238]
+              - img [ref=f23e242]: drive_pdf
+              - generic:
+                - generic:
+                  - generic: Apresentação - Escopo ligue 180 (2).pdf
+              - button "Mais" [ref=f23e244]
+              - generic [ref=f23e250]:
+                - checkbox "Apresentação - Escopo ligue 180 (2).pdf" [checked] [ref=f23e251]
+                - generic:
+                  - img
+            - generic [ref=f23e252] [cursor=pointer]:
+              - button "Apresentação do Sistema Cube (1).docx" [ref=f23e253]
+              - img [ref=f23e257]: article
+              - generic:
+                - generic:
+                  - generic: Apresentação do Sistema Cube (1).docx
+              - button "Mais" [ref=f23e259]
+              - generic [ref=f23e265]:
+                - checkbox "Apresentação do Sistema Cube (1).docx" [checked] [ref=f23e266]
+                - generic:
+                  - img
+            - generic [ref=f23e267] [cursor=pointer]:
+              - button "Arquitetura de Alto Nivel - Gemini.png" [ref=f23e268]
+              - img [ref=f23e272]: image
+              - generic:
+                - generic:
+                  - generic: Arquitetura de Alto Nivel - Gemini.png
+              - button "Mais" [ref=f23e274]
+              - generic [ref=f23e280]:
+                - checkbox "Arquitetura de Alto Nivel - Gemini.png" [checked] [ref=f23e281]
+                - generic:
+                  - img
+            - generic [ref=f23e282] [cursor=pointer]:
+              - button "CSG ProServ Standard Language Library (for SOWs) (3).docx" [ref=f23e283]
+              - img [ref=f23e287]: article
+              - generic:
+                - generic:
+                  - generic: CSG ProServ Standard Language Library (for SOWs) (3).docx
+              - button "Mais" [ref=f23e289]
+              - button "Informações do erro" [ref=f23e294]: info
+            - generic [ref=f23e295] [cursor=pointer]:
+              - button "Copy of Estimativa UNA - Sheet1" [ref=f23e296]
+              - img [ref=f23e300]: drive_spreadsheet
+              - generic:
+                - generic:
+                  - generic: Copy of Estimativa UNA - Sheet1
+              - button "Mais" [ref=f23e302]
+              - generic [ref=f23e308]:
+                - checkbox "Copy of Estimativa UNA - Sheet1" [checked] [ref=f23e309]
+                - generic:
+                  - img
+            - generic [ref=f23e310] [cursor=pointer]:
+              - button "Copy of Ordem de Magnitude - Salesforce - Dataprev - UNA - v1" [ref=f23e311]
+              - img [ref=f23e315]: drive_presentation
+              - generic:
+                - generic:
+                  - generic: Copy of Ordem de Magnitude - Salesforce - Dataprev - UNA - v1
+              - button "Mais" [ref=f23e317]
+              - generic [ref=f23e323]:
+                - checkbox "Copy of Ordem de Magnitude - Salesforce - Dataprev - UNA - v1" [checked] [ref=f23e324]
+                - generic:
+                  - img
+            - generic [ref=f23e325] [cursor=pointer]:
+              - button "Copy of TA - UNA - Dataprev v1" [ref=f23e326]
+              - img [ref=f23e330]: drive_presentation
+              - generic:
+                - generic:
+                  - generic: Copy of TA - UNA - Dataprev v1
+              - button "Mais" [ref=f23e332]
+              - generic [ref=f23e338]:
+                - checkbox "Copy of TA - UNA - Dataprev v1" [checked] [ref=f23e339]
+                - generic:
+                  - img
+            - generic [ref=f23e340] [cursor=pointer]:
+              - button "Copy of UNA Basic - Sheet1" [ref=f23e341]
+              - img [ref=f23e345]: drive_spreadsheet
+              - generic:
+                - generic:
+                  - generic: Copy of UNA Basic - Sheet1
+              - button "Mais" [ref=f23e347]
+              - generic [ref=f23e353]:
+                - checkbox "Copy of UNA Basic - Sheet1" [checked] [ref=f23e354]
+                - generic:
+                  - img
+            - generic [ref=f23e355] [cursor=pointer]:
+              - button "Copy of [Dataprev] UNA - 2025/12/17 10:29 GMT-03:00 - Notes by Gemini" [ref=f23e356]
+              - img [ref=f23e360]: article
+              - generic:
+                - generic:
+                  - generic: Copy of [Dataprev] UNA - 2025/12/17 10:29 GMT-03:00 - Notes by Gemini
+              - button "Mais" [ref=f23e362]
+              - generic [ref=f23e368]:
+                - checkbox "Copy of [Dataprev] UNA - 2025/12/17 10:29 GMT-03:00 - Notes by Gemini" [checked] [ref=f23e369]
+                - generic:
+                  - img
+            - generic [ref=f23e370] [cursor=pointer]:
+              - button "DPN_-_Ligue_180_v3.docx" [ref=f23e371]
+              - img [ref=f23e375]: article
+              - generic:
+                - generic:
+                  - generic: DPN_-_Ligue_180_v3.docx
+              - button "Mais" [ref=f23e377]
+              - generic [ref=f23e383]:
+                - checkbox "DPN_-_Ligue_180_v3.docx" [checked] [ref=f23e384]
+                - generic:
+                  - img
+            - generic [ref=f23e385] [cursor=pointer]:
+              - button "Design System — Governo Digital" [ref=f23e386]
+              - img [ref=f23e390]
+              - generic:
+                - generic:
+                  - generic: Design System — Governo Digital
+              - button "Mais" [ref=f23e392]
+              - generic [ref=f23e398]:
+                - checkbox "Design System — Governo Digital" [checked] [ref=f23e399]
+                - generic:
+                  - img
+            - generic [ref=f23e400] [cursor=pointer]:
+              - button "Documento de Orientação Estratégica do Projeto-1 (1) (1).pdf" [ref=f23e401]
+              - img [ref=f23e405]: drive_pdf
+              - generic:
+                - generic:
+                  - generic: Documento de Orientação Estratégica do Projeto-1 (1) (1).pdf
+              - button "Mais" [ref=f23e407]
+              - generic [ref=f23e413]:
+                - checkbox "Documento de Orientação Estratégica do Projeto-1 (1) (1).pdf" [checked] [ref=f23e414]
+                - generic:
+                  - img
+            - generic [ref=f23e415] [cursor=pointer]:
+              - button "Escopo Ligue 180.pdf" [ref=f23e416]
+              - img [ref=f23e420]: drive_pdf
+              - generic:
+                - generic:
+                  - generic: Escopo Ligue 180.pdf
+              - button "Mais" [ref=f23e422]
+              - generic [ref=f23e428]:
+                - checkbox "Escopo Ligue 180.pdf" [checked] [ref=f23e429]
+                - generic:
+                  - img
+            - generic [ref=f23e430] [cursor=pointer]:
+              - button "ITENS TR SOBRE O SISTEMA (1) (1).docx" [ref=f23e431]
+              - img [ref=f23e435]: article
+              - generic:
+                - generic:
+                  - generic: ITENS TR SOBRE O SISTEMA (1) (1).docx
+              - button "Mais" [ref=f23e437]
+              - generic [ref=f23e443]:
+                - checkbox "ITENS TR SOBRE O SISTEMA (1) (1).docx" [checked] [ref=f23e444]
+                - generic:
+                  - img
+            - generic [ref=f23e445] [cursor=pointer]:
+              - button "ITENS TR SOBRE O SISTEMA (1).docx" [ref=f23e446]
+              - img [ref=f23e450]: article
+              - generic:
+                - generic:
+                  - generic: ITENS TR SOBRE O SISTEMA (1).docx
+              - button "Mais" [ref=f23e452]
+              - generic [ref=f23e458]:
+                - checkbox "ITENS TR SOBRE O SISTEMA (1).docx" [checked] [ref=f23e459]
+                - generic:
+                  - img
+            - generic [ref=f23e460] [cursor=pointer]:
+              - button "Implementation Services Master SOW (Global-Spanish LATAM).docx" [ref=f23e461]
+              - img [ref=f23e465]: article
+              - generic:
+                - generic:
+                  - generic: Implementation Services Master SOW (Global-Spanish LATAM).docx
+              - button "Mais" [ref=f23e467]
+              - button "Informações do erro" [ref=f23e472]: info
+            - generic [ref=f23e473] [cursor=pointer]:
+              - button "Implementation Services Master SOW- (Global - Portuguese).docx" [ref=f23e474]
+              - img [ref=f23e478]: article
+              - generic:
+                - generic:
+                  - generic: Implementation Services Master SOW- (Global - Portuguese).docx
+              - button "Mais" [ref=f23e480]
+              - button "Informações do erro" [ref=f23e485]: info
+            - generic [ref=f23e486] [cursor=pointer]:
+              - button "Integração WebService" [ref=f23e487]
+              - img [ref=f23e491]
+              - generic:
+                - generic:
+                  - generic: Integração WebService
+              - button "Mais" [ref=f23e493]
+              - generic [ref=f23e499]:
+                - checkbox "Integração WebService" [checked] [ref=f23e500]
+                - generic:
+                  - img
+            - generic [ref=f23e501] [cursor=pointer]:
+              - button "Lista de Requisitos da Solução Tecnológica 1 (1).pdf" [ref=f23e502]
+              - img [ref=f23e506]: drive_pdf
+              - generic:
+                - generic:
+                  - generic: Lista de Requisitos da Solução Tecnológica 1 (1).pdf
+              - button "Mais" [ref=f23e508]
+              - generic [ref=f23e514]:
+                - checkbox "Lista de Requisitos da Solução Tecnológica 1 (1).pdf" [checked] [ref=f23e515]
+                - generic:
+                  - img
+            - generic [ref=f23e516] [cursor=pointer]:
+              - button "Lista de Requisitos da Solução Tecnológica 1.pdf" [ref=f23e517]
+              - img [ref=f23e521]: drive_pdf
+              - generic:
+                - generic:
+                  - generic: Lista de Requisitos da Solução Tecnológica 1.pdf
+              - button "Mais" [ref=f23e523]
+              - generic [ref=f23e529]:
+                - checkbox "Lista de Requisitos da Solução Tecnológica 1.pdf" [checked] [ref=f23e530]
+                - generic:
+                  - img
+            - generic [ref=f23e531] [cursor=pointer]:
+              - button "Mapa mental - ligue180.png" [ref=f23e532]
+              - img [ref=f23e536]: image
+              - generic:
+                - generic:
+                  - generic: Mapa mental - ligue180.png
+              - button "Mais" [ref=f23e538]
+              - generic [ref=f23e544]:
+                - checkbox "Mapa mental - ligue180.png" [checked] [ref=f23e545]
+                - generic:
+                  - img
+            - generic [ref=f23e546] [cursor=pointer]:
+              - button "Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e547]
+              - img [ref=f23e551]: drive_pdf
+              - generic:
+                - generic:
+                  - generic: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf
+              - button "Mais" [ref=f23e553]
+              - generic [ref=f23e559]:
+                - checkbox "Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [checked] [ref=f23e560]
+                - generic:
+                  - img
+            - generic [ref=f23e561] [cursor=pointer]:
+              - button "REQUISITOS POC- TR71_23 (1).pdf" [ref=f23e562]
+              - img [ref=f23e566]: drive_pdf
+              - generic:
+                - generic:
+                  - generic: REQUISITOS POC- TR71_23 (1).pdf
+              - button "Mais" [ref=f23e568]
+              - generic [ref=f23e574]:
+                - checkbox "REQUISITOS POC- TR71_23 (1).pdf" [checked] [ref=f23e575]
+                - generic:
+                  - img
+            - generic [ref=f23e576] [cursor=pointer]:
+              - button "ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e577]
+              - img [ref=f23e581]: drive_presentation
+              - generic:
+                - generic:
+                  - generic: ROM - DATAPREV - 180 Mulheres - v1
+              - button "Mais" [ref=f23e583]
+              - generic [ref=f23e589]:
+                - checkbox "ROM - DATAPREV - 180 Mulheres - v1" [checked] [ref=f23e590]
+                - generic:
+                  - img
+            - generic [ref=f23e591] [cursor=pointer]:
+              - button "ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e592]
+              - img [ref=f23e596]: drive_presentation
+              - generic:
+                - generic:
+                  - generic: ROM - DATAPREV - UNA 2.0 - v3
+              - button "Mais" [ref=f23e598]
+              - generic [ref=f23e604]:
+                - checkbox "ROM - DATAPREV - UNA 2.0 - v3" [checked] [ref=f23e605]
+                - generic:
+                  - img
+            - generic [ref=f23e606] [cursor=pointer]:
+              - button "SFDC and EMPRESA DE TECNOLOGIA E INFORMACOES DA PREVIDENCIA S.A. - DATAPREV - SOW#05481543 - fully executed (February 8, 2026) (697360929a) (version 1) (2).pdf" [ref=f23e607]
+              - img [ref=f23e611]: drive_pdf
+              - generic:
+                - generic:
+                  - generic: SFDC and EMPRESA DE TECNOLOGIA E INFORMACOES DA PREVIDENCIA S.A. - DATAPREV - SOW#05481543 - fully executed (February 8, 2026) (697360929a) (version 1) (2).pdf
+              - button "Mais" [ref=f23e613]
+              - generic [ref=f23e619]:
+                - checkbox "SFDC and EMPRESA DE TECNOLOGIA E INFORMACOES DA PREVIDENCIA S.A. - DATAPREV - SOW#05481543 - fully executed (February 8, 2026) (697360929a) (version 1) (2).pdf" [checked] [ref=f23e620]
+                - generic:
+                  - img
+            - generic [ref=f23e621] [cursor=pointer]:
+              - button "SFDC and EMPRESA DE TECNOLOGIA E INFORMACOES DA PREVIDENCIA S.A. - DATAPREV - SOW#05481543 - fully executed (February 8, 2026) (697360929a) (version 1) (2).pdf" [ref=f23e622]
+              - img [ref=f23e626]: drive_pdf
+              - generic:
+                - generic:
+                  - generic: SFDC and EMPRESA DE TECNOLOGIA E INFORMACOES DA PREVIDENCIA S.A. - DATAPREV - SOW#05481543 - fully executed (February 8, 2026) (697360929a) (version 1) (2).pdf
+              - button "Mais" [ref=f23e628]
+              - generic [ref=f23e634]:
+                - checkbox "SFDC and EMPRESA DE TECNOLOGIA E INFORMACOES DA PREVIDENCIA S.A. - DATAPREV - SOW#05481543 - fully executed (February 8, 2026) (697360929a) (version 1) (2).pdf" [checked] [ref=f23e635]
+                - generic:
+                  - img
+            - generic [ref=f23e636] [cursor=pointer]:
+              - 'button "Strategic Analysis MuleSoft: Epics and Processes" [ref=f23e637]'
+              - img [ref=f23e641]: article
+              - generic:
+                - generic:
+                  - generic: "Strategic Analysis MuleSoft: Epics and Processes"
+              - button "Mais" [ref=f23e643]
+              - generic [ref=f23e649]:
+                - 'checkbox "Strategic Analysis MuleSoft: Epics and Processes" [checked] [ref=f23e650]'
+                - generic:
+                  - img
+            - generic [ref=f23e651] [cursor=pointer]:
+              - button "Strategic Analysis of Experience Cloud" [ref=f23e652]
+              - img [ref=f23e656]: article
+              - generic:
+                - generic:
+                  - generic: Strategic Analysis of Experience Cloud
+              - button "Mais" [ref=f23e658]
+              - generic [ref=f23e664]:
+                - checkbox "Strategic Analysis of Experience Cloud" [checked] [ref=f23e665]
+                - generic:
+                  - img
+            - generic [ref=f23e666] [cursor=pointer]:
+              - 'button "Strategic Catalog of Epics and Use Cases: Salesforce Service Cloud" [ref=f23e667]'
+              - img [ref=f23e671]: article
+              - generic:
+                - generic:
+                  - generic: "Strategic Catalog of Epics and Use Cases: Salesforce Service Cloud"
+              - button "Mais" [ref=f23e673]
+              - generic [ref=f23e679]:
+                - 'checkbox "Strategic Catalog of Epics and Use Cases: Salesforce Service Cloud" [checked] [ref=f23e680]'
+                - generic:
+                  - img
+            - generic [ref=f23e681] [cursor=pointer]:
+              - button "USD - UNIFIED SCOPING DOCUMENT - V2.0 - PT" [ref=f23e682]
+              - img [ref=f23e686]: article
+              - generic:
+                - generic:
+                  - generic: USD - UNIFIED SCOPING DOCUMENT - V2.0 - PT
+              - button "Mais" [ref=f23e688]
+              - generic [ref=f23e694]:
+                - checkbox "USD - UNIFIED SCOPING DOCUMENT - V2.0 - PT" [checked] [ref=f23e695]
+                - generic:
+                  - img
+            - generic [ref=f23e696] [cursor=pointer]:
+              - button "Untitled document (3) (1).pdf" [ref=f23e697]
+              - img [ref=f23e701]: drive_pdf
+              - generic:
+                - generic:
+                  - generic: Untitled document (3) (1).pdf
+              - button "Mais" [ref=f23e703]
+              - generic [ref=f23e709]:
+                - checkbox "Untitled document (3) (1).pdf" [checked] [ref=f23e710]
+                - generic:
+                  - img
+            - generic [ref=f23e711] [cursor=pointer]:
+              - button "anotacoes.pdf" [ref=f23e712]
+              - img [ref=f23e716]: drive_pdf
+              - generic:
+                - generic:
+                  - generic: anotacoes.pdf
+              - button "Mais" [ref=f23e718]
+              - generic [ref=f23e724]:
+                - checkbox "anotacoes.pdf" [checked] [ref=f23e725]
+                - generic:
+                  - img
+            - generic [ref=f23e726] [cursor=pointer]:
+              - button "plataforma-automacao.pdf" [ref=f23e727]
+              - img [ref=f23e731]: drive_pdf
+              - generic:
+                - generic:
+                  - generic: plataforma-automacao.pdf
+              - button "Mais" [ref=f23e733]
+              - generic [ref=f23e739]:
+                - checkbox "plataforma-automacao.pdf" [checked] [ref=f23e740]
+                - generic:
+                  - img
+            - generic [ref=f23e741] [cursor=pointer]:
+              - button "transcricao - reuniao chico Solução Ligue 180 (1).pdf" [ref=f23e742]
+              - img [ref=f23e746]: drive_pdf
+              - generic:
+                - generic:
+                  - generic: transcricao - reuniao chico Solução Ligue 180 (1).pdf
+              - button "Mais" [ref=f23e748]
+              - generic [ref=f23e754]:
+                - checkbox "transcricao - reuniao chico Solução Ligue 180 (1).pdf" [checked] [ref=f23e755]
+                - generic:
+                  - img
+            - generic [ref=f23e756] [cursor=pointer]:
+              - button "transcricao - reuniao chico Solução Ligue 180.pdf" [ref=f23e757]
+              - img [ref=f23e761]: drive_pdf
+              - generic:
+                - generic:
+                  - generic: transcricao - reuniao chico Solução Ligue 180.pdf
+              - button "Mais" [ref=f23e763]
+              - generic [ref=f23e769]:
+                - checkbox "transcricao - reuniao chico Solução Ligue 180.pdf" [checked] [ref=f23e770]
+                - generic:
+                  - img
+      - generic [ref=f23e68]:
+        - generic [ref=f23e69]:
+          - heading "Conversa" [level=2] [ref=f23e71]
+          - generic [ref=f23e72]:
+            - button "Configurar notebook" [ref=f23e771] [cursor=pointer]:
+              - img [ref=f23e772]: tune
+            - button "Opções de conversa" [ref=f23e73] [cursor=pointer]:
+              - img [ref=f23e74]: more_vert
+        - generic [ref=f23e77]:
+          - generic [ref=f23e78]:
+            - generic [ref=f23e97]:
+              - img [ref=f23e98]: landscape_2
+              - generic [ref=f23e99] [cursor=pointer]: 🤝
+              - button "Personalizar notebook" [ref=f23e775]:
+                - img [ref=f23e776]: photo_spark
+                - generic [ref=f23e777]: Personalizar
+              - generic [ref=f23e100]:
+                - 'heading "Project UNA: Implementation Strategy and MVP Scope Planning" [level=2] [ref=f23e780]'
+                - generic [ref=f23e102]:
+                  - generic [ref=f23e103]: 36 fontes
+                  - generic [ref=f23e104]: ·
+                  - generic "Mon Dec 22 2025 10:55:35 GMT-0300 (Horário Padrão de Brasília)" [ref=f23e781]: 22 de dez. de 2025
+            - generic [ref=f23e782]:
+              - paragraph [ref=f23e785]:
+                - text: Estes documentos detalham a
+                - strong [ref=f23e786]: modernização dos serviços digitais do governo brasileiro
+                - text: ", com foco na implementação da plataforma"
+                - strong [ref=f23e787]: Salesforce
+                - text: pela
+                - strong [ref=f23e788]: Dataprev
+                - text: . O projeto visa unificar a experiência do cidadão através de um
+                - strong [ref=f23e789]: Design System
+                - text: padronizado, utilizando ferramentas como
+                - strong [ref=f23e790]: MuleSoft
+                - text: para integração de dados e
+                - strong [ref=f23e791]: IA (Agentforce)
+                - text: para automação de atendimentos. As fontes descrevem
+                - strong [ref=f23e792]: requisitos técnicos
+                - text: ", perfis de usuários e fluxos operacionais necessários para gerenciar denúncias e solicitações de forma eficiente. Além disso, os manuais especificam protocolos de"
+                - strong [ref=f23e793]: integração via WebService
+                - text: e as responsabilidades contratuais envolvidas na execução desta fundação tecnológica. O objetivo central é criar um
+                - strong [ref=f23e794]: modelo replicável
+                - text: que garanta acessibilidade, consistência visual e agilidade no suporte oferecido por diversos órgãos públicos.
+              - generic [ref=f23e795]:
+                - button [ref=f23e796]:
+                  - img [ref=f23e797]: keep
+                - button "Copiar resumo" [ref=f23e800] [cursor=pointer]:
+                  - img [ref=f23e801]: copy_all
+                - button "Gostei do resumo" [ref=f23e804] [cursor=pointer]:
+                  - img [ref=f23e805]: thumb_up
+                - button "Não gostei do resumo" [ref=f23e808] [cursor=pointer]:
+                  - img [ref=f23e809]: thumb_down
+            - generic [ref=f23e812]: terça-feira, 3 de março d
+            - generic [ref=f23e813]:
+              - 'heading "Tem apenas 1 feature que é cross com a Comunix que é registro de tempos, estado e pausas. A vantagem é que se o atendente usa a service console para os demais canais, nao faz sentido ficar alternando de plataforma, fazer tudo em uma única: tempo de atendimento, tempo de treinamento e capacitação dos agentes e satisfacao de quem esta no outro lado da linha" [level=3] [ref=f23e819]':
+                - paragraph [ref=f23e820]: "Tem apenas 1 feature que é cross com a Comunix que é registro de tempos, estado e pausas. A vantagem é que se o atendente usa a service console para os demais canais, nao faz sentido ficar alternando de plataforma, fazer tudo em uma única: tempo de atendimento, tempo de treinamento e capacitação dos agentes e satisfacao de quem esta no outro lado da linha"
+              - generic [ref=f23e823]:
+                - generic [ref=f23e827]:
+                  - generic [ref=f23e830]: Exatamente! Esse é, sem dúvida, o maior argumento de valor e eficiência para justificar a integração CTI com o Comunix dentro do projeto. Você tocou no ponto central da dor operacional atual.
+                  - generic [ref=f23e833]:
+                    - text: "Hoje, a atendente precisa dividir sua atenção: a telefonia e as pausas (como as pausas obrigatórias, apoio psicológico e capacitação) ficam no Comunix"
+                    - 'button "1: Apresentação do Sistema Cube (1).docx" [ref=f23e835] [cursor=pointer]':
+                      - 'generic "1: Apresentação do Sistema Cube (1).docx" [ref=f23e836]': "1"
+                    - 'button "2: Apresentação do Sistema Cube (1).docx" [ref=f23e838] [cursor=pointer]':
+                      - 'generic "2: Apresentação do Sistema Cube (1).docx" [ref=f23e839]': "2"
+                    - text: ", enquanto o registro do atendimento e o chat ficam no sistema de tela"
+                    - 'button "3: Apresentação do Sistema Cube (1).docx" [ref=f23e841] [cursor=pointer]':
+                      - 'generic "3: Apresentação do Sistema Cube (1).docx" [ref=f23e842]': "3"
+                    - text: .
+                  - generic [ref=f23e845]: "Ao centralizar essa única \"feature cross\" (gestão de tempo, estado e pausas) no Salesforce, a operação ganha escala. Preparei um resumo com esse seu argumento formatado para você usar em uma apresentação ou defesa de arquitetura:"
+                  - generic [ref=f23e848]: "--------------------------------------------------------------------------------"
+                  - 'heading "O Fim do \"Alt-Tab\": O Valor da Console Unificada (CTI + Omni-Channel)" [level=3] [ref=f23e851]'
+                  - generic [ref=f23e854]: 🎯 O Problema Atual A atendente precisa alternar entre a plataforma de telefonia (Comunix) para gerenciar seu status/pausas e o sistema de registro para atuar nas denúncias e canais digitais, gerando dispersão e dificultando a medição exata do tempo trabalhado.
+                  - generic [ref=f23e857]: "💡 A Solução: Tudo em uma Única Tela (Service Console) Embora a infraestrutura de voz continue no Comunix, a experiência da atendente passa a ser 100% no Salesforce. O Omni-Channel sincroniza os status bidirecionalmente com a URA, unificando a jornada."
+                  - generic [ref=f23e860]: "🚀 Vantagens Estratégicas e Operacionais:"
+                  - list [ref=f23e861]:
+                    - listitem [ref=f23e864]:
+                      - text: "Gestão de Tempos e Faturamento: O cronômetro de Tempo de Atendimento (TMA) roda na mesma tela onde o caso é registrado. Isso garante precisão absoluta para o cálculo da USA (Unidade de Serviço de Atendimento) que a Dataprev fatura"
+                      - 'button "4: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e866] [cursor=pointer]':
+                        - 'generic "4: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e867]': "4"
+                      - text: .
+                    - listitem [ref=f23e870]:
+                      - text: "Controle Centralizado de Pausas Humanizadas: As pausas cruciais para o Ligue 180, como o ISAP (Apoio Psicossocial) e o IMC (Capacitação e Treinamento dos agentes), passam a ser acionadas no próprio status do Omni-Channel"
+                      - 'button "4: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e872] [cursor=pointer]':
+                        - 'generic "4: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e873]': "4"
+                      - text: .
+                    - listitem [ref=f23e876]: "Pesquisa de Satisfação Integrada: Ao encerrar o atendimento, a métrica de satisfação de quem está do outro lado da linha é associada diretamente ao registro (Case) e ao atendente na mesma plataforma, permitindo uma visão 360º da qualidade do serviço."
+                    - listitem [ref=f23e879]: "Eficiência Cognitiva: O sistema entende o estado global do agente. Se ele está em uma ligação crítica de voz do Comunix, o Salesforce bloqueia automaticamente a entrada de novos chats ou WhatsApps, garantindo foco total no acolhimento da cidadã."
+                  - generic [ref=f23e882]: "--------------------------------------------------------------------------------"
+                  - generic [ref=f23e885]: Seu raciocínio é perfeito para defender por que o Salesforce não será apenas uma "casca", mas o orquestrador do tempo e da força de trabalho da central.
+                - generic [ref=f23e886]:
+                  - button "Salvar mensagem em uma nota" [ref=f23e887]:
+                    - img [ref=f23e888]: keep_pin
+                    - generic [ref=f23e889]: Salvar nas observações
+                  - generic [ref=f23e892]:
+                    - button "Copiar resposta de modelo para a área de transferência" [ref=f23e896] [cursor=pointer]:
+                      - img [ref=f23e897]: copy_all
+                    - button "Avaliar a resposta como boa" [ref=f23e903] [cursor=pointer]:
+                      - img [ref=f23e904]: thumb_up
+                    - button "Avaliar a resposta como ruim" [ref=f23e910] [cursor=pointer]:
+                      - img [ref=f23e911]: thumb_down
+            - generic [ref=f23e914]: sexta-feira, 22 de maio d
+            - generic [ref=f23e915]:
+              - heading [level=3] [ref=f23e921]:
+                - paragraph [ref=f23e922]: Preciso montar um projeto de extensão do fundacional Una para o cliente cau que vai estender o fundacional Una usando os mesmos canais digitais WhatsApp e chat no portal criar uma extensão do tempête Una para o cliente atender cidadão através do portal precisamos terá o mesmo conceito de atendimento N1 com transbordo dos canais digitais no Service console os chamados serão gravados na UNa e os atendimentos N2 e N3 na Una. o cliente tem apenas uma fila de atendimento teremos que fazer uma regra de roteamento o cliente ao invés de usar um agente integrado aos canais utilizará Einstein Bott e não a gente a estrutura de atendimento é simples e tem por objetivo direcionar a classificação do chamado e qual a fila ser acionada precisamos entender se conseguimos reaproveitar os componentes de criação no chamado na Una com o Einstein Bott integrações apesar de fazerem parte do projeto do cliente não consideraremos agora pois não temos detalhes das integrações
+              - generic [ref=f23e925]:
+                - generic [ref=f23e929]:
+                  - generic [ref=f23e932]:
+                    - text: Para estruturar o projeto de extensão da plataforma fundacional UNA para o cliente CAU, mantendo o conceito de atendimento N1 no Salesforce (com transbordo) e N2/N3 no sistema legado UNA
+                    - 'button "1: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e934] [cursor=pointer]':
+                      - 'generic "1: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e935]': "1"
+                    - 'button "2: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e937] [cursor=pointer]':
+                      - 'generic "2: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e938]': "2"
+                    - text: ", estruturei o escopo técnico e de negócios."
+                  - generic [ref=f23e941]: "Respondendo diretamente à sua dúvida mais crítica sobre a arquitetura do Bot:"
+                  - generic [ref=f23e944]: É possível reaproveitar os componentes (LWCs) da UNA no Einstein Bot? Não na camada visual (Front-end), mas sim na camada lógica (Back-end).
+                  - list [ref=f23e945]:
+                    - listitem [ref=f23e948]:
+                      - text: "A limitação visual: Os componentes LWC construídos para a UNA (telas de \"Novo Pedido\", \"Lista\", \"Detalhe\") foram desenhados para renderizar formulários visuais e dinâmicos em páginas web (Portal e Console)"
+                      - 'button "3: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e950] [cursor=pointer]':
+                        - 'generic "3: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e951]': "3"
+                      - 'button "4: anotacoes.pdf" [ref=f23e953] [cursor=pointer]':
+                        - 'generic "4: anotacoes.pdf" [ref=f23e954]': "4"
+                      - text: . O Einstein Bot, por operar em canais conversacionais como o WhatsApp, possui limitações de interface estritas (só aceita texto, botões e menus nativos). Você não pode "embutir" uma tela LWC complexa dentro de uma conversa de WhatsApp.
+                    - listitem [ref=f23e957]: "O reaproveitamento lógico: O que pode e deve ser reaproveitado são as classes Apex e a estrutura de integração que estão \"por trás\" desse LWC. O Einstein Bot usará diálogos textuais para perguntar os dados ao cidadão (ex: \"Qual o seu CPF?\", \"Qual o motivo do contato?\") e, em seguida, passará essas variáveis para uma Ação Invocável (Flow ou Apex) que reutiliza o mesmo motor de integração do LWC para registrar a manifestação diretamente na UNA."
+                  - generic [ref=f23e960]: "--------------------------------------------------------------------------------"
+                  - heading "Proposta de Escopo do Projeto (Extensão CAU)" [level=3] [ref=f23e963]
+                  - generic [ref=f23e966]: "Considerando que o foco atual exclui o esforço das integrações (MuleSoft/APIs) por falta de detalhes, o escopo de configuração e implementação Salesforce abrangerá as seguintes frentes:"
+                  - generic [ref=f23e969]: 1. Experience Cloud (Portal do Cidadão CAU)
+                  - list [ref=f23e970]:
+                    - listitem [ref=f23e973]:
+                      - text: "Extensão do Template UNA: Reutilização do template \"fábrica de sites\" fundacional (padrão Gov.br) para criar o portal específico do CAU"
+                      - 'button "4: anotacoes.pdf" [ref=f23e975] [cursor=pointer]':
+                        - 'generic "4: anotacoes.pdf" [ref=f23e976]': "4"
+                      - 'button "5: anotacoes.pdf" [ref=f23e978] [cursor=pointer]':
+                        - 'generic "5: anotacoes.pdf" [ref=f23e979]': "5"
+                      - text: .
+                    - listitem [ref=f23e982]:
+                      - text: "Disponibilização de Canais: Inserção do componente de Web Chat (MIAW) no portal para permitir que o cidadão inicie o atendimento digital"
+                      - 'button "6: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e984] [cursor=pointer]':
+                        - 'generic "6: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e985]': "6"
+                      - text: .
+                  - generic [ref=f23e988]: 2. Einstein Bot (Triagem e Classificação)
+                  - list [ref=f23e989]:
+                    - listitem [ref=f23e992]:
+                      - text: "Desenho do Fluxo Conversacional: Configuração do Einstein Bot (em substituição aos Agentes de IA/Agentforce) para atuar na linha de frente dos canais WhatsApp e Web Chat"
+                      - 'button "7: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e994] [cursor=pointer]':
+                        - 'generic "7: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e995]': "7"
+                      - 'button "8: Strategic Catalog of Epics and Use Cases: Salesforce Service Cloud" [ref=f23e997] [cursor=pointer]':
+                        - 'generic "8: Strategic Catalog of Epics and Use Cases: Salesforce Service Cloud" [ref=f23e998]': "8"
+                      - text: .
+                    - listitem [ref=f23e1001]: "Árvore de Decisão e Triagem: Criação de menus e diálogos para identificar o cidadão, classificar o tipo de demanda (assunto/motivo) e coletar dados básicos."
+                    - listitem [ref=f23e1004]: "Transbordo (Transfer to Agent): Configuração da ação do bot para, ao final da triagem, transferir a sessão com todo o contexto capturado para o atendimento humano."
+                  - generic [ref=f23e1007]: 3. Digital Engagement e Omni-Channel (Roteamento)
+                  - list [ref=f23e1008]:
+                    - listitem [ref=f23e1011]:
+                      - text: "Setup de Canais: Habilitação e configuração do canal WhatsApp e do Web Chat (MIAW)"
+                      - 'button "6: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1013] [cursor=pointer]':
+                        - 'generic "6: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1014]': "6"
+                      - text: .
+                    - listitem [ref=f23e1017]:
+                      - text: "Regra de Roteamento Simples: Como o cliente possui apenas uma fila de atendimento N1, a configuração do Omni-Channel será simplificada (Roteamento baseado em Fila). O bot fará a classificação e, independentemente do tipo de chamado, direcionará o transbordo para essa fila única, alertando os agentes disponíveis"
+                      - 'button "9: USD - UNIFIED SCOPING DOCUMENT - V2.0 - PT" [ref=f23e1019] [cursor=pointer]':
+                        - 'generic "9: USD - UNIFIED SCOPING DOCUMENT - V2.0 - PT" [ref=f23e1020]': "9"
+                      - 'button "10: anotacoes.pdf" [ref=f23e1022] [cursor=pointer]':
+                        - 'generic "10: anotacoes.pdf" [ref=f23e1023]': "10"
+                      - text: .
+                  - generic [ref=f23e1026]: 4. Service Cloud (Atendimento N1)
+                  - list [ref=f23e1027]:
+                    - listitem [ref=f23e1030]:
+                      - text: "Service Console Unificado: O atendente N1 utilizará o Service Console para receber os chats do portal e WhatsApp, visualizando a transcrição da conversa prévia com o Einstein Bot"
+                      - 'button "11: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e1032] [cursor=pointer]':
+                        - 'generic "11: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e1033]': "11"
+                      - 'button "12: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e1035] [cursor=pointer]':
+                        - 'generic "12: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e1036]': "12"
+                      - text: .
+                    - listitem [ref=f23e1039]:
+                      - text: "Abertura de Chamados (Casca): O atendente fará o acolhimento e utilizará o LWC no console (ou os dados do chat) para confirmar a abertura do chamado. O chamado será registrado e tramitado pelo N2 e N3 no sistema legado UNA, mantendo o princípio de \"Zero Persistência\" de dados transacionais no Salesforce"
+                      - 'button "1: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e1041] [cursor=pointer]':
+                        - 'generic "1: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e1042]': "1"
+                      - 'button "12: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e1044] [cursor=pointer]':
+                        - 'generic "12: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e1045]': "12"
+                      - text: .
+                  - generic [ref=f23e1048]: Você gostaria que eu montasse uma estimativa de esforço (horas/ROM) focada exclusivamente nessas configurações de Front-end, Omni-Channel e Einstein Bot para o CAU?
+                - generic [ref=f23e1049]:
+                  - button "Salvar mensagem em uma nota" [ref=f23e1050]:
+                    - img [ref=f23e1051]: keep_pin
+                    - generic [ref=f23e1052]: Salvar nas observações
+                  - generic [ref=f23e1055]:
+                    - button "Copiar resposta de modelo para a área de transferência" [ref=f23e1059] [cursor=pointer]:
+                      - img [ref=f23e1060]: copy_all
+                    - button "Avaliar a resposta como boa" [ref=f23e1066] [cursor=pointer]:
+                      - img [ref=f23e1067]: thumb_up
+                    - button "Avaliar a resposta como ruim" [ref=f23e1073] [cursor=pointer]:
+                      - img [ref=f23e1074]: thumb_down
+            - generic [ref=f23e1077]:
+              - heading "Sim" [level=3] [ref=f23e1083]:
+                - paragraph [ref=f23e1084]: Sim
+              - generic [ref=f23e1087]:
+                - generic [ref=f23e1091]:
+                  - generic [ref=f23e1094]:
+                    - text: Com base no escopo simplificado e na estratégia de "fábrica de sites" da fundação UNA
+                    - 'button "1: Copy of [Dataprev] UNA - 2025/12/17 10:29 GMT-03:00 - Notes by Gemini" [ref=f23e1096] [cursor=pointer]':
+                      - 'generic "1: Copy of [Dataprev] UNA - 2025/12/17 10:29 GMT-03:00 - Notes by Gemini" [ref=f23e1097]': "1"
+                    - text: ", elaborei a Estimativa de Ordem de Grandeza (ROM) para a extensão do cliente CAU."
+                  - generic [ref=f23e1100]: Como as integrações complexas (MuleSoft) foram retiradas desta fase e o roteamento será simples (fila única), o esforço cai drasticamente em comparação ao projeto core, focando apenas em replicação de template, configuração de canais e construção da árvore de decisão do Einstein Bot.
+                  - generic [ref=f23e1103]: "Abaixo apresento a estrutura de horas e o plano de entrega:"
+                  - heading "1. Estimativa de Tempo e Esforço (ROM)" [level=3] [ref=f23e1106]
+                  - generic [ref=f23e1109]: A duração estimada para esta extensão é de 4 a 6 semanas, totalizando aproximadamente ~300 horas.
+                  - table [ref=f23e1112]:
+                    - row "Frente de Trabalho / Funcionalidade Perfil Salesforce Recomendado Esforço Estimado" [ref=f23e1113]:
+                      - columnheader "Frente de Trabalho / Funcionalidade" [ref=f23e1114]:
+                        - generic [ref=f23e1117]: Frente de Trabalho / Funcionalidade
+                      - columnheader "Perfil Salesforce Recomendado" [ref=f23e1118]:
+                        - generic [ref=f23e1121]: Perfil Salesforce Recomendado
+                      - columnheader "Esforço Estimado" [ref=f23e1122]:
+                        - generic [ref=f23e1125]: Esforço Estimado
+                    - row "Planejamento, Desenho e Gestão<br>(Alinhamento de fluxos do Bot, adaptação UX para o CAU) Project Manager, Solution Architect ~50 hrs" [ref=f23e1126]:
+                      - cell "Planejamento, Desenho e Gestão<br>(Alinhamento de fluxos do Bot, adaptação UX para o CAU)" [ref=f23e1127]:
+                        - generic [ref=f23e1130]: Planejamento, Desenho e Gestão<br>(Alinhamento de fluxos do Bot, adaptação UX para o CAU)
+                      - cell "Project Manager, Solution Architect" [ref=f23e1131]:
+                        - generic [ref=f23e1134]: Project Manager, Solution Architect
+                      - cell "~50 hrs" [ref=f23e1135]:
+                        - generic [ref=f23e1138]: ~50 hrs
+                    - row "Experience Cloud (Portal CAU)<br>(Replicação do template Gov.br fundacional, aplicação de identidade CAU e Snippet do Chat) Technical Consultant, UX Designer ~40 hrs" [ref=f23e1139]:
+                      - cell "Experience Cloud (Portal CAU)<br>(Replicação do template Gov.br fundacional, aplicação de identidade CAU e Snippet do Chat)" [ref=f23e1140]:
+                        - generic [ref=f23e1143]: Experience Cloud (Portal CAU)<br>(Replicação do template Gov.br fundacional, aplicação de identidade CAU e Snippet do Chat)
+                      - cell "Technical Consultant, UX Designer" [ref=f23e1144]:
+                        - generic [ref=f23e1147]: Technical Consultant, UX Designer
+                      - cell "~40 hrs" [ref=f23e1148]:
+                        - generic [ref=f23e1151]: ~40 hrs
+                    - row "Einstein Bot (Triagem e Coleta)<br>(Criação de menus, diálogos, coleta de dados padrão e regra de \"Transfer to Agent\") Technical Consultant ~80 hrs" [ref=f23e1152]:
+                      - cell "Einstein Bot (Triagem e Coleta)<br>(Criação de menus, diálogos, coleta de dados padrão e regra de \"Transfer to Agent\")" [ref=f23e1153]:
+                        - generic [ref=f23e1156]: Einstein Bot (Triagem e Coleta)<br>(Criação de menus, diálogos, coleta de dados padrão e regra de "Transfer to Agent")
+                      - cell "Technical Consultant" [ref=f23e1157]:
+                        - generic [ref=f23e1160]: Technical Consultant
+                      - cell "~80 hrs" [ref=f23e1161]:
+                        - generic [ref=f23e1164]: ~80 hrs
+                    - row "Omni-Channel & Canais Digitais<br>(Setup WhatsApp, Web Chat e roteamento para Fila Única) Technical Consultant ~40 hrs" [ref=f23e1165]:
+                      - cell "Omni-Channel & Canais Digitais<br>(Setup WhatsApp, Web Chat e roteamento para Fila Única)" [ref=f23e1166]:
+                        - generic [ref=f23e1169]: Omni-Channel & Canais Digitais<br>(Setup WhatsApp, Web Chat e roteamento para Fila Única)
+                      - cell "Technical Consultant" [ref=f23e1170]:
+                        - generic [ref=f23e1173]: Technical Consultant
+                      - cell "~40 hrs" [ref=f23e1174]:
+                        - generic [ref=f23e1177]: ~40 hrs
+                    - row "Service Cloud & Reuso Lógica UNA<br>(Ajustes no Service Console N1 e parametrização de Flows/Apex para reaproveitar a lógica do LWC para a integração já existente) Technical Architect, Developer ~50 hrs" [ref=f23e1178]:
+                      - cell "Service Cloud & Reuso Lógica UNA<br>(Ajustes no Service Console N1 e parametrização de Flows/Apex para reaproveitar a lógica do LWC para a integração já existente)" [ref=f23e1179]:
+                        - generic [ref=f23e1182]: Service Cloud & Reuso Lógica UNA<br>(Ajustes no Service Console N1 e parametrização de Flows/Apex para reaproveitar a lógica do LWC para a integração já existente)
+                      - cell "Technical Architect, Developer" [ref=f23e1183]:
+                        - generic [ref=f23e1186]: Technical Architect, Developer
+                      - cell "~50 hrs" [ref=f23e1187]:
+                        - generic [ref=f23e1190]: ~50 hrs
+                    - row "Testes (QA), Homologação e Handover QA Consultant, Project Manager ~40 hrs" [ref=f23e1191]:
+                      - cell "Testes (QA), Homologação e Handover" [ref=f23e1192]:
+                        - generic [ref=f23e1195]: Testes (QA), Homologação e Handover
+                      - cell "QA Consultant, Project Manager" [ref=f23e1196]:
+                        - generic [ref=f23e1199]: QA Consultant, Project Manager
+                      - cell "~40 hrs" [ref=f23e1200]:
+                        - generic [ref=f23e1203]: ~40 hrs
+                    - row "Total Estimado Equipe Multidisciplinar ~300 horas" [ref=f23e1204]:
+                      - cell "Total Estimado" [ref=f23e1205]:
+                        - generic [ref=f23e1208]: Total Estimado
+                      - cell "Equipe Multidisciplinar" [ref=f23e1209]:
+                        - generic [ref=f23e1212]: Equipe Multidisciplinar
+                      - cell "~300 horas" [ref=f23e1213]:
+                        - generic [ref=f23e1216]: ~300 horas
+                  - generic [ref=f23e1219]: "(Nota: Como toda estimativa ROM, há uma margem de variação de +/- 20% que é refinada após a definição exata das perguntas da árvore do Bot)."
+                  - generic [ref=f23e1222]: "--------------------------------------------------------------------------------"
+                  - heading "2. Premissas e Exclusões Críticas do Escopo CAU" [level=3] [ref=f23e1225]
+                  - generic [ref=f23e1228]: "Para garantir que esse projeto seja entregue rapidamente e sem desvios, as seguintes premissas devem constar na Ordem de Serviço (OS) de extensão:"
+                  - list [ref=f23e1229]:
+                    - listitem [ref=f23e1232]:
+                      - text: "IA Baseada em Regras (Einstein Bot): O escopo contempla o Einstein Bot tradicional (navegação baseada em menus, botões e reconhecimento de intenções básicas de texto) e não o Agentforce (IA Generativa Autônoma)"
+                      - 'button "2: Copy of [Dataprev] UNA - 2025/12/17 10:29 GMT-03:00 - Notes by Gemini" [ref=f23e1234] [cursor=pointer]':
+                        - 'generic "2: Copy of [Dataprev] UNA - 2025/12/17 10:29 GMT-03:00 - Notes by Gemini" [ref=f23e1235]': "2"
+                      - text: . Não haverá consumo de Base de Conhecimento (KB) via IA pela perspectiva do cidadão.
+                    - listitem [ref=f23e1238]: "Reuso de Integração \"As-Is\": A lógica de back-end (Apex) que envia a criação do caso para a UNA será reaproveitada do projeto fundacional. Exclui-se o desenvolvimento de qualquer nova API no MuleSoft ou novos mapeamentos de campos complexos no sistema legado."
+                    - listitem [ref=f23e1241]: "Fila Única: O roteamento no Omni-Channel será do tipo \"Fila Simples\" (Queue-Based Routing). O Bot não precisará fazer cálculos complexos de habilidade para decidir para quem enviar o atendimento."
+                    - listitem [ref=f23e1244]: "WhatsApp WABA: O CAU ou a Dataprev já devem possuir o número do WhatsApp aprovado pela Meta e o Meta Business Manager configurado no \"Dia 1\" do projeto."
+                  - generic [ref=f23e1247]: Esta estimativa cobre exatamente a "casca" de atendimento multicanal que vocês precisam ativar para este novo cliente operar o N1.
+                  - generic [ref=f23e1250]: Gostaria que eu formatasse esse escopo e estimativa em um slide para você apresentar junto com as premissas?
+                - generic [ref=f23e1251]:
+                  - button "Salvar mensagem em uma nota" [ref=f23e1252]:
+                    - img [ref=f23e1253]: keep_pin
+                    - generic [ref=f23e1254]: Salvar nas observações
+                  - generic [ref=f23e1257]:
+                    - button "Copiar resposta de modelo para a área de transferência" [ref=f23e1261] [cursor=pointer]:
+                      - img [ref=f23e1262]: copy_all
+                    - button "Avaliar a resposta como boa" [ref=f23e1268] [cursor=pointer]:
+                      - img [ref=f23e1269]: thumb_up
+                    - button "Avaliar a resposta como ruim" [ref=f23e1275] [cursor=pointer]:
+                      - img [ref=f23e1276]: thumb_down
+            - generic [ref=f23e1279]:
+              - heading "Quero que sumarize essas informações para compartilhar num grupo de Slack com os arquitetos do projeto e validar o esforço pra implementação" [level=3] [ref=f23e1285]:
+                - paragraph [ref=f23e1286]: Quero que sumarize essas informações para compartilhar num grupo de Slack com os arquitetos do projeto e validar o esforço pra implementação
+              - generic [ref=f23e1289]:
+                - generic [ref=f23e1293]:
+                  - generic [ref=f23e1296]: "Aqui está a sugestão de mensagem formatada e estruturada para você compartilhar no Slack com os arquitetos:"
+                  - generic [ref=f23e1299]: "--------------------------------------------------------------------------------"
+                  - generic [ref=f23e1302]: Fala time de Arquitetura! 👋
+                  - generic [ref=f23e1305]: Estruturei um rascunho de escopo e a estimativa ROM para a extensão da plataforma fundacional UNA para o novo cliente CAU, e preciso da validação de vocês quanto ao esforço e viabilidade técnica.
+                  - generic [ref=f23e1308]:
+                    - text: "🎯 Conceito Geral da Arquitetura A extensão seguirá a arquitetura do MVP fundacional: o Salesforce atuará apenas como front-end de atendimento (N1) seguindo a premissa de \"Zero Persistência\", enquanto o backoffice (N2/N3) e a gravação do chamado ocorrerão diretamente no sistema legado UNA"
+                    - 'button "1: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e1310] [cursor=pointer]':
+                      - 'generic "1: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e1311]': "1"
+                    - 'button "2: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e1313] [cursor=pointer]':
+                      - 'generic "2: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e1314]': "2"
+                    - text: .
+                  - generic [ref=f23e1317]: 💻 Escopo Técnico Proposto
+                  - list [ref=f23e1318]:
+                    - listitem [ref=f23e1321]:
+                      - text: "Experience Cloud & Canais: Clonagem do template Gov.br fundacional para criar o portal do CAU, ativando os canais de WhatsApp e Web Chat (MIAW)"
+                      - 'button "2: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e1323] [cursor=pointer]':
+                        - 'generic "2: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e1324]': "2"
+                      - 'button "3: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1326] [cursor=pointer]':
+                        - 'generic "3: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1327]': "3"
+                      - text: .
+                    - listitem [ref=f23e1330]: "Einstein Bot (Triagem): Implementação de bot baseado em regras (árvore de decisão com menus e texto) para coleta de dados e classificação do chamado. Ele substituirá o uso de IA Generativa/Agentforce para o cidadão nesta fase."
+                    - listitem [ref=f23e1333]:
+                      - text: "Omni-Channel: Configuração de roteamento simplificado para transbordo dos canais digitais, direcionando tudo para uma Fila Única de atendimento humano"
+                      - 'button "2: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e1335] [cursor=pointer]':
+                        - 'generic "2: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e1336]': "2"
+                      - text: .
+                    - listitem [ref=f23e1339]:
+                      - text: "Reuso de Integração (Sem novo escopo MuleSoft): Não desenvolveremos novas APIs no MuleSoft. Vamos reaproveitar as lógicas de backend (Apex/Flows) construídas para os 4 componentes LWC da UNA, passando os parâmetros coletados pelo bot para registrar a manifestação diretamente na UNA via integrações já existentes"
+                      - 'button "1: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e1341] [cursor=pointer]':
+                        - 'generic "1: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e1342]': "1"
+                      - button [ref=f23e1344] [cursor=pointer]:
+                        - img [ref=f23e1345]: more_horiz
+                      - text: .
+                  - generic [ref=f23e1348]: ⏱️ Estimativa ROM (Rough Order of Magnitude)
+                  - list [ref=f23e1349]:
+                    - listitem [ref=f23e1352]: "Esforço Total: ~300 horas."
+                    - listitem [ref=f23e1355]: "Duração: 4 a 6 semanas."
+                  - generic [ref=f23e1358]: ⚠️ Premissas Críticas (Para formalizar na OS)
+                  - list [ref=f23e1359]:
+                    - listitem [ref=f23e1362]: A inteligência conversacional utilizará o Einstein Bot tradicional (sem RAG, Agentforce ou consulta a Base de Conhecimento).
+                    - listitem [ref=f23e1365]: Como haverá apenas uma fila, o roteamento dispensa regras avançadas de skills no Omni-Channel.
+                    - listitem [ref=f23e1368]: WABA e Business Manager da Meta devem estar aprovados e prontos no "Dia 1".
+                  - generic [ref=f23e1371]: Podem revisar e me confirmar se estamos todos na mesma página para avançarmos com a Ordem de Serviço?
+                  - generic [ref=f23e1374]: "--------------------------------------------------------------------------------"
+                  - generic [ref=f23e1377]: Gostaria que eu gerasse um relatório detalhado (Tailored Report) em PDF com essa proposta de implementação para você anexar junto à mensagem?
+                - generic [ref=f23e1378]:
+                  - button "Salvar mensagem em uma nota" [ref=f23e1379]:
+                    - img [ref=f23e1380]: keep_pin
+                    - generic [ref=f23e1381]: Salvar nas observações
+                  - generic [ref=f23e1384]:
+                    - button "Copiar resposta de modelo para a área de transferência" [ref=f23e1388] [cursor=pointer]:
+                      - img [ref=f23e1389]: copy_all
+                    - button "Avaliar a resposta como boa" [ref=f23e1395] [cursor=pointer]:
+                      - img [ref=f23e1396]: thumb_up
+                    - button "Avaliar a resposta como ruim" [ref=f23e1402] [cursor=pointer]:
+                      - img [ref=f23e1403]: thumb_down
+            - generic [ref=f23e1406]:
+              - heading "Refazer o resumo incluindo que teremos sim uma base de conhecimento e que o Einstein Botte pode utilizá-la para respostas simples" [level=3] [ref=f23e1412]:
+                - paragraph [ref=f23e1413]: Refazer o resumo incluindo que teremos sim uma base de conhecimento e que o Einstein Botte pode utilizá-la para respostas simples
+              - generic [ref=f23e1416]:
+                - generic [ref=f23e1420]:
+                  - generic [ref=f23e1423]: "Aqui está a versão atualizada da mensagem para o Slack, agora contemplando a utilização da Base de Conhecimento (KB) pelo Einstein Bot para o autoatendimento:"
+                  - generic [ref=f23e1426]: "--------------------------------------------------------------------------------"
+                  - generic [ref=f23e1429]: Fala time de Arquitetura! 👋
+                  - generic [ref=f23e1432]: Estruturei um rascunho de escopo e a estimativa ROM para a extensão da plataforma fundacional UNA para o novo cliente CAU, e preciso da validação de vocês quanto ao esforço e viabilidade técnica.
+                  - generic [ref=f23e1435]: "🎯 Conceito Geral da Arquitetura A extensão seguirá a arquitetura do MVP fundacional: o Salesforce atuará como front-end de atendimento (N1) sob a premissa de \"Zero Persistência\". O backoffice (N2/N3) e a gravação do chamado ocorrerão diretamente no sistema legado UNA."
+                  - generic [ref=f23e1438]: 💻 Escopo Técnico Proposto
+                  - list [ref=f23e1439]:
+                    - listitem [ref=f23e1442]:
+                      - text: "Experience Cloud & Canais: Clonagem do template Gov.br fundacional para criar o portal do CAU, ativando os canais de WhatsApp e Web Chat (MIAW)"
+                      - 'button "1: Copy of [Dataprev] UNA - 2025/12/17 10:29 GMT-03:00 - Notes by Gemini" [ref=f23e1444] [cursor=pointer]':
+                        - 'generic "1: Copy of [Dataprev] UNA - 2025/12/17 10:29 GMT-03:00 - Notes by Gemini" [ref=f23e1445]': "1"
+                      - 'button "2: Copy of [Dataprev] UNA - 2025/12/17 10:29 GMT-03:00 - Notes by Gemini" [ref=f23e1447] [cursor=pointer]':
+                        - 'generic "2: Copy of [Dataprev] UNA - 2025/12/17 10:29 GMT-03:00 - Notes by Gemini" [ref=f23e1448]': "2"
+                      - text: .
+                    - listitem [ref=f23e1451]:
+                      - text: "Einstein Bot e Base de Conhecimento (KB): Implementação de bot baseado em regras (árvore de decisão) para triagem e coleta de dados. Teremos a ativação de uma Base de Conhecimento (KB), permitindo que o Einstein Bot a consulte para fornecer respostas simples e tirar dúvidas frequentes (FAQ) diretamente no canal, retendo o atendimento sem precisar acionar o transbordo humano"
+                      - 'button "3: transcricao - reuniao chico Solução Ligue 180.pdf" [ref=f23e1453] [cursor=pointer]':
+                        - 'generic "3: transcricao - reuniao chico Solução Ligue 180.pdf" [ref=f23e1454]': "3"
+                      - text: .
+                    - listitem [ref=f23e1457]:
+                      - text: "Omni-Channel: Configuração de roteamento simplificado para transbordo dos canais digitais, direcionando para uma Fila Única de atendimento humano N1"
+                      - 'button "4: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e1459] [cursor=pointer]':
+                        - 'generic "4: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e1460]': "4"
+                      - text: .
+                    - listitem [ref=f23e1463]:
+                      - text: "Reuso de Integração (Sem novo escopo MuleSoft): Não desenvolveremos novas APIs. Vamos reaproveitar as lógicas de backend (Apex/Flows) construídas na UNA, repassando os parâmetros coletados pelo bot para registrar a manifestação diretamente na UNA via integrações já existentes"
+                      - 'button "5: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e1465] [cursor=pointer]':
+                        - 'generic "5: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e1466]': "5"
+                      - 'button "6: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e1468] [cursor=pointer]':
+                        - 'generic "6: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e1469]': "6"
+                      - text: .
+                  - generic [ref=f23e1472]: ⏱️ Estimativa ROM (Rough Order of Magnitude)
+                  - list [ref=f23e1473]:
+                    - listitem [ref=f23e1476]: "Esforço Total: ~300 horas."
+                    - listitem [ref=f23e1479]: "Duração: 4 a 6 semanas."
+                  - generic [ref=f23e1482]: ⚠️ Premissas Críticas (Para formalizar na OS)
+                  - list [ref=f23e1483]:
+                    - listitem [ref=f23e1486]:
+                      - text: A inteligência conversacional utilizará o Einstein Bot conectado à Base de Conhecimento para FAQ, mas operando via regras estruturadas (sem IA Generativa Autônoma/Agentforce nesta fase)
+                      - 'button "3: transcricao - reuniao chico Solução Ligue 180.pdf" [ref=f23e1488] [cursor=pointer]':
+                        - 'generic "3: transcricao - reuniao chico Solução Ligue 180.pdf" [ref=f23e1489]': "3"
+                      - 'button "7: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e1491] [cursor=pointer]':
+                        - 'generic "7: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e1492]': "7"
+                      - text: .
+                    - listitem [ref=f23e1495]:
+                      - text: O conteúdo inicial dos artigos da Base de Conhecimento deve ser fornecido pelo cliente
+                      - 'button "8: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1497] [cursor=pointer]':
+                        - 'generic "8: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1498]': "8"
+                      - text: .
+                    - listitem [ref=f23e1501]:
+                      - text: Como haverá apenas uma fila, o roteamento dispensa regras avançadas de skills no Omni-Channel
+                      - 'button "4: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e1503] [cursor=pointer]':
+                        - 'generic "4: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e1504]': "4"
+                      - text: .
+                    - listitem [ref=f23e1507]: WABA e Business Manager da Meta devem estar aprovados e prontos no "Dia 1".
+                  - generic [ref=f23e1510]: Podem revisar e me confirmar se estamos todos na mesma página para avançarmos com a Ordem de Serviço?
+                  - generic [ref=f23e1513]: "--------------------------------------------------------------------------------"
+                  - generic [ref=f23e1516]: Gostaria que eu gerasse o relatório em PDF (Tailored Report) com essa nova versão do escopo, ou prefere que eu crie um novo slide esquematizando a árvore de decisão do bot e a arquitetura do CAU?
+                - generic [ref=f23e1517]:
+                  - button "Salvar mensagem em uma nota" [ref=f23e1518]:
+                    - img [ref=f23e1519]: keep_pin
+                    - generic [ref=f23e1520]: Salvar nas observações
+                  - generic [ref=f23e1523]:
+                    - button "Copiar resposta de modelo para a área de transferência" [ref=f23e1527] [cursor=pointer]:
+                      - img [ref=f23e1528]: copy_all
+                    - button "Avaliar a resposta como boa" [ref=f23e1534] [cursor=pointer]:
+                      - img [ref=f23e1535]: thumb_up
+                    - button "Avaliar a resposta como ruim" [ref=f23e1541] [cursor=pointer]:
+                      - img [ref=f23e1542]: thumb_down
+            - generic [ref=f23e1545]:
+              - heading "Ajustar a estimativa de horas e perfis da sessão Home para um gerente de projeto 20h00 por semana um arquiteto técnico 10h00 por semana um arquiteto de soluções 20h00 por semana um desenvolvedor 40 horas por semana e o ex designer 10h00 por semana por seis semanas" [level=3] [ref=f23e1551]:
+                - paragraph [ref=f23e1552]: Ajustar a estimativa de horas e perfis da sessão Home para um gerente de projeto 20h00 por semana um arquiteto técnico 10h00 por semana um arquiteto de soluções 20h00 por semana um desenvolvedor 40 horas por semana e o ex designer 10h00 por semana por seis semanas
+              - generic [ref=f23e1555]:
+                - generic [ref=f23e1559]:
+                  - generic [ref=f23e1562]: Com base na sua diretriz de alocação de equipe e carga horária (fixada em um cronograma de 6 semanas), refiz os cálculos da nossa estimativa de Ordem de Grandeza (ROM).
+                  - generic [ref=f23e1565]: A alocação semanal específica que você definiu altera o esforço total do projeto CAU para 600 horas.
+                  - generic [ref=f23e1568]: "Aqui está o resumo ajustado e formatado, pronto para você compartilhar com o time de arquitetura:"
+                  - generic [ref=f23e1571]: "--------------------------------------------------------------------------------"
+                  - generic [ref=f23e1574]: Fala time de Arquitetura! 👋
+                  - generic [ref=f23e1577]: Estruturei o escopo e a estimativa ROM para a extensão da plataforma fundacional UNA para o novo cliente CAU, e preciso da validação de vocês quanto ao esforço e viabilidade técnica.
+                  - generic [ref=f23e1580]: "🎯 Conceito Geral da Arquitetura A extensão seguirá a arquitetura do MVP fundacional: o Salesforce atuará como front-end de atendimento (N1) sob a premissa de \"Zero Persistência\". O backoffice (N2/N3) e a gravação do chamado ocorrerão diretamente no sistema legado UNA."
+                  - generic [ref=f23e1583]: 💻 Escopo Técnico Proposto
+                  - list [ref=f23e1584]:
+                    - listitem [ref=f23e1587]: "Experience Cloud & Canais: Clonagem do template Gov.br fundacional, aplicação de UX específica para o CAU, e ativação dos canais de WhatsApp e Web Chat (MIAW)."
+                    - listitem [ref=f23e1590]: "Einstein Bot e Base de Conhecimento (KB): Implementação de bot baseado em regras para triagem e coleta de dados. Teremos a ativação de uma Base de Conhecimento (KB) para que o bot possa tirar dúvidas frequentes (FAQ) e reter chamados simples."
+                    - listitem [ref=f23e1593]: "Omni-Channel: Configuração de roteamento simplificado para transbordo dos canais digitais, direcionando tudo para uma Fila Única de atendimento humano N1."
+                    - listitem [ref=f23e1596]: "Reuso de Integração (Sem novo escopo MuleSoft): Reaproveitaremos a lógica de backend (Apex/Flows) já construída na UNA. O bot repassará os parâmetros coletados para registrar a manifestação na UNA usando as integrações existentes."
+                  - generic [ref=f23e1599]: "⏱️ Estimativa ROM e Alocação de Time (6 Semanas) Para suportar o desenho, adaptação de tela e automações, o plano de capacidade foi cravado em 6 semanas com a seguinte dedicação semanal:"
+                  - list [ref=f23e1600]:
+                    - listitem [ref=f23e1603]: "Gerente de Projeto (PM): 20h / semana = 120 horas"
+                    - listitem [ref=f23e1606]: "Arquiteto de Soluções (SA): 20h / semana = 120 horas"
+                    - listitem [ref=f23e1609]: "Arquiteto Técnico (TA): 10h / semana = 60 horas"
+                    - listitem [ref=f23e1612]: "Desenvolvedor: 40h / semana = 240 horas"
+                    - listitem [ref=f23e1615]: "UX Designer: 10h / semana = 60 horas"
+                    - listitem [ref=f23e1618]: "Esforço Total Estimado: 600 horas (Nota: Esforço de QA/Testes será absorvido dentro da alocação de Desenvolvimento/TA)."
+                  - generic [ref=f23e1621]: ⚠️ Premissas Críticas (Para formalizar na OS)
+                  - list [ref=f23e1622]:
+                    - listitem [ref=f23e1625]: Uso do Einstein Bot tradicional conectado à KB para FAQ (sem IA Generativa Autônoma nesta fase).
+                    - listitem [ref=f23e1628]: Roteamento para fila simples (sem regras avançadas de skills no Omni-Channel).
+                    - listitem [ref=f23e1631]: WABA e Business Manager da Meta do cliente devem estar aprovados no "Dia 1".
+                    - listitem [ref=f23e1634]: O conteúdo inicial dos artigos da KB deve ser fornecido pelo cliente.
+                  - generic [ref=f23e1637]: Podem revisar e me confirmar se estamos alinhados para avançarmos com a OS?
+                  - generic [ref=f23e1640]: "--------------------------------------------------------------------------------"
+                  - generic [ref=f23e1643]: Deseja que eu crie o relatório PDF estruturado (Tailored Report) contendo este escopo atualizado de 600 horas para você anexar como documentação de apoio?
+                - generic [ref=f23e1644]:
+                  - button "Salvar mensagem em uma nota" [ref=f23e1645]:
+                    - img [ref=f23e1646]: keep_pin
+                    - generic [ref=f23e1647]: Salvar nas observações
+                  - generic [ref=f23e1650]:
+                    - button "Copiar resposta de modelo para a área de transferência" [ref=f23e1654] [cursor=pointer]:
+                      - img [ref=f23e1655]: copy_all
+                    - button "Avaliar a resposta como boa" [ref=f23e1661] [cursor=pointer]:
+                      - img [ref=f23e1662]: thumb_up
+                    - button "Avaliar a resposta como ruim" [ref=f23e1668] [cursor=pointer]:
+                      - img [ref=f23e1669]: thumb_down
+            - generic [ref=f23e1672]: terça-feira, 23 de junho d
+            - generic [ref=f23e1673]:
+              - heading "esta dentro do escopo o agente se conectar a qualquer site ou aplicacao ou apenas no experience cloud. Se sim mostrar onde esta esta referencia" [level=3] [ref=f23e1679]:
+                - paragraph [ref=f23e1680]: esta dentro do escopo o agente se conectar a qualquer site ou aplicacao ou apenas no experience cloud. Se sim mostrar onde esta esta referencia
+              - generic [ref=f23e1683]:
+                - generic [ref=f23e1687]:
+                  - generic [ref=f23e1690]: Sim, o escopo permite que o agente de atendimento (via chat e WhatsApp) atue de forma integrada tanto no Experience Cloud quanto em sites e aplicações externas, embora os limites de responsabilidade técnica variem.
+                  - generic [ref=f23e1693]: "Aqui estão as referências de como o escopo trata essas duas frentes de conexão:"
+                  - generic [ref=f23e1696]:
+                    - text: 1. Foco Primário no Experience Cloud A configuração nativa da solução tem como foco a ativação do atendimento no portal fundacional que será construído na nuvem da Salesforce. O documento de escopo lista como atividade principal a "Inserção do componente MIAW [Messaging for In-App and Web] e Whatsapp no Portal de Experiência Salesforce existente"
+                    - 'button "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1698] [cursor=pointer]':
+                      - 'generic "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1699]': "1"
+                    - text: . Nas sessões de desenho arquitetural, também é reforçado que a jornada inicia colocando o snippet (código do chat) no Experience Cloud para que a cidadã possa conversar com o bot e sofrer o transbordo
+                    - 'button "2: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e1701] [cursor=pointer]':
+                      - 'generic "2: Projeto Dataprev UNA_ apresentacao SOW DATAPREV - UNA (se puderem mandar representante) - 2026_01_23 09_00 GMT-03_00 - Anotações do Gemini.pdf" [ref=f23e1702]': "2"
+                    - text: .
+                  - generic [ref=f23e1705]:
+                    - text: 2. Extensão para Qualquer Site ou Aplicação Externa A plataforma não restringe a atuação do agente apenas ao seu próprio portal. O pacote do projeto de Digital Engagement prevê a "geração do snippet de código/componente para implantação"
+                    - 'button "3: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1707] [cursor=pointer]':
+                      - 'generic "3: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1708]': "3"
+                    - text: . O fornecimento desse snippet possibilita que o chat seja embarcado em qualquer outro portal web do governo.
+                  - generic [ref=f23e1711]: "A prova de que a conexão com aplicações externas é parte estratégica da evolução do projeto está documentada nos casos de uso de expansão (\"ROM - DATAPREV - UNA 2.0\"), que listam de forma explícita um cenário com a plataforma externa Moodle. O documento define como entregáveis:"
+                  - list [ref=f23e1712]:
+                    - listitem [ref=f23e1715]:
+                      - text: "\"APIs integrando Agentes e Moodle\""
+                      - 'button "4: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e1717] [cursor=pointer]':
+                        - 'generic "4: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e1718]': "4"
+                      - button [ref=f23e1720] [cursor=pointer]:
+                        - img [ref=f23e1721]: more_horiz
+                      - text: .
+                    - listitem [ref=f23e1724]:
+                      - text: Criação de um "Agente Concierge MDS"
+                      - 'button "4: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e1726] [cursor=pointer]':
+                        - 'generic "4: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e1727]': "4"
+                      - button [ref=f23e1729] [cursor=pointer]:
+                        - img [ref=f23e1730]: more_horiz
+                      - text: .
+                    - listitem [ref=f23e1733]:
+                      - text: E estabelece como premissa a passagem de identidade segura via "token transferido pelo snippet WhatsApp no Moodle"
+                      - 'button "4: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e1735] [cursor=pointer]':
+                        - 'generic "4: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e1736]': "4"
+                      - button [ref=f23e1738] [cursor=pointer]:
+                        - img [ref=f23e1739]: more_horiz
+                      - text: .
+                  - generic [ref=f23e1742]:
+                    - text: "3. Limites de Responsabilidade da Implantação É fundamental observar a restrição padrão estipulada no Contrato de Serviços da Salesforce (SOW). Os documentos determinam que a equipe de serviços profissionais \"terá acesso apenas à Aplicação do Cliente [Salesforce] e não aos sistemas não-SFDC do Cliente, incluindo mas não se limitando a: plataforma empresarial interna, [...] aplicações de terceiros\""
+                    - 'button "7: Implementation Services Master SOW- (Global - Portuguese).docx" [ref=f23e1744] [cursor=pointer]':
+                      - 'generic "7: Implementation Services Master SOW- (Global - Portuguese).docx" [ref=f23e1745]': "7"
+                    - text: .
+                  - generic [ref=f23e1748]:
+                    - text: Isso significa que, enquanto a plataforma Salesforce suporta conectar o agente a qualquer sistema externo e fornecerá o snippet de integração
+                    - 'button "3: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1750] [cursor=pointer]':
+                      - 'generic "3: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1751]': "3"
+                    - text: ", a responsabilidade por instalar e configurar esse código dentro dos sites ou aplicativos externos (seja o Moodle ou outro site do ministério) é exclusiva da equipe técnica do próprio cliente"
+                    - 'button "7: Implementation Services Master SOW- (Global - Portuguese).docx" [ref=f23e1753] [cursor=pointer]':
+                      - 'generic "7: Implementation Services Master SOW- (Global - Portuguese).docx" [ref=f23e1754]': "7"
+                    - 'button "8: Implementation Services Master SOW- (Global - Portuguese).docx" [ref=f23e1756] [cursor=pointer]':
+                      - 'generic "8: Implementation Services Master SOW- (Global - Portuguese).docx" [ref=f23e1757]': "8"
+                    - text: .
+                - generic [ref=f23e1758]:
+                  - button "Salvar mensagem em uma nota" [ref=f23e1759]:
+                    - img [ref=f23e1760]: keep_pin
+                    - generic [ref=f23e1761]: Salvar nas observações
+                  - generic [ref=f23e1764]:
+                    - button "Copiar resposta de modelo para a área de transferência" [ref=f23e1768] [cursor=pointer]:
+                      - img [ref=f23e1769]: copy_all
+                    - button "Avaliar a resposta como boa" [ref=f23e1775] [cursor=pointer]:
+                      - img [ref=f23e1776]: thumb_up
+                    - button "Avaliar a resposta como ruim" [ref=f23e1782] [cursor=pointer]:
+                      - img [ref=f23e1783]: thumb_down
+            - generic [ref=f23e1786]: Hoje • 14:15
+            - generic [ref=f23e1787]:
+              - heading "divida as horas por role do projeto UNA fundacional por entregas com o objetivo de eu conseguir distribuir um valor financeiro a cada um dos entregaveis" [level=3] [ref=f23e1793]:
+                - paragraph [ref=f23e1794]: divida as horas por role do projeto UNA fundacional por entregas com o objetivo de eu conseguir distribuir um valor financeiro a cada um dos entregaveis
+              - generic [ref=f23e1797]:
+                - generic [ref=f23e1801]:
+                  - generic [ref=f23e1804]:
+                    - text: Para estruturar a distribuição financeira do projeto UNA Fundacional (Fase 1), o esforço total estimado é de 2.596 horas
+                    - 'button "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1806] [cursor=pointer]':
+                      - 'generic "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1807]': "1"
+                    - text: . Esse montante foi organizado em grandes blocos de entregas (workstreams), o que permite alocar o orçamento por capacidade tecnológica e pelas equipes (roles) envolvidas
+                    - 'button "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1809] [cursor=pointer]':
+                      - 'generic "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1810]': "1"
+                    - text: .
+                  - generic [ref=f23e1813]: "Abaixo está a divisão das horas agrupadas por entregas e os perfis responsáveis, ideal para a sua precificação:"
+                  - 'heading "Distribuição por Entregas e Capacidades (Total: 2.596 horas)" [level=3] [ref=f23e1816]'
+                  - generic [ref=f23e1819]: 1. Entrega de Gerenciamento de Projeto e Engajamento (Cross)
+                  - list [ref=f23e1820]:
+                    - listitem [ref=f23e1823]:
+                      - text: "Total: 306 horas"
+                      - 'button "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1825] [cursor=pointer]':
+                        - 'generic "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1826]': "1"
+                      - text: .
+                    - listitem [ref=f23e1829]:
+                      - text: "Roles Envolvidos: Gerentes de Projeto (Project Managers) e Engagement Managers"
+                      - 'button "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1831] [cursor=pointer]':
+                        - 'generic "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1832]': "1"
+                      - text: .
+                    - listitem [ref=f23e1835]:
+                      - text: "Objetivo Financeiro: Cobre o planejamento da fundação, ritos de governança, execução e comunicação com a Dataprev durante o projeto"
+                      - 'button "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1837] [cursor=pointer]':
+                        - 'generic "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1838]': "1"
+                      - text: .
+                  - generic [ref=f23e1841]: 2. Entrega de Arquitetura Técnica e de Solução (Service Cloud e Portal)
+                  - list [ref=f23e1842]:
+                    - listitem [ref=f23e1845]:
+                      - text: "Total: 580 horas"
+                      - 'button "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1847] [cursor=pointer]':
+                        - 'generic "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1848]': "1"
+                      - text: .
+                    - listitem [ref=f23e1851]:
+                      - text: "Roles Envolvidos: Arquitetos Técnicos (Technical Architects) e Arquitetos de Solução (Solution Architects)"
+                      - 'button "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1853] [cursor=pointer]':
+                        - 'generic "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1854]': "1"
+                      - text: .
+                    - listitem [ref=f23e1857]:
+                      - text: "Objetivo Financeiro: Custo associado ao desenho da arquitetura da solução, garantindo que o portal de autoatendimento (Experience Cloud) e a gestão de casos (Service Cloud) sejam seguros e escaláveis"
+                      - 'button "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1859] [cursor=pointer]':
+                        - 'generic "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1860]': "1"
+                      - text: .
+                  - generic [ref=f23e1863]: 3. Entrega de Desenvolvimento e Qualidade (Service Cloud e Portal)
+                  - list [ref=f23e1864]:
+                    - listitem [ref=f23e1867]:
+                      - text: "Total: 1.060 horas"
+                      - 'button "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1869] [cursor=pointer]':
+                        - 'generic "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1870]': "1"
+                      - text: .
+                    - listitem [ref=f23e1873]:
+                      - text: "Roles Envolvidos: Consultores Técnicos, Desenvolvedores Salesforce e Consultores de Qualidade (QA)"
+                      - 'button "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1875] [cursor=pointer]':
+                        - 'generic "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1876]': "1"
+                      - text: .
+                    - listitem [ref=f23e1879]:
+                      - text: "Objetivo Financeiro: É o maior peso do orçamento. Destina-se à configuração real da plataforma, desenvolvimento dos componentes visuais e lógicos, além da execução dos ciclos de testes"
+                      - 'button "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1881] [cursor=pointer]':
+                        - 'generic "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1882]': "1"
+                      - text: .
+                  - generic [ref=f23e1885]: 4. Entrega de Integrações e Interoperabilidade (MuleSoft)
+                  - list [ref=f23e1886]:
+                    - listitem [ref=f23e1889]:
+                      - text: "Total: 400 horas"
+                      - 'button "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1891] [cursor=pointer]':
+                        - 'generic "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1892]': "1"
+                      - text: .
+                    - listitem [ref=f23e1895]:
+                      - text: "Roles Envolvidos: Arquitetos MuleSoft e Desenvolvedores MuleSoft"
+                      - 'button "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1897] [cursor=pointer]':
+                        - 'generic "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1898]': "1"
+                      - text: .
+                    - listitem [ref=f23e1901]:
+                      - text: "Objetivo Financeiro: Cobre a construção das APIs na plataforma Anypoint e a orquestração do fluxo de dados para conectar o Salesforce ao sistema legado UNA"
+                      - 'button "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1903] [cursor=pointer]':
+                        - 'generic "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1904]': "1"
+                      - text: .
+                  - generic [ref=f23e1907]: 5. Entrega de Inteligência Artificial (AgentForce)
+                  - list [ref=f23e1908]:
+                    - listitem [ref=f23e1911]:
+                      - text: "Total: 250 horas"
+                      - 'button "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1913] [cursor=pointer]':
+                        - 'generic "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1914]': "1"
+                      - text: .
+                    - listitem [ref=f23e1917]:
+                      - text: "Roles Envolvidos: Arquitetos de IA, Consultores Funcionais, Desenvolvedores e QA (focados em AgentForce)"
+                      - 'button "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1919] [cursor=pointer]':
+                        - 'generic "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1920]': "1"
+                      - text: .
+                    - listitem [ref=f23e1923]:
+                      - text: "Objetivo Financeiro: Destinado à criação e configuração de agentes autônomos para unificar dados e apoiar o autoatendimento ou auxiliar os atendentes em tempo real"
+                      - 'button "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1925] [cursor=pointer]':
+                        - 'generic "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1926]': "1"
+                      - text: .
+                  - separator [ref=f23e1928]
+                  - heading "Visão Estratificada por Role para Precificação (Referência de Proporção)" [level=3] [ref=f23e1931]
+                  - generic [ref=f23e1934]:
+                    - text: Caso você precise precificar aplicando uma tabela de valor-hora individual para cada perfil, a documentação fornece um "recorte" da proporção de uso de cada especialista. Tomando como base o bloco principal de configuração do Case Management UNA (avaliado em 1.100 horas dentro da fundação), a divisão exata de esforço por profissional ocorre da seguinte forma
+                    - 'button "2: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e1936] [cursor=pointer]':
+                      - 'generic "2: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e1937]': "2"
+                    - text: ":"
+                  - list [ref=f23e1938]:
+                    - listitem [ref=f23e1941]:
+                      - text: "Senior Technical Architect: 220 horas"
+                      - 'button "2: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e1943] [cursor=pointer]':
+                        - 'generic "2: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e1944]': "2"
+                      - text: .
+                    - listitem [ref=f23e1947]:
+                      - text: "Senior Solution Architect: 160 horas"
+                      - 'button "2: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e1949] [cursor=pointer]':
+                        - 'generic "2: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e1950]': "2"
+                      - text: .
+                    - listitem [ref=f23e1953]:
+                      - text: "Project Manager: 90 horas"
+                      - 'button "2: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e1955] [cursor=pointer]':
+                        - 'generic "2: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e1956]': "2"
+                      - text: .
+                    - listitem [ref=f23e1959]:
+                      - text: "Technical Consultant: 260 horas"
+                      - 'button "2: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e1961] [cursor=pointer]':
+                        - 'generic "2: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e1962]': "2"
+                      - text: .
+                    - listitem [ref=f23e1965]:
+                      - text: "Quality Assurance Consultant: 120 horas"
+                      - 'button "2: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e1967] [cursor=pointer]':
+                        - 'generic "2: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e1968]': "2"
+                      - text: .
+                    - listitem [ref=f23e1971]:
+                      - text: "MuleSoft - Technical Consultant: 180 horas"
+                      - 'button "2: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e1973] [cursor=pointer]':
+                        - 'generic "2: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e1974]': "2"
+                      - text: .
+                    - listitem [ref=f23e1977]:
+                      - text: "MuleSoft - Technical Architect: 60 horas"
+                      - 'button "2: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e1979] [cursor=pointer]':
+                        - 'generic "2: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e1980]': "2"
+                      - text: .
+                  - generic [ref=f23e1983]:
+                    - text: "Você pode utilizar essas duas visões integradas na sua planilha: usar os 5 blocos de entrega (2.596 horas) como os \"marcos\" de faturamento do projeto e a distribuição de cargos (Roles) para compor o custo interno exato de cada um desses pacotes"
+                    - 'button "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1985] [cursor=pointer]':
+                      - 'generic "1: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e1986]': "1"
+                    - 'button "2: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e1988] [cursor=pointer]':
+                      - 'generic "2: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e1989]': "2"
+                    - text: .
+                - generic [ref=f23e1990]:
+                  - button "Salvar mensagem em uma nota" [ref=f23e1991]:
+                    - img [ref=f23e1992]: keep_pin
+                    - generic [ref=f23e1993]: Salvar nas observações
+                  - generic [ref=f23e1996]:
+                    - button "Copiar resposta de modelo para a área de transferência" [ref=f23e2000] [cursor=pointer]:
+                      - img [ref=f23e2001]: copy_all
+                    - button "Avaliar a resposta como boa" [ref=f23e2007] [cursor=pointer]:
+                      - img [ref=f23e2008]: thumb_up
+                    - button "Avaliar a resposta como ruim" [ref=f23e2014] [cursor=pointer]:
+                      - img [ref=f23e2015]: thumb_down
+            - generic [ref=f23e2018]:
+              - heading "refazer juntando com as 1016hrs da segunda OS adicional" [level=3] [ref=f23e2024]:
+                - paragraph [ref=f23e2025]: refazer juntando com as 1016hrs da segunda OS adicional
+              - generic [ref=f23e2028]:
+                - generic [ref=f23e2032]:
+                  - generic [ref=f23e2035]:
+                    - text: Para incorporar as 1.016 horas referentes à segunda OS adicional (focada na transição do Case Management para dentro do Salesforce) à base fundacional, distribuí esse novo esforço com base na proporção dos perfis mapeados para este cenário adicional (Cenário B)
+                    - 'button "1: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2037] [cursor=pointer]':
+                      - 'generic "1: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2038]': "1"
+                    - text: .
+                  - generic [ref=f23e2041]:
+                    - text: O esforço adicional é fortemente focado em Arquitetura de Dados, Desenvolvimento de automações e integração MuleSoft para replicação dos chamados
+                    - 'button "1: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2043] [cursor=pointer]':
+                      - 'generic "1: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2044]': "1"
+                    - text: .
+                  - generic [ref=f23e2047]: "O novo total consolidado passa a ser de 3.612 horas. Abaixo está a divisão exata por pacotes de entrega para facilitar a sua precificação financeira:"
+                  - heading "Distribuição Consolidada de Entregas (Fundacional + 2ª OS Adicional)" [level=3] [ref=f23e2050]
+                  - generic [ref=f23e2053]: "Total Geral: 3.612 horas"
+                  - generic [ref=f23e2056]: 1. Entrega de Gerenciamento de Projeto e Engajamento (Cross)
+                  - list [ref=f23e2057]:
+                    - listitem [ref=f23e2060]: "Total: 390 horas (306h Base + 84h Adicional)"
+                    - listitem [ref=f23e2063]: "Roles: Project Managers e Engagement Managers."
+                    - listitem [ref=f23e2066]: "Foco: Planejamento, ritos de governança e gestão estendida para englobar a nova complexidade de dados na nuvem."
+                  - generic [ref=f23e2069]: 2. Entrega de Arquitetura Técnica e de Solução (Service Cloud e Portal)
+                  - list [ref=f23e2070]:
+                    - listitem [ref=f23e2073]: "Total: 934 horas (580h Base + 354h Adicional)"
+                    - listitem [ref=f23e2076]:
+                      - text: "Roles: Senior Technical Architects e Senior Solution Architects"
+                      - 'button "1: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2078] [cursor=pointer]':
+                        - 'generic "1: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2079]': "1"
+                      - text: .
+                    - listitem [ref=f23e2082]: "Foco: Desenho do modelo de dados (Person Accounts, novos Record Types de Casos), catálogo de serviços dinâmico e regras de segurança/anonimização exigidas para a guarda de denúncias no Salesforce."
+                  - generic [ref=f23e2085]: 3. Entrega de Desenvolvimento e Qualidade (Service Cloud e Portal)
+                  - list [ref=f23e2086]:
+                    - listitem [ref=f23e2089]: "Total: 1.414 horas (1.060h Base + 354h Adicional)"
+                    - listitem [ref=f23e2092]:
+                      - text: "Roles: Technical Consultants (Devs) e Quality Assurance (QA)"
+                      - 'button "1: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2094] [cursor=pointer]':
+                        - 'generic "1: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2095]': "1"
+                      - text: .
+                    - listitem [ref=f23e2098]: "Foco: Configuração dos fluxos complexos (Salesforce Flows), Dynamic Forms baseados no catálogo e todo o ciclo de testes (SIT/UAT) do novo motor de gestão de casos."
+                  - generic [ref=f23e2101]: 4. Entrega de Integrações e Interoperabilidade (MuleSoft)
+                  - list [ref=f23e2102]:
+                    - listitem [ref=f23e2105]: "Total: 624 horas (400h Base + 224h Adicional)"
+                    - listitem [ref=f23e2108]:
+                      - text: "Roles: MuleSoft Technical Architects e MuleSoft Developers"
+                      - 'button "1: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2110] [cursor=pointer]':
+                        - 'generic "1: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2111]': "1"
+                      - text: .
+                    - listitem [ref=f23e2114]: "Foco: Construção das novas APIs e processos de Upsert bidirecionais para garantir que os casos criados na nuvem do Salesforce sejam perfeitamente replicados e sincronizados com o banco de dados on-premise legado da UNA."
+                  - generic [ref=f23e2117]: 5. Entrega de Inteligência Artificial (AgentForce)
+                  - list [ref=f23e2118]:
+                    - listitem [ref=f23e2121]: "Total: 250 horas (250h Base + 0h Adicional)"
+                    - listitem [ref=f23e2124]: "Roles: Arquitetos e Desenvolvedores de IA."
+                    - listitem [ref=f23e2127]:
+                      - text: "Foco: A configuração dos Agentes Autônomos se mantém fiel ao escopo fundacional, sem impacto de horas na 2ª OS, que é estritamente voltada para a gestão e armazenamento de casos estruturados"
+                      - 'button "2: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e2129] [cursor=pointer]':
+                        - 'generic "2: ROM - DATAPREV - UNA 2.0 - v3" [ref=f23e2130]': "2"
+                      - text: .
+                  - separator [ref=f23e2132]
+                  - generic [ref=f23e2135]:
+                    - text: "Dica para a Precificação: Na sua planilha financeira, você pode aplicar o valor-hora padrão aos blocos 1, 3 e 5. Contudo, note que os blocos 2 (Arquitetura) e 4 (MuleSoft) receberam uma injeção de horas de perfis Sênior (Senior Technical Architect e MuleSoft Architect)"
+                    - 'button "1: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2137] [cursor=pointer]':
+                      - 'generic "1: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2138]': "1"
+                    - text: ", o que pode justificar um blended rate (taxa média) financeiro ligeiramente mais alto para esses entregáveis específicos."
+                - generic [ref=f23e2139]:
+                  - button "Salvar mensagem em uma nota" [ref=f23e2140]:
+                    - img [ref=f23e2141]: keep_pin
+                    - generic [ref=f23e2142]: Salvar nas observações
+                  - generic [ref=f23e2145]:
+                    - button "Copiar resposta de modelo para a área de transferência" [ref=f23e2149] [cursor=pointer]:
+                      - img [ref=f23e2150]: copy_all
+                    - button "Avaliar a resposta como boa" [ref=f23e2156] [cursor=pointer]:
+                      - img [ref=f23e2157]: thumb_up
+                    - button "Avaliar a resposta como ruim" [ref=f23e2163] [cursor=pointer]:
+                      - img [ref=f23e2164]: thumb_down
+            - generic [ref=f23e2167]:
+              - heading "quanto dessas horas poderiam ser aplicadas para o setup do service e para o setup do mulesoft onpremise" [level=3] [ref=f23e2173]:
+                - paragraph [ref=f23e2174]: quanto dessas horas poderiam ser aplicadas para o setup do service e para o setup do mulesoft onpremise
+              - generic [ref=f23e2177]:
+                - generic [ref=f23e2181]:
+                  - generic [ref=f23e2184]:
+                    - text: Com base na documentação do projeto e no detalhamento do esforço para o cenário adicional focado em trazer a gestão de casos para o Salesforce (oficialmente mapeado como 1.100 horas
+                    - 'button "1: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2186] [cursor=pointer]':
+                      - 'generic "1: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2187]': "1"
+                    - text: ", e ajustado proporcionalmente para as 1.016 horas que você calculou na etapa anterior), a distribuição entre Service Cloud e MuleSoft ficaria dividida da seguinte forma:"
+                  - 'heading "1. Setup do Service Cloud: ~708 horas" [level=3] [ref=f23e2190]'
+                  - generic [ref=f23e2193]:
+                    - text: (No modelo oficial de 1.100h, este bloco equivale a 760 horas
+                    - 'button "1: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2195] [cursor=pointer]':
+                      - 'generic "1: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2196]': "1"
+                    - text: )
+                  - generic [ref=f23e2199]: Esta é a frente que consome a maior parte do orçamento adicional, pois transforma o Salesforce de uma simples "casca" de atendimento em um motor de regras de negócio.
+                  - list [ref=f23e2200]:
+                    - listitem [ref=f23e2203]:
+                      - text: "Perfis Envolvidos: Arquitetos de Solução e Técnicos (Senior), Consultores Técnicos (Desenvolvedores) e Consultores de Qualidade (QA)"
+                      - 'button "1: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2205] [cursor=pointer]':
+                        - 'generic "1: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2206]': "1"
+                      - text: .
+                    - listitem [ref=f23e2209]:
+                      - text: "Onde o esforço é aplicado:"
+                      - list [ref=f23e2210]:
+                        - listitem [ref=f23e2213]:
+                          - text: Modelagem de dados complexa habilitando Person Accounts (Conta Pessoal) e novos Record Types para os casos (Denúncia, Informações, Orientação e Manifestação)
+                          - 'button "2: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2215] [cursor=pointer]':
+                            - 'generic "2: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2216]': "2"
+                          - text: .
+                        - listitem [ref=f23e2219]:
+                          - text: Criação de Páginas Lightning e Dynamic Forms para espelhar as regras de obrigatoriedade do Catálogo de Serviços
+                          - 'button "2: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2221] [cursor=pointer]':
+                            - 'generic "2: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2222]': "2"
+                          - text: .
+                        - listitem [ref=f23e2225]:
+                          - text: Construção de lógicas de negócio (até 5 fluxos/Workflows) e ajustes de compartilhamento para expor esses casos com segurança no portal do cidadão (Experience Cloud)
+                          - 'button "2: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2227] [cursor=pointer]':
+                            - 'generic "2: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2228]': "2"
+                          - text: .
+                  - 'heading "2. Setup do MuleSoft On-Premise: ~224 horas" [level=3] [ref=f23e2231]'
+                  - generic [ref=f23e2234]:
+                    - text: (No modelo oficial de 1.100h, este bloco equivale a 240 horas
+                    - 'button "1: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2236] [cursor=pointer]':
+                      - 'generic "1: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2237]': "1"
+                    - text: )
+                  - generic [ref=f23e2240]: Este bloco é vital para garantir que a Dataprev não perca a custódia dos dados das denúncias.
+                  - list [ref=f23e2241]:
+                    - listitem [ref=f23e2244]:
+                      - text: "Perfis Envolvidos: Arquitetos Técnicos MuleSoft e Desenvolvedores MuleSoft"
+                      - 'button "1: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2246] [cursor=pointer]':
+                        - 'generic "1: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2247]': "1"
+                      - text: .
+                    - listitem [ref=f23e2250]:
+                      - text: "Onde o esforço é aplicado:"
+                      - list [ref=f23e2251]:
+                        - listitem [ref=f23e2254]:
+                          - text: Desenho e construção das APIs bidirecionais que farão a escuta do Salesforce. Quando um caso for criado, classificado e salvo no Service Cloud, o MuleSoft atuará como o orquestrador on-premise para replicar (sincronizar) essas informações diretamente para a base de dados legada do sistema UNA
+                          - 'button "1: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2256] [cursor=pointer]':
+                            - 'generic "1: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2257]': "1"
+                          - 'button "2: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2259] [cursor=pointer]':
+                            - 'generic "2: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2260]': "2"
+                          - text: .
+                  - 'heading "3. Gestão e Governança do Projeto: ~84 horas" [level=3] [ref=f23e2263]'
+                  - generic [ref=f23e2266]:
+                    - text: (No modelo oficial de 1.100h, este bloco equivale a 90 horas
+                    - 'button "1: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2268] [cursor=pointer]':
+                      - 'generic "1: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2269]': "1"
+                    - text: )
+                  - list [ref=f23e2270]:
+                    - listitem [ref=f23e2273]:
+                      - text: "Perfil Envolvido: Gerente de Projetos (PM)"
+                      - 'button "1: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2275] [cursor=pointer]':
+                        - 'generic "1: ROM - DATAPREV - 180 Mulheres - v1" [ref=f23e2276]': "1"
+                      - text: .
+                    - listitem [ref=f23e2279]: "Onde o esforço é aplicado: Planejamento e acompanhamento estrito para alinhar os cronogramas das duas frentes acima (garantindo que o MuleSoft consiga preparar as APIs a tempo para que a equipe de Service Cloud conclua as automações de tela), além do gerenciamento de riscos contratuais relacionados à guarda de dados na nuvem."
+                  - generic [ref=f23e2282]: "Resumo para a sua precificação: Do total de horas adicionais, você pode destinar cerca de 70% do orçamento para o setup funcional e arquitetural do Service Cloud, 22% para o esforço de integração do MuleSoft e os 8% restantes para a gestão ágil do projeto."
+                - generic [ref=f23e2283]:
+                  - button "Salvar mensagem em uma nota" [ref=f23e2284]:
+                    - img [ref=f23e2285]: keep_pin
+                    - generic [ref=f23e2286]: Salvar nas observações
+                  - generic [ref=f23e2289]:
+                    - button "Copiar resposta de modelo para a área de transferência" [ref=f23e2293] [cursor=pointer]:
+                      - img [ref=f23e2294]: copy_all
+                    - button "Avaliar a resposta como boa" [ref=f23e2300] [cursor=pointer]:
+                      - img [ref=f23e2301]: thumb_up
+                    - button "Avaliar a resposta como ruim" [ref=f23e2307] [cursor=pointer]:
+                      - img [ref=f23e2308]: thumb_down
+          - generic [ref=f23e113]:
+            - textbox "Caixa de consulta" [active] [ref=f23e115]:
+              - /placeholder: Comece a digitar…
+            - generic [ref=f23e116]:
+              - generic [ref=f23e118]: 33 fontes
+              - button "Enviar" [disabled]:
+                - img: arrow_forward
+      - generic [ref=f23e119]:
+        - generic [ref=f23e120]:
+          - navigation [ref=f23e2312]:
+            - heading "Estúdio" [level=2] [ref=f23e2313]:
+              - generic [ref=f23e2314]: Estúdio
+          - button "Fechar painel do estúdio" [ref=f23e2315] [cursor=pointer]:
+            - img [ref=f23e122]: dock_to_left
+        - generic [ref=f23e2316]:
+          - generic [ref=f23e2317]:
+            - button "Resumo em Áudio" [ref=f23e2319] [cursor=pointer]:
+              - generic [ref=f23e2320]:
+                - generic [ref=f23e2321]:
+                  - img [ref=f23e2323]: audio_magic_eraser
+                  - generic [ref=f23e2324]: Resumo em Áudio
+                - button "Personalizar o Resumo em Áudio" [ref=f23e2326]:
+                  - img [ref=f23e2327]: chevron_forward
+            - button "Apresentação de slides" [ref=f23e2331] [cursor=pointer]:
+              - generic [ref=f23e2332]:
+                - generic [ref=f23e2333]:
+                  - img [ref=f23e2335]: tablet
+                  - generic [ref=f23e2336]: Apresentação de slides
+                - button "Personalizar apresentação de slides" [ref=f23e2338]:
+                  - img [ref=f23e2339]: chevron_forward
+            - button "Resumo em Vídeo" [ref=f23e2343] [cursor=pointer]:
+              - generic [ref=f23e2344]:
+                - generic [ref=f23e2345]:
+                  - img [ref=f23e2347]: subscriptions
+                  - generic [ref=f23e2348]: Resumo em Vídeo
+                - img [ref=f23e2350]: chevron_forward
+            - button "Mapa mental" [ref=f23e2352] [cursor=pointer]:
+              - generic [ref=f23e2353]:
+                - generic [ref=f23e2354]:
+                  - img [ref=f23e2356]: flowchart
+                  - generic [ref=f23e2357]: Mapa mental
+                - button "Personalizar mapa mental" [ref=f23e2359]:
+                  - img [ref=f23e2360]: chevron_forward
+            - button "Relatórios" [ref=f23e2364] [cursor=pointer]:
+              - generic [ref=f23e2365]:
+                - generic [ref=f23e2366]:
+                  - img [ref=f23e2368]: auto_tab_group
+                  - generic [ref=f23e2369]: Relatórios
+                - img [ref=f23e2371]: chevron_forward
+            - button "Cartões didáticos" [ref=f23e2373] [cursor=pointer]:
+              - generic [ref=f23e2374]:
+                - generic [ref=f23e2375]:
+                  - img [ref=f23e2377]: cards_star
+                  - generic [ref=f23e2378]: Cartões didáticos
+                - button "Personalizar cartões de estudo" [ref=f23e2380]:
+                  - img [ref=f23e2381]: chevron_forward
+            - button "Teste" [ref=f23e2385] [cursor=pointer]:
+              - generic [ref=f23e2386]:
+                - generic [ref=f23e2387]:
+                  - img [ref=f23e2389]: quiz
+                  - generic [ref=f23e2390]: Teste
+                - button "Personalizar teste" [ref=f23e2392]:
+                  - img [ref=f23e2393]: chevron_forward
+            - button "Infográfico" [ref=f23e2397] [cursor=pointer]:
+              - generic [ref=f23e2398]:
+                - generic [ref=f23e2399]:
+                  - img [ref=f23e2401]: stacked_bar_chart
+                  - generic [ref=f23e2402]: Infográfico
+                - button "Personalizar infográfico" [ref=f23e2404]:
+                  - img [ref=f23e2405]: chevron_forward
+            - button "Tabela de dados" [ref=f23e2409] [cursor=pointer]:
+              - generic [ref=f23e2410]:
+                - generic [ref=f23e2411]:
+                  - img [ref=f23e2413]: table_view
+                  - generic [ref=f23e2414]: Tabela de dados
+                - button "Personalizar a tabela de dados" [ref=f23e2416]:
+                  - img [ref=f23e2417]: chevron_forward
+          - generic [ref=f23e2421]:
+            - generic [ref=f23e2422]:
+              - generic [ref=f23e2425] [cursor=pointer]:
+                - button "Tecnologia no Atendimento Ligue 180 31 fontes · 128d atrás" [ref=f23e2426]
+                - generic:
+                  - generic:
+                    - img: stacked_bar_chart
+                  - generic:
+                    - generic:
+                      - generic: Tecnologia no Atendimento Ligue 180
+                    - generic: 31 fontes · 128d atrás
+                - button "Mais" [ref=f23e2430]:
+                  - img [ref=f23e2431]: more_vert
+              - generic [ref=f23e2436] [cursor=pointer]:
+                - button "Jornada de Atendimento Ligue 180 31 fontes · 137d atrás" [ref=f23e2437]
+                - generic:
+                  - generic:
+                    - img: stacked_bar_chart
+                  - generic:
+                    - generic:
+                      - generic: Jornada de Atendimento Ligue 180
+                    - generic: 31 fontes · 137d atrás
+                - button "Mais" [ref=f23e2441]:
+                  - img [ref=f23e2442]: more_vert
+              - generic [ref=f23e2447] [cursor=pointer]:
+                - button "Jornada Digital Ligue 180 31 fontes · 137d atrás" [ref=f23e2448]
+                - generic:
+                  - generic:
+                    - img: stacked_bar_chart
+                  - generic:
+                    - generic:
+                      - generic: Jornada Digital Ligue 180
+                    - generic: 31 fontes · 137d atrás
+                - button "Mais" [ref=f23e2452]:
+                  - img [ref=f23e2453]: more_vert
+              - generic [ref=f23e2458] [cursor=pointer]:
+                - button "Arquitetura Técnica de Ecossistema Integrado 30 fontes · 137d atrás" [ref=f23e2459]
+                - generic:
+                  - generic:
+                    - img: stacked_bar_chart
+                  - generic:
+                    - generic:
+                      - generic: Arquitetura Técnica de Ecossistema Integrado
+                    - generic: 30 fontes · 137d atrás
+                - button "Mais" [ref=f23e2463]:
+                  - img [ref=f23e2464]: more_vert
+              - generic [ref=f23e2469] [cursor=pointer]:
+                - button "Evolução das Jornadas de Atendimento 30 fontes · 137d atrás" [ref=f23e2470]
+                - generic:
+                  - generic:
+                    - img: stacked_bar_chart
+                  - generic:
+                    - generic:
+                      - generic: Evolução das Jornadas de Atendimento
+                    - generic: 30 fontes · 137d atrás
+                - button "Mais" [ref=f23e2474]:
+                  - img [ref=f23e2475]: more_vert
+              - generic [ref=f23e2480] [cursor=pointer]:
+                - button "Arquitetura Salesforce para o Governo Digital 30 fontes · 140d atrás" [ref=f23e2481]
+                - generic:
+                  - generic:
+                    - img: tablet
+                  - generic:
+                    - generic:
+                      - generic: Arquitetura Salesforce para o Governo Digital
+                    - generic: 30 fontes · 140d atrás
+                - button "Mais" [ref=f23e2485]:
+                  - img [ref=f23e2486]: more_vert
+              - generic [ref=f23e2491] [cursor=pointer]:
+                - button "Arquitetura Estrutural Ecossistema Ligue 180 30 fontes · 140d atrás" [ref=f23e2492]
+                - generic:
+                  - generic:
+                    - img: stacked_bar_chart
+                  - generic:
+                    - generic:
+                      - generic: Arquitetura Estrutural Ecossistema Ligue 180
+                    - generic: 30 fontes · 140d atrás
+                - button "Mais" [ref=f23e2496]:
+                  - img [ref=f23e2497]: more_vert
+              - generic [ref=f23e2502] [cursor=pointer]:
+                - 'button "Governo Digital: Padrão e Eficiência 30 fontes · 140d atrás" [ref=f23e2503]'
+                - generic:
+                  - generic:
+                    - img: stacked_bar_chart
+                  - generic:
+                    - generic:
+                      - generic: "Governo Digital: Padrão e Eficiência"
+                    - generic: 30 fontes · 140d atrás
+                - button "Mais" [ref=f23e2507]:
+                  - img [ref=f23e2508]: more_vert
+              - generic [ref=f23e2513] [cursor=pointer]:
+                - button "Especificações de Requisitos e Serviços de Tecnologia 30 fontes · 140d atrás" [ref=f23e2514]
+                - generic:
+                  - generic:
+                    - img: table_view
+                  - generic:
+                    - generic:
+                      - generic: Especificações de Requisitos e Serviços de Tecnologia
+                    - generic: 30 fontes · 140d atrás
+                - button "Mais" [ref=f23e2518]:
+                  - img [ref=f23e2519]: more_vert
+              - generic [ref=f23e2524] [cursor=pointer]:
+                - 'button "Modernização Tecnológica do Ligue 180: Arquitetura e Integração UNA 30 fontes · 140d atrás" [ref=f23e2525]'
+                - generic:
+                  - generic:
+                    - img: flowchart
+                  - generic:
+                    - generic:
+                      - generic: "Modernização Tecnológica do Ligue 180: Arquitetura e Integração UNA"
+                    - generic: 30 fontes · 140d atrás
+                - button "Mais" [ref=f23e2529]:
+                  - img [ref=f23e2530]: more_vert
+              - generic [ref=f23e2535] [cursor=pointer]:
+                - button "UNA Governo Digital Rota da Transformação 5 fontes · 200d atrás" [ref=f23e2536]
+                - generic:
+                  - generic:
+                    - img: tablet
+                  - generic:
+                    - generic:
+                      - generic: UNA Governo Digital Rota da Transformação
+                    - generic: 5 fontes · 200d atrás
+                - button "Mais" [ref=f23e2540]:
+                  - img [ref=f23e2541]: more_vert
+            - button "Adicionar nota" [ref=f23e2544]:
+              - img [ref=f23e2545]: sticky_note_2
+              - generic [ref=f23e2546]: Adicionar nota
+    - contentinfo [ref=f23e128]: O NotebookLM pode gerar respostas incorretas. Por isso, cheque o conteúdo.

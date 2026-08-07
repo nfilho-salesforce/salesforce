@@ -1,0 +1,41 @@
+{
+  "project_name": "CLARO Agente PLM",
+  "created_at": "2026-06-17",
+  "depth_mode": "epic-level",
+  "vertical": null,
+  "rfp_tier": null,
+  "benchmark_source": "model-training-data",
+  "completion_status": {
+    "setup": "not-started",
+    "tutorial": "not-started",
+    "discover": "complete",
+    "strategy": "complete",
+    "requirements": "complete",
+    "design": "complete",
+    "roadmap": "complete",
+    "efficiency": "complete",
+    "commercials": "complete",
+    "validate": "complete",
+    "narratives": "complete",
+    "export": "complete",
+    "backlog": "not-started",
+    "quantum-leap": "not-started",
+    "slides": "complete",
+    "rfp": "not-started",
+    "cleanup": "not-started",
+    "wrapup": "complete",
+    "next": "not-started",
+    "help": "not-started",
+    "contribute": "not-started"
+  },
+  "timeline": {
+    "client_target": {
+      "value": "8 weeks (2w Discovery+Design → 3w Build → 3w UAT/Fine-tuning)",
+      "source": "Discovery com Lucas.docx",
+      "note": "Suggested timeline from discovery doc; confirmed as working assumption"
+    },
+    "user_commitment": null
+  },
+  "products_in_scope": [],
+  "products_with_overlay": []
+}

@@ -1,0 +1,242 @@
+digraph SEFIN_CE {
+    graph [
+        rankdir=TB
+        fontname="Helvetica"
+        fontsize=11
+        bgcolor="#F4F6F9"
+        splines=ortho
+        nodesep=0.4
+        ranksep=0.6
+        pad=0.5
+        label="Agente Agentforce — SEFIN-CE / DATAPREV\nFluxo de Atendimento v1.0 (revisado)\n2026-07-02"
+        labelloc=t
+        labeljust=c
+        fontsize=14
+    ]
+    node [fontname="Helvetica" fontsize=10 style=filled]
+    edge [fontname="Helvetica" fontsize=9]
+
+    // ─── ESTILOS ───────────────────────────────────────────────────────────
+    // Início/Fim
+    node_start    [shape=oval  fillcolor="#032D60" fontcolor=white label="INÍCIO\nCidadão envia mensagem"]
+
+    // Ações do agente (azul)
+    node [shape=box style="filled,rounded" fillcolor="#0096FF" fontcolor=white]
+
+    // Condicionais (verde)
+    node [shape=diamond fillcolor="#2E7D32" fontcolor=white]
+
+    // Serviços / API calls (roxo)
+    node [shape=box style="filled,rounded" fillcolor="#6A1B9A" fontcolor=white]
+
+    // Encerramento (vermelho escuro)
+    node [shape=oval fillcolor="#7B1A1A" fontcolor=white]
+
+    // Transbordo (laranja)
+    node [shape=box style="filled,rounded" fillcolor="#E65100" fontcolor=white]
+
+    // ─── NÓS ───────────────────────────────────────────────────────────────
+
+    // === ENTRADA ===
+    START       [shape=oval  fillcolor="#032D60" fontcolor=white label="INÍCIO\nCidadão envia mensagem"]
+    SAUDACAO    [shape=box style="filled,rounded" fillcolor="#0096FF" fontcolor=white label="SAUDAÇÃO\nBoas-vindas ao canal SEFIN-CE"]
+    HSM_Q       [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Veio de HSM\nproativo?"]
+    HSM_INFO    [shape=box style="filled,rounded" fillcolor="#0096FF" fontcolor=white label="Apresenta contexto\ndo HSM recebido\n[Q-A: parâmetros HSM]"]
+    MENU        [shape=box style="filled,rounded" fillcolor="#0096FF" fontcolor=white label="MENU DE SERVIÇOS\n1. Boleto IPTU\n2. Boleto Taxa do Lixo\n3. ISS\n4. Preciso de ajuda / Outros"]
+
+    // === IDENTIFICAÇÃO ===
+    JA_IDENT    [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Já identificado\nnesta sessão?"]
+    MESMO_CPF   [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Mesmo CPF/CNPJ?"]
+    PEDE_CPF    [shape=box style="filled,rounded" fillcolor="#0096FF" fontcolor=white label="Solicita CPF ou CNPJ"]
+    VAL_CPF     [shape=diamond fillcolor="#2E7D32" fontcolor=white label="CPF/CNPJ\nválido?"]
+    CPF_11_14   [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Digitou 11 ou\n14 numerais?"]
+    TENT_CPF1   [shape=diamond fillcolor="#2E7D32" fontcolor=white label="1ª tentativa\ninválida?"]
+    TENT_CPF2   [shape=diamond fillcolor="#2E7D32" fontcolor=white label="2ª tentativa\ninválida?"]
+    ERR_CPF     [shape=box style="filled,rounded" fillcolor="#0096FF" fontcolor=white label="Informa erro e\nsolicita novamente"]
+    PEDE_NOME   [shape=box style="filled,rounded" fillcolor="#0096FF" fontcolor=white label="Solicita NOME\ndo cidadão"]
+    PEDE_DATA   [shape=box style="filled,rounded" fillcolor="#0096FF" fontcolor=white label="Solicita DATA DE\nNASCIMENTO / ABERTURA"]
+    VAL_DATA    [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Data\nválida?"]
+    TENT_DAT1   [shape=diamond fillcolor="#2E7D32" fontcolor=white label="1ª tentativa\ndata inválida?"]
+    TENT_DAT2   [shape=diamond fillcolor="#2E7D32" fontcolor=white label="2ª tentativa\ndata inválida?"]
+    ERR_DAT     [shape=box style="filled,rounded" fillcolor="#0096FF" fontcolor=white label="Informa erro e\nsolicita novamente"]
+
+    // === CONSULTA IMÓVEL API ===
+    API_CONS    [shape=box style="filled,rounded" fillcolor="#6A1B9A" fontcolor=white label="API ConsultaImovel\n(por-documento: CPF/CNPJ\n+ nome + data)"]
+    CONS_OK     [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Serviço OK?"]
+    CONS_RET    [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Retentativa\n(1ª falha)"]
+    CONS_OK2    [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Serviço OK\nna retentativa?"]
+    POSSUI_INS  [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Possui\ninscrições?"]
+    POSSUI_ABT  [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Possui inscrições\nem aberto?"]
+
+    // === IPTU / TAXA DO LIXO — SELEÇÃO ===
+    APRES_INS   [shape=box style="filled,rounded" fillcolor="#0096FF" fontcolor=white label="Apresenta TODAS\nas inscrições em aberto\n[P-13: sem limite]"]
+    SEL_INS     [shape=box style="filled,rounded" fillcolor="#0096FF" fontcolor=white label="Cidadão seleciona\ninscrição"]
+    INS_ANO     [shape=diamond fillcolor="#2E7D32" fontcolor=white label="DAM em aberto\nsó no ano vigente?"]
+    COTA_PARC   [shape=box style="filled,rounded" fillcolor="#0096FF" fontcolor=white label="Cidadão escolhe:\nCOTA ÚNICA ou\nPARCELAMENTO"]
+    SEL_PARC    [shape=box style="filled,rounded" fillcolor="#0096FF" fontcolor=white label="Cidadão seleciona\nparcela(s)"]
+    SEL_ANO     [shape=box style="filled,rounded" fillcolor="#0096FF" fontcolor=white label="Cidadão escolhe\nANO do DAM"]
+    ANO_VIG     [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Escolheu\nano vigente?"]
+    TODOS_ANOS  [shape=box style="filled,rounded" fillcolor="#0096FF" fontcolor=white label="Cidadão pode\nescolher todos os anos"]
+
+    // === CONFIRMAÇÃO E EMISSÃO DAM ===
+    CONF_DAM    [shape=diamond fillcolor="#2E7D32" fontcolor=white label="CONFIRMA\nEMISSÃO DO DAM?"]
+    API_DAM     [shape=box style="filled,rounded" fillcolor="#6A1B9A" fontcolor=white label="API EmitirDamUnico\n(CPF/CNPJ + tipoDebito\n+ tipoPagamento + ano/parcelas)"]
+    DAM_OK      [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Serviço OK?"]
+    DAM_RET     [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Retentativa\n(1ª falha)"]
+    DAM_OK2     [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Serviço OK\nna retentativa?"]
+    ENVIA_PDF   [shape=box style="filled,rounded" fillcolor="#6A1B9A" fontcolor=white label="Envia link PDF\ndo DAM ao cidadão"]
+    OUTRA_INS   [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Possui outra inscrição\nsem DAM emitido\nnesta conversa?"]
+    QUER_OUTRA  [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Quer emitir DAM\nde outra inscrição?"]
+
+    // === ISS ===
+    ISS_INFO    [shape=box style="filled,rounded" fillcolor="#0096FF" fontcolor=white label="ISS: informa link\ndo site SEFIN-CE\npara resolução\n[Q-E: URL a confirmar]"]
+
+    // === PRECISO DE AJUDA ===
+    AJD_CPF     [shape=box style="filled,rounded" fillcolor="#0096FF" fontcolor=white label="Solicita CPF/CNPJ\npara identificação"]
+    AJD_NOME    [shape=box style="filled,rounded" fillcolor="#0096FF" fontcolor=white label="Solicita NOME"]
+    KB_CONS     [shape=box style="filled,rounded" fillcolor="#6A1B9A" fontcolor=white label="Consulta Knowledge Base\n[Q-F: KB a definir]"]
+    KB_OK       [shape=diamond fillcolor="#2E7D32" fontcolor=white label="KB respondeu\na dúvida?"]
+    KB_RESP     [shape=box style="filled,rounded" fillcolor="#0096FF" fontcolor=white label="Agente entrega\nresposta ao cidadão"]
+
+    // === AJUDO COM ALGO MAIS ===
+    ALGO_MAIS   [shape=diamond fillcolor="#2E7D32" fontcolor=white label="AJUDO COM\nALGO MAIS?"]
+
+    // === DHA / TRANSBORDO ===
+    DHA         [shape=diamond fillcolor="#2E7D32" fontcolor=white label="DHA — Dentro do\nHorário de Atendimento?"]
+    DHA_FORA    [shape=box style="filled,rounded" fillcolor="#0096FF" fontcolor=white label="Informa: atendimento humano\ndisponível apenas em\nhorário comercial\n[Q-J: horário a confirmar]"]
+    NOME_TRANS  [shape=box style="filled,rounded" fillcolor="#0096FF" fontcolor=white label="Pede nome\n(se ainda não coletado)"]
+    TRANSBORDO  [shape=box style="filled,rounded" fillcolor="#E65100" fontcolor=white label="[TRANSBORDO — A DEFINIR]\nMecanismo não confirmado\n[Q-B: a esclarecer com cliente]"]
+
+    // === FALHA COM REGISTRO ===
+    FALHA_REG   [shape=box style="filled,rounded" fillcolor="#E65100" fontcolor=white label="Informa falha\nContato registrado\nAlguém entrará em contato"]
+
+    // === PESQUISA DE SATISFAÇÃO ===
+    PESQ        [shape=box style="filled,rounded" fillcolor="#00695C" fontcolor=white label="PESQUISA DE SATISFAÇÃO\n⭐ Muito ruim  ⭐⭐ Ruim\n⭐⭐⭐ Razoável  ⭐⭐⭐⭐ Bom\n⭐⭐⭐⭐⭐ Muito bom"]
+    PESQ_BAIXA  [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Nota ≤ 3\nestrelas?"]
+    PESQ_DESC   [shape=box style="filled,rounded" fillcolor="#0096FF" fontcolor=white label="Solicita descrição\nda insatisfação"]
+
+    // === API LOG ===
+    API_LOG     [shape=box style="filled,rounded" fillcolor="#6A1B9A" fontcolor=white label="API Registro de Contato\n[Q-C / Q-D]\nCPF/CNPJ + nome + serviço\nresultado + nota + justificativa"]
+
+    // === ENCERRAMENTO ===
+    FIM         [shape=oval fillcolor="#7B1A1A" fontcolor=white label="DESPEDIDA\nEncerramento da conversa"]
+
+    // ─── FLUXO PRINCIPAL ───────────────────────────────────────────────────
+
+    START -> SAUDACAO
+    SAUDACAO -> HSM_Q
+    HSM_Q -> HSM_INFO [label="SIM"]
+    HSM_Q -> MENU [label="NÃO"]
+    HSM_INFO -> MENU
+
+    MENU -> JA_IDENT [label="IPTU ou\nTaxa do Lixo"]
+    MENU -> ISS_INFO [label="ISS"]
+    MENU -> AJD_CPF [label="Ajuda /\nOutros"]
+
+    // === IDENTIFICAÇÃO ===
+    JA_IDENT -> MESMO_CPF [label="SIM"]
+    JA_IDENT -> PEDE_CPF [label="NÃO"]
+    MESMO_CPF -> API_CONS [label="SIM\n(reutiliza sessão)"]
+    MESMO_CPF -> PEDE_CPF [label="NÃO\n(novo CPF)"]
+
+    PEDE_CPF -> VAL_CPF
+    VAL_CPF -> CPF_11_14 [label="NÃO\n(caractere inválido)"]
+    VAL_CPF -> PEDE_NOME [label="SIM"]
+    CPF_11_14 -> TENT_CPF1 [label="NÃO\n(formato errado)"]
+    CPF_11_14 -> TENT_CPF1 [label="SIM\n(qtd certa mas\nnão é CPF válido)"]
+    TENT_CPF1 -> ERR_CPF [label="SIM"]
+    TENT_CPF1 -> TENT_CPF2 [label="NÃO (2ª vez)"]
+    ERR_CPF -> VAL_CPF
+    TENT_CPF2 -> ERR_CPF [label="SIM"]
+    TENT_CPF2 -> PESQ [label="NÃO\n(esgotou tentativas)"]
+
+    PEDE_NOME -> PEDE_DATA
+    PEDE_DATA -> VAL_DATA
+    VAL_DATA -> API_CONS [label="SIM"]
+    VAL_DATA -> TENT_DAT1 [label="NÃO"]
+    TENT_DAT1 -> ERR_DAT [label="SIM"]
+    TENT_DAT1 -> TENT_DAT2 [label="NÃO (2ª vez)"]
+    ERR_DAT -> VAL_DATA
+    TENT_DAT2 -> ERR_DAT [label="SIM"]
+    TENT_DAT2 -> PESQ [label="NÃO\n(esgotou tentativas)"]
+
+    // === CONSULTA IMÓVEL ===
+    API_CONS -> CONS_OK
+    CONS_OK -> POSSUI_INS [label="SIM"]
+    CONS_OK -> CONS_RET [label="NÃO"]
+    CONS_RET -> CONS_OK2
+    CONS_OK2 -> POSSUI_INS [label="SIM"]
+    CONS_OK2 -> FALHA_REG [label="NÃO\n(falha persistente)"]
+
+    POSSUI_INS -> POSSUI_ABT [label="SIM"]
+    POSSUI_INS -> ALGO_MAIS [label="NÃO\n(sem inscrições)"]
+    POSSUI_ABT -> APRES_INS [label="SIM"]
+    POSSUI_ABT -> ALGO_MAIS [label="NÃO\n(sem débitos em aberto)"]
+
+    // === SELEÇÃO E EMISSÃO ===
+    APRES_INS -> SEL_INS
+    SEL_INS -> INS_ANO
+    INS_ANO -> CONF_DAM [label="SIM\n(só ano vigente)"]
+    INS_ANO -> COTA_PARC [label="NÃO\n(múltiplos anos)"]
+    COTA_PARC -> CONF_DAM [label="COTA ÚNICA"]
+    COTA_PARC -> SEL_PARC [label="PARCELADO"]
+    SEL_PARC -> CONF_DAM
+    COTA_PARC -> SEL_ANO [label="Escolhe ano"]
+    SEL_ANO -> ANO_VIG
+    ANO_VIG -> CONF_DAM [label="SIM"]
+    ANO_VIG -> TODOS_ANOS [label="NÃO"]
+    TODOS_ANOS -> CONF_DAM
+
+    CONF_DAM -> API_DAM [label="SIM"]
+    CONF_DAM -> ALGO_MAIS [label="NÃO"]
+
+    API_DAM -> DAM_OK
+    DAM_OK -> ENVIA_PDF [label="SIM"]
+    DAM_OK -> DAM_RET [label="NÃO"]
+    DAM_RET -> DAM_OK2
+    DAM_OK2 -> ENVIA_PDF [label="SIM"]
+    DAM_OK2 -> FALHA_REG [label="NÃO\n(falha persistente)"]
+
+    ENVIA_PDF -> OUTRA_INS
+    OUTRA_INS -> QUER_OUTRA [label="SIM"]
+    OUTRA_INS -> ALGO_MAIS [label="NÃO"]
+    QUER_OUTRA -> SEL_INS [label="SIM\n(loop)"]
+    QUER_OUTRA -> ALGO_MAIS [label="NÃO"]
+
+    // === ISS ===
+    ISS_INFO -> ALGO_MAIS
+
+    // === PRECISO DE AJUDA ===
+    AJD_CPF -> VAL_CPF
+    // (reutiliza o mesmo fluxo de validação CPF)
+    // após identificação:
+    PEDE_NOME -> AJD_NOME [style=invis] // placeholder — fluxo compartilhado
+    AJD_NOME -> KB_CONS
+    KB_CONS -> KB_OK
+    KB_OK -> KB_RESP [label="SIM"]
+    KB_OK -> DHA [label="NÃO\n(KB sem resposta)"]
+    KB_RESP -> ALGO_MAIS
+
+    // === ALGO MAIS ===
+    ALGO_MAIS -> MENU [label="SIM"]
+    ALGO_MAIS -> PESQ [label="NÃO"]
+
+    // === DHA / TRANSBORDO ===
+    DHA -> DHA_FORA [label="FORA do\nhorário"]
+    DHA -> NOME_TRANS [label="DENTRO do\nhorário"]
+    DHA_FORA -> ALGO_MAIS
+    NOME_TRANS -> TRANSBORDO
+    TRANSBORDO -> PESQ
+
+    // === FALHA COM REGISTRO (P-10) ===
+    FALHA_REG -> ALGO_MAIS
+
+    // === PESQUISA ===
+    PESQ -> PESQ_BAIXA
+    PESQ_BAIXA -> PESQ_DESC [label="SIM\n(≤3 ⭐)"]
+    PESQ_BAIXA -> API_LOG [label="NÃO\n(≥4 ⭐)"]
+    PESQ_DESC -> API_LOG
+
+    // === LOG ===
+    API_LOG -> FIM
+}

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<!-- DATAPREV Data Ágil — Story Deck (Brand Central 2026, Blue). Source for editable PPTX export.
+     Each <section class="slide"> is tagged data-component + data-props for pptx-export/convert.py. -->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data Ágil — DATAPREV · Alinhamento de Escopo</title>
+<style>
+:root{
+  --accent:#00B3FF; --ink:#FFFFFF; --ink-soft:#EAF5FE; --card:#022AC0; --deep:#001E5B;
+  --display:'ITC Avant Garde Gothic Demi','Avant Garde','Century Gothic','Salesforce Sans','Source Sans 3',Arial,sans-serif;
+  --body:'Salesforce Sans','Source Sans 3','Helvetica Neue',Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{background:#000;overflow:hidden;display:flex;align-items:center;justify-content:center;font-family:var(--body);}
+.slide{width:1280px;height:720px;position:relative;display:none;flex-direction:column;
+  padding:64px 80px;overflow:hidden;color:var(--ink);
+  background:linear-gradient(135deg,#001E5B 0%,#022AC0 42%,#066AFE 74%,#00B3FF 100%);
+  transform:scale(var(--scale,1));transform-origin:center center;}
+.slide.active{display:flex;}
+.eyebrow{font-family:var(--display);font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+h1{font-family:var(--display);font-size:40px;line-height:1.14;color:#fff;max-width:1040px;}
+.sub{font-size:22px;color:var(--ink-soft);margin-top:14px;max-width:980px;}
+ul{margin-top:22px;list-style:none;display:grid;gap:12px;max-width:1080px;}
+li{font-size:18px;color:var(--ink-soft);padding-left:20px;position:relative;line-height:1.4;}
+li::before{content:'';position:absolute;left:0;top:9px;width:8px;height:8px;border-radius:2px;background:var(--accent);}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:14px 48px;margin-top:22px;}
+.foot{position:absolute;left:80px;bottom:26px;font-size:13px;color:var(--accent);max-width:1040px;}
+.num{position:absolute;bottom:24px;right:34px;font-size:12px;color:rgba(234,245,254,.6);}
+.slide.active .anim{animation:rise .6s cubic-bezier(.16,.84,.36,1) both;}
+@keyframes rise{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.nav{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:8px;align-items:center;
+  background:rgba(0,30,91,.9);border-radius:999px;padding:8px 16px;z-index:50;transition:opacity .4s;}
+.nav.idle{opacity:0;pointer-events:none;}
+.nav button{background:#066AFE;color:#fff;border:none;border-radius:999px;padding:6px 14px;cursor:pointer;font-family:var(--display);}
+.nav span{color:#fff;font-size:13px;padding:0 8px;}
+@media print{@page{size:1280px 720px;margin:0;}html,body{background:#fff;width:1280px;height:auto;display:block;overflow:visible;}
+  .slide{display:flex !important;page-break-after:always;transform:none !important;}.slide:last-of-type{page-break-after:auto;}.nav,.num{display:none;}}
+</style>
+</head>
+<body>
+
+<!-- 1 · CAPA -->
+<section class="slide active" data-component="cover" data-props='{"eyebrow":"DATAPREV · Julho 2026","title":"Data Ágil","sub":"Plataforma de Autosserviço e Inteligência via Slack + Agentforce","byline":"<b>Alinhamento de Escopo — Pré-SOW</b><br>Sponsors Técnicos + Negócio","variant":"agent-astro"}'>
+  <div class="eyebrow anim">DATAPREV · Julho 2026</div>
+  <h1 class="anim">Data Ágil</h1>
+  <div class="sub anim">Plataforma de Autosserviço e Inteligência via Slack + Agentforce</div>
+  <div class="sub anim" style="font-size:16px;margin-top:34px;">Alinhamento de Escopo — Pré-SOW · Sponsors Técnicos + Negócio</div>
+</section>
+
+<!-- 2 · CONTEXTO -->
+<section class="slide" data-component="stat-band" data-props='{"eyebrow":"Onde estamos hoje","title":"Crescimento exponencial sem evolução da infraestrutura criou gargalos operacionais críticos","sub":"O contexto Dataprev","stats":[["166×","Crescimento da base B2B","15 → 2.500 clientes"],["7","Sistemas legados fragmentados","sem camada unificada"],["~30k","Tickets/mês manuais","SLA degradado: horas vs. meta <1min"],["~30%","Adoção do CRM","compromete o forecast executivo"]],"note_runs":[["Pressão regulatória crescente: ",true],["breach de 2,8M CPFs (mai/2026), auditoria TCU ativa e mainframe descomissionado (jan/2026).",false]]}'>
+  <div class="eyebrow anim">Onde estamos hoje</div>
+  <h1 class="anim">Crescimento exponencial sem evolução da infraestrutura criou gargalos operacionais críticos</h1>
+  <ul class="anim">
+    <li><b>166×</b> crescimento da base B2B (15 → 2.500 clientes) sem escalada de infraestrutura</li>
+    <li><b>7</b> sistemas legados fragmentados sem camada unificada</li>
+    <li><b>~30k</b> tickets/mês manuais — SLA degradado (horas vs. meta &lt;1min)</li>
+    <li><b>~30%</b> de adoção do CRM compromete o forecast executivo</li>
+  </ul>
+  <div class="foot anim">Pressão regulatória: breach de 2,8M CPFs (mai/2026), auditoria TCU ativa, mainframe descomissionado (jan/2026)</div>
+</section>
+
+<!-- 3 · IMPACTOS -->
+<section class="slide" data-component="icon-cards" data-props='{"title":"Fragmentação degrada a experiência do cliente e expõe a Dataprev a riscos","subtitle":"Impactos no negócio","cards":[{"icon":"Contact Center.png","heading":"SLA degradado","sub":"Consultas que deveriam ser instantâneas dependem de filas N1 humanas com latência de horas"},{"icon":"Government Cloud Public Sector.png","heading":"Risco de perder contratos","sub":"Self-service e IA viram requisitos tácitos em renovações — SERPRO já opera automação/IA"},{"icon":"Professional Services.png","heading":"Baixa produtividade interna","sub":"N1/N2 sobrecarregados com consultas repetitivas em vez de valor agregado"},{"icon":"Shield.png","heading":"Exposição ao TCU","sub":"Sem rastreabilidade de consultas financeiras sensíveis (Protheus), risco em auditorias"}],"footer":"Alinhamento de escopo — Data Ágil"}'>
+  <div class="eyebrow anim">Impactos no negócio</div>
+  <h1 class="anim">Fragmentação degrada a experiência do cliente e expõe a Dataprev a riscos</h1>
+  <div class="cols anim">
+    <li style="list-style:none"><b>SLA degradado</b> — consultas instantâneas dependem de filas N1 com latência de horas</li>
+    <li style="list-style:none"><b>Risco de perder contratos</b> — self-service e IA viram requisitos; SERPRO já opera IA</li>
+    <li style="list-style:none"><b>Baixa produtividade</b> — N1/N2 sobrecarregados com consultas repetitivas</li>
+    <li style="list-style:none"><b>Exposição ao TCU</b> — sem rastreabilidade de consultas financeiras (Protheus)</li>
+  </div>
+</section>
+
+<!-- 4 · JANELA DE OPORTUNIDADE -->
+<section class="slide" data-component="icon-cards" data-props='{"title":"Momento convergente — pressão, capacidade e mandato executivo alinham agora","subtitle":"Janela de oportunidade: por que agora?","cards":[{"icon":"Hyperforce.png","heading":"Arquitetural","sub":"Mainframe descomissionado (jan/2026) abre janela de modernização sem dependência legada crítica"},{"icon":"Slack.png","heading":"Executivo","sub":"Sponsorship bottom-up já estabelecido — Slack defendido internamente antes da discovery oficial"},{"icon":"Public Sector.png","heading":"Operacional","sub":"Recesso parlamentar cria janela de deployment sem pressão operacional crítica"},{"icon":"Artificial Intelligence.png","heading":"Competitivo","sub":"Gap vs. SERPRO em automação/IA — agir agora estabelece paridade no setor público federal"},{"icon":"Security.png","heading":"Regulatório","sub":"Breach recente + auditoria TCU ativa criam mandato de hardening de governança agora"}],"footer":"Por que agora"}'>
+  <div class="eyebrow anim">Janela de oportunidade</div>
+  <h1 class="anim">Momento convergente — pressão, capacidade e mandato executivo alinham agora</h1>
+  <ul class="anim">
+    <li><b>Arquitetural</b> — mainframe descomissionado abre janela de modernização</li>
+    <li><b>Executivo</b> — sponsorship bottom-up já estabelecido no Slack</li>
+    <li><b>Operacional</b> — recesso parlamentar dá janela de deployment</li>
+    <li><b>Competitivo</b> — fechar o gap vs. SERPRO em automação/IA</li>
+    <li><b>Regulatório</b> — breach + TCU criam mandato de governança agora</li>
+  </ul>
+</section>
+
+<!-- 5 · A VISÃO -->
+<section class="slide" data-component="numbered-cards" data-props='{"title":"Uma plataforma conversacional conecta pessoas aos sistemas, 24/7","subtitle":"A visão — autosserviço e inteligência","cards":[{"n":1,"title":"Slack como Agentic OS","body":"Interface conversacional unificada substitui 7 logins e sistemas diferentes"},{"n":2,"title":"Agentforce orquestra 9 agentes","body":"5 read-only (Fase 1), 2 de escrita controlada (Fase 2), 2 preditivos (Fase 3)"},{"n":3,"title":"MuleSoft integra os legados","body":"Camada segura sobre 7 sistemas — rastreabilidade LGPD/TCU em cada consulta"},{"n":4,"title":"Data Cloud habilita predição","body":"Fase 3: alertas proativos de breach de SLA e recomendações comerciais"}],"footer":"De reativo para proativo"}'>
+  <div class="eyebrow anim">A visão</div>
+  <h1 class="anim">Uma plataforma conversacional conecta pessoas aos sistemas, 24/7</h1>
+  <ul class="anim">
+    <li><b>Slack como Agentic OS</b> — substitui 7 logins por uma interface conversacional</li>
+    <li><b>Agentforce</b> — orquestra 9 agentes (5 F1 read-only, 2 F2 escrita, 2 F3 preditivos)</li>
+    <li><b>MuleSoft</b> — integra os legados com rastreabilidade LGPD/TCU</li>
+    <li><b>Data Cloud</b> — na Fase 3 habilita alertas e recomendações proativas</li>
+  </ul>
+  <div class="foot anim">De reativo para proativo</div>
+</section>
+
+<!-- 6 · ESCOPO -->
+<section class="slide" data-component="cards" data-props='{"title":"Faseamento maximiza ROI precoce e reduz risco","subtitle":"Escopo — 10 épicas em 3 fases + governança cross-cutting","count":4,"cards":[{"heading":"Fase 0 — Discovery","paras":["Resolver bloqueador G1002 (governança Protheus)","Auditoria de volumetrias","Decisões arquiteturais (Workspace Slack, Clarity)"]},{"heading":"Fase 1 — Foundation","paras":["E01 Consultas Financeiras (Protheus)","E02 Chamados Técnicos (Pronto)","E03 Intelligence Executiva (CRM Totvs)","E04 KB Normativas RH","E05 Agendamento (MS Teams)"]},{"heading":"Fase 2 — Expansion","paras":["E06 Adoção CRM via conversação (+40%)","E07 Abertura de chamados assistida"]},{"heading":"Fase 3 — Proactive","paras":["E08 Demandas Evolutivas (Clarity)","E09 Intelligence Preditiva (Data Cloud + alertas SLA)"]}],"footer":"E10 Governança / Compliance / Change Management — cross-cutting em todas as fases"}'>
+  <div class="eyebrow anim">Escopo</div>
+  <h1 class="anim">Faseamento maximiza ROI precoce e reduz risco</h1>
+  <ul class="anim">
+    <li><b>Fase 0 — Discovery</b> — G1002, volumetrias, decisões arquiteturais</li>
+    <li><b>Fase 1 — Foundation</b> — E01-E05, 5 jornadas read-only</li>
+    <li><b>Fase 2 — Expansion</b> — E06-E07, escrita controlada</li>
+    <li><b>Fase 3 — Proactive</b> — E08-E09, inteligência preditiva</li>
+  </ul>
+  <div class="foot anim">E10 Governança / Compliance / Change Management — cross-cutting em todas as fases</div>
+</section>
+
+<!-- 7 · FASE 1 QUICK WINS -->
+<section class="slide" data-component="usecase-icon-grid" data-props='{"title":"Fase 1 entrega valor imediato e estabelece confiança antes das escritas","sub":"Quick Wins — 5 jornadas live (read-only)","tiles":[["Financial Services.png","Consultas Financeiras","J1 · Protheus",true],["Contact Center.png","Autoatendimento Chamados","J2 · Pronto",false],["Analytics.png","Intelligence Executiva","J5 · CRM Totvs",false],["HR.png","KB Normativas RH","J7 · SharePoint",false],["Microsoft Teams.png","Agendamento","J8 · MS Teams",false]],"punch_runs":[["Critérios de sucesso: ",true],["5 jornadas live · early adopters treinados · audit trail operacional · mandato >60% de uso semanal",false]]}'>
+  <div class="eyebrow anim">Fase 1 — Quick Wins</div>
+  <h1 class="anim">Fase 1 entrega valor imediato e estabelece confiança antes das escritas</h1>
+  <ul class="anim">
+    <li><b>J1</b> Consultas Financeiras (Protheus) · <b>J2</b> Autoatendimento Chamados (Pronto)</li>
+    <li><b>J5</b> Intelligence Executiva (CRM Totvs) · <b>J7</b> KB Normativas RH · <b>J8</b> Agendamento (MS Teams)</li>
+  </ul>
+  <div class="foot anim">5 jornadas live · early adopters treinados · audit trail · mandato &gt;60% de uso semanal</div>
+</section>
+
+<!-- 8 · FASES 2 E 3 -->
+<section class="slide" data-component="table-cards" data-props='{"title":"Fase 2 aumenta adoção do CRM; Fase 3 transforma reativo em proativo","cards":[{"label":"Fase 2 — Expansion","variant":"a","items":[{"header":"J4 — Adoção CRM","body":"Comercial atualiza pipeline por voz/texto no Slack. Meta +40% (30% → 70%)"},{"header":"J3 — Chamados assistidos","body":"Clientes e internos abrem tickets Pronto via Slack, com validação de campos"},{"header":"Gate de entrada","body":"Fase 1 com >60% de uso semanal — confiança antes de habilitar escritas"},{"header":"Escrita controlada","body":"Validação de campos obrigatórios e trilha de auditoria em cada mutação"}]},{"label":"Fase 3 — Proactive","variant":"b","items":[{"header":"J9 — Alertas de SLA","body":"Data Cloud identifica cohort de risco; Agentforce alerta antes do breach"},{"header":"J10 — Recomendações","body":"Pipeline histórico + modelo preditivo = próxima melhor ação comercial"},{"header":"J6 — Demandas evolutivas","body":"Clarity ~4,5k demandas: co-living OU migração para Service Cloud"},{"header":"De reativo a proativo","body":"Antecipar o problema e recomendar a ação antes da reunião"}]}],"footer":"Escala progressiva — dos quick wins à inteligência preditiva"}'>
+  <div class="eyebrow anim">Fases 2 e 3</div>
+  <h1 class="anim">Fase 2 aumenta adoção do CRM; Fase 3 transforma reativo em proativo</h1>
+  <div class="cols anim">
+    <div><b>Fase 2 — Expansion</b><ul><li>J4 Adoção CRM (+40%)</li><li>J3 Chamados assistidos</li><li>Gate: F1 &gt;60% uso</li></ul></div>
+    <div><b>Fase 3 — Proactive</b><ul><li>J9 Alertas de SLA</li><li>J10 Recomendações comerciais</li><li>J6 Demandas (Clarity)</li></ul></div>
+  </div>
+</section>
+
+<!-- 9 · ARQUITETURA -->
+<section class="slide" data-component="cards" data-props='{"title":"Arquitetura nativa Salesforce com governança LGPD/TCU embutida","subtitle":"Slack Agentic OS — 4 camadas","count":4,"cards":[{"heading":"Engajamento","paras":["Slack Enterprise Grid: 2.500 B2B + 3.000 internos","Slack Connect, Slack AI KB, Workflow Builder"]},{"heading":"Orquestração","paras":["Agentforce: 9 agentes + Atlas Reasoning","Slack EKM (master keys AWS KMS sob CISO)","Todo API call logged (LGPD/TCU)"]},{"heading":"Integração","paras":["MuleSoft dual: Anypoint + MCP Server","APIs: Protheus, Pronto, CRM Totvs, SharePoint, MS Teams, SEI, Clarity"]},{"heading":"Inteligência (F3)","paras":["Data Cloud: streaming Pronto + CRM Totvs","Perfis unificados, segmentação, ativação (J9/J10)"]}],"footer":"7 sistemas legados integrados via MuleSoft"}'>
+  <div class="eyebrow anim">Arquitetura técnica</div>
+  <h1 class="anim">Arquitetura nativa Salesforce com governança LGPD/TCU embutida</h1>
+  <ul class="anim">
+    <li><b>Engajamento</b> — Slack Enterprise Grid (2.500 B2B + 3.000 internos)</li>
+    <li><b>Orquestração</b> — Agentforce 9 agentes + Atlas; Slack EKM; API calls logged</li>
+    <li><b>Integração</b> — MuleSoft dual (Anypoint + MCP) sobre 7 legados</li>
+    <li><b>Inteligência (F3)</b> — Data Cloud: perfis, segmentação, ativação</li>
+  </ul>
+  <div class="foot anim">7 sistemas legados integrados via MuleSoft</div>
+</section>
+
+<!-- 10 · TIMELINE -->
+<section class="slide" data-component="timeline-quarters" data-props='{"title":"Timeline benchmark — 29 a 54 semanas","subtitle":"Derivado top-down da complexidade — ponto de partida, não compromisso","segments":["Fase 0 · 4-6 sem","Fase 1 · 12-16 sem","Fase 2 · 10-14 sem","Fase 3 · 8-12 sem"],"callouts":[{"side":"above","left":"8","h4":"Baseline: 26-40 sem","p":"Multi-Cloud High: 10 épicas (2 XL + 3 L), 7 legados integrados"},{"side":"below","left":"58","h4":"Ajustes de risco +35%","p":"+15% regulada · +10% cliente novo · +10% alargamento de confiança (68 gaps, G1002)"}],"footer":"Baseado em benchmarks de engagements similares (model-training-data). Não é compromisso — base para discussão; duração final depende das decisões da Fase 0."}'>
+  <div class="eyebrow anim">Timeline benchmark</div>
+  <h1 class="anim">Timeline benchmark — 29 a 54 semanas</h1>
+  <div class="sub anim">Derivado top-down da complexidade — ponto de partida, não compromisso</div>
+  <ul class="anim">
+    <li>Fase 0: 4-6 sem · Fase 1: 12-16 sem · Fase 2: 10-14 sem · Fase 3: 8-12 sem</li>
+    <li>Baseline 26-40 sem + ajustes de risco +35% (regulada, cliente novo, confiança)</li>
+  </ul>
+  <div class="foot anim">Baseado em benchmarks de engagements similares (model-training-data). Não é compromisso — base para discussão.</div>
+</section>
+
+<!-- 11 · RISCOS -->
+<section class="slide" data-component="data-table" data-props='{"title":"5 riscos críticos — todos com mitigação definida ou gate de decisão","categories":[{"name":"Impacto","subs":[]},{"name":"Mitigação","subs":[]}],"rows":[{"label":"G1002 — Governança Protheus","main":["TI+Jurídico+DPO não aprovam acesso a dados financeiros → J1 inviável","Fase 0 mandatória: tri-party meeting. Fallback: J1 para Fase 2"]},{"label":"Gap de Experience Design","main":["10k+ usuários externos sem UX research → baixa adoção","UX Researcher na Fase 0/1: service design + onboarding"]},{"label":"Volumetrias desconhecidas","main":["Capacidade não auditada → sizing MuleSoft/Agentforce errado","Audit de 2 semanas na Fase 0"]},{"label":"APIs legados não validadas","main":["CRM Totvs write, Clarity, Pronto → bloqueio Fase 2/3","API discovery sprint: Swagger + sandbox + field mapping"]},{"label":"Governance/CoE indefinido","main":["Ownership multi-team → deadlock pós go-live","RACI workshop na Fase 0"]}],"notes":["Todos os riscos são endereçados na Fase 0, antes do build da Fase 1."]}'>
+  <div class="eyebrow anim">Riscos e mitigações</div>
+  <h1 class="anim">5 riscos críticos — todos com mitigação definida ou gate de decisão</h1>
+  <ul class="anim">
+    <li><b>G1002 Protheus</b> — tri-party TI+Jurídico+DPO na Fase 0; fallback J1 para F2</li>
+    <li><b>Experience Design</b> — UX Researcher na Fase 0/1</li>
+    <li><b>Volumetrias</b> — audit de 2 semanas na Fase 0</li>
+    <li><b>APIs legados</b> — API discovery sprint (Swagger + sandbox)</li>
+    <li><b>Governance/CoE</b> — RACI workshop na Fase 0</li>
+  </ul>
+</section>
+
+<!-- 12 · DISCIPLINAS -->
+<section class="slide" data-component="cards" data-props='{"title":"11 disciplinas — uma pessoa pode cobrir várias; várias podem cobrir uma","subtitle":"Disciplinas necessárias","count":3,"cards":[{"heading":"Arquitetura & Liderança","paras":["Senior Technical Architect (SF + Security + Governance)","MuleSoft Technical Architect","Data Cloud Technical Architect","Solution Architect (SF + Slack Admin)"]},{"heading":"Implementação Especializada","paras":["Agentforce Technical Consultant (9 agentes)","MuleSoft Technical Consultant (7 System APIs)","Einstein Analytics Developer (dashboards F3)","Solution Consultant (BA + Release Manager)"]},{"heading":"Qualidade & Adoção","paras":["QA Consultant (hardening F1/F2/F3)","UX Researcher (onboarding 10k+ externos)","Change Management Lead (treinamento, KPIs)"]}],"footer":"Headcount não é soma de roles — sizing de equipe requer julgamento humano, fora deste alinhamento"}'>
+  <div class="eyebrow anim">Disciplinas necessárias</div>
+  <h1 class="anim">11 disciplinas — uma pessoa pode cobrir várias; várias podem cobrir uma</h1>
+  <div class="cols anim">
+    <div><b>Arquitetura & Liderança</b><ul><li>Senior Technical Architect</li><li>MuleSoft TA · Data Cloud TA</li><li>Solution Architect</li></ul></div>
+    <div><b>Implementação & Qualidade</b><ul><li>Agentforce / MuleSoft TC</li><li>Einstein Analytics Dev · Solution Consultant</li><li>QA · UX Researcher · Change Mgmt</li></ul></div>
+  </div>
+  <div class="foot anim">Headcount não é soma de roles — sizing de equipe requer julgamento humano, fora deste alinhamento</div>
+</section>
+
+<!-- 13 · PREMISSAS E EXCLUSÕES -->
+<section class="slide" data-component="cards" data-props='{"title":"O que assumimos verdadeiro e o que NÃO está no escopo","subtitle":"Premissas e exclusões","count":2,"cards":[{"heading":"Premissas","soft":true,"paras":["Slack Enterprise Grid já contratado e provisionado","TI fornece Swagger/OpenAPI + sandbox (7 legados) na Fase 0","Decisão de Workspace Slack locked na Fase 0","Volumetrias auditadas na Fase 0","AWS KMS master keys sob CISO (Slack EKM)","Dataprev staffa 0% de roles técnicas (100% Salesforce PS)"]},{"heading":"Exclusões","soft":true,"paras":["Migração de dados históricos — apenas integração de APIs","Customizações nos legados — integramos as-is","Treinamento direto dos 2.500 B2B — via train-the-trainer","Licenças Salesforce — provisionadas à parte","Migração Service Cloud (E08) — fora deste SOW se aprovada"]}],"footer":"Evitar surpresas pós-assinatura do SOW"}'>
+  <div class="eyebrow anim">Premissas e exclusões</div>
+  <h1 class="anim">O que assumimos verdadeiro e o que NÃO está no escopo</h1>
+  <div class="cols anim">
+    <div><b>Premissas</b><ul><li>Slack Enterprise Grid contratado</li><li>TI fornece specs + sandbox na F0</li><li>Volumetrias auditadas na F0</li><li>Dataprev staffa 0% técnico</li></ul></div>
+    <div><b>Exclusões</b><ul><li>Sem migração de dados históricos</li><li>Legados integrados as-is</li><li>Treinamento train-the-trainer</li><li>Licenças à parte · Service Cloud fora do SOW</li></ul></div>
+  </div>
+</section>
+
+<!-- 14 · PHASE 0 OBRIGATÓRIA -->
+<section class="slide" data-component="cards" data-props='{"title":"Fase 0 resolve blockers críticos antes do build — 4-6 semanas, não pulável","subtitle":"Próximos passos — Fase 0 obrigatória","count":5,"cards":[{"heading":"1. Tri-party TI+Jur+DPO","paras":["Resolve G1002 (governança Protheus)","Fallback: J1 para Fase 2"]},{"heading":"2. Volumetrias (2 sem)","paras":["Concurrent users, peak load, data volumes","Desbloqueia sizing MuleSoft/Agentforce/Heroku"]},{"heading":"3. API discovery (2 sem)","paras":["Swagger/OpenAPI + sandbox (7 legados)","Field mapping validado"]},{"heading":"4. Workspace Slack","paras":["B2B segregado vs. workspace único","Impacto: licensing + security model"]},{"heading":"5. RACI Governance/CoE","paras":["Ownership multi-team locked","Governance playbook"]}],"footer":"Gate Fase 1: entregáveis aprovados por sponsors técnicos + negócio antes do kick-off"}'>
+  <div class="eyebrow anim">Próximos passos</div>
+  <h1 class="anim">Fase 0 resolve blockers críticos antes do build — 4-6 semanas, não pulável</h1>
+  <ul class="anim">
+    <li><b>1.</b> Tri-party TI+Jurídico+DPO → resolve G1002</li>
+    <li><b>2.</b> Volumetrias (2 sem) → sizing correto</li>
+    <li><b>3.</b> API discovery (2 sem) → Swagger + sandbox</li>
+    <li><b>4.</b> Workspace Slack → licensing + security</li>
+    <li><b>5.</b> RACI Governance/CoE → ownership locked</li>
+  </ul>
+  <div class="foot anim">Gate Fase 1: entregáveis aprovados por sponsors técnicos + negócio antes do kick-off</div>
+</section>
+
+<!-- 15 · CALL TO ACTION -->
+<section class="slide" data-component="next-steps" data-props='{"title":"Hoje alinhamos escopo; em 10 dias finalizamos comerciais e assinamos o SOW","rows":[{"t":"Hoje","d":"Feedback e ajustes finais no escopo — escopo, premissas e riscos"},{"t":"Semana 1","d":"Comerciais finalizados (pricing lane aprovado com Solution Lead)"},{"t":"Semana 2","d":"SOW redigido e circulado para aprovação"},{"t":"Dia 10","d":"Assinatura do SOW + kick-off da Fase 0 agendado"}]}'>
+  <div class="eyebrow anim">Call to action</div>
+  <h1 class="anim">Hoje alinhamos escopo; em 10 dias finalizamos comerciais e assinamos o SOW</h1>
+  <ul class="anim">
+    <li><b>Hoje</b> — feedback e ajustes finais no escopo</li>
+    <li><b>Semana 1</b> — comerciais finalizados com Solution Lead</li>
+    <li><b>Semana 2</b> — SOW redigido e circulado</li>
+    <li><b>Dia 10</b> — assinatura do SOW + kick-off da Fase 0</li>
+  </ul>
+  <div class="foot anim">Pergunta aos sponsors: há algo no escopo, premissas ou riscos a ajustar antes do SOW?</div>
+</section>
+
+<div class="nav">
+  <button onclick="go(-1)">← Anterior</button>
+  <span id="count"></span>
+  <button onclick="go(1)">Próximo →</button>
+</div>
+<script>
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+function fit(){document.documentElement.style.setProperty('--scale',Math.min(innerWidth/1280,innerHeight/720));}
+addEventListener('resize',fit);fit();
+const nav=document.querySelector('.nav');let t;
+function wake(){nav.classList.remove('idle');clearTimeout(t);t=setTimeout(()=>nav.classList.add('idle'),2500);}
+['mousemove','keydown','touchstart'].forEach(e=>addEventListener(e,wake));wake();
+function show(n){i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+  document.getElementById('count').textContent=(i+1)+' / '+slides.length;}
+function go(d){show(i+d);}
+addEventListener('keydown',e=>{if(['ArrowRight','ArrowDown',' '].includes(e.key)){e.preventDefault();go(1);}if(['ArrowLeft','ArrowUp'].includes(e.key)){e.preventDefault();go(-1);}});
+addEventListener('beforeprint',()=>slides.forEach(s=>s.classList.add('active')));
+addEventListener('afterprint',()=>show(i));
+show(0);
+</script>
+</body>
+</html>

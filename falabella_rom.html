@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Falabella — ROM PS Program | Salesforce PS LATAM</title>
+<style>
+  :root {
+    --sf-dark:#032D60; --sf-blue:#0070D2; --sf-teal:#00A1E0;
+    --sf-green:#2E844A; --sf-orange:#E65000; --sf-yellow:#FFC849;
+    --sf-red:#C23B22; --sf-gray:#706E6B; --sf-lgray:#F3F3F3;
+    --sf-purple:#6B37BF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Segoe UI',Arial,sans-serif;font-size:14px;color:#1a1a1a;background:#f0f2f5;}
+
+  /* ── TOP NAV ── */
+  .topnav{
+    position:sticky;top:0;z-index:100;
+    background:var(--sf-dark);
+    display:flex;align-items:center;gap:0;
+    padding:0 32px;height:52px;
+    box-shadow:0 2px 12px rgba(0,0,0,.25);
+  }
+  .topnav .brand{color:rgba(255,255,255,.9);font-size:13px;font-weight:800;
+    padding-right:28px;border-right:1px solid rgba(255,255,255,.15);margin-right:20px;
+    white-space:nowrap;}
+  .topnav a{color:rgba(255,255,255,.55);font-size:12px;text-decoration:none;
+    padding:0 14px;height:52px;display:flex;align-items:center;
+    border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;}
+  .topnav a:hover{color:#fff;border-bottom-color:var(--sf-teal);}
+  .topnav .tag{margin-left:auto;background:var(--sf-orange);color:#fff;
+    font-size:10px;font-weight:800;padding:3px 12px;border-radius:20px;
+    text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;}
+
+  /* ── HERO ── */
+  .hero{
+    background:linear-gradient(130deg,var(--sf-dark) 0%,#0a3f7a 50%,#0d5e7a 100%);
+    padding:52px 54px 44px;position:relative;overflow:hidden;
+  }
+  .hero::before{content:'';position:absolute;right:-80px;top:-80px;
+    width:380px;height:380px;border-radius:50%;
+    background:rgba(255,255,255,.03);}
+  .hero::after{content:'';position:absolute;right:120px;bottom:-60px;
+    width:200px;height:200px;border-radius:50%;
+    background:rgba(0,161,224,.08);}
+  .hero .eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:2px;
+    color:rgba(255,255,255,.45);font-weight:700;margin-bottom:10px;}
+  .hero h1{font-size:34px;font-weight:800;color:#fff;line-height:1.15;margin-bottom:8px;}
+  .hero h1 span{color:var(--sf-yellow);}
+  .hero .sub{font-size:14px;color:rgba(255,255,255,.7);margin-bottom:30px;line-height:1.6;}
+  .hero-kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;max-width:900px;}
+  .hk{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);
+    border-radius:10px;padding:16px 18px;text-align:center;}
+  .hk .v{font-size:24px;font-weight:900;color:#fff;line-height:1;}
+  .hk .l{font-size:10px;color:rgba(255,255,255,.5);margin-top:5px;text-transform:uppercase;letter-spacing:.5px;}
+  .hk .s{font-size:10px;color:rgba(255,255,255,.35);margin-top:2px;}
+
+  /* ── LAYOUT ── */
+  .page{max-width:1280px;margin:0 auto;padding:36px 36px 80px;}
+  .anchor{display:block;position:relative;top:-68px;visibility:hidden;}
+
+  /* ── SECTION HEADER ── */
+  .sh{display:flex;align-items:center;gap:14px;margin-bottom:22px;
+    padding-bottom:12px;border-bottom:2px solid #dde3ec;}
+  .sn{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;
+    justify-content:center;font-size:15px;font-weight:800;color:#fff;flex-shrink:0;}
+  .sh h2{font-size:22px;color:var(--sf-dark);font-weight:800;}
+  .sh .ss{font-size:12px;color:var(--sf-gray);margin-top:2px;}
+  .section{padding-top:40px;}
+
+  /* ── CARD ── */
+  .card{background:#fff;border-radius:12px;padding:24px 28px;
+    box-shadow:0 2px 14px rgba(0,0,0,.06);margin-bottom:20px;border:1px solid #e4eaf2;}
+
+  /* ── SUMMARY GRID ── */
+  .sum-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px;}
+  .sbox{background:#fff;border-radius:10px;padding:18px 20px;text-align:center;
+    box-shadow:0 2px 10px rgba(0,0,0,.06);border:1px solid #e4eaf2;border-top:4px solid;}
+  .sbox .sv{font-size:28px;font-weight:900;line-height:1;}
+  .sbox .sl{font-size:11px;color:var(--sf-gray);margin-top:5px;}
+  .sbox .ss2{font-size:10px;color:var(--sf-gray);margin-top:2px;opacity:.7;}
+
+  /* ── TABLE ── */
+  .tw{overflow-x:auto;}
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th{background:var(--sf-dark);color:#fff;padding:10px 14px;text-align:left;
+    font-size:10px;text-transform:uppercase;letter-spacing:.6px;font-weight:700;}
+  th.c{text-align:center;}
+  td{padding:10px 14px;border-bottom:1px solid #e8edf2;vertical-align:middle;}
+  tr:nth-child(even) td{background:#f7f9fc;}
+  tr:hover td{background:#edf3fb;}
+  .tc{text-align:center;}
+  .tb{font-weight:700;}
+  .tblue{color:var(--sf-blue);font-weight:700;}
+  .tgreen{color:var(--sf-green);font-weight:700;}
+  .torange{color:var(--sf-orange);font-weight:700;}
+  .tteal{color:var(--sf-teal);font-weight:700;}
+  .tpurple{color:var(--sf-purple);font-weight:700;}
+  .ttot td{background:var(--sf-dark)!important;color:#fff!important;font-weight:800;}
+  .ttot td span{color:var(--sf-yellow);}
+  .pill{display:inline-block;padding:2px 10px;border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase;}
+
+  /* ── CLOUD BLOCK ── */
+  .cloud-block{background:#fff;border-radius:14px;overflow:hidden;
+    box-shadow:0 2px 16px rgba(0,0,0,.07);margin-bottom:28px;border:1px solid #e4eaf2;}
+  .cloud-head{padding:18px 26px;display:flex;align-items:center;justify-content:space-between;}
+  .cloud-head-left{display:flex;align-items:center;gap:16px;}
+  .cloud-icon{width:48px;height:48px;border-radius:12px;display:flex;
+    align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+  .cloud-head h3{font-size:18px;font-weight:800;color:#fff;}
+  .cloud-head .cs{font-size:12px;color:rgba(255,255,255,.7);margin-top:2px;}
+  .cloud-badges{display:flex;gap:10px;align-items:center;}
+  .cbadge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);
+    border-radius:8px;padding:8px 16px;text-align:center;color:#fff;}
+  .cbadge .cv{font-size:18px;font-weight:900;}
+  .cbadge .cl{font-size:10px;color:rgba(255,255,255,.65);margin-top:1px;}
+  .cloud-body{padding:20px 26px;}
+
+  /* ── CAPABILITY BAR ── */
+  .cap-row{display:flex;align-items:center;gap:0;margin-bottom:10px;}
+  .cap-label{width:220px;font-size:12.5px;font-weight:600;color:var(--sf-dark);flex-shrink:0;}
+  .cap-bar-wrap{flex:1;height:26px;background:#e8edf2;border-radius:4px;overflow:hidden;margin:0 12px;}
+  .cap-bar{height:100%;border-radius:4px;display:flex;align-items:center;
+    padding-left:10px;font-size:11px;font-weight:700;color:#fff;white-space:nowrap;}
+  .cap-val{width:60px;font-size:13px;font-weight:800;text-align:right;flex-shrink:0;}
+  .cap-pct{width:38px;font-size:11px;color:var(--sf-gray);text-align:right;flex-shrink:0;}
+
+  /* ── PROFILES ── */
+  .profiles-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+  .pcard{background:#fff;border-radius:12px;padding:20px 22px;
+    box-shadow:0 2px 12px rgba(0,0,0,.06);border:1px solid #e4eaf2;
+    display:flex;gap:16px;align-items:flex-start;}
+  .pavatar{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;
+    justify-content:center;font-size:20px;flex-shrink:0;}
+  .pinfo h4{font-size:14px;font-weight:800;color:var(--sf-dark);margin-bottom:3px;}
+  .pinfo .prole{font-size:11px;color:var(--sf-gray);margin-bottom:8px;}
+  .pinfo .ptags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+  .ptag{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:600;}
+  .phours-row{display:flex;gap:16px;}
+  .ph{text-align:center;}
+  .ph .pv{font-size:18px;font-weight:900;}
+  .ph .pl{font-size:10px;color:var(--sf-gray);}
+  .pbar-wrap{height:5px;background:#e8edf2;border-radius:3px;margin-top:8px;overflow:hidden;}
+  .pbar{height:100%;border-radius:3px;}
+
+  /* ── ALERT ── */
+  .alert{display:flex;gap:12px;align-items:flex-start;border-radius:8px;
+    padding:12px 16px;margin-bottom:16px;font-size:13px;}
+  .alert.warn{background:#FFF8E6;border-left:4px solid var(--sf-yellow);}
+  .alert.info{background:#E8F4FD;border-left:4px solid var(--sf-blue);}
+  .alert.success{background:#E6F5EC;border-left:4px solid var(--sf-green);}
+  .ai{font-size:17px;flex-shrink:0;margin-top:1px;}
+
+  /* ── FOOTER ── */
+  .footer{background:var(--sf-dark);color:rgba(255,255,255,.45);
+    padding:22px 54px;font-size:11px;
+    display:flex;justify-content:space-between;align-items:center;}
+
+  /* ── PHASE STRIPE ── */
+  .phase-stripe{display:flex;gap:0;margin-bottom:16px;border-radius:8px;overflow:hidden;}
+  .ps-block{flex:1;padding:10px 14px;text-align:center;}
+  .ps-block .pst{font-size:10px;text-transform:uppercase;letter-spacing:.5px;
+    color:rgba(255,255,255,.65);font-weight:700;}
+  .ps-block .psv{font-size:15px;font-weight:800;color:#fff;margin-top:2px;}
+
+  @media(max-width:860px){
+    .topnav a{display:none;}
+    .hero-kpis{grid-template-columns:repeat(2,1fr);}
+    .sum-grid,.profiles-grid{grid-template-columns:1fr;}
+    .cloud-head{flex-direction:column;gap:12px;align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ── TOP NAV ─────────────────────────── -->
+<nav class="topnav">
+  <div class="brand">Falabella · ROM PS Program</div>
+  <a href="#nivel1">Resumen General</a>
+  <a href="#nivel2">Por Cloud</a>
+  <a href="#perfiles">Perfiles PS</a>
+  <a href="#assumptions">Supuestos</a>
+  <span class="tag">🔒 Uso Interno · Jun 2026</span>
+</nav>
+
+<!-- ── HERO ──────────────────────────────── -->
+<section class="hero">
+  <div class="eyebrow">Salesforce Professional Services — LATAM</div>
+  <h1>ROM — Programa <span>Falabella</span><br/>Estimación de Esfuerzo PS</h1>
+  <p class="sub">Rough Order of Magnitude · 3 hipóteses de valor · Execução em fases paralelas · Jun 2026</p>
+  <div class="hero-kpis">
+    <div class="hk"><div class="v">2.820</div><div class="l">Horas totales</div><div class="s">H1 + H2 + H3</div></div>
+    <div class="hk"><div class="v">28</div><div class="l">Semanas (seq.)</div><div class="s">~18 sem. paralelo</div></div>
+    <div class="hk"><div class="v">15</div><div class="l">Casos de uso</div><div class="s">priorizados</div></div>
+    <div class="hk"><div class="v">10</div><div class="l">Perfiles PS</div><div class="s">especializados</div></div>
+    <div class="hk" style="border-color:rgba(255,200,73,.4)"><div class="v" style="color:var(--sf-yellow)">$5.17M</div><div class="l">Estimativa total</div><div class="s">T&M · ±20%</div></div>
+  </div>
+</section>
+
+<div class="page">
+
+<!-- ══════════════════════════════════════════════
+     NIVEL 1 — RESUMEN GENERAL
+══════════════════════════════════════════════ -->
+<span class="anchor" id="nivel1"></span>
+<div class="section">
+  <div class="sh">
+    <div class="sn" style="background:var(--sf-dark)">01</div>
+    <div><h2>Resumen General del Programa</h2>
+    <div class="ss">Visión consolidada de horas, semanas y casos de uso por hipótesis de valor</div></div>
+  </div>
+
+  <div class="sum-grid">
+    <div class="sbox" style="border-top-color:var(--sf-blue)">
+      <div class="sv" style="color:var(--sf-blue)">960h</div>
+      <div class="sl">H1 — Agentforce + Service Cloud</div>
+      <div class="ss2">14 semanas · 6 casos de uso</div>
+    </div>
+    <div class="sbox" style="border-top-color:var(--sf-teal)">
+      <div class="sv" style="color:var(--sf-teal)">900h</div>
+      <div class="sl">H2 — Data Cloud + Marketing Cloud</div>
+      <div class="ss2">12 semanas · 4 casos de uso</div>
+    </div>
+    <div class="sbox" style="border-top-color:var(--sf-green)">
+      <div class="sv" style="color:var(--sf-green)">960h</div>
+      <div class="sl">H3 — Service Cloud + Einstein CC</div>
+      <div class="ss2">14 semanas · 5 casos de uso</div>
+    </div>
+    <div class="sbox" style="border-top-color:var(--sf-orange)">
+      <div class="sv" style="color:var(--sf-orange)">2.820h</div>
+      <div class="sl">Total Programa</div>
+      <div class="ss2">28 sem. sec. / ~18 sem. paralelo</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div style="font-size:14px;font-weight:800;color:var(--sf-dark);margin-bottom:14px;">Distribución de Horas por Hipótesis</div>
+    <div style="margin-bottom:6px;">
+      <div class="cap-row">
+        <div class="cap-label">H1 — Agentforce + SC</div>
+        <div class="cap-bar-wrap">
+          <div class="cap-bar" style="width:34%;background:var(--sf-blue)">960h — 34%</div>
+        </div>
+        <div class="cap-val tblue">960h</div>
+        <div class="cap-pct">34%</div>
+      </div>
+      <div class="cap-row">
+        <div class="cap-label">H2 — Data Cloud + MC</div>
+        <div class="cap-bar-wrap">
+          <div class="cap-bar" style="width:32%;background:var(--sf-teal)">900h — 32%</div>
+        </div>
+        <div class="cap-val tteal">900h</div>
+        <div class="cap-pct">32%</div>
+      </div>
+      <div class="cap-row">
+        <div class="cap-label">H3 — Service Cloud CC</div>
+        <div class="cap-bar-wrap">
+          <div class="cap-bar" style="width:34%;background:var(--sf-green)">960h — 34%</div>
+        </div>
+        <div class="cap-val tgreen">960h</div>
+        <div class="cap-pct">34%</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div style="font-size:14px;font-weight:800;color:var(--sf-dark);margin-bottom:14px;">Resumen Consolidado — Todos los Casos de Uso</div>
+    <div class="tw">
+      <table>
+        <thead>
+          <tr>
+            <th>Hipótesis</th>
+            <th>Caso de Uso</th>
+            <th class="c">Prioridad</th>
+            <th class="c">Horas</th>
+            <th class="c">Semanas</th>
+            <th class="c">ROI Anual Est.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- H1 -->
+          <tr>
+            <td rowspan="6" style="background:#EBF5FF;font-weight:800;color:var(--sf-blue);vertical-align:top;padding-top:14px;width:130px">H1<br/><span style="font-size:10px;font-weight:400;color:var(--sf-gray)">Agentforce<br/>+ Service Cloud</span></td>
+            <td>Agente de Devoluciones &amp; Cambios (WhatsApp)</td>
+            <td class="tc"><span class="pill" style="background:#FDECEA;color:var(--sf-red)">P1 — Crítico</span></td>
+            <td class="tc tblue tb">180h</td>
+            <td class="tc">3 sem</td>
+            <td class="tc tgreen">$2.1M</td>
+          </tr>
+          <tr>
+            <td>Agente WISMO — Status de Pedidos</td>
+            <td class="tc"><span class="pill" style="background:#FDECEA;color:var(--sf-red)">P1 — Crítico</span></td>
+            <td class="tc tblue tb">140h</td>
+            <td class="tc">2 sem</td>
+            <td class="tc tgreen">$1.5M</td>
+          </tr>
+          <tr>
+            <td>FAQ Inteligente (Políticas, Garantías, Tiempos)</td>
+            <td class="tc"><span class="pill" style="background:#FFF3E0;color:var(--sf-orange)">P2 — Alto</span></td>
+            <td class="tc tblue tb">120h</td>
+            <td class="tc">2 sem</td>
+            <td class="tc tgreen">$0.8M</td>
+          </tr>
+          <tr>
+            <td>Integración OMS — Consulta de Inventario</td>
+            <td class="tc"><span class="pill" style="background:#FFF3E0;color:var(--sf-orange)">P2 — Alto</span></td>
+            <td class="tc tblue tb">200h</td>
+            <td class="tc">4 sem</td>
+            <td class="tc" style="color:var(--sf-gray)">Habilitador</td>
+          </tr>
+          <tr>
+            <td>IA en Consola — Asistente para Agentes Humanos</td>
+            <td class="tc"><span class="pill" style="background:#EBF5FF;color:var(--sf-blue)">P3 — Medio</span></td>
+            <td class="tc tblue tb">200h</td>
+            <td class="tc">4 sem</td>
+            <td class="tc tgreen">$0.9M</td>
+          </tr>
+          <tr>
+            <td>Loop Proactivo SFMC → WhatsApp → Agentforce</td>
+            <td class="tc"><span class="pill" style="background:#EBF5FF;color:var(--sf-blue)">P3 — Medio</span></td>
+            <td class="tc tblue tb">120h</td>
+            <td class="tc">2-3 sem</td>
+            <td class="tc" style="color:var(--sf-gray)">Expansión</td>
+          </tr>
+          <!-- H2 -->
+          <tr>
+            <td rowspan="4" style="background:#E0F7FA;font-weight:800;color:var(--sf-teal);vertical-align:top;padding-top:14px;width:130px">H2<br/><span style="font-size:10px;font-weight:400;color:var(--sf-gray)">Data Cloud<br/>+ Mktg Cloud</span></td>
+            <td>Unified Profile — Identidad CMR Multi-Marca</td>
+            <td class="tc"><span class="pill" style="background:#FDECEA;color:var(--sf-red)">P1 — Crítico</span></td>
+            <td class="tc tteal tb">280h</td>
+            <td class="tc">5 sem</td>
+            <td class="tc" style="color:var(--sf-gray)">Habilitador</td>
+          </tr>
+          <tr>
+            <td>Identity Resolution — Falabella + Sodimac + Tottus</td>
+            <td class="tc"><span class="pill" style="background:#FDECEA;color:var(--sf-red)">P1 — Crítico</span></td>
+            <td class="tc tteal tb">200h</td>
+            <td class="tc">4 sem</td>
+            <td class="tc" style="color:var(--sf-gray)">Habilitador</td>
+          </tr>
+          <tr>
+            <td>Segmentación Dinámica + Activación Email/Push</td>
+            <td class="tc"><span class="pill" style="background:#FFF3E0;color:var(--sf-orange)">P2 — Alto</span></td>
+            <td class="tc tteal tb">240h</td>
+            <td class="tc">4 sem</td>
+            <td class="tc tgreen">$13.5M</td>
+          </tr>
+          <tr>
+            <td>Activación Paid Media — Audiencias desde Data Cloud</td>
+            <td class="tc"><span class="pill" style="background:#EBF5FF;color:var(--sf-blue)">P3 — Medio</span></td>
+            <td class="tc tteal tb">180h</td>
+            <td class="tc">3 sem</td>
+            <td class="tc tgreen">$7.5M</td>
+          </tr>
+          <!-- H3 -->
+          <tr>
+            <td rowspan="5" style="background:#E6F5EC;font-weight:800;color:var(--sf-green);vertical-align:top;padding-top:14px;width:130px">H3<br/><span style="font-size:10px;font-weight:400;color:var(--sf-gray)">Service Cloud<br/>+ Einstein CC</span></td>
+            <td>Vista 360° del Cliente en SC (consolidada)</td>
+            <td class="tc"><span class="pill" style="background:#FDECEA;color:var(--sf-red)">P1 — Crítico</span></td>
+            <td class="tc tgreen tb">200h</td>
+            <td class="tc">4 sem</td>
+            <td class="tc" style="color:var(--sf-gray)">Habilitador</td>
+          </tr>
+          <tr>
+            <td>Integración Avaya/Genesys + Screen Pop</td>
+            <td class="tc"><span class="pill" style="background:#FDECEA;color:var(--sf-red)">P1 — Crítico</span></td>
+            <td class="tc tgreen tb">280h</td>
+            <td class="tc">5 sem</td>
+            <td class="tc" style="color:var(--sf-gray)">Habilitador</td>
+          </tr>
+          <tr>
+            <td>Einstein NBA — Next Best Action para Agentes</td>
+            <td class="tc"><span class="pill" style="background:#FFF3E0;color:var(--sf-orange)">P2 — Alto</span></td>
+            <td class="tc tgreen tb">160h</td>
+            <td class="tc">3 sem</td>
+            <td class="tc tgreen">$2.2M</td>
+          </tr>
+          <tr>
+            <td>Automatización de Casos — Clasificación + Routing</td>
+            <td class="tc"><span class="pill" style="background:#FFF3E0;color:var(--sf-orange)">P2 — Alto</span></td>
+            <td class="tc tgreen tb">160h</td>
+            <td class="tc">3 sem</td>
+            <td class="tc tgreen">$2.0M</td>
+          </tr>
+          <tr>
+            <td>Change Management + Habilitación de Agentes</td>
+            <td class="tc"><span class="pill" style="background:#EBF5FF;color:var(--sf-blue)">P3 — Medio</span></td>
+            <td class="tc tgreen tb">160h</td>
+            <td class="tc">3 sem</td>
+            <td class="tc" style="color:var(--sf-gray)">Adopción</td>
+          </tr>
+          <!-- TOTAL -->
+          <tr class="ttot">
+            <td colspan="2" class="tb">TOTAL PROGRAMA</td>
+            <td class="tc">15 casos</td>
+            <td class="tc"><span>2.820h</span></td>
+            <td class="tc"><span>28 sem.</span></td>
+            <td class="tc"><span>~$30.5M/año</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:11px;color:var(--sf-gray);margin-top:12px;font-style:italic;">* Horas incluyen: diseño, configuración, integración, pruebas y habilitación. Margen de variación ±20%. Horas de PM y QA transversales distribuidas en cada workstream.</p>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════
+     NIVEL 2 — POR CLOUD
+══════════════════════════════════════════════ -->
+<span class="anchor" id="nivel2"></span>
+<div class="section">
+  <div class="sh">
+    <div class="sn" style="background:var(--sf-blue)">02</div>
+    <div><h2>Detalle por Cloud — Capacidades y Distribución de Horas</h2>
+    <div class="ss">Desglose por workstream con distribución de esfuerzo por capacidad de plataforma</div></div>
+  </div>
+
+  <!-- ── H1: AGENTFORCE + SERVICE CLOUD ── -->
+  <div class="cloud-block">
+    <div class="cloud-head" style="background:linear-gradient(90deg,var(--sf-dark),var(--sf-blue))">
+      <div class="cloud-head-left">
+        <div class="cloud-icon" style="background:rgba(255,255,255,.15)">🤖</div>
+        <div>
+          <h3>H1 — Agentforce + Service Cloud</h3>
+          <div class="cs">Deflexión masiva de tickets · 6 casos de uso · Payback &lt;12 meses</div>
+        </div>
+      </div>
+      <div class="cloud-badges">
+        <div class="cbadge"><div class="cv">960h</div><div class="cl">Horas totales</div></div>
+        <div class="cbadge"><div class="cv">14</div><div class="cl">Semanas</div></div>
+        <div class="cbadge"><div class="cv">$5.3M</div><div class="cl">ROI/año</div></div>
+      </div>
+    </div>
+    <div class="cloud-body">
+
+      <div class="phase-stripe">
+        <div class="ps-block" style="background:#0a2f5c"><div class="pst">Fase 1</div><div class="psv">Sem 1–3</div></div>
+        <div class="ps-block" style="background:#0048a0"><div class="pst">Fase 2</div><div class="psv">Sem 4–7</div></div>
+        <div class="ps-block" style="background:#0066cc"><div class="pst">Fase 3</div><div class="psv">Sem 8–11</div></div>
+        <div class="ps-block" style="background:#0080e0"><div class="pst">Fase 4</div><div class="psv">Sem 12–14</div></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:20px;">
+        <div>
+          <div style="font-size:12px;font-weight:800;color:var(--sf-dark);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;">Casos de Uso y Horas</div>
+          <div class="tw">
+            <table>
+              <thead><tr><th>Caso de Uso</th><th class="c">Fase</th><th class="c">Horas</th><th class="c">Sem.</th></tr></thead>
+              <tbody>
+                <tr><td>Agent Builder — Devoluciones &amp; Cambios</td><td class="tc tb" style="color:var(--sf-blue)">F1</td><td class="tc tb">180h</td><td class="tc">3</td></tr>
+                <tr><td>Agent Builder — WISMO &amp; Status Pedidos</td><td class="tc tb" style="color:var(--sf-blue)">F1</td><td class="tc tb">140h</td><td class="tc">2</td></tr>
+                <tr><td>FAQ Inteligente (Topics + Actions)</td><td class="tc tb" style="color:#0048a0">F2</td><td class="tc tb">120h</td><td class="tc">2</td></tr>
+                <tr><td>Integración OMS + APIs nativas</td><td class="tc tb" style="color:#0048a0">F2</td><td class="tc tb">200h</td><td class="tc">4</td></tr>
+                <tr><td>IA en Consola (Copilot para agentes)</td><td class="tc tb" style="color:#0066cc">F3</td><td class="tc tb">200h</td><td class="tc">4</td></tr>
+                <tr><td>Loop Proactivo SFMC→WA→Agentforce</td><td class="tc tb" style="color:#0080e0">F4</td><td class="tc tb">120h</td><td class="tc">3</td></tr>
+                <tr style="background:#EBF5FF"><td class="tb" colspan="2">SUBTOTAL H1</td><td class="tc tblue tb">960h</td><td class="tc tb">14</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:800;color:var(--sf-dark);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;">Distribución por Capacidad de Plataforma</div>
+          <div class="cap-row"><div class="cap-label">Agent Builder &amp; Topics/Actions</div><div class="cap-bar-wrap"><div class="cap-bar" style="width:42%;background:var(--sf-blue)">42%</div></div><div class="cap-val tblue">400h</div><div class="cap-pct">42%</div></div>
+          <div class="cap-row"><div class="cap-label">Integración OMS / APIs</div><div class="cap-bar-wrap"><div class="cap-bar" style="width:21%;background:#0066cc)">21%</div></div><div class="cap-val" style="color:#0048a0">200h</div><div class="cap-pct">21%</div></div>
+          <div class="cap-row"><div class="cap-label">Einstein Copilot / IA Consola</div><div class="cap-bar-wrap"><div class="cap-bar" style="width:21%;background:#3d8bef">21%</div></div><div class="cap-val" style="color:#3d8bef">200h</div><div class="cap-pct">21%</div></div>
+          <div class="cap-row"><div class="cap-label">Flows &amp; Automation</div><div class="cap-bar-wrap"><div class="cap-bar" style="width:8%;background:#6aabf7">8%</div></div><div class="cap-val" style="color:#6aabf7">80h</div><div class="cap-pct">8%</div></div>
+          <div class="cap-row"><div class="cap-label">Testing &amp; QA</div><div class="cap-bar-wrap"><div class="cap-bar" style="width:8%;background:#96c4fa">8%</div></div><div class="cap-val" style="color:#96c4fa">80h</div><div class="cap-pct">8%</div></div>
+        </div>
+      </div>
+
+      <div class="alert info">
+        <span class="ai">💡</span>
+        <div><strong>Prerequisito crítico:</strong> Confirmar vencimiento del contrato Avaya/Genesys y disponibilidad de APIs del OMS antes de la estimación final. La integración OMS puede impactar ±80h dependiendo de la madurez de la API.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── H2: DATA CLOUD + MARKETING CLOUD ── -->
+  <div class="cloud-block">
+    <div class="cloud-head" style="background:linear-gradient(90deg,#0a4a8c,var(--sf-teal))">
+      <div class="cloud-head-left">
+        <div class="cloud-icon" style="background:rgba(255,255,255,.15)">🧠</div>
+        <div>
+          <h3>H2 — Data Cloud + Marketing Cloud</h3>
+          <div class="cs">Personalización real con CMR · 4 casos de uso · +10M perfiles unificados</div>
+        </div>
+      </div>
+      <div class="cloud-badges">
+        <div class="cbadge"><div class="cv">900h</div><div class="cl">Horas totales</div></div>
+        <div class="cbadge"><div class="cv">12</div><div class="cl">Semanas</div></div>
+        <div class="cbadge"><div class="cv">$21M</div><div class="cl">ROI/año</div></div>
+      </div>
+    </div>
+    <div class="cloud-body">
+
+      <div class="phase-stripe">
+        <div class="ps-block" style="background:#083a60"><div class="pst">Fase 1</div><div class="psv">Sem 1–4</div></div>
+        <div class="ps-block" style="background:#0d5e7a"><div class="pst">Fase 2</div><div class="psv">Sem 5–8</div></div>
+        <div class="ps-block" style="background:#007fa3"><div class="pst">Fase 3</div><div class="psv">Sem 9–12</div></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:20px;">
+        <div>
+          <div style="font-size:12px;font-weight:800;color:var(--sf-dark);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;">Casos de Uso y Horas</div>
+          <div class="tw">
+            <table>
+              <thead><tr><th>Caso de Uso</th><th class="c">Fase</th><th class="c">Horas</th><th class="c">Sem.</th></tr></thead>
+              <tbody>
+                <tr><td>Data Cloud Impl. + Data Streams (3 marcas)</td><td class="tc tb" style="color:var(--sf-teal)">F1</td><td class="tc tteal tb">280h</td><td class="tc">5</td></tr>
+                <tr><td>Identity Resolution multi-marca (CMR)</td><td class="tc tb" style="color:var(--sf-teal)">F1/F2</td><td class="tc tteal tb">200h</td><td class="tc">4</td></tr>
+                <tr><td>Segmentación Dinámica + Journeys MC</td><td class="tc tb" style="color:#007fa3">F2/F3</td><td class="tc tteal tb">240h</td><td class="tc">4</td></tr>
+                <tr><td>Activación Paid Media (Meta, Google)</td><td class="tc tb" style="color:#007fa3">F3</td><td class="tc tteal tb">180h</td><td class="tc">3</td></tr>
+                <tr style="background:#E0F7FA"><td class="tb" colspan="2">SUBTOTAL H2</td><td class="tc tteal tb">900h</td><td class="tc tb">12</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:800;color:var(--sf-dark);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;">Distribución por Capacidad de Plataforma</div>
+          <div class="cap-row"><div class="cap-label">Data Cloud — Ingesta &amp; Unificación</div><div class="cap-bar-wrap"><div class="cap-bar" style="width:53%;background:var(--sf-teal)">53%</div></div><div class="cap-val tteal">480h</div><div class="cap-pct">53%</div></div>
+          <div class="cap-row"><div class="cap-label">Marketing Cloud — Journeys</div><div class="cap-bar-wrap"><div class="cap-bar" style="width:27%;background:#00bcd4)">27%</div></div><div class="cap-val" style="color:#00bcd4">240h</div><div class="cap-pct">27%</div></div>
+          <div class="cap-row"><div class="cap-label">Paid Media Activation</div><div class="cap-bar-wrap"><div class="cap-bar" style="width:13%;background:#4dd0e1">13%</div></div><div class="cap-val" style="color:#4dd0e1">120h</div><div class="cap-pct">13%</div></div>
+          <div class="cap-row"><div class="cap-label">Testing &amp; Validación</div><div class="cap-bar-wrap"><div class="cap-bar" style="width:7%;background:#b2ebf2">7%</div></div><div class="cap-val" style="color:#b2ebf2">60h</div><div class="cap-pct">7%</div></div>
+        </div>
+      </div>
+
+      <div class="alert warn">
+        <span class="ai">⚠️</span>
+        <div><strong>ARI Marketing Cloud en curso:</strong> La migración de MC (Sodimac + Tottus) puede reutilizar parte del effort de Data Streams de H2. Coordinar con el equipo ARI (Alejandra Acuña) para evitar retrabajo. Potencial reducción de 80–120h si el ARI ya entregó los conectores base.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── H3: SERVICE CLOUD + EINSTEIN CC ── -->
+  <div class="cloud-block">
+    <div class="cloud-head" style="background:linear-gradient(90deg,#1a5c2a,var(--sf-green))">
+      <div class="cloud-head-left">
+        <div class="cloud-icon" style="background:rgba(255,255,255,.15)">🎧</div>
+        <div>
+          <h3>H3 — Service Cloud + Einstein · Contact Center</h3>
+          <div class="cs">Del Contact Center al Engagement Center · 5 casos de uso · 800–1.200 agentes impactados</div>
+        </div>
+      </div>
+      <div class="cloud-badges">
+        <div class="cbadge"><div class="cv">960h</div><div class="cl">Horas totales</div></div>
+        <div class="cbadge"><div class="cv">14</div><div class="cl">Semanas</div></div>
+        <div class="cbadge"><div class="cv">$4.2M</div><div class="cl">ROI/año</div></div>
+      </div>
+    </div>
+    <div class="cloud-body">
+
+      <div class="phase-stripe">
+        <div class="ps-block" style="background:#0f3d1a"><div class="pst">Fase 1</div><div class="psv">Sem 1–4</div></div>
+        <div class="ps-block" style="background:#1a5c28"><div class="pst">Fase 2</div><div class="psv">Sem 5–9</div></div>
+        <div class="ps-block" style="background:#227a35"><div class="pst">Fase 3</div><div class="psv">Sem 10–12</div></div>
+        <div class="ps-block" style="background:#2e9945"><div class="pst">Fase 4</div><div class="psv">Sem 13–14</div></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:20px;">
+        <div>
+          <div style="font-size:12px;font-weight:800;color:var(--sf-dark);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;">Casos de Uso y Horas</div>
+          <div class="tw">
+            <table>
+              <thead><tr><th>Caso de Uso</th><th class="c">Fase</th><th class="c">Horas</th><th class="c">Sem.</th></tr></thead>
+              <tbody>
+                <tr><td>Vista 360° del Cliente — SC Console</td><td class="tc tb" style="color:var(--sf-green)">F1</td><td class="tc tgreen tb">200h</td><td class="tc">4</td></tr>
+                <tr><td>Integración Avaya/Genesys + Screen Pop</td><td class="tc tb" style="color:var(--sf-green)">F1/F2</td><td class="tc tgreen tb">280h</td><td class="tc">5</td></tr>
+                <tr><td>Einstein NBA — Next Best Action</td><td class="tc tb" style="color:#227a35">F2/F3</td><td class="tc tgreen tb">160h</td><td class="tc">3</td></tr>
+                <tr><td>Automatización Casos — Routing inteligente</td><td class="tc tb" style="color:#227a35">F3</td><td class="tc tgreen tb">160h</td><td class="tc">3</td></tr>
+                <tr><td>Change Management + Habilitación Agentes</td><td class="tc tb" style="color:#2e9945">F4</td><td class="tc tgreen tb">160h</td><td class="tc">3</td></tr>
+                <tr style="background:#E6F5EC"><td class="tb" colspan="2">SUBTOTAL H3</td><td class="tc tgreen tb">960h</td><td class="tc tb">14</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:800;color:var(--sf-dark);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;">Distribución por Capacidad de Plataforma</div>
+          <div class="cap-row"><div class="cap-label">Integración CTI (Avaya/Genesys)</div><div class="cap-bar-wrap"><div class="cap-bar" style="width:29%;background:var(--sf-green)">29%</div></div><div class="cap-val tgreen">280h</div><div class="cap-pct">29%</div></div>
+          <div class="cap-row"><div class="cap-label">Service Cloud — Console &amp; Config</div><div class="cap-bar-wrap"><div class="cap-bar" style="width:21%;background:#2e844a">21%</div></div><div class="cap-val" style="color:#2e844a">200h</div><div class="cap-pct">21%</div></div>
+          <div class="cap-row"><div class="cap-label">Einstein NBA &amp; Recomendaciones</div><div class="cap-bar-wrap"><div class="cap-bar" style="width:17%;background:#3da85e">17%</div></div><div class="cap-val" style="color:#3da85e">160h</div><div class="cap-pct">17%</div></div>
+          <div class="cap-row"><div class="cap-label">Flows &amp; Case Routing</div><div class="cap-bar-wrap"><div class="cap-bar" style="width:17%;background:#5dc07a">17%</div></div><div class="cap-val" style="color:#5dc07a">160h</div><div class="cap-pct">17%</div></div>
+          <div class="cap-row"><div class="cap-label">Change Management &amp; Training</div><div class="cap-bar-wrap"><div class="cap-bar" style="width:17%;background:#96d9a8">17%</div></div><div class="cap-val" style="color:#96d9a8">160h</div><div class="cap-pct">17%</div></div>
+        </div>
+      </div>
+
+      <div class="alert success">
+        <span class="ai">🎯</span>
+        <div><strong>Sinergia con H1:</strong> El agente de consola de H3 y la IA en Consola de H1 comparten arquitectura. Ejecutar H1 antes de H3 reduce el esfuerzo de H3 en ~80–120h — la vista 360° es el habilitador común.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════
+     PERFILES PS
+══════════════════════════════════════════════ -->
+<span class="anchor" id="perfiles"></span>
+<div class="section">
+  <div class="sh">
+    <div class="sn" style="background:var(--sf-purple)">03</div>
+    <div><h2>Perfiles PS Estimados</h2>
+    <div class="ss">10 roles especializados · 2.820h totales · distribución por workstream</div></div>
+  </div>
+
+  <div class="card" style="margin-bottom:22px;">
+    <div style="font-size:14px;font-weight:800;color:var(--sf-dark);margin-bottom:14px;">Resumen de Perfiles y Horas Totales</div>
+    <div class="tw">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Perfil PS</th>
+            <th class="c">Seniority</th>
+            <th class="c">H1 — AF+SC</th>
+            <th class="c">H2 — DC+MC</th>
+            <th class="c">H3 — SC CC</th>
+            <th class="c">PM / QA</th>
+            <th class="c">TOTAL</th>
+            <th class="c">% del Prog.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="tc tb tpurple">1</td>
+            <td class="tb">Program Manager</td>
+            <td class="tc"><span class="pill" style="background:#f0e8ff;color:var(--sf-purple)">Senior</span></td>
+            <td class="tc">60h</td><td class="tc">60h</td><td class="tc">60h</td>
+            <td class="tc tpurple tb">20h</td>
+            <td class="tc tpurple tb">200h</td><td class="tc">7%</td>
+          </tr>
+          <tr>
+            <td class="tc tb tpurple">2</td>
+            <td class="tb">Solution Architect (Lead)</td>
+            <td class="tc"><span class="pill" style="background:#f0e8ff;color:var(--sf-purple)">Principal</span></td>
+            <td class="tc">120h</td><td class="tc">100h</td><td class="tc">100h</td>
+            <td class="tc">—</td>
+            <td class="tc tpurple tb">320h</td><td class="tc">11%</td>
+          </tr>
+          <tr>
+            <td class="tc tb tblue">3</td>
+            <td class="tb">Agentforce Specialist</td>
+            <td class="tc"><span class="pill" style="background:#EBF5FF;color:var(--sf-blue)">Senior</span></td>
+            <td class="tc tblue tb">360h</td><td class="tc">—</td><td class="tc">40h</td>
+            <td class="tc">—</td>
+            <td class="tc tblue tb">400h</td><td class="tc">14%</td>
+          </tr>
+          <tr>
+            <td class="tc tb tteal">4</td>
+            <td class="tb">Data Cloud Architect</td>
+            <td class="tc"><span class="pill" style="background:#E0F7FA;color:var(--sf-teal)">Senior</span></td>
+            <td class="tc">—</td><td class="tc tteal tb">380h</td><td class="tc">—</td>
+            <td class="tc">—</td>
+            <td class="tc tteal tb">380h</td><td class="tc">13%</td>
+          </tr>
+          <tr>
+            <td class="tc tb tgreen">5</td>
+            <td class="tb">Service Cloud Sr. Developer</td>
+            <td class="tc"><span class="pill" style="background:#E6F5EC;color:var(--sf-green)">Senior</span></td>
+            <td class="tc">120h</td><td class="tc">—</td><td class="tc tgreen tb">200h</td>
+            <td class="tc">—</td>
+            <td class="tc tgreen tb">320h</td><td class="tc">11%</td>
+          </tr>
+          <tr>
+            <td class="tc tb torange">6</td>
+            <td class="tb">Integration Engineer</td>
+            <td class="tc"><span class="pill" style="background:#FFF3E0;color:var(--sf-orange)">Senior</span></td>
+            <td class="tc torange">200h</td><td class="tc">—</td><td class="tc torange">160h</td>
+            <td class="tc">—</td>
+            <td class="tc torange tb">360h</td><td class="tc">13%</td>
+          </tr>
+          <tr>
+            <td class="tc tb tteal">7</td>
+            <td class="tb">Marketing Cloud Specialist</td>
+            <td class="tc"><span class="pill" style="background:#E0F7FA;color:var(--sf-teal)">Mid-Senior</span></td>
+            <td class="tc">—</td><td class="tc tteal">240h</td><td class="tc">—</td>
+            <td class="tc">—</td>
+            <td class="tc tteal tb">240h</td><td class="tc">9%</td>
+          </tr>
+          <tr>
+            <td class="tc tb" style="color:var(--sf-purple)">8</td>
+            <td class="tb">Einstein / AI Specialist</td>
+            <td class="tc"><span class="pill" style="background:#f0e8ff;color:var(--sf-purple)">Senior</span></td>
+            <td class="tc tpurple">80h</td><td class="tc">—</td><td class="tc tpurple">120h</td>
+            <td class="tc">—</td>
+            <td class="tc tpurple tb">200h</td><td class="tc">7%</td>
+          </tr>
+          <tr>
+            <td class="tc tb tgreen">9</td>
+            <td class="tb">Change Management Consultant</td>
+            <td class="tc"><span class="pill" style="background:#E6F5EC;color:var(--sf-green)">Senior</span></td>
+            <td class="tc">—</td><td class="tc">40h</td><td class="tc tgreen">160h</td>
+            <td class="tc">—</td>
+            <td class="tc tgreen tb">200h</td><td class="tc">7%</td>
+          </tr>
+          <tr>
+            <td class="tc tb" style="color:var(--sf-gray)">10</td>
+            <td class="tb">QA Engineer</td>
+            <td class="tc"><span class="pill" style="background:#f5f5f5;color:var(--sf-gray)">Mid</span></td>
+            <td class="tc">20h</td><td class="tc">80h</td><td class="tc">80h</td>
+            <td class="tc tb">20h</td>
+            <td class="tc tb" style="color:var(--sf-gray)">200h</td><td class="tc">7%</td>
+          </tr>
+          <tr class="ttot">
+            <td colspan="3" class="tb">TOTAL PROGRAMA</td>
+            <td class="tc"><span>960h</span></td>
+            <td class="tc"><span>900h</span></td>
+            <td class="tc"><span>920h</span></td>
+            <td class="tc"><span>40h</span></td>
+            <td class="tc"><span>2.820h</span></td>
+            <td class="tc"><span>100%</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:11px;color:var(--sf-gray);margin-top:10px;font-style:italic;">* Un mismo recurso puede cubrir múltiples roles en proyectos de menor escala. Program Manager y QA son transversales a los 3 workstreams.</p>
+  </div>
+
+  <div class="profiles-grid">
+
+    <div class="pcard">
+      <div class="pavatar" style="background:#f0e8ff">🗺️</div>
+      <div class="pinfo" style="flex:1">
+        <h4>Solution Architect (Lead)</h4>
+        <div class="prole">Principal Architect · Transversal al programa</div>
+        <div class="ptags">
+          <span class="ptag" style="background:#f0e8ff;color:var(--sf-purple)">Agentforce</span>
+          <span class="ptag" style="background:#E0F7FA;color:var(--sf-teal)">Data Cloud</span>
+          <span class="ptag" style="background:#E6F5EC;color:var(--sf-green)">Service Cloud</span>
+        </div>
+        <div class="phours-row">
+          <div class="ph"><div class="pv" style="color:var(--sf-purple)">320h</div><div class="pl">Total horas</div></div>
+          <div class="ph"><div class="pv" style="color:var(--sf-gray)">11%</div><div class="pl">del programa</div></div>
+          <div class="ph"><div class="pv" style="color:var(--sf-dark)">28</div><div class="pl">semanas</div></div>
+        </div>
+        <div class="pbar-wrap"><div class="pbar" style="width:11%;background:var(--sf-purple)"></div></div>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="pavatar" style="background:#EBF5FF">🤖</div>
+      <div class="pinfo" style="flex:1">
+        <h4>Agentforce Specialist</h4>
+        <div class="prole">Senior Specialist · H1 Lead</div>
+        <div class="ptags">
+          <span class="ptag" style="background:#EBF5FF;color:var(--sf-blue)">Agent Builder</span>
+          <span class="ptag" style="background:#EBF5FF;color:var(--sf-blue)">Topics &amp; Actions</span>
+          <span class="ptag" style="background:#EBF5FF;color:var(--sf-blue)">Einstein Copilot</span>
+        </div>
+        <div class="phours-row">
+          <div class="ph"><div class="pv" style="color:var(--sf-blue)">400h</div><div class="pl">Total horas</div></div>
+          <div class="ph"><div class="pv" style="color:var(--sf-gray)">14%</div><div class="pl">del programa</div></div>
+          <div class="ph"><div class="pv" style="color:var(--sf-dark)">14</div><div class="pl">semanas</div></div>
+        </div>
+        <div class="pbar-wrap"><div class="pbar" style="width:14%;background:var(--sf-blue)"></div></div>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="pavatar" style="background:#E0F7FA">🧠</div>
+      <div class="pinfo" style="flex:1">
+        <h4>Data Cloud Architect</h4>
+        <div class="prole">Senior Architect · H2 Lead</div>
+        <div class="ptags">
+          <span class="ptag" style="background:#E0F7FA;color:var(--sf-teal)">Data Streams</span>
+          <span class="ptag" style="background:#E0F7FA;color:var(--sf-teal)">Identity Resolution</span>
+          <span class="ptag" style="background:#E0F7FA;color:var(--sf-teal)">Unified Profile</span>
+        </div>
+        <div class="phours-row">
+          <div class="ph"><div class="pv" style="color:var(--sf-teal)">380h</div><div class="pl">Total horas</div></div>
+          <div class="ph"><div class="pv" style="color:var(--sf-gray)">13%</div><div class="pl">del programa</div></div>
+          <div class="ph"><div class="pv" style="color:var(--sf-dark)">12</div><div class="pl">semanas</div></div>
+        </div>
+        <div class="pbar-wrap"><div class="pbar" style="width:13%;background:var(--sf-teal)"></div></div>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="pavatar" style="background:#FFF3E0">🔌</div>
+      <div class="pinfo" style="flex:1">
+        <h4>Integration Engineer</h4>
+        <div class="prole">Senior Engineer · OMS + CTI</div>
+        <div class="ptags">
+          <span class="ptag" style="background:#FFF3E0;color:var(--sf-orange)">OMS APIs</span>
+          <span class="ptag" style="background:#FFF3E0;color:var(--sf-orange)">Avaya/Genesys CTI</span>
+          <span class="ptag" style="background:#FFF3E0;color:var(--sf-orange)">REST/SOAP</span>
+        </div>
+        <div class="phours-row">
+          <div class="ph"><div class="pv" style="color:var(--sf-orange)">360h</div><div class="pl">Total horas</div></div>
+          <div class="ph"><div class="pv" style="color:var(--sf-gray)">13%</div><div class="pl">del programa</div></div>
+          <div class="ph"><div class="pv" style="color:var(--sf-dark)">18</div><div class="pl">semanas</div></div>
+        </div>
+        <div class="pbar-wrap"><div class="pbar" style="width:13%;background:var(--sf-orange)"></div></div>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="pavatar" style="background:#E6F5EC">🎧</div>
+      <div class="pinfo" style="flex:1">
+        <h4>Service Cloud Sr. Developer</h4>
+        <div class="prole">Senior Developer · H1 + H3</div>
+        <div class="ptags">
+          <span class="ptag" style="background:#E6F5EC;color:var(--sf-green)">Console Apps</span>
+          <span class="ptag" style="background:#E6F5EC;color:var(--sf-green)">Flows</span>
+          <span class="ptag" style="background:#E6F5EC;color:var(--sf-green)">Case Management</span>
+        </div>
+        <div class="phours-row">
+          <div class="ph"><div class="pv" style="color:var(--sf-green)">320h</div><div class="pl">Total horas</div></div>
+          <div class="ph"><div class="pv" style="color:var(--sf-gray)">11%</div><div class="pl">del programa</div></div>
+          <div class="ph"><div class="pv" style="color:var(--sf-dark)">18</div><div class="pl">semanas</div></div>
+        </div>
+        <div class="pbar-wrap"><div class="pbar" style="width:11%;background:var(--sf-green)"></div></div>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="pavatar" style="background:#E0F7FA">📧</div>
+      <div class="pinfo" style="flex:1">
+        <h4>Marketing Cloud Specialist</h4>
+        <div class="prole">Mid-Senior · H2 Lead MC</div>
+        <div class="ptags">
+          <span class="ptag" style="background:#E0F7FA;color:var(--sf-teal)">Journey Builder</span>
+          <span class="ptag" style="background:#E0F7FA;color:var(--sf-teal)">Segmentación</span>
+          <span class="ptag" style="background:#E0F7FA;color:var(--sf-teal)">Automation Studio</span>
+        </div>
+        <div class="phours-row">
+          <div class="ph"><div class="pv" style="color:var(--sf-teal)">240h</div><div class="pl">Total horas</div></div>
+          <div class="ph"><div class="pv" style="color:var(--sf-gray)">9%</div><div class="pl">del programa</div></div>
+          <div class="ph"><div class="pv" style="color:var(--sf-dark)">12</div><div class="pl">semanas</div></div>
+        </div>
+        <div class="pbar-wrap"><div class="pbar" style="width:9%;background:var(--sf-teal)"></div></div>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="pavatar" style="background:#f0e8ff">⚡</div>
+      <div class="pinfo" style="flex:1">
+        <h4>Einstein / AI Specialist</h4>
+        <div class="prole">Senior · H1 Copilot + H3 NBA</div>
+        <div class="ptags">
+          <span class="ptag" style="background:#f0e8ff;color:var(--sf-purple)">Einstein NBA</span>
+          <span class="ptag" style="background:#f0e8ff;color:var(--sf-purple)">AI Copilot</span>
+          <span class="ptag" style="background:#f0e8ff;color:var(--sf-purple)">Prompt Builder</span>
+        </div>
+        <div class="phours-row">
+          <div class="ph"><div class="pv" style="color:var(--sf-purple)">200h</div><div class="pl">Total horas</div></div>
+          <div class="ph"><div class="pv" style="color:var(--sf-gray)">7%</div><div class="pl">del programa</div></div>
+          <div class="ph"><div class="pv" style="color:var(--sf-dark)">14</div><div class="pl">semanas</div></div>
+        </div>
+        <div class="pbar-wrap"><div class="pbar" style="width:7%;background:var(--sf-purple)"></div></div>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="pavatar" style="background:#E6F5EC">🤝</div>
+      <div class="pinfo" style="flex:1">
+        <h4>Change Management Consultant</h4>
+        <div class="prole">Senior · H3 Lead + apoyo H2</div>
+        <div class="ptags">
+          <span class="ptag" style="background:#E6F5EC;color:var(--sf-green)">Habilitación</span>
+          <span class="ptag" style="background:#E6F5EC;color:var(--sf-green)">Training</span>
+          <span class="ptag" style="background:#E6F5EC;color:var(--sf-green)">Adoption</span>
+        </div>
+        <div class="phours-row">
+          <div class="ph"><div class="pv" style="color:var(--sf-green)">200h</div><div class="pl">Total horas</div></div>
+          <div class="ph"><div class="pv" style="color:var(--sf-gray)">7%</div><div class="pl">del programa</div></div>
+          <div class="ph"><div class="pv" style="color:var(--sf-dark)">14</div><div class="pl">semanas</div></div>
+        </div>
+        <div class="pbar-wrap"><div class="pbar" style="width:7%;background:var(--sf-green)"></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════
+     SUPUESTOS Y NOTAS
+══════════════════════════════════════════════ -->
+<span class="anchor" id="assumptions"></span>
+<div class="section">
+  <div class="sh">
+    <div class="sn" style="background:var(--sf-orange)">04</div>
+    <div><h2>Supuestos y Consideraciones</h2>
+    <div class="ss">Condiciones que afectan la estimación final</div></div>
+  </div>
+
+  <div class="card">
+    <div class="tw">
+      <table>
+        <thead><tr><th>#</th><th>Supuesto</th><th>Impacto en Horas</th><th>Acción Requerida</th></tr></thead>
+        <tbody>
+          <tr><td class="tc tb torange">1</td><td>APIs del OMS disponibles y documentadas</td><td class="torange">±80h en H1</td><td>Confirmar con IT Falabella en el kick-off</td></tr>
+          <tr><td class="tc tb torange">2</td><td>Vencimiento contrato Avaya/Genesys</td><td class="torange">±120h en H3</td><td>Preguntar en la 1ª reunión de discovery</td></tr>
+          <tr><td class="tc tb tblue">3</td><td>ARI MC ya entregó conectores base de MC</td><td class="tblue">–80–120h en H2</td><td>Coordinar con Alejandra Acuña (ARI owner)</td></tr>
+          <tr><td class="tc tb tblue">4</td><td>Licencias Agentforce ya activas en org Falabella</td><td class="tblue">–40h en H1</td><td>Verificar en org62 con el AE</td></tr>
+          <tr><td class="tc tb" style="color:var(--sf-gray)">5</td><td>Ejecución paralela de H1 + H2 (equipos separados)</td><td style="color:var(--sf-gray)">~18 sem. total vs. 28 sec.</td><td>Confirmar disponibilidad de 2 equipos simultáneos</td></tr>
+          <tr><td class="tc tb" style="color:var(--sf-gray)">6</td><td>Variación general de estimación ROM</td><td style="color:var(--sf-gray)">±20% horas totales</td><td>Validar en sesión de Value Engineering</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="alert warn">
+    <span class="ai">⚠️</span>
+    <div><strong>Este documento es un ROM (Rough Order of Magnitude):</strong> Estimación pre-discovery para conversación ejecutiva. Las horas se refinarán con ±5% de margen tras la sesión de Value Engineering con datos reales del cliente. No usar como base de contrato sin el proceso formal de scoping.</div>
+  </div>
+</div>
+
+</div><!-- /page -->
+
+<footer class="footer">
+  <div><strong style="color:rgba(255,255,255,.8)">Salesforce Professional Services — LATAM</strong><br/>
+  ROM Programa Falabella · v1.0 · Junio 2026 · 2.820h · 10 perfiles · 15 casos de uso</div>
+  <div style="text-align:right">Uso interno — No compartir con el cliente<br/>Elaborado por SSSM Senior · PS LATAM</div>
+</footer>
+
+<script>
+  const links = document.querySelectorAll('.topnav a');
+  const sections = document.querySelectorAll('.anchor');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) cur = s.id; });
+    links.forEach(l => {
+      l.style.color = l.getAttribute('href') === '#' + cur ? '#fff' : '';
+      l.style.borderBottomColor = l.getAttribute('href') === '#' + cur ? 'var(--sf-teal)' : '';
+    });
+  });
+</script>
+</body>
+</html>

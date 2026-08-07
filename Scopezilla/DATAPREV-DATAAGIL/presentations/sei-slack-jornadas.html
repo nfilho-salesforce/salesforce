@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SEI no Slack · Jornadas & Integração — DATAPREV DATA ÁGIL</title>
+  <style>
+    :root {
+      --blue-dark:    #071D41;
+      --blue-mid:     #0C326F;
+      --blue-accent:  #1351B4;
+      --blue-hover:   #155BCB;
+      --blue-light:   #EDF5FF;
+      --teal:         #377EC1;
+      --green:        #52AE32;
+      --green-dark:   #168821;
+      --orange:       #E67E22;
+      --yellow:       #FFCD07;
+      --gov-yellow:   #FBBA00;
+      --red:          #E52207;
+      --purple:       #7B2FBE;
+      --dataprev-blue:#0A4595;
+      --gray-bg:      #F8F8F8;
+      --gray-border:  #E6E6E6;
+      --text-main:    #262626;
+      --text-muted:   #636363;
+      --white:        #FFFFFF;
+      --govbar-h:     32px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--gray-bg);
+      color: var(--text-main);
+      padding-top: var(--govbar-h);
+    }
+
+    code {
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+      font-size: 0.92em;
+      background: rgba(19,81,180,0.06);
+      padding: 1px 4px;
+      border-radius: 4px;
+      color: var(--blue-mid);
+    }
+
+    a { color: var(--blue-accent); }
+
+    /* ── CONTAINER ── */
+    #wrap { max-width: 1120px; margin: 0 auto; padding: 28px 24px 60px; }
+
+    /* ── gov.br barra institucional ── */
+    #govbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--govbar-h);
+      background: var(--blue-dark);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 20px;
+      z-index: 200;
+      font-size: 12px;
+      color: rgba(255,255,255,0.85);
+      border-bottom: 3px solid transparent;
+      border-image: linear-gradient(90deg, #377EC1 0 33.33%, #52AE32 33.33% 66.66%, #FBBA00 66.66% 100%) 1;
+    }
+    #govbar .gov-brand { font-weight: 800; letter-spacing: 0.3px; color: #fff; }
+    #govbar .gov-brand b { color: #FBBA00; font-weight: 800; }
+    #govbar .gov-sep { width: 1px; height: 16px; background: rgba(255,255,255,0.22); }
+    #govbar .gov-note { font-size: 11px; color: rgba(255,255,255,0.55); }
+    #govbar .gov-right { margin-left: auto; font-size: 11px; color: rgba(255,255,255,0.55); }
+    @media (max-width: 640px) { #govbar .gov-note { display: none; } }
+
+    /* ── CARDS ── */
+    .card {
+      background: #fff;
+      border: 1px solid var(--gray-border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+    }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 12px 34px rgba(7,29,65,0.10); border-color: #cbd8ee; }
+
+    .card h2 {
+      font-size: 16px; font-weight: 700; color: var(--blue-dark);
+      margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
+    }
+    .card p, .card li { font-size: 13.5px; color: var(--text-main); line-height: 1.65; }
+    .card p, .hb-content p, .hero-sub {
+      text-align: justify; text-justify: inter-word;
+      -webkit-hyphens: none; hyphens: none; overflow-wrap: break-word; word-break: normal;
+    }
+    .card ul { padding-left: 20px; }
+    .card li { margin-bottom: 5px; }
+
+    /* ── HERO ── */
+    .hero {
+      border-radius: 16px; padding: 44px 40px; margin-bottom: 24px;
+      position: relative; overflow: hidden;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 20px; padding: 5px 14px; font-size: 11px; font-weight: 700;
+      color: rgba(255,255,255,0.85); letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 18px;
+    }
+    .hero h1 { font-size: 30px; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 8px; }
+    .hero-sub { font-size: 15px; color: rgba(255,255,255,0.72); margin-bottom: 28px; line-height: 1.6; }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .hero-tag {
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.18);
+      color: rgba(255,255,255,0.88); border-radius: 6px; padding: 5px 12px; font-size: 12px; font-weight: 600;
+      transition: transform 0.18s ease;
+    }
+    .hero-tag:hover { transform: translateY(-2px); }
+    .hero-tag.highlight { background: var(--teal); border-color: var(--teal); color: #fff; }
+
+    /* ── KPI GRID ── */
+    .kpi-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px; margin-bottom: 24px;
+    }
+    .kpi {
+      background: #fff; border: 1px solid var(--gray-border); border-radius: 12px;
+      padding: 20px; text-align: center; position: relative; overflow: hidden;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+    .kpi:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(7,29,65,0.12); }
+    .kpi::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+    .kpi.blue::before   { background: var(--blue-accent); }
+    .kpi.teal::before   { background: var(--teal); }
+    .kpi.green::before  { background: var(--green); }
+    .kpi.orange::before { background: var(--orange); }
+    .kpi.purple::before { background: var(--purple); }
+    .kpi .kpi-icon  { font-size: 22px; margin-bottom: 8px; }
+    .kpi .kpi-value { font-size: 30px; font-weight: 800; color: var(--blue-dark); line-height: 1.1; }
+    .kpi .kpi-label { font-size: 11.5px; color: var(--text-muted); margin-top: 6px; line-height: 1.4; }
+
+    /* ── HIGHLIGHT BOX ── */
+    .highlight-box {
+      border-radius: 10px; padding: 16px 20px; margin: 14px 0;
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .hb-blue   { background: var(--blue-light); border: 1px solid #B8D4F0; }
+    .hb-green  { background: #E6F9EF; border: 1px solid #A8E6C0; }
+    .hb-orange { background: #FFF0E8; border: 1px solid #FFD0B0; }
+    .hb-yellow { background: #FFFBEA; border: 1px solid #F7E68A; }
+    .hb-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+    .hb-content h4 { font-size: 13px; font-weight: 700; color: var(--blue-dark); margin-bottom: 4px; }
+    .hb-content p { font-size: 13px; color: var(--text-main); line-height: 1.6; }
+
+    /* ── SECTION DIVIDER ── */
+    .section-divider { display: flex; align-items: center; gap: 12px; margin: 28px 0 20px; }
+    .section-divider h2 { font-size: 18px; font-weight: 800; color: var(--blue-dark); white-space: nowrap; }
+    .section-divider::after { content: ''; flex: 1; height: 1px; background: var(--gray-border); }
+
+    /* ── PILLS ── */
+    .pill { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin: 2px; }
+    .pill-blue   { background: #DBEAFE; color: #1D4ED8; }
+    .pill-teal   { background: #CFFAFE; color: #0E7490; }
+    .pill-green  { background: #DCFCE7; color: #168821; }
+    .pill-orange { background: #FFEDD5; color: #C2410C; }
+    .pill-purple { background: #F3E8FF; color: #7E22CE; }
+    .pill-gray   { background: #F1F5F9; color: #475569; }
+
+    /* ── FOOTER ── */
+    #foot {
+      margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--gray-border);
+      font-size: 11.5px; color: var(--text-muted); line-height: 1.6;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .kpi .kpi-icon { transition: transform 0.3s ease; }
+      .kpi:hover .kpi-icon { transform: scale(1.18) translateY(-2px); }
+    }
+    @media (max-width: 760px) {
+      #wrap [style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
+      .hero h1 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- gov.br barra institucional -->
+  <div id="govbar">
+    <span class="gov-brand">gov<b>.br</b></span>
+    <span class="gov-sep"></span>
+    <span class="gov-note">DATAPREV · DATA ÁGIL</span>
+    <span class="gov-right">Salesforce Professional Services · Documento de trabalho</span>
+  </div>
+
+  <div id="wrap">
+
+    <!-- HERO -->
+    <div class="hero" style="background: linear-gradient(135deg, #071D41 0%, #1a4a8a 50%, #7E22CE 100%);">
+      <div class="hero-eyebrow">📑 SEI · Sistema Eletrônico de Informações · Slack + Agentforce</div>
+      <h1>O processo administrativo <span style="color:#F7C948;">vem até o servidor</span></h1>
+      <p class="hero-sub">
+        O SEI concentra a tramitação de documentos e processos de ~211 órgãos federais, mas não avisa ninguém quando algo muda: o servidor precisa entrar, procurar e conferir. Levar prazos, andamentos e assinaturas para o Slack — com o Agentforce interpretando linguagem natural — elimina a verificação manual e ataca a maior dor do sistema: a perda de prazo por falta de aviso.
+      </p>
+      <div class="hero-tags">
+        <span class="hero-tag highlight">REST mod-wssei (v2)</span>
+        <span class="hero-tag">WSDL SOAP (usuário de serviço)</span>
+        <span class="hero-tag">Polling · sem push</span>
+        <span class="hero-tag">Slack + Agentforce</span>
+        <span class="hero-tag">LGPD · só metadados</span>
+      </div>
+    </div>
+
+    <!-- NOTA DE ESCOPO -->
+    <div class="highlight-box" style="margin-bottom: 20px; background: #FAF5FF; border: 1px solid #E9D5FF;">
+      <div class="hb-icon">🧩</div>
+      <div class="hb-content">
+        <h4>Rastreado no escopo como épica E11 — expansão, fora do ROM dual-track atual</h4>
+        <p>Este módulo SEI é uma <strong>expansão</strong> registrada no escopo (épica E11 + gaps G1101–G1105) e <strong>não está incluído no ROM dual-track de 10 épicas</strong> já apresentado. Os números de esforço e prazo do ROM não mudam. Para precificar o SEI, é preciso rodar a estimativa dedicada (estimate/revise) — que depende antes de confirmar a superfície de integração publicada (G1101) e coletar a volumetria de base (G1102).</p>
+      </div>
+    </div>
+
+    <!-- KPIs / REALIDADE DE INTEGRAÇÃO -->
+    <div class="kpi-grid">
+      <div class="kpi blue">
+        <div class="kpi-icon">🔌</div>
+        <div class="kpi-value">150+</div>
+        <div class="kpi-label">endpoints REST no mód. <code>mod-wssei</code> v2 (código-fonte oficial pengovbr)</div>
+      </div>
+      <div class="kpi purple">
+        <div class="kpi-icon">🔔</div>
+        <div class="kpi-value">0</div>
+        <div class="kpi-label">webhooks / eventos de push — notificação exige <strong>polling</strong></div>
+      </div>
+      <div class="kpi green">
+        <div class="kpi-icon">⏱️</div>
+        <div class="kpi-value">10 dias</div>
+        <div class="kpi-label">prazo típico até o <strong>cumprimento tácito</strong> — perda de prazo é a dor central</div>
+      </div>
+      <div class="kpi teal">
+        <div class="kpi-icon">🔐</div>
+        <div class="kpi-value">JWT</div>
+        <div class="kpi-label">autenticação por token (header <code>token</code>) + usuário de serviço</div>
+      </div>
+    </div>
+
+    <div class="highlight-box hb-orange" style="margin-top: 20px;">
+      <div class="hb-icon">⚠️</div>
+      <div class="hb-content">
+        <h4>A restrição que molda toda a arquitetura: o SEI não empurra eventos</h4>
+        <p>Não existe webhook nem serviço de notificação ativo no SEI. Toda jornada proativa (alerta de prazo, aviso de tramitação) depende de a camada de integração <strong>consultar o SEI em intervalos regulares (polling)</strong> e detectar a mudança comparando com o estado anterior. Isso é totalmente viável com os endpoints de leitura — mas define o desenho técnico (agendador + cache de estado no MuleSoft/MCP) e precisa ser dimensionado no ROM.</p>
+      </div>
+    </div>
+
+    <!-- ─── O QUE É O SEI ─── -->
+    <div class="section-divider"><h2>Contexto: o que é o SEI e por que ele dói</h2></div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 8px;">
+      <div class="card">
+        <h2>📚 O sistema</h2>
+        <ul style="font-size: 13px; color: var(--text-main); margin-top: 8px;">
+          <li>Sistema de gestão de processos e documentos 100% eletrônicos, criado pelo TRF4 (2009), hoje núcleo do <strong>Processo Eletrônico Nacional (PEN)</strong>, coordenado pelo MGI.</li>
+          <li>A Dataprev oferece o SEI como serviço (SaaS) para órgãos públicos — o mesmo público-alvo das jornadas deste projeto.</li>
+          <li>Tramitação entre órgãos passa pelo <strong>Barramento PEN / Tramita GOV.BR</strong>.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>😣 As dores dos servidores</h2>
+        <ul style="font-size: 13px; color: var(--text-main); margin-top: 8px;">
+          <li><strong>Nenhum aviso proativo:</strong> o servidor precisa entrar no SEI e conferir manualmente se algo caiu na sua unidade.</li>
+          <li><strong>Perda de prazo:</strong> sem lembrete, o "cumprimento tácito" (decurso de prazo) vira risco jurídico e financeiro.</li>
+          <li><strong>Busca difícil:</strong> achar o processo certo, o tipo de documento certo ou a orientação no manual exige conhecimento do sistema.</li>
+          <li><strong>Assinaturas paradas:</strong> blocos de assinatura ficam esquecidos sem ninguém ser cobrado.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ─── O QUE TEMOS PARA CONECTAR ─── -->
+    <div class="section-divider"><h2>O que temos para conectar: as duas superfícies do SEI</h2></div>
+
+    <div class="highlight-box hb-blue" style="margin-bottom: 20px;">
+      <div class="hb-icon">🧭</div>
+      <div class="hb-content">
+        <h4>Duas portas de entrada, mesma regra de negócio</h4>
+        <p>O SEI expõe integração por <strong>(1) um WSDL SOAP clássico</strong>, acessado por um usuário de serviço + sigla de sistema, e <strong>(2) o módulo REST <code>mod-wssei</code></strong>, que amplia a superfície com dezenas de endpoints. Recomendamos o <strong>REST como caminho primário</strong> (mais rico, JSON nativo, autenticação JWT), mantendo o SOAP como alternativa para instâncias que ainda não tenham o módulo publicado.</p>
+      </div>
+    </div>
+
+    <!-- SUPERFÍCIE 1: SOAP -->
+    <div class="card" style="border-left: 5px solid var(--teal); margin-bottom: 16px;">
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 6px;">
+        <div style="width: 40px; height: 40px; background: #CFFAFE; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;">🧱</div>
+        <div>
+          <div style="font-size: 15px; font-weight: 800; color: var(--blue-dark);">Superfície 1 · WSDL SOAP clássico (SeiWS)</div>
+          <div style="font-size: 12px; color: var(--text-muted);">Acesso por usuário de serviço + sigla de sistema · confirmado pelo cliente</div>
+        </div>
+      </div>
+      <p style="font-size: 12.5px; color: var(--text-main);">Operações historicamente expostas pelo Web Service do SEI. <strong>Nota de confiança:</strong> a lista abaixo reflete o contrato conhecido do SeiWS; não foi possível confirmar o WSDL nos repositórios públicos oficiais (pode estar restrito à instância). <strong>A confirmar com a Dataprev qual superfície está publicada na instância-alvo.</strong></p>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;">
+        <span class="pill pill-teal">gerarProcedimento ✏️</span>
+        <span class="pill pill-teal">incluirDocumento ✏️</span>
+        <span class="pill pill-gray">consultarProcedimento 📖</span>
+        <span class="pill pill-teal">enviarProcesso ✏️</span>
+        <span class="pill pill-teal">atribuirProcesso ✏️</span>
+        <span class="pill pill-gray">consultarDocumento 📖</span>
+        <span class="pill pill-gray">listarUnidades 📖</span>
+        <span class="pill pill-gray">listarUsuarios 📖</span>
+        <span class="pill pill-gray">listarTiposProcedimento 📖</span>
+        <span class="pill pill-gray">listarSeriesTiposDocumento 📖</span>
+        <span class="pill pill-gray">relacionarProcessos 📖</span>
+        <span class="pill pill-teal">bloco de assinatura ✏️</span>
+      </div>
+    </div>
+
+    <!-- SUPERFÍCIE 2: REST mod-wssei -->
+    <div class="card" style="border-left: 5px solid var(--purple); margin-bottom: 16px;">
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 6px;">
+        <div style="width: 40px; height: 40px; background: #F3E8FF; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;">🚀</div>
+        <div>
+          <div style="font-size: 15px; font-weight: 800; color: var(--blue-dark);">Superfície 2 · REST <code>mod-wssei</code> (API v2) — caminho recomendado</div>
+          <div style="font-size: 12px; color: var(--text-muted);">Base: <code>/sei/modulos/wssei/controlador_ws.php/api/v2</code> · Auth: JWT (header <code>token</code> via <code>POST /autenticar</code>)</div>
+        </div>
+      </div>
+      <p style="font-size: 12.5px; color: var(--text-main);">Superfície mapeada diretamente do código-fonte oficial (<code>MdWsSeiServicosV2.php</code>, repositório <a href="https://github.com/pengovbr/mod-wssei">pengovbr/mod-wssei</a>). Abaixo, os endpoints que sustentam as jornadas — agrupados por função. <span style="color: var(--green-dark); font-weight: 700;">📖 Leitura</span> (seguro para notificação/consulta) · <span style="color: #C2410C; font-weight: 700;">✏️ Escrita</span> (gera/altera — exige governança).</p>
+
+      <div style="overflow-x: auto; margin-top: 14px;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
+          <thead>
+            <tr style="background: var(--blue-dark); color: #fff;">
+              <th style="padding: 9px 12px; text-align: left; font-weight: 700; border-radius: 8px 0 0 0;">Método · Endpoint</th>
+              <th style="padding: 9px 12px; text-align: left; font-weight: 700;">Função</th>
+              <th style="padding: 9px 12px; text-align: center; font-weight: 700; border-radius: 0 8px 0 0;">Tipo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid var(--gray-border);"><td colspan="3" style="padding: 6px 12px; background: var(--gray-bg); font-weight: 800; font-size: 11px; color: var(--text-muted);">CONSULTA / ACOMPANHAMENTO — base das jornadas de leitura e polling</td></tr>
+            <tr style="border-bottom: 1px solid var(--gray-border); background: #F0FDF4;"><td style="padding: 8px 12px;"><code>GET /processo/{protocolo}</code></td><td style="padding: 8px 12px;">Consulta processo por ID</td><td style="padding: 8px 12px; text-align: center;"><span class="pill pill-green">📖</span></td></tr>
+            <tr style="border-bottom: 1px solid var(--gray-border); background: #F0FDF4;"><td style="padding: 8px 12px;"><code>GET /processo/consultar</code></td><td style="padding: 8px 12px;">Consulta por protocolo formatado</td><td style="padding: 8px 12px; text-align: center;"><span class="pill pill-green">📖</span></td></tr>
+            <tr style="border-bottom: 1px solid var(--gray-border); background: #F0FDF4;"><td style="padding: 8px 12px;"><code>GET /processo/listar</code></td><td style="padding: 8px 12px;">Lista processos da unidade (filtros/paginação)</td><td style="padding: 8px 12px; text-align: center;"><span class="pill pill-green">📖</span></td></tr>
+            <tr style="border-bottom: 1px solid var(--gray-border); background: #F0FDF4;"><td style="padding: 8px 12px;"><code>GET /processo/listar/meus/acompanhamentos</code></td><td style="padding: 8px 12px;">Processos que o usuário acompanha</td><td style="padding: 8px 12px; text-align: center;"><span class="pill pill-green">📖</span></td></tr>
+            <tr style="border-bottom: 1px solid var(--gray-border); background: #F0FDF4;"><td style="padding: 8px 12px;"><code>GET /processo/listar/acompanhamentos</code></td><td style="padding: 8px 12px;">Acompanhamentos da unidade</td><td style="padding: 8px 12px; text-align: center;"><span class="pill pill-green">📖</span></td></tr>
+            <tr style="border-bottom: 1px solid var(--gray-border); background: #F0FDF4;"><td style="padding: 8px 12px;"><code>GET /atividade/listar</code></td><td style="padding: 8px 12px;">Histórico de andamentos (detecção de mudança)</td><td style="padding: 8px 12px; text-align: center;"><span class="pill pill-green">📖</span></td></tr>
+            <tr style="border-bottom: 1px solid var(--gray-border); background: #F0FDF4;"><td style="padding: 8px 12px;"><code>GET /processo/listar/unidades/{protocolo}</code></td><td style="padding: 8px 12px;">Unidades por onde o processo passou</td><td style="padding: 8px 12px; text-align: center;"><span class="pill pill-green">📖</span></td></tr>
+            <tr style="border-bottom: 1px solid var(--gray-border); background: #F0FDF4;"><td style="padding: 8px 12px;"><code>GET /processo/{protocolo}/relacionamentos</code></td><td style="padding: 8px 12px;">Processos relacionados</td><td style="padding: 8px 12px; text-align: center;"><span class="pill pill-green">📖</span></td></tr>
+            <tr style="border-bottom: 1px solid var(--gray-border); background: #F0FDF4;"><td style="padding: 8px 12px;"><code>GET /documento/listar/{procedimento}</code></td><td style="padding: 8px 12px;">Documentos de um processo</td><td style="padding: 8px 12px; text-align: center;"><span class="pill pill-green">📖</span></td></tr>
+            <tr style="border-bottom: 1px solid var(--gray-border); background: #F0FDF4;"><td style="padding: 8px 12px;"><code>GET /documento/interno/consultar/{protocolo}</code></td><td style="padding: 8px 12px;">Consulta documento interno</td><td style="padding: 8px 12px; text-align: center;"><span class="pill pill-green">📖</span></td></tr>
+
+            <tr style="border-bottom: 1px solid var(--gray-border);"><td colspan="3" style="padding: 6px 12px; background: var(--gray-bg); font-weight: 800; font-size: 11px; color: var(--text-muted);">CATÁLOGO / APOIO — para o assistente responder "qual tipo usar?"</td></tr>
+            <tr style="border-bottom: 1px solid var(--gray-border); background: #F0FDF4;"><td style="padding: 8px 12px;"><code>GET /processo/tipo/listar</code></td><td style="padding: 8px 12px;">Tipos de processo</td><td style="padding: 8px 12px; text-align: center;"><span class="pill pill-green">📖</span></td></tr>
+            <tr style="border-bottom: 1px solid var(--gray-border); background: #F0FDF4;"><td style="padding: 8px 12px;"><code>GET /documento/tipo/pesquisar</code></td><td style="padding: 8px 12px;">Tipos/séries de documento</td><td style="padding: 8px 12px; text-align: center;"><span class="pill pill-green">📖</span></td></tr>
+            <tr style="border-bottom: 1px solid var(--gray-border); background: #F0FDF4;"><td style="padding: 8px 12px;"><code>GET /unidade/pesquisar</code> · <code>GET /usuario/listar</code></td><td style="padding: 8px 12px;">Diretório de unidades e usuários</td><td style="padding: 8px 12px; text-align: center;"><span class="pill pill-green">📖</span></td></tr>
+
+            <tr style="border-bottom: 1px solid var(--gray-border);"><td colspan="3" style="padding: 6px 12px; background: var(--gray-bg); font-weight: 800; font-size: 11px; color: var(--text-muted);">ASSINATURA — status por leitura; assinar exige governança e ICP-Brasil</td></tr>
+            <tr style="border-bottom: 1px solid var(--gray-border); background: #F0FDF4;"><td style="padding: 8px 12px;"><code>GET /bloco/assinatura/pesquisar</code></td><td style="padding: 8px 12px;">Blocos de assinatura pendentes</td><td style="padding: 8px 12px; text-align: center;"><span class="pill pill-green">📖</span></td></tr>
+            <tr style="border-bottom: 1px solid var(--gray-border); background: #F0FDF4;"><td style="padding: 8px 12px;"><code>GET /bloco/assinatura/{bloco}/documentos/listar</code></td><td style="padding: 8px 12px;">Documentos no bloco</td><td style="padding: 8px 12px; text-align: center;"><span class="pill pill-green">📖</span></td></tr>
+            <tr style="border-bottom: 1px solid var(--gray-border);"><td style="padding: 8px 12px;"><code>POST /bloco/assinatura/{bloco}/assinar</code></td><td style="padding: 8px 12px;">Assina bloco (login+senha+cargo)</td><td style="padding: 8px 12px; text-align: center;"><span class="pill pill-orange">✏️</span></td></tr>
+
+            <tr style="border-bottom: 1px solid var(--gray-border);"><td colspan="3" style="padding: 6px 12px; background: var(--gray-bg); font-weight: 800; font-size: 11px; color: var(--text-muted);">AÇÃO / ESCRITA — só com fluxo de aprovação e auditoria</td></tr>
+            <tr style="border-bottom: 1px solid var(--gray-border);"><td style="padding: 8px 12px;"><code>POST /documento/ciencia</code></td><td style="padding: 8px 12px;">Dá ciência em documento</td><td style="padding: 8px 12px; text-align: center;"><span class="pill pill-orange">✏️</span></td></tr>
+            <tr style="border-bottom: 1px solid var(--gray-border);"><td style="padding: 8px 12px;"><code>POST /processo/enviar</code></td><td style="padding: 8px 12px;">Tramita processo para unidades</td><td style="padding: 8px 12px; text-align: center;"><span class="pill pill-orange">✏️</span></td></tr>
+            <tr style="border-bottom: 1px solid var(--gray-border);"><td style="padding: 8px 12px;"><code>POST /processo/atribuir</code></td><td style="padding: 8px 12px;">Atribui processo a um usuário</td><td style="padding: 8px 12px; text-align: center;"><span class="pill pill-orange">✏️</span></td></tr>
+            <tr style="border-bottom: 1px solid var(--gray-border);"><td style="padding: 8px 12px;"><code>POST /processo/criar</code></td><td style="padding: 8px 12px;">Abre novo processo (gerarProcedimento)</td><td style="padding: 8px 12px; text-align: center;"><span class="pill pill-orange">✏️</span></td></tr>
+            <tr><td style="padding: 8px 12px;"><code>POST /documento/{procedimento}/interno/criar</code></td><td style="padding: 8px 12px;">Inclui documento no processo</td><td style="padding: 8px 12px; text-align: center;"><span class="pill pill-orange">✏️</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size: 11px; color: var(--text-muted); margin-top: 8px;">Recorte das jornadas. O módulo expõe 150+ endpoints (blocos internos, anotações, credenciamento, sobrestamento, grupos de acompanhamento, contatos, hipóteses legais, protocolos-modelo). Fonte: <code>MdWsSeiServicosV2.php</code> · pengovbr/mod-wssei.</p>
+    </div>
+
+    <!-- LGPD -->
+    <div class="highlight-box hb-yellow" style="margin-bottom: 8px;">
+      <div class="hb-icon">🔒</div>
+      <div class="hb-content">
+        <h4>Regra de proteção de dados: só metadados no Slack</h4>
+        <p>Processos administrativos contêm dados pessoais e, muitas vezes, informação restrita. O Slack recebe apenas <strong>metadados</strong> — número do processo, status, prazo, unidade, tipo — e um <strong>deep-link de volta ao SEI</strong> para leitura do conteúdo e para qualquer ação. Conteúdo de documento não trafega para o Slack. Isso mantém a conformidade com a LGPD e preserva a trilha de auditoria no sistema de origem.</p>
+      </div>
+    </div>
+
+    <!-- ─── JORNADAS RECOMENDADAS ─── -->
+    <div class="section-divider"><h2>Jornadas recomendadas para o SEI no Slack</h2></div>
+
+    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;">
+      <div style="display: flex; align-items: center; gap: 8px; background: #fff; border: 1px solid var(--gray-border); border-radius: 8px; padding: 8px 14px;">
+        <div style="width: 12px; height: 12px; border-radius: 3px; background: var(--green-dark);"></div>
+        <span style="font-size: 12px; font-weight: 700; color: var(--text-main);">Onda 1</span>
+        <span style="font-size: 11px; color: var(--text-muted);">leitura + polling · coef. ≥ 2,0</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px; background: #fff; border: 1px solid var(--gray-border); border-radius: 8px; padding: 8px 14px;">
+        <div style="width: 12px; height: 12px; border-radius: 3px; background: var(--blue-accent);"></div>
+        <span style="font-size: 12px; font-weight: 700; color: var(--text-main);">Onda 2</span>
+        <span style="font-size: 11px; color: var(--text-muted);">leitura avançada / híbrida · 1,3–2,0</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 8px; background: #fff; border: 1px solid var(--gray-border); border-radius: 8px; padding: 8px 14px;">
+        <div style="width: 12px; height: 12px; border-radius: 3px; background: var(--purple);"></div>
+        <span style="font-size: 12px; font-weight: 700; color: var(--text-main);">Onda 3</span>
+        <span style="font-size: 11px; color: var(--text-muted);">escrita com governança · &lt; 1,3</span>
+      </div>
+    </div>
+
+    <!-- PERSONAS (referência para os exemplos de cada jornada) -->
+    <div class="highlight-box hb-blue" style="margin-bottom: 14px;">
+      <div class="hb-icon">🎭</div>
+      <div class="hb-content">
+        <h4>Personas dos exemplos</h4>
+        <p>Cada jornada abaixo traz um <strong>exemplo real no Slack</strong> logo após o card. São <strong>ilustrações da experiência</strong> — não são compromisso de escopo, prazo ou número, e todo conteúdo sensível permanece no SEI (o Slack carrega só metadados + link de volta). Personas usadas nos exemplos:</p>
+      </div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 22px;">
+      <div style="display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid var(--gray-border); border-radius: 10px; padding: 10px 12px;">
+        <div style="width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg,#1351B4,#377EC1); color:#fff; display:flex; align-items:center; justify-content:center; font-size: 14px; font-weight: 800; flex-shrink: 0;">AR</div>
+        <div><div style="font-size: 13px; font-weight: 800; color: var(--blue-dark);">Ana Ribeiro</div><div style="font-size: 11px; color: var(--text-muted);">Analista · unidade de protocolo</div></div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid var(--gray-border); border-radius: 10px; padding: 10px 12px;">
+        <div style="width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg,#7B2FBE,#377EC1); color:#fff; display:flex; align-items:center; justify-content:center; font-size: 14px; font-weight: 800; flex-shrink: 0;">CM</div>
+        <div><div style="font-size: 13px; font-weight: 800; color: var(--blue-dark);">Carlos Menezes</div><div style="font-size: 11px; color: var(--text-muted);">Chefe de unidade · gestor</div></div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid var(--gray-border); border-radius: 10px; padding: 10px 12px;">
+        <div style="width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg,#168821,#377EC1); color:#fff; display:flex; align-items:center; justify-content:center; font-size: 14px; font-weight: 800; flex-shrink: 0;">MC</div>
+        <div><div style="font-size: 13px; font-weight: 800; color: var(--blue-dark);">Marina Costa</div><div style="font-size: 11px; color: var(--text-muted);">Procuradora · signatária</div></div>
+      </div>
+    </div>
+
+    <!-- SEI-J1 -->
+    <div class="card" style="border-left: 5px solid var(--green-dark); margin-bottom: 16px;">
+      <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 40px; height: 40px; background: #E6F9EF; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;">⏰</div>
+          <div>
+            <div style="font-size: 15px; font-weight: 800; color: var(--blue-dark);">SEI-J1 · Alerta de Prazo e Cumprimento Tácito</div>
+            <div style="font-size: 12px; color: var(--text-muted);">Proativo · evita perda de prazo · a jornada de maior valor</div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+          <span class="pill pill-green">Onda 1</span>
+          <span class="pill pill-gray">Leitura + polling</span>
+          <span class="pill pill-blue">Coef. 2,5</span>
+        </div>
+      </div>
+      <p style="font-size: 12.5px; color: var(--text-main); margin-bottom: 10px;">A camada de integração consulta os processos em acompanhamento, calcula os dias corridos desde o último andamento e dispara um alerta no Slack <strong>antes</strong> do decurso de prazo. Ataca diretamente a maior dor: prazo perdido por falta de aviso.</p>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div style="background: var(--gray-bg); border-radius: 8px; padding: 12px;">
+          <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px;">ENDPOINTS (LEITURA)</div>
+          <ul style="font-size: 12px; color: var(--text-main);"><li><code>/processo/listar/acompanhamentos</code></li><li><code>/atividade/listar</code></li><li><code>/processo/{protocolo}</code></li></ul>
+        </div>
+        <div style="background: var(--gray-bg); border-radius: 8px; padding: 12px;">
+          <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px;">POR QUE PRIORIZAR</div>
+          <ul style="font-size: 12px; color: var(--text-main);"><li>Valor máximo: evita risco jurídico e financeiro</li><li>Só leitura — nenhuma escrita no SEI</li><li>Esforço concentrado no agendador de polling</li></ul>
+        </div>
+      </div>
+      <div style="margin-top: 14px; border-top: 1px dashed var(--gray-border); padding-top: 12px;">
+        <div style="font-size: 10.5px; font-weight: 800; color: var(--text-muted); letter-spacing: 0.5px; margin-bottom: 8px;">💬 EXEMPLO NO SLACK</div>
+        <div style="background: #FFF0E8; border-left: 3px solid var(--orange); border-radius: 0 10px 10px 10px; padding: 11px 14px;">
+          <div style="font-size: 10.5px; font-weight: 800; color: #C2410C; margin-bottom: 3px;">🤖 SEI Assistente · mensagem direta para Ana</div>
+          <div style="font-size: 12.5px; color: var(--text-main);">⏰ <strong>Atenção, Ana:</strong> o processo <strong>0098.7654/2026-02</strong> completa o prazo em <strong>2 dias úteis</strong> e segue sem movimentação. Risco de cumprimento tácito.<br><span style="color: var(--blue-accent); font-weight: 600;">Abrir no SEI ↗</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEI-J2 -->
+    <div class="card" style="border-left: 5px solid var(--green-dark); margin-bottom: 16px;">
+      <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 40px; height: 40px; background: #E6F9EF; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;">🔎</div>
+          <div>
+            <div style="font-size: 15px; font-weight: 800; color: var(--blue-dark);">SEI-J2 · Consulta de Processo por Linguagem Natural</div>
+            <div style="font-size: 12px; color: var(--text-muted);">Reativo · Agentforce interpreta "cadê o processo X?"</div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+          <span class="pill pill-green">Onda 1</span>
+          <span class="pill pill-gray">Leitura</span>
+          <span class="pill pill-blue">Coef. 2,33</span>
+        </div>
+      </div>
+      <p style="font-size: 12.5px; color: var(--text-main); margin-bottom: 10px;">O servidor pergunta no Slack em linguagem natural; o Agentforce extrai o número/assunto, consulta o SEI e devolve um card com status, unidade atual, último andamento e deep-link. Substitui o login-e-procura manual, de alta frequência diária.</p>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div style="background: var(--gray-bg); border-radius: 8px; padding: 12px;">
+          <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px;">ENDPOINTS (LEITURA)</div>
+          <ul style="font-size: 12px; color: var(--text-main);"><li><code>/processo/consultar</code> · <code>/processo/{protocolo}</code></li><li><code>/documento/listar/{procedimento}</code></li><li><code>/processo/{protocolo}/relacionamentos</code></li></ul>
+        </div>
+        <div style="background: var(--gray-bg); border-radius: 8px; padding: 12px;">
+          <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px;">POR QUE PRIORIZAR</div>
+          <ul style="font-size: 12px; color: var(--text-main);"><li>Alta frequência de uso, demanda diária</li><li>Esforço baixo — só leitura + 1 Topic no Agentforce</li><li>Ganho de tempo imediato e mensurável</li></ul>
+        </div>
+      </div>
+      <div style="margin-top: 14px; border-top: 1px dashed var(--gray-border); padding-top: 12px;">
+        <div style="font-size: 10.5px; font-weight: 800; color: var(--text-muted); letter-spacing: 0.5px; margin-bottom: 8px;">💬 EXEMPLO NO SLACK</div>
+        <div style="background: #F1F5F9; border-radius: 10px 0 10px 10px; padding: 11px 14px; margin-left: 44px;">
+          <div style="font-size: 10.5px; font-weight: 800; color: #475569; margin-bottom: 3px;">👩‍💼 Ana Ribeiro</div>
+          <div style="font-size: 12.5px; color: var(--text-main);">"e o 0123.4567 de 2026, como tá?"</div>
+        </div>
+        <div style="background: #EDF5FF; border-left: 3px solid var(--blue-accent); border-radius: 0 10px 10px 10px; padding: 11px 14px; margin-top: 8px;">
+          <div style="font-size: 10.5px; font-weight: 800; color: var(--blue-accent); margin-bottom: 3px;">🤖 SEI Assistente</div>
+          <div style="font-size: 12.5px; color: var(--text-main);">📄 <strong>0123.4567/2026-11</strong> · Status: <strong>aberto na sua unidade</strong> · último andamento hoje 08:10 · 2 documentos · sem pendência de assinatura.<br><span style="color: var(--blue-accent); font-weight: 600;">Abrir no SEI ↗</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEI-J3 -->
+    <div class="card" style="border-left: 5px solid var(--green-dark); margin-bottom: 16px;">
+      <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 40px; height: 40px; background: #E6F9EF; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;">📥</div>
+          <div>
+            <div style="font-size: 15px; font-weight: 800; color: var(--blue-dark);">SEI-J3 · Notificação de Processo Recebido / Tramitado</div>
+            <div style="font-size: 12px; color: var(--text-muted);">Proativo · "um processo chegou na sua unidade"</div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+          <span class="pill pill-green">Onda 1</span>
+          <span class="pill pill-gray">Leitura + polling</span>
+          <span class="pill pill-blue">Coef. 2,0</span>
+        </div>
+      </div>
+      <p style="font-size: 12.5px; color: var(--text-main); margin-bottom: 10px;">Polling detecta processos novos na unidade e avisa no canal, sem o servidor precisar conferir. Mesma infraestrutura de polling do SEI-J1 — o custo de integração é compartilhado, o que aumenta o retorno das duas juntas.</p>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div style="background: var(--gray-bg); border-radius: 8px; padding: 12px;">
+          <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px;">ENDPOINTS (LEITURA)</div>
+          <ul style="font-size: 12px; color: var(--text-main);"><li><code>/processo/listar</code></li><li><code>/atividade/listar</code></li></ul>
+        </div>
+        <div style="background: var(--gray-bg); border-radius: 8px; padding: 12px;">
+          <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px;">POR QUE PRIORIZAR</div>
+          <ul style="font-size: 12px; color: var(--text-main);"><li>Reaproveita o polling do SEI-J1</li><li>Elimina a verificação manual recorrente</li><li>Base para o digest de gestor (SEI-J5)</li></ul>
+        </div>
+      </div>
+      <div style="margin-top: 14px; border-top: 1px dashed var(--gray-border); padding-top: 12px;">
+        <div style="font-size: 10.5px; font-weight: 800; color: var(--text-muted); letter-spacing: 0.5px; margin-bottom: 8px;">💬 EXEMPLO NO SLACK</div>
+        <div style="background: #EDF5FF; border-left: 3px solid var(--blue-accent); border-radius: 0 10px 10px 10px; padding: 11px 14px;">
+          <div style="font-size: 10.5px; font-weight: 800; color: var(--blue-accent); margin-bottom: 3px;">🤖 SEI Assistente · #protocolo-fazenda</div>
+          <div style="font-size: 12.5px; color: var(--text-main);">📥 <strong>Chegou na sua unidade:</strong> processo <strong>0123.4567/2026-11</strong> — "Requerimento de benefício" · vindo de Gabinete · <em>prazo interno: 5 dias úteis</em>.<br><span style="color: var(--blue-accent); font-weight: 600;">Abrir no SEI ↗</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEI-J4 -->
+    <div class="card" style="border-left: 5px solid var(--green-dark); margin-bottom: 16px;">
+      <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 40px; height: 40px; background: #E6F9EF; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;">🗂️</div>
+          <div>
+            <div style="font-size: 15px; font-weight: 800; color: var(--blue-dark);">SEI-J4 · Meu Painel de Processos no Slack</div>
+            <div style="font-size: 12px; color: var(--text-muted);">Reativo · "/meus-processos" com um comando</div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+          <span class="pill pill-green">Onda 1</span>
+          <span class="pill pill-gray">Leitura</span>
+          <span class="pill pill-blue">Coef. 2,0</span>
+        </div>
+      </div>
+      <p style="font-size: 12.5px; color: var(--text-main); margin-bottom: 10px;">Comando ou pergunta que devolve a lista de processos do usuário — abertos, atribuídos, em acompanhamento — com prazo e status. Autosserviço puro, sem escrita.</p>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div style="background: var(--gray-bg); border-radius: 8px; padding: 12px;">
+          <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px;">ENDPOINTS (LEITURA)</div>
+          <ul style="font-size: 12px; color: var(--text-main);"><li><code>/processo/listar/meus/acompanhamentos</code></li><li><code>/processo/listar</code></li></ul>
+        </div>
+        <div style="background: var(--gray-bg); border-radius: 8px; padding: 12px;">
+          <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px;">POR QUE PRIORIZAR</div>
+          <ul style="font-size: 12px; color: var(--text-main);"><li>Esforço mínimo — dois endpoints de leitura</li><li>Reforça a adoção do canal Slack</li><li>Complementa J1/J2 na mesma sprint</li></ul>
+        </div>
+      </div>
+      <div style="margin-top: 14px; border-top: 1px dashed var(--gray-border); padding-top: 12px;">
+        <div style="font-size: 10.5px; font-weight: 800; color: var(--text-muted); letter-spacing: 0.5px; margin-bottom: 8px;">💬 EXEMPLO NO SLACK</div>
+        <div style="background: #F1F5F9; border-radius: 10px 0 10px 10px; padding: 10px 14px; margin-left: 44px; margin-bottom: 8px;">
+          <div style="font-size: 10.5px; font-weight: 800; color: var(--text-muted); margin-bottom: 3px;">👤 Ana Ribeiro</div>
+          <div style="font-size: 12.5px; color: var(--text-main);">/meus-processos</div>
+        </div>
+        <div style="background: #EDF5FF; border-left: 3px solid var(--blue-accent); border-radius: 0 10px 10px 10px; padding: 11px 14px;">
+          <div style="font-size: 10.5px; font-weight: 800; color: var(--blue-accent); margin-bottom: 3px;">🤖 SEI Assistente</div>
+          <div style="font-size: 12.5px; color: var(--text-main);">🗂️ <strong>Ana, você tem 12 processos:</strong> 3 com prazo esta semana · 2 aguardando sua ação · 7 em acompanhamento.<br><span style="color: var(--blue-accent); font-weight: 600;">Abrir lista no SEI ↗</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEI-J5..J10 — MESMO FORMATO DA ONDA 1, CORES POR ONDA -->
+    <div class="section-divider" style="margin-top: 8px;"><h2>Onda 2 — leitura avançada e híbrida</h2></div>
+
+    <!-- SEI-J5 -->
+    <div class="card" style="border-left: 5px solid var(--blue-accent); margin-bottom: 16px;">
+      <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 40px; height: 40px; background: #EDF5FF; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;">📊</div>
+          <div>
+            <div style="font-size: 15px; font-weight: 800; color: var(--blue-dark);">SEI-J5 · Digest de Unidade para Gestores</div>
+            <div style="font-size: 12px; color: var(--text-muted);">Proativo · resumo diário no canal da unidade</div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+          <span class="pill pill-blue">Onda 2</span>
+          <span class="pill pill-gray">Leitura + polling</span>
+          <span class="pill pill-blue">Coef. 1,75</span>
+        </div>
+      </div>
+      <p style="font-size: 12.5px; color: var(--text-main); margin-bottom: 10px;">Resumo diário postado no canal da unidade: processos parados, prazos próximos e entradas do dia. Dá ao gestor a visão de gargalo que hoje só aparece quando o prazo já estourou — reaproveitando a mesma infraestrutura de polling da Onda 1.</p>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div style="background: var(--gray-bg); border-radius: 8px; padding: 12px;">
+          <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px;">ENDPOINTS (LEITURA)</div>
+          <ul style="font-size: 12px; color: var(--text-main);"><li><code>/processo/listar/acompanhamentos</code></li><li><code>/atividade/listar</code></li><li><code>/processo/listar/unidades/{protocolo}</code></li></ul>
+        </div>
+        <div style="background: var(--gray-bg); border-radius: 8px; padding: 12px;">
+          <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px;">POR QUE PRIORIZAR</div>
+          <ul style="font-size: 12px; color: var(--text-main);"><li>Reaproveita o polling das Ondas 1</li><li>Traz o patrocínio da gestão para o canal</li><li>Base de governança para as ondas de escrita</li></ul>
+        </div>
+      </div>
+      <div style="margin-top: 14px; border-top: 1px dashed var(--gray-border); padding-top: 12px;">
+        <div style="font-size: 10.5px; font-weight: 800; color: var(--text-muted); letter-spacing: 0.5px; margin-bottom: 8px;">💬 EXEMPLO NO SLACK</div>
+        <div style="background: #EDF5FF; border-left: 3px solid var(--purple); border-radius: 0 10px 10px 10px; padding: 11px 14px;">
+          <div style="font-size: 10.5px; font-weight: 800; color: var(--purple); margin-bottom: 3px;">🤖 SEI Assistente · #gestao-protocolo</div>
+          <div style="font-size: 12.5px; color: var(--text-main);">📊 <strong>Resumo do dia — unidade de Protocolo (Carlos Menezes, gestor):</strong><br>• 3 processos novos<br>• 2 com prazo ≤ 3 dias úteis (1 parado)<br>• 1 bloco de assinatura pendente há 4 dias<br><span style="color: var(--purple); font-weight: 600;">Ver no SEI ↗</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEI-J6 -->
+    <div class="card" style="border-left: 5px solid var(--blue-accent); margin-bottom: 16px;">
+      <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 40px; height: 40px; background: #EDF5FF; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;">🧠</div>
+          <div>
+            <div style="font-size: 15px; font-weight: 800; color: var(--blue-dark);">SEI-J6 · "Qual tipo eu uso?" + Manuais (RAG)</div>
+            <div style="font-size: 12px; color: var(--text-muted);">Reativo · Agentforce classifica e cita o manual</div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+          <span class="pill pill-blue">Onda 2</span>
+          <span class="pill pill-gray">Leitura + RAG</span>
+          <span class="pill pill-blue">Coef. 1,67</span>
+        </div>
+      </div>
+      <p style="font-size: 12.5px; color: var(--text-main); margin-bottom: 10px;">O servidor pergunta qual tipo de processo ou documento usar; o Agentforce responde com base no catálogo do SEI e busca a orientação nos manuais (RAG). Reduz erro de classificação na origem — a causa de retrabalho e de processos que voltam.</p>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div style="background: var(--gray-bg); border-radius: 8px; padding: 12px;">
+          <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px;">ENDPOINTS (LEITURA) + KB</div>
+          <ul style="font-size: 12px; color: var(--text-main);"><li><code>/processo/tipo/listar</code></li><li><code>/documento/tipo/pesquisar</code></li><li><code>/processo/assunto/pesquisar</code> + base de conhecimento (manuais)</li></ul>
+        </div>
+        <div style="background: var(--gray-bg); border-radius: 8px; padding: 12px;">
+          <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px;">POR QUE PRIORIZAR</div>
+          <ul style="font-size: 12px; color: var(--text-main);"><li>Ataca erro de classificação na origem</li><li>Só leitura + RAG — sem escrita no SEI</li><li>Reduz retrabalho e devolução de processos</li></ul>
+        </div>
+      </div>
+      <div style="margin-top: 14px; border-top: 1px dashed var(--gray-border); padding-top: 12px;">
+        <div style="font-size: 10.5px; font-weight: 800; color: var(--text-muted); letter-spacing: 0.5px; margin-bottom: 8px;">💬 EXEMPLO NO SLACK</div>
+        <div style="background: #F1F5F9; border-radius: 10px 0 10px 10px; padding: 10px 14px; margin-left: 44px; margin-bottom: 8px;">
+          <div style="font-size: 10.5px; font-weight: 800; color: var(--text-muted); margin-bottom: 3px;">👤 Ana Ribeiro</div>
+          <div style="font-size: 12.5px; color: var(--text-main);">qual tipo eu uso pra formalizar uma cessão de servidor?</div>
+        </div>
+        <div style="background: #EDF5FF; border-left: 3px solid var(--blue-accent); border-radius: 0 10px 10px 10px; padding: 11px 14px;">
+          <div style="font-size: 10.5px; font-weight: 800; color: var(--blue-accent); margin-bottom: 3px;">🧠 SEI Assistente</div>
+          <div style="font-size: 12.5px; color: var(--text-main);">Use o tipo <strong>"Pessoal: Cessão"</strong>. Pelo Manual do SEI (cap. 4.2), anexe o ofício de solicitação e o de anuência da unidade cedente.<br><span style="color: var(--blue-accent); font-weight: 600;">Abrir modelo no SEI ↗</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEI-J7 -->
+    <div class="card" style="border-left: 5px solid var(--blue-accent); margin-bottom: 16px;">
+      <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 40px; height: 40px; background: #EDF5FF; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;">✍️</div>
+          <div>
+            <div style="font-size: 15px; font-weight: 800; color: var(--blue-dark);">SEI-J7 · Status de Assinatura + Deep-link</div>
+            <div style="font-size: 12px; color: var(--text-muted);">Híbrido · avisa pendências, assina no SEI (ICP-Brasil)</div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+          <span class="pill pill-blue">Onda 2</span>
+          <span class="pill pill-gray">Leitura + deep-link</span>
+          <span class="pill pill-blue">Coef. 1,33</span>
+        </div>
+      </div>
+      <p style="font-size: 12.5px; color: var(--text-main); margin-bottom: 10px;">Avisa no Slack quando há blocos de assinatura pendentes e leva com um clique ao SEI para assinar. A assinatura em si permanece no SEI, sob certificado ICP-Brasil — o Slack só notifica e encaminha, sem trafegar o ato de assinatura.</p>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div style="background: var(--gray-bg); border-radius: 8px; padding: 12px;">
+          <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px;">ENDPOINTS (LEITURA + DEEP-LINK)</div>
+          <ul style="font-size: 12px; color: var(--text-main);"><li><code>/bloco/assinatura/pesquisar</code></li><li><code>/bloco/assinatura/{bloco}/documentos/listar</code></li><li><span style="color:#C2410C;">assinar via deep-link ao SEI</span></li></ul>
+        </div>
+        <div style="background: var(--gray-bg); border-radius: 8px; padding: 12px;">
+          <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px;">POR QUE PRIORIZAR</div>
+          <ul style="font-size: 12px; color: var(--text-main);"><li>Destrava blocos de assinatura esquecidos</li><li>Leitura + deep-link — assinatura fica no SEI</li><li>Preserva a conformidade ICP-Brasil</li></ul>
+        </div>
+      </div>
+      <div style="margin-top: 14px; border-top: 1px dashed var(--gray-border); padding-top: 12px;">
+        <div style="font-size: 10.5px; font-weight: 800; color: var(--text-muted); letter-spacing: 0.5px; margin-bottom: 8px;">💬 EXEMPLO NO SLACK</div>
+        <div style="background: #EDF5FF; border-left: 3px solid var(--blue-accent); border-radius: 0 10px 10px 10px; padding: 11px 14px;">
+          <div style="font-size: 10.5px; font-weight: 800; color: var(--blue-accent); margin-bottom: 3px;">🤖 SEI Assistente · DM para Marina Costa</div>
+          <div style="font-size: 12.5px; color: var(--text-main);">✍️ <strong>Marina, você tem 1 bloco de assinatura pendente há 4 dias:</strong> bloco #4521 · 3 documentos · unidade Protocolo. A assinatura é feita no SEI com seu certificado ICP-Brasil.<br><span style="color: var(--blue-accent); font-weight: 600;">Assinar no SEI ↗</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-divider" style="margin-top: 8px;"><h2>Onda 3 — escrita com governança</h2></div>
+
+    <!-- SEI-J8 -->
+    <div class="card" style="border-left: 5px solid var(--purple); margin-bottom: 16px;">
+      <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 40px; height: 40px; background: #F3E8FF; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;">✅</div>
+          <div>
+            <div style="font-size: 15px; font-weight: 800; color: var(--blue-dark);">SEI-J8 · Ciência de Documento via Slack</div>
+            <div style="font-size: 12px; color: var(--text-muted);">Escrita · dar ciência com um clique, após aprovação</div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+          <span class="pill pill-purple">Onda 3</span>
+          <span class="pill pill-orange">Escrita</span>
+          <span class="pill pill-blue">Coef. 1,00</span>
+        </div>
+      </div>
+      <p style="font-size: 12.5px; color: var(--text-main); margin-bottom: 10px;">A primeira escrita: dar ciência em um documento direto do Slack, após um passo de aprovação. É a porta de entrada da automação de ações — de baixo risco individual, serve de piloto para o modelo de governança que as jornadas seguintes exigem.</p>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div style="background: var(--gray-bg); border-radius: 8px; padding: 12px;">
+          <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px;">ENDPOINTS (ESCRITA)</div>
+          <ul style="font-size: 12px; color: var(--text-main);"><li><code>POST /documento/ciencia</code></li><li><code>/documento/interno/consultar/{protocolo}</code> (leitura de apoio)</li></ul>
+        </div>
+        <div style="background: var(--gray-bg); border-radius: 8px; padding: 12px;">
+          <div style="font-size: 11px; font-weight: 700; color: #C2410C; margin-bottom: 6px;">GOVERNANÇA NECESSÁRIA</div>
+          <ul style="font-size: 12px; color: var(--text-main);"><li>Passo de aprovação antes de escrever no SEI</li><li>Confirmação de identidade do servidor</li><li>Trilha de auditoria de quem deu ciência</li></ul>
+        </div>
+      </div>
+      <div style="margin-top: 14px; border-top: 1px dashed var(--gray-border); padding-top: 12px;">
+        <div style="font-size: 10.5px; font-weight: 800; color: var(--text-muted); letter-spacing: 0.5px; margin-bottom: 8px;">💬 EXEMPLO NO SLACK</div>
+        <div style="background: #EDF5FF; border-left: 3px solid var(--purple); border-radius: 0 10px 10px 10px; padding: 11px 14px;">
+          <div style="font-size: 10.5px; font-weight: 800; color: var(--purple); margin-bottom: 3px;">🤖 SEI Assistente · DM para Marina Costa</div>
+          <div style="font-size: 12.5px; color: var(--text-main);">✅ <strong>Marina, o documento Despacho nº 12/2026</strong> (proc. 0123.4567/2026-11) aguarda sua ciência. Registrar ciência agora?</div>
+          <div style="display: flex; gap: 8px; margin-top: 10px;">
+            <span style="background: var(--green-dark); color: #fff; font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">✔ Dar ciência</span>
+            <span style="background: #fff; color: var(--text-main); border: 1px solid var(--gray-border); font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">Cancelar</span>
+          </div>
+          <div style="font-size: 10.5px; color: var(--text-muted); margin-top: 8px; font-style: italic;">Escrita registrada em auditoria, após confirmação de identidade.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEI-J9 -->
+    <div class="card" style="border-left: 5px solid var(--purple); margin-bottom: 16px;">
+      <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 40px; height: 40px; background: #F3E8FF; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;">📤</div>
+          <div>
+            <div style="font-size: 15px; font-weight: 800; color: var(--blue-dark);">SEI-J9 · Tramitar Processo via Aprovação</div>
+            <div style="font-size: 12px; color: var(--text-muted);">Escrita sensível · enviar processo para outra unidade</div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+          <span class="pill pill-purple">Onda 3</span>
+          <span class="pill pill-orange">Escrita</span>
+          <span class="pill pill-blue">Coef. 0,75</span>
+        </div>
+      </div>
+      <p style="font-size: 12.5px; color: var(--text-main); margin-bottom: 10px;">Enviar um processo para outra unidade a partir do Slack, após aprovação. Movimenta o processo de fato — por isso exige governança forte, validação de permissão da unidade de destino e registro completo de quem tramitou e quando.</p>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div style="background: var(--gray-bg); border-radius: 8px; padding: 12px;">
+          <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px;">ENDPOINTS (ESCRITA)</div>
+          <ul style="font-size: 12px; color: var(--text-main);"><li><code>POST /processo/enviar</code></li><li><code>/unidade/pesquisar</code> (resolver destino)</li></ul>
+        </div>
+        <div style="background: var(--gray-bg); border-radius: 8px; padding: 12px;">
+          <div style="font-size: 11px; font-weight: 700; color: #C2410C; margin-bottom: 6px;">GOVERNANÇA NECESSÁRIA</div>
+          <ul style="font-size: 12px; color: var(--text-main);"><li>Aprovação obrigatória antes de tramitar</li><li>Validação de permissão por unidade</li><li>Auditoria de origem/destino e responsável</li></ul>
+        </div>
+      </div>
+      <div style="margin-top: 14px; border-top: 1px dashed var(--gray-border); padding-top: 12px;">
+        <div style="font-size: 10.5px; font-weight: 800; color: var(--text-muted); letter-spacing: 0.5px; margin-bottom: 8px;">💬 EXEMPLO NO SLACK</div>
+        <div style="background: #F1F5F9; border-radius: 10px 0 10px 10px; padding: 10px 14px; margin-left: 44px; margin-bottom: 8px;">
+          <div style="font-size: 10.5px; font-weight: 800; color: var(--text-muted); margin-bottom: 3px;">👤 Ana Ribeiro</div>
+          <div style="font-size: 12.5px; color: var(--text-main);">encaminhar o 0123.4567 para a Procuradoria</div>
+        </div>
+        <div style="background: #EDF5FF; border-left: 3px solid var(--purple); border-radius: 0 10px 10px 10px; padding: 11px 14px;">
+          <div style="font-size: 10.5px; font-weight: 800; color: var(--purple); margin-bottom: 3px;">🤖 SEI Assistente</div>
+          <div style="font-size: 12.5px; color: var(--text-main);">📤 <strong>Confirmar:</strong> tramitar 0123.4567/2026-11 para <strong>Procuradoria-Geral</strong>? Ação sujeita a aprovação e registro de auditoria.</div>
+          <div style="display: flex; gap: 8px; margin-top: 10px;">
+            <span style="background: var(--green-dark); color: #fff; font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">✔ Aprovar e tramitar</span>
+            <span style="background: #fff; color: var(--text-main); border: 1px solid var(--gray-border); font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">Cancelar</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEI-J10 -->
+    <div class="card" style="border-left: 5px solid var(--purple); margin-bottom: 16px;">
+      <div style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 40px; height: 40px; background: #F3E8FF; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;">🆕</div>
+          <div>
+            <div style="font-size: 15px; font-weight: 800; color: var(--blue-dark);">SEI-J10 · Abrir Processo a partir do Slack</div>
+            <div style="font-size: 12px; color: var(--text-muted);">Escrita · iniciar processo e incluir o primeiro documento</div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+          <span class="pill pill-purple">Onda 3</span>
+          <span class="pill pill-orange">Escrita</span>
+          <span class="pill pill-blue">Coef. 0,63</span>
+        </div>
+      </div>
+      <p style="font-size: 12.5px; color: var(--text-main); margin-bottom: 10px;">Iniciar um processo e incluir o primeiro documento pelo Slack. É o maior esforço e o maior risco de escrita da fila — deve ser a última onda, depois que as jornadas anteriores amadureceram o modelo de aprovação e auditoria.</p>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div style="background: var(--gray-bg); border-radius: 8px; padding: 12px;">
+          <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 6px;">ENDPOINTS (ESCRITA)</div>
+          <ul style="font-size: 12px; color: var(--text-main);"><li><code>POST /processo/criar</code></li><li><code>POST /documento/{procedimento}/interno/criar</code></li></ul>
+        </div>
+        <div style="background: var(--gray-bg); border-radius: 8px; padding: 12px;">
+          <div style="font-size: 11px; font-weight: 700; color: #C2410C; margin-bottom: 6px;">GOVERNANÇA NECESSÁRIA</div>
+          <ul style="font-size: 12px; color: var(--text-main);"><li>Só após maturidade das ondas anteriores</li><li>Modelo de aprovação e auditoria consolidado</li><li>Maior esforço de integração da fila</li></ul>
+        </div>
+      </div>
+      <div style="margin-top: 14px; border-top: 1px dashed var(--gray-border); padding-top: 12px;">
+        <div style="font-size: 10.5px; font-weight: 800; color: var(--text-muted); letter-spacing: 0.5px; margin-bottom: 8px;">💬 EXEMPLO NO SLACK</div>
+        <div style="background: #F1F5F9; border-radius: 10px 0 10px 10px; padding: 10px 14px; margin-left: 44px; margin-bottom: 8px;">
+          <div style="font-size: 10.5px; font-weight: 800; color: var(--text-muted); margin-bottom: 3px;">👤 Ana Ribeiro</div>
+          <div style="font-size: 12.5px; color: var(--text-main);">abre um processo de "Requerimento de férias" pra mim</div>
+        </div>
+        <div style="background: #EDF5FF; border-left: 3px solid var(--purple); border-radius: 0 10px 10px 10px; padding: 11px 14px;">
+          <div style="font-size: 10.5px; font-weight: 800; color: var(--purple); margin-bottom: 3px;">🤖 SEI Assistente</div>
+          <div style="font-size: 12.5px; color: var(--text-main);">🆕 Vou abrir <strong>"Pessoal: Férias"</strong> na sua unidade e incluir o requerimento em branco. Confirmar abertura? Ação registrada em auditoria.</div>
+          <div style="display: flex; gap: 8px; margin-top: 10px;">
+            <span style="background: var(--green-dark); color: #fff; font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">✔ Abrir processo</span>
+            <span style="background: #fff; color: var(--text-main); border: 1px solid var(--gray-border); font-size: 11.5px; font-weight: 700; padding: 6px 14px; border-radius: 6px;">Cancelar</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── COEFICIENTE DE GANHO ─── -->
+    <div class="section-divider"><h2>Priorização por coeficiente de ganho (Valor ÷ Esforço)</h2></div>
+
+    <div class="highlight-box hb-blue" style="margin-bottom: 18px;">
+      <div class="hb-icon">🧮</div>
+      <div class="hb-content">
+        <h4>Como o coeficiente é calculado</h4>
+        <p><strong>Coeficiente de Ganho = Valor ÷ Esforço.</strong> Cada jornada recebe uma nota de <strong>Valor (1–10)</strong> e uma de <strong>Esforço (1–10)</strong>; a razão ordena a fila — quanto maior, mais cedo entrega retorno por unidade de trabalho. É a lógica de WSJF/RICE, simplificada para transparência. Corte: <strong>≥ 2,0 → Onda 1</strong>; <strong>1,3–2,0 → Onda 2</strong>; <strong>&lt; 1,3 → Onda 3</strong>.</p>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 18px;">
+      <div class="card" style="margin:0;">
+        <div style="font-size: 12px; font-weight: 800; color: var(--green-dark); margin-bottom: 8px;">VALOR (1–10) — pondera 4 fatores</div>
+        <ul style="font-size: 12.5px; color: var(--text-main);">
+          <li><strong>Risco evitado</strong> (perda de prazo / jurídico / financeiro) — peso duplo</li>
+          <li><strong>Frequência</strong> de uso (diária &gt; eventual)</li>
+          <li><strong>Alcance</strong> (nº de servidores e unidades impactados)</li>
+          <li><strong>Visibilidade</strong> executiva (patrocínio, novo diretor)</li>
+        </ul>
+      </div>
+      <div class="card" style="margin:0;">
+        <div style="font-size: 12px; font-weight: 800; color: #C2410C; margin-bottom: 8px;">ESFORÇO (1–10) — pondera 4 fatores</div>
+        <ul style="font-size: 12.5px; color: var(--text-main);">
+          <li><strong>Leitura (1–3) × Escrita (6–9)</strong> — escrita puxa muito o esforço</li>
+          <li><strong>Nº de endpoints</strong> e integrações envolvidas</li>
+          <li><strong>Governança &amp; LGPD</strong> (aprovação, auditoria, identidade)</li>
+          <li><strong>Infra de polling / tempo-real</strong> (agendador + cache de estado)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🏁 Fila priorizada</h2>
+      <div style="overflow-x: auto; margin-top: 12px;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 12.5px;">
+          <thead>
+            <tr style="background: var(--blue-dark); color: #fff;">
+              <th style="padding: 10px 12px; text-align: center; font-weight: 700; border-radius: 8px 0 0 0;">#</th>
+              <th style="padding: 10px 12px; text-align: left; font-weight: 700;">Jornada</th>
+              <th style="padding: 10px 12px; text-align: center; font-weight: 700;">Valor</th>
+              <th style="padding: 10px 12px; text-align: center; font-weight: 700;">Esforço</th>
+              <th style="padding: 10px 12px; text-align: center; font-weight: 700;">Coef.</th>
+              <th style="padding: 10px 12px; text-align: center; font-weight: 700; border-radius: 0 8px 0 0;">Onda</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid var(--gray-border); background: #F0FDF4;"><td style="padding: 9px 12px; text-align:center; font-weight:800;">1</td><td style="padding: 9px 12px; font-weight: 600;">SEI-J1 · Alerta de Prazo / Tácito</td><td style="padding: 9px 12px; text-align:center;">10</td><td style="padding: 9px 12px; text-align:center;">4</td><td style="padding: 9px 12px; text-align:center;"><span style="font-weight:800; color: var(--green-dark);">2,50</span></td><td style="padding: 9px 12px; text-align:center;"><span class="pill pill-green">1</span></td></tr>
+            <tr style="border-bottom: 1px solid var(--gray-border); background: #F0FDF4;"><td style="padding: 9px 12px; text-align:center; font-weight:800;">2</td><td style="padding: 9px 12px; font-weight: 600;">SEI-J2 · Consulta linguagem natural</td><td style="padding: 9px 12px; text-align:center;">7</td><td style="padding: 9px 12px; text-align:center;">3</td><td style="padding: 9px 12px; text-align:center;"><span style="font-weight:800; color: var(--green-dark);">2,33</span></td><td style="padding: 9px 12px; text-align:center;"><span class="pill pill-green">1</span></td></tr>
+            <tr style="border-bottom: 1px solid var(--gray-border); background: #F0FDF4;"><td style="padding: 9px 12px; text-align:center; font-weight:800;">3</td><td style="padding: 9px 12px; font-weight: 600;">SEI-J3 · Notif. recebido/tramitado</td><td style="padding: 9px 12px; text-align:center;">8</td><td style="padding: 9px 12px; text-align:center;">4</td><td style="padding: 9px 12px; text-align:center;"><span style="font-weight:800; color: var(--green-dark);">2,00</span></td><td style="padding: 9px 12px; text-align:center;"><span class="pill pill-green">1</span></td></tr>
+            <tr style="border-bottom: 1px solid var(--gray-border); background: #F0FDF4;"><td style="padding: 9px 12px; text-align:center; font-weight:800;">4</td><td style="padding: 9px 12px; font-weight: 600;">SEI-J4 · Meu painel de processos</td><td style="padding: 9px 12px; text-align:center;">6</td><td style="padding: 9px 12px; text-align:center;">3</td><td style="padding: 9px 12px; text-align:center;"><span style="font-weight:800; color: var(--green-dark);">2,00</span></td><td style="padding: 9px 12px; text-align:center;"><span class="pill pill-green">1</span></td></tr>
+            <tr style="border-bottom: 1px solid var(--gray-border);"><td style="padding: 9px 12px; text-align:center; font-weight:800;">5</td><td style="padding: 9px 12px; font-weight: 600;">SEI-J5 · Digest de unidade</td><td style="padding: 9px 12px; text-align:center;">7</td><td style="padding: 9px 12px; text-align:center;">4</td><td style="padding: 9px 12px; text-align:center;"><span style="font-weight:800; color: #1D4ED8;">1,75</span></td><td style="padding: 9px 12px; text-align:center;"><span class="pill pill-blue">2</span></td></tr>
+            <tr style="border-bottom: 1px solid var(--gray-border);"><td style="padding: 9px 12px; text-align:center; font-weight:800;">6</td><td style="padding: 9px 12px; font-weight: 600;">SEI-J6 · "Qual tipo uso?" + RAG</td><td style="padding: 9px 12px; text-align:center;">5</td><td style="padding: 9px 12px; text-align:center;">3</td><td style="padding: 9px 12px; text-align:center;"><span style="font-weight:800; color: #1D4ED8;">1,67</span></td><td style="padding: 9px 12px; text-align:center;"><span class="pill pill-blue">2</span></td></tr>
+            <tr style="border-bottom: 1px solid var(--gray-border);"><td style="padding: 9px 12px; text-align:center; font-weight:800;">7</td><td style="padding: 9px 12px; font-weight: 600;">SEI-J7 · Status assinatura + deep-link</td><td style="padding: 9px 12px; text-align:center;">8</td><td style="padding: 9px 12px; text-align:center;">6</td><td style="padding: 9px 12px; text-align:center;"><span style="font-weight:800; color: #1D4ED8;">1,33</span></td><td style="padding: 9px 12px; text-align:center;"><span class="pill pill-blue">2</span></td></tr>
+            <tr style="border-bottom: 1px solid var(--gray-border);"><td style="padding: 9px 12px; text-align:center; font-weight:800;">8</td><td style="padding: 9px 12px; font-weight: 600;">SEI-J8 · Ciência de documento</td><td style="padding: 9px 12px; text-align:center;">5</td><td style="padding: 9px 12px; text-align:center;">5</td><td style="padding: 9px 12px; text-align:center;"><span style="font-weight:800; color: var(--purple);">1,00</span></td><td style="padding: 9px 12px; text-align:center;"><span class="pill pill-purple">3</span></td></tr>
+            <tr style="border-bottom: 1px solid var(--gray-border);"><td style="padding: 9px 12px; text-align:center; font-weight:800;">9</td><td style="padding: 9px 12px; font-weight: 600;">SEI-J9 · Tramitar via aprovação</td><td style="padding: 9px 12px; text-align:center;">6</td><td style="padding: 9px 12px; text-align:center;">8</td><td style="padding: 9px 12px; text-align:center;"><span style="font-weight:800; color: var(--purple);">0,75</span></td><td style="padding: 9px 12px; text-align:center;"><span class="pill pill-purple">3</span></td></tr>
+            <tr><td style="padding: 9px 12px; text-align:center; font-weight:800;">10</td><td style="padding: 9px 12px; font-weight: 600;">SEI-J10 · Abrir processo</td><td style="padding: 9px 12px; text-align:center;">5</td><td style="padding: 9px 12px; text-align:center;">8</td><td style="padding: 9px 12px; text-align:center;"><span style="font-weight:800; color: var(--purple);">0,63</span></td><td style="padding: 9px 12px; text-align:center;"><span class="pill pill-purple">3</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size: 11px; color: var(--text-muted); margin-top: 10px;">As notas de Valor e Esforço são uma <strong>priorização relativa</strong> proposta pela equipe PS para ordenar a fila — não são horas nem preço. Devem ser calibradas com a Dataprev antes do ROM; volumetria e taxa histórica de perda de prazo são as variáveis que mais deslocam o ranking (ver metrificação abaixo).</p>
+    </div>
+
+    <!-- ─── METRIFICAÇÃO ─── -->
+    <div class="section-divider"><h2>É possível metrificar o ganho? Sim — com dados de base</h2></div>
+
+    <div class="highlight-box hb-green" style="margin-bottom: 18px;">
+      <div class="hb-icon">📐</div>
+      <div class="hb-content">
+        <h4>Resposta direta: o ganho é quantificável por fórmula, mas depende de volumetria da Dataprev</h4>
+        <p>Cada jornada de topo tem uma fórmula de valor objetiva. O que falta hoje são os <strong>números de base</strong> (quantos processos, quantas perdas de prazo, quanto tempo por consulta). Sem eles, entregamos a <strong>fórmula + os insumos a coletar</strong> — nunca um número de retorno "fechado" sem dado que o sustente.</p>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px;">
+      <div class="card" style="margin:0; border-left: 5px solid var(--green-dark);">
+        <div style="font-size: 13px; font-weight: 800; color: var(--blue-dark);">⏰ SEI-J1 — Ganho por prazo evitado</div>
+        <div style="background: var(--gray-bg); border-radius: 8px; padding: 10px 12px; margin: 10px 0; font-size: 12px; font-family: monospace; color: var(--blue-dark);">Ganho R$/ano = Nº proc./mês com prazo × Taxa de perda evitada (%) × Custo médio por perda × 12</div>
+        <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 4px;">INSUMOS A COLETAR (gaps)</div>
+        <ul style="font-size: 11.5px; color: var(--text-main);"><li>Nº de processos com prazo/mês por órgão</li><li>Taxa histórica de perda de prazo (%)</li><li>Custo médio da perda (retrabalho + risco jurídico)</li></ul>
+      </div>
+      <div class="card" style="margin:0; border-left: 5px solid var(--green-dark);">
+        <div style="font-size: 13px; font-weight: 800; color: var(--blue-dark);">🔎 SEI-J2 / J4 — Ganho por tempo economizado</div>
+        <div style="background: var(--gray-bg); border-radius: 8px; padding: 10px 12px; margin: 10px 0; font-size: 12px; font-family: monospace; color: var(--blue-dark);">Ganho h/ano = Nº consultas manuais/dia × Min. economizados por consulta ÷ 60 × Dias úteis × Nº servidores</div>
+        <div style="font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 4px;">INSUMOS A COLETAR (gaps)</div>
+        <ul style="font-size: 11.5px; color: var(--text-main);"><li>Consultas manuais ao SEI por servidor/dia</li><li>Tempo médio de uma consulta manual (min)</li><li>Nº de servidores usuários do canal</li></ul>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div id="foot">
+      <strong>DATAPREV · DATA ÁGIL</strong> — módulo SEI (épica E11, expansão fora do ROM dual-track atual). Documento de trabalho da Salesforce Professional Services.<br>
+      Superfície de integração ancorada no código-fonte oficial <code>pengovbr/mod-wssei</code> (<code>MdWsSeiServicosV2.php</code>). WSDL SOAP atestado pelo cliente, não confirmado em repositório público. Notas de Valor/Esforço são priorização relativa da equipe PS — não são horas nem preço. Precificar exige <em>estimate/revise</em> após confirmar a superfície publicada (G1101) e coletar a volumetria de base (G1102).
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Business Value / ROI Calculator — Salesforce PS</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f0f2f5;
+    min-height: 100vh;
+    padding: 32px 16px;
+    color: #1a2535;
+  }
+
+  /* ── Header ── */
+  .header {
+    max-width: 980px; margin: 0 auto 24px;
+    background: linear-gradient(135deg, #012169 0%, #00509E 100%);
+    border-radius: 16px; padding: 24px 32px;
+    display: flex; justify-content: space-between; align-items: center; gap: 20px;
+  }
+  .header h1 { color: #fff; font-size: 20px; font-weight: 800; }
+  .header p  { color: #a8c4e8; font-size: 11.5px; margin-top: 4px; line-height: 1.5; }
+  .header-badges { display: flex; gap: 10px; flex-shrink: 0; }
+  .hbadge {
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 8px; padding: 8px 16px; text-align: center;
+  }
+  .hbadge .v { color: #fff; font-size: 16px; font-weight: 800; }
+  .hbadge .l { color: #a8c4e8; font-size: 9.5px; margin-top: 2px; }
+
+  /* ── Tabs ── */
+  .tabs {
+    max-width: 980px; margin: 0 auto 20px;
+    display: flex; gap: 8px;
+  }
+  .tab {
+    padding: 9px 20px; border-radius: 8px; border: none;
+    font-size: 12px; font-weight: 600; cursor: pointer;
+    transition: all 0.18s;
+    background: #fff; color: #546E7A;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+  }
+  .tab.active { background: #0070D2; color: #fff; }
+  .tab:hover:not(.active) { background: #E8F4FF; color: #0070D2; }
+
+  /* ── Layout ── */
+  .wrap { max-width: 980px; margin: 0 auto; }
+  .section { display: none; }
+  .section.active { display: block; }
+  .two-col { display: flex; gap: 20px; align-items: flex-start; }
+  .col-inputs { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+  .col-results { flex: 1.1; display: flex; flex-direction: column; gap: 16px; }
+
+  /* ── Card ── */
+  .card { background: #fff; border-radius: 14px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); overflow: hidden; }
+  .card-hdr { padding: 12px 20px; display: flex; align-items: center; gap: 10px; }
+  .card-hdr h2 { color: #fff; font-size: 12px; font-weight: 700; }
+  .card-hdr .icon { font-size: 14px; }
+  .card-body { padding: 18px 20px; }
+
+  .ch-blue   .card-hdr { background: linear-gradient(90deg,#0070D2,#0095D9); }
+  .ch-green  .card-hdr { background: linear-gradient(90deg,#2E844E,#4CAF7D); }
+  .ch-orange .card-hdr { background: linear-gradient(90deg,#FF7A00,#FF9E40); }
+  .ch-purple .card-hdr { background: linear-gradient(90deg,#6A1B9A,#9C27B0); }
+  .ch-navy   .card-hdr { background: linear-gradient(90deg,#032D60,#004FA3); }
+  .ch-teal   .card-hdr { background: linear-gradient(90deg,#00838F,#00ACC1); }
+
+  /* ── Field ── */
+  .field { margin-bottom: 14px; }
+  .field:last-child { margin-bottom: 0; }
+  .field label {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 10.5px; font-weight: 700; color: #546E7A;
+    letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 6px;
+  }
+  .field label .hint { font-size: 9.5px; color: #90A4AE; font-weight: 400; text-transform: none; letter-spacing: 0; }
+  .field-input-wrap { position: relative; }
+  .field-prefix, .field-suffix {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    font-size: 12px; color: #78909C; font-weight: 600; pointer-events: none;
+  }
+  .field-prefix { left: 12px; }
+  .field-suffix { right: 12px; }
+  input[type="number"] {
+    width: 100%; padding: 9px 12px;
+    border: 1.5px solid #D8DFE6; border-radius: 8px;
+    font-size: 13px; font-weight: 600; color: #032D60;
+    background: #FAFBFD; outline: none;
+    transition: border-color 0.18s, box-shadow 0.18s;
+  }
+  input[type="number"].has-prefix  { padding-left: 28px; }
+  input[type="number"].has-suffix  { padding-right: 36px; }
+  input[type="number"]:focus {
+    border-color: #0070D2; box-shadow: 0 0 0 3px rgba(0,112,210,0.12);
+  }
+  select {
+    width: 100%; padding: 9px 12px; border: 1.5px solid #D8DFE6; border-radius: 8px;
+    font-size: 12px; font-weight: 600; color: #032D60; background: #FAFBFD; outline: none;
+    appearance: none; cursor: pointer;
+    transition: border-color 0.18s;
+  }
+  select:focus { border-color: #0070D2; box-shadow: 0 0 0 3px rgba(0,112,210,0.12); }
+
+  /* ── KPI result boxes ── */
+  .kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+  .kpi-box { border-radius: 10px; padding: 14px; text-align: center; }
+  .kpi-box .kv { font-size: 26px; font-weight: 900; line-height: 1; }
+  .kpi-box .kl { font-size: 9.5px; font-weight: 600; margin-top: 4px; opacity: 0.7; }
+  .kpi-blue   { background: linear-gradient(135deg,#E8F4FF,#CCE7FF); }
+  .kpi-blue .kv  { color: #0070D2; } .kpi-blue .kl  { color: #004FA3; }
+  .kpi-green  { background: linear-gradient(135deg,#E8F5EE,#C8E6C9); }
+  .kpi-green .kv { color: #2E844E; } .kpi-green .kl { color: #1B5E35; }
+  .kpi-orange { background: linear-gradient(135deg,#FFF3E0,#FFE0B2); }
+  .kpi-orange .kv { color: #E65100; } .kpi-orange .kl { color: #BF360C; }
+  .kpi-purple { background: linear-gradient(135deg,#F3E5F5,#E1BEE7); }
+  .kpi-purple .kv { color: #6A1B9A; } .kpi-purple .kl { color: #4A148C; }
+  .kpi-full { grid-column: 1 / -1; }
+
+  /* ── Steps ── */
+  .step-list { list-style: none; }
+  .step-item {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 10px 0; border-bottom: 1px solid #F0F2F5;
+  }
+  .step-item:last-child { border: 0; padding-bottom: 0; }
+  .step-num {
+    width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+    background: #E8F4FF; color: #0070D2;
+    font-size: 10px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 1px;
+  }
+  .step-content {}
+  .step-label { font-size: 10.5px; font-weight: 700; color: #032D60; margin-bottom: 2px; }
+  .step-formula { font-family: 'Courier New', monospace; font-size: 10px; color: #546E7A; line-height: 1.6; background: #F4F6F9; padding: 3px 8px; border-radius: 4px; margin-bottom: 2px; }
+  .step-result { font-size: 12px; font-weight: 800; color: #0070D2; }
+
+  /* ── Bar chart ── */
+  .bar-chart { display: flex; align-items: flex-end; gap: 8px; height: 90px; margin-bottom: 6px; }
+  .bc-group { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .bc-wrap { width: 100%; height: 80px; display: flex; align-items: flex-end; justify-content: center; }
+  .bc-bar {
+    width: 65%; border-radius: 5px 5px 0 0;
+    transition: height 0.45s cubic-bezier(0.34,1.56,0.64,1);
+    display: flex; align-items: flex-start; justify-content: center; min-height: 4px;
+  }
+  .bc-val { font-size: 9px; font-weight: 700; color: #fff; padding-top: 4px; }
+  .bc-lbl { font-size: 9px; color: #78909C; font-weight: 600; text-align: center; }
+  .bc-sub { font-size: 8px; color: #B0BEC5; text-align: center; }
+
+  /* ── Payback gauge ── */
+  .gauge-wrap { text-align: center; padding: 14px 0 10px; }
+  .gauge-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #90A4AE; margin-bottom: 8px; }
+  .gauge-track { width: 100%; height: 12px; background: #E0E5EA; border-radius: 20px; overflow: hidden; margin-bottom: 8px; position: relative; }
+  .gauge-fill  { height: 100%; border-radius: 20px; transition: width 0.5s ease; background: linear-gradient(90deg,#4CAF7D,#2E844E); }
+  .gauge-marks { display: flex; justify-content: space-between; }
+  .gauge-marks span { font-size: 8.5px; color: #90A4AE; }
+  .gauge-val { font-size: 32px; font-weight: 900; color: #2E844E; margin-top: 6px; }
+  .gauge-sub { font-size: 10.5px; color: #78909C; margin-top: 2px; }
+  .gauge-verdict {
+    display: inline-block; margin-top: 8px;
+    padding: 4px 14px; border-radius: 20px; font-size: 10px; font-weight: 700;
+  }
+  .v-excellent { background: #E8F5EE; color: #1B5E35; }
+  .v-good      { background: #E8F4FF; color: #0070D2; }
+  .v-fair      { background: #FFF3E0; color: #BF5000; }
+  .v-watch     { background: #FFEBEE; color: #B71C1C; }
+
+  /* ── H3 breakdown table ── */
+  .breakdown-table { width: 100%; border-collapse: collapse; }
+  .breakdown-table th {
+    background: #F4F6F9; padding: 7px 10px;
+    font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #546E7A;
+    text-align: left; border-bottom: 2px solid #E8EDF2;
+  }
+  .breakdown-table td { padding: 8px 10px; font-size: 11px; color: #37474F; border-bottom: 1px solid #F0F2F5; vertical-align: top; }
+  .breakdown-table tr:last-child td { border: 0; }
+  .td-total { font-weight: 800; color: #032D60; }
+
+  /* ── Falabella presets ── */
+  .presets { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+  .preset-btn {
+    padding: 7px 14px; border-radius: 8px; border: 1.5px solid #D8DFE6;
+    background: #fff; font-size: 10.5px; font-weight: 600; color: #546E7A;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .preset-btn:hover { border-color: #0070D2; color: #0070D2; background: #E8F4FF; }
+  .preset-btn.active { border-color: #0070D2; color: #0070D2; background: #E8F4FF; }
+
+  /* ── Three-way toggle (H) ── */
+  .h-tabs { display: flex; gap: 0; border: 1.5px solid #D8DFE6; border-radius: 8px; overflow: hidden; margin-bottom: 16px; }
+  .h-tab {
+    flex: 1; padding: 8px 6px; border: none; background: #fff;
+    font-size: 10.5px; font-weight: 600; color: #78909C; cursor: pointer;
+    transition: all 0.15s; border-right: 1px solid #D8DFE6; text-align: center;
+  }
+  .h-tab:last-child { border-right: none; }
+  .h-tab.active { background: #0070D2; color: #fff; }
+
+  /* ── Disclaimer ── */
+  .disclaimer {
+    max-width: 980px; margin: 14px auto 0;
+    background: #FFF8E1; border: 1px solid #FFE082; border-radius: 10px;
+    padding: 10px 18px; font-size: 10.5px; color: #7A4F00; line-height: 1.6;
+  }
+  .disclaimer strong { color: #5D3500; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <h1>💰 Business Value / ROI Calculator</h1>
+    <p>Traduce el impacto operacional en ahorro cuantificado · Justifica la inversión PS ante el Economic Buyer<br>
+    Salesforce Professional Services LATAM · Junio 2026</p>
+  </div>
+  <div class="header-badges">
+    <div class="hbadge"><div class="v" id="hdr-roi">—</div><div class="l">ROI Total</div></div>
+    <div class="hbadge"><div class="v" id="hdr-payback">—</div><div class="l">Payback</div></div>
+    <div class="hbadge"><div class="v" id="hdr-annual">—</div><div class="l">Ahorro/año</div></div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab active" onclick="showTab('h1')">⚡ H1 — Deflexión & AHT</button>
+  <button class="tab" onclick="showTab('h2')">🎯 H2 — Personalización CMR</button>
+  <button class="tab" onclick="showTab('h3')">🔄 H3 — Contact Center</button>
+  <button class="tab" onclick="showTab('consolidated')">📊 Consolidado Total</button>
+</div>
+
+<div class="wrap">
+
+<!-- ════════════════════════════════════════════════════
+     H1 — DEFLEXIÓN & AHT
+════════════════════════════════════════════════════ -->
+<div id="sec-h1" class="section active">
+  <div class="two-col">
+    <div class="col-inputs">
+
+      <!-- Presets -->
+      <div class="presets">
+        <button class="preset-btn active" onclick="loadH1('falabella')">📍 Falabella Baseline</button>
+        <button class="preset-btn" onclick="loadH1('conservative')">🎯 Meta 90 días</button>
+        <button class="preset-btn" onclick="loadH1('custom')">✏️ Custom</button>
+      </div>
+
+      <div class="card ch-blue">
+        <div class="card-hdr"><span class="icon">👥</span><h2>Fuerza de Trabajo & Volumen</h2></div>
+        <div class="card-body">
+          <div class="field">
+            <label>Agentes totales en LATAM <span class="hint">800–1,200 Falabella</span></label>
+            <div class="field-input-wrap">
+              <input type="number" id="h1_agents" value="1000" min="1" oninput="calcH1()" />
+            </div>
+          </div>
+          <div class="field">
+            <label>Costo cargado por agente / año (USD) <span class="hint">incluye salario + beneficios</span></label>
+            <div class="field-input-wrap">
+              <span class="field-prefix">$</span>
+              <input type="number" id="h1_agentCost" value="20000" min="1000" class="has-prefix" oninput="calcH1()" />
+            </div>
+          </div>
+          <div class="field">
+            <label>Tickets / año <span class="hint">4M Falabella</span></label>
+            <div class="field-input-wrap">
+              <input type="number" id="h1_tickets" value="4000000" min="1000" oninput="calcH1()" />
+            </div>
+          </div>
+          <div class="field">
+            <label>% tickets repetitivos (deflectables) <span class="hint">62% Falabella</span></label>
+            <div class="field-input-wrap">
+              <input type="number" id="h1_pctDeflect" value="62" min="1" max="100" oninput="calcH1()" />
+              <span class="field-suffix">%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card ch-orange">
+        <div class="card-hdr"><span class="icon">⏱️</span><h2>AHT & Costo por Ticket</h2></div>
+        <div class="card-body">
+          <div class="field">
+            <label>AHT actual (minutos/ticket) <span class="hint">7.5 min Falabella</span></label>
+            <div class="field-input-wrap">
+              <input type="number" id="h1_aht" value="7.5" step="0.5" min="0.5" oninput="calcH1()" />
+              <span class="field-suffix">min</span>
+            </div>
+          </div>
+          <div class="field">
+            <label>Reducción AHT con PS <span class="hint">28% benchmark</span></label>
+            <div class="field-input-wrap">
+              <input type="number" id="h1_ahtReduction" value="28" min="1" max="80" oninput="calcH1()" />
+              <span class="field-suffix">%</span>
+            </div>
+          </div>
+          <div class="field">
+            <label>Costo por minuto de agente (USD)</label>
+            <div class="field-input-wrap">
+              <span class="field-prefix">$</span>
+              <input type="number" id="h1_costPerMin" value="0.16" step="0.01" min="0.01" class="has-prefix" oninput="calcH1()" />
+            </div>
+          </div>
+          <div class="field">
+            <label>Tasa deflexión lograda con Agentforce</label>
+            <div class="field-input-wrap">
+              <input type="number" id="h1_deflectionRate" value="45" min="1" max="100" oninput="calcH1()" />
+              <span class="field-suffix">%</span>
+            </div>
+          </div>
+          <div class="field">
+            <label>Inversión PS total (USD) <span class="hint">SOW consolidado</span></label>
+            <div class="field-input-wrap">
+              <span class="field-prefix">$</span>
+              <input type="number" id="h1_invest" value="544000" min="1000" class="has-prefix" oninput="calcH1()" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-results">
+
+      <!-- KPIs -->
+      <div class="card ch-green">
+        <div class="card-hdr"><span class="icon">💰</span><h2>Resultados H1</h2></div>
+        <div class="card-body">
+          <div class="kpi-grid">
+            <div class="kpi-box kpi-green">
+              <div class="kv" id="h1_savingDeflect">$0</div>
+              <div class="kl">Ahorro Deflexión/año</div>
+            </div>
+            <div class="kpi-box kpi-blue">
+              <div class="kv" id="h1_savingAHT">$0</div>
+              <div class="kl">Ahorro AHT/año</div>
+            </div>
+            <div class="kpi-box kpi-orange kpi-full">
+              <div class="kv" id="h1_totalSaving">$0</div>
+              <div class="kl">Ahorro Total H1 / año</div>
+            </div>
+          </div>
+
+          <!-- Payback gauge -->
+          <div class="gauge-wrap">
+            <div class="gauge-label">Payback desde Go-Live</div>
+            <div class="gauge-val" id="h1_payback">—</div>
+            <div class="gauge-sub">meses</div>
+            <div id="h1_verdict" class="gauge-verdict v-good">—</div>
+          </div>
+
+          <div style="display:flex;gap:10px;margin-top:10px;">
+            <div class="kpi-box kpi-purple" style="flex:1;">
+              <div class="kv" id="h1_roi">0%</div>
+              <div class="kl">ROI año 1</div>
+            </div>
+            <div class="kpi-box kpi-blue" style="flex:1;">
+              <div class="kv" id="h1_fteEquiv">0</div>
+              <div class="kl">FTEs equivalentes liberados</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Steps -->
+      <div class="card ch-navy">
+        <div class="card-hdr"><span class="icon">🔢</span><h2>Desglose Paso a Paso</h2></div>
+        <div class="card-body">
+          <ul class="step-list">
+            <li class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <div class="step-label">Tickets deflectados / año</div>
+                <div class="step-formula" id="h1_s1f">—</div>
+                <div class="step-result" id="h1_s1r">—</div>
+              </div>
+            </li>
+            <li class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <div class="step-label">Costo por ticket (agente humano)</div>
+                <div class="step-formula" id="h1_s2f">—</div>
+                <div class="step-result" id="h1_s2r">—</div>
+              </div>
+            </li>
+            <li class="step-item">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <div class="step-label">Ahorro por deflexión</div>
+                <div class="step-formula" id="h1_s3f">—</div>
+                <div class="step-result" id="h1_s3r">—</div>
+              </div>
+            </li>
+            <li class="step-item">
+              <div class="step-num">4</div>
+              <div class="step-content">
+                <div class="step-label">Minutos recuperados por AHT</div>
+                <div class="step-formula" id="h1_s4f">—</div>
+                <div class="step-result" id="h1_s4r">—</div>
+              </div>
+            </li>
+            <li class="step-item">
+              <div class="step-num">5</div>
+              <div class="step-content">
+                <div class="step-label">Ahorro por reducción AHT</div>
+                <div class="step-formula" id="h1_s5f">—</div>
+                <div class="step-result" id="h1_s5r">—</div>
+              </div>
+            </li>
+            <li class="step-item">
+              <div class="step-num">6</div>
+              <div class="step-content">
+                <div class="step-label">ROI y Payback</div>
+                <div class="step-formula" id="h1_s6f">—</div>
+                <div class="step-result" id="h1_s6r">—</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     H2 — PERSONALIZACIÓN CMR
+════════════════════════════════════════════════════ -->
+<div id="sec-h2" class="section">
+  <div class="two-col">
+    <div class="col-inputs">
+      <div class="presets">
+        <button class="preset-btn active" onclick="loadH2('falabella')">📍 Falabella Baseline</button>
+        <button class="preset-btn" onclick="loadH2('conservative')">🎯 Conservador</button>
+      </div>
+      <div class="card ch-blue">
+        <div class="card-hdr"><span class="icon">🛒</span><h2>E-commerce & CMR</h2></div>
+        <div class="card-body">
+          <div class="field">
+            <label>Revenue e-commerce anual (USD)</label>
+            <div class="field-input-wrap"><span class="field-prefix">$</span>
+            <input type="number" id="h2_revenue" value="900000000" class="has-prefix" oninput="calcH2()" /></div>
+          </div>
+          <div class="field">
+            <label>Tasa de conversión actual <span class="hint">2.8% Falabella</span></label>
+            <div class="field-input-wrap">
+            <input type="number" id="h2_cvr" value="2.8" step="0.1" min="0.1" oninput="calcH2()" />
+            <span class="field-suffix">%</span></div>
+          </div>
+          <div class="field">
+            <label>Mejora de conversión esperada con PS <span class="hint">benchmark: +1.5%</span></label>
+            <div class="field-input-wrap">
+            <input type="number" id="h2_cvrUplift" value="1.5" step="0.1" min="0.1" oninput="calcH2()" />
+            <span class="field-suffix">pp</span></div>
+          </div>
+          <div class="field">
+            <label>Gasto anual en paid media / CAC digital (USD)</label>
+            <div class="field-input-wrap"><span class="field-prefix">$</span>
+            <input type="number" id="h2_cac" value="30000000" class="has-prefix" oninput="calcH2()" /></div>
+          </div>
+          <div class="field">
+            <label>Reducción de CAC esperada <span class="hint">benchmark: 25%</span></label>
+            <div class="field-input-wrap">
+            <input type="number" id="h2_cacReduction" value="25" min="1" max="60" oninput="calcH2()" />
+            <span class="field-suffix">%</span></div>
+          </div>
+          <div class="field">
+            <label>Inversión PS total (USD)</label>
+            <div class="field-input-wrap"><span class="field-prefix">$</span>
+            <input type="number" id="h2_invest" value="544000" class="has-prefix" oninput="calcH2()" /></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-results">
+      <div class="card ch-green">
+        <div class="card-hdr"><span class="icon">💰</span><h2>Resultados H2</h2></div>
+        <div class="card-body">
+          <div class="kpi-grid">
+            <div class="kpi-box kpi-green">
+              <div class="kv" id="h2_revenueUplift">$0</div>
+              <div class="kl">Revenue incremental/año</div>
+            </div>
+            <div class="kpi-box kpi-blue">
+              <div class="kv" id="h2_cacSaving">$0</div>
+              <div class="kl">Ahorro CAC/año</div>
+            </div>
+            <div class="kpi-box kpi-orange kpi-full">
+              <div class="kv" id="h2_total">$0</div>
+              <div class="kl">Impacto Total H2 / año</div>
+            </div>
+          </div>
+          <div class="gauge-wrap">
+            <div class="gauge-label">Payback</div>
+            <div class="gauge-val" id="h2_payback">—</div>
+            <div class="gauge-sub">meses</div>
+            <div id="h2_verdict" class="gauge-verdict v-good">—</div>
+          </div>
+          <div class="kpi-box kpi-purple" style="margin-top:10px;">
+            <div class="kv" id="h2_roi">0%</div>
+            <div class="kl">ROI año 1</div>
+          </div>
+        </div>
+      </div>
+      <div class="card ch-navy">
+        <div class="card-hdr"><span class="icon">🔢</span><h2>Desglose Paso a Paso</h2></div>
+        <div class="card-body">
+          <ul class="step-list">
+            <li class="step-item"><div class="step-num">1</div><div class="step-content">
+              <div class="step-label">Revenue incremental por uplift de conversión</div>
+              <div class="step-formula" id="h2_s1f">—</div><div class="step-result" id="h2_s1r">—</div>
+            </div></li>
+            <li class="step-item"><div class="step-num">2</div><div class="step-content">
+              <div class="step-label">Ahorro en CAC con segmentación dinámica</div>
+              <div class="step-formula" id="h2_s2f">—</div><div class="step-result" id="h2_s2r">—</div>
+            </div></li>
+            <li class="step-item"><div class="step-num">3</div><div class="step-content">
+              <div class="step-label">Impacto total y ROI</div>
+              <div class="step-formula" id="h2_s3f">—</div><div class="step-result" id="h2_s3r">—</div>
+            </div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     H3 — CONTACT CENTER TRANSFORMATION
+════════════════════════════════════════════════════ -->
+<div id="sec-h3" class="section">
+  <div class="two-col">
+    <div class="col-inputs">
+      <div class="presets">
+        <button class="preset-btn active" onclick="loadH3('falabella')">📍 Falabella Baseline</button>
+        <button class="preset-btn" onclick="loadH3('conservative')">🎯 Conservador</button>
+      </div>
+      <div class="card ch-blue">
+        <div class="card-hdr"><span class="icon">🎧</span><h2>Contact Center Operacional</h2></div>
+        <div class="card-body">
+          <div class="field">
+            <label>Número de agentes <span class="hint">800–1,200 Falabella</span></label>
+            <div class="field-input-wrap">
+            <input type="number" id="h3_agents" value="1000" min="1" oninput="calcH3()" /></div>
+          </div>
+          <div class="field">
+            <label>AHT actual (minutos) <span class="hint">7.5 min Falabella</span></label>
+            <div class="field-input-wrap">
+            <input type="number" id="h3_aht" value="7.5" step="0.5" min="0.5" oninput="calcH3()" />
+            <span class="field-suffix">min</span></div>
+          </div>
+          <div class="field">
+            <label>Reducción AHT con Service Cloud + Einstein</label>
+            <div class="field-input-wrap">
+            <input type="number" id="h3_ahtRed" value="28" min="1" max="70" oninput="calcH3()" />
+            <span class="field-suffix">%</span></div>
+          </div>
+          <div class="field">
+            <label>Costo por minuto agente (USD) <span class="hint">basado en costo cargado</span></label>
+            <div class="field-input-wrap"><span class="field-prefix">$</span>
+            <input type="number" id="h3_costMin" value="0.16" step="0.01" min="0.01" class="has-prefix" oninput="calcH3()" /></div>
+          </div>
+          <div class="field">
+            <label>Volumen diario de casos</label>
+            <div class="field-input-wrap">
+            <input type="number" id="h3_casesDay" value="13000" min="100" oninput="calcH3()" /></div>
+          </div>
+          <div class="field">
+            <label>Días hábiles / año <span class="hint">240 estándar LATAM</span></label>
+            <div class="field-input-wrap">
+            <input type="number" id="h3_days" value="240" min="100" max="365" oninput="calcH3()" /></div>
+          </div>
+          <div class="field">
+            <label>Inversión PS total (USD)</label>
+            <div class="field-input-wrap"><span class="field-prefix">$</span>
+            <input type="number" id="h3_invest" value="544000" class="has-prefix" oninput="calcH3()" /></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-results">
+      <div class="card ch-green">
+        <div class="card-hdr"><span class="icon">💰</span><h2>Resultados H3</h2></div>
+        <div class="card-body">
+          <div class="kpi-grid">
+            <div class="kpi-box kpi-blue">
+              <div class="kv" id="h3_minSaved">0M</div>
+              <div class="kl">Minutos recuperados/año</div>
+            </div>
+            <div class="kpi-box kpi-green">
+              <div class="kv" id="h3_saving">$0</div>
+              <div class="kl">Ahorro OPEX / año</div>
+            </div>
+            <div class="kpi-box kpi-orange">
+              <div class="kv" id="h3_fte">0</div>
+              <div class="kl">FTEs equivalentes liberados</div>
+            </div>
+            <div class="kpi-box kpi-purple">
+              <div class="kv" id="h3_roi">0%</div>
+              <div class="kl">ROI año 1</div>
+            </div>
+          </div>
+          <div class="gauge-wrap">
+            <div class="gauge-label">Payback</div>
+            <div class="gauge-val" id="h3_payback">—</div>
+            <div class="gauge-sub">meses</div>
+            <div id="h3_verdict" class="gauge-verdict v-good">—</div>
+          </div>
+        </div>
+      </div>
+      <div class="card ch-navy">
+        <div class="card-hdr"><span class="icon">🔢</span><h2>Desglose Paso a Paso</h2></div>
+        <div class="card-body">
+          <ul class="step-list">
+            <li class="step-item"><div class="step-num">1</div><div class="step-content">
+              <div class="step-label">Minutos totales de atención/año</div>
+              <div class="step-formula" id="h3_s1f">—</div><div class="step-result" id="h3_s1r">—</div>
+            </div></li>
+            <li class="step-item"><div class="step-num">2</div><div class="step-content">
+              <div class="step-label">Minutos recuperados con reducción AHT</div>
+              <div class="step-formula" id="h3_s2f">—</div><div class="step-result" id="h3_s2r">—</div>
+            </div></li>
+            <li class="step-item"><div class="step-num">3</div><div class="step-content">
+              <div class="step-label">Ahorro en costo de operación (OPEX)</div>
+              <div class="step-formula" id="h3_s3f">—</div><div class="step-result" id="h3_s3r">—</div>
+            </div></li>
+            <li class="step-item"><div class="step-num">4</div><div class="step-content">
+              <div class="step-label">FTEs equivalentes liberados</div>
+              <div class="step-formula" id="h3_s4f">—</div><div class="step-result" id="h3_s4r">—</div>
+            </div></li>
+            <li class="step-item"><div class="step-num">5</div><div class="step-content">
+              <div class="step-label">ROI y Payback</div>
+              <div class="step-formula" id="h3_s5f">—</div><div class="step-result" id="h3_s5r">—</div>
+            </div></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     CONSOLIDATED
+════════════════════════════════════════════════════ -->
+<div id="sec-consolidated" class="section">
+  <div class="two-col">
+    <div class="col-inputs" style="flex:1;">
+      <div class="card ch-navy">
+        <div class="card-hdr"><span class="icon">📋</span><h2>Resumen por Hipótesis</h2></div>
+        <div class="card-body">
+          <table class="breakdown-table">
+            <thead>
+              <tr>
+                <th>Hipótesis</th>
+                <th>Ahorro / Impacto año 1</th>
+                <th>ROI</th>
+                <th>Payback</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>H1 — Deflexión & AHT</td>
+                <td id="con_h1_saving" class="td-total" style="color:#2E844E;">$0</td>
+                <td id="con_h1_roi">—</td>
+                <td id="con_h1_pb">—</td>
+              </tr>
+              <tr>
+                <td>H2 — Personalización CMR</td>
+                <td id="con_h2_saving" class="td-total" style="color:#0070D2;">$0</td>
+                <td id="con_h2_roi">—</td>
+                <td id="con_h2_pb">—</td>
+              </tr>
+              <tr>
+                <td>H3 — Contact Center</td>
+                <td id="con_h3_saving" class="td-total" style="color:#FF7A00;">$0</td>
+                <td id="con_h3_roi">—</td>
+                <td id="con_h3_pb">—</td>
+              </tr>
+              <tr style="background:#F4F6F9;">
+                <td><strong>TOTAL CONSOLIDADO</strong></td>
+                <td id="con_total" class="td-total" style="color:#032D60;font-size:14px;">$0</td>
+                <td id="con_roi" style="font-weight:700;color:#6A1B9A;">—</td>
+                <td id="con_pb" style="font-weight:700;color:#2E844E;">—</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card ch-teal">
+        <div class="card-hdr"><span class="icon">📅</span><h2>Proyección Multi-Año</h2></div>
+        <div class="card-body">
+          <div class="bar-chart" id="multiYearChart">
+            <div class="bc-group">
+              <div class="bc-wrap"><div class="bc-bar" id="by0" style="height:5%;background:linear-gradient(180deg,#E57373,#C62828)"><span class="bc-val" id="byv0">-$544K</span></div></div>
+              <div class="bc-lbl">Año 0</div><div class="bc-sub">Inversión PS</div>
+            </div>
+            <div class="bc-group">
+              <div class="bc-wrap"><div class="bc-bar" id="by1" style="height:30%;background:linear-gradient(180deg,#5BA4CF,#0070D2)"><span class="bc-val" id="byv1">$36M</span></div></div>
+              <div class="bc-lbl">Año 1</div><div class="bc-sub">ROI inicial</div>
+            </div>
+            <div class="bc-group">
+              <div class="bc-wrap"><div class="bc-bar" id="by2" style="height:60%;background:linear-gradient(180deg,#4CAF7D,#2E844E)"><span class="bc-val" id="byv2">$72M</span></div></div>
+              <div class="bc-lbl">Año 2</div><div class="bc-sub">Acumulado</div>
+            </div>
+            <div class="bc-group">
+              <div class="bc-wrap"><div class="bc-bar" id="by3" style="height:85%;background:linear-gradient(180deg,#9C27B0,#6A1B9A)"><span class="bc-val" id="byv3">$108M</span></div></div>
+              <div class="bc-lbl">Año 3</div><div class="bc-sub">Acumulado</div>
+            </div>
+          </div>
+          <div style="margin-top:12px;padding:10px;background:#F4F6F9;border-radius:8px;font-size:10px;color:#546E7A;line-height:1.7;">
+            <strong style="color:#032D60;">Por cada $1 invertido en PS →</strong>
+            <span id="con_multiplier" style="font-size:13px;font-weight:800;color:#0070D2;"> $215</span> de retorno en 3 años
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-results" style="flex:0.9;">
+      <div class="card ch-green">
+        <div class="card-hdr"><span class="icon">🏆</span><h2>Business Case para el CFO</h2></div>
+        <div class="card-body">
+          <div class="kpi-box kpi-orange kpi-full" style="margin-bottom:10px;">
+            <div class="kv" id="con_annual_big">$0</div>
+            <div class="kl">Ahorro / Impacto Total Año 1</div>
+          </div>
+          <div class="kpi-grid">
+            <div class="kpi-box kpi-purple">
+              <div class="kv" id="con_roi_big">0%</div>
+              <div class="kl">ROI Consolidado</div>
+            </div>
+            <div class="kpi-box kpi-green">
+              <div class="kv" id="con_pb_big">—</div>
+              <div class="kl">Payback (meses)</div>
+            </div>
+          </div>
+          <div style="margin-top:12px;padding:12px;background:#FFF8E1;border:1px solid #FFE082;border-radius:8px;font-size:11px;color:#7A4F00;line-height:1.7;font-style:italic;">
+            💡 <strong style="color:#5D3500;">Frase para el CFO:</strong> "No le pedimos que confíe en un proyecto de tecnología. Le mostramos tres fechas concretas, tres números medibles y una curva de consumo que sube. Si en el Día 90 los KPIs no están donde dijimos, no tiene sentido continuar."
+          </div>
+          <div style="margin-top:10px;padding:10px;background:#FFEBEE;border:1px solid #FFCDD2;border-radius:8px;font-size:10px;color:#B71C1C;line-height:1.5;">
+            ⚑ <strong>Riesgo Procurement:</strong> Inversión $544K supera umbral $500K en Chile. Estrategia: estructurar Hito 1 ($168K) como engagement independiente para velocidad de entrada.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /.wrap -->
+
+<div class="disclaimer">
+  ⚠ <strong>Aviso:</strong> Esta calculadora genera estimaciones orientativas basadas en benchmarks del sector retail LATAM. Los valores reales dependen de datos operacionales del cliente. Validar siempre con el Economic Buyer antes de comprometer cifras en el SOW.
+</div>
+
+<script>
+// ── Helpers ──────────────────────────────────────────────
+function fmtM(n) {
+  if (n >= 1e9) return '$' + (n/1e9).toFixed(1) + 'B';
+  if (n >= 1e6) return '$' + (n/1e6).toFixed(1) + 'M';
+  if (n >= 1e3) return '$' + (n/1e3).toFixed(0) + 'K';
+  return '$' + n.toFixed(0);
+}
+function fmtN(n) {
+  if (n >= 1e6) return (n/1e6).toFixed(1) + 'M';
+  if (n >= 1e3) return (n/1e3).toFixed(0) + 'K';
+  return n.toFixed(0);
+}
+function pct(n) { return n.toFixed(0) + '%'; }
+function paybackVerdict(months) {
+  if (months < 4)  return ['🔥 Excelente — &lt;4 meses', 'v-excellent'];
+  if (months < 8)  return ['✅ Muy bueno — &lt;8 meses', 'v-good'];
+  if (months < 14) return ['👍 Aceptable — &lt;14 meses', 'v-fair'];
+  return ['⚠ Revisar — &gt;14 meses', 'v-watch'];
+}
+function g(id) { return parseFloat(document.getElementById(id).value) || 0; }
+function s(id, val) { document.getElementById(id).textContent = val; }
+
+// Shared state for consolidated
+let state = { h1: 0, h2: 0, h3: 0, invest: 544000 };
+
+// ── H1 ────────────────────────────────────────────────────
+function calcH1() {
+  const agents      = g('h1_agents');
+  const agentCost   = g('h1_agentCost');
+  const tickets     = g('h1_tickets');
+  const pctDeflect  = g('h1_pctDeflect') / 100;
+  const aht         = g('h1_aht');
+  const ahtRed      = g('h1_ahtReduction') / 100;
+  const costPerMin  = g('h1_costPerMin');
+  const deflRate    = g('h1_deflectionRate') / 100;
+  const invest      = g('h1_invest');
+
+  const ticketsDeflected = tickets * pctDeflect * deflRate;
+  const costPerTicket    = aht * costPerMin;
+  const savingDeflect    = ticketsDeflected * costPerTicket;
+  const remainingTickets = tickets - ticketsDeflected;
+  const minRecovered     = remainingTickets * aht * ahtRed;
+  const savingAHT        = minRecovered * costPerMin;
+  const totalSaving      = savingDeflect + savingAHT;
+  const roi              = invest > 0 ? (totalSaving / invest) * 100 : 0;
+  const paybackM         = totalSaving > 0 ? (invest / totalSaving) * 12 : 999;
+  const fteEquiv         = agentCost > 0 ? totalSaving / agentCost : 0;
+
+  s('h1_savingDeflect', fmtM(savingDeflect));
+  s('h1_savingAHT',     fmtM(savingAHT));
+  s('h1_totalSaving',   fmtM(totalSaving));
+  s('h1_roi',           pct(roi));
+  s('h1_payback',       paybackM.toFixed(1));
+  s('h1_fteEquiv',      fteEquiv.toFixed(0));
+
+  const [vText, vClass] = paybackVerdict(paybackM);
+  const vEl = document.getElementById('h1_verdict');
+  vEl.innerHTML = vText; vEl.className = 'gauge-verdict ' + vClass;
+
+  // Steps
+  s('h1_s1f', `${fmtN(tickets)} tickets × ${(pctDeflect*100).toFixed(0)}% deflectables × ${(deflRate*100).toFixed(0)}% tasa deflexión`);
+  s('h1_s1r', fmtN(ticketsDeflected) + ' tickets deflectados/año');
+  s('h1_s2f', `AHT ${aht} min × $${costPerMin}/min`);
+  s('h1_s2r', '$' + costPerTicket.toFixed(2) + ' USD por ticket');
+  s('h1_s3f', `${fmtN(ticketsDeflected)} tickets × $${costPerTicket.toFixed(2)}`);
+  s('h1_s3r', fmtM(savingDeflect) + ' USD/año ahorrado en deflexión');
+  s('h1_s4f', `${fmtN(remainingTickets)} tickets restantes × ${aht} min × ${(ahtRed*100).toFixed(0)}% reducción`);
+  s('h1_s4r', fmtN(minRecovered) + ' minutos recuperados/año');
+  s('h1_s5f', `${fmtN(minRecovered)} min × $${costPerMin}/min`);
+  s('h1_s5r', fmtM(savingAHT) + ' USD/año ahorrado en AHT');
+  s('h1_s6f', `ROI = ${fmtM(totalSaving)} / $${(invest/1000).toFixed(0)}K × 100 | Payback = ($${(invest/1000).toFixed(0)}K / ${fmtM(totalSaving)}) × 12`);
+  s('h1_s6r', `ROI ${pct(roi)} | Payback ${paybackM.toFixed(1)} meses`);
+
+  state.h1 = totalSaving; state.invest = invest;
+  updateHeaders();
+  calcConsolidated();
+}
+
+// ── H2 ────────────────────────────────────────────────────
+function calcH2() {
+  const revenue     = g('h2_revenue');
+  const cvr         = g('h2_cvr') / 100;
+  const cvrUplift   = g('h2_cvrUplift') / 100;
+  const cac         = g('h2_cac');
+  const cacRed      = g('h2_cacReduction') / 100;
+  const invest      = g('h2_invest');
+
+  const revenueUplift = revenue * cvrUplift;
+  const cacSaving     = cac * cacRed;
+  const total         = revenueUplift + cacSaving;
+  const roi           = invest > 0 ? (total / invest) * 100 : 0;
+  const paybackM      = total > 0 ? (invest / total) * 12 : 999;
+
+  s('h2_revenueUplift', fmtM(revenueUplift));
+  s('h2_cacSaving',     fmtM(cacSaving));
+  s('h2_total',         fmtM(total));
+  s('h2_roi',           pct(roi));
+  s('h2_payback',       paybackM.toFixed(1));
+
+  const [vText, vClass] = paybackVerdict(paybackM);
+  const vEl = document.getElementById('h2_verdict');
+  vEl.innerHTML = vText; vEl.className = 'gauge-verdict ' + vClass;
+
+  s('h2_s1f', `$${(revenue/1e6).toFixed(0)}M revenue × ${(cvrUplift*100).toFixed(1)}pp uplift conversión`);
+  s('h2_s1r', fmtM(revenueUplift) + ' USD de revenue incremental');
+  s('h2_s2f', `$${(cac/1e6).toFixed(0)}M CAC × ${(cacRed*100).toFixed(0)}% reducción con segmentación dinámica`);
+  s('h2_s2r', fmtM(cacSaving) + ' USD ahorrado en adquisición');
+  s('h2_s3f', `${fmtM(revenueUplift)} + ${fmtM(cacSaving)} = ${fmtM(total)} | ROI = ${fmtM(total)} / $${(invest/1000).toFixed(0)}K`);
+  s('h2_s3r', `Impacto total ${fmtM(total)}/año | ROI ${pct(roi)} | Payback ${paybackM.toFixed(1)} meses`);
+
+  state.h2 = total; state.invest = invest;
+  updateHeaders();
+  calcConsolidated();
+}
+
+// ── H3 ────────────────────────────────────────────────────
+function calcH3() {
+  const agents    = g('h3_agents');
+  const aht       = g('h3_aht');
+  const ahtRed    = g('h3_ahtRed') / 100;
+  const costMin   = g('h3_costMin');
+  const casesDay  = g('h3_casesDay');
+  const days      = g('h3_days');
+  const invest    = g('h3_invest');
+
+  const totalMinYear  = casesDay * days * aht;
+  const minRecovered  = totalMinYear * ahtRed;
+  const saving        = minRecovered * costMin;
+  const fteHoursYear  = 7.5 * 60 * days;
+  const fteEquiv      = fteHoursYear > 0 ? minRecovered / fteHoursYear : 0;
+  const roi           = invest > 0 ? (saving / invest) * 100 : 0;
+  const paybackM      = saving > 0 ? (invest / saving) * 12 : 999;
+
+  s('h3_minSaved', fmtN(minRecovered) + ' min');
+  s('h3_saving',   fmtM(saving));
+  s('h3_fte',      fteEquiv.toFixed(0));
+  s('h3_roi',      pct(roi));
+  s('h3_payback',  paybackM.toFixed(1));
+
+  const [vText, vClass] = paybackVerdict(paybackM);
+  const vEl = document.getElementById('h3_verdict');
+  vEl.innerHTML = vText; vEl.className = 'gauge-verdict ' + vClass;
+
+  s('h3_s1f', `${fmtN(casesDay)} casos/día × ${days} días × ${aht} min AHT`);
+  s('h3_s1r', fmtN(totalMinYear) + ' min totales de atención/año');
+  s('h3_s2f', `${fmtN(totalMinYear)} min × ${(ahtRed*100).toFixed(0)}% reducción`);
+  s('h3_s2r', fmtN(minRecovered) + ' minutos recuperados/año');
+  s('h3_s3f', `${fmtN(minRecovered)} min × $${costMin}/min`);
+  s('h3_s3r', fmtM(saving) + ' USD ahorrado en OPEX/año');
+  s('h3_s4f', `${fmtN(minRecovered)} min / (7.5h × 60 × ${days} días)`);
+  s('h3_s4r', fteEquiv.toFixed(1) + ' FTEs equivalentes liberados');
+  s('h3_s5f', `ROI = ${fmtM(saving)} / $${(invest/1000).toFixed(0)}K | Payback = ($${(invest/1000).toFixed(0)}K / ${fmtM(saving)}) × 12`);
+  s('h3_s5r', `ROI ${pct(roi)} | Payback ${paybackM.toFixed(1)} meses`);
+
+  state.h3 = saving; state.invest = invest;
+  updateHeaders();
+  calcConsolidated();
+}
+
+// ── Consolidated ─────────────────────────────────────────
+function calcConsolidated() {
+  const total  = state.h1 + state.h2 + state.h3;
+  const invest = state.invest;
+  const roi    = invest > 0 ? (total / invest) * 100 : 0;
+  const pb     = total > 0 ? (invest / total) * 12 : 999;
+  const mult   = invest > 0 ? (total * 3 / invest) : 0;
+
+  s('con_h1_saving', fmtM(state.h1));
+  s('con_h2_saving', fmtM(state.h2));
+  s('con_h3_saving', fmtM(state.h3));
+  s('con_total',     fmtM(total));
+  s('con_roi',       pct(roi));
+  s('con_pb',        pb.toFixed(1) + 'm');
+  s('con_annual_big',fmtM(total));
+  s('con_roi_big',   pct(roi));
+  s('con_pb_big',    pb.toFixed(1));
+  s('con_multiplier','$' + mult.toFixed(0));
+
+  // ROI per hypothesis
+  const roiH1 = invest > 0 ? pct((state.h1/invest)*100) : '—';
+  const roiH2 = invest > 0 ? pct((state.h2/invest)*100) : '—';
+  const roiH3 = invest > 0 ? pct((state.h3/invest)*100) : '—';
+  s('con_h1_roi', roiH1);
+  s('con_h2_roi', roiH2);
+  s('con_h3_roi', roiH3);
+  s('con_h1_pb', state.h1 > 0 ? ((invest/state.h1)*12).toFixed(1)+'m' : '—');
+  s('con_h2_pb', state.h2 > 0 ? ((invest/state.h2)*12).toFixed(1)+'m' : '—');
+  s('con_h3_pb', state.h3 > 0 ? ((invest/state.h3)*12).toFixed(1)+'m' : '—');
+
+  // Multi-year chart
+  const y1 = total, y2 = total * 2, y3 = total * 3;
+  const maxY = y3;
+  const h1p = maxY > 0 ? Math.max(5, (y1/maxY)*85) : 5;
+  const h2p = maxY > 0 ? Math.max(5, (y2/maxY)*85) : 5;
+  const h3p = 85;
+  document.getElementById('by1').style.height = h1p + '%';
+  document.getElementById('by2').style.height = h2p + '%';
+  document.getElementById('by3').style.height = h3p + '%';
+  s('byv1', fmtM(y1));
+  s('byv2', fmtM(y2));
+  s('byv3', fmtM(y3));
+}
+
+function updateHeaders() {
+  const total = state.h1 + state.h2 + state.h3;
+  const roi   = state.invest > 0 ? (total/state.invest)*100 : 0;
+  const pb    = total > 0 ? (state.invest/total)*12 : 0;
+  s('hdr-roi',     pct(roi));
+  s('hdr-payback', pb.toFixed(1) + 'm');
+  s('hdr-annual',  fmtM(total));
+}
+
+// ── Tab navigation ────────────────────────────────────────
+function showTab(key) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('sec-' + key).classList.add('active');
+  const idx = {h1:0, h2:1, h3:2, consolidated:3}[key];
+  document.querySelectorAll('.tab')[idx].classList.add('active');
+  calcConsolidated();
+}
+
+// ── Presets ───────────────────────────────────────────────
+function loadH1(scenario) {
+  document.querySelectorAll('#sec-h1 .preset-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  if (scenario === 'falabella') {
+    setV('h1_agents',1000); setV('h1_agentCost',20000); setV('h1_tickets',4000000);
+    setV('h1_pctDeflect',62); setV('h1_aht',7.5); setV('h1_ahtReduction',28);
+    setV('h1_costPerMin',0.16); setV('h1_deflectionRate',45); setV('h1_invest',544000);
+  } else if (scenario === 'conservative') {
+    setV('h1_agents',1000); setV('h1_agentCost',20000); setV('h1_tickets',4000000);
+    setV('h1_pctDeflect',62); setV('h1_aht',7.5); setV('h1_ahtReduction',20);
+    setV('h1_costPerMin',0.16); setV('h1_deflectionRate',30); setV('h1_invest',544000);
+  }
+  calcH1();
+}
+function loadH2(scenario) {
+  document.querySelectorAll('#sec-h2 .preset-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  if (scenario === 'falabella') {
+    setV('h2_revenue',900000000); setV('h2_cvr',2.8); setV('h2_cvrUplift',1.5);
+    setV('h2_cac',30000000); setV('h2_cacReduction',25); setV('h2_invest',544000);
+  } else {
+    setV('h2_revenue',900000000); setV('h2_cvr',2.8); setV('h2_cvrUplift',0.8);
+    setV('h2_cac',30000000); setV('h2_cacReduction',15); setV('h2_invest',544000);
+  }
+  calcH2();
+}
+function loadH3(scenario) {
+  document.querySelectorAll('#sec-h3 .preset-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  if (scenario === 'falabella') {
+    setV('h3_agents',1000); setV('h3_aht',7.5); setV('h3_ahtRed',28);
+    setV('h3_costMin',0.16); setV('h3_casesDay',13000); setV('h3_days',240); setV('h3_invest',544000);
+  } else {
+    setV('h3_agents',800); setV('h3_aht',7.5); setV('h3_ahtRed',15);
+    setV('h3_costMin',0.14); setV('h3_casesDay',10000); setV('h3_days',240); setV('h3_invest',544000);
+  }
+  calcH3();
+}
+function setV(id, val) { document.getElementById(id).value = val; }
+
+// ── Init ─────────────────────────────────────────────────
+calcH1(); calcH2(); calcH3(); calcConsolidated();
+</script>
+</body>
+</html>

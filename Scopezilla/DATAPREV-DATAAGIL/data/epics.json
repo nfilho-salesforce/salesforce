@@ -1,0 +1,114 @@
+[
+  {
+    "epic_id": "E01",
+    "epic_name": "Consultas Financeiras Self-Service",
+    "description": "Habilitar clientes B2B (ministérios, entes públicos) a consultar valores em aberto, contratos e pagamentos no Protheus (ERP financeiro) via Slack + Agentforce, sem escalação N1 humana. Read-only, governança TI+Jurídico+DPO, rastreabilidade LGPD/TCU. Jornada J1 prioritária F1 Quick Wins.",
+    "confidence": "Confirmed",
+    "kb_sources": [
+      "[KB: Advanced Strategic Architecture and Value Analysis_ Slack as an Agentic Operating System (Agentic OS) & Agentforce 360.md:13-52]",
+      "[extends: MuleSoft secure API exposure pattern for ERP integration]"
+    ]
+  },
+  {
+    "epic_id": "E02",
+    "epic_name": "Autoatendimento Chamados Técnicos",
+    "description": "Permitir consulta de status de chamados no Pronto (ServiceNow) via Slack + Agentforce — quantos abertos, status crítico, SLA, histórico. Read-only F1, abertura assistida F2+. Reduz dependência fila N1 (~30k tickets/mês, 13-14k só INSS). Jornada J2 prioritária F1.",
+    "confidence": "Confirmed",
+    "kb_sources": [
+      "[KB: Advanced Strategic Architecture and Value Analysis_ Slack as an Agentic Operating System (Agentic OS) & Agentforce 360.md:13-52]",
+      "[assumption: ServiceNow Pronto REST API compatibility — validate with Dataprev TI team for authentication model and rate limits]"
+    ]
+  },
+  {
+    "epic_id": "E03",
+    "epic_name": "Intelligence Executiva Mobile",
+    "description": "Executivos acessam briefing de projeto via agente conversacional antes de reunião urgente (ministérios, cliente crítico). Consulta CRM Totvs read-only via Slack — pipeline, contratos macro, forecast. Caso de uso: 'Maik convocado ao ministério, pergunta ao agente no caminho, chega pautado.' Jornada J5 prioritária F1.",
+    "confidence": "Confirmed",
+    "kb_sources": [
+      "[KB: Advanced Strategic Architecture and Value Analysis_ Slack as an Agentic Operating System (Agentic OS) & Agentforce 360.md:13-52]",
+      "[assumption: CRM Totvs API equivalence to Salesforce CRM pattern — validate integration feasibility and data model mapping]"
+    ]
+  },
+  {
+    "epic_id": "E04",
+    "epic_name": "Knowledge Base Normativas RH",
+    "description": "Automatizar consulta a normativas internas (portal Conexão/SharePoint) via Agentforce KB: políticas RH, delegação de competência (alçadas de aprovação R$ 2M → quem assina?), compliance. Reduz acionamentos repetitivos ao time de Pessoas (-50% meta F1). Elimina risco de alçada incorreta em propostas/contratos (exposição TCU). Jornada J7 prioritária F1.",
+    "confidence": "Confirmed",
+    "kb_sources": [
+      "[KB: Advanced Strategic Architecture and Value Analysis_ Slack as an Agentic Operating System (Agentic OS) & Agentforce 360.md:29]",
+      "[assumption: SharePoint portal Conexão API extraction and content indexing method — validate with Dataprev TI]"
+    ]
+  },
+  {
+    "epic_id": "E05",
+    "epic_name": "Agendamento Automatizado",
+    "description": "Agendamento via comando de voz/texto no Slack integrado a Microsoft Teams calendário corporativo. Caso de uso: 'Pedro sai de reunião, manda áudio Agenda reunião amanhã com X, Y, Z, chega em casa tranquilo.' Elimina atrito cognitivo 'não esquece, não esquece'. Jornada J8 F1.",
+    "confidence": "Confirmed",
+    "kb_sources": [
+      "[KB: Advanced Strategic Architecture and Value Analysis_ Slack as an Agentic Operating System (Agentic OS) & Agentforce 360.md:31]",
+      "[extends: Slack Workflow Builder + Microsoft Teams calendar integration pattern via Graph API]"
+    ]
+  },
+  {
+    "epic_id": "E06",
+    "epic_name": "Adoção CRM via Conversação",
+    "description": "Aumentar adoção de CRM Totvs comercial (~50 usuários ativos, ~30% do comercial) via interface conversacional Slack. Comercial atualiza pipeline, forecast, oportunidades por voz/texto, reduz atrito de login manual. Meta: +40% adoção via escrita controlada F2 Expansion. Jornada J4.",
+    "confidence": "Confirmed",
+    "kb_sources": [
+      "[KB: Advanced Strategic Architecture and Value Analysis_ Slack as an Agentic Operating System (Agentic OS) & Agentforce 360.md:23-24]",
+      "[assumption: CRM Totvs write API equivalence to Salesforce Sales Cloud pattern — validate field mapping and transactional integrity]"
+    ]
+  },
+  {
+    "epic_id": "E07",
+    "epic_name": "Abertura de Chamados Assistida",
+    "description": "Abertura de chamados no Pronto (ServiceNow) via voz ou texto estruturado no Slack. Escrita controlada F2 Expansion (F1 read-only). Clientes externos + colaboradores internos. Reduz fricção ofício/reunião para abrir ticket. Jornada J3.",
+    "confidence": "Confirmed",
+    "kb_sources": [
+      "[KB: Advanced Strategic Architecture and Value Analysis_ Slack as an Agentic Operating System (Agentic OS) & Agentforce 360.md:31]",
+      "[assumption: ServiceNow Pronto case creation API — validate authentication model and required fields]"
+    ]
+  },
+  {
+    "epic_id": "E08",
+    "epic_name": "Gestão de Demandas Evolutivas",
+    "description": "Consulta e criação de demandas evolutivas no Clarity (Broadcom) via Slack + Agentforce. Read-only F1, escrita F2+. ~4.500 demandas ativas. Decisão arquitetural pendente F2: se Salesforce Service Cloud vira sistema de origem de demandas, Clarity vira legado de consulta. Jornada J6 F3 Proactive.",
+    "confidence": "Assumed",
+    "kb_sources": [
+      "[assumption: Broadcom Clarity API compatibility and governance model — no KB coverage for Clarity specifically; validate with Dataprev TI]",
+      "[extends: general Service Cloud case management pattern as potential replacement architecture F2+]"
+    ]
+  },
+  {
+    "epic_id": "E09",
+    "epic_name": "Intelligence Preditiva e Recomendações",
+    "description": "Análise preditiva de SLA (J9) + recomendações comerciais (J10) via Data Cloud + Agentforce. Alertas proativos de risco de SLA breach no Pronto, sugestões de próximas ações comerciais baseadas em pipeline histórico CRM. F3 Proactive. Jornadas J9 e J10.",
+    "confidence": "Assumed",
+    "kb_sources": [
+      "[KB: Advanced Strategic Architecture and Value Analysis_ Slack as an Agentic Operating System (Agentic OS) & Agentforce 360.md:22]",
+      "[extends: Data Cloud segmentation + activation pattern applied to operational analytics]",
+      "[assumption: Data Cloud ingestion from Pronto + CRM Totvs — validate data model and streaming architecture]"
+    ]
+  },
+  {
+    "epic_id": "E10",
+    "epic_name": "Governança, Compliance e Change Management",
+    "description": "Pilar cross-cutting: (1) MuleSoft/MCP camada de integração segura sobre legados (Pronto, Clarity, Protheus, CRM Totvs, Conexão, Teams) com rastreabilidade auditável LGPD/TCU; (2) Governança TI+Jurídico+DPO sobre Protheus (dados financeiros sensíveis, autorização perfil de acesso por usuário); (3) Change Management estruturado — treinamento formal por persona (clientes B2B, executivos, comercial, N1/N2), executive mandate (Saulo), capacitação early adopters (20-50 piloto), monitoramento KPIs adoção (>60% uso semanal); (4) Arquitetura reutilizável Data Ágil + Serviço na Ponta (economia de escopo). Prioridades estratégicas #2, #3, #4 do strategy.json.",
+    "confidence": "Confirmed",
+    "kb_sources": [
+      "[KB: Advanced Strategic Architecture and Value Analysis_ Slack as an Agentic Operating System (Agentic OS) & Agentforce 360.md:27]",
+      "[KB: Advanced Strategic Architecture and Value Analysis_ Slack as an Agentic Operating System (Agentic OS) & Agentforce 360.md:34]"
+    ]
+  },
+  {
+    "epic_id": "E11",
+    "epic_name": "SEI · Processo Eletrônico no Slack",
+    "description": "EXPANSÃO DE ESCOPO (fora do ROM dual-track atual — requer estimate/revise para precificar). Levar prazos, andamentos, consultas e assinaturas do SEI (Sistema Eletrônico de Informações / PEN-MGI, ofertado pela Dataprev como SaaS) para o Slack + Agentforce. Integração primária via REST mod-wssei v2 (JWT), alternativa via WSDL SOAP por usuário de serviço (a confirmar qual superfície está publicada na instância-alvo). SEI não tem push/webhook → arquitetura de POLLING obrigatória (agendador + cache de estado no MuleSoft/MCP). LGPD: só metadados no Slack, ações e conteúdo via deep-link ao SEI. 10 jornadas priorizadas por coeficiente de ganho (Valor÷Esforço): Onda 1 leitura/polling (SEI-J1 Alerta de prazo/cumprimento tácito, SEI-J2 Consulta linguagem natural, SEI-J3 Notif. recebido/tramitado, SEI-J4 Meu painel); Onda 2 (SEI-J5 Digest de unidade, SEI-J6 Qual tipo usar+RAG, SEI-J7 Status assinatura+deep-link); Onda 3 escrita com governança (SEI-J8 Ciência, SEI-J9 Tramitar, SEI-J10 Abrir processo).",
+    "confidence": "Assumed",
+    "kb_sources": [
+      "[KB: pengovbr/mod-wssei — MdWsSeiServicosV2.php (superfície REST v2, ~150+ endpoints)]",
+      "[assumption: WSDL SOAP via usuário de serviço atestado pelo cliente; não confirmado em repositório público]",
+      "[assumption: ausência de push/webhook no SEI → polling obrigatório]"
+    ]
+  }
+]

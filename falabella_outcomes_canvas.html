@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Falabella — Outcome Canvas PS</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f0f2f5;
+    padding: 32px;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, #012169 0%, #00509E 100%);
+    border-radius: 16px;
+    padding: 24px 36px;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .header h1  { color: #fff; font-size: 20px; font-weight: 700; }
+  .header p   { color: #a8c4e8; font-size: 12px; margin-top: 4px; }
+  .header-tag {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 8px;
+    padding: 8px 18px;
+    text-align: center;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── Table wrapper ── */
+  .table-wrap {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    overflow: hidden;
+  }
+
+  table { width: 100%; border-collapse: collapse; }
+
+  /* Column headers */
+  thead tr th {
+    padding: 14px 18px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    text-align: left;
+    border-bottom: 2px solid #E8EDF2;
+  }
+  thead tr th:first-child { width: 18%; }
+  thead tr th:nth-child(2),
+  thead tr th:nth-child(3),
+  thead tr th:nth-child(4) { width: 27%; }
+
+  thead th.col-outcome { background: #032D60; color: #fff; }
+  thead th.col-cliente  { background: #004FA3; color: #fff; }
+  thead th.col-metrica  { background: #0066CC; color: #fff; }
+  thead th.col-ps       { background: #0099D8; color: #fff; }
+
+  /* Body rows */
+  tbody tr { border-bottom: 1px solid #EEF2F6; transition: background 0.15s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: #F7FAFF; }
+
+  tbody td { padding: 18px 18px; vertical-align: top; }
+
+  /* Outcome label cell */
+  .outcome-cell { display: flex; align-items: flex-start; gap: 12px; }
+  .outcome-icon {
+    width: 38px; height: 38px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px; flex-shrink: 0; margin-top: 1px;
+  }
+  .outcome-text strong {
+    display: block; font-size: 12px; font-weight: 700;
+    margin-bottom: 3px;
+  }
+  .outcome-text span {
+    font-size: 10.5px; color: #78909C; line-height: 1.4;
+  }
+
+  /* Content cells */
+  .content-cell ul { list-style: none; }
+  .content-cell ul li {
+    font-size: 11.5px; color: #37474F;
+    padding: 3px 0 3px 14px;
+    position: relative; line-height: 1.45;
+  }
+  .content-cell ul li::before {
+    content: '▸'; position: absolute; left: 0;
+    font-size: 10px; top: 4px;
+  }
+
+  /* KPI chips */
+  .chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+  .chip {
+    font-size: 10px; font-weight: 600;
+    padding: 3px 9px; border-radius: 20px; border: 1px solid;
+  }
+
+  /* PS cell — highlight */
+  .ps-cell ul li { font-size: 11px; color: #1A237E; }
+
+  /* ── Row color schemes ── */
+
+  /* S2V — Blue */
+  .r1 .outcome-icon { background: #E8F4FF; }
+  .r1 .outcome-text strong { color: #0070D2; }
+  .r1 .content-cell ul li::before { color: #0070D2; }
+  .r1 .chip { background: #E8F4FF; color: #0070D2; border-color: #aed4f8; }
+  .r1 .ps-cell ul li::before { color: #0070D2; }
+  .r1 .ps-cell ul li { color: #0070D2; }
+  .r1 { border-left: 4px solid #0070D2; }
+
+  /* Adoption — Orange */
+  .r2 .outcome-icon { background: #FFF3E0; }
+  .r2 .outcome-text strong { color: #E65100; }
+  .r2 .content-cell ul li::before { color: #FF7A00; }
+  .r2 .chip { background: #FFF3E0; color: #BF5000; border-color: #ffd194; }
+  .r2 .ps-cell ul li::before { color: #FF7A00; }
+  .r2 .ps-cell ul li { color: #BF5000; }
+  .r2 { border-left: 4px solid #FF7A00; }
+
+  /* Consumption — Teal */
+  .r3 .outcome-icon { background: #E0F7FA; }
+  .r3 .outcome-text strong { color: #00838F; }
+  .r3 .content-cell ul li::before { color: #00ACC1; }
+  .r3 .chip { background: #E0F7FA; color: #006064; border-color: #80DEEA; }
+  .r3 .ps-cell ul li::before { color: #00ACC1; }
+  .r3 .ps-cell ul li { color: #00838F; }
+  .r3 { border-left: 4px solid #00ACC1; }
+
+  /* Business KPI — Purple */
+  .r4 .outcome-icon { background: #F3E5F5; }
+  .r4 .outcome-text strong { color: #6A1B9A; }
+  .r4 .content-cell ul li::before { color: #8E24AA; }
+  .r4 .chip { background: #F3E5F5; color: #6A1B9A; border-color: #CE93D8; }
+  .r4 .ps-cell ul li::before { color: #8E24AA; }
+  .r4 .ps-cell ul li { color: #6A1B9A; }
+  .r4 { border-left: 4px solid #8E24AA; }
+
+  /* Expansion — Green */
+  .r5 .outcome-icon { background: #E8F5EE; }
+  .r5 .outcome-text strong { color: #2E844E; }
+  .r5 .content-cell ul li::before { color: #2E844E; }
+  .r5 .chip { background: #E8F5EE; color: #1B5E35; border-color: #9fd4b5; }
+  .r5 .ps-cell ul li::before { color: #2E844E; }
+  .r5 .ps-cell ul li { color: #2E844E; }
+  .r5 { border-left: 4px solid #2E844E; }
+
+  /* ── Footer ── */
+  .footer {
+    margin-top: 20px;
+    background: linear-gradient(135deg, #032D60, #012169);
+    border-radius: 12px;
+    padding: 16px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  .footer-stat { text-align: center; }
+  .footer-stat .val { color: #fff; font-size: 18px; font-weight: 800; }
+  .footer-stat .lbl { color: #a8c4e8; font-size: 9.5px; margin-top: 2px; }
+  .footer-div { width: 1px; height: 32px; background: rgba(255,255,255,0.2); }
+  .footer-note {
+    flex: 1; font-size: 10.5px; color: #a8c4e8;
+    font-style: italic; line-height: 1.6; text-align: right;
+  }
+  .footer-note strong { color: #fff; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <h1>Outcome Canvas — Falabella PS</h1>
+    <p>Agentforce · Service Cloud · Commerce Cloud &nbsp;·&nbsp; Chile / LATAM &nbsp;·&nbsp; Junio 2026</p>
+  </div>
+  <div class="header-tag">Confidencial · Uso Interno · Bootcamp PS LATAM</div>
+</div>
+
+<!-- TABLE -->
+<div class="table-wrap">
+<table>
+  <thead>
+    <tr>
+      <th class="col-outcome">Outcome</th>
+      <th class="col-cliente">¿Cómo se ve en tu cliente?</th>
+      <th class="col-metrica">¿Qué métrica lo mide?</th>
+      <th class="col-ps">¿Qué hace PS para desbloquearlo?</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <!-- ROW 1 — Speed to Value -->
+    <tr class="r1">
+      <td>
+        <div class="outcome-cell">
+          <div class="outcome-icon">⚡</div>
+          <div class="outcome-text">
+            <strong>Speed to Value</strong>
+            <span>30 días desde<br>kick-off a Go-Live</span>
+          </div>
+        </div>
+      </td>
+      <td class="content-cell">
+        <ul>
+          <li>Agente de devoluciones omnicanal en producción en 30 días</li>
+          <li>Flujo end-to-end sin escalación humana en casos definidos</li>
+          <li>Primeras 500 interacciones procesadas de forma autónoma</li>
+        </ul>
+      </td>
+      <td class="content-cell">
+        <div class="chips">
+          <span class="chip">Go-Live ≤ Día 30</span>
+          <span class="chip">Días kick-off → producción</span>
+          <span class="chip">Baseline deflexión medido</span>
+        </div>
+      </td>
+      <td class="content-cell ps-cell">
+        <ul>
+          <li>Workshop de diseño acelerado (Día 1–3)</li>
+          <li>Configuración del primer agente con Topics & Actions</li>
+          <li>Sprint de testing y ajuste de prompts</li>
+          <li>Go-Live asistido con hypercare Día 30</li>
+        </ul>
+      </td>
+    </tr>
+
+    <!-- ROW 2 — Adoption Rate -->
+    <tr class="r2">
+      <td>
+        <div class="outcome-cell">
+          <div class="outcome-icon">📈</div>
+          <div class="outcome-text">
+            <strong>Adoption Rate</strong>
+            <span>Cobertura digital<br>en 90 días</span>
+          </div>
+        </div>
+      </td>
+      <td class="content-cell">
+        <ul>
+          <li>≥ 60% del equipo objetivo usa activamente la plataforma</li>
+          <li>Agentes internos resuelven consultas desde la consola SF</li>
+          <li>Playbooks operativos adoptados por supervisores de turno</li>
+        </ul>
+      </td>
+      <td class="content-cell">
+        <div class="chips">
+          <span class="chip">Usuarios activos / licencias ≥ 60%</span>
+          <span class="chip">Logins activos últimos 7 días</span>
+          <span class="chip">Casos cerrados vía consola</span>
+        </div>
+      </td>
+      <td class="content-cell ps-cell">
+        <ul>
+          <li>Programa de habilitación por rol (agente · supervisor)</li>
+          <li>Playbooks de adopción adaptados a operación Falabella</li>
+          <li>Office hours semanales de soporte PS en Días 31–90</li>
+          <li>Dashboard de adopción visible para el Champion</li>
+        </ul>
+      </td>
+    </tr>
+
+    <!-- ROW 3 — Consumption Growth -->
+    <tr class="r3">
+      <td>
+        <div class="outcome-cell">
+          <div class="outcome-icon">🔄</div>
+          <div class="outcome-text">
+            <strong>Consumption Growth</strong>
+            <span>Expansión progresiva<br>M1 → M2 → M3</span>
+          </div>
+        </div>
+      </td>
+      <td class="content-cell">
+        <ul>
+          <li>Expansión: Soporte → Personalización → Commerce Agent</li>
+          <li>Nuevos casos de uso activados cada 30 días</li>
+          <li>Falabella.com integra el agente en el flujo de compra</li>
+        </ul>
+      </td>
+      <td class="content-cell">
+        <div class="chips">
+          <span class="chip">Flex Credits M1→M2→M3</span>
+          <span class="chip">Conversaciones Agentforce</span>
+          <span class="chip">Crecimiento ≥ 30%/mes</span>
+          <span class="chip">Casos de uso activos</span>
+        </div>
+      </td>
+      <td class="content-cell ps-cell">
+        <ul>
+          <li>Diseñar 3 casos de uso progresivos desde el Día 1</li>
+          <li>Arquitectura modular que facilita la extensión</li>
+          <li>Revisión mensual de consumo con roadmap de expansión</li>
+          <li>Triggers contractuales de expansión definidos en SOW</li>
+        </ul>
+      </td>
+    </tr>
+
+    <!-- ROW 4 — Business KPI -->
+    <tr class="r4">
+      <td>
+        <div class="outcome-cell">
+          <div class="outcome-icon">🎯</div>
+          <div class="outcome-text">
+            <strong>Business KPI Achieved</strong>
+            <span>Deflexión y CSAT<br>validados con el CFO</span>
+          </div>
+        </div>
+      </td>
+      <td class="content-cell">
+        <ul>
+          <li>% deflexión de contacto en servicio medido y validado</li>
+          <li>CSAT post-devolución ≥ 4.0 / 5.0 sostenido</li>
+          <li>AHT reducido ≥ 28% vs. baseline · FCR mejorado</li>
+          <li>Reporte ejecutivo presentado al Economic Buyer (CFO/CIO)</li>
+        </ul>
+      </td>
+      <td class="content-cell">
+        <div class="chips">
+          <span class="chip">Deflexión ≥ 40%</span>
+          <span class="chip">CSAT ≥ 4.0</span>
+          <span class="chip">AHT -28%</span>
+          <span class="chip">FCR +15%</span>
+          <span class="chip">SLA compliance</span>
+        </div>
+      </td>
+      <td class="content-cell ps-cell">
+        <ul>
+          <li>Baseline measurement en el Día 1 (antes de construir)</li>
+          <li>Dashboard ejecutivo de KPI en lenguaje de negocio</li>
+          <li>Sprint de optimización continua Días 60–90</li>
+          <li>Presentación del Business Case validado al Economic Buyer</li>
+        </ul>
+      </td>
+    </tr>
+
+    <!-- ROW 5 — Expansion Ready -->
+    <tr class="r5">
+      <td>
+        <div class="outcome-cell">
+          <div class="outcome-icon">🚀</div>
+          <div class="outcome-text">
+            <strong>Expansion Ready</strong>
+            <span>Plataforma lista para<br>Einstein + personalización</span>
+          </div>
+        </div>
+      </td>
+      <td class="content-cell">
+        <ul>
+          <li>Plataforma de datos lista para Einstein Analytics a escala</li>
+          <li>Roadmap Commerce Agent + personalización CMR acordado</li>
+          <li>Blueprint técnico entregado con componentes reutilizables</li>
+          <li>Fast-track Perú + Colombia definido (≥ 70% reuso)</li>
+        </ul>
+      </td>
+      <td class="content-cell">
+        <div class="chips">
+          <span class="chip">≥ 70% comp. reutilizables</span>
+          <span class="chip">Roadmap firmado</span>
+          <span class="chip">LoI o Change Order</span>
+          <span class="chip">Blueprint técnico entregado</span>
+        </div>
+      </td>
+      <td class="content-cell ps-cell">
+        <ul>
+          <li>Blueprint técnico con arquitectura escalable desde el Día 1</li>
+          <li>Handoff documentado a Delivery con contexto completo</li>
+          <li>Sesión de roadmap con Champion + CTO (Día 85–90)</li>
+          <li>Propuesta del siguiente engagement lista para firma</li>
+        </ul>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-stat"><div class="val">30d</div><div class="lbl">PRIMER GO-LIVE</div></div>
+  <div class="footer-div"></div>
+  <div class="footer-stat"><div class="val">40%</div><div class="lbl">DEFLEXIÓN META</div></div>
+  <div class="footer-div"></div>
+  <div class="footer-stat"><div class="val">$36M</div><div class="lbl">ROI AÑO 1</div></div>
+  <div class="footer-div"></div>
+  <div class="footer-stat"><div class="val">$215</div><div class="lbl">POR $1 INVERTIDO</div></div>
+  <div class="footer-div"></div>
+  <div class="footer-note">
+    Cada outcome tiene un <strong>dueño</strong>, una <strong>métrica</strong> y una <strong>acción PS concreta</strong>.<br>
+    Así el SOW habla el idioma del CFO — no del Project Manager.
+  </div>
+</div>
+
+</body>
+</html>

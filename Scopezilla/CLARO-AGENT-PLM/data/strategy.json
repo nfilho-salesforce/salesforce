@@ -1,0 +1,209 @@
+{
+  "strategic_context": {
+    "current_state_challenges": [
+      {
+        "challenge": "127 BRE rules require a full engineering deployment cycle for any change — business teams cannot modify product validation logic without engaging engineering, creating bottlenecks for new offer launches",
+        "source": "discovery",
+        "confidence": "Confirmed"
+      },
+      {
+        "challenge": "Synchronous CSV processing causes CPU/heap overflows at scale — large validation batches (>10k rows) are unstable, forcing manual interventions and eroding operational trust in the pipeline",
+        "source": "discovery",
+        "confidence": "Confirmed"
+      },
+      {
+        "challenge": "Silent failure modes — zombie transactions and untracked batch errors mean validation failures go undetected, creating data quality risk in the product-to-money chain",
+        "source": "discovery",
+        "confidence": "Confirmed"
+      },
+      {
+        "challenge": "Speed-to-market pressure from Vivo and TIM — Claro's ability to launch new offers, bundles, and pricing tiers is bottlenecked by catalog rule governance",
+        "source": "research",
+        "confidence": "Assumed"
+      },
+      {
+        "challenge": "ANATEL Res. 680/2020 and LGPD require rule lineage, audit trails, and data classification controls — the legacy BRE provides none of these natively",
+        "source": "research",
+        "confidence": "Assumed"
+      }
+    ],
+    "business_impacts": [
+      {
+        "impact": "Engineering teams spend significant cycles on BRE maintenance and emergency patches rather than innovation",
+        "affected_area": "Product & Engineering",
+        "severity": "high"
+      },
+      {
+        "impact": "Unstable large-volume batch processing creates operational unreliability in the product validation pipeline",
+        "affected_area": "Operations",
+        "severity": "high"
+      },
+      {
+        "impact": "Undetected failures create data quality risk with downstream commercial and provisioning systems",
+        "affected_area": "Data Quality / Compliance",
+        "severity": "high"
+      },
+      {
+        "impact": "Slow rule change cycle limits agility to respond to competitive offers or regulatory changes",
+        "affected_area": "Commercial / GTM",
+        "severity": "medium"
+      }
+    ],
+    "industry_context": {
+      "summary": "Brazilian telecom is a three-player oligopoly (Claro, Vivo, TIM) under sustained competitive pressure on 5G, fiber, and digital offers. TM Forum standards and LGPD/ANATEL regulations are forcing carriers to modernize BSS/catalog stacks. Legacy BRE systems are an acknowledged industry liability — TM Forum case studies cite 3–6 month offer validation cycles on monolithic rule engines.",
+      "trends": [
+        "Composable BSS/catalog architectures replacing monolithic BRE engines (TM Forum 2024)",
+        "LLM-native rule authoring and offer validation agents adopted by Tier-1 carriers (Telefónica, Vodafone, Orange)",
+        "Agentic automation in telco back-office reducing catalog rule authoring time by 50–70% vs. manual engineering",
+        "Real-time product catalog validation becoming table stakes for 5G bundle and convergent offer launches"
+      ],
+      "regulatory_factors": [
+        "LGPD (Lei Geral de Proteção de Dados) — requires consent/audit trails on all customer data processing; confirmed applicable to this engagement",
+        "ANATEL Res. 680/2020 — mandates real-time offer transparency and pricing justification; requires rule lineage in product catalog"
+      ],
+      "competitive_pressures": [
+        "Vivo (Telefónica) and TIM competing on 5G coverage and convergent bundle agility",
+        "Carriers differentiating on speed-to-market for new offers — target <30 days from product idea to offer; legacy BRE precludes this",
+        "ARPU pressure in Brazil driving cost-to-serve reduction via operational automation"
+      ]
+    },
+    "value_drivers": [
+      {
+        "driver": "Self-service rule authoring via Agentforce PLM Admin",
+        "category": "efficiency",
+        "description": "Business analysts author catalog rules in pt-BR natural language; Einstein LLM compiles to AST JSON; zero engineering deployment required. Rule change cycle reduces from weeks to minutes."
+      },
+      {
+        "driver": "Production-grade async validation engine",
+        "category": "efficiency",
+        "description": "Async-first Queueable chain with byte-offset cursor eliminates CPU/heap overflows at scale. DLQ-first architecture ensures 100% failure capture — zero silent errors."
+      },
+      {
+        "driver": "Deterministic sub-50ms catalog evaluation",
+        "category": "efficiency",
+        "description": "AST Walker replaces unpredictable BRE runtime with deterministic, in-memory evaluation at <50ms/record — predictable SLA, auditable logic."
+      },
+      {
+        "driver": "AI-native diagnostic narrative",
+        "category": "experience",
+        "description": "Agentforce PLM Ops auto-generates HTML diagnostic reports per validation batch — reduces analyst investigation time from hours to seconds."
+      },
+      {
+        "driver": "LGPD and audit compliance readiness",
+        "category": "risk",
+        "description": "Immutable rule specs (Spec_Key + Source_Hash), compile snapshots, Platform Events, and Einstein Trust Layer provide full rule lineage and compliance audit trail."
+      },
+      {
+        "driver": "Agentforce platform beachhead",
+        "category": "revenue",
+        "description": "PLM POC establishes the reference architecture for Agents 1 (KB), 3 (NBO), and 4 (Lead Qualification) — the full 4-agent Agentforce platform that governs the product-to-money chain."
+      }
+    ],
+    "strategic_priorities": [
+      {
+        "priority": "Eliminate the redeploy bottleneck — unlock business-led catalog governance",
+        "rank": 1,
+        "rationale": "The single highest-leverage change: decoupling rule authoring from engineering deployment cycles unlocks commercial agility and reduces maintenance burden simultaneously."
+      },
+      {
+        "priority": "Stabilize large-volume validation — make the pipeline production-grade and trustworthy",
+        "rank": 2,
+        "rationale": "A catalog validation engine that fails at scale is not a foundation. Async-first architecture with DLQ coverage is the prerequisite for everything else."
+      },
+      {
+        "priority": "Establish AI governance and LGPD compliance foundations",
+        "rank": 3,
+        "rationale": "LGPD compliance is non-negotiable for a Brazilian telco operating at this scale. Einstein Trust Layer and rule lineage architecture must be in place before go-live."
+      },
+      {
+        "priority": "Prove the Agentforce Employee Agent model as the reference architecture for the 4-agent platform",
+        "rank": 4,
+        "rationale": "PLM POC is not an isolated project — it is the proof point that unlocks investment in Agents 1, 3, and 4. Design decisions must be made with replicability in mind."
+      }
+    ]
+  },
+  "transformation_strategy": {
+    "vision_statement": "Claro Brasil's product catalog becomes a strategic asset — governed by business teams in natural language, validated in milliseconds, and fully auditable for compliance. By replacing 127 brittle BRE rules with a self-authoring Agentforce engine, Claro breaks the dependency between catalog innovation and engineering cycles: a new product rule is written in Portuguese, compiled by AI, and live in production without a single deployment. The PLM POC is the first agent in a broader Agentforce platform that will govern the full product-to-money chain — from catalog validation to offer selection to lead qualification — positioning Claro as the carrier that moves fastest from product idea to customer offer.",
+    "strategic_objectives": [
+      {
+        "objective": "Eliminate redeploy dependency for catalog rule changes",
+        "success_criteria": "Zero deployments required to author or update a product validation rule in production",
+        "timeline_horizon": "short"
+      },
+      {
+        "objective": "Achieve production-grade validation stability",
+        "success_criteria": "Zero CPU/heap overflows; 100% DLQ failure capture; <50ms/record evaluation SLA",
+        "timeline_horizon": "short"
+      },
+      {
+        "objective": "Establish LGPD-compliant AI pipeline",
+        "success_criteria": "Data handling controls reviewed and signed off by Claro legal prior to go-live",
+        "timeline_horizon": "short"
+      },
+      {
+        "objective": "Prove Agentforce Employee Agent model as reference architecture",
+        "success_criteria": "PLM POC accepted as the design pattern for Agents 1, 3, and 4 by Claro architecture team",
+        "timeline_horizon": "medium"
+      },
+      {
+        "objective": "Accelerate product offer time-to-market",
+        "success_criteria": "Rule authoring cycle reduced from weeks (BRE deployment) to minutes (LLM compilation)",
+        "timeline_horizon": "medium"
+      }
+    ],
+    "principles": [
+      {
+        "principle": "AI for authoring, determinism for execution",
+        "rationale": "LLM compiles rules at authoring time; AST Walker evaluates them at runtime without LLM. No non-deterministic AI in the critical validation path — predictability and auditability are non-negotiable."
+      },
+      {
+        "principle": "Async-first, DLQ-always",
+        "rationale": "Every batch process runs asynchronously with full failure capture via Dead Letter Queues and Transaction Finalizers. Silent errors are architectural failures, not acceptable trade-offs."
+      },
+      {
+        "principle": "Business-led, engineering-governed",
+        "rationale": "Catalog rule authoring is democratized to business analysts via natural language. Schema validation, operator permission boundaries, and deployment controls remain engineering-owned."
+      },
+      {
+        "principle": "Einstein Trust Layer non-negotiable",
+        "rationale": "All LLM traffic — rule compilation and diagnostic narrative — routes through Einstein Trust Layer. No raw Claro data reaches external models. LGPD compliance depends on this."
+      },
+      {
+        "principle": "POC as platform pattern",
+        "rationale": "Every architectural decision in PLM is made as if it will be replicated for 3 additional agents. No one-offs; no shortcuts that create tech debt for the broader Agentforce platform."
+      }
+    ]
+  },
+  "business_case": {
+    "why_salesforce": "Einstein 1 Platform provides the only production-grade combination of LLM-native rule compilation (Einstein Prompt Templates + ConnectApi), deterministic Apex execution (AST Walker), native Agentforce Employee Agents with governed topic/action boundaries, and Einstein Trust Layer data governance — all within Claro's existing Salesforce orgs (STORM_PLM and Ibuy), without new infrastructure procurement or vendor onboarding.",
+    "why_now": "The legacy BRE is an active operational liability — not a future risk. Every new product offer requires an engineering sprint. LGPD compliance obligations cannot be deferred: Claro's legal team has confirmed they apply to this pipeline, and controls must be in place before go-live. Competitors Vivo and TIM are accelerating offer velocity on modern catalog stacks. The cost of inaction compounds each quarter.",
+    "expected_outcomes": [
+      {
+        "outcome": "Catalog rule changes in minutes — from weeks of engineering sprints to LLM-compiled JSON in a chat interaction",
+        "category": "efficiency",
+        "timeframe": "Week 8 (POC go-live)"
+      },
+      {
+        "outcome": "Batch validation stable at 10,000+ rows without CPU/heap overflow",
+        "category": "efficiency",
+        "timeframe": "Week 8 (POC go-live)"
+      },
+      {
+        "outcome": "Full audit trail for LGPD — rule lineage, compile snapshots, Einstein Trust Layer coverage",
+        "category": "risk",
+        "timeframe": "Week 8 (POC go-live)"
+      },
+      {
+        "outcome": "PLM POC accepted as reference architecture — unlocks investment in Agents 1, 3, and 4",
+        "category": "revenue",
+        "timeframe": "Post-POC (medium)"
+      },
+      {
+        "outcome": "Analyst investigation time for failed batch validation reduced from hours to seconds via AI diagnostic narrative",
+        "category": "experience",
+        "timeframe": "Week 8 (POC go-live)"
+      }
+    ],
+    "differentiation": "Salesforce PS brings the only team that has already designed and battle-tested this exact architecture — AST Walker, DLQ-first resilience, Agentforce PLM Admin/Ops, and the Einstein Prompt Template compilation pattern. This POC is not exploratory: it is an accelerated delivery of a proven, production-ready pattern by the team that architected it. No ramp-up, no discovery tax on the build sprint."
+  }
+}

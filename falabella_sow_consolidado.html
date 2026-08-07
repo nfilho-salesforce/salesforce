@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Falabella — SOW Consolidado v2.0</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; padding: 32px; color: #1a2535; }
+
+  /* ── Header ── */
+  .sow-header {
+    background: linear-gradient(135deg, #012169 0%, #00509E 100%);
+    border-radius: 16px; padding: 26px 36px; margin-bottom: 22px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+  }
+  .sow-header h1 { color: #fff; font-size: 20px; font-weight: 800; }
+  .sow-header .sub { color: #a8c4e8; font-size: 11.5px; margin-top: 5px; line-height: 1.6; }
+  .badge-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; justify-content: flex-end; }
+  .badge {
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 7px; padding: 5px 12px; color: #fff; font-size: 10px; font-weight: 600;
+  }
+  .badge.warn { background: rgba(255,213,0,0.2); border-color: rgba(255,213,0,0.5); color: #ffd580; }
+
+  /* ── Synthesis banner ── */
+  .synth-banner {
+    background: #fff; border-radius: 12px; padding: 14px 20px; margin-bottom: 22px;
+    border-left: 5px solid #FF7A00; display: flex; gap: 16px; align-items: flex-start;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  }
+  .synth-banner .icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+  .synth-banner h3 { font-size: 12px; font-weight: 700; color: #BF5000; margin-bottom: 6px; }
+  .synth-banner p  { font-size: 11px; color: #546E7A; line-height: 1.6; }
+  .synth-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  .pill { font-size: 10px; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
+  .pill-green  { background: #E8F5EE; color: #1B5E35; border: 1px solid #9fd4b5; }
+  .pill-orange { background: #FFF3E0; color: #BF5000; border: 1px solid #ffd194; }
+  .pill-blue   { background: #E8F4FF; color: #0070D2; border: 1px solid #aed4f8; }
+  .pill-red    { background: #FFEBEE; color: #B71C1C; border: 1px solid #FFCDD2; }
+
+  /* ── Two-col layout ── */
+  .two-col { display: flex; gap: 20px; margin-bottom: 20px; }
+  .col-main { flex: 1.6; display: flex; flex-direction: column; gap: 20px; }
+  .col-side  { flex: 1;   display: flex; flex-direction: column; gap: 20px; }
+
+  /* ── Card ── */
+  .card { background: #fff; border-radius: 14px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); overflow: hidden; }
+  .card-header { padding: 13px 20px; display: flex; align-items: center; gap: 10px; }
+  .card-header .num {
+    width: 24px; height: 24px; border-radius: 50%; background: rgba(255,255,255,0.25);
+    color: #fff; font-size: 11px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .card-header h2 { color: #fff; font-size: 12.5px; font-weight: 700; }
+  .card-body { padding: 16px 20px 18px; }
+  .s1 .card-header { background: linear-gradient(90deg,#032D60,#004FA3); }
+  .s2 .card-header { background: linear-gradient(90deg,#0070D2,#0095D9); }
+  .s3 .card-header { background: linear-gradient(90deg,#FF7A00,#FF9E40); }
+  .s4 .card-header { background: linear-gradient(90deg,#2E844E,#4CAF7D); }
+  .s5 .card-header { background: linear-gradient(90deg,#6A1B9A,#9C27B0); }
+  .s6 .card-header { background: linear-gradient(90deg,#1A237E,#283593); }
+
+  /* ── Objetivo ── */
+  .objetivo-box {
+    background: #F0F6FF; border-left: 4px solid #0070D2;
+    border-radius: 0 8px 8px 0; padding: 14px 16px;
+    font-size: 12.5px; color: #032D60; font-style: italic; line-height: 1.75;
+  }
+  .objetivo-box strong { font-style: normal; color: #0070D2; }
+  .delta-note {
+    margin-top: 10px; padding: 8px 12px; background: #E8F5EE;
+    border-radius: 7px; font-size: 10px; color: #2E844E;
+  }
+  .delta-note strong { color: #1B5E35; }
+
+  /* ── Outcomes table ── */
+  .ot { width: 100%; border-collapse: collapse; }
+  .ot th {
+    background: #F4F6F9; padding: 8px 11px; font-size: 9.5px;
+    font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+    color: #546E7A; text-align: left; border-bottom: 2px solid #E8EDF2;
+  }
+  .ot td { padding: 10px 11px; font-size: 10.5px; color: #37474F; border-bottom: 1px solid #F0F2F5; vertical-align: top; line-height: 1.5; }
+  .ot tr:last-child td { border-bottom: none; }
+  .ot tr:hover td { background: #FAFBFF; }
+  .ob1 { background:#E8F4FF; color:#0070D2; border:1px solid #aed4f8; padding:2px 8px; border-radius:20px; font-size:10px; font-weight:700; white-space:nowrap; }
+  .ob2 { background:#FFF3E0; color:#BF5000; border:1px solid #ffd194; padding:2px 8px; border-radius:20px; font-size:10px; font-weight:700; white-space:nowrap; }
+  .ob3 { background:#E0F7FA; color:#006064; border:1px solid #80DEEA; padding:2px 8px; border-radius:20px; font-size:10px; font-weight:700; white-space:nowrap; }
+  .ob4 { background:#F3E5F5; color:#6A1B9A; border:1px solid #CE93D8; padding:2px 8px; border-radius:20px; font-size:10px; font-weight:700; white-space:nowrap; }
+  .ob5 { background:#E8F5EE; color:#1B5E35; border:1px solid #9fd4b5; padding:2px 8px; border-radius:20px; font-size:10px; font-weight:700; white-space:nowrap; }
+  .delta-cell { font-size:9.5px; color:#2E844E; font-style:italic; }
+  .delta-cell.conflict { color:#C62828; }
+
+  /* ── Hitos ── */
+  .hitos-row { display: flex; gap: 12px; }
+  .hito { flex: 1; border-radius: 10px; overflow: hidden; border: 1px solid #E8EDF2; }
+  .hito-head { padding: 10px 14px; }
+  .hito-day  { font-size: 22px; font-weight: 900; line-height: 1; }
+  .hito-label { font-size: 9.5px; font-weight: 700; letter-spacing: 0.5px; margin-top: 1px; }
+  .hito-body { padding: 12px 14px; background: #fff; }
+  .hito-body ul { list-style: none; }
+  .hito-body ul li { font-size: 10.5px; color: #455A64; padding: 2px 0 2px 13px; position: relative; line-height: 1.45; }
+  .hito-body ul li::before { content: '✓'; position: absolute; left: 0; font-size: 9px; top: 3px; }
+  .hito-body ul li.new::before { content: '★'; }
+  .hito-body ul li.new { color: #2E844E; font-weight: 600; }
+  .hito-body ul li.conflict { color: #C62828; }
+  .hito-body ul li.conflict::before { content: '⚑'; }
+
+  .h1 .hito-head { background: linear-gradient(135deg,#E8F4FF,#CCE7FF); }
+  .h1 .hito-day  { color: #0070D2; } .h1 .hito-label { color: #0070D2; }
+  .h1 .hito-body ul li::before { color: #0070D2; }
+  .h2 .hito-head { background: linear-gradient(135deg,#FFF3E0,#FFE0B2); }
+  .h2 .hito-day  { color: #E65100; } .h2 .hito-label { color: #FF7A00; }
+  .h2 .hito-body ul li::before { color: #FF7A00; }
+  .h3 .hito-head { background: linear-gradient(135deg,#E8F5EE,#C8E6C9); }
+  .h3 .hito-day  { color: #2E844E; } .h3 .hito-label { color: #2E844E; }
+  .h3 .hito-body ul li::before { color: #2E844E; }
+
+  /* Flex Credits table */
+  .fc-table { width:100%; border-collapse:collapse; margin-top:10px; }
+  .fc-table th { background:#F4F6F9; padding:6px 10px; font-size:9px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:#78909C; text-align:left; }
+  .fc-table td { padding:6px 10px; font-size:10.5px; color:#37474F; border-bottom:1px solid #F0F2F5; }
+  .fc-table tr:last-child td { border-bottom:none; }
+  .fc-total { background:#032D60; }
+  .fc-total td { color:#fff; font-weight:700; font-size:11px; border:none; }
+  .fc-bar-bg { background:#E0E5EA; border-radius:20px; height:6px; overflow:hidden; margin-top:4px; }
+  .fc-bar { height:100%; border-radius:20px; }
+  .fb1 { width:31%; background:linear-gradient(90deg,#5BA4CF,#0070D2); }
+  .fb2 { width:38%; background:linear-gradient(90deg,#FF9E40,#FF7A00); }
+  .fb3 { width:31%; background:linear-gradient(90deg,#4CAF7D,#2E844E); }
+
+  /* ── Criterios ── */
+  .crit-block { margin-bottom:14px; padding-bottom:14px; border-bottom:1px solid #F0F2F5; }
+  .crit-block:last-child { margin:0; padding:0; border:0; }
+  .crit-title { font-size:10.5px; font-weight:700; margin-bottom:7px; display:flex; align-items:center; gap:7px; }
+  .c-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+  .cd1{background:#0070D2;} .cd2{background:#FF7A00;} .cd3{background:#2E844E;}
+  .crit-block ul { list-style:none; }
+  .crit-block ul li { font-size:10.5px; color:#546E7A; padding:2px 0 2px 12px; position:relative; line-height:1.5; }
+  .crit-block ul li::before { content:'▸'; position:absolute; left:0; font-size:9px; color:#90A4AE; }
+  .crit-block ul li.new { color:#2E844E; font-weight:600; }
+  .crit-block ul li.new::before { color:#2E844E; content:'★'; }
+
+  /* ── Cláusula ── */
+  .trigger-item { display:flex; gap:12px; margin-bottom:10px; padding:10px 12px; border-radius:9px; border:1px solid #E8EDF2; }
+  .ti { width:30px; height:30px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
+  .ti1{background:#E8F4FF;} .ti2{background:#E8F5EE;} .ti3{background:#FFF3E0;}
+  .ti4{background:#F3E5F5;} .ti5{background:#FFF8E1; border:1px solid #FFE082;}
+  .trigger-text strong { font-size:10.5px; color:#032D60; display:block; margin-bottom:2px; }
+  .trigger-text span   { font-size:10px; color:#546E7A; line-height:1.45; }
+  .trigger-text .new-tag { font-size:9px; background:#E8F5EE; color:#2E844E; padding:1px 6px; border-radius:10px; font-weight:700; margin-left:5px; }
+
+  /* ── Inversión sidebar ── */
+  .inv-row { display:flex; justify-content:space-between; align-items:center; padding:9px 0; border-bottom:1px solid #F0F2F5; }
+  .inv-row:last-child { border:0; }
+  .inv-label { font-size:10.5px; color:#546E7A; }
+  .inv-val   { font-size:12px; font-weight:700; color:#032D60; }
+  .inv-val.hl { color:#0070D2; font-size:17px; }
+  .roi-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:6px; }
+  .roi-item { background:#F0F6FF; border-radius:8px; padding:9px; text-align:center; }
+  .roi-item .rv { color:#0070D2; font-size:15px; font-weight:800; }
+  .roi-item .rl { color:#78909C; font-size:9px; margin-top:2px; }
+  .roi-item.new-item { background:#E8F5EE; }
+  .roi-item.new-item .rv { color:#2E844E; }
+  .warn-box { background:#FFF8E1; border:1px solid #FFE082; border-radius:8px; padding:9px 12px; font-size:10px; color:#7A4F00; line-height:1.5; margin-top:10px; }
+  .conflict-box { background:#FFEBEE; border:1px solid #FFCDD2; border-radius:8px; padding:9px 12px; font-size:10px; color:#B71C1C; line-height:1.5; margin-top:8px; }
+  .conflict-box strong { color:#7F0000; }
+
+  /* ── Delta legend ── */
+  .legend { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:18px; }
+  .leg-item { display:flex; align-items:center; gap:6px; font-size:10px; color:#546E7A; }
+  .leg-dot { width:10px; height:10px; border-radius:50%; }
+
+  /* ── Footer ── */
+  .sow-footer { background:#032D60; border-radius:12px; padding:15px 28px; margin-top:4px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+  .sf-stat { text-align:center; }
+  .sf-stat .v { color:#fff; font-size:16px; font-weight:800; }
+  .sf-stat .l { color:#a8c4e8; font-size:9px; margin-top:2px; }
+  .sf-div  { width:1px; height:28px; background:rgba(255,255,255,0.2); }
+  .sf-quote { flex:1; font-size:10px; color:#a8c4e8; font-style:italic; line-height:1.6; text-align:right; }
+  .sf-quote strong { color:#fff; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="sow-header">
+  <div>
+    <h1>SOW Consolidado v2.0 — Falabella</h1>
+    <div class="sub">
+      Síntesis: Draft Claude (v1) × Draft Equipo (SOW_Falabella_Outcomes_2026.docx)<br>
+      Agentforce · Service Cloud · Commerce Cloud · Data Cloud &nbsp;·&nbsp; Chile / LATAM · Junio 2026
+    </div>
+  </div>
+  <div>
+    <div class="badge-row">
+      <span class="badge">T&amp;M</span>
+      <span class="badge">90 días</span>
+      <span class="badge">2,720 FC · ~$544K USD</span>
+      <span class="badge warn">⚠ Procurement &gt;$500K</span>
+    </div>
+    <div class="badge-row" style="margin-top:4px;">
+      <span class="badge" style="background:rgba(46,132,78,0.3); border-color:rgba(46,132,78,0.6);">★ Adiciones del equipo</span>
+      <span class="badge" style="background:rgba(198,40,40,0.2); border-color:rgba(198,40,40,0.5); color:#ffc0c0;">⚑ Conflictos a resolver</span>
+    </div>
+  </div>
+</div>
+
+<!-- SYNTHESIS BANNER -->
+<div class="synth-banner">
+  <div class="icon">🔀</div>
+  <div>
+    <h3>Nota de Síntesis — Lo que cada versión aporta</h3>
+    <p>El <strong>Draft Claude (v1)</strong> define la arquitectura de outcomes, los 5 pilares, los triggers de expansión y el framing ejecutivo. El <strong>Draft del Equipo (DOCX)</strong> aporta granularidad operacional: Flex Credits por actividad, métricas más ambiciosas (500K conversaciones, ≥70% resolución autónoma), loop SFMC→WhatsApp, Einstein AI Console y 3 cláusulas adicionales de evolución de alcance. Esta versión consolida ambas.</p>
+    <div class="synth-pills">
+      <span class="pill pill-green">★ Einstein AI Console (nuevo)</span>
+      <span class="pill pill-green">★ Loop SFMC→WhatsApp (nuevo)</span>
+      <span class="pill pill-green">★ FC por actividad desglosados (nuevo)</span>
+      <span class="pill pill-green">★ 3 cláusulas adicionales (nuevo)</span>
+      <span class="pill pill-orange">⚑ Adoption: 60% vs. 70% — a validar</span>
+      <span class="pill pill-orange">⚑ Inversión: $504K vs. $544K — diferencia de alcance</span>
+      <span class="pill pill-blue">✓ Objetivo, hitos 30/60/90 y triggers — alineados</span>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="two-col">
+
+  <div class="col-main">
+
+    <!-- S1 OBJETIVO -->
+    <div class="card s1">
+      <div class="card-header"><div class="num">1</div><h2>Objetivo de Negocio — Perspectiva del Economic Buyer</h2></div>
+      <div class="card-body">
+        <div class="objetivo-box">
+          Falabella opera la plataforma Salesforce más amplia de retail omnicanal en LATAM, pero enfrenta un gap crítico: la infraestructura digital está activa sin generar el retorno que el board exige — <strong>$2.5M USD se pierden mensualmente</strong> entre tickets evitables, conversión sub-óptima (2.8% vs. benchmark 4–5%) y <strong>$8.8M AOV SF parcialmente activado</strong>. Este engagement convierte la plataforma existente en resultados auditables — deflexión real, cobertura digital escalable y personalización conectada al CMR — entregando el <strong>primer impacto en 30 días</strong> y payback completo antes del cierre del trimestre.
+        </div>
+        <div class="delta-note">★ Objetivo consolidado del DOCX — más preciso que v1: incluye referencia al AOV SF ($8.8M) y al gap de conversión (2.8% vs. 4–5%). Usar esta versión.</div>
+      </div>
+    </div>
+
+    <!-- S2 OUTCOMES -->
+    <div class="card s2">
+      <div class="card-header"><div class="num">2</div><h2>Alcance Definido por Outcomes — Versión Consolidada</h2></div>
+      <div class="card-body">
+        <table class="ot">
+          <thead>
+            <tr>
+              <th style="width:18%">Outcome</th>
+              <th style="width:26%">¿Cómo se ve en Falabella?</th>
+              <th style="width:20%">Productos SF</th>
+              <th style="width:20%">Métrica</th>
+              <th style="width:16%">Δ vs. v1</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="ob1">⚡ Speed to Value</span></td>
+              <td>Agente devoluciones + <strong>Einstein AI Console activo</strong> en producción ≤ 30 días</td>
+              <td>Agentforce · Service Cloud · OMS Integration</td>
+              <td>Go-Live ≤ Día 30 · ≥500 conv/sem · Console activo ≥80% sesiones</td>
+              <td class="delta-cell">★ Einstein Console agregado por equipo</td>
+            </tr>
+            <tr>
+              <td><span class="ob2">📈 Adoption Rate</span></td>
+              <td>Cobertura digital casos nivel-1 en CL·PE·CO + <strong>loop SFMC→WA operativo</strong></td>
+              <td>Agentforce · Agent Builder · Einstein AI Console</td>
+              <td>≥10 casos prod · ≥500K conv/mes · Resolución ≥70%</td>
+              <td class="delta-cell conflict">⚑ v1: 60% users/lic. DOCX: 500K conv/mes — métricas distintas, incluir ambas</td>
+            </tr>
+            <tr>
+              <td><span class="ob3">🔄 Consumption Growth</span></td>
+              <td>Loop SFMC→WA→Agentforce + segmentación dinámica CMR en ≥1 campaña activa</td>
+              <td>Marketing Cloud · Data Cloud · Agentforce</td>
+              <td>FC M1→M2→M3 ≥+30% · ≥1 segmento dinámico CMR · Uplift ≥10%</td>
+              <td class="delta-cell">★ Blueprint Dataprev/Brasil aplicado aquí</td>
+            </tr>
+            <tr>
+              <td><span class="ob4">🎯 Business KPI</span></td>
+              <td>Deflexión ≥30–40% · CSAT ≥4.0 · AHT -20–28% validados con CFO/CIO</td>
+              <td>Service Cloud · Einstein Next Best Action</td>
+              <td>Deflexión ≥30% (conservador) / ≥40% (target) · CSAT ≥4.0 · AHT -20%</td>
+              <td class="delta-cell conflict">⚑ v1: deflexión ≥40% / DOCX: ≥30% — recomendar rango 30–40% para SOW</td>
+            </tr>
+            <tr>
+              <td><span class="ob5">🚀 Expansion Ready</span></td>
+              <td>Einstein IA Console en producción + Unified Profile ≥500K perfiles + Roadmap AR/BR aprobado por CIO</td>
+              <td>Service Cloud Einstein · Data Cloud Unified Profile</td>
+              <td>≥70% comp. reutilizables · Roadmap AR/BR aprobado · LoI firmado</td>
+              <td class="delta-cell">★ Unified Profile 500K y expansión AR/BR añadidos por equipo</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:10px; padding:8px 12px; background:#F0F6FF; border-radius:8px; font-size:10px; color:#546E7A;">
+          <strong style="color:#032D60;">Fuera de alcance:</strong> Rediseño orquestación post-OM · Código personalizado · Migración datos históricos · Integración nativa Genesys (advisory solamente) · Banco Falabella (Fase 2) · Argentina y Brasil (trigger geo en Cláusula 4)
+        </div>
+      </div>
+    </div>
+
+    <!-- S3 HITOS -->
+    <div class="card s3">
+      <div class="card-header"><div class="num">3</div><h2>Hitos de Negocio + Flex Credits Desglosados</h2></div>
+      <div class="card-body">
+        <div class="hitos-row">
+
+          <div class="hito h1">
+            <div class="hito-head">
+              <div class="hito-day">30</div>
+              <div class="hito-label">DÍAS · Quick Win</div>
+            </div>
+            <div class="hito-body">
+              <ul>
+                <li>Agente devoluciones live (WA + web)</li>
+                <li class="new">Einstein AI Console activo ≥80% sesiones</li>
+                <li>Integración OMS–Agentforce</li>
+                <li>KPI baseline documentado</li>
+                <li>≥500 conversaciones/semana procesadas</li>
+              </ul>
+              <table class="fc-table">
+                <thead><tr><th>Actividad</th><th>FC</th></tr></thead>
+                <tbody>
+                  <tr><td>Discovery técnico + integración OMS</td><td>320</td></tr>
+                  <tr><td>Agent Builder: Topics & Actions</td><td>280</td></tr>
+                  <tr><td>Einstein AI Console — activación</td><td>160</td></tr>
+                  <tr><td>UAT + go-live supervisado</td><td>80</td></tr>
+                </tbody>
+                <tfoot><tr class="fc-total"><td>Subtotal Hito 1</td><td>840 FC · ~$168K</td></tr></tfoot>
+              </table>
+              <div class="fc-bar-bg"><div class="fc-bar fb1"></div></div>
+            </div>
+          </div>
+
+          <div class="hito h2">
+            <div class="hito-head">
+              <div class="hito-day">60</div>
+              <div class="hito-label">DÍAS · Adopción</div>
+            </div>
+            <div class="hito-body">
+              <ul>
+                <li class="new">≥10 casos Agentforce producción (desde 5)</li>
+                <li class="new">Volumen ≥500K conv/mes (desde 216K)</li>
+                <li class="new">Loop SFMC→WhatsApp operativo</li>
+                <li>Resolución autónoma ≥70% (desde 60%)</li>
+                <li>Data Cloud: Identity Resolution CMR</li>
+              </ul>
+              <table class="fc-table">
+                <thead><tr><th>Actividad</th><th>FC</th></tr></thead>
+                <tbody>
+                  <tr><td>Expansión casos Agentforce</td><td>320</td></tr>
+                  <tr><td>Loop SFMC→WhatsApp→Agentforce</td><td>360</td></tr>
+                  <tr><td>Data Cloud: Identity Resolution</td><td>280</td></tr>
+                  <tr><td>Change Management + capacitación</td><td>80</td></tr>
+                </tbody>
+                <tfoot><tr class="fc-total"><td>Subtotal Hito 2</td><td>1,040 FC · ~$208K</td></tr></tfoot>
+              </table>
+              <div class="fc-bar-bg"><div class="fc-bar fb2"></div></div>
+            </div>
+          </div>
+
+          <div class="hito h3">
+            <div class="hito-head">
+              <div class="hito-day">90</div>
+              <div class="hito-label">DÍAS · Expansión</div>
+            </div>
+            <div class="hito-body">
+              <ul>
+                <li class="new">Unified Profile ≥500K perfiles activos</li>
+                <li class="new">≥1 segmento dinámico CMR · Uplift ≥10%</li>
+                <li>Einstein Next Best Action en consola</li>
+                <li>Business KPIs validados con CFO/CIO</li>
+                <li>Roadmap AR/BR aprobado por CIO</li>
+              </ul>
+              <table class="fc-table">
+                <thead><tr><th>Actividad</th><th>FC</th></tr></thead>
+                <tbody>
+                  <tr><td>Data Cloud: Unified Profile multi-marca</td><td>240</td></tr>
+                  <tr><td>Segmentación dinámica email/push/paid</td><td>240</td></tr>
+                  <tr><td>Einstein Next Best Action</td><td>200</td></tr>
+                  <tr><td>Arquitectura escalado AR/BR + docs</td><td>160</td></tr>
+                </tbody>
+                <tfoot><tr class="fc-total"><td>Subtotal Hito 3</td><td>840 FC · ~$168K</td></tr></tfoot>
+              </table>
+              <div class="fc-bar-bg"><div class="fc-bar fb3"></div></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- S4 CRITERIOS -->
+    <div class="card s4">
+      <div class="card-header"><div class="num">4</div><h2>Criterios de Éxito Medibles por Hito</h2></div>
+      <div class="card-body">
+        <div class="crit-block">
+          <div class="crit-title"><div class="c-dot cd1"></div> Día 30 — Quick Win</div>
+          <ul>
+            <li>Agente devoluciones resuelve ≥500 conversaciones/semana sin escalada</li>
+            <li class="new">Einstein AI Console activo en ≥80% de sesiones de agente (añadido por equipo)</li>
+            <li>Tiempo de implementación ≤30 días calendario desde kick-off</li>
+            <li>KPI baseline (deflexión · CSAT · AHT) documentado y aprobado por Champion</li>
+          </ul>
+        </div>
+        <div class="crit-block">
+          <div class="crit-title"><div class="c-dot cd2"></div> Día 60 — Adopción Base</div>
+          <ul>
+            <li class="new">≥10 casos Agentforce en producción (desde 5 actuales)</li>
+            <li class="new">Volumen conversaciones ≥500K/mes (desde 216K baseline)</li>
+            <li class="new">Loop SFMC→WhatsApp procesando ≥1 campaña activa</li>
+            <li>Tasa de resolución autónoma ≥70% (desde 60% baseline)</li>
+          </ul>
+        </div>
+        <div class="crit-block">
+          <div class="crit-title"><div class="c-dot cd3"></div> Día 90 — Expansión</div>
+          <ul>
+            <li class="new">≥1 segmento dinámico CMR activo con uplift ≥10% vs. segmentación estática</li>
+            <li class="new">Unified Profile operativo para ≥500K perfiles</li>
+            <li>Business KPIs presentados al Economic Buyer (CIO Leonardo Di Nucci)</li>
+            <li class="new">Roadmap expansión AR/BR aprobado por CIO</li>
+            <li>Letter of Intent o Change Order para siguiente engagement firmado</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- COL SIDE -->
+  <div class="col-side">
+
+    <!-- INVERSIÓN -->
+    <div class="card s6">
+      <div class="card-header"><div class="num">$</div><h2>Inversión Consolidada</h2></div>
+      <div class="card-body">
+        <div class="inv-row"><span class="inv-label">Modelo</span><span class="inv-val">T&amp;M</span></div>
+        <div class="inv-row"><span class="inv-label">Duración</span><span class="inv-val">90 días</span></div>
+        <div class="inv-row"><span class="inv-label">Total Flex Credits</span><span class="inv-val">2,720 FC</span></div>
+        <div class="inv-row"><span class="inv-label">Inversión PS estimada</span><span class="inv-val hl">~$544K USD</span></div>
+        <div class="inv-row"><span class="inv-label">T&amp;E</span><span class="inv-val" style="font-size:11px;color:#78909C;">Aprob. previa escrita</span></div>
+        <div class="inv-row"><span class="inv-label">Validez</span><span class="inv-val" style="font-size:11px;">30 días</span></div>
+        <div class="inv-row" style="border:0;"><span class="inv-label">Entry point rec.</span><span class="inv-val" style="font-size:11px;color:#0070D2;">Discovery $50–80K</span></div>
+        <div class="roi-grid">
+          <div class="roi-item"><div class="rv">&lt;4m</div><div class="rl">Payback</div></div>
+          <div class="roi-item new-item"><div class="rv">$84.8M</div><div class="rl">ROI 3 años (DOCX)</div></div>
+          <div class="roi-item"><div class="rv">$36M</div><div class="rl">ROI Año 1</div></div>
+          <div class="roi-item"><div class="rv">$215</div><div class="rl">Por $1 invertido</div></div>
+        </div>
+        <div class="warn-box">⚠ <strong>Procurement Chile:</strong> Total $544K supera umbral $500K → RFP formal requerido. Estrategia: estructurar Hito 1 ($168K) como engagement independiente para velocidad de entrada.</div>
+        <div class="conflict-box">⚑ <strong>Conflicto de versiones:</strong> v1 estimó $504K (2,520 FC) · DOCX estimó $544K (2,720 FC). Diferencia = +$40K por Einstein AI Console (Hito 1) y loop SFMC→WA (Hito 2). <strong>Usar $544K como base</strong> — incluye el alcance completo.</div>
+      </div>
+    </div>
+
+    <!-- S5 CLÁUSULA -->
+    <div class="card s5">
+      <div class="card-header"><div class="num">5</div><h2>Cláusula de Evolución de Alcance</h2></div>
+      <div class="card-body">
+        <p style="font-size:10.5px;color:#546E7A;margin-bottom:12px;font-style:italic;line-height:1.5;">Este engagement crece con los resultados. Las siguientes condiciones activan la expansión:</p>
+
+        <div class="trigger-item">
+          <div class="ti ti1">📊</div>
+          <div class="trigger-text">
+            <strong>4.1 Activación Automática de Expansión</strong>
+            <span>Si al Día 60 el volumen Agentforce supera 750K/mes o deflexión ≥40%, se activa Fase 2 (Banco Falabella + AR/BR) sin nuevo proceso de compra. <span class="new-tag">★ DOCX</span></span>
+          </div>
+        </div>
+
+        <div class="trigger-item">
+          <div class="ti ti2">🔄</div>
+          <div class="trigger-text">
+            <strong>4.2 Flex Credits No Consumidos</strong>
+            <span>FC no utilizados en un hito son transferibles al siguiente o aplicables a nuevos casos de uso en Sodimac · Tottus · Banco Falabella sin expiración (período 12 meses). <span class="new-tag">★ DOCX</span></span>
+          </div>
+        </div>
+
+        <div class="trigger-item">
+          <div class="ti ti4">📋</div>
+          <div class="trigger-text">
+            <strong>4.3 Business Review Mensual</strong>
+            <span>Salesforce PS realizará revisión ejecutiva mensual con el Economic Buyer (CIO Di Nucci) para revisar KPIs y presentar oportunidades de expansión con datos reales — no estimaciones. <span class="new-tag">★ DOCX</span></span>
+          </div>
+        </div>
+
+        <div class="trigger-item">
+          <div class="ti ti3">🛡️</div>
+          <div class="trigger-text">
+            <strong>4.4 Protección Umbral de Compra</strong>
+            <span>Hitos estructurados como engagements independientes por debajo de $500K para permitir velocidad de ejecución antes de intervención formal de Procurement Chile. <span class="new-tag">★ DOCX</span></span>
+          </div>
+        </div>
+
+        <div class="trigger-item">
+          <div class="ti ti5">⚠</div>
+          <div class="trigger-text">
+            <strong>4.5 Principio General</strong>
+            <span>Cualquier ampliación no contemplada requiere <strong>Change Order formal firmado por ambas partes</strong> antes de su ejecución.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="sow-footer">
+  <div class="sf-stat"><div class="v">2,720 FC</div><div class="l">FLEX CREDITS TOTALES</div></div>
+  <div class="sf-div"></div>
+  <div class="sf-stat"><div class="v">$544K</div><div class="l">INVERSIÓN PS</div></div>
+  <div class="sf-div"></div>
+  <div class="sf-stat"><div class="v">$84.8M</div><div class="l">ROI 3 AÑOS</div></div>
+  <div class="sf-div"></div>
+  <div class="sf-stat"><div class="v">30d</div><div class="l">PRIMER GO-LIVE</div></div>
+  <div class="sf-div"></div>
+  <div class="sf-quote">
+    "No le pedimos que confíe en un proyecto de tecnología.<br>
+    Le mostramos <strong>tres fechas, tres números y una curva que sube</strong>.<br>
+    Si en el Día 90 los KPIs no están — no tiene sentido continuar. Y si están, el siguiente paso se paga solo."
+  </div>
+</div>
+
+</body>
+</html>

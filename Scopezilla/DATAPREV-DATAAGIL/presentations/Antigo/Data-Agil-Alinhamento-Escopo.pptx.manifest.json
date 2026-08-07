@@ -1,0 +1,201 @@
+{
+  "source": "/Users/nfilho/claude/Scopezilla/DATAPREV-DATAAGIL/presentations/data-agil-story-deck.html",
+  "assets": "/Users/nfilho/.claude/skills/slide-authoring-story-decks/components/assets",
+  "slides": [
+    {
+      "index": 0,
+      "component": "cover",
+      "kind": "light",
+      "status": "built-from-library",
+      "provenance": {
+        "template": "Salesforce Corporate Template 2026 (1).pptx",
+        "slide": 18,
+        "preset": "vivid Evening gradient; left-centred eyebrow+title+sub; bottom-left byline; right-side art lockup (3 variants)",
+        "discovered": "2026-06-27",
+        "notes": "Cover, 3 variants (slides 18/19/20: cloud-only / Astro / Agent-Astro) sharing one text layout. Background painted by deck.new_slide('dark'). Art is PNG-SHAPE: cloud/astro/agent-astro placed verbatim via deck.pic, concave cloud NOT redrawn. Byline is HTML-ish (<b>Name</b><br>Title<br>Contact), parsed line-by-line."
+      }
+    },
+    {
+      "index": 1,
+      "component": "stat-band",
+      "kind": "light",
+      "status": "built-from-library",
+      "provenance": {
+        "template": "Corporate Template 2026",
+        "slide": null,
+        "preset": "3-5 white stat cards, accent underline",
+        "discovered": "2026-06-19",
+        "notes": "FSC FCD style"
+      }
+    },
+    {
+      "index": 2,
+      "component": "icon-cards",
+      "kind": "light",
+      "status": "built-from-library",
+      "provenance": {
+        "template": "custom (Story Decks) \u2014 recurring 'N specialized agents' layout",
+        "slide": null,
+        "preset": "N white rounded cards (radius 22), each: accent top-bar (4px), centered product/concept icon, display heading, centered sub-line (may bold a phrase in accent); optional gradient punch bar (eb50->eb30) at the bottom",
+        "discovered": "2026-07-02",
+        "notes": "Registered after a real deck's custom card-with-icon slides fell back to generic text on export (icons dropped, cards flattened). `sub` accepts a plain string OR a list of [text, bold] pairs to tint a key phrase. 2-3 cards use larger type/icon; 4-5 scale down. Light theme."
+      }
+    },
+    {
+      "index": 3,
+      "component": "icon-cards",
+      "kind": "light",
+      "status": "built-from-library",
+      "provenance": {
+        "template": "custom (Story Decks) \u2014 recurring 'N specialized agents' layout",
+        "slide": null,
+        "preset": "N white rounded cards (radius 22), each: accent top-bar (4px), centered product/concept icon, display heading, centered sub-line (may bold a phrase in accent); optional gradient punch bar (eb50->eb30) at the bottom",
+        "discovered": "2026-07-02",
+        "notes": "Registered after a real deck's custom card-with-icon slides fell back to generic text on export (icons dropped, cards flattened). `sub` accepts a plain string OR a list of [text, bold] pairs to tint a key phrase. 2-3 cards use larger type/icon; 4-5 scale down. Light theme."
+      }
+    },
+    {
+      "index": 4,
+      "component": "numbered-cards",
+      "kind": "light",
+      "status": "built-from-library",
+      "provenance": {
+        "template": "Salesforce Corporate Template 2026 (1).pptx",
+        "slide": 42,
+        "preset": "4 white roundRect cards (radius 24) in an even grid; navy OVAL number badge (eb30 fill, white numeral) overhanging each card top by half its height; Astro PNG anchored bottom-right BEHIND the row (z-index:1)",
+        "discovered": "2026-06-27",
+        "notes": "REVERSE-ENGINEERED from slide 42 ('Numbered cards \u2014 badge on card'). Cards/badges/title/body are native editable shapes; Astro is the verbatim PNG placed FIRST so the cards layer over it. Designed 4-up; cw auto-divides to support 2/3 cards. Astro optional + graceful-skip."
+      }
+    },
+    {
+      "index": 5,
+      "component": "cards",
+      "kind": "light",
+      "status": "built-from-library",
+      "provenance": {
+        "template": "Salesforce Corporate Template 2026 (1).pptx",
+        "slide": 33,
+        "preset": "2/3/4/5-up white rounded content cards (radius 26px); display heading + body paras; soft=cloud95 card on 2-up",
+        "discovered": "2026-06-27",
+        "notes": "Reverse-engineered from slides 33 (two-up), 35 (three-up), 36 (four-up), 39 (five-up). `count` sets grid columns (defaults to len(cards)); type auto-scales down at 4/5-up (24->21px heading, 19->17px body). Light theme (Cloud Blue 95). Logo via _common.logo (asset supplied at export time)."
+      }
+    },
+    {
+      "index": 6,
+      "component": "usecase-icon-grid",
+      "kind": "light",
+      "status": "built-from-library",
+      "provenance": {
+        "template": "Corporate Template 2026",
+        "slide": null,
+        "preset": "N navy icon tiles + gradient punch bar",
+        "discovered": "2026-06-19",
+        "notes": "accent top-bar on flagged tiles"
+      }
+    },
+    {
+      "index": 7,
+      "component": "table-cards",
+      "kind": "light",
+      "status": "built-from-library",
+      "provenance": {
+        "template": "Salesforce Corporate Template 2026 (1).pptx",
+        "slide": 73,
+        "preset": "2 white roundRect cards (radius 26px) in a 1fr 1fr grid; each has a 999px-radius pill label (stadium, adj=0.5) overhanging the top-left edge (eb15 / eb30) and a 2x2 inner grid of header (display 600) + body copy",
+        "discovered": "2026-06-27",
+        "notes": "REVERSE-ENGINEERED from slide 73 ('Table cards - headline only'). Cards/pills/text are native editable shapes. Card A label=eb15 + ink headers; card B label=eb30 + royal headers (royal approximated by Electric Blue 50 / accent_l #066AFE, the closest brand token). Designed for exactly 2 cards x 4 blocks; pill width scales with the label text. Light theme (Morning gradient)."
+      }
+    },
+    {
+      "index": 8,
+      "component": "cards",
+      "kind": "light",
+      "status": "built-from-library",
+      "provenance": {
+        "template": "Salesforce Corporate Template 2026 (1).pptx",
+        "slide": 33,
+        "preset": "2/3/4/5-up white rounded content cards (radius 26px); display heading + body paras; soft=cloud95 card on 2-up",
+        "discovered": "2026-06-27",
+        "notes": "Reverse-engineered from slides 33 (two-up), 35 (three-up), 36 (four-up), 39 (five-up). `count` sets grid columns (defaults to len(cards)); type auto-scales down at 4/5-up (24->21px heading, 19->17px body). Light theme (Cloud Blue 95). Logo via _common.logo (asset supplied at export time)."
+      }
+    },
+    {
+      "index": 9,
+      "component": "timeline-quarters",
+      "kind": "light",
+      "status": "built-from-library",
+      "provenance": {
+        "template": "Salesforce Corporate Template 2026 (1).pptx",
+        "slide": 69,
+        "preset": "roundRect adj=50000 x4 overlapping stadium pills (cloud68->eb50->eb30->eb15); prstDash=dot leaders; alternating above/below free-text callouts on a white container card",
+        "discovered": "2026-06-27",
+        "notes": "REVERSE-ENGINEERED from slide 69; builder generalizes 4 Q-pills to N (<=4 fixed ramp). Aligned to the snippet prop contract: segments are plain label strings, callouts carry side/left%/h4/p, plus title/subtitle/footer. Dot-dash leader (eb50) is the PPTX twin of the snippet's 5-round-dot radial-gradient leader."
+      }
+    },
+    {
+      "index": 10,
+      "component": "data-table",
+      "kind": "light",
+      "status": "builder-error: list index out of range",
+      "provenance": {
+        "template": "Salesforce Presentation Slide Library.pptx",
+        "slide": 29,
+        "preset": "NATIVE editable table (<a:tbl>): 2-level header (white 'Segment' stub merged down + navy #032D60 category bands + royal #0B5CAB subcategory bands); per-segment main value row + parenthetical sub row; Total pair tinted #EAF4FE; title 2 lines; notes footer",
+        "discovered": "2026-07-06",
+        "notes": "Real PowerPoint table via slide.shapes.add_table with header cell merges (category colspan, stub/segment rowspan). Default banded table style stripped so brand fills show. Geometry from the source tbl (x61 y210, cols [300,143\u00d76]). Light theme."
+      }
+    },
+    {
+      "index": 11,
+      "component": "cards",
+      "kind": "light",
+      "status": "built-from-library",
+      "provenance": {
+        "template": "Salesforce Corporate Template 2026 (1).pptx",
+        "slide": 33,
+        "preset": "2/3/4/5-up white rounded content cards (radius 26px); display heading + body paras; soft=cloud95 card on 2-up",
+        "discovered": "2026-06-27",
+        "notes": "Reverse-engineered from slides 33 (two-up), 35 (three-up), 36 (four-up), 39 (five-up). `count` sets grid columns (defaults to len(cards)); type auto-scales down at 4/5-up (24->21px heading, 19->17px body). Light theme (Cloud Blue 95). Logo via _common.logo (asset supplied at export time)."
+      }
+    },
+    {
+      "index": 12,
+      "component": "cards",
+      "kind": "light",
+      "status": "built-from-library",
+      "provenance": {
+        "template": "Salesforce Corporate Template 2026 (1).pptx",
+        "slide": 33,
+        "preset": "2/3/4/5-up white rounded content cards (radius 26px); display heading + body paras; soft=cloud95 card on 2-up",
+        "discovered": "2026-06-27",
+        "notes": "Reverse-engineered from slides 33 (two-up), 35 (three-up), 36 (four-up), 39 (five-up). `count` sets grid columns (defaults to len(cards)); type auto-scales down at 4/5-up (24->21px heading, 19->17px body). Light theme (Cloud Blue 95). Logo via _common.logo (asset supplied at export time)."
+      }
+    },
+    {
+      "index": 13,
+      "component": "cards",
+      "kind": "light",
+      "status": "built-from-library",
+      "provenance": {
+        "template": "Salesforce Corporate Template 2026 (1).pptx",
+        "slide": 33,
+        "preset": "2/3/4/5-up white rounded content cards (radius 26px); display heading + body paras; soft=cloud95 card on 2-up",
+        "discovered": "2026-06-27",
+        "notes": "Reverse-engineered from slides 33 (two-up), 35 (three-up), 36 (four-up), 39 (five-up). `count` sets grid columns (defaults to len(cards)); type auto-scales down at 4/5-up (24->21px heading, 19->17px body). Light theme (Cloud Blue 95). Logo via _common.logo (asset supplied at export time)."
+      }
+    },
+    {
+      "index": 14,
+      "component": "next-steps",
+      "kind": "light",
+      "status": "built-from-library",
+      "provenance": {
+        "template": "Salesforce Corporate Template 2026 (1).pptx",
+        "slide": 44,
+        "preset": "N numbered rows; oval number badge (cloud68) overlapping a right-rounded translucent-white roundRect bar (title + detail)",
+        "discovered": "2026-06-27",
+        "notes": "REVERSE-ENGINEERED from slide 44 ('Reflections / Next steps'). Bar margin-left:-42px tucks under the 84px badge; bar is white@55% alpha approximated as solid white over the light gradient. Rows are native editable shapes; only the Salesforce wordmark is a PNG (via logo()). Stack stays vertically centred for 2-5 rows; number = 1-based index, auto-rendered."
+      }
+    }
+  ]
+}

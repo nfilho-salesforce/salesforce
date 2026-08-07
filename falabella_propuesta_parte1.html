@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Falabella — Propuesta Ejecutiva PS LATAM · Completo</title>
+<style>
+:root{
+  --dark:#032D60;--blue:#0070D2;--teal:#00A1E0;--green:#2E844A;
+  --orange:#E65000;--yellow:#FFC849;--red:#C23B22;--gray:#706E6B;
+  --lgray:#F3F3F3;--purple:#6B37BF;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:14px;color:#1a1a1a;background:#f0f2f5;}
+
+/* NAV */
+.topnav{position:sticky;top:0;z-index:100;background:var(--dark);
+  display:flex;align-items:center;padding:0 28px;height:50px;
+  box-shadow:0 2px 12px rgba(0,0,0,.3);}
+.topnav .brand{color:#fff;font-size:12px;font-weight:800;
+  padding-right:22px;border-right:1px solid rgba(255,255,255,.15);margin-right:16px;white-space:nowrap;}
+.topnav a{color:rgba(255,255,255,.5);font-size:11px;text-decoration:none;
+  padding:0 11px;height:50px;display:flex;align-items:center;
+  border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;}
+.topnav a:hover{color:#fff;border-bottom-color:var(--teal);}
+.topnav .urgent{margin-left:auto;background:var(--red);color:#fff;
+  font-size:10px;font-weight:800;padding:3px 12px;border-radius:20px;white-space:nowrap;}
+
+/* HERO */
+.hero{background:linear-gradient(130deg,var(--dark) 0%,#0a3f7a 50%,#0d5e7a 100%);
+  padding:52px 56px 44px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;right:-80px;top:-80px;width:360px;height:360px;
+  border-radius:50%;background:rgba(255,255,255,.03);}
+.hero .eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:2px;
+  color:rgba(255,255,255,.45);font-weight:700;margin-bottom:10px;}
+.hero h1{font-size:36px;font-weight:900;color:#fff;line-height:1.1;margin-bottom:8px;}
+.hero h1 span{color:var(--yellow);}
+.hero .sub{font-size:14px;color:rgba(255,255,255,.7);margin-bottom:10px;
+  line-height:1.7;max-width:780px;font-style:italic;
+  border-left:4px solid var(--yellow);padding-left:16px;}
+.hero .rubrica{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 28px;}
+.rb{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
+  border-radius:6px;padding:5px 13px;font-size:11px;font-weight:600;color:rgba(255,255,255,.8);}
+.rb span{color:var(--yellow);margin-left:4px;}
+.hero-kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;max-width:920px;}
+.hk{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);
+  border-radius:10px;padding:14px 16px;text-align:center;}
+.hk .v{font-size:22px;font-weight:900;color:#fff;line-height:1;}
+.hk .l{font-size:10px;color:rgba(255,255,255,.5);margin-top:4px;text-transform:uppercase;letter-spacing:.4px;}
+
+/* LAYOUT */
+.page{max-width:1280px;margin:0 auto;padding:32px 36px 80px;}
+.anchor{display:block;position:relative;top:-66px;visibility:hidden;}
+
+/* SECTION HEADER */
+.sh{display:flex;align-items:center;gap:14px;margin-bottom:20px;
+  padding-bottom:12px;border-bottom:2px solid #dde3ec;}
+.sn{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-size:14px;font-weight:800;color:#fff;flex-shrink:0;}
+.sh h2{font-size:21px;color:var(--dark);font-weight:800;}
+.sh .ss{font-size:11px;color:var(--gray);margin-top:2px;}
+.section{padding-top:38px;}
+
+/* CARD */
+.card{background:#fff;border-radius:12px;padding:22px 26px;
+  box-shadow:0 2px 12px rgba(0,0,0,.06);margin-bottom:18px;border:1px solid #e4eaf2;}
+.card-title{font-size:13px;font-weight:800;color:var(--dark);margin-bottom:14px;}
+
+/* GRID */
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:18px;}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-bottom:18px;}
+.g2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:18px;}
+.sbox{background:#fff;border-radius:10px;padding:16px 18px;text-align:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);border:1px solid #e4eaf2;border-top:4px solid;}
+.sbox .sv{font-size:26px;font-weight:900;line-height:1;}
+.sbox .sl{font-size:11px;color:var(--gray);margin-top:4px;}
+.sbox .ss2{font-size:10px;color:var(--gray);margin-top:2px;opacity:.7;}
+
+/* TABLE */
+.tw{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+th{background:var(--dark);color:#fff;padding:9px 13px;text-align:left;
+  font-size:10px;text-transform:uppercase;letter-spacing:.5px;font-weight:700;}
+th.c{text-align:center;}
+td{padding:9px 13px;border-bottom:1px solid #e8edf2;vertical-align:middle;}
+tr:nth-child(even) td{background:#f7f9fc;}
+tr:hover td{background:#edf3fb;}
+.tc{text-align:center;}
+.tb{font-weight:700;}
+.tblue{color:var(--blue);font-weight:700;}
+.tgreen{color:var(--green);font-weight:700;}
+.torange{color:var(--orange);font-weight:700;}
+.tteal{color:var(--teal);font-weight:700;}
+.tred{color:var(--red);font-weight:700;}
+.tpurple{color:var(--purple);font-weight:700;}
+.ttot td{background:var(--dark)!important;color:#fff!important;font-weight:800;}
+.ttot td span{color:var(--yellow);}
+.pill{display:inline-block;padding:2px 9px;border-radius:20px;font-size:10px;font-weight:700;text-transform:uppercase;}
+
+/* ALERT */
+.alert{display:flex;gap:10px;align-items:flex-start;border-radius:8px;
+  padding:12px 15px;margin-bottom:14px;font-size:13px;line-height:1.6;}
+.alert.warn{background:#FFF8E6;border-left:4px solid var(--yellow);}
+.alert.info{background:#E8F4FD;border-left:4px solid var(--blue);}
+.alert.success{background:#E6F5EC;border-left:4px solid var(--green);}
+.alert.danger{background:#FDECEA;border-left:4px solid var(--red);}
+.ai{font-size:16px;flex-shrink:0;margin-top:1px;}
+
+/* QUOTE */
+.quote{background:linear-gradient(135deg,var(--dark),#0a4a8c);
+  border-left:5px solid var(--yellow);border-radius:0 10px 10px 0;
+  padding:18px 22px;margin:14px 0;}
+.quote .ql{font-size:9px;text-transform:uppercase;letter-spacing:1.5px;
+  color:rgba(255,200,73,.6);font-weight:700;margin-bottom:7px;}
+.quote p{font-size:14px;color:rgba(255,255,255,.9);line-height:1.7;font-style:italic;}
+.quote p strong{color:var(--yellow);font-style:normal;}
+
+/* POINT CARD */
+.points{display:grid;grid-template-columns:repeat(2,1fr);gap:13px;margin-bottom:18px;}
+.pc{background:var(--lgray);border-radius:8px;padding:15px 17px;border-left:4px solid;}
+.pc .pt{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;margin-bottom:5px;}
+.pc p{font-size:12px;line-height:1.6;color:#333;}
+.pc-dark{border-left-color:var(--dark)}.pc-dark .pt{color:var(--dark);}
+.pc-blue{border-left-color:var(--blue)}.pc-blue .pt{color:var(--blue);}
+.pc-orange{border-left-color:var(--orange)}.pc-orange .pt{color:var(--orange);}
+.pc-red{border-left-color:var(--red)}.pc-red .pt{color:var(--red);}
+.pc-green{border-left-color:var(--green)}.pc-green .pt{color:var(--green);}
+.pc-teal{border-left-color:var(--teal)}.pc-teal .pt{color:var(--teal);}
+
+/* BAR CHART */
+.cap-row{display:flex;align-items:center;gap:0;margin-bottom:9px;}
+.cap-label{width:220px;font-size:12px;font-weight:600;color:var(--dark);flex-shrink:0;}
+.cap-bar-wrap{flex:1;height:24px;background:#e8edf2;border-radius:4px;overflow:hidden;margin:0 10px;}
+.cap-bar{height:100%;border-radius:4px;display:flex;align-items:center;
+  padding-left:8px;font-size:10px;font-weight:700;color:#fff;white-space:nowrap;}
+.cap-val{width:56px;font-size:12px;font-weight:800;text-align:right;flex-shrink:0;}
+.cap-pct{width:36px;font-size:10px;color:var(--gray);text-align:right;flex-shrink:0;}
+
+/* KPI ROW */
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:11px;margin-bottom:18px;}
+.kbox{border-radius:10px;padding:14px 16px;text-align:center;border:1px solid #e4eaf2;}
+.kbox .kv{font-size:20px;font-weight:900;line-height:1;margin-bottom:3px;}
+.kbox .kl{font-size:10px;color:var(--gray);line-height:1.4;}
+.kb-blue{background:#E8F4FD}.kb-blue .kv{color:var(--blue);}
+.kb-green{background:#E8F5EC}.kb-green .kv{color:var(--green);}
+.kb-orange{background:#FFF3E0}.kb-orange .kv{color:var(--orange);}
+.kb-red{background:#FDECEA}.kb-red .kv{color:var(--red);}
+.kb-dark{background:#EEF2F8}.kb-dark .kv{color:var(--dark);}
+.kb-yellow{background:#FFF8E6}.kb-yellow .kv{color:#9a6000;}
+.kb-teal{background:#E0F7FA}.kb-teal .kv{color:var(--teal);}
+
+/* H BLOCK */
+.h-block{background:#fff;border-radius:14px;overflow:hidden;
+  box-shadow:0 2px 14px rgba(0,0,0,.07);margin-bottom:24px;border:1px solid #e4eaf2;}
+.h-head{padding:16px 24px;display:flex;align-items:center;justify-content:space-between;}
+.h-head-left{display:flex;align-items:center;gap:14px;}
+.h-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;
+  justify-content:center;font-size:20px;flex-shrink:0;background:rgba(255,255,255,.15);}
+.h-head h3{font-size:17px;font-weight:800;color:#fff;}
+.h-head .hs{font-size:11px;color:rgba(255,255,255,.7);margin-top:2px;}
+.h-badges{display:flex;gap:8px;}
+.hbadge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);
+  border-radius:7px;padding:7px 14px;text-align:center;color:#fff;}
+.hbadge .bv{font-size:16px;font-weight:900;}
+.hbadge .bl{font-size:9px;color:rgba(255,255,255,.65);margin-top:1px;}
+.h-body{padding:18px 24px;}
+
+/* PHASE STRIPE */
+.ps-stripe{display:flex;gap:0;margin-bottom:14px;border-radius:7px;overflow:hidden;}
+.ps-bl{flex:1;padding:9px 12px;text-align:center;}
+.ps-bl .pst{font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:rgba(255,255,255,.6);font-weight:700;}
+.ps-bl .psv{font-size:14px;font-weight:800;color:#fff;margin-top:1px;}
+
+/* SECTION DIVIDER */
+.sdiv{text-align:center;margin:32px 0 24px;position:relative;}
+.sdiv::before{content:'';position:absolute;top:50%;left:0;right:0;height:1px;background:#dde3ec;}
+.sdiv span{background:#f0f2f5;padding:0 16px;font-size:11px;font-weight:700;
+  color:var(--gray);text-transform:uppercase;letter-spacing:1px;position:relative;}
+
+/* FOOTER */
+.footer{background:var(--dark);color:rgba(255,255,255,.45);
+  padding:20px 56px;font-size:11px;display:flex;justify-content:space-between;align-items:center;}
+
+/* OUTCOME TABLE */
+.oc-table{width:100%;border-collapse:collapse;}
+.oc-table thead tr th{padding:11px 14px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-align:left;}
+.oc-table tbody tr{border-bottom:1px solid #EEF2F6;}
+.oc-table tbody tr:hover{background:#F7FAFF;}
+.oc-table tbody td{padding:16px 14px;vertical-align:top;}
+.oc-label{display:flex;align-items:flex-start;gap:10px;}
+.oc-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.oc-text strong{display:block;font-size:12px;font-weight:700;margin-bottom:2px;}
+.oc-text span{font-size:10px;color:var(--gray);line-height:1.4;}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px;}
+.chip{font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;border:1px solid;}
+.c-blue{background:#E8F4FD;color:var(--blue);border-color:#b3d4f5;}
+.c-orange{background:#FFF3E0;color:#bf5000;border-color:#ffd194;}
+.c-teal{background:#E0F7FA;color:#006064;border-color:#80DEEA;}
+.c-purple{background:#F3E5F5;color:#6A1B9A;border-color:#CE93D8;}
+.c-green{background:#E8F5EE;color:#1B5E35;border-color:#9fd4b5;}
+.oc-ps ul{list-style:none;}
+.oc-ps ul li{font-size:11px;color:#1A237E;padding:2px 0 2px 13px;position:relative;line-height:1.45;}
+.oc-ps ul li::before{content:'▸';position:absolute;left:0;font-size:9px;top:4px;}
+/* TIMELINE */
+.tl-wrap{display:flex;gap:0;margin:24px 0;position:relative;}
+.tl-wrap::before{content:'';position:absolute;top:26px;left:28px;right:28px;height:3px;background:linear-gradient(90deg,var(--blue),var(--orange),var(--green));z-index:0;}
+.tl-phase{flex:1;display:flex;flex-direction:column;align-items:center;position:relative;z-index:1;padding:0 8px;}
+.tl-dot{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;margin-bottom:10px;border:3px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.15);flex-shrink:0;}
+.tl-body{background:#fff;border-radius:10px;padding:14px 15px;border:1px solid #e4eaf2;width:100%;box-shadow:0 1px 6px rgba(0,0,0,.05);}
+.tl-body .ph-label{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;}
+.tl-body .ph-dias{font-size:17px;font-weight:900;line-height:1;margin-bottom:5px;}
+.tl-body .ph-title{font-size:11px;font-weight:800;color:var(--dark);margin-bottom:7px;}
+.tl-body ul{list-style:none;}
+.tl-body ul li{font-size:11px;color:#444;padding:2px 0 2px 13px;border-bottom:1px solid #f0f3f7;line-height:1.4;position:relative;}
+.tl-body ul li:last-child{border-bottom:none;}
+.tl-body ul li::before{content:'→';position:absolute;left:0;font-size:10px;font-weight:700;}
+.tl-body .ph-fc{margin-top:9px;background:var(--lgray);border-radius:5px;padding:5px 9px;font-size:11px;font-weight:700;color:var(--dark);text-align:center;}
+.tl-arrow{display:flex;align-items:flex-start;padding-top:25px;color:#b0bac8;font-size:18px;flex-shrink:0;}
+.tl-body .cfo{margin-top:8px;background:#f5f7f8;border-left:3px solid;border-radius:0 6px 6px 0;padding:7px 10px;}
+.tl-body .cfo p{font-size:10px;color:#455A64;font-style:italic;line-height:1.5;}
+/* FLEX FLOW */
+.flex-flow{display:flex;gap:10px;margin:16px 0;align-items:stretch;}
+.ff-card{background:#fff;border:1px solid #e4eaf2;border-radius:10px;padding:14px 16px;flex:1;text-align:center;box-shadow:0 1px 6px rgba(0,0,0,.05);}
+.ff-card .ffe{font-size:22px;margin-bottom:5px;}
+.ff-card .fft{font-size:11px;font-weight:800;color:var(--dark);margin-bottom:3px;}
+.ff-card .ffd{font-size:10px;color:var(--gray);line-height:1.4;}
+.ff-arrow{display:flex;align-items:center;color:#b0bac8;font-size:20px;flex-shrink:0;}
+/* SCORE CARD */
+.score-card{background:linear-gradient(135deg,var(--dark),#0a4a8c);border-radius:14px;padding:28px 32px;margin-bottom:22px;}
+.score-card h3{font-size:18px;font-weight:900;color:#fff;margin-bottom:20px;}
+.score-row{display:flex;align-items:center;gap:12px;margin-bottom:12px;background:rgba(255,255,255,.07);border-radius:8px;padding:10px 14px;}
+.score-icon{font-size:18px;flex-shrink:0;}
+.score-label{flex:1;font-size:13px;color:rgba(255,255,255,.85);font-weight:600;}
+.score-bar-wrap{width:140px;height:8px;background:rgba(255,255,255,.15);border-radius:4px;overflow:hidden;}
+.score-bar-fill{height:100%;border-radius:4px;}
+.score-pts{font-size:14px;font-weight:900;color:var(--yellow);width:44px;text-align:right;flex-shrink:0;}
+.score-check{font-size:16px;flex-shrink:0;}
+.score-total{background:rgba(255,200,73,.15);border:1px solid rgba(255,200,73,.3);border-radius:8px;padding:14px 18px;margin-top:16px;display:flex;align-items:center;justify-content:space-between;}
+.score-total .st-label{font-size:13px;color:rgba(255,255,255,.7);}
+.score-total .st-pts{font-size:28px;font-weight:900;color:var(--yellow);}
+/* NEXT STEPS */
+.ns-row{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:18px;}
+.ns-card{background:#fff;border-radius:10px;padding:14px 16px;border-top:3px solid;box-shadow:0 1px 6px rgba(0,0,0,.05);}
+.ns-card .ns-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;margin-bottom:6px;}
+.ns-card p{font-size:11.5px;color:#444;line-height:1.55;}
+/* ARTIFACTS */
+.art-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px;}
+.art-card{background:var(--lgray);border-radius:8px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;}
+.art-icon{font-size:18px;flex-shrink:0;}
+.art-info .at{font-size:11px;font-weight:700;color:var(--dark);}
+.art-info .ad{font-size:10px;color:var(--gray);margin-top:2px;line-height:1.4;}
+@media(max-width:860px){
+  .topnav a{display:none;}
+  .hero-kpis,.g4,.g3,.g2,.points,.ns-row,.art-row{grid-template-columns:1fr;}
+  .h-head{flex-direction:column;gap:12px;align-items:flex-start;}
+  .tl-wrap{flex-direction:column;}
+  .tl-wrap::before{display:none;}
+  .flex-flow{flex-direction:column;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="topnav">
+  <div class="brand">Falabella · Propuesta Ejecutiva</div>
+  <a href="#s1">Diagnóstico</a>
+  <a href="#s2">¿Por qué PS?</a>
+  <a href="#s3">Business Case</a>
+  <a href="#s4">Casos de Uso</a>
+  <a href="#s5">Outcomes</a>
+  <a href="#s6">Roadmap</a>
+  <a href="#s7">Flex</a>
+  <a href="#s8">ROM</a>
+  <a href="#s9">Cierre</a>
+  <span class="urgent">⚠ ARI $1.87M · 15 Jun</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="eyebrow">Salesforce Professional Services · LATAM · Bootcamp FY27 · Junio 2026</div>
+  <h1>Programa <span>Falabella</span><br/>Propuesta Ejecutiva Defensible</h1>
+  <p class="sub">"Falabella pierde aproximadamente <strong>$2.5M USD cada mes que no actúa</strong> — no por falta de datos, sino porque la plataforma que ya compraron no está conectada entre sí."</p>
+  <div class="rubrica">
+    <span class="rb">💼 ¿Por qué PS?<span>25 pts</span></span>
+    <span class="rb">📊 Business Case ROI<span>25 pts</span></span>
+    <span class="rb">🎯 Outcomes medibles<span>20 pts</span></span>
+    <span class="rb">⚡ Modelo Flex<span>15 pts</span></span>
+    <span class="rb">🤖 Construida con AI<span>15 pts</span></span>
+    <span class="rb" style="background:rgba(255,200,73,.15);border-color:rgba(255,200,73,.4);">Total<span>100 pts</span></span>
+  </div>
+  <div class="hero-kpis">
+    <div class="hk"><div class="v" style="color:var(--red)">$2.5M</div><div class="l">Costo inacción/mes</div></div>
+    <div class="hk"><div class="v" style="color:var(--yellow)">$30.5M</div><div class="l">ROI año 1</div></div>
+    <div class="hk"><div class="v">$215</div><div class="l">Retorno por $1 invertido</div></div>
+    <div class="hk"><div class="v">90d</div><div class="l">Primer impacto medible</div></div>
+    <div class="hk"><div class="v" style="color:var(--teal)">$544K</div><div class="l">Inversión PS T&M</div></div>
+  </div>
+</section>
+
+<div class="page">
+
+<!-- ══════════════════════════════════════
+     S1 — DIAGNÓSTICO DEL CLIENTE
+══════════════════════════════════════ -->
+<span class="anchor" id="s1"></span>
+<div class="section">
+  <div class="sh">
+    <div class="sn" style="background:var(--dark)">01</div>
+    <div><h2>Diagnóstico del Cliente</h2>
+    <div class="ss">Módulo 1 · Briefing 360° · Mapa de stakeholders · 3 hipótesis de dolor confirmadas</div></div>
+  </div>
+
+  <div class="alert danger">
+    <span class="ai">🚨</span>
+    <div><strong>ARI URGENTE — Marketing Cloud Enterprise+:</strong> AOV en riesgo <strong>$1.87M USD</strong> · Close date: <strong>15 Jun 2026 — ESTA SEMANA</strong> · Owner: Alejandra Acuña (PS) + Alejandro Sáez (AE) · Canal: temp-latam-ari-falabella</div>
+  </div>
+
+  <!-- Perfil corporativo -->
+  <div class="card">
+    <div class="card-title">Perfil Corporativo — Grupo Falabella</div>
+    <div class="g4">
+      <div class="sbox" style="border-top-color:var(--dark)">
+        <div class="sv" style="color:var(--dark)">$5.5B+</div>
+        <div class="sl">Facturación USD LATAM</div>
+      </div>
+      <div class="sbox" style="border-top-color:var(--blue)">
+        <div class="sv" style="color:var(--blue)">36M</div>
+        <div class="sl">Clientes · 9 países</div>
+        <div class="ss2">CMR activos: +10M</div>
+      </div>
+      <div class="sbox" style="border-top-color:var(--orange)">
+        <div class="sv" style="color:var(--orange)">$900M</div>
+        <div class="sl">CAPEX 2026</div>
+        <div class="ss2">+40% vs. 2025 — tecnología e IA</div>
+      </div>
+      <div class="sbox" style="border-top-color:var(--green)">
+        <div class="sv" style="color:var(--green)">$8.8M</div>
+        <div class="sl">AOV Salesforce</div>
+        <div class="ss2">Parcialmente activado</div>
+      </div>
+    </div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Campo</th><th>Detalle</th><th>Campo</th><th>Detalle</th></tr></thead>
+        <tbody>
+          <tr><td class="tb">CEO</td><td>Gastón Bottazzini</td><td class="tb">Economic Buyer probable</td><td class="tblue">CIO Leonardo Di Nucci</td></tr>
+          <tr><td class="tb">FDE interno SF</td><td class="tgreen">Pablo de Jesús Reynoso</td><td class="tb">AE principal</td><td>Andrea Maytin — <span style="color:var(--red)">⚠ validar, cambió</span></td></tr>
+          <tr><td class="tb">Marcas core</td><td>Falabella · Sodimac · Tottus · Banco CMR · Mallplaza</td><td class="tb">Utilidades 2025</td><td>$1.485B USD (+180%)</td></tr>
+          <tr><td class="tb">E-commerce</td><td>~$900M USD LATAM</td><td class="tb">Empleados</td><td>80.000+</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Stack SF -->
+  <div class="g2">
+    <div class="card">
+      <div class="card-title">✅ Stack Salesforce en Producción</div>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Producto</th><th>Entidad</th><th class="c">Estado</th></tr></thead>
+          <tbody>
+            <tr><td>Service Cloud (CC + UE)</td><td>Falabella Tec. Corp</td><td class="tc"><span class="pill" style="background:#E6F5EC;color:var(--green)">Activo</span></td></tr>
+            <tr><td>Sales Cloud (SFA + UE)</td><td>Falabella Tec. Corp</td><td class="tc"><span class="pill" style="background:#E6F5EC;color:var(--green)">Activo</span></td></tr>
+            <tr><td><strong>Agentforce Conversations</strong></td><td>Falabella Tec. Corp</td><td class="tc"><span class="pill" style="background:#EBF5FF;color:var(--blue)">Live CL·PE·CO</span></td></tr>
+            <tr><td>Marketing Cloud Enterprise</td><td>MID 1/2/3</td><td class="tc"><span class="pill" style="background:#FDECEA;color:var(--red)">ARI activo</span></td></tr>
+            <tr><td>Data Cloud</td><td>Falabella Chile</td><td class="tc"><span class="pill" style="background:#FFF3E0;color:var(--orange)">Sobre plan</span></td></tr>
+            <tr><td>Financial Services Cloud</td><td>Seguros Falabella</td><td class="tc"><span class="pill" style="background:#E6F5EC;color:var(--green)">Activo</span></td></tr>
+            <tr><td>Tableau</td><td>Banco Falabella</td><td class="tc"><span class="pill" style="background:#E6F5EC;color:var(--green)">Activo</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="alert info" style="margin-top:12px;margin-bottom:0;">
+        <span class="ai">📊</span>
+        <div>Data Cloud: 149K estimado → <strong>169K atual</strong> — sobre plan sin activación completa. Oportunidad de monetizar.</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">⚠ Stack Legado — Gap de Activación</div>
+      <div class="points" style="margin-bottom:0;">
+        <div class="pc pc-red">
+          <div class="pt">Avaya / Genesys (CC)</div>
+          <p>WhatsApp nativo SF funciona — orquestación de colas sigue en Genesys. <strong>IA en Consola NO activa.</strong></p>
+        </div>
+        <div class="pc pc-orange">
+          <div class="pt">OMS Propio</div>
+          <p>Integración parcial con Salesforce. APIs no documentadas públicamente — confirmar en kick-off.</p>
+        </div>
+        <div class="pc pc-dark">
+          <div class="pt">CMR Fragmentado</div>
+          <p>10M perfiles activos en 5 BUs y 9 países. <strong>Sin Identity Resolution unificada.</strong> Conversión 2.8% vs. benchmark 4–5%.</p>
+        </div>
+        <div class="pc pc-blue">
+          <div class="pt">Agentforce a 60% Cap.</div>
+          <p>5 casos en producción, todos WhatsApp. Loop SFMC→WA→Agentforce <strong>no implementado.</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 Dolores -->
+  <div class="card">
+    <div class="card-title">3 Dimensiones de Dolor (Framework Módulo 1)</div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Tipo de Dolor</th><th>Evidencia Falabella</th><th>Impacto $</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="pill" style="background:#FDECEA;color:var(--red)">Dolor de Negocio</span><br/><span style="font-size:10px;color:var(--gray)">Proceso roto</span></td>
+            <td>4M tickets/año · AHT 7.5 min · stack legado Avaya/Genesys · sin vista 360° · sin integración OMS · quejas SERNAC/Indecopi</td>
+            <td class="tred">~$440K/mes en tickets evitables</td>
+          </tr>
+          <tr>
+            <td><span class="pill" style="background:#FFF3E0;color:var(--orange)">Dolor de Adopción</span><br/><span style="font-size:10px;color:var(--gray)">Compró, sin resultado</span></td>
+            <td>Agentforce a 60% capacidad · IA en Consola no activa · loop SFMC→WA→Agentforce no implementado · ARI MC activo</td>
+            <td class="torange">AOV $8.8M parcialmente activado</td>
+          </tr>
+          <tr>
+            <td><span class="pill" style="background:#E0F7FA;color:var(--teal)">Dolor de Consumo</span><br/><span style="font-size:10px;color:var(--gray)">Usa sin ROI</span></td>
+            <td>Data Cloud sobre plan sin activación · CMR 10M perfiles fragmentados · conversión 2.8% vs. benchmark 4–5% · Flex Credits subutilizados</td>
+            <td class="tteal">~$1.125M/mes e-commerce no personalizado</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Stakeholders -->
+  <div class="card">
+    <div class="card-title">Mapa de Stakeholders — Mensajes por Perfil</div>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Rol</th><th>Perfil</th><th>Mensaje clave</th><th>Táctica de entrada</th></tr></thead>
+        <tbody>
+          <tr><td class="tb">Economic Buyer<br/><span style="font-size:10px;color:var(--gray)">CFO / CIO</span></td><td class="tblue">Leonardo Di Nucci</td><td>"No es proyecto de TI — es programa de eficiencia con ROI $36M/año y payback &lt;4 meses."</td><td>Llegar con $2.5M/mes validado por champion</td></tr>
+          <tr><td class="tb">Champion<br/><span style="font-size:10px;color:var(--gray)">VP/Dir. CX Digital</span></td><td style="color:var(--gray)">A confirmar</td><td>"Damos la plataforma y el expertise para ejecutar la visión que ya tienes."</td><td>Preguntar: ¿cuánto cuesta hoy un ticket que llega al agente?</td></tr>
+          <tr><td class="tb">Técnico<br/><span style="font-size:10px;color:var(--gray)">CTO / Head Arch.</span></td><td style="color:var(--gray)">A confirmar</td><td>"Data Cloud no reemplaza tu stack — lo enriquece sin MuleSoft adicional."</td><td>Hablar de arquitectura modular y reutilización</td></tr>
+          <tr><td class="tb">Bloqueador<br/><span style="font-size:10px;color:var(--gray)">Procurement / Legal</span></td><td style="color:var(--gray)">A confirmar</td><td>Discovery $50–80K como primer paso — <strong>debajo del umbral de RFP formal en Chile.</strong></td><td>Proponer engagement de discovery como PoC</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="alert warn" style="margin-top:14px;margin-bottom:0;">
+      <span class="ai">⚠️</span>
+      <div><strong>Procurement Chile:</strong> Proyectos &gt;$500K exigen RFP formal. Entrada recomendada: Discovery $50–80K → debajo del umbral → valida dolor antes de propuesta completa.</div>
+    </div>
+  </div>
+
+  <!-- Agentforce prueba -->
+  <div class="card">
+    <div class="card-title">🤖 Agentforce Falabella — Resultados ya Validados (Prueba de Concepto Real)</div>
+    <div class="kpi-row">
+      <div class="kbox kb-blue"><div class="kv">9 sem</div><div class="kl">Launch Colombia WhatsApp</div></div>
+      <div class="kbox kb-teal"><div class="kv">216K</div><div class="kl">Conversas/mes (oct 2025)</div></div>
+      <div class="kbox kb-green"><div class="kv">60%</div><div class="kl">Resolución autónoma</div></div>
+      <div class="kbox kb-orange"><div class="kv">440%</div><div class="kl">Crecimiento desde ago/25</div></div>
+      <div class="kbox kb-dark"><div class="kv">75%</div><div class="kl">CSAT (4–5 estrellas)</div></div>
+      <div class="kbox kb-red"><div class="kv">-25%</div><div class="kl">Volumen llamadas</div></div>
+    </div>
+    <p style="font-size:11px;color:var(--gray);font-style:italic;">Mencionada por Marc Benioff en Q1 FY26 earnings call · Reference customer FY27 Selling Guide (Emerging Market Mass Merchants)</p>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     S2 — ¿POR QUÉ PS?
+══════════════════════════════════════ -->
+<span class="anchor" id="s2"></span>
+<div class="section">
+  <div class="sh">
+    <div class="sn" style="background:var(--blue)">02</div>
+    <div><h2>¿Por qué PS? — Diferenciación vs. DIY</h2>
+    <div class="ss">Criterio Bootcamp 💼 25 pts · Salesforce PS vs. hacerlo solo o con integrador genérico</div></div>
+  </div>
+
+  <div class="quote">
+    <div class="ql">Argumento central</div>
+    <p>"Falabella ya compró la plataforma. <strong>El gap no es tecnológico — es de activación y outcomes.</strong> Un integrador genérico aprende Salesforce con el tiempo y el dinero del cliente. Salesforce PS convierte la inversión existente en resultados auditables antes de que el competidor lo haga primero."</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Comparativa PS vs. Alternativas</div>
+    <div class="tw">
+      <table>
+        <thead>
+          <tr>
+            <th>Capacidad</th>
+            <th style="color:var(--teal)">✓ Salesforce PS</th>
+            <th>Integrador Genérico</th>
+            <th>Equipo Interno (DIY)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Certificación Agent Builder / Data Cloud</td><td class="tgreen tb">✓ Día 1</td><td style="color:var(--gray)">6–9 meses ramp-up</td><td class="tred">Sin cert. disponible</td></tr>
+          <tr><td>Blueprint go-live validado LATAM</td><td class="tgreen tb">✓ 9 semanas comprobadas</td><td class="tred">No existe</td><td class="tred">No existe</td></tr>
+          <tr><td>Acceso a product roadmap Salesforce</td><td class="tgreen tb">✓ Directo</td><td style="color:var(--gray)">Indirecto / tardío</td><td style="color:var(--gray)">Público solo</td></tr>
+          <tr><td>Primer impacto medible</td><td class="tgreen tb">30 días</td><td style="color:var(--gray)">90–180 días</td><td style="color:var(--gray)">12+ meses</td></tr>
+          <tr><td>Transferencia de capacidad</td><td class="tgreen tb">✓ Incluida en SOW</td><td class="tred">No garantizada</td><td style="color:var(--gray)">No aplica</td></tr>
+          <tr><td>KPIs de negocio auditables</td><td class="tgreen tb">✓ Con CFO/CIO</td><td class="tred">Entregables técnicos</td><td class="tred">Sin baseline</td></tr>
+          <tr><td>Costo acumulado de inacción (extra)</td><td class="tgreen tb">~$0 (30d primer valor)</td><td class="torange">~$4.5M (90d)</td><td class="tred">~$7.5M (6 meses)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="g3">
+    <div class="pc pc-blue">
+      <div class="pt">Objeción: "Tenemos un partner"</div>
+      <p>"¿Ese partner tiene el blueprint validado en Falabella-escala, 216K conversaciones/mes en LATAM? Nosotros sí — y ya lo ejecutamos para Falabella Colombia en 9 semanas."</p>
+    </div>
+    <div class="pc pc-green">
+      <div class="pt">Objeción: "Lo hacemos internamente"</div>
+      <p>DIY = 6–12 meses de ramp-up = ~$7.5M más de costo de inacción. PS transfiere capacidad al equipo interno — al final del engagement, Falabella opera sola.</p>
+    </div>
+    <div class="pc pc-orange">
+      <div class="pt">Objeción: "Es muy caro"</div>
+      <p>$544K de inversión genera $30.5M/año de ROI. Payback &lt;4 meses. <strong>Cada mes de espera = $2.5M perdidos</strong> — 4.5 veces lo que costamos.</p>
+    </div>
+  </div>
+
+  <div class="alert success">
+    <span class="ai">🤖</span>
+    <div><strong>Este documento es la demo:</strong> La propuesta completa — ROM, Briefing 360°, SOW, calculadora de ROI y pitch — fue construida íntegramente con AI. Consistencia total entre artefactos. Velocidad de construcción = velocidad de ejecución del equipo PS.</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     S3 — BUSINESS CASE / ROI
+══════════════════════════════════════ -->
+<span class="anchor" id="s3"></span>
+<div class="section">
+  <div class="sh">
+    <div class="sn" style="background:var(--teal)">03</div>
+    <div><h2>Business Case — ROI para el Economic Buyer</h2>
+    <div class="ss">Criterio Bootcamp 📊 25 pts · 3 hipótesis de valor · $30.5M/año · Payback &lt;4 meses</div></div>
+  </div>
+
+  <!-- Costo inacción -->
+  <div class="card">
+    <div class="card-title">Costo Mensual de la Inacción — Argumento de Apertura</div>
+    <div class="kpi-row">
+      <div class="kbox kb-red"><div class="kv">$2.5M</div><div class="kl">Costo total inacción / mes</div></div>
+      <div class="kbox kb-orange"><div class="kv">$440K</div><div class="kl">Tickets evitables pagados a agentes</div></div>
+      <div class="kbox kb-blue"><div class="kv">$1.125M</div><div class="kl">Revenue e-commerce no personalizado</div></div>
+      <div class="kbox kb-dark"><div class="kv">$350K</div><div class="kl">OPEX recuperable en contact center</div></div>
+      <div class="kbox kb-yellow"><div class="kv">2.8%</div><div class="kl">Conversión actual (bench: 4–5%)</div></div>
+    </div>
+    <div class="quote">
+      <div class="ql">Frase de apertura — decir en voz alta</div>
+      <p>"Cada mes que esto no está activo, Falabella pierde <strong>4.5 veces lo que costamos.</strong> No es una propuesta de gasto — es un argumento de recuperación de pérdidas."</p>
+    </div>
+  </div>
+
+  <!-- H1 -->
+  <div class="h-block">
+    <div class="h-head" style="background:linear-gradient(90deg,var(--dark),var(--blue))">
+      <div class="h-head-left">
+        <div class="h-icon">🤖</div>
+        <div>
+          <h3>H1 — Agentforce + Service Cloud</h3>
+          <div class="hs">Deflexión masiva de tickets · Payback &lt;12 meses · Ya operativo en CL/PE/CO</div>
+        </div>
+      </div>
+      <div class="h-badges">
+        <div class="hbadge"><div class="bv">$5.28M</div><div class="bl">Ahorro deflexión</div></div>
+        <div class="hbadge"><div class="bv">$5.6M</div><div class="bl">Productividad AHT</div></div>
+        <div class="hbadge"><div class="bv" style="color:var(--yellow)">$10.88M</div><div class="bl">ROI total/año</div></div>
+      </div>
+    </div>
+    <div class="h-body">
+      <div class="g4">
+        <div class="sbox" style="border-top-color:var(--blue)"><div class="sv" style="color:var(--blue)">4M</div><div class="sl">Tickets/año</div></div>
+        <div class="sbox" style="border-top-color:var(--blue)"><div class="sv" style="color:var(--blue)">62%</div><div class="sl">Deflectables</div></div>
+        <div class="sbox" style="border-top-color:var(--blue)"><div class="sv" style="color:var(--blue)">$5</div><div class="sl">USD/ticket</div></div>
+        <div class="sbox" style="border-top-color:var(--blue)"><div class="sv" style="color:var(--blue)">-28%</div><div class="sl">AHT objetivo</div></div>
+      </div>
+      <div class="cap-row">
+        <div class="cap-label">Ahorro por deflexión</div>
+        <div class="cap-bar-wrap"><div class="cap-bar" style="width:49%;background:var(--blue)">$5.28M/año</div></div>
+        <div class="cap-val tblue">$5.28M</div><div class="cap-pct">49%</div>
+      </div>
+      <div class="cap-row">
+        <div class="cap-label">Productividad AHT -28%</div>
+        <div class="cap-bar-wrap"><div class="cap-bar" style="width:51%;background:#0095D9)">$5.6M/año</div></div>
+        <div class="cap-val" style="color:#0095D9">$5.6M</div><div class="cap-pct">51%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- H2 -->
+  <div class="h-block">
+    <div class="h-head" style="background:linear-gradient(90deg,#0a4a8c,var(--teal))">
+      <div class="h-head-left">
+        <div class="h-icon">🧠</div>
+        <div>
+          <h3>H2 — Data Cloud + Marketing Cloud</h3>
+          <div class="hs">Personalización real con CMR · +10M perfiles unificados · Mayor palanca de valor</div>
+        </div>
+      </div>
+      <div class="h-badges">
+        <div class="hbadge"><div class="bv">$13.5M</div><div class="bl">Revenue incremental</div></div>
+        <div class="hbadge"><div class="bv">$7.5M</div><div class="bl">CAC -25%</div></div>
+        <div class="hbadge"><div class="bv" style="color:var(--yellow)">$21M</div><div class="bl">ROI total/año</div></div>
+      </div>
+    </div>
+    <div class="h-body">
+      <div class="g4">
+        <div class="sbox" style="border-top-color:var(--teal)"><div class="sv" style="color:var(--teal)">10M</div><div class="sl">Perfiles CMR</div></div>
+        <div class="sbox" style="border-top-color:var(--teal)"><div class="sv" style="color:var(--teal)">+1.5%</div><div class="sl">Conversión</div></div>
+        <div class="sbox" style="border-top-color:var(--teal)"><div class="sv" style="color:var(--teal)">$30M</div><div class="sl">CAC actual/año</div></div>
+        <div class="sbox" style="border-top-color:var(--teal)"><div class="sv" style="color:var(--teal)">-25%</div><div class="sl">Reducción CAC</div></div>
+      </div>
+      <div class="alert warn" style="margin-bottom:0;">
+        <span class="ai">💡</span>
+        <div>Presentar H2 al CFO como upside — usar H1+H3 como caso sólido principal. H2 es la mayor palanca ($21M) pero la más difícil de atribuir directamente en 90 días.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- H3 -->
+  <div class="h-block">
+    <div class="h-head" style="background:linear-gradient(90deg,#1a5c2a,var(--green))">
+      <div class="h-head-left">
+        <div class="h-icon">🎧</div>
+        <div>
+          <h3>H3 — Service Cloud + Einstein · Contact Center</h3>
+          <div class="hs">Del Contact Center al Engagement Center · 800–1.200 agentes impactados</div>
+        </div>
+      </div>
+      <div class="h-badges">
+        <div class="hbadge"><div class="bv">210</div><div class="bl">FTEs equivalentes</div></div>
+        <div class="hbadge"><div class="bv" style="color:var(--yellow)">$4.2M</div><div class="bl">ROI total/año</div></div>
+      </div>
+    </div>
+    <div class="h-body">
+      <div class="g4">
+        <div class="sbox" style="border-top-color:var(--green)"><div class="sv" style="color:var(--green)">1.200</div><div class="sl">Agentes impactados</div></div>
+        <div class="sbox" style="border-top-color:var(--green)"><div class="sv" style="color:var(--green)">7.5 min</div><div class="sl">AHT actual</div></div>
+        <div class="sbox" style="border-top-color:var(--green)"><div class="sv" style="color:var(--green)">3–5</div><div class="sl">Sistemas por llamada</div></div>
+        <div class="sbox" style="border-top-color:var(--green)"><div class="sv" style="color:var(--green)">210</div><div class="sl">FTEs recuperables</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROI consolidado -->
+  <div class="card" style="border:2px solid var(--yellow);">
+    <div class="card-title" style="font-size:15px;">ROI Consolidado — Programa Completo</div>
+    <div class="cap-row">
+      <div class="cap-label">H1 — Agentforce + SC</div>
+      <div class="cap-bar-wrap"><div class="cap-bar" style="width:36%;background:var(--blue)">$10.88M — 36%</div></div>
+      <div class="cap-val tblue">$10.88M</div><div class="cap-pct">36%</div>
+    </div>
+    <div class="cap-row">
+      <div class="cap-label">H2 — Data Cloud + MC</div>
+      <div class="cap-bar-wrap"><div class="cap-bar" style="width:69%;background:var(--teal)">$21M — 69%</div></div>
+      <div class="cap-val tteal">$21M</div><div class="cap-pct">69%</div>
+    </div>
+    <div class="cap-row">
+      <div class="cap-label">H3 — Service Cloud CC</div>
+      <div class="cap-bar-wrap"><div class="cap-bar" style="width:14%;background:var(--green)">$4.2M</div></div>
+      <div class="cap-val tgreen">$4.2M</div><div class="cap-pct">14%</div>
+    </div>
+    <div style="margin-top:16px;">
+      <div class="kpi-row">
+        <div class="kbox" style="background:var(--dark);border:none;"><div class="kv" style="color:var(--yellow);font-size:26px;">$30.5M</div><div class="kl" style="color:rgba(255,255,255,.6);">ROI año 1 — programa completo</div></div>
+        <div class="kbox kb-yellow"><div class="kv">$215</div><div class="kl">Por cada $1 invertido en PS (3 años)</div></div>
+        <div class="kbox kb-green"><div class="kv">&lt;4 meses</div><div class="kl">Payback total</div></div>
+        <div class="kbox kb-blue"><div class="kv">$544K</div><div class="kl">Inversión PS 90 días T&M</div></div>
+        <div class="kbox kb-orange"><div class="kv">$50–80K</div><div class="kl">Discovery — entrada recomendada</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     S4 — CASOS DE USO PRIORIZADOS
+══════════════════════════════════════ -->
+<span class="anchor" id="s4"></span>
+<div class="section">
+  <div class="sh">
+    <div class="sn" style="background:var(--purple)">04</div>
+    <div><h2>Casos de Uso Priorizados</h2>
+    <div class="ss">Módulo 2 · 15 casos · Matriz de priorización · Quick Win identificado · ROM 2.820h</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Matriz Completa — 15 Casos de Uso con Priorización y ROI</div>
+    <div class="tw">
+      <table>
+        <thead>
+          <tr>
+            <th>Hipótesis</th>
+            <th>Caso de Uso</th>
+            <th class="c">Prioridad</th>
+            <th class="c">Horas</th>
+            <th class="c">Semanas</th>
+            <th class="c">ROI Anual</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="6" style="background:#EBF5FF;font-weight:800;color:var(--blue);vertical-align:top;padding-top:14px;width:110px;">
+              H1<br/><span style="font-size:10px;font-weight:400;color:var(--gray);">Agentforce<br/>+ Service Cloud</span>
+            </td>
+            <td><strong>⭐ Agente Devoluciones &amp; Cambios (WhatsApp)</strong><br/><span style="font-size:10px;color:var(--gray)">Quick Win del programa — primer go-live Día 30</span></td>
+            <td class="tc"><span class="pill" style="background:#FDECEA;color:var(--red)">P1 Crítico</span></td>
+            <td class="tc tblue tb">180h</td><td class="tc">3</td><td class="tc tgreen">$2.1M</td>
+          </tr>
+          <tr>
+            <td>Agente WISMO — Status de Pedidos</td>
+            <td class="tc"><span class="pill" style="background:#FDECEA;color:var(--red)">P1 Crítico</span></td>
+            <td class="tc tblue tb">140h</td><td class="tc">2</td><td class="tc tgreen">$1.5M</td>
+          </tr>
+          <tr>
+            <td>FAQ Inteligente (Políticas, Garantías, Tiempos)</td>
+            <td class="tc"><span class="pill" style="background:#FFF3E0;color:var(--orange)">P2 Alto</span></td>
+            <td class="tc tblue tb">120h</td><td class="tc">2</td><td class="tc tgreen">$0.8M</td>
+          </tr>
+          <tr>
+            <td>Integración OMS — Consulta Inventario <span style="font-size:10px;color:var(--orange)">⚠ APIs a confirmar</span></td>
+            <td class="tc"><span class="pill" style="background:#FFF3E0;color:var(--orange)">P2 Alto</span></td>
+            <td class="tc tblue tb">200h</td><td class="tc">4</td><td class="tc" style="color:var(--gray)">Habilitador</td>
+          </tr>
+          <tr>
+            <td>IA en Consola — Copilot para Agentes Humanos</td>
+            <td class="tc"><span class="pill" style="background:#EBF5FF;color:var(--blue)">P3 Medio</span></td>
+            <td class="tc tblue tb">200h</td><td class="tc">4</td><td class="tc tgreen">$0.9M</td>
+          </tr>
+          <tr>
+            <td>Loop Proactivo SFMC → WhatsApp → Agentforce</td>
+            <td class="tc"><span class="pill" style="background:#EBF5FF;color:var(--blue)">P3 Medio</span></td>
+            <td class="tc tblue tb">120h</td><td class="tc">3</td><td class="tc" style="color:var(--gray)">Expansión</td>
+          </tr>
+          <tr>
+            <td rowspan="4" style="background:#E0F7FA;font-weight:800;color:var(--teal);vertical-align:top;padding-top:14px;width:110px;">
+              H2<br/><span style="font-size:10px;font-weight:400;color:var(--gray);">Data Cloud<br/>+ Mktg Cloud</span>
+            </td>
+            <td>Unified Profile — Identidad CMR Multi-Marca</td>
+            <td class="tc"><span class="pill" style="background:#FDECEA;color:var(--red)">P1 Crítico</span></td>
+            <td class="tc tteal tb">280h</td><td class="tc">5</td><td class="tc" style="color:var(--gray)">Habilitador</td>
+          </tr>
+          <tr>
+            <td>Identity Resolution — Falabella + Sodimac + Tottus</td>
+            <td class="tc"><span class="pill" style="background:#FDECEA;color:var(--red)">P1 Crítico</span></td>
+            <td class="tc tteal tb">200h</td><td class="tc">4</td><td class="tc" style="color:var(--gray)">Habilitador</td>
+          </tr>
+          <tr>
+            <td>Segmentación Dinámica + Activación Email/Push</td>
+            <td class="tc"><span class="pill" style="background:#FFF3E0;color:var(--orange)">P2 Alto</span></td>
+            <td class="tc tteal tb">240h</td><td class="tc">4</td><td class="tc tgreen">$13.5M</td>
+          </tr>
+          <tr>
+            <td>Activación Paid Media — Audiencias desde Data Cloud</td>
+            <td class="tc"><span class="pill" style="background:#EBF5FF;color:var(--blue)">P3 Medio</span></td>
+            <td class="tc tteal tb">180h</td><td class="tc">3</td><td class="tc tgreen">$7.5M</td>
+          </tr>
+          <tr>
+            <td rowspan="5" style="background:#E6F5EC;font-weight:800;color:var(--green);vertical-align:top;padding-top:14px;width:110px;">
+              H3<br/><span style="font-size:10px;font-weight:400;color:var(--gray);">Service Cloud<br/>+ Einstein CC</span>
+            </td>
+            <td>Vista 360° del Cliente en SC (consolidada)</td>
+            <td class="tc"><span class="pill" style="background:#FDECEA;color:var(--red)">P1 Crítico</span></td>
+            <td class="tc tgreen tb">200h</td><td class="tc">4</td><td class="tc" style="color:var(--gray)">Habilitador</td>
+          </tr>
+          <tr>
+            <td>Integración Avaya/Genesys + Screen Pop <span style="font-size:10px;color:var(--orange)">⚠ contrato a validar</span></td>
+            <td class="tc"><span class="pill" style="background:#FDECEA;color:var(--red)">P1 Crítico</span></td>
+            <td class="tc tgreen tb">280h</td><td class="tc">5</td><td class="tc" style="color:var(--gray)">Habilitador</td>
+          </tr>
+          <tr>
+            <td>Einstein NBA — Next Best Action para Agentes</td>
+            <td class="tc"><span class="pill" style="background:#FFF3E0;color:var(--orange)">P2 Alto</span></td>
+            <td class="tc tgreen tb">160h</td><td class="tc">3</td><td class="tc tgreen">$2.2M</td>
+          </tr>
+          <tr>
+            <td>Automatización de Casos — Clasificación + Routing</td>
+            <td class="tc"><span class="pill" style="background:#FFF3E0;color:var(--orange)">P2 Alto</span></td>
+            <td class="tc tgreen tb">160h</td><td class="tc">3</td><td class="tc tgreen">$2.0M</td>
+          </tr>
+          <tr>
+            <td>Change Management + Habilitación de Agentes</td>
+            <td class="tc"><span class="pill" style="background:#EBF5FF;color:var(--blue)">P3 Medio</span></td>
+            <td class="tc tgreen tb">160h</td><td class="tc">3</td><td class="tc" style="color:var(--gray)">Adopción</td>
+          </tr>
+          <tr class="ttot">
+            <td colspan="2" class="tb">TOTAL PROGRAMA</td>
+            <td class="tc">15 casos</td>
+            <td class="tc"><span>2.820h</span></td>
+            <td class="tc"><span>28 sem / ~18 par.</span></td>
+            <td class="tc"><span>~$30.5M/año</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:11px;color:var(--gray);margin-top:10px;font-style:italic;">* Horas incluyen: diseño, configuración, integración, pruebas y habilitación. Variación ±20%. PM y QA transversales distribuidos en cada workstream.</p>
+  </div>
+
+  <div class="g2">
+    <div class="alert info" style="margin-bottom:0;">
+      <span class="ai">💡</span>
+      <div><strong>Sinergia H1→H3:</strong> Ejecutar H1 antes de H3 reduce el esfuerzo de H3 en ~80–120h. La Vista 360° (H3-P1) y la IA en Consola (H1-P3) comparten arquitectura base.</div>
+    </div>
+    <div class="alert warn" style="margin-bottom:0;">
+      <span class="ai">⚠️</span>
+      <div><strong>ARI MC + H2:</strong> La migración MC (Sodimac + Tottus) puede reutilizar Data Streams de H2. Coordinar con Alejandra Acuña para evitar retrabajos → potencial –80–120h en H2.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     S5 — OUTCOMES MEDIBLES
+══════════════════════════════════════ -->
+<span class="anchor" id="s5"></span>
+<div class="section">
+  <div class="sh">
+    <div class="sn" style="background:var(--green)">05</div>
+    <div><h2>Outcomes de Negocio Medibles</h2>
+    <div class="ss">Criterio Bootcamp 🎯 20 pts · No entregables técnicos — KPIs auditados con CFO/CIO</div></div>
+  </div>
+  <div class="quote">
+    <div class="ql">Diferenciador clave — decir en la reunión</div>
+    <p>"No les pedimos que confíen en nosotros 90 días antes de ver resultados. <strong>El Día 30 tienen el primer agente live y el primer número auditable.</strong> Si no lo logramos, hay cláusula de revisión — el riesgo es nuestro."</p>
+  </div>
+  <div class="card" style="padding:0;overflow:hidden;">
+    <table class="oc-table">
+      <thead>
+        <tr>
+          <th style="background:var(--dark);color:#fff;width:18%;">Outcome</th>
+          <th style="background:#004FA3;color:#fff;width:27%;">¿Cómo se ve en el cliente?</th>
+          <th style="background:#0066CC;color:#fff;width:27%;">¿Qué métrica lo mide?</th>
+          <th style="background:#0099D8;color:#fff;width:28%;">¿Qué hace PS para desbloquearlo?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-left:4px solid var(--blue);">
+          <td><div class="oc-label"><div class="oc-icon" style="background:#E8F4FF;">⚡</div><div class="oc-text"><strong style="color:var(--blue)">Speed to Value</strong><span>30 días desde kick-off a Go-Live</span></div></div></td>
+          <td style="font-size:12px;color:#37474F;">Agente de devoluciones omnicanal en producción en 30 días · Flujo end-to-end sin escalación humana · 500+ interacciones autónomas</td>
+          <td><div class="chips"><span class="chip c-blue">Go-Live ≤ Día 30</span><span class="chip c-blue">Días kick-off → producción</span><span class="chip c-blue">Baseline deflexión medido</span></div></td>
+          <td class="oc-ps"><ul><li>Workshop diseño acelerado Día 1–3</li><li>Configuración Topics &amp; Actions</li><li>Sprint testing + ajuste prompts</li><li>Go-Live asistido con hypercare Día 30</li></ul></td>
+        </tr>
+        <tr style="border-left:4px solid var(--orange);">
+          <td><div class="oc-label"><div class="oc-icon" style="background:#FFF3E0;">📈</div><div class="oc-text"><strong style="color:var(--orange)">Adoption Rate</strong><span>Cobertura digital en 90 días</span></div></div></td>
+          <td style="font-size:12px;color:#37474F;">≥60% del equipo objetivo usa activamente la plataforma · Agentes resuelven desde consola SF · Playbooks adoptados por supervisores</td>
+          <td><div class="chips"><span class="chip c-orange">Usuarios activos / licencias ≥60%</span><span class="chip c-orange">Logins activos últimos 7 días</span><span class="chip c-orange">Casos cerrados vía consola</span></div></td>
+          <td class="oc-ps" style="color:#bf5000;"><ul><li>Programa habilitación por rol (agente · supervisor)</li><li>Playbooks de adopción adaptados</li><li>Office hours semanales PS Días 31–90</li><li>Dashboard adopción visible para Champion</li></ul></td>
+        </tr>
+        <tr style="border-left:4px solid var(--teal);">
+          <td><div class="oc-label"><div class="oc-icon" style="background:#E0F7FA;">🔄</div><div class="oc-text"><strong style="color:var(--teal)">Consumption Growth</strong><span>Expansión M1 → M2 → M3</span></div></div></td>
+          <td style="font-size:12px;color:#37474F;">Expansión: Soporte → Personalización → Commerce Agent · Nuevos casos cada 30 días · Falabella.com integra agente en flujo de compra</td>
+          <td><div class="chips"><span class="chip c-teal">Flex Credits M1→M2→M3</span><span class="chip c-teal">Conversaciones Agentforce</span><span class="chip c-teal">Crecimiento ≥30%/mes</span></div></td>
+          <td class="oc-ps" style="color:#00838F;"><ul><li>Diseñar 3 casos de uso progresivos Día 1</li><li>Arquitectura modular para extensión</li><li>Revisión mensual consumo + roadmap</li><li>Triggers de expansión en SOW</li></ul></td>
+        </tr>
+        <tr style="border-left:4px solid var(--purple);">
+          <td><div class="oc-label"><div class="oc-icon" style="background:#F3E5F5;">🎯</div><div class="oc-text"><strong style="color:var(--purple)">Business KPI Achieved</strong><span>Deflexión y CSAT validados con CFO</span></div></div></td>
+          <td style="font-size:12px;color:#37474F;">% deflexión medido y validado · CSAT post-devolución ≥4.0/5.0 sostenido · AHT reducido ≥28% · Reporte ejecutivo al Economic Buyer</td>
+          <td><div class="chips"><span class="chip c-purple">Deflexión ≥40%</span><span class="chip c-purple">CSAT ≥4.0</span><span class="chip c-purple">AHT -28%</span><span class="chip c-purple">FCR +15%</span><span class="chip c-purple">SLA compliance</span></div></td>
+          <td class="oc-ps" style="color:#6A1B9A;"><ul><li>Baseline measurement Día 1</li><li>Dashboard ejecutivo KPI en lenguaje negocio</li><li>Sprint optimización Días 60–90</li><li>Presentación business case al Economic Buyer</li></ul></td>
+        </tr>
+        <tr style="border-left:4px solid var(--green);">
+          <td><div class="oc-label"><div class="oc-icon" style="background:#E8F5EE;">🚀</div><div class="oc-text"><strong style="color:var(--green)">Expansion Ready</strong><span>Plataforma lista para Einstein + personalización</span></div></div></td>
+          <td style="font-size:12px;color:#37474F;">Plataforma datos lista para Einstein Analytics a escala · Roadmap Commerce Agent + CMR acordado · Blueprint entregado · Fast-track PE+CO (≥70% reuso)</td>
+          <td><div class="chips"><span class="chip c-green">≥70% comp. reutilizables</span><span class="chip c-green">Roadmap firmado</span><span class="chip c-green">LoI o Change Order</span><span class="chip c-green">Blueprint técnico</span></div></td>
+          <td class="oc-ps" style="color:#2E844A;"><ul><li>Blueprint arquitectura escalable Día 1</li><li>Handoff documentado a Delivery</li><li>Sesión roadmap Champion + CTO Días 85–90</li><li>Propuesta siguiente engagement para firma</li></ul></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     S6 — ROADMAP 90 DIAS
+══════════════════════════════════════ -->
+<span class="anchor" id="s6"></span>
+<div class="section">
+  <div class="sh">
+    <div class="sn" style="background:var(--orange)">06</div>
+    <div><h2>Roadmap de 90 Días — 3 Fechas, 3 Números, 1 Curva que Sube</h2>
+    <div class="ss">Módulo 2 · SOW basado en outcomes · 3 hitos de valor · 2.720 FC · $544K</div></div>
+  </div>
+  <div class="tl-wrap">
+    <div class="tl-phase">
+      <div class="tl-dot" style="background:var(--blue);">30</div>
+      <div class="tl-body">
+        <div class="ph-label" style="color:var(--blue)">Días 1–30 · 840 FC · ~$168K</div>
+        <div class="ph-dias" style="color:var(--blue)">Quick Win</div>
+        <div class="ph-title">Valor Inmediato</div>
+        <ul><li>Agente devoluciones live (WA + web)</li><li>Einstein AI Console activo (≥80% sesiones)</li><li>OMS integrado · ≥500 conv/semana</li><li>UAT + go-live supervisado</li><li>KPI baseline documentado</li></ul>
+        <div class="cfo" style="border-color:var(--blue);"><p>El reloj del payback empieza. Cada día activo = ~$18K USD en tickets evitados.</p></div>
+        <div class="ph-fc">840 FC · ~$168K</div>
+      </div>
+    </div>
+    <div class="tl-arrow">›</div>
+    <div class="tl-phase">
+      <div class="tl-dot" style="background:var(--orange);">60</div>
+      <div class="tl-body">
+        <div class="ph-label" style="color:var(--orange)">Días 31–60 · 1.040 FC · ~$208K</div>
+        <div class="ph-dias" style="color:var(--orange)">Adopción</div>
+        <div class="ph-title">Escala Operacional</div>
+        <ul><li>Expansión a ≥10 casos Agentforce prod.</li><li>≥500K conversaciones/mes</li><li>Loop SFMC→WhatsApp→Agentforce operativo</li><li>Resolución autónoma ≥70%</li><li>Identity Resolution CMR activo</li><li>Change management + capacitación equipo</li></ul>
+        <div class="cfo" style="border-color:var(--orange);"><p>Dos casos activos. La curva sube. El ROI de $5.28M/año tiene evidencia parcial.</p></div>
+        <div class="ph-fc">1.040 FC · ~$208K</div>
+      </div>
+    </div>
+    <div class="tl-arrow">›</div>
+    <div class="tl-phase">
+      <div class="tl-dot" style="background:var(--green);">90</div>
+      <div class="tl-body">
+        <div class="ph-label" style="color:var(--green)">Días 61–90 · 840 FC · ~$168K</div>
+        <div class="ph-dias" style="color:var(--green)">Escala</div>
+        <div class="ph-title">Expansion Ready</div>
+        <ul><li>Unified Profile ≥500K perfiles CMR</li><li>≥1 campaña segmentación dinámica activa</li><li>≥70% componentes reutilizables validados</li><li>KPIs auditados con CFO/CIO</li><li>Roadmap AR/BR aprobado por CIO</li><li>LoI expansión LATAM firmado</li></ul>
+        <div class="cfo" style="border-color:var(--green);"><p>ROI H1 $10.88M/año validado. Base para H2 ($21M/año personalización CMR).</p></div>
+        <div class="ph-fc">840 FC · ~$168K</div>
+      </div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="card-title">⚡ Triggers de Expansión de Alcance</div>
+      <div class="tw"><table>
+        <thead><tr><th>#</th><th>Trigger</th><th>Condición</th><th>Acción</th></tr></thead>
+        <tbody>
+          <tr><td class="tc tb tblue">1</td><td><strong>Consumo</strong> (Día 45)</td><td>M2 supera M1 en ≥35%</td><td>Iniciar planificación Commerce Agent en 15 días hábiles</td></tr>
+          <tr><td class="tc tb torange">2</td><td><strong>KPI</strong> (Día 75)</td><td>Deflexión ≥45% antes Día 75</td><td>Expansión acelerada a personalización Data Cloud (H2)</td></tr>
+          <tr><td class="tc tb tgreen">3</td><td><strong>Geo</strong> (Día 90)</td><td>Chile validado</td><td>Fast-track PE+CO · ≥70% reuso · deployment 40% más rápido</td></tr>
+        </tbody>
+      </table></div>
+      <div class="alert warn" style="margin-top:12px;margin-bottom:0;font-size:12px;"><span class="ai">⚠️</span><div>Cualquier ampliación de alcance requiere <strong>Change Order formal</strong> firmado por ambas partes.</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">📊 Resumen del Engagement</div>
+      <div class="tw"><table>
+        <thead><tr><th>Hito</th><th class="c">Días</th><th class="c">Flex Credits</th><th class="c">Inversión</th></tr></thead>
+        <tbody>
+          <tr><td class="tb" style="color:var(--blue)">H1 — Quick Win</td><td class="tc">≤30</td><td class="tc tblue">840 FC</td><td class="tc">~$168K</td></tr>
+          <tr><td class="tb" style="color:var(--orange)">H2 — Adopción</td><td class="tc">31–60</td><td class="tc torange">1.040 FC</td><td class="tc">~$208K</td></tr>
+          <tr><td class="tb" style="color:var(--green)">H3 — Escala</td><td class="tc">61–90</td><td class="tc tgreen">840 FC</td><td class="tc">~$168K</td></tr>
+          <tr class="ttot"><td class="tb">TOTAL</td><td class="tc">90 días</td><td class="tc"><span>2.720 FC</span></td><td class="tc"><span>~$544K</span></td></tr>
+        </tbody>
+      </table></div>
+      <div class="alert danger" style="margin-top:12px;margin-bottom:0;font-size:12px;"><span class="ai">🚨</span><div><strong>Flag Procurement:</strong> $544K &gt; $500K — umbral de RFP formal en Chile. Confirmar proceso antes de propuesta. Alternativa: Discovery $50–80K como primer contrato.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     S7 — MODELO FLEX
+══════════════════════════════════════ -->
+<span class="anchor" id="s7"></span>
+<div class="section">
+  <div class="sh">
+    <div class="sn" style="background:var(--teal)">07</div>
+    <div><h2>Modelo Flex — Crece con el Cliente</h2>
+    <div class="ss">Criterio Bootcamp ⚡ 15 pts · Flex Credits · Consumo bajo demanda · No CapEx fijo</div></div>
+  </div>
+  <div class="quote">
+    <div class="ql">Frase para el Economic Buyer</div>
+    <p>"No es un proyecto con fecha de fin — es un modelo que <strong>crece con el negocio de Falabella.</strong> Cuanto más usan Agentforce, más eficiente es el FC. PS es el encendedor; <strong>Flex Credits es el combustible que Falabella controla.</strong>"</p>
+  </div>
+  <div class="card">
+    <div class="card-title">Flujo de Consumo Flex Credits — 90 Días + Expansión</div>
+    <div class="flex-flow">
+      <div class="ff-card" style="border-top:3px solid var(--blue);"><div class="ffe">🏁</div><div class="fft">Día 1 — Base</div><div class="ffd">840 FC activados<br/>H1 Quick Win<br/><strong>~$168K inversión</strong></div></div>
+      <div class="ff-arrow">→</div>
+      <div class="ff-card" style="border-top:3px solid var(--orange);"><div class="ffe">📈</div><div class="fft">Día 30–60 — Escala</div><div class="ffd">+1.040 FC<br/>H2 Adopción masiva<br/><strong>500K conv/mes</strong></div></div>
+      <div class="ff-arrow">→</div>
+      <div class="ff-card" style="border-top:3px solid var(--green);"><div class="ffe">🌎</div><div class="fft">Día 60–90 — Expansión</div><div class="ffd">+840 FC<br/>H3 + LoI AR/BR<br/><strong>CMR Unified Profile</strong></div></div>
+      <div class="ff-arrow">→</div>
+      <div class="ff-card" style="border-top:3px solid var(--yellow);background:#fffcf0;"><div class="ffe">🔁</div><div class="fft">Post-90d — Orgánico</div><div class="ffd">FC crece con uso<br/>+30% M1→M3<br/><strong>Modelo autosustentable</strong></div></div>
+    </div>
+  </div>
+  <div class="g3">
+    <div class="pc pc-blue"><div class="pt">No es contrato fijo</div><p>Falabella no compra capacidad ociosa — compra resultados comprobados. FC escala con uso real.</p></div>
+    <div class="pc pc-teal"><div class="pt">KPI contractual de consumo</div><p>+30% FC entre M1 y M3 es un KPI del SOW — señal de adopción real, no de gasto forzado.</p></div>
+    <div class="pc pc-green"><div class="pt">Expansión geo como cláusula</div><p>AR y BR activados como Fase 2 sin renegociar el contrato base. Escalar es una acción, no una negociación.</p></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     S8 — ROM — ESFUERZO PS
+══════════════════════════════════════ -->
+<span class="anchor" id="s8"></span>
+<div class="section">
+  <div class="sh">
+    <div class="sn" style="background:var(--gray)">08</div>
+    <div><h2>ROM — Estimación de Esfuerzo PS</h2>
+    <div class="ss">Rough Order of Magnitude · 2.820h · 10 perfiles · 15 casos de uso · ±20%</div></div>
+  </div>
+  <div class="g4" style="margin-bottom:18px;">
+    <div class="sbox" style="border-top-color:var(--blue)"><div class="sv" style="color:var(--blue)">2.820h</div><div class="sl">Horas totales programa</div></div>
+    <div class="sbox" style="border-top-color:var(--teal)"><div class="sv" style="color:var(--teal)">~18 sem</div><div class="sl">Ejecución paralela</div><div style="font-size:10px;color:var(--gray);margin-top:2px;">28 sem secuencial</div></div>
+    <div class="sbox" style="border-top-color:var(--green)"><div class="sv" style="color:var(--green)">10</div><div class="sl">Perfiles PS especializados</div></div>
+    <div class="sbox" style="border-top-color:var(--orange)"><div class="sv" style="color:var(--orange)">$5.17M</div><div class="sl">Estimativa total T&M ±20%</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">Distribución de Horas por Hipótesis</div>
+    <div class="cap-row"><div class="cap-label">H1 — Agentforce + SC</div><div class="cap-bar-wrap"><div class="cap-bar" style="width:34%;background:var(--blue)">960h — 34%</div></div><div class="cap-val tblue">960h</div><div class="cap-pct">34%</div></div>
+    <div class="cap-row"><div class="cap-label">H2 — Data Cloud + MC</div><div class="cap-bar-wrap"><div class="cap-bar" style="width:32%;background:var(--teal)">900h — 32%</div></div><div class="cap-val tteal">900h</div><div class="cap-pct">32%</div></div>
+    <div class="cap-row"><div class="cap-label">H3 — Service Cloud CC</div><div class="cap-bar-wrap"><div class="cap-bar" style="width:34%;background:var(--green)">960h — 34%</div></div><div class="cap-val tgreen">960h</div><div class="cap-pct">34%</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">10 Perfiles PS — Distribución por Workstream</div>
+    <div class="tw"><table>
+      <thead><tr><th>#</th><th>Perfil PS</th><th class="c">Seniority</th><th class="c">H1</th><th class="c">H2</th><th class="c">H3</th><th class="c">Total</th><th class="c">%</th></tr></thead>
+      <tbody>
+        <tr><td class="tc tpurple tb">1</td><td class="tb">Program Manager</td><td class="tc"><span class="pill" style="background:#f0e8ff;color:var(--purple)">Senior</span></td><td class="tc">60h</td><td class="tc">60h</td><td class="tc">60h</td><td class="tc tpurple tb">200h</td><td class="tc">7%</td></tr>
+        <tr><td class="tc tpurple tb">2</td><td class="tb">Solution Architect (Lead)</td><td class="tc"><span class="pill" style="background:#f0e8ff;color:var(--purple)">Principal</span></td><td class="tc">120h</td><td class="tc">100h</td><td class="tc">100h</td><td class="tc tpurple tb">320h</td><td class="tc">11%</td></tr>
+        <tr><td class="tc tblue tb">3</td><td class="tb">Agentforce Specialist</td><td class="tc"><span class="pill" style="background:#EBF5FF;color:var(--blue)">Senior</span></td><td class="tc tblue">360h</td><td class="tc">—</td><td class="tc">40h</td><td class="tc tblue tb">400h</td><td class="tc">14%</td></tr>
+        <tr><td class="tc tteal tb">4</td><td class="tb">Data Cloud Architect</td><td class="tc"><span class="pill" style="background:#E0F7FA;color:var(--teal)">Senior</span></td><td class="tc">—</td><td class="tc tteal">380h</td><td class="tc">—</td><td class="tc tteal tb">380h</td><td class="tc">13%</td></tr>
+        <tr><td class="tc tgreen tb">5</td><td class="tb">Service Cloud Sr. Developer</td><td class="tc"><span class="pill" style="background:#E6F5EC;color:var(--green)">Senior</span></td><td class="tc">120h</td><td class="tc">—</td><td class="tc tgreen">200h</td><td class="tc tgreen tb">320h</td><td class="tc">11%</td></tr>
+        <tr><td class="tc torange tb">6</td><td class="tb">Integration Engineer</td><td class="tc"><span class="pill" style="background:#FFF3E0;color:var(--orange)">Senior</span></td><td class="tc torange">200h</td><td class="tc">—</td><td class="tc torange">160h</td><td class="tc torange tb">360h</td><td class="tc">13%</td></tr>
+        <tr><td class="tc tteal tb">7</td><td class="tb">Marketing Cloud Specialist</td><td class="tc"><span class="pill" style="background:#E0F7FA;color:var(--teal)">Mid-Senior</span></td><td class="tc">—</td><td class="tc tteal">240h</td><td class="tc">—</td><td class="tc tteal tb">240h</td><td class="tc">9%</td></tr>
+        <tr><td class="tc tpurple tb">8</td><td class="tb">Einstein / AI Specialist</td><td class="tc"><span class="pill" style="background:#f0e8ff;color:var(--purple)">Senior</span></td><td class="tc tpurple">80h</td><td class="tc">—</td><td class="tc tpurple">120h</td><td class="tc tpurple tb">200h</td><td class="tc">7%</td></tr>
+        <tr><td class="tc tgreen tb">9</td><td class="tb">Change Management Consultant</td><td class="tc"><span class="pill" style="background:#E6F5EC;color:var(--green)">Senior</span></td><td class="tc">—</td><td class="tc">40h</td><td class="tc tgreen">160h</td><td class="tc tgreen tb">200h</td><td class="tc">7%</td></tr>
+        <tr><td class="tc tb" style="color:var(--gray)">10</td><td class="tb">QA Engineer</td><td class="tc"><span class="pill" style="background:#f5f5f5;color:var(--gray)">Mid</span></td><td class="tc">20h</td><td class="tc">80h</td><td class="tc">80h</td><td class="tc tb" style="color:var(--gray)">200h</td><td class="tc">7%</td></tr>
+        <tr class="ttot"><td colspan="3">TOTAL PROGRAMA</td><td class="tc"><span>960h</span></td><td class="tc"><span>900h</span></td><td class="tc"><span>960h</span></td><td class="tc"><span>2.820h</span></td><td class="tc"><span>100%</span></td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="card">
+    <div class="card-title">6 Supuestos Críticos que Afectan la Estimación</div>
+    <div class="tw"><table>
+      <thead><tr><th>#</th><th>Supuesto</th><th>Impacto en Horas</th><th>Acción Requerida</th></tr></thead>
+      <tbody>
+        <tr><td class="tc tb torange">1</td><td>APIs del OMS disponibles y documentadas</td><td class="torange">±80h en H1</td><td>Confirmar con IT Falabella en el kick-off</td></tr>
+        <tr><td class="tc tb torange">2</td><td>Vencimiento contrato Avaya/Genesys</td><td class="torange">±120h en H3</td><td>Preguntar en la 1ª reunión de discovery</td></tr>
+        <tr><td class="tc tb tblue">3</td><td>ARI MC ya entregó conectores base de MC</td><td class="tblue">–80–120h en H2</td><td>Coordinar con Alejandra Acuña (ARI owner)</td></tr>
+        <tr><td class="tc tb tblue">4</td><td>Licencias Agentforce ya activas en org</td><td class="tblue">–40h en H1</td><td>Verificar en org62 com el AE</td></tr>
+        <tr><td class="tc tb" style="color:var(--gray)">5</td><td>Ejecución paralela H1 + H2 (equipos separados)</td><td style="color:var(--gray)">~18 sem vs. 28 sec.</td><td>Confirmar disponibilidad de 2 equipos simultáneos</td></tr>
+        <tr><td class="tc tb" style="color:var(--gray)">6</td><td>Variación general de estimación ROM</td><td style="color:var(--gray)">±20% horas totales</td><td>Validar en sesión de Value Engineering</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+  <div class="alert warn"><span class="ai">⚠️</span><div><strong>Este ROM es pre-discovery:</strong> Estimación para conversación ejecutiva. Las horas se refinarán con ±5% de margen tras la sesión de Value Engineering con datos reales. No usar como base de contrato sin proceso formal de scoping.</div></div>
+</div>
+
+<!-- ══════════════════════════════════════
+     S9 — CIERRE + PRÓXIMOS PASOS
+══════════════════════════════════════ -->
+<span class="anchor" id="s9"></span>
+<div class="section">
+  <div class="sh">
+    <div class="sn" style="background:var(--yellow);color:var(--dark)!important;">09</div>
+    <div><h2>Cierre — Rúbrica Cumplida + Próximos Pasos</h2>
+    <div class="ss">Capstone Bootcamp · Propuesta ejecutiva defensible · 100 pts · Entregable listo para usar con el cliente real</div></div>
+  </div>
+  <div class="score-card">
+    <h3>Rúbrica del Ejercicio — Criterios Cumplidos</h3>
+    <div class="score-row"><span class="score-icon">💼</span><span class="score-label">¿Por qué PS? — Diferenciación clara vs. DIY · Blueprint validado · Transferencia de capacidad</span><div class="score-bar-wrap"><div class="score-bar-fill" style="width:100%;background:var(--blue);"></div></div><span class="score-pts">25 pts</span><span class="score-check">✅</span></div>
+    <div class="score-row"><span class="score-icon">📊</span><span class="score-label">Business Case ROI — $30.5M/año · $215 por $1 · Payback &lt;4 meses · 3 hipóteses cuantificadas</span><div class="score-bar-wrap"><div class="score-bar-fill" style="width:100%;background:var(--teal);"></div></div><span class="score-pts">25 pts</span><span class="score-check">✅</span></div>
+    <div class="score-row"><span class="score-icon">🎯</span><span class="score-label">Outcomes medibles — 5 outcomes contractuales · KPIs auditados con CFO/CIO · No entregables técnicos</span><div class="score-bar-wrap"><div class="score-bar-fill" style="width:80%;background:var(--green);"></div></div><span class="score-pts">20 pts</span><span class="score-check">✅</span></div>
+    <div class="score-row"><span class="score-icon">⚡</span><span class="score-label">Modelo Flex — 2.720 FC · Triggers de expansión · Crecimiento +30% M1→M3</span><div class="score-bar-wrap"><div class="score-bar-fill" style="width:60%;background:var(--orange);"></div></div><span class="score-pts">15 pts</span><span class="score-check">✅</span></div>
+    <div class="score-row"><span class="score-icon">🤖</span><span class="score-label">Construida con AI — 6 artefactos generados · Consistência total entre documentos · Propuesta = demo</span><div class="score-bar-wrap"><div class="score-bar-fill" style="width:60%;background:var(--purple);"></div></div><span class="score-pts">15 pts</span><span class="score-check">✅</span></div>
+    <div class="score-total"><span class="st-label">PUNTUACIÓN TOTAL — Propuesta Ejecutiva Defensible</span><span class="st-pts">100 pts ✅</span></div>
+  </div>
+  <div class="quote">
+    <div class="ql">Frase de cierre — defensa ante el Economic Buyer</div>
+    <p>"Tenemos el blueprint. Tenemos el equipo. Tenemos los números auditados. Lo que necesitamos son <strong>30 minutos con el CFO esta semana</strong> para correr el Sizer con datos reales de Falabella y confirmar que el ROI de $30.5M/año aplica al escenario conservador, base u optimista del negocio.<br/><br/>
+    No estamos pidiendo un <strong>'sí' hoy</strong>. Estamos pidiendo que le pongan número a la pérdida antes de decidir."</p>
+  </div>
+  <div class="alert info"><span class="ai">💡</span><div><strong>Técnica de cierre para nominar al validador:</strong> "¿Quién en el equipo de Falabella puede validar el número de $2.5M/mes de inacción? ¿El CFO o el VP Digital?" — Quien nombra al validador está comprando el proceso.</div></div>
+  <div class="card">
+    <div class="card-title">Próximos Pasos — Roles, Acciones y Fechas</div>
+    <div class="ns-row">
+      <div class="ns-card" style="border-top-color:var(--red);"><div class="ns-label" style="color:var(--red)">🔴 Esta semana</div><p>Resolver 3 conflictos en el SOW: deflexión 30% vs. 40%, inversión $504K vs. $544K, métrica adoption (60% usuarios vs. 500K conv/mes).<br/><strong>PS + AE · Jun 14</strong></p></div>
+      <div class="ns-card" style="border-top-color:var(--orange);"><div class="ns-label" style="color:var(--orange)">🟠 Antes de la reunión</div><p>Validar precio Flex Credits con AE del contrato. Confirmar si se activa proceso Procurement (&gt;$500K). Preparar Sizer con datos reales.<br/><strong>AE · Jun 15</strong></p></div>
+      <div class="ns-card" style="border-top-color:var(--blue);"><div class="ns-label" style="color:var(--blue)">🔵 En la reunión</div><p>Usar frase de apertura ($2.5M/mes). Correr Agentforce Sizer en vivo con CFO. Llegar con número validado por champion.<br/><strong>SC + SSSM · Jun 16–17</strong></p></div>
+      <div class="ns-card" style="border-top-color:var(--green);"><div class="ns-label" style="color:var(--green)">🟢 Post-reunión</div><p>Si discovery confirma dolor → enviar SOW para revisión legal. Activar Value Engineering session con CFO para auditar números del Sizer.<br/><strong>PS + Legal · Jun 19</strong></p></div>
+    </div>
+    <div class="alert danger" style="margin-bottom:0;"><span class="ai">🚨</span><div><strong>ARI CRÍTICO — Marketing Cloud Enterprise+:</strong> Cierra <strong>15 Jun 2026</strong> · $1.87M at risk · No salir de ninguna reunión sin confirmar responsable y follow-up. Owner: Alejandra Acuña + Alejandro Sáez.</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">🤖 Artefactos Generados con AI — Ecosistema Completo Falabella</div>
+    <div class="art-row">
+      <div class="art-card"><span class="art-icon">💰</span><div class="art-info"><div class="at">ROM PS Program</div><div class="ad">2.820h · 15 casos · 10 perfiles · $5.17M · falabella_rom.html</div></div></div>
+      <div class="art-card"><span class="art-icon">📝</span><div class="art-info"><div class="at">SOW Consolidado v2.0</div><div class="ad">5 outcomes · 3 hitos · 2.720 FC · $544K · falabella_sow_consolidado.html</div></div></div>
+      <div class="art-card"><span class="art-icon">🎤</span><div class="art-info"><div class="at">Pitch Script 10 Minutos</div><div class="ad">7 blocos · timing · falas · 100 pts · falabella_pitch_10min.html</div></div></div>
+      <div class="art-card"><span class="art-icon">🗓️</span><div class="art-info"><div class="at">Milestones Canvas</div><div class="ad">30/60/90d · curva FC · triggers · falabella_milestones_canvas.html</div></div></div>
+      <div class="art-card"><span class="art-icon">📊</span><div class="art-info"><div class="at">Outcomes Canvas</div><div class="ad">5 outcomes · métricas · KPIs · falabella_outcomes_canvas.html</div></div></div>
+      <div class="art-card"><span class="art-icon">📋</span><div class="art-info"><div class="at">Esta Propuesta Ejecutiva</div><div class="ad">S0–S9 completo · 100 pts Bootcamp · falabella_propuesta_ejecutiva.html</div></div></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /page -->
+
+<footer class="footer">
+  <div><strong style="color:rgba(255,255,255,.8)">Salesforce Professional Services — LATAM</strong><br/>
+  Propuesta Ejecutiva Falabella · Completo (Secc. 0–9) · Bootcamp FY27 · Jun 2026 · Construida con AI · 100 pts</div>
+  <div style="text-align:right">🔒 Uso Interno — No compartir con el cliente</div>
+</footer>
+
+<script>
+const links=document.querySelectorAll('.topnav a');
+const sections=document.querySelectorAll('.anchor');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-80)cur=s.id;});
+  links.forEach(l=>{
+    const active=l.getAttribute('href')==='#'+cur;
+    l.style.color=active?'#fff':'';
+    l.style.borderBottomColor=active?'var(--teal)':'';
+  });
+});
+</script>
+</body>
+</html>

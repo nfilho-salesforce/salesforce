@@ -1,0 +1,79 @@
+[
+  {
+    "resource_id": "R01",
+    "role": "Senior Technical Architect",
+    "phases_active": "0,1,2,3",
+    "rationale": "Architecture decisions (Workspace Slack segregation, Clarity migration strategy, MuleSoft vs MCP dual deployment), E08/E09 XL complexity oversight, cross-phase dependency management, NFR validation (LGPD/TCU compliance, Slack EKM, audit trail design). Security (E01 Protheus governance TI+Jurídico+DPO perfil de acesso per user, Slack EKM deployment AWS KMS under CISO control, LGPD/TCU audit trail 7-system API call logging 5-year retention, alçadas approval workflow E04 R$ 2M threshold Salesforce Flow routing). Governance/CoE (RACI by system Agentforce config/MuleSoft APIs/Slack admin/CRM Totvs vs Salesforce truth, data stewardship E06 CRM data quality owner after Slack updates, CoE charter roles/decision rights/change approval process, Agentforce prompt governance who approves new use cases/maintains prompt library, MuleSoft API governance Anypoint Exchange catalog/API policies publication approval).",
+    "comments": ""
+  },
+  {
+    "resource_id": "R02",
+    "role": "Agentforce Technical Consultant",
+    "phases_active": "1,2,3",
+    "rationale": "9 agents across F1/F2/F3 (J1-J10): prompt engineering + NLP intent parsing (E01 Consultas Financeiras, E02 Autoatendimento Chamados, E03 Intelligence Executiva, E04 KB Normativas, E05 Agendamento MS Teams F1 read-only; E06 Adoção CRM, E07 Abertura Chamados F2 controlled writes; E09 Intelligence Preditiva J9 SLA breach alerts + J10 pipeline recommendations F3 proactive). RAG grounding (E04 KB Normativas — Portal Conexão/SharePoint normativas + Slack AI channel recaps via MCP Real-time Search API federation). Conversational design for voice/text input (NLP extraction ticket fields E07, CRM field updates E06, scheduling commands E05).",
+    "comments": ""
+  },
+  {
+    "resource_id": "R03",
+    "role": "MuleSoft Technical Architect",
+    "phases_active": "0,1,2,3",
+    "rationale": "7-system API exposure (Protheus ERP, Pronto ServiceNow, CRM Totvs, Clarity Broadcom, Portal Conexão SharePoint, MS Teams Graph API, SEI future), System API design (F1 read-only REST APIs, F2 controlled writes with field mapping + transactional integrity validation), API governance model (rate limiting, OAuth 2.0 client credentials, audit logging LGPD/TCU every API call user ID + timestamp + query/mutation + response status), perfil de acesso middleware (E01 Protheus TI+Jurídico+DPO governance model per-user authorization), dual-system orchestration (E08 Clarity co-living vs Service Cloud migration IF chosen — write Service Cloud, read Clarity archive for historical lookup).",
+    "comments": ""
+  },
+  {
+    "resource_id": "R04",
+    "role": "MuleSoft Technical Consultant",
+    "phases_active": "1,2,3",
+    "rationale": "API connectivity implementation (Protheus ERP REST APIs financial queries, Pronto ServiceNow ticket status + case creation, CRM Totvs pipeline briefing + updates, Clarity Broadcom demand queries, SharePoint Conexão content extraction + indexing for RAG corpus, MS Teams Graph API calendar write). Phase 0 API discovery spike (Clarity REST API validation compatibility unknown G0801 — TI provides Swagger/OpenAPI specs + sandbox credentials, volumetrias audit G0102/G0201/G0302/G0701 capacity planning MuleSoft API calls/month). Dual-system orchestration (E08 Clarity co-living: MuleSoft write Clarity via REST API IF co-living chosen; OR Service Cloud migration: MuleSoft read Clarity archive only).",
+    "comments": ""
+  },
+  {
+    "resource_id": "R05",
+    "role": "Data Cloud Technical Architect",
+    "phases_active": "3",
+    "rationale": "F3 Proactive: Data Cloud streaming architecture (Pronto ServiceNow ticket events + CRM Totvs opportunity events CDC ingestion — event-driven pattern Change Data Capture or equivalent streaming APIs), unified data model (Contact B2B client + internal employee, Case/Ticket history from Pronto with 4+ related objects, Opportunity/Demand history from CRM Totvs — complex multi-source unified model), predictive segmentation (high-risk SLA breach cohort E09 J9 via Einstein Discovery, churn-risk cohort E09 J10 via historical pipeline patterns), historical data load (6-12 months Pronto tickets + CRM Totvs opportunities for baseline segmentation — moderate volume tens of thousands records, not Day-0 blocker F3 phased activation).",
+    "comments": ""
+  },
+  {
+    "resource_id": "R06",
+    "role": "Solution Architect",
+    "phases_active": "1,2,3",
+    "rationale": "Service Cloud (E08 Clarity migration IF Service Cloud chosen F2 architecture gate: Case object data model design custom objects for Clarity-specific fields projeto/evolutionary demand metadata, 4.5k active demands + historical archive Day-0 migration Clarity → Service Cloud, dual-system orchestration write Service Cloud read Clarity archive for historical lookup, adoption monitoring dashboard E06 CRM Totvs hygiene KPIs uso semanal % pipeline hygiene staleness/completeness forecast accuracy, audit log custom object E10 LGPD/TCU 5-year retention every MuleSoft API call logged). Slack (Enterprise Grid config Workspace segregation decision from Phase 0 G0101 — single workspace c/ DLP control or 2 workspaces isolated, Slack Connect B2B setup 2.5k external orgs email verified IdP or Slack Guest Accounts, Slack EKM config AWS KMS master keys under Dataprev CISO control instant revocation capability, Slack AI + MCP Real-time Search API federation E04 KB Normativas index Portal Conexão/SharePoint + Slack channel recaps, Slack Workflow Builder orchestration E05 MS Teams Graph API calendar write + E10 alçadas approval buttons R$ 2M threshold routing).",
+    "comments": ""
+  },
+  {
+    "resource_id": "R07",
+    "role": "Change Management Lead",
+    "phases_active": "0,1,2,3",
+    "rationale": "Multi-persona CM (B2B clientes J1 Consultas Financeiras, executivos J5 Intelligence Executiva, comercial J4/J6 CRM + demandas, N1/N2 J2/J3 chamados): training matrix by persona formal sessions F1, early adopters 20-50 pilot users F1 → scale F2/F3, executive mandate orchestration (Saulo executive sponsor enforces adoption KPIs >60% uso semanal target F2), adoption monitoring dashboard (Salesforce CRM Analytics or standard reports — KPIs uso semanal % agent adoption by persona API call volume/error rate audit log compliance metrics), Experience Design workstream coordination (UX researcher + service designer embedded F1 J1/J2 usability testing with pilot 20-50 users → iterate conversational flows + Slack Canvas UX F1 → scale F2/F3 — Gap G0104/G0402/G0505/G0605/G0704/G0207 discipline gap per instructions).",
+    "comments": ""
+  },
+  {
+    "resource_id": "R08",
+    "role": "UX Researcher / Service Designer",
+    "phases_active": "0,1,2",
+    "rationale": "Experience Design workstream (Gap G0104/G0402/G0505/G0605/G0704/G0207 — no UX research/service design/content strategy scoped for 10k+ external user onboarding per discipline gap instructions): Phase 0 UX research (clientes B2B ~10k licenças Slack baseline never used Slack — validate channel preference vs email/portal/phone, persona journey maps which personas per J3/J6/J9/J10), F1 pilot usability testing (J1 Consultas Financeiras + J2 Autoatendimento Chamados conversational flows with 20-50 early adopters — iterate dialogue trees + error states + escalation paths), service design (conversational flow design Slack Canvas UX help content tutorial flows — 'atrito cognitivo' elimination E05 claim requires good UX), content strategy (help content library Trailhead modules video library for multi-persona training), accessibility audit (WCAG 2.1 AA — 10k+ external users public-sector compliance requirement).",
+    "comments": ""
+  },
+  {
+    "resource_id": "R09",
+    "role": "Einstein Analytics Developer",
+    "phases_active": "3",
+    "rationale": "F3 Proactive: Einstein Discovery models (SLA breach prediction E09 J9 regression for high-risk SLA breach cohort, opportunity scoring for pipeline churn prediction E09 J10 churn-risk cohort), model training (training data volume unknown — if ML-based requires data scientist + training dataset preparation + model validation + retraining cadence AI/ML workstream not scoped in epic brief; if rule-based only simpler — clarify so effort not under-estimated), model eval loops F3 pilot tuning (model accuracy validation iterative), Data Cloud segmentation activation (Agentforce reads calculated insights pushes Slack messages proactively — Proactive Agentforce pattern high-risk cohorts alert N2/manager J9, next best action suggest comercial J10).",
+    "comments": ""
+  },
+  {
+    "resource_id": "R10",
+    "role": "Solution Consultant",
+    "phases_active": "0,1,2,3",
+    "rationale": "Phase 0 gap resolution facilitation (G1002 TI+Jurídico+DPO tri-party meeting scheduling — Protheus governance blocker escalate to seller immediately before proposal submission, volumetrias audit coordination with TI — G0102 Protheus quantas consultas financeiras/mês esperadas quantos clientes B2B ativos baseline, G0201 Pronto 30k tickets/mês total quantos usuários finais consultam status via Slack quantas queries/usuário/dia, G0302 CRM Totvs 50 usuários ativos baseline quem são os executivos target headcount/perfis, G0701 Abertura Chamados volume metrics chamados created monthly/annually target response time baseline resolution SLA per priority), requirements clarification (68 gaps cross-checking with Dataprev stakeholders — Source Conflicts G0101 Workspace Slack segregation, Missing Requirements Experience Design gap G0104/G0402/G0505, Governance/CoE gap G0407/G0607/G9901/G1001/G1003), UAT coordination (F1 early adopters 20-50 pilot users → F2/F3 scale — acceptance criteria validation per phase), baseline metric collection (NPS/CSAT pre-F1 coletar antes para comparação pós-implantação, 30-day active users CRM Totvs adoption baseline 30% → +40% target F2 = 70% final), RACI by system facilitation (Protheus → TI owner, CRM Totvs → Comercial owner, Agentforce → PS delivery team owner F1 handoff to CoE F2 — Gap G0407/G0607/G1001/G1003 multi-team ownership decision rights).",
+    "comments": ""
+  },
+  {
+    "resource_id": "R11",
+    "role": "Quality Assurance Consultant",
+    "phases_active": "1,2,3",
+    "rationale": "F1 read-only API integration testing (Protheus ERP financial queries, Pronto ServiceNow ticket status, CRM Totvs pipeline briefing, Clarity Broadcom demand queries, SharePoint Conexão content extraction, MS Teams Graph API calendar write, SEI future — 7 systems total), F2 controlled writes validation (field mapping correctness Agentforce conversational input → Pronto required fields subject/priority/description/category + CRM Totvs pipeline/forecast/oportunidades, transactional integrity validation MuleSoft write API + error handling robust retry logic), F3 Data Cloud streaming + predictive model accuracy validation (Pronto ticket events + CRM Totvs opportunity events CDC ingestion validated, unified Contact/Case/Opportunity profiles operational, Einstein Discovery model SLA breach prediction + pipeline churn prediction accuracy F3 pilot eval loops), LGPD/TCU audit trail verification (every MuleSoft API call logged correctly — user ID + timestamp + query/mutation + response status → Salesforce custom object 5-year retention, Slack EKM AWS KMS instant revocation capability tested), Agentforce conversational flow testing (voice/text NLP accuracy — E05 scheduling commands participant resolution, E06 CRM field updates validation, E07 ticket creation required-fields validation; error handling — conflict detection E05 double-booked, disambiguation logic E07 ambiguous ticket priority; escalation paths — when Agentforce cannot resolve query E04 KB escalate to time Pessoas).",
+    "comments": ""
+  }
+]

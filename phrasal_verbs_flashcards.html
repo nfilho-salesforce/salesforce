@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phrasal Verbs — Nelson</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: linear-gradient(135deg, #0a0a18 0%, #1a0d2e 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: white;
+            padding: 24px;
+        }
+
+        h1 {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.35);
+            margin-bottom: 28px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .card-container {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .card {
+            width: 100%;
+            min-height: 340px;
+            border-radius: 28px;
+            padding: 44px 40px;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            user-select: none;
+            transition: box-shadow 0.3s ease, transform 0.15s ease;
+        }
+
+        .card:hover { transform: translateY(-2px); }
+        .card:active { transform: scale(0.98); }
+
+        .card.flip-out {
+            animation: flipOut 0.18s ease forwards;
+        }
+        .card.flip-in {
+            animation: flipIn 0.18s ease forwards;
+        }
+
+        @keyframes flipOut {
+            to { transform: rotateY(90deg) scale(0.95); opacity: 0; }
+        }
+        @keyframes flipIn {
+            from { transform: rotateY(-90deg) scale(0.95); opacity: 0; }
+            to { transform: rotateY(0deg) scale(1); opacity: 1; }
+        }
+
+        /* Face 1 — Phrasal Verb */
+        .card.face-1 {
+            background: linear-gradient(145deg, #2d1b69 0%, #1e3a5f 60%, #0d2137 100%);
+            box-shadow: 0 30px 70px rgba(109, 40, 217, 0.45);
+        }
+
+        /* Face 2 — Translation */
+        .card.face-2 {
+            background: linear-gradient(145deg, #0c3547 0%, #0d5e7a 60%, #063b50 100%);
+            box-shadow: 0 30px 70px rgba(14, 165, 233, 0.4);
+        }
+
+        /* Face 3 — Exercise */
+        .card.face-3 {
+            background: linear-gradient(145deg, #1a3320 0%, #0d5228 60%, #072e16 100%);
+            box-shadow: 0 30px 70px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Face 1 content */
+        .phrasal-verb {
+            font-size: 3.2rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 10px;
+        }
+
+        .face-label {
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-top: 28px;
+            font-weight: 500;
+        }
+
+        /* Face 2 content */
+        .translation {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #67e8f9;
+            margin-bottom: 22px;
+            letter-spacing: -0.01em;
+        }
+
+        .example {
+            font-size: 0.97rem;
+            color: rgba(255,255,255,0.82);
+            font-style: italic;
+            line-height: 1.65;
+            padding: 16px 20px;
+            background: rgba(255,255,255,0.07);
+            border-radius: 14px;
+            border-left: 3px solid #0ea5e9;
+            text-align: left;
+            width: 100%;
+        }
+
+        /* Face 3 content */
+        .exercise-badge {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #86efac;
+            margin-bottom: 18px;
+            font-weight: 600;
+            padding: 5px 14px;
+            background: rgba(16,185,129,0.15);
+            border-radius: 100px;
+            border: 1px solid rgba(16,185,129,0.3);
+        }
+
+        .exercise-sentence {
+            font-size: 1.08rem;
+            color: white;
+            line-height: 1.65;
+            font-weight: 400;
+            margin-bottom: 26px;
+            padding: 18px 20px;
+            background: rgba(255,255,255,0.07);
+            border-radius: 14px;
+            width: 100%;
+            text-align: left;
+        }
+
+        .reveal-btn {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.45);
+            color: #86efac;
+            padding: 11px 28px;
+            border-radius: 100px;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+        }
+
+        .reveal-btn:hover {
+            background: rgba(16, 185, 129, 0.35);
+            border-color: rgba(16, 185, 129, 0.7);
+        }
+
+        .answer-box {
+            margin-top: 14px;
+            padding: 14px 18px;
+            background: rgba(16,185,129,0.12);
+            border-radius: 12px;
+            font-size: 0.93rem;
+            color: #d1fae5;
+            font-style: italic;
+            border-left: 3px solid #10b981;
+            text-align: left;
+            width: 100%;
+            display: none;
+            animation: fadeUp 0.25s ease;
+        }
+
+        .answer-box.visible { display: block; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Dots */
+        .face-dots {
+            display: flex;
+            gap: 9px;
+            margin: 22px 0 18px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.18);
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: white;
+            transform: scale(1.2);
+        }
+
+        /* Navigation */
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .nav-btn {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.14);
+            color: white;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: rgba(255,255,255,0.18);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.25;
+            cursor: not-allowed;
+        }
+
+        .card-count {
+            font-size: 0.88rem;
+            color: rgba(255,255,255,0.45);
+            min-width: 56px;
+            text-align: center;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .bottom-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .action-btn {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.16);
+            color: rgba(255,255,255,0.45);
+            padding: 8px 18px;
+            border-radius: 100px;
+            font-size: 0.78rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 0.05em;
+        }
+
+        .action-btn:hover {
+            border-color: rgba(255,255,255,0.35);
+            color: rgba(255,255,255,0.75);
+        }
+
+        .progress-bar-wrap {
+            width: 100%;
+            max-width: 500px;
+            height: 3px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 100px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #7c3aed, #0ea5e9);
+            border-radius: 100px;
+            transition: width 0.4s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>⚡ Phrasal Verbs — Nelson</h1>
+
+    <div class="progress-bar-wrap">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <div class="card-container">
+        <div class="card face-1" id="card" onclick="handleCardClick()"></div>
+    </div>
+
+    <div class="face-dots">
+        <div class="dot active" id="dot-0"></div>
+        <div class="dot" id="dot-1"></div>
+        <div class="dot" id="dot-2"></div>
+    </div>
+
+    <div class="controls">
+        <button class="nav-btn" id="btn-prev" onclick="navigate(-1)">←</button>
+        <span class="card-count" id="card-count">1 / 23</span>
+        <button class="nav-btn" id="btn-next" onclick="navigate(1)">→</button>
+    </div>
+
+    <div class="bottom-controls">
+        <button class="action-btn" onclick="shuffleCards()">⟳ Shuffle</button>
+        <button class="action-btn" onclick="resetCards()">↺ Reset</button>
+    </div>
+
+    <script>
+    const data = [
+        {
+            verb: "Turn down",
+            translation: "Recusar",
+            example: "They offered me a promotion, but I turned it down.",
+            exercise: "Meu chefe me ofereceu um projeto extra, mas eu recusei.",
+            answer: "My boss offered me an extra project, but I turned it down."
+        },
+        {
+            verb: "Pull off",
+            translation: "Conseguir (algo difícil)",
+            example: "I can't believe she pulled off that presentation!",
+            exercise: "Não acredito que conseguimos entregar o projeto no prazo!",
+            answer: "I can't believe we pulled off delivering the project on time!"
+        },
+        {
+            verb: "Put off",
+            translation: "Adiar / Postergar",
+            example: "Stop putting off the difficult conversations.",
+            exercise: "Eu já adiei essa reunião duas vezes esta semana.",
+            answer: "I've put off this meeting twice this week."
+        },
+        {
+            verb: "Come up with",
+            translation: "Criar / Inventar",
+            example: "We need to come up with a better strategy.",
+            exercise: "Precisamos criar uma solução antes da reunião de amanhã.",
+            answer: "We need to come up with a solution before tomorrow's meeting."
+        },
+        {
+            verb: "Carry out",
+            translation: "Executar / Realizar",
+            example: "The audit was carried out by an external team.",
+            exercise: "Realizamos os testes antes do lançamento do sistema.",
+            answer: "We carried out the tests before the system launch."
+        },
+        {
+            verb: "Figure out",
+            translation: "Entender / Resolver",
+            example: "I can't figure out why the integration keeps failing.",
+            exercise: "Você conseguiu entender por que o sistema travou?",
+            answer: "Did you figure out why the system crashed?"
+        },
+        {
+            verb: "End up",
+            translation: "Acabar fazendo",
+            example: "We ended up rewriting the entire proposal.",
+            exercise: "Acabamos cancelando a viagem por causa do clima.",
+            answer: "We ended up canceling the trip because of the weather."
+        },
+        {
+            verb: "Carry on",
+            translation: "Continuar",
+            example: "Despite the setback, we carried on with the implementation.",
+            exercise: "Por favor, continue com a apresentação — eu já volto.",
+            answer: "Please carry on with the presentation — I'll be right back."
+        },
+        {
+            verb: "Drop off",
+            translation: "Deixar alguém",
+            example: "I'll drop you off at the airport at 6am.",
+            exercise: "Você pode me deixar no escritório antes das 9h?",
+            answer: "Can you drop me off at the office before 9am?"
+        },
+        {
+            verb: "Pick up",
+            translation: "Buscar alguém",
+            example: "Can you pick me up after the client dinner?",
+            exercise: "Vou buscar meu filho na escola às 17h.",
+            answer: "I'll pick my son up from school at 5pm."
+        },
+        {
+            verb: "Find out",
+            translation: "Descobrir / Saber",
+            example: "I need to find out who approved this change.",
+            exercise: "Você descobriu quando o contrato vai ser assinado?",
+            answer: "Did you find out when the contract will be signed?"
+        },
+        {
+            verb: "Ramp up",
+            translation: "Acelerar / Escalar",
+            example: "We need to ramp up hiring before Q3.",
+            exercise: "Precisamos escalar as operações antes do lançamento.",
+            answer: "We need to ramp up operations before the launch."
+        },
+        {
+            verb: "Run it by",
+            translation: "Consultar / Passar por alguém",
+            example: "Let me run this proposal by my manager before we send it.",
+            exercise: "Deixa eu passar isso pelo jurídico antes de aprovar.",
+            answer: "Let me run this by legal before approving it."
+        },
+        {
+            verb: "Flag up",
+            translation: "Sinalizar / Alertar",
+            example: "Please flag up any risks before the kickoff.",
+            exercise: "Sinaliza qualquer problema assim que você identificar.",
+            answer: "Flag up any issues as soon as you identify them."
+        },
+        {
+            verb: "Pin down",
+            translation: "Definir / Confirmar",
+            example: "We need to pin down the delivery date this week.",
+            exercise: "Ainda não conseguimos confirmar o escopo do projeto.",
+            answer: "We still haven't managed to pin down the project scope."
+        },
+        {
+            verb: "Go well / wrong",
+            translation: "Correr bem / mal",
+            example: "The demo went really well with the client.",
+            exercise: "A apresentação correu muito bem — o cliente adorou.",
+            answer: "The presentation went really well — the client loved it."
+        },
+        {
+            verb: "Take place",
+            translation: "Acontecer / Ocorrer",
+            example: "The discovery session will take place on Thursday.",
+            exercise: "A cerimônia de kickoff vai acontecer na próxima semana.",
+            answer: "The kickoff ceremony will take place next week."
+        },
+        {
+            verb: "Put on",
+            translation: "Organizar / Realizar (evento)",
+            example: "We put on a great enablement session for the team.",
+            exercise: "O time de PS organizou um workshop incrível para o cliente.",
+            answer: "The PS team put on an amazing workshop for the client."
+        },
+        {
+            verb: "Take away",
+            translation: "Concluir / Lição principal",
+            example: "What's the key takeaway from this meeting?",
+            exercise: "Qual é a principal lição que você leva desta conversa?",
+            answer: "What's the key takeaway you take away from this conversation?"
+        },
+        {
+            verb: "Break up",
+            translation: "Dividir / Encerrar",
+            example: "Let's break up into smaller groups for the workshop.",
+            exercise: "Vamos nos dividir em grupos menores para o exercício.",
+            answer: "Let's break up into smaller groups for the exercise."
+        },
+        {
+            verb: "Follow through",
+            translation: "Cumprir / Dar continuidade",
+            example: "He promised to deliver, but never followed through.",
+            exercise: "Ele disse que ia entregar o relatório, mas nunca cumpriu.",
+            answer: "He said he would deliver the report, but never followed through."
+        },
+        {
+            verb: "Follow up",
+            translation: "Dar retorno / Acompanhar",
+            example: "I'll follow up with the client after the proposal is sent.",
+            exercise: "Vou dar um retorno para o cliente após a reunião.",
+            answer: "I'll follow up with the client after the meeting."
+        },
+        {
+            verb: "Work out",
+            translation: "Resolver / Funcionar",
+            example: "We need to work out the pricing before the next call.",
+            exercise: "Precisamos resolver os detalhes do contrato antes de avançar.",
+            answer: "We need to work out the contract details before moving forward."
+        }
+    ];
+
+    let cards = [...data];
+    let currentCard = 0;
+    let currentFace = 0;
+    let isAnimating = false;
+
+    function render(animDir = 0) {
+        const card = document.getElementById('card');
+        const d = cards[currentCard];
+
+        const doRender = () => {
+            // Dots
+            for (let i = 0; i < 3; i++) {
+                document.getElementById(`dot-${i}`).classList.toggle('active', i === currentFace);
+            }
+
+            // Progress bar
+            const pct = ((currentCard + 1) / cards.length) * 100;
+            document.getElementById('progress-bar').style.width = pct + '%';
+
+            // Card count
+            document.getElementById('card-count').textContent = `${currentCard + 1} / ${cards.length}`;
+
+            // Nav buttons
+            document.getElementById('btn-prev').disabled = currentCard === 0 && currentFace === 0;
+            document.getElementById('btn-next').disabled = currentCard === cards.length - 1 && currentFace === 2;
+
+            // Card face class
+            card.className = `card face-${currentFace + 1}`;
+
+            if (currentFace === 0) {
+                card.innerHTML = `
+                    <div class="phrasal-verb">${d.verb}</div>
+                    <div class="face-label">clique para ver a tradução →</div>
+                `;
+            } else if (currentFace === 1) {
+                card.innerHTML = `
+                    <div class="translation">${d.translation}</div>
+                    <div class="example">"${d.example}"</div>
+                    <div class="face-label" style="margin-top:22px">clique para o exercício →</div>
+                `;
+            } else {
+                card.innerHTML = `
+                    <div class="exercise-badge">🇧🇷 Traduza para o inglês</div>
+                    <div class="exercise-sentence">${d.exercise}</div>
+                    <button class="reveal-btn" onclick="revealAnswer(event)">Mostrar resposta</button>
+                    <div class="answer-box" id="answer-box">${d.answer}</div>
+                `;
+            }
+
+            card.classList.add('flip-in');
+            card.addEventListener('animationend', () => {
+                card.classList.remove('flip-in');
+                isAnimating = false;
+            }, { once: true });
+        };
+
+        if (animDir !== 0) {
+            isAnimating = true;
+            card.classList.add('flip-out');
+            card.addEventListener('animationend', () => {
+                card.classList.remove('flip-out');
+                doRender();
+            }, { once: true });
+        } else {
+            doRender();
+        }
+    }
+
+    function handleCardClick() {
+        if (isAnimating) return;
+        if (currentFace === 2) return; // Don't flip from exercise face on card click
+        currentFace = (currentFace + 1) % 3;
+        render(1);
+    }
+
+    function navigate(dir) {
+        if (isAnimating) return;
+
+        if (dir === 1) {
+            if (currentFace < 2) {
+                currentFace++;
+            } else if (currentCard < cards.length - 1) {
+                currentCard++;
+                currentFace = 0;
+            } else return;
+        } else {
+            if (currentFace > 0) {
+                currentFace--;
+            } else if (currentCard > 0) {
+                currentCard--;
+                currentFace = 0;
+            } else return;
+        }
+
+        render(dir);
+    }
+
+    function revealAnswer(e) {
+        e.stopPropagation();
+        const box = document.getElementById('answer-box');
+        if (box) box.classList.toggle('visible');
+    }
+
+    function shuffleCards() {
+        for (let i = cards.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [cards[i], cards[j]] = [cards[j], cards[i]];
+        }
+        currentCard = 0;
+        currentFace = 0;
+        render(1);
+    }
+
+    function resetCards() {
+        cards = [...data];
+        currentCard = 0;
+        currentFace = 0;
+        render(1);
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); navigate(1); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); navigate(-1); }
+    });
+
+    render(0);
+    </script>
+</body>
+</html>

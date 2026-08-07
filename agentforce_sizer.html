@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Agentforce Conversation Sizer — Salesforce PS</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f0f2f5;
+    min-height: 100vh;
+    padding: 32px 16px;
+    color: #1a2535;
+  }
+
+  /* ── Header ── */
+  .header {
+    max-width: 980px; margin: 0 auto 24px;
+    background: linear-gradient(135deg, #012169 0%, #0070D2 60%, #00ACC1 100%);
+    border-radius: 16px; padding: 24px 32px;
+    display: flex; justify-content: space-between; align-items: center; gap: 20px;
+  }
+  .header h1 { color: #fff; font-size: 20px; font-weight: 800; }
+  .header p  { color: rgba(255,255,255,0.75); font-size: 11.5px; margin-top: 4px; line-height: 1.5; }
+  .hdr-kpis  { display: flex; gap: 10px; flex-shrink: 0; }
+  .hkpi {
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 9px; padding: 8px 16px; text-align: center; min-width: 80px;
+  }
+  .hkpi .v { color: #fff; font-size: 18px; font-weight: 900; line-height: 1; }
+  .hkpi .l { color: rgba(255,255,255,0.65); font-size: 9.5px; margin-top: 3px; }
+
+  /* ── Break-even badge ── */
+  .breakeven-banner {
+    max-width: 980px; margin: 0 auto 20px;
+    border-radius: 12px; padding: 12px 24px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    transition: background 0.3s, border 0.3s;
+  }
+  .be-positive { background: #E8F5EE; border: 2px solid #4CAF7D; }
+  .be-negative { background: #FFEBEE; border: 2px solid #EF5350; }
+  .be-neutral  { background: #FFF8E1; border: 2px solid #FFB300; }
+  .be-icon  { font-size: 28px; flex-shrink: 0; }
+  .be-text strong { font-size: 14px; font-weight: 800; }
+  .be-positive .be-text strong { color: #1B5E35; }
+  .be-negative .be-text strong { color: #B71C1C; }
+  .be-neutral  .be-text strong { color: #E65100; }
+  .be-text p { font-size: 11px; margin-top: 3px; line-height: 1.5; }
+  .be-positive .be-text p { color: #2E7D32; }
+  .be-negative .be-text p { color: #7F0000; }
+  .be-neutral  .be-text p { color: #7A4F00; }
+  .be-months { text-align: right; flex-shrink: 0; }
+  .be-months .bm-val { font-size: 36px; font-weight: 900; line-height: 1; }
+  .be-months .bm-lbl { font-size: 10px; font-weight: 600; margin-top: 2px; }
+  .be-positive .bm-val { color: #2E844E; }
+  .be-negative .bm-val { color: #B71C1C; }
+  .be-neutral  .bm-val { color: #E65100; }
+  .be-positive .bm-lbl { color: #4CAF7D; }
+  .be-negative .bm-lbl { color: #EF5350; }
+  .be-neutral  .bm-lbl { color: #FFB300; }
+
+  /* ── Layout ── */
+  .main { max-width: 980px; margin: 0 auto; display: flex; gap: 20px; align-items: flex-start; }
+  .col-left  { flex: 1;    display: flex; flex-direction: column; gap: 16px; }
+  .col-right { flex: 1.45; display: flex; flex-direction: column; gap: 16px; }
+
+  /* ── Card ── */
+  .card { background: #fff; border-radius: 14px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); overflow: hidden; }
+  .card-hdr { padding: 12px 20px; display: flex; align-items: center; gap: 9px; }
+  .card-hdr .icon { font-size: 14px; }
+  .card-hdr h2 { color: #fff; font-size: 12px; font-weight: 700; }
+  .card-body { padding: 18px 20px; }
+
+  .ch-blue   .card-hdr { background: linear-gradient(90deg,#0070D2,#0095D9); }
+  .ch-navy   .card-hdr { background: linear-gradient(90deg,#032D60,#004FA3); }
+  .ch-green  .card-hdr { background: linear-gradient(90deg,#2E844E,#4CAF7D); }
+  .ch-orange .card-hdr { background: linear-gradient(90deg,#E65100,#FF7A00); }
+  .ch-purple .card-hdr { background: linear-gradient(90deg,#6A1B9A,#9C27B0); }
+  .ch-teal   .card-hdr { background: linear-gradient(90deg,#00838F,#00ACC1); }
+
+  /* ── Field ── */
+  .field { margin-bottom: 13px; }
+  .field:last-child { margin-bottom: 0; }
+  .field label {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 10.5px; font-weight: 700; color: #546E7A;
+    letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 6px;
+  }
+  .field label .hint { font-size: 9.5px; color: #90A4AE; font-weight: 400; text-transform: none; letter-spacing: 0; }
+  .field-wrap { position: relative; }
+  .fpfx, .fsfx {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    font-size: 12px; color: #78909C; font-weight: 600; pointer-events: none;
+  }
+  .fpfx { left: 12px; }
+  .fsfx { right: 12px; }
+  input[type="number"] {
+    width: 100%; padding: 9px 12px;
+    border: 1.5px solid #D8DFE6; border-radius: 8px;
+    font-size: 14px; font-weight: 700; color: #032D60;
+    background: #FAFBFD; outline: none;
+    transition: border-color 0.18s, box-shadow 0.18s;
+  }
+  input[type="number"].has-pfx { padding-left: 28px; }
+  input[type="number"].has-sfx { padding-right: 36px; }
+  input[type="number"]:focus { border-color: #0070D2; box-shadow: 0 0 0 3px rgba(0,112,210,0.12); }
+
+  /* Deflection slider */
+  .defl-row { display: flex; gap: 10px; align-items: center; }
+  .defl-val { font-size: 28px; font-weight: 900; color: #0070D2; min-width: 52px; text-align: center; }
+  input[type="range"] {
+    flex: 1; -webkit-appearance: none; height: 8px; border-radius: 20px; outline: none; cursor: pointer;
+    background: linear-gradient(90deg, #0070D2 var(--pct,45%), #E0E5EA var(--pct,45%));
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%;
+    background: #0070D2; border: 3px solid #fff;
+    box-shadow: 0 1px 6px rgba(0,112,210,0.4); cursor: pointer;
+  }
+  .defl-labels { display: flex; justify-content: space-between; margin-top: 4px; }
+  .defl-labels span { font-size: 9px; color: #90A4AE; }
+
+  /* Presets */
+  .presets { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .pbtn {
+    padding: 6px 13px; border-radius: 7px; border: 1.5px solid #D8DFE6;
+    background: #fff; font-size: 10.5px; font-weight: 600; color: #546E7A;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .pbtn:hover, .pbtn.active { border-color: #0070D2; color: #0070D2; background: #E8F4FF; }
+
+  /* ── KPI grid ── */
+  .kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .kpi-box { border-radius: 10px; padding: 13px 12px; text-align: center; }
+  .kpi-box .kv { font-size: 22px; font-weight: 900; line-height: 1; }
+  .kpi-box .kl { font-size: 9px; font-weight: 600; margin-top: 4px; opacity: 0.75; }
+  .kpi-full { grid-column: 1/-1; }
+  .kb-blue   { background: linear-gradient(135deg,#E8F4FF,#CCE7FF); }
+  .kb-blue .kv  { color: #0070D2; } .kb-blue .kl  { color: #004FA3; }
+  .kb-green  { background: linear-gradient(135deg,#E8F5EE,#C8E6C9); }
+  .kb-green .kv { color: #2E844E; } .kb-green .kl { color: #1B5E35; }
+  .kb-orange { background: linear-gradient(135deg,#FFF3E0,#FFE0B2); }
+  .kb-orange .kv { color: #E65100; } .kb-orange .kl { color: #BF360C; }
+  .kb-red    { background: linear-gradient(135deg,#FFEBEE,#FFCDD2); }
+  .kb-red .kv   { color: #B71C1C; } .kb-red .kl   { color: #7F0000; }
+  .kb-purple { background: linear-gradient(135deg,#F3E5F5,#E1BEE7); }
+  .kb-purple .kv { color: #6A1B9A; } .kb-purple .kl { color: #4A148C; }
+  .kb-teal   { background: linear-gradient(135deg,#E0F7FA,#B2EBF2); }
+  .kb-teal .kv  { color: #00838F; } .kb-teal .kl  { color: #006064; }
+
+  /* ── Formula strip ── */
+  .formula-strip {
+    background: #F4F6F9; border-radius: 9px; padding: 10px 14px; margin-top: 12px;
+    font-size: 10px; color: #546E7A; line-height: 1.7;
+  }
+  .formula-strip code {
+    display: block; font-family: 'Courier New', monospace;
+    font-size: 10.5px; color: #0070D2; font-weight: 600;
+    background: #E8F4FF; padding: 3px 8px; border-radius: 5px; margin-top: 3px;
+  }
+
+  /* ── Chart ── */
+  .chart-title { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #546E7A; margin-bottom: 10px; }
+  svg { display: block; overflow: visible; }
+  .legend-row { display: flex; gap: 18px; margin-top: 10px; flex-wrap: wrap; }
+  .leg { display: flex; align-items: center; gap: 6px; font-size: 10px; color: #546E7A; }
+  .leg-line { width: 24px; height: 3px; border-radius: 2px; }
+
+  /* ── Sensitivity table ── */
+  .sens-table { width: 100%; border-collapse: collapse; }
+  .sens-table th { background: #F4F6F9; padding: 7px 10px; font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #546E7A; text-align: center; border-bottom: 2px solid #E8EDF2; }
+  .sens-table td { padding: 8px 10px; font-size: 11px; color: #37474F; border-bottom: 1px solid #F0F2F5; text-align: center; }
+  .sens-table tr:last-child td { border: 0; }
+  .sens-table tr:hover td { background: #FAFBFF; }
+  .sens-table td:first-child { text-align: left; font-weight: 700; color: #032D60; }
+  .highlight-row td { background: #E8F4FF !important; }
+  .highlight-row td:first-child { border-left: 3px solid #0070D2; color: #0070D2; }
+
+  /* ── ROI bar chart ── */
+  .roi-bars { display: flex; gap: 8px; align-items: flex-end; height: 70px; margin-top: 8px; }
+  .roi-bar-group { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .roi-bar-wrap { width: 100%; height: 60px; display: flex; align-items: flex-end; justify-content: center; }
+  .roi-bar { width: 70%; border-radius: 5px 5px 0 0; min-height: 3px; transition: height 0.4s cubic-bezier(0.34,1.2,0.64,1); }
+  .roi-bar-lbl { font-size: 9px; color: #78909C; text-align: center; }
+
+  /* ── Disclaimer ── */
+  .disclaimer { max-width: 980px; margin: 14px auto 0; background: #FFF8E1; border: 1px solid #FFE082; border-radius: 10px; padding: 10px 18px; font-size: 10.5px; color: #7A4F00; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <h1>🤖 Agentforce Conversation Sizer</h1>
+    <p>Calcula el break-even de deflexión · Cruce entre ahorro humano y costo de Agentforce<br>
+    Salesforce Professional Services LATAM · Falabella</p>
+  </div>
+  <div class="hdr-kpis">
+    <div class="hkpi"><div class="v" id="hdr_roi">—</div><div class="l">ROI Mensual</div></div>
+    <div class="hkpi"><div class="v" id="hdr_saving">—</div><div class="l">Ahorro Neto/mes</div></div>
+    <div class="hkpi"><div class="v" id="hdr_be">—</div><div class="l">Break-even</div></div>
+  </div>
+</div>
+
+<!-- BREAK-EVEN BANNER -->
+<div class="breakeven-banner be-positive" id="beBanner">
+  <span class="be-icon" id="beIcon">✅</span>
+  <div class="be-text">
+    <strong id="beTitle">Break-even alcanzado desde el Día 1</strong>
+    <p id="beSubtitle">El ahorro por deflexión supera el costo de Agentforce desde el primer mes de operación.</p>
+  </div>
+  <div class="be-months">
+    <div class="bm-val" id="beMonths">—</div>
+    <div class="bm-lbl" id="beLabel">meses break-even</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- COL LEFT — INPUTS -->
+  <div class="col-left">
+
+    <div class="presets">
+      <button class="pbtn active" onclick="loadPreset('falabella')">📍 Falabella Baseline</button>
+      <button class="pbtn" onclick="loadPreset('meta90')">🎯 Meta 90 Días</button>
+      <button class="pbtn" onclick="loadPreset('conservative')">🛡️ Conservador</button>
+      <button class="pbtn" onclick="loadPreset('aggressive')">🚀 Agresivo</button>
+    </div>
+
+    <!-- Volumen & Costo Humano -->
+    <div class="card ch-blue">
+      <div class="card-hdr"><span class="icon">📞</span><h2>Volumen & Costo Humano</h2></div>
+      <div class="card-body">
+        <div class="field">
+          <label>Contactos / mes <span class="hint">total canal atendido</span></label>
+          <div class="field-wrap">
+            <input type="number" id="volume" value="333333" min="100" oninput="calc()" />
+          </div>
+        </div>
+        <div class="field">
+          <label>Costo por contacto humano (USD) <span class="hint">AHT × costo/min</span></label>
+          <div class="field-wrap">
+            <span class="fpfx">$</span>
+            <input type="number" id="humanCost" value="5.00" step="0.10" min="0.10" class="has-pfx" oninput="calc()" />
+          </div>
+        </div>
+        <div class="field">
+          <label>% Deflexión objetivo <span class="hint">Agentforce vs. humano</span></label>
+          <div class="defl-row">
+            <span class="defl-val" id="deflVal">45%</span>
+            <div style="flex:1;">
+              <input type="range" id="deflSlider" min="5" max="95" value="45" oninput="syncDeflSlider(); calc()" />
+              <div class="defl-labels"><span>5%</span><span>30%</span><span>60%</span><span>95%</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="field" style="margin-top:8px;">
+          <label>O ingresa el % manualmente</label>
+          <div class="field-wrap">
+            <input type="number" id="deflInput" value="45" min="1" max="100" class="has-sfx" oninput="syncDeflInput(); calc()" />
+            <span class="fsfx">%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Agentforce Pricing -->
+    <div class="card ch-teal">
+      <div class="card-hdr"><span class="icon">⚡</span><h2>Pricing Agentforce</h2></div>
+      <div class="card-body">
+        <div class="field">
+          <label>Precio por Flex Credit (USD) <span class="hint">referencia: ~$0.20</span></label>
+          <div class="field-wrap">
+            <span class="fpfx">$</span>
+            <input type="number" id="creditPrice" value="0.20" step="0.01" min="0.01" class="has-pfx" oninput="calc()" />
+          </div>
+        </div>
+        <div class="field">
+          <label>Flex Credits por conversación <span class="hint">base Agentforce: 1 FC</span></label>
+          <div class="field-wrap">
+            <input type="number" id="creditsPerConv" value="1" step="0.1" min="0.1" class="has-sfx" oninput="calc()" />
+            <span class="fsfx">FC</span>
+          </div>
+        </div>
+        <div class="field">
+          <label>Inversión PS setup (USD) <span class="hint">costo único de implementación</span></label>
+          <div class="field-wrap">
+            <span class="fpfx">$</span>
+            <input type="number" id="psInvest" value="168000" min="0" class="has-pfx" oninput="calc()" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- COL RIGHT — RESULTS -->
+  <div class="col-right">
+
+    <!-- KPIs -->
+    <div class="card ch-green">
+      <div class="card-hdr"><span class="icon">💰</span><h2>Resultados del Sizer</h2></div>
+      <div class="card-body">
+        <div class="kpi-grid">
+          <div class="kpi-box kb-blue">
+            <div class="kv" id="kpi_deflected">0</div>
+            <div class="kl">Contactos Deflectados/mes</div>
+          </div>
+          <div class="kpi-box kb-green">
+            <div class="kv" id="kpi_saving">$0</div>
+            <div class="kl">Ahorro Bruto/mes (vs. humano)</div>
+          </div>
+          <div class="kpi-box kb-orange">
+            <div class="kv" id="kpi_agentCost">$0</div>
+            <div class="kl">Costo Agentforce/mes</div>
+          </div>
+          <div class="kpi-box kb-purple">
+            <div class="kv" id="kpi_netSaving">$0</div>
+            <div class="kl">Ahorro Neto/mes</div>
+          </div>
+          <div class="kpi-box kb-teal kpi-full">
+            <div class="kv" id="kpi_roi">0%</div>
+            <div class="kl">ROI Mensual (Ahorro Neto / Costo Agentforce)</div>
+          </div>
+        </div>
+
+        <div class="formula-strip">
+          <strong>Fórmulas aplicadas:</strong>
+          <code id="formula1">Contactos deflectados = volumen × deflexión%</code>
+          <code id="formula2">Ahorro = deflectados × costo_humano</code>
+          <code id="formula3">Costo Agentforce = deflectados × FC/conv × precio_FC</code>
+          <code id="formula4">Break-even (meses) = inversión_PS / ahorro_neto_mensual</code>
+        </div>
+      </div>
+    </div>
+
+    <!-- Crossover Chart -->
+    <div class="card ch-navy">
+      <div class="card-hdr"><span class="icon">📈</span><h2>Curva de Break-even — Ahorro vs. Costo</h2></div>
+      <div class="card-body">
+        <div class="chart-title">Acumulado mensual · Inversión PS + Costo Agentforce vs. Ahorro</div>
+        <svg id="beChart" width="100%" height="200" viewBox="0 0 540 200" preserveAspectRatio="xMidYMid meet"></svg>
+        <div class="legend-row">
+          <div class="leg"><div class="leg-line" style="background:#2E844E;"></div> Ahorro acumulado</div>
+          <div class="leg"><div class="leg-line" style="background:#C62828;"></div> Costo total acumulado (PS + Agentforce)</div>
+          <div class="leg"><div class="leg-line" style="background:#FF7A00; height:2px; border-top: 2px dashed #FF7A00;"></div> Punto de cruce (Break-even)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sensitivity Analysis -->
+    <div class="card ch-orange">
+      <div class="card-hdr"><span class="icon">🔬</span><h2>Análisis de Sensibilidad — Deflexión vs. Break-even</h2></div>
+      <div class="card-body">
+        <table class="sens-table" id="sensTable">
+          <thead>
+            <tr>
+              <th>% Deflexión</th>
+              <th>Contactos deflect.</th>
+              <th>Ahorro/mes</th>
+              <th>Costo AF/mes</th>
+              <th>ROI Mensual</th>
+              <th>Break-even</th>
+            </tr>
+          </thead>
+          <tbody id="sensBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="disclaimer">
+  ⚠ <strong>Aviso:</strong> Flex Credits y precios son estimaciones orientativas. El precio real por FC depende del contrato de licenciamiento del cliente con Salesforce. Validar con el AE antes de presentar al Economic Buyer. Referencia base: ~1 FC por conversación estándar Agentforce, ~$0.20 USD/FC.
+</div>
+
+<script>
+// ── Helpers ───────────────────────────────────────────────
+function g(id) { return parseFloat(document.getElementById(id).value) || 0; }
+function s(id, v) { document.getElementById(id).textContent = v; }
+
+function fmtM(n, decimals=1) {
+  const abs = Math.abs(n);
+  const sign = n < 0 ? '-' : '';
+  if (abs >= 1e6) return sign + '$' + (abs/1e6).toFixed(decimals) + 'M';
+  if (abs >= 1e3) return sign + '$' + (abs/1e3).toFixed(decimals) + 'K';
+  return sign + '$' + abs.toFixed(0);
+}
+function fmtN(n) {
+  if (n >= 1e6) return (n/1e6).toFixed(1) + 'M';
+  if (n >= 1e3) return (n/1e3).toFixed(0) + 'K';
+  return n.toFixed(0);
+}
+
+function syncDeflSlider() {
+  const v = document.getElementById('deflSlider').value;
+  document.getElementById('deflInput').value = v;
+  document.getElementById('deflVal').textContent = v + '%';
+  const pct = ((v - 5) / 90) * 100;
+  document.getElementById('deflSlider').style.setProperty('--pct', pct + '%');
+}
+function syncDeflInput() {
+  const v = Math.min(100, Math.max(1, g('deflInput')));
+  document.getElementById('deflSlider').value = v;
+  document.getElementById('deflVal').textContent = v + '%';
+  const pct = ((v - 5) / 90) * 100;
+  document.getElementById('deflSlider').style.setProperty('--pct', pct + '%');
+}
+
+// ── Main calc ─────────────────────────────────────────────
+function calc() {
+  const volume      = g('volume');
+  const humanCost   = g('humanCost');
+  const deflPct     = g('deflInput') / 100;
+  const creditPrice = g('creditPrice');
+  const credPerConv = g('creditsPerConv');
+  const psInvest    = g('psInvest');
+
+  const deflected   = volume * deflPct;
+  const savingBruto = deflected * humanCost;
+  const costAF      = deflected * credPerConv * creditPrice;
+  const netSaving   = savingBruto - costAF;
+  const roi         = costAF > 0 ? (netSaving / costAF) * 100 : 0;
+  const beMonths    = netSaving > 0 ? psInvest / netSaving : Infinity;
+
+  // KPIs
+  s('kpi_deflected', fmtN(deflected));
+  s('kpi_saving',    fmtM(savingBruto));
+  s('kpi_agentCost', fmtM(costAF));
+  s('kpi_netSaving', fmtM(netSaving));
+  s('kpi_roi',       roi.toFixed(0) + '%');
+
+  // Formulas
+  s('formula1', `Contactos deflectados = ${fmtN(volume)} × ${(deflPct*100).toFixed(0)}% = ${fmtN(deflected)}/mes`);
+  s('formula2', `Ahorro = ${fmtN(deflected)} × $${humanCost.toFixed(2)} = ${fmtM(savingBruto)}/mes`);
+  s('formula3', `Costo Agentforce = ${fmtN(deflected)} × ${credPerConv} FC × $${creditPrice} = ${fmtM(costAF)}/mes`);
+  s('formula4', `Break-even = $${(psInvest/1000).toFixed(0)}K PS / ${fmtM(netSaving)}/mes = ${isFinite(beMonths) ? beMonths.toFixed(1) + ' meses' : 'N/A (ahorro neto negativo)'}`);
+
+  // Header
+  s('hdr_roi',    roi.toFixed(0) + '%');
+  s('hdr_saving', fmtM(netSaving));
+  s('hdr_be',     isFinite(beMonths) ? beMonths.toFixed(1) + 'm' : '—');
+
+  // Banner
+  const banner = document.getElementById('beBanner');
+  const beIcon = document.getElementById('beIcon');
+  if (netSaving <= 0) {
+    banner.className = 'breakeven-banner be-negative';
+    beIcon.textContent = '⚠️';
+    s('beTitle', 'Costo de Agentforce supera el ahorro');
+    s('beSubtitle', 'La deflexión actual no es suficiente para que Agentforce sea rentable. Aumentar el % de deflexión o reducir el costo por FC.');
+    s('beMonths', '—');
+    s('beLabel', 'no aplica');
+  } else if (beMonths < 3) {
+    banner.className = 'breakeven-banner be-positive';
+    beIcon.textContent = '🔥';
+    s('beTitle', 'Break-even ultrarrápido — menos de 3 meses');
+    s('beSubtitle', `Ahorro neto de ${fmtM(netSaving)}/mes cubre la inversión PS de $${(psInvest/1000).toFixed(0)}K en tiempo récord.`);
+    s('beMonths', beMonths.toFixed(1));
+    s('beLabel', 'meses para recuperar inversión PS');
+  } else if (beMonths < 8) {
+    banner.className = 'breakeven-banner be-positive';
+    beIcon.textContent = '✅';
+    s('beTitle', 'Break-even alcanzado en menos de ' + Math.ceil(beMonths) + ' meses');
+    s('beSubtitle', `Ahorro neto de ${fmtM(netSaving)}/mes. Caso sólido para el Economic Buyer.`);
+    s('beMonths', beMonths.toFixed(1));
+    s('beLabel', 'meses para recuperar inversión PS');
+  } else {
+    banner.className = 'breakeven-banner be-neutral';
+    beIcon.textContent = '📋';
+    s('beTitle', 'Break-even en ' + beMonths.toFixed(1) + ' meses — revisar supuestos');
+    s('beSubtitle', `El engagement es rentable pero el payback es largo. Considerar aumentar la deflexión objetivo o incluir H2/H3 en el business case.`);
+    s('beMonths', beMonths.toFixed(1));
+    s('beLabel', 'meses para recuperar inversión PS');
+  }
+
+  // Chart
+  drawChart(savingBruto, costAF, psInvest, beMonths);
+
+  // Sensitivity table
+  renderSensitivity(volume, humanCost, creditPrice, credPerConv, psInvest, deflPct * 100);
+}
+
+// ── Crossover Chart ───────────────────────────────────────
+function drawChart(savingMonth, costAFMonth, psInvest, beMonths) {
+  const svg = document.getElementById('beChart');
+  const W = 540, H = 200;
+  const padL = 52, padR = 24, padT = 16, padB = 28;
+  const cW = W - padL - padR, cH = H - padT - padB;
+  const months = 18;
+
+  // Build data
+  const savings = [], costs = [];
+  for (let m = 0; m <= months; m++) {
+    savings.push(savingMonth * m);
+    costs.push(psInvest + costAFMonth * m);
+  }
+  const maxVal = Math.max(...savings, ...costs, 1);
+
+  function xP(m) { return padL + (m / months) * cW; }
+  function yP(v) { return padT + cH - (v / maxVal) * cH; }
+
+  let html = '';
+
+  // Grid
+  for (let p = 0; p <= 1; p += 0.25) {
+    const y = padT + cH * (1 - p);
+    const v = maxVal * p;
+    html += `<line x1="${padL}" y1="${y}" x2="${W-padR}" y2="${y}" stroke="#E8EDF2" stroke-width="1"/>`;
+    html += `<text x="${padL-5}" y="${y+3}" text-anchor="end" font-size="9" fill="#B0BEC5">${fmtM(v,0)}</text>`;
+  }
+  for (let m = 0; m <= months; m += 3) {
+    const x = xP(m);
+    html += `<line x1="${x}" y1="${padT}" x2="${x}" y2="${H-padB}" stroke="#E8EDF2" stroke-width="1"/>`;
+    html += `<text x="${x}" y="${H-padB+12}" text-anchor="middle" font-size="9" fill="#B0BEC5">M${m}</text>`;
+  }
+
+  // Cost area fill
+  let costArea = `${xP(0)},${yP(0)} `;
+  costs.forEach((v, m) => costArea += `${xP(m)},${yP(v)} `);
+  costArea += `${xP(months)},${yP(0)}`;
+  html += `<polygon points="${costArea}" fill="#C62828" opacity="0.06"/>`;
+
+  // Saving area fill
+  let savArea = `${xP(0)},${yP(0)} `;
+  savings.forEach((v, m) => savArea += `${xP(m)},${yP(v)} `);
+  savArea += `${xP(months)},${yP(0)}`;
+  html += `<polygon points="${savArea}" fill="#2E844E" opacity="0.08"/>`;
+
+  // Cost line
+  let costPath = costs.map((v,m) => `${xP(m)},${yP(v)}`).join(' ');
+  html += `<polyline points="${costPath}" fill="none" stroke="#C62828" stroke-width="2.5"/>`;
+
+  // Saving line
+  let savPath = savings.map((v,m) => `${xP(m)},${yP(v)}`).join(' ');
+  html += `<polyline points="${savPath}" fill="none" stroke="#2E844E" stroke-width="2.5"/>`;
+
+  // Break-even vertical
+  if (isFinite(beMonths) && beMonths > 0 && beMonths <= months) {
+    const bx = xP(beMonths);
+    const beY = padT + cH - ((savingMonth * beMonths) / maxVal) * cH;
+    html += `<line x1="${bx}" y1="${padT}" x2="${bx}" y2="${H-padB}" stroke="#FF7A00" stroke-width="1.5" stroke-dasharray="4,3"/>`;
+    html += `<circle cx="${bx}" cy="${beY}" r="6" fill="#FF7A00" stroke="#fff" stroke-width="2"/>`;
+    html += `<text x="${bx+8}" y="${beY-6}" font-size="9" fill="#E65100" font-weight="700">BE ${beMonths.toFixed(1)}m</text>`;
+  }
+
+  // PS investment horizontal line
+  const psY = yP(psInvest);
+  if (psY >= padT && psY <= H - padB) {
+    html += `<line x1="${padL}" y1="${psY}" x2="${W-padR}" y2="${psY}" stroke="#6A1B9A" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>`;
+    html += `<text x="${padL+4}" y="${psY-3}" font-size="8.5" fill="#6A1B9A" opacity="0.7">Setup PS</text>`;
+  }
+
+  svg.innerHTML = html;
+}
+
+// ── Sensitivity Table ─────────────────────────────────────
+function renderSensitivity(volume, humanCost, creditPrice, credPerConv, psInvest, currentDefl) {
+  const levels = [20, 30, 40, 45, 50, 60, 70, 80];
+  let html = '';
+  levels.forEach(defl => {
+    const d = defl / 100;
+    const deflected = volume * d;
+    const saving    = deflected * humanCost;
+    const costAF    = deflected * credPerConv * creditPrice;
+    const net       = saving - costAF;
+    const roi       = costAF > 0 ? (net / costAF) * 100 : 0;
+    const be        = net > 0 ? psInvest / net : Infinity;
+    const isCurrent = Math.abs(defl - currentDefl) < 1;
+
+    const roiColor  = roi >= 100 ? '#2E844E' : roi >= 0 ? '#E65100' : '#B71C1C';
+    const beText    = isFinite(be) ? be.toFixed(1) + 'm' : '—';
+    const beColor   = be < 4 ? '#2E844E' : be < 8 ? '#0070D2' : be < 14 ? '#E65100' : '#B71C1C';
+
+    html += `<tr${isCurrent ? ' class="highlight-row"' : ''}>
+      <td>${defl}%${isCurrent ? ' ◀ actual' : ''}</td>
+      <td>${fmtN(deflected)}</td>
+      <td>${fmtM(saving)}</td>
+      <td>${fmtM(costAF)}</td>
+      <td style="font-weight:700;color:${roiColor};">${roi.toFixed(0)}%</td>
+      <td style="font-weight:700;color:${beColor};">${beText}</td>
+    </tr>`;
+  });
+  document.getElementById('sensBody').innerHTML = html;
+}
+
+// ── Presets ───────────────────────────────────────────────
+const PRESETS = {
+  falabella:    { volume:333333, humanCost:5.00, defl:45, creditPrice:0.20, credPerConv:1, psInvest:168000 },
+  meta90:       { volume:500000, humanCost:5.00, defl:60, creditPrice:0.20, credPerConv:1, psInvest:168000 },
+  conservative: { volume:200000, humanCost:4.00, defl:30, creditPrice:0.25, credPerConv:1.5, psInvest:168000 },
+  aggressive:   { volume:500000, humanCost:6.00, defl:70, creditPrice:0.18, credPerConv:1,   psInvest:168000 },
+};
+function loadPreset(key) {
+  document.querySelectorAll('.pbtn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  const p = PRESETS[key];
+  document.getElementById('volume').value      = p.volume;
+  document.getElementById('humanCost').value   = p.humanCost;
+  document.getElementById('deflInput').value   = p.defl;
+  document.getElementById('creditPrice').value = p.creditPrice;
+  document.getElementById('creditsPerConv').value = p.credPerConv;
+  document.getElementById('psInvest').value    = p.psInvest;
+  document.getElementById('deflSlider').value  = p.defl;
+  syncDeflInput();
+  calc();
+}
+
+// ── Init ─────────────────────────────────────────────────
+syncDeflInput();
+calc();
+</script>
+</body>
+</html>
