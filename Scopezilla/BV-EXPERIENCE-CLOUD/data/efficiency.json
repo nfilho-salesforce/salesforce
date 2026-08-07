@@ -1,0 +1,119 @@
+{
+  "fidelity": "category-only",
+  "generated_from": {
+    "epics_count": 6,
+    "estimates_count": 6,
+    "has_roadmap": true,
+    "has_resource_plan": false
+  },
+  "task_level": {
+    "blended_band": "~30-45%",
+    "basis": "Blend puxado por E06/E01 (XL) — integração API-led e builds customizados (render OPA em HTML, Wizard de API, render de schema, automação de sharing) de maior imposto de IA — e amortecido por config padrão (E03/E04 e boa parte do E02), onde a IA rende melhor.",
+    "sources": ["[1]", "[3]", "[5]", "[8]"]
+  },
+  "realization_factor": {
+    "value_range": "0.30-0.40",
+    "rationale": "Linha regulado + legado-pesado do benchmarks.md: banco regulado (LGPD/consentimento OneTrust), brownfield sobre produção viva, integração legada intensa (MuleSoft/Apigee → ServiceNow, PortalTech, Jira).",
+    "drivers": ["Instituição financeira regulada", "Brownfield em produção viva (três portais)", "Integração legada pesada (MuleSoft/Apigee, ServiceNow, OneTrust, PortalTech)", "Mix de config padrão + dev customizado"]
+  },
+  "project_level": {
+    "realized_band": "~10-18%",
+    "basis": "task-level (~30-45%) × fator de realização (0.30-0.40), antes da modulação por prontidão.",
+    "confidence": "Assumed",
+    "native_band": "~30-38%",
+    "native_basis": "task-level × fator de realização AI-native (0.55-0.75), aplicável SOMENTE atrás do gate de qualificação. Temperada abaixo do teto canônico (~35-40%) pelo imposto regulatório + de integração legada do BV. Provisória — magnitude não calibrada neste engajamento (decisions/0033).",
+    "native_qualification": "conditional"
+  },
+  "readiness": {
+    "signals": [
+      {"signal": "AI tooling posture", "score": 0, "evidence": "Sem evidência no discovery de ferramentas de IA de codificação aprovadas; banco regulado tende a postura restritiva por padrão. Unknown/Assumed — pergunta de esclarecimento."},
+      {"signal": "Delivery velocity / speed bias", "score": 1, "evidence": "Remediação de débito técnico brownfield em produção viva; sem mandato explícito de velocidade no discovery. Moderado."},
+      {"signal": "Data & environment hygiene", "score": 1, "evidence": "Plataforma, DevOps e versionamento já existem (E04); porém fonte, volume e qualidade dos dados legados da migração (E05) seguem em aberto — G0503/G0504."},
+      {"signal": "Legal / security / compliance posture", "score": 0, "evidence": "Instituição financeira regulada; LGPD, consentimento OneTrust, segurança pesada e fluxo de aprovação por OPA — arrasto real sobre a velocidade realizada."}
+    ],
+    "total_score": 2,
+    "scenarios": [
+      {
+        "scenario": "Low readiness",
+        "score_range": "0-2",
+        "realized_band": "~8-12%",
+        "narrative": "Ganhos modestos enquanto tooling e política de IA não avançarem — pelos sinais, Baixa é o estado de hoje.",
+        "unlock_to_move_up": ["Aprovar IA em IDE (Copilot/Claude) para o time de entrega", "Publicar política de manuseio de dados por IA"]
+      },
+      {
+        "scenario": "Mid readiness",
+        "score_range": "3-5",
+        "realized_band": "~12-16%",
+        "narrative": "IA em IDE aprovada e higiene de ambiente resolvida elevam o meio da faixa.",
+        "unlock_to_move_up": ["Mandato AI-first na entrega", "Pré-liberação de compliance para os fluxos de aprovação regulados"]
+      },
+      {
+        "scenario": "High readiness",
+        "score_range": "6-8",
+        "realized_band": "~16-22%",
+        "narrative": "Postura AI-first e compliance pré-liberado capturam o topo da faixa; um cliente mais rápido captura mais.",
+        "unlock_to_move_up": []
+      }
+    ],
+    "current_scenario": "Low readiness"
+  },
+  "by_category": [
+    {
+      "category": "Technical Engineering & QA",
+      "task_level_band": "~30-45%",
+      "realized_band": "~10-18%",
+      "driving_tasks": ["Create Code (realistic enterprise / legacy)", "Analyze Code & Fix Defects", "Generate Test Data"],
+      "driving_epics": ["E06", "E01", "E02"],
+      "sources": ["[1]", "[3]", "[5]"],
+      "narrative": "É onde os ganhos concentram e onde vive o maior imposto de IA: os builds customizados do E01 (render OPA em HTML, Wizard de geração de API) e os fluxos MuleSoft do E06 rendem menos que o boilerplate de config do E04. A banda é ampla justamente por essa mistura."
+    },
+    {
+      "category": "Analysis & Design",
+      "task_level_band": "~25-40%",
+      "realized_band": "~9-15%",
+      "driving_tasks": ["Design & Architecture", "Model Data"],
+      "driving_epics": ["E01", "E06", "E04"],
+      "sources": ["[3]", "[8]"],
+      "narrative": "A IA acelera o rascunho do modelo de dados de catálogos (E01) e o desenho dos contratos de XAPI/SAPI (E06), mas a decisão de arquitetura de integração — sequenciada pela camada API-led — permanece trabalho humano de julgamento."
+    },
+    {
+      "category": "Documentation & Knowledge Management",
+      "task_level_band": "~40-55%",
+      "realized_band": "~13-20%",
+      "driving_tasks": ["Write Documentation", "Generate API Contracts / Specs"],
+      "driving_epics": ["E06", "E01"],
+      "sources": ["[2]", "[3]"],
+      "narrative": "Contratos de XAPI/SAPI, OAS e documentação técnica dos portais são o terreno de maior alavanca — geração e manutenção de spec é onde a IA mais rende neste projeto."
+    },
+    {
+      "category": "Project Management & Operations",
+      "task_level_band": "~20-35%",
+      "realized_band": "~8-13%",
+      "driving_tasks": ["Status Reporting", "Meeting Summaries"],
+      "driving_epics": ["E01", "E06"],
+      "sources": ["[6]", "[7]"],
+      "narrative": "Cinco fases e coordenação transversal em produção viva geram trabalho de reporte que a IA resume bem, mas o pulso de programa e o alinhamento entre BV e PS seguem humanos."
+    }
+  ],
+  "by_role_type": [],
+  "human_barriers": [
+    {"activity": "Project Pulse Reports", "why_no_gain": "Construção de confiança que a IA resume mas não conduz."},
+    {"activity": "Stakeholder Alignment", "why_no_gain": "Negociação humano-a-humano; a IA rascunha posições, as pessoas decidem."},
+    {"activity": "Conflict Resolution", "why_no_gain": "Julgamento humano."},
+    {"activity": "Sign-off regulatório (LGPD/BACEN)", "why_no_gain": "Aprovação de compliance de banco; a IA não assume o risco regulatório."},
+    {"activity": "Decisão de IdP e licenciamento (bloqueadores da Fase 0)", "why_no_gain": "Decisões de contratação e identidade externas ao time de build."},
+    {"activity": "Negociação da limitação do Anypoint (R2)", "why_no_gain": "Negociação de fornecedor/contrato — trabalho humano."}
+  ],
+  "assumptions": [
+    "Benchmarks de dados publicados 2022–2026 (Peng et al./GitHub 2022, Paradis et al./Google 2024, METR 2025, BCG×Harvard, DORA 2024–2025, McKinsey 2025, GitClear 2025, Stanford HAI AI Index 2026) mais observações internas.",
+    "Bandas de nível-tarefa convertidas em nível-projeto por um fator de realização que reflete a lei de Amdahl + overhead de revisão/imposto de IA.",
+    "Fidelidade category-only: sem resource-plan.json ainda (o roster é autorado no estimate, Passo 3). Re-rodar após o roster existir eleva para category+role."
+  ],
+  "caveats": [
+    "Bandas são qualitativas e específicas do projeto, não garantias.",
+    "Nenhuma implicação de horas, FTE ou custo é computada ou insinuada.",
+    "A banda AI-native (~30-38%) é CONDICIONAL e PROVISÓRIA: o diagnóstico (o modelo operacional AI-first comprime overhead de coordenação) é sustentado por DORA/METR; a magnitude é majoritariamente reportada por fornecedor e não calibrada aqui. Só é real se o BV se comprometer com o modelo operacional conjunto (decisor disponível diariamente, business owners empoderados, mandato AI-first).",
+    "A banda aumentada (~10-18%) e a AI-native (~30-38%) se sobrepõem em ~30-35% — é o status de qualificação, não o número, que distingue as trilhas.",
+    "Gap de percepção é real — times frequentemente sentem-se mais rápidos do que os ganhos medidos confirmam (METR 2025)."
+  ]
+}
