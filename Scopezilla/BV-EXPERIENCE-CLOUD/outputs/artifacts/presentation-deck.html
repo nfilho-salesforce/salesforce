@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<!--
+  SCOPEZILLA BRAND KIT — DECK SHELL (present, arrow-key 16:9 slides)
+  Use for: a deck you present or screen-share.
+  For a scrollable page to share as a link, use shells/doc.html instead.
+  NOTE: the RFP proposal deck has its own worked template (skills/rfp/slides-template.html) —
+        use this shell for every OTHER deck (ad-hoc, non-RFP).
+
+  HOW TO USE
+  1. Paste the :root token block (brand-guidelines.md Section 2) into <style> where marked.
+  2. Paste the component CSS (brand-guidelines.md Section 12) right after it.
+  3. Set --client-primary / --client-dark (Section 5) — the ONLY color edit.
+  4. Duplicate the <section class="slide"> block per slide; fill with components (see components.md).
+  5. Save as ONE self-contained file.
+
+  BEHAVIOR (built in — don't re-implement):
+  • Fills the screen: the fixed 1280×720 canvas scales to the window, letterboxed to 16:9.
+  • Nav: arrow keys / space navigate; the nav bar auto-hides after 2.5s idle, wakes on mouse move.
+  • PDF: Cmd/Ctrl-P → one clean landscape page per slide (print CSS forces exact page size).
+  • Light composition by default (white / Cloud Blue surfaces, navy for text/accents). For a
+    strong-gravitas hero, swap the .cover background to the navy gradient (see the .cover rule).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BV · Experience Cloud + MuleSoft — Alinhamento de Escopo</title>
+<style>
+  :root {
+    /* ── Core blues (everyday palette) ─────────────────────────────── */
+    --sf-navy:        #001E5B;
+    --sf-type:        #002775;
+    --sf-container:   #022AC0;
+    --sf-blue:        #066AFE;
+    --sf-cloud:       #00B3FF;
+    --sf-cloud-80:    #90D0FE;
+    --sf-bg:          #CFE9FE;
+    --sf-light-bg:    #EAF5FE;
+    --sf-text:        #002775;
+    --sf-text-weak:   #4A5578;
+
+    /* ── Extended palette (categorical / data-viz / status accents) ── */
+    --ext-teal:       #06A59A;
+    --ext-teal-80:    #04E1CB;
+    --ext-teal-95:    #DEF9F3;
+    --ext-yellow:     #FCC003;
+    --ext-yellow-70:  #E4A201;
+    --ext-yellow-95:  #FBF3E0;
+    --ext-pink:       #FF538A;
+    --ext-pink-40:    #B60554;
+    --ext-pink-95:    #FEF0F3;
+    --ext-violet:     #D17DFE;
+    --ext-violet-30:  #730394;
+    --ext-violet-95:  #F9F0FF;
+
+    /* ── Client co-brand accent — BV (Banco BV) blue ───────────────── */
+    --client-primary: #0047BB;   /* BV blue — AA on white/light-bg */
+    --client-dark:    #00348A;   /* ~darker shade for gradients/hover */
+
+    /* ── Typography ────────────────────────────────────────────────── */
+    --font-heading: 'ITC Avant Garde Gothic Demi', 'Avant Garde', 'Century Gothic',
+                    'Salesforce Sans', 'Source Sans 3', Arial, sans-serif;
+    --font-body:    'Salesforce Sans', 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+
+    --fs-title:      54px;
+    --fs-subtitle:   36px;
+    --fs-l1:         30px;
+    --fs-cat:        26px;
+    --fs-l2:         24px;
+    --fs-desc:       22px;
+    --fs-body:       16px;
+
+    --space-xs: 4px;  --space-sm: 8px;  --space-md: 16px;
+    --space-lg: 24px; --space-xl: 32px; --space-2xl: 48px;
+    --radius-sm: 4px; --radius-md: 8px; --radius-lg: 16px;
+
+    --shadow-brand: 2.6px 9.7px 25px rgba(6,106,254,0.15);
+  }
+
+  /* ── Component CSS (brand-guidelines.md Section 12) ─────────────────── */
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:var(--font-body); color:var(--sf-text); background:var(--sf-light-bg);
+         -webkit-font-smoothing:antialiased; line-height:1.55; }
+  h1,h2,h3,.sz-title,.sz-stat-num { font-family:var(--font-heading); color:var(--sf-navy); line-height:1.15; }
+  a { color:var(--sf-blue); }
+  :focus-visible { outline:3px solid var(--sf-blue); outline-offset:2px; border-radius:2px; }
+  @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none !important; transition:none !important; scroll-behavior:auto !important; } }
+
+  .sz-section { margin:var(--space-2xl) 0; }
+  .sz-section-eyebrow { font-family:var(--font-heading); font-size:12px; font-weight:700;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--sf-blue); margin-bottom:var(--space-xs); }
+  .sz-section-title { font-size:var(--fs-cat); margin-bottom:var(--space-md); }
+
+  .sz-card { background:#fff; border-radius:var(--radius-md); padding:var(--space-lg);
+    box-shadow:var(--shadow-brand); }
+  .sz-card + .sz-card { margin-top:var(--space-md); }
+
+  .sz-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:var(--space-md); }
+  .sz-stat { background:#fff; border-radius:var(--radius-md); padding:var(--space-lg) var(--space-md);
+    text-align:center; box-shadow:var(--shadow-brand); }
+  .sz-stat-num { font-size:var(--fs-title); color:var(--client-primary); }
+  .sz-stat-lbl { font-size:14px; color:var(--sf-text-weak); margin-top:var(--space-xs); }
+
+  .sz-table { width:100%; border-collapse:collapse; background:#fff; border-radius:var(--radius-md);
+    overflow:hidden; box-shadow:var(--shadow-brand); }
+  .sz-table th { background:var(--sf-container); color:#fff; font-family:var(--font-heading);
+    text-align:left; padding:var(--space-sm) var(--space-md); font-size:14px; }
+  .sz-table td { padding:var(--space-sm) var(--space-md); border-top:1px solid var(--sf-light-bg); }
+  .sz-table tbody tr:nth-child(even) { background:var(--sf-light-bg); }
+
+  .sz-tag { display:inline-block; font-size:12px; font-weight:700; padding:2px 10px;
+    border-radius:999px; line-height:1.6; }
+  .sz-tag--critical { background:var(--ext-pink-95);   color:var(--ext-pink-40); }
+  .sz-tag--high     { background:var(--ext-yellow-95); color:var(--ext-yellow-70); }
+  .sz-tag--medium   { background:var(--ext-yellow-95); color:var(--ext-yellow-70); }
+  .sz-tag--low      { background:var(--ext-teal-95);   color:var(--ext-teal); }
+  .sz-tag--info     { background:var(--sf-light-bg);   color:var(--sf-blue); }
+  .sz-tag--sz-s  { background:var(--sf-light-bg); color:var(--sf-blue); }
+  .sz-tag--sz-m  { background:#DCEBFF;            color:var(--sf-blue); }
+  .sz-tag--sz-l  { background:var(--sf-cloud);    color:var(--sf-navy); }
+  .sz-tag--sz-xl { background:var(--sf-container); color:#fff; }
+
+  .sz-tldr { background:var(--sf-light-bg); border-left:4px solid var(--sf-blue);
+    border-radius:var(--radius-sm); padding:var(--space-md) var(--space-lg); margin:var(--space-lg) 0; }
+  .sz-tldr-label { font-family:var(--font-heading); font-size:12px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--sf-blue); margin-bottom:var(--space-xs); }
+
+  .sz-timeline { display:flex; gap:2px; border-radius:var(--radius-sm); overflow:hidden;
+    box-shadow:var(--shadow-brand); }
+  .sz-phase { flex:1; padding:var(--space-md); color:#fff; text-align:center; font-size:14px; }
+  .sz-phase:nth-child(1){background:var(--sf-navy);} .sz-phase:nth-child(2){background:var(--sf-container);}
+  .sz-phase:nth-child(3){background:var(--sf-blue);} .sz-phase:nth-child(4){background:var(--sf-cloud);}
+  .sz-phase:nth-child(5){background:var(--sf-cloud-80); color:var(--sf-navy);}
+  .sz-phase-name { font-family:var(--font-heading); }
+  .sz-phase-dur { opacity:.85; font-size:12px; }
+
+  .sz-chips { display:flex; flex-wrap:wrap; gap:var(--space-xs); }
+  .sz-chip { background:var(--sf-light-bg); color:var(--sf-container); border:1px solid var(--sf-cloud-80);
+    border-radius:999px; padding:4px 12px; font-size:13px; }
+
+  .sz-cta { display:inline-block; background:var(--sf-blue); color:#fff; font-family:var(--font-heading);
+    text-decoration:none; padding:var(--space-sm) var(--space-lg); border-radius:999px;
+    box-shadow:var(--shadow-brand); border:none; cursor:pointer; }
+
+  .sz-panorama { position:relative; background:var(--sf-cloud); color:var(--sf-navy);
+    padding:var(--space-2xl) var(--space-xl); text-align:center;
+    border-radius:var(--radius-lg); box-shadow:var(--shadow-brand); overflow:hidden; }
+  .sz-panorama--navy { background:linear-gradient(135deg,var(--sf-navy),var(--sf-container)); color:#fff; }
+  .sz-panorama h2 { color:inherit; }
+
+  /* Deck-shell layout (specific to this format) */
+  html,body { height:100%; }
+  body { background:var(--sf-navy); overflow:hidden;
+    display:flex; align-items:center; justify-content:center; }
+  /* Slides are authored at a fixed 1280×720 so composition never reflows, then
+     scaled to fill the viewport (letterboxed to 16:9 — the navy body shows as
+     bars). Set --scale from JS on load/resize. */
+  .slide { width:1280px; height:720px; background:var(--sf-light-bg); position:relative;
+    display:none; flex-direction:column; padding:56px 72px; overflow:hidden;
+    transform:scale(var(--scale,1)); transform-origin:center center; }
+  .slide.active { display:flex; }
+  .slide::before { content:''; position:absolute; top:0; left:0; right:0; height:4px;
+    background:linear-gradient(90deg,var(--client-primary),var(--sf-cloud)); }
+  .slide-eyebrow { font-family:var(--font-heading); font-size:13px; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--sf-blue); }
+  .slide-title { font-size:var(--fs-subtitle); margin:var(--space-xs) 0 var(--space-lg); }
+  .slide-num { position:absolute; bottom:24px; right:32px; font-size:12px; color:var(--sf-text-weak); }
+  /* Light composition: build surfaces light (white / Cloud Blue 90–95), reserve
+     navy for TEXT and thin accents. For a strong-gravitas hero, swap the cover
+     background to `linear-gradient(135deg,var(--sf-navy),var(--sf-container))`
+     and its text to #fff. */
+  .cover { justify-content:center; background:linear-gradient(135deg,#fff,var(--sf-bg)); }
+  .cover .slide-title { font-size:var(--fs-title); color:var(--sf-navy); }
+  .cover .slide-eyebrow { color:var(--sf-blue); }
+  /* Nav auto-hides after 2.5s of mouse stillness (JS toggles .idle). */
+  .nav { position:fixed; bottom:20px; left:50%; transform:translateX(-50%); display:flex;
+    gap:8px; align-items:center; background:rgba(0,30,91,.9); border-radius:999px; padding:8px 16px;
+    z-index:50; transition:opacity .4s ease; }
+  .nav.idle { opacity:0; pointer-events:none; }
+  .nav button { background:var(--sf-blue); color:#fff; border:none; border-radius:999px;
+    padding:6px 14px; cursor:pointer; font-family:var(--font-heading); }
+  .nav span { color:#fff; font-size:13px; padding:0 8px; }
+  /* Content-slide helpers (deck-local) */
+  .slide-title--sm { font-size:30px; }
+  .slide p, .slide li { font-size:18px; }
+  .lead { font-size:20px; color:var(--sf-text); max-width:56ch; }
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-lg); }
+  .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:var(--space-md); }
+  .stack { display:flex; flex-direction:column; gap:var(--space-sm); }
+  .mini-card { background:#fff; border-radius:var(--radius-md); padding:16px 18px;
+    box-shadow:var(--shadow-brand); }
+  .mini-card h3 { font-size:17px; margin-bottom:4px; color:var(--sf-navy); }
+  .mini-card p { font-size:14px; color:var(--sf-text-weak); line-height:1.4; }
+  .mini-card .sz-tag { margin-bottom:6px; }
+  .col-head { font-family:var(--font-heading); font-size:15px; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--client-primary); margin-bottom:var(--space-sm); }
+  ul.tight { list-style:none; }
+  ul.tight li { position:relative; padding-left:20px; margin-bottom:8px; line-height:1.4; }
+  ul.tight li::before { content:''; position:absolute; left:0; top:9px; width:8px; height:8px;
+    border-radius:50%; background:var(--client-primary); }
+  /* Layered architecture bands */
+  .arch { display:flex; flex-direction:column; gap:6px; }
+  .band { border-radius:var(--radius-sm); padding:12px 18px; color:#fff;
+    display:flex; align-items:center; gap:14px; }
+  .band .band-lbl { font-family:var(--font-heading); font-size:13px; min-width:150px; opacity:.9; }
+  .band .band-body { font-size:15px; }
+  .band-1 { background:var(--sf-navy); } .band-2 { background:var(--sf-container); }
+  .band-3 { background:var(--sf-blue); } .band-4 { background:var(--sf-cloud); color:var(--sf-navy); }
+  .band-edge { background:var(--ext-violet-95); color:var(--ext-violet-30);
+    border:1px dashed var(--ext-violet-30); }
+  /* Horizontal flow (API lifecycle) */
+  .flow { display:flex; align-items:stretch; gap:6px; }
+  .flow-step { flex:1; background:#fff; border-radius:var(--radius-sm); padding:12px 10px;
+    box-shadow:var(--shadow-brand); text-align:center; font-size:13px; position:relative; }
+  .flow-step .n { font-family:var(--font-heading); color:var(--client-primary); font-size:20px; display:block; }
+  .flow-step + .flow-step::before { content:'→'; position:absolute; left:-14px; top:50%;
+    transform:translateY(-50%); color:var(--sf-text-weak); font-size:16px; }
+  .note { font-size:13px; color:var(--sf-text-weak); margin-top:var(--space-md); }
+  @media print {
+    /* One landscape page per slide, sized exactly to the 1280×720 canvas. */
+    @page { size:1280px 720px; margin:0; }
+    html,body { background:#fff; width:1280px; height:auto; display:block; overflow:visible; }
+    .slide { display:flex !important; page-break-after:always; box-shadow:none; transform:none !important; }
+    .slide:last-of-type { page-break-after:auto; }
+    .nav, .slide-num { display:none; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- 1 · COVER -->
+  <section class="slide cover active">
+    <div class="slide-eyebrow">BV · Salesforce Professional Services · Agosto 2026</div>
+    <h1 class="slide-title">Experience Cloud + MuleSoft:<br>alinhar o escopo antes do SOW</h1>
+    <p class="lead" style="margin-top:16px">Remediação de débito técnico e ativação de recursos prioritários nos três portais em produção e na camada de integração viva do BV.</p>
+  </section>
+
+  <!-- 2 · NOT GREENFIELD -->
+  <section class="slide">
+    <div class="slide-eyebrow">O ponto de partida</div>
+    <h2 class="slide-title slide-title--sm">Não é um projeto do zero: três portais já rodam em produção</h2>
+    <div class="grid-3" style="margin-bottom:var(--space-lg)">
+      <div class="mini-card"><h3>Portal de Governança</h3><p>Ciclo de vida de API — cadastro, validação de contrato e aprovação. O núcleo de valor.</p></div>
+      <div class="mini-card"><h3>Portal de Parceiros (externo)</h3><p>Autoatendimento para parceiros: registro, catálogo, criação de apps e credenciais.</p></div>
+      <div class="mini-card"><h3>Portal de Parceiros (interno)</h3><p>Mesma base para funcionários do BV, com públicos e segurança próprios.</p></div>
+    </div>
+    <div class="sz-tldr">
+      <div class="sz-tldr-label">O que isso muda</div>
+      <p>Trabalhamos sobre sistemas vivos e uma integração em operação. O ganho está em remover o débito técnico e ligar os recursos prioritários sem interromper quem já usa os portais.</p>
+    </div>
+    <span class="slide-num"></span>
+  </section>
+
+  <!-- 3 · FOUR BLOCKERS -->
+  <section class="slide">
+    <div class="slide-eyebrow">O que trava hoje</div>
+    <h2 class="slide-title slide-title--sm">Quatro pré-requisitos travam a publicação — resolvê-los é a primeira fase</h2>
+    <div class="grid-2">
+      <div class="mini-card"><span class="sz-tag sz-tag--critical">Bloqueador de go-live</span><h3>Licença Experience Cloud</h3><p>Sem a licença externa (e a interna) contratada, o portal não entra no ar para parceiros nem funcionários.</p></div>
+      <div class="mini-card"><span class="sz-tag sz-tag--high">Identidade</span><h3>Provedor de identidade (IdP) não nomeado</h3><p>O login federado dos parceiros externos e dos usuários internos depende de um IdP definido e federável.</p></div>
+      <div class="mini-card"><span class="sz-tag sz-tag--high">Integração</span><h3>Limitação do Anypoint contratado</h3><p>O tier do MuleSoft Anypoint em contrato precisa ser caracterizado — pode redimensionar a camada de integração.</p></div>
+      <div class="mini-card"><span class="sz-tag sz-tag--medium">Dados</span><h3>Fonte e fronteira dos catálogos</h3><p>Origem, volume e qualidade dos dados legados, e a linha entre carga inicial e ETL recorrente.</p></div>
+    </div>
+    <p class="note">IdP = provedor de identidade · Anypoint = plataforma de integração MuleSoft · ETL = extração, transformação e carga de dados.</p>
+    <span class="slide-num"></span>
+  </section>
+
+  <!-- 4 · SIX WORK STREAMS -->
+  <section class="slide">
+    <div class="slide-eyebrow">O escopo</div>
+    <h2 class="slide-title slide-title--sm">Seis frentes de trabalho, dimensionadas por complexidade</h2>
+    <div class="grid-3">
+      <div class="mini-card"><span class="sz-tag sz-tag--sz-xl">XL</span><h3>Portal de Governança</h3><p>Ciclo de vida de API: cadastro, geração assistida, validação de contrato e aprovação.</p></div>
+      <div class="mini-card"><span class="sz-tag sz-tag--sz-xl">XL</span><h3>Camada de Integração MuleSoft</h3><p>Integração em camadas (API-led), contratos de serviço e cargas de dados em lote.</p></div>
+      <div class="mini-card"><span class="sz-tag sz-tag--sz-l">L</span><h3>Portal de Parceiros (externo)</h3><p>Registro, catálogo público/privado, apps e credenciais em autoatendimento.</p></div>
+      <div class="mini-card"><span class="sz-tag sz-tag--sz-l">L</span><h3>Portal de Parceiros (interno)</h3><p>Build próprio para funcionários, reaproveitando a base do portal externo.</p></div>
+      <div class="mini-card"><span class="sz-tag sz-tag--sz-m">M</span><h3>Fundações &amp; Segurança</h3><p>Base técnica transversal: perfis, compartilhamento e segurança dos três portais.</p></div>
+      <div class="mini-card"><span class="sz-tag sz-tag--sz-m">M</span><h3>Migração de Catálogos</h3><p>Carga inicial das dez entidades de catálogo que alimentam o modelo de dados.</p></div>
+    </div>
+    <p class="note">Os tamanhos (M / L / XL) indicam complexidade relativa entre as frentes. Não são horas nem preço.</p>
+    <span class="slide-num"></span>
+  </section>
+
+  <!-- 5 · GOVERNANCE PORTAL -->
+  <section class="slide">
+    <div class="slide-eyebrow">Núcleo de valor</div>
+    <h2 class="slide-title slide-title--sm">O Portal de Governança é onde o ciclo de vida de API acontece</h2>
+    <div class="flow" style="margin-bottom:var(--space-lg)">
+      <div class="flow-step"><span class="n">1</span>Cadastro da API</div>
+      <div class="flow-step"><span class="n">2</span>Geração assistida da API técnica</div>
+      <div class="flow-step"><span class="n">3</span>Validação de contrato (OPA)</div>
+      <div class="flow-step"><span class="n">4</span>Aprovação por fluxo (Salesforce Flow)</div>
+      <div class="flow-step"><span class="n">5</span>Publicação</div>
+    </div>
+    <div class="grid-2">
+      <ul class="tight">
+        <li>Um assistente guia a criação da API técnica, reduzindo erro manual.</li>
+        <li>A validação de contrato roda via OPA (Open Policy Agent) renderizada no próprio portal.</li>
+      </ul>
+      <ul class="tight">
+        <li>A aprovação usa Salesforce Flow com processo de aprovação nativo.</li>
+        <li>O portal consome os contratos de serviço publicados pela camada de integração.</li>
+      </ul>
+    </div>
+    <p class="note">OPA = Open Policy Agent, o motor de regras que valida o contrato da API contra as políticas do BV.</p>
+    <span class="slide-num"></span>
+  </section>
+
+  <!-- 6 · PARTNER PORTALS -->
+  <section class="slide">
+    <div class="slide-eyebrow">Portais de parceiros</div>
+    <h2 class="slide-title slide-title--sm">Dois públicos, uma base compartilhada</h2>
+    <div class="grid-2">
+      <div>
+        <div class="col-head">Externo — parceiros</div>
+        <ul class="tight">
+          <li>Autorregistro do visitante e login diferenciado por descoberta.</li>
+          <li>Catálogo público e privado de APIs.</li>
+          <li>Criação de aplicações e gestão de credenciais em autoatendimento.</li>
+          <li>Contratos por versão de produto e páginas de conteúdo.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="col-head">Interno — funcionários BV</div>
+        <ul class="tight">
+          <li>Build distinto: público, personas, tipo de licença e segurança próprios.</li>
+          <li>Reaproveita a base de componentes e o modelo do portal externo.</li>
+          <li>Entra depois do congelamento da configuração do externo, para evitar retrabalho.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="sz-tldr"><div class="sz-tldr-label">A escolha de sequência</div><p>O portal externo é construído primeiro; o interno reusa essa base. Congelar o externo antes de iniciar o interno é o que protege o cronograma.</p></div>
+    <span class="slide-num"></span>
+  </section>
+
+  <!-- 7 · INTEGRATION ARCHITECTURE -->
+  <section class="slide">
+    <div class="slide-eyebrow">Arquitetura de integração</div>
+    <h2 class="slide-title slide-title--sm">MuleSoft orquestra por dentro; o Apigee fica na borda</h2>
+    <div class="arch">
+      <div class="band band-1"><span class="band-lbl">Portais Salesforce</span><span class="band-body">Governança · Parceiros externo · Parceiros interno consomem os contratos de serviço.</span></div>
+      <div class="band band-2"><span class="band-lbl">APIs de experiência</span><span class="band-body">Camada que serve cada portal (OneTrust, ServiceNow, OPA, Jira, PortalTech, Site).</span></div>
+      <div class="band band-3"><span class="band-lbl">APIs de sistema</span><span class="band-body">Conectam aos sistemas de origem; geração de contratos (OAS) e cargas em lote.</span></div>
+      <div class="band band-4"><span class="band-lbl">Integração em camadas</span><span class="band-body">MuleSoft Anypoint — o padrão API-led que separa experiência, processo e sistema.</span></div>
+      <div class="band band-edge"><span class="band-lbl">Borda / gateway</span><span class="band-body">Apigee — gateway de API já em operação no BV, no contexto de segurança (TLS) da borda.</span></div>
+    </div>
+    <p class="note">API-led = integração organizada em camadas (experiência → processo → sistema). OAS = especificação aberta de API. TLS = camada de segurança de transporte.</p>
+    <span class="slide-num"></span>
+  </section>
+
+  <!-- 8 · PHASES / TIMELINE -->
+  <section class="slide">
+    <div class="slide-eyebrow">Sequência de entrega</div>
+    <h2 class="slide-title slide-title--sm">Uma fase de pré-requisitos, depois quatro de construção</h2>
+    <div class="sz-timeline" style="margin-bottom:var(--space-md)">
+      <div class="sz-phase"><div class="sz-phase-name">Fase 0</div><div class="sz-phase-dur">Pré-requisitos</div></div>
+      <div class="sz-phase"><div class="sz-phase-name">Fase 1</div><div class="sz-phase-dur">Fundações &amp; Integração</div></div>
+      <div class="sz-phase"><div class="sz-phase-name">Fase 2</div><div class="sz-phase-dur">Governança &amp; Dados</div></div>
+      <div class="sz-phase"><div class="sz-phase-name">Fase 3</div><div class="sz-phase-dur">Parceiros externo</div></div>
+      <div class="sz-phase"><div class="sz-phase-name">Fase 4</div><div class="sz-phase-dur">Parceiros interno</div></div>
+    </div>
+    <div class="grid-2">
+      <ul class="tight">
+        <li><strong>Fase 0</strong> fecha os bloqueadores: licença, identidade, Anypoint e fonte de dados.</li>
+        <li><strong>Fase 1</strong> é o caminho crítico — fundações e integração alimentam tudo o que vem depois.</li>
+      </ul>
+      <ul class="tight">
+        <li><strong>Fase 2</strong> entrega a Governança e carrega os catálogos.</li>
+        <li><strong>Fases 3 e 4</strong> entregam os portais de parceiros, externo e depois interno.</li>
+      </ul>
+    </div>
+    <div class="sz-tldr"><div class="sz-tldr-label">Duração de referência</div><p><strong>~18–34 semanas</strong> na trilha tradicional, derivadas da forma do engajamento (banco regulado, interface customizada, migração de dados legados).</p>
+    <p class="note" style="margin-top:8px"><em>This figure is benchmark-based, derived from the AI model's training data and general delivery patterns (not Salesforce-validated) — not a commitment. Final figures are confirmed through the applicable commercial agreement.</em></p></div>
+    <span class="slide-num"></span>
+  </section>
+
+  <!-- 9 · DUAL TRACK -->
+  <section class="slide">
+    <div class="slide-eyebrow">Como entregar</div>
+    <h2 class="slide-title slide-title--sm">Duas formas de entregar o mesmo escopo</h2>
+    <div class="grid-2">
+      <div class="sz-card">
+        <div class="col-head">Tradicional</div>
+        <p style="font-size:16px">Núcleo sênior onshore mais um pod de construção que escala com o volume, e QA constante em produção viva.</p>
+        <p style="margin-top:10px"><span class="sz-tag sz-tag--info">Referência</span></p>
+        <p style="font-size:16px;margin-top:6px"><strong>~18–34 semanas</strong> — a base sobre a qual comparamos.</p>
+      </div>
+      <div class="sz-card" style="border:2px solid var(--client-primary)">
+        <div class="col-head">AI-native <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--sf-text-weak)">— condicional</span></div>
+        <p style="font-size:16px">Núcleo sênior amplificado por agentes, com um construtor humano no trabalho de alta integridade. O QA segue humano, apoiado pelos agentes.</p>
+        <p style="margin-top:10px"><span class="sz-tag sz-tag--medium">Provisório</span></p>
+        <p style="font-size:16px;margin-top:6px"><strong>~11–24 semanas</strong> — comprime a base em ~30–38%.</p>
+      </div>
+    </div>
+    <div class="sz-tldr"><div class="sz-tldr-label">A condição, dita com honestidade</div><p>A compressão AI-native só é real se o BV se comprometer com o modo de operar conjunto: decisor disponível no dia a dia, donos de negócio empoderados e mandato AI-first. O diagnóstico é sustentado por dados de mercado; a magnitude é provisória até termos números reais deste engajamento.</p></div>
+    <span class="slide-num"></span>
+  </section>
+
+  <!-- 10 · TEAM -->
+  <section class="slide">
+    <div class="slide-eyebrow">Quem entrega</div>
+    <h2 class="slide-title slide-title--sm">O time da Salesforce e o que o BV coloca em campo</h2>
+    <div class="grid-2">
+      <div>
+        <div class="col-head">Salesforce Professional Services</div>
+        <ul class="tight">
+          <li>Solution Architect — design ponta a ponta dos três portais.</li>
+          <li>Technical Architect — caminho crítico da integração MuleSoft.</li>
+          <li>Developers — construção da integração e dos portais.</li>
+          <li>QA — não-regressão em produção viva e hardening regulado.</li>
+          <li>Project Manager — coordenação transversal do programa.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="col-head">BV — já confirmado disponível</div>
+        <ul class="tight">
+          <li>Product Owner — decisor que destrava a Fase 0 e prioriza escopo.</li>
+          <li>SMEs por portal — regras de negócio e validação.</li>
+          <li>Data Steward — dados legados da migração.</li>
+          <li>TI / Plataforma — integração e federação de identidade.</li>
+          <li>Capacidade de UAT e Sponsor executivo.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="note">Papéis, não contagem de pessoas. O time final é dimensionado com o Solution Lead. SME = especialista de negócio · UAT = teste de aceitação do usuário.</p>
+    <span class="slide-num"></span>
+  </section>
+
+  <!-- 11 · SIX DECISIONS -->
+  <section class="slide">
+    <div class="slide-eyebrow">Antes do SOW</div>
+    <h2 class="slide-title slide-title--sm">Seis decisões do BV que fecham a Fase 0</h2>
+    <div class="stack">
+      <div class="mini-card"><h3>1 · Licença Experience Cloud</h3><p>Contratar (ou abrir pedido) das licenças externa e interna. É bloqueador de go-live.</p></div>
+      <div class="mini-card"><h3>2 · Provedor de identidade</h3><p>Nomear o IdP externo e interno e confirmar que são federáveis.</p></div>
+      <div class="mini-card"><h3>3 · Tier do MuleSoft Anypoint</h3><p>Caracterizar a limitação do contrato atual, para dimensionar a integração.</p></div>
+      <div class="mini-card"><h3>4 · Fonte dos catálogos</h3><p>Confirmar origem, volume e qualidade dos dados legados e a fronteira carga-inicial / ETL.</p></div>
+      <div class="mini-card"><h3>5 · Relação com o portal Apigee atual</h3><p>Definir substituição, coexistência ou migração de parceiros e aplicações.</p></div>
+      <div class="mini-card"><h3>6 · Topologia de org e toolchain</h3><p>Confirmar a topologia de org única e a esteira de versionamento/deploy.</p></div>
+    </div>
+    <span class="slide-num"></span>
+  </section>
+
+  <!-- 12 · NEXT STEP -->
+  <section class="slide">
+    <div class="slide-eyebrow">Próximo passo</div>
+    <h2 class="slide-title slide-title--sm">Fechar a Fase 0 e converter esta leitura em SOW</h2>
+    <div class="sz-panorama sz-panorama--navy" style="margin:var(--space-lg) 0">
+      <h2 style="font-size:28px;max-width:40ch;margin:0 auto">Resolver os quatro pré-requisitos destrava o início da construção. É o caminho mais curto entre esta conversa e um SOW assinado.</h2>
+    </div>
+    <div class="grid-3">
+      <div class="mini-card"><h3>Agora</h3><p>BV nomeia os donos de decisão e abre os quatro pré-requisitos.</p></div>
+      <div class="mini-card"><h3>Em seguida</h3><p>Caracterizamos Anypoint e catálogos e travamos o escopo da Fase 1.</p></div>
+      <div class="mini-card"><h3>Depois</h3><p>Esta leitura de prazo, esforço e time vira o SOW, com preço adicionado sobre rates validados.</p></div>
+    </div>
+    <span class="slide-num"></span>
+  </section>
+
+<div class="nav">
+  <button onclick="go(-1)">← Prev</button>
+  <span id="count"></span>
+  <button onclick="go(1)">Next →</button>
+</div>
+
+<script>
+  const slides = [...document.querySelectorAll('.slide')];
+  let i = 0;
+  // Scale the fixed 1280×720 canvas to fill the window, letterboxed to 16:9.
+  function fit(){ document.documentElement.style.setProperty('--scale',
+    Math.min(innerWidth/1280, innerHeight/720)); }
+  addEventListener('resize', fit); fit();
+  // Auto-hide the nav after 2.5s of mouse stillness; wake it on movement.
+  const nav = document.querySelector('.nav'); let idleTimer;
+  function wake(){ nav.classList.remove('idle'); clearTimeout(idleTimer);
+    idleTimer = setTimeout(()=>nav.classList.add('idle'), 2500); }
+  ['mousemove','keydown','touchstart'].forEach(ev=>addEventListener(ev, wake)); wake();
+  function show(n){ i = Math.max(0, Math.min(slides.length-1, n));
+    slides.forEach((s,k)=>s.classList.toggle('active', k===i));
+    document.getElementById('count').textContent = (i+1)+' / '+slides.length;
+    slides.forEach((s,k)=>{const n=s.querySelector('.slide-num'); if(n) n.textContent=k+1;});
+  }
+  function go(d){ show(i+d); }
+  addEventListener('keydown', e=>{
+    if(['ArrowRight','ArrowDown',' '].includes(e.key)){e.preventDefault(); go(1);}
+    if(['ArrowLeft','ArrowUp'].includes(e.key)){e.preventDefault(); go(-1);}
+  });
+  addEventListener('beforeprint', ()=>slides.forEach(s=>s.classList.add('active')));
+  addEventListener('afterprint', ()=>show(i));
+  show(0);
+</script>
+</body>
+</html>

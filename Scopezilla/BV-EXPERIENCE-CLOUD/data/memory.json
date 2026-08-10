@@ -231,6 +231,26 @@
         "commercials por trilha quando houver bill rates do BV",
         "validate → narratives/slides ou export"
       ]
+    },
+    {
+      "date": "2026-08-10",
+      "skills_used": [
+        "slides"
+      ],
+      "summary": "Rendered the 12-slide client alignment deck to outputs/artifacts/presentation-deck.html using the shared brand kit (BV blue #0047BB). Creation Mode HTML path: brand tokens + Section 12 components + deck-local helper CSS, then 12 PT-BR slides for a mixed business+technical, partially-fluent audience. Goal: align scope pre-SOW. Guardrails held: no hours/FTE/rates/team sizes; roles + T-shirt sizes only; traditional ~18-34wk range disclaimed (Benchmark Disclaimer verbatim); AI-native ~11-24wk / ~30-38% band shown conditional+provisional. Pre-render sweeps run: jargon (acronyms spelled out, no epic IDs), hallucination guard (every specific traces to a data file), AI-tells (fixed 2 negative-parallelism hits).",
+      "friction": [],
+      "decisions": [],
+      "open_threads": [
+        "G0509 catalog boundary (one-off vs recurring ETL) still open — client question to BV",
+        "G0610 MuleSoft integration-architecture overhead (~TA) not yet confirmed in Anypoint tier",
+        "Client's own ~2.222h EC / 319h MuleSoft assessment numbers kept OFF slides (not PS estimates)",
+        "commercials deferred until BV supplies+validates a rate"
+      ],
+      "next_steps": [
+        "Optional: speaker-notes doc per slide",
+        "Send G0509 client question to BV",
+        "Run commercials when BV rates arrive"
+      ]
     }
   ],
   "preferences": {
