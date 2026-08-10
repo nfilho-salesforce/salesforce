@@ -207,6 +207,30 @@
         "commercials por trilha quando houver rates",
         "validate → narratives/slides ou export para empacotar"
       ]
+    },
+    {
+      "date": "2026-08-10",
+      "skills_used": [
+        "revise"
+      ],
+      "summary": "Revise do RESIZE do grill 2026-08-04: verificado que a propagação já estava refletida em design/roadmap/estimate (E01+Wizard/E02+LWC Fase1, E03 build próprio, E05→PS Fase1, E06→PS 319h) — WARNs eram mtime, não conteúdo. Resolvido G0509 + 5 gaps irmãos (fronteira de catálogos E01/E05/E06) pela fronteira por ciclo de vida (working assumption). Re-stamp de estimates/gaps + CSVs.",
+      "friction": [],
+      "decisions": [
+        {
+          "decision": "Fronteira de catálogos por ciclo de vida (E01 schema / E05 one-time / E06 recorrente)",
+          "rationale": "MECE sem cortar nem gapear; neutraliza risco de dupla contagem ~80h; E05 M / E06 XL inalterados"
+        }
+      ],
+      "open_threads": [
+        "G0509: working assumption — confirmar com BV se a carga inicial roda pela app batch do E06 (reuso→E05 M→S ~−80h)",
+        "G0610: arquitetura MuleSoft ~220h (MuleSoft TA) — dentro das 319h ou esforço separado? Fechar antes de proposta",
+        "Marcadores 'RESIZE pendente' em epics.json E01/E02/E03 não limpos (usuário não selecionou) — cosméticos",
+        "Commit prévio 2ae0db9 over-broad (git add -A da raiz do monorepo) — oferta de reset --soft segue aberta"
+      ],
+      "next_steps": [
+        "commercials por trilha quando houver bill rates do BV",
+        "validate → narratives/slides ou export"
+      ]
     }
   ],
   "preferences": {
@@ -308,6 +332,16 @@
       "rejected": [
         "AI-native como número comprometido (gate não atendido)",
         "QA surge em vez de full-program (SSSL escolheu constante)"
+      ]
+    },
+    {
+      "date": "2026-08-10",
+      "area": "scope",
+      "decision": "Fronteira de catálogos por ciclo de vida: E01=schema-alvo, E05=carga one-time (Fase 1), E06=pipeline batch/ETL recorrente. E05 carrega o trabalho de DADOS, E06 o ENGINE.",
+      "rationale": "Torna E01/E05/E06 mutuamente exclusivos, neutralizando o risco de dupla contagem (~80h) sinalizado por G0509/G0505/G0608/G0103/G0108/G0206 sem cortar escopo. Working assumption pendente de confirmação BV; sensibilidade E05 M→S se reuso total.",
+      "rejected": [
+        "Assumir reuso total E05←E06 (encolheria E05 para S sem confirmação — subdimensiona)",
+        "Deixar aberto (mantém risco de dupla contagem não mitigado no design)"
       ]
     }
   ]

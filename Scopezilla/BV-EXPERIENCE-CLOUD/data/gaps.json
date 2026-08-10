@@ -15,7 +15,7 @@
     "gap_id": "G0103",
     "category": "Logical Gap",
     "gap_or_question": "As integrações de saída do Portal Governança (validar contrato em OPA, YAML→HTML do Anypoint, OneTrust, ServiceNow, PortalTech/bypass, Jira/CASP) dependem das XAPIs segregadas entregues no épico E06 (MuleSoft). O assessment nota que a OPA é invocada via XAPI MuleSoft e que vários itens têm 'esforço majoritariamente do MuleSoft'. Não há sequenciamento nem contrato de API acordado entre E01 e E06. Qual a dependência e ordem de entrega? As horas Salesforce do E01 pressupõem XAPIs prontas?",
-    "impact_or_notes": "Sem os contratos de XAPI definidos e o sequenciamento E06→E01, o fluxo de governança não fecha ponta a ponta. Risco de bloqueio de cronograma e de dupla contagem/lacuna de esforço entre as duas trilhas."
+    "impact_or_notes": "RESOLVIDO no revise 2026-08-10: coberto pela fronteira por ciclo de vida definida em G0509 (E05 one-time / E06 recorrente / E01 schema-alvo). Working assumption pendente de confirmação técnica BV. [histórico] Sem os contratos de XAPI definidos e o sequenciamento E06→E01, o fluxo de governança não fecha ponta a ponta. Risco de bloqueio de cronograma e de dupla contagem/lacuna de esforço entre as duas trilhas."
   },
   {
     "gap_id": "G0104",
@@ -45,7 +45,7 @@
     "gap_id": "G0108",
     "category": "Ambiguity",
     "gap_or_question": "Os batches de sincronização de catálogos Torre/Sigla/Tribu/Squad (itens 40–43, 'esforço majoritariamente do MuleSoft') e a validação de existência de versões Major/Minor publicadas (item 18, 24h, 'possível relação hierárquica') pressupõem que os catálogos e o histórico de versões já foram migrados/populados. Essa dependência não está sequenciada com o épico de migração (E05), cujo status MVP é ele próprio divergente entre as abas. Os catálogos estarão disponíveis quando o fluxo de governança do E01 entrar em operação?",
-    "impact_or_notes": "Se os catálogos e versões-pai não estiverem migrados, as validações de versão e a sincronização batch não funcionam, quebrando a regra de publicação de novas versões. Dependência cruzada E01↔E05 a explicitar."
+    "impact_or_notes": "RESOLVIDO no revise 2026-08-10: coberto pela fronteira por ciclo de vida definida em G0509 (E05 one-time / E06 recorrente / E01 schema-alvo). Working assumption pendente de confirmação técnica BV. [histórico] Se os catálogos e versões-pai não estiverem migrados, as validações de versão e a sincronização batch não funcionam, quebrando a regra de publicação de novas versões. Dependência cruzada E01↔E05 a explicitar."
   },
   {
     "gap_id": "G0201",
@@ -81,7 +81,7 @@
     "gap_id": "G0206",
     "category": "Logical Gap",
     "gap_or_question": "A criação de app, a geração/renovação de credenciais e a navegação do esquema OAS no Portal Parceiros dependem de SAPIs MuleSoft do E06 (SAPI Apigee Apps Management, SAPI Jira para CRUD de versão de produto e login diferenciado, SAPI Anypoint para OAS). Essas SAPIs estão confirmadas, com contratos definidos e ownership acordado? A limitação do Anypoint (R2) afeta a geração de credenciais e a renderização de contratos?",
-    "impact_or_notes": "As funcionalidades de app e credenciais são núcleo do valor do Portal Parceiros e não funcionam sem as SAPIs do E06. Dependência cruzada não resolvida cria risco de sequenciamento (portal pronto sem backend) e a limitação do Anypoint pode restringir a geração de OAS/credenciais previstas."
+    "impact_or_notes": "RESOLVIDO no revise 2026-08-10: coberto pela fronteira por ciclo de vida definida em G0509 (E05 one-time / E06 recorrente / E01 schema-alvo). Working assumption pendente de confirmação técnica BV. [histórico] As funcionalidades de app e credenciais são núcleo do valor do Portal Parceiros e não funcionam sem as SAPIs do E06. Dependência cruzada não resolvida cria risco de sequenciamento (portal pronto sem backend) e a limitação do Anypoint pode restringir a geração de OAS/credenciais previstas."
   },
   {
     "gap_id": "G0207",
@@ -213,7 +213,7 @@
     "gap_id": "G0505",
     "category": "Potential Risk",
     "gap_or_question": "Possível dupla contagem / fronteira indefinida entre esta épica (item 118, ~80h, 'Migración') e os batches de sincronização de catálogos do MuleSoft (itens 40-43: batches que sincronizam Torre, Sigla, Tribu, Squad, notados como 'Esfuerzo mayormente de MuleSoft') e o Batch ETL da épica MuleSoft (E06). As 80h cobrem migração de DADOS one-off, ou incluem a construção do ETL/transformação recorrente?",
-    "impact_or_notes": "Risco de sobreposição de escopo entre E05 e E06. Se a carga inicial usa a mesma infraestrutura de batch que a sincronização contínua, parte das 80h já pode estar contabilizada no MuleSoft — ou, ao contrário, a transformação pode não estar coberta em lugar nenhum. Precisa de decisão clara: migração one-off (E05) vs sincronização contínua (E06/MuleSoft)."
+    "impact_or_notes": "RESOLVIDO no revise 2026-08-10: coberto pela fronteira por ciclo de vida definida em G0509 (E05 one-time / E06 recorrente / E01 schema-alvo). Working assumption pendente de confirmação técnica BV. [histórico] Risco de sobreposição de escopo entre E05 e E06. Se a carga inicial usa a mesma infraestrutura de batch que a sincronização contínua, parte das 80h já pode estar contabilizada no MuleSoft — ou, ao contrário, a transformação pode não estar coberta em lugar nenhum. Precisa de decisão clara: migração one-off (E05) vs sincronização contínua (E06/MuleSoft)."
   },
   {
     "gap_id": "G0506",
@@ -279,7 +279,7 @@
     "gap_id": "G0608",
     "category": "Logical Gap",
     "gap_or_question": "Sobreposição de fronteira do Batch ETL. A app Mule para processo Batch/ETL (itens 36-38, 40h) parece cobrir a mesma sincronização de catálogos que (a) a Migração de catálogos e APIs de E05 (~80h) e (b) os batches 'que sincroniza catálogo Torre/Sigla/Tribu/Squad' na trilha EC (itens 40-43, marcados 'esfuerzo mayormente de MuleSoft'). É a mesma capacidade contada em três lugares?",
-    "impact_or_notes": "Risco de duplo-cômputo de esforço entre E06 (ETL), E05 (migração) e E01 (batches de catálogo). Precisa delimitar: migração é carga inicial one-off; ETL/batch é sincronização recorrente. Sem isso, a soma de horas superestima ou o design fica ambíguo sobre quem orquestra a sincronização recorrente."
+    "impact_or_notes": "RESOLVIDO no revise 2026-08-10: coberto pela fronteira por ciclo de vida definida em G0509 (E05 one-time / E06 recorrente / E01 schema-alvo). Working assumption pendente de confirmação técnica BV. [histórico] Risco de duplo-cômputo de esforço entre E06 (ETL), E05 (migração) e E01 (batches de catálogo). Precisa delimitar: migração é carga inicial one-off; ETL/batch é sincronização recorrente. Sem isso, a soma de horas superestima ou o design fica ambíguo sobre quem orquestra a sincronização recorrente."
   },
   {
     "gap_id": "G0609",
@@ -297,7 +297,7 @@
     "gap_id": "G0509",
     "category": "Logical Gap",
     "gap_or_question": "Fronteira de catálogos entre E01 (modelo de dados), E05 (migração ~80h) e E06 (aplicação batch de ETL) não está clara — risco de dupla contagem. A migração inicial do E05 é executada PELA batch de ETL do E06 (mesmo trabalho contado 2×) ou são mecanismos separados (carga one-time + de-para vs pipeline contínuo)? O modelo de dados do E01 inclui parte da estruturação atribuída ao E05? Definir na conversa técnica com o BV antes de fixar a base de esforço.",
-    "impact_or_notes": "Possível inflação de esforço de até ~80h se E05 e E06 sobrepõem. Não resolvido no grill 2026-08-04 (usuário: não sei ainda) — mantidas as três épicas com flag. Impacta base de estimativa de E01/E05/E06 e sequenciamento (dependência E05→E01, E06↔E05). Fechar antes de sizing/proposta."
+    "impact_or_notes": "RESOLVIDO no revise 2026-08-10 (working assumption — fronteira por ciclo de vida): E01=schema-alvo (define onde o dado pousa, move nada); E05=carga ONE-TIME (extração + de-para + cleanse + validação + cutover de go-live, Fase 1); E06=pipeline batch/ETL RECORRENTE (engine reutilizável, roda após o go-live). Regra de de-dup: E05 carrega o trabalho de DADOS; E06 carrega o ENGINE — se a carga inicial rodar pela app batch do E06, E05 só carrega o esforço de migração, nunca o engine. Sem sobreposição de horas nem lacuna; E05 M / E06 XL inalterados. Assumed (não Confirmed): pergunta ao BV — 'a carga inicial dos catálogos roda pela mesma app batch/ETL do MuleSoft que fará a sincronização contínua, ou é migração separada (extração+de-para+carga one-off)?'. Sensibilidade: E05 M→S (~−80h) só se reuso total for confirmado pelo BV. [histórico] Possível inflação de esforço de até ~80h se E05 e E06 sobrepõem. Não resolvido no grill 2026-08-04 (usuário: não sei ainda) — mantidas as três épicas com flag. Impacta base de estimativa de E01/E05/E06 e sequenciamento (dependência E05→E01, E06↔E05). Fechar antes de sizing/proposta."
   },
   {
     "gap_id": "G0610",

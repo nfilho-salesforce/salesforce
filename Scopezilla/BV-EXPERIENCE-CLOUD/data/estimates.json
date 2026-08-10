@@ -4,11 +4,26 @@
     "item_type": "epic",
     "t_shirt_size": "XL",
     "size_drivers": {
-      "Data model": {"tier": "L", "signal": "10 entidades de catálogo com relações hierárquicas (versões Major/Minor) e junção API Técnica × Versão de Produto; objeto Revisão de API possivelmente substituído pelo Approval Process [KB: experience_cloud_4-2-2026.md:27656-27752]"},
-      "Automation": {"tier": "L", "signal": "Flow orquestrando envio/histórico/notificação + Approval Process nativo com fechamento automático após 3 rejeições [extends: KA-13258]"},
-      "Integration": {"tier": "L", "signal": "consome 6+ XAPIs segregadas do E06 (OPA, YAML→HTML Anypoint, OneTrust, ServiceNow, PortalTech, Jira/CASP); sequência E06→E01"},
-      "UI": {"tier": "L", "signal": "Wizard de geração de API (~160h, Fase 1) + render OPA em HTML (60h) + telas de usuário e gestor"},
-      "Sharing/security": {"tier": "M", "signal": "visibilidade de catálogos e perfis do portal de governança"}
+      "Data model": {
+        "tier": "L",
+        "signal": "10 entidades de catálogo com relações hierárquicas (versões Major/Minor) e junção API Técnica × Versão de Produto; objeto Revisão de API possivelmente substituído pelo Approval Process [KB: experience_cloud_4-2-2026.md:27656-27752]"
+      },
+      "Automation": {
+        "tier": "L",
+        "signal": "Flow orquestrando envio/histórico/notificação + Approval Process nativo com fechamento automático após 3 rejeições [extends: KA-13258]"
+      },
+      "Integration": {
+        "tier": "L",
+        "signal": "consome 6+ XAPIs segregadas do E06 (OPA, YAML→HTML Anypoint, OneTrust, ServiceNow, PortalTech, Jira/CASP); sequência E06→E01"
+      },
+      "UI": {
+        "tier": "L",
+        "signal": "Wizard de geração de API (~160h, Fase 1) + render OPA em HTML (60h) + telas de usuário e gestor"
+      },
+      "Sharing/security": {
+        "tier": "M",
+        "signal": "visibilidade de catálogos e perfis do portal de governança"
+      }
     },
     "size_rationale": "Múltiplas dimensões em L (Modelo, Automação, Integração, UI) → breadth bump compõe para XL; é a maior épica Experience Cloud da trilha.",
     "complexity_drivers": "Wizard custom LWC guiando geração/anexo/validação/envio; mecanismo de aprovação Flow+Approval Process; render OPA em HTML; modelo de 10 entidades hierárquicas; dependência de 6+ XAPIs prontas antes do build.",
@@ -22,9 +37,18 @@
     "item_type": "epic",
     "t_shirt_size": "XL",
     "size_drivers": {
-      "Integration": {"tier": "XL", "signal": "hub API-led: TLS context Apigee + 6 XAPIs segregadas por destino + XAPI de retorno + 3 SAPIs (Jira, Apigee Apps Mgmt, Anypoint OAS) + testes E2E [KB: MuleSoft — Catálogo Estratégico Consolidado (EN) (Claude).md:53-88]"},
-      "Automation": {"tier": "L", "signal": "app batch de ETL + tratamento de erro/retry/resiliência da camada"},
-      "Data volume/migration": {"tier": "M", "signal": "batch ETL move dados de catálogo entre sistemas"}
+      "Integration": {
+        "tier": "XL",
+        "signal": "hub API-led: TLS context Apigee + 6 XAPIs segregadas por destino + XAPI de retorno + 3 SAPIs (Jira, Apigee Apps Mgmt, Anypoint OAS) + testes E2E [KB: MuleSoft — Catálogo Estratégico Consolidado (EN) (Claude).md:53-88]"
+      },
+      "Automation": {
+        "tier": "L",
+        "signal": "app batch de ETL + tratamento de erro/retry/resiliência da camada"
+      },
+      "Data volume/migration": {
+        "tier": "M",
+        "signal": "batch ETL move dados de catálogo entre sistemas"
+      }
     },
     "size_rationale": "Integração é o driver dominante em XL (hub API-led multi-sistema com camadas segregadas); Automação em L não altera a headline. Compõe XL.",
     "complexity_drivers": "Arquitetura API-led de 3 camadas segregada por sistema de destino; coexistência com Apigee no edge; XAPI de retorno; SAPIs; batch ETL; NFRs de Open Finance (mTLS/throughput/idempotência).",
@@ -39,11 +63,26 @@
     "item_type": "epic",
     "t_shirt_size": "L",
     "size_drivers": {
-      "Sharing/security": {"tier": "L", "signal": "OWD externo público/privado nos objetos Produto/Versão + sharing sets na criação do acesso + guest user hardening [KA-10297] [KA-10398] [KA-10395]"},
-      "UI": {"tier": "L", "signal": "páginas LWC aprimoradas (~32h, Fase 1) + catálogo público/privado + criação de apps + gestão de credenciais"},
-      "Integration": {"tier": "M", "signal": "consome SAPIs do E06 (Apigee Apps Mgmt, Jira, Anypoint OAS)"},
-      "Data model": {"tier": "M", "signal": "Produto, Versão de Produto e junção de acesso de parceiro [KB: experience_cloud_4-2-2026.md:63605-63737]"},
-      "Automation": {"tier": "M", "signal": "autorregistro, Login Discovery dual-identity, automação de compartilhamento na criação do acesso"}
+      "Sharing/security": {
+        "tier": "L",
+        "signal": "OWD externo público/privado nos objetos Produto/Versão + sharing sets na criação do acesso + guest user hardening [KA-10297] [KA-10398] [KA-10395]"
+      },
+      "UI": {
+        "tier": "L",
+        "signal": "páginas LWC aprimoradas (~32h, Fase 1) + catálogo público/privado + criação de apps + gestão de credenciais"
+      },
+      "Integration": {
+        "tier": "M",
+        "signal": "consome SAPIs do E06 (Apigee Apps Mgmt, Jira, Anypoint OAS)"
+      },
+      "Data model": {
+        "tier": "M",
+        "signal": "Produto, Versão de Produto e junção de acesso de parceiro [KB: experience_cloud_4-2-2026.md:63605-63737]"
+      },
+      "Automation": {
+        "tier": "M",
+        "signal": "autorregistro, Login Discovery dual-identity, automação de compartilhamento na criação do acesso"
+      }
     },
     "size_rationale": "Sharing externo e UI ambos em L definem a headline; sem dimensão isolada em XL → compõe L.",
     "complexity_drivers": "Portal externo com autorregistro, login diferenciado (senha vs IdP via Login Discovery), catálogo público/privado, gestão de apps/credenciais, páginas LWC de conteúdo.",
@@ -57,9 +96,18 @@
     "item_type": "epic",
     "t_shirt_size": "L",
     "size_drivers": {
-      "Sharing/security": {"tier": "L", "signal": "modelo próprio de visibilidade, personas e segurança internas — build distinto, não config derivada leve (grill 2026-08-04)"},
-      "UI": {"tier": "M", "signal": "reaproveita base de componentes do E02 com desenho próprio de acesso"},
-      "Data model": {"tier": "M", "signal": "reuso do modelo do E02 onde faz sentido [KB: experience_cloud_4-2-2026.md:2249-2352]"}
+      "Sharing/security": {
+        "tier": "L",
+        "signal": "modelo próprio de visibilidade, personas e segurança internas — build distinto, não config derivada leve (grill 2026-08-04)"
+      },
+      "UI": {
+        "tier": "M",
+        "signal": "reaproveita base de componentes do E02 com desenho próprio de acesso"
+      },
+      "Data model": {
+        "tier": "M",
+        "signal": "reuso do modelo do E02 onde faz sentido [KB: experience_cloud_4-2-2026.md:2249-2352]"
+      }
     },
     "size_rationale": "Build distinto com sharing/persona/licença próprios mantém a headline em L; reuso de E02 puxa UI/Modelo para M, mas não desce a épica.",
     "complexity_drivers": "Portal interno com público, personas, tipo de licença, visibilidade e segurança próprios; reaproveitamento parcial de E02 sem ser derivação leve; sequenciado após freeze do E02.",
@@ -74,9 +122,18 @@
     "item_type": "epic",
     "t_shirt_size": "M",
     "size_drivers": {
-      "Automation": {"tier": "M", "signal": "frameworks de trigger/logging/mocking transversais aos 3 portais [KB: experience_cloud_4-2-2026.md:30835-30862]"},
-      "Sharing/security": {"tier": "M", "signal": "perfis e permission sets core compartilhados pelos 3 portais"},
-      "Integration": {"tier": "M", "signal": "connected apps, usuário de integração DevOps, integrações de entrada ao Salesforce"}
+      "Automation": {
+        "tier": "M",
+        "signal": "frameworks de trigger/logging/mocking transversais aos 3 portais [KB: experience_cloud_4-2-2026.md:30835-30862]"
+      },
+      "Sharing/security": {
+        "tier": "M",
+        "signal": "perfis e permission sets core compartilhados pelos 3 portais"
+      },
+      "Integration": {
+        "tier": "M",
+        "signal": "connected apps, usuário de integração DevOps, integrações de entrada ao Salesforce"
+      }
     },
     "size_rationale": "Frameworks + config core em M compõem a headline M; o brownfield/não-regressão é Risk Adder transversal (alarga a banda), não uma 9ª dimensão que suba o tamanho.",
     "complexity_drivers": "Org + ambientes de desenvolvimento, perfis/permission sets core, connected apps, frameworks de trigger/logging/mocking, parametrização administrativa. Logging nível FS com mascaramento de PII/retenção.",
@@ -91,15 +148,21 @@
     "item_type": "epic",
     "t_shirt_size": "M",
     "size_drivers": {
-      "Data volume/migration": {"tier": "M", "signal": "carga one-off de 10 entidades com integridade referencial (organizacionais → ciclo de vida → junção API Técnica × Versão por último)"},
-      "Data model": {"tier": "M", "signal": "de-para para o modelo de dados que o E01 consome"}
+      "Data volume/migration": {
+        "tier": "M",
+        "signal": "carga one-off de 10 entidades com integridade referencial (organizacionais → ciclo de vida → junção API Técnica × Versão por último)"
+      },
+      "Data model": {
+        "tier": "M",
+        "signal": "de-para para o modelo de dados que o E01 consome"
+      }
     },
     "size_rationale": "Migração é o driver em M (10 entidades interrelacionadas, ~80h no assessment); sem alto volume/complexidade confirmados, headline M.",
     "complexity_drivers": "Carga inicial one-off de 10 entidades (Torre→Versão de Produto) com de-para e reconciliação pós-carga; ordem preserva integridade referencial.",
     "skills_needed": "Data Migration Specialist, Salesforce Developer (de-para/reconciliação)",
-    "risks": "Fonte legada não nomeada; volumes/qualidade desconhecidos (G0503/G0504) — mantém Assumed. Estratégia de cutover/rollback em produção viva (G0506). Fronteira one-off (E05) vs. sincronização recorrente (E06) — dupla contagem (G0509/G0505/G0608).",
+    "risks": "Fonte legada não nomeada; volumes/qualidade desconhecidos (G0503/G0504) — mantém Assumed. Estratégia de cutover/rollback em produção viva (G0506). Fronteira one-off (E05) vs. sincronização recorrente (E06): resolvida por ciclo de vida no revise 2026-08-10 (G0509) — working assumption pendente de confirmação BV.",
     "solution_approach": "Carga inicial one-off das 10 entidades para o modelo do E01, entregue pela Salesforce PS na Fase 1 (os portais não têm valor no go-live sem catálogo carregado).",
     "confidence": "Assumed",
-    "size_if_assumption_breaks": "M; L se os dados de origem estiverem sujos/em alto volume ou se a integridade referencial entre as 10 entidades exigir transformação pesada."
+    "size_if_assumption_breaks": "M; L se os dados de origem estiverem sujos/em alto volume ou se a integridade referencial entre as 10 entidades exigir transformação pesada. Direção oposta: M→S (~−80h) se o BV confirmar que a carga inicial é executada integralmente pela app batch do E06 (reuso total, sem esforço de migração separado) — fronteira por ciclo de vida adotada no revise 2026-08-10, G0509."
   }
 ]
