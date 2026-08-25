@@ -484,5 +484,17 @@
     "category": "Missing Requirement",
     "gap_or_question": "Experiência e governança do passo de assinatura/contratação não escopadas. Uma etapa jurídica (aceite final, assinatura, envio de garantias pós-comitê) no portal implica desenho de jornada e conteúdo para o tomador (instruções de firma reconhecida vs. assinatura digital, confirmação de aceite no CMP-32) e gestão de mudança/adoção para um fluxo legalmente sensível. Além disso, a geração da CCB (API-30) reaproveitaria a capacidade do BPP, mas a extensão às jornadas DSP/Julgamental não está confirmada — governança de quem é dono do template/geração da CCB. Essas atividades são absorvidas pela equipe existente ou exigem dono dedicado (content/service design, change)?",
     "impact_or_notes": "Sinal de experience-design/governança a levantar como pergunta ao cliente (não auto-adicionar epica). O CMP-32 (declaração/aceite final) é o ponto de maior exposição de UX de um passo jurídico; fluxo mal comunicado gera retrabalho de suporte e risco de aceite inválido. Governança do template da CCB fica indefinida enquanto não resolvida a extensão do BPP."
+  },
+  {
+    "gap_id": "G0012",
+    "category": "Assumption",
+    "gap_or_question": "Roadmap assume adoção do modelo de lending nativo do FSC (RLA/LoanApplicant/PCM/BRE/Person Accounts) como base da Fase 1 — hoje marcada REVISAR no fit/gap.",
+    "impact_or_notes": "Se não ratificada na Fase 0, Fase 1 e a sequência de migração mudam de escopo (reaponte leve vs. migração de modelo)."
+  },
+  {
+    "gap_id": "G0013",
+    "category": "Assumption",
+    "gap_or_question": "Roadmap assume que os contratos das System APIs permanecem estáveis no reapontamento (Fase 6 / E09).",
+    "impact_or_notes": "Se mudarem, a transformação MuleSoft vira escopo adicional fora do reaponte lado-Salesforce."
   }
 ]

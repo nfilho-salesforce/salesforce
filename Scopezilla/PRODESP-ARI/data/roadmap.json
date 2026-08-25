@@ -1,0 +1,73 @@
+[
+  {
+    "phase_number": 0,
+    "phase_name": "Discovery & Foundation (Fase 0)",
+    "objectives": "Ratificar o modelo-alvo e fechar os conflitos de fonte antes de comprometer o sizing: adoção do modelo de lending nativo do FSC (ResidentialLoanApplication/LoanApplicant/PCM/BRE/Person Accounts, hoje 'REVISAR'), prontidão das 30 APIs (Swagger/contratos e write-back PUT/PATCH), volume de dados de produção e a fronteira de escopo P3↔P5.",
+    "epics_included": "",
+    "success_criteria": "Adoção FSC nativa decidida e registrada; inventário de prontidão das 30 APIs; volume de produção confirmado; fronteira P3↔P5 reconciliada. Sizing dos pilares passa de indicativo a fechável.",
+    "dependencies": "Nenhuma — é o gate de entrada. Requer disponibilidade das 3 frentes (Salesforce/DSP/Sinqia) e acesso a contratos de API.",
+    "risks": "Se a adoção FSC nativa não for ratificada, prioridade 3 e objetivos 3-5 da estratégia mudam de escopo (reaponte leve vs. migração de modelo). Baixa prontidão das 30 APIs é o maior risco de cronograma.",
+    "kb_sources": ["[KB: fsc-fit-gap-report.md:1-76]", "[assumption: adoção FSC nativa em REVISAR — ratificar na Fase 0]"]
+  },
+  {
+    "phase_number": 1,
+    "phase_name": "Fundação FSC & Modelo de Dados",
+    "objectives": "Estabelecer a base transversal da migração: habilitar Person Accounts (irreversível) e o modelo de lending nativo do FSC a nível de configuração (E07); adotar Product Catalog Management, Business Rules Engine e DecisionTable substituindo as customizações de produto e enquadramento (E08).",
+    "epics_included": "E07,E08",
+    "success_criteria": "Person Accounts habilitado em sandbox; objetos de lending nativos disponíveis; PCM/BRE/DecisionTable configurados e validados como destino do catálogo e da elegibilidade.",
+    "dependencies": "Fase 0 (adoção FSC nativa ratificada). E08 depende de E07 (PCM/BRE exigem o FSC habilitado e o modelo de dados).",
+    "risks": "Habilitação de Person Accounts é irreversível — só em produção após ensaio full-copy (Fase 5). PCM/BRE são as frentes de maior esforço no fit/gap. Permanência contratual das licenças Industries a confirmar.",
+    "kb_sources": ["[KB: fsc-fit-gap-report.md:1-90]", "[KB: fsc-fit-gap-report.md:713-728]"]
+  },
+  {
+    "phase_number": 2,
+    "phase_name": "Esteira de Entrada",
+    "objectives": "Migrar a entrada da jornada para os objetos FSC: Captação (E01 — enriquecimento JUCESP, cadastro, simulador; já em QA, menor risco) e Pré-qualificação (E02 — formulário adaptativo, validação facial, QRSA, Serpro e-CAC, envio síncrono ao core).",
+    "epics_included": "E01,E02",
+    "success_criteria": "Lead→LoanApplicant operando; CreditApplication__c→ResidentialLoanApplication na pré-qualificação; elegibilidade via BRE/PCM funcional.",
+    "dependencies": "Fase 1 (fundação FSC). E01 depende de E07; E02 depende de E07 e E08 (usa elegibilidade/enquadramento).",
+    "risks": "E02 é pilar Grande com 11 integrações — depende fortemente da prontidão de API (BioValid, Serpro). Refatoração Serasa prevista.",
+    "kb_sources": ["[KB: fsc-fit-gap-report.md:60-120]"]
+  },
+  {
+    "phase_number": 3,
+    "phase_name": "Proposta, Estruturação & Aprovação",
+    "objectives": "Migrar o núcleo pesado da jornada: Proposta (E03 — lista e detalhamento sobre objetos FSC), Estruturação (E04 — fichas cadastrais PJ/PF, garantias, upload assíncrono, Central de Pendências; Garantia__c→LoanApplicantAsset) e Aprovação (E05 — aceite/recusa síncrono, efetivação via Platform Event).",
+    "epics_included": "E03,E04,E05",
+    "success_criteria": "E04 (maior pilar) migrado com dados de tomador→LoanApplicant/Income/Employment e garantias→LoanApplicantAsset; efetivação síncrona no core via Platform Event validada.",
+    "dependencies": "Fase 1 (fundação). E03 depende de E07; E04 depende de E07 e E08; E05 depende de E07. Fronteira P3↔P5 (F13) precisa estar reconciliada na Fase 0.",
+    "risks": "E04 é o maior pilar e o maior risco de cronograma da onda de build. Central de Pendências: sem ela, o backoffice Julgamental fica pior que hoje. Repositório de documentos >12MB (Agro) diferido/indefinido.",
+    "kb_sources": ["[KB: fsc-fit-gap-report.md:120-180]"]
+  },
+  {
+    "phase_number": 4,
+    "phase_name": "Formalização",
+    "objectives": "Migrar o encerramento da jornada: download da CCB, upload da CCB assinada e Meus Contratos para objetos FSC (E06).",
+    "epics_included": "E06",
+    "success_criteria": "Fluxo de formalização da CCB operando sobre objetos FSC; Meus Contratos disponível.",
+    "dependencies": "Fase 1 (fundação). E06 depende de E07. Provedor de assinatura digital da CCB a definir (MVP assume manual).",
+    "risks": "Provedor de assinatura digital indefinido — MVP usa assinatura manual até definição.",
+    "kb_sources": ["[KB: fsc-fit-gap-report.md:1-60]"]
+  },
+  {
+    "phase_number": 5,
+    "phase_name": "Migração de Dados, Regressão & Cutover",
+    "objectives": "Fechar a migração in-place: ETL/conversão (Account/Contact→Person Accounts, CreditApplication__c→RLA, Garantia__c→collateral), descomissionar objetos superados (Simulacao__c, Parcela__c) e executar SIT/UAT, regressão in-place ampla e cutover irreversível (habilitação de Person Accounts em produção) com hypercare (E10, E11).",
+    "epics_included": "E10,E11",
+    "success_criteria": "Ensaio full-copy concluído; migração de dados reconciliada; regressão aprovada; cutover em produção executado sem perda; hypercare estável.",
+    "dependencies": "Todas as fases de build (1-4) e o reapontamento de integrações (Fase 6). E10 depende de E07 e E08; E11 depende de E10.",
+    "risks": "Regressão in-place ampla é o maior risco da migração. Cutover é irreversível — ensaio full-copy obrigatório antes. Volume de dados de produção a confirmar (contagens atuais são do sandbox HML). Lead 10.105 registros não endereçado no plano (G1004).",
+    "kb_sources": ["[KB: fsc-fit-gap-report.md:180-260]"]
+  },
+  {
+    "phase_number": 6,
+    "phase_name": "Reapontamento de Integrações (30 APIs)",
+    "objectives": "Reapontar o lado Salesforce das 30 integrações MuleSoft para os objetos FSC — named credentials, mapeamento de campos, refactor de callouts Apex e regressão por integração. As APIs no barramento não são reconstruídas (premissa). Concorre com as Fases 2-4, à medida que cada pilar migra.",
+    "epics_included": "E09",
+    "success_criteria": "30 APIs reapontadas para objetos FSC; regressão por integração aprovada; nenhuma quebra de contrato do lado Salesforce.",
+    "dependencies": "Fase 1 (objetos FSC precisam existir). E09 depende de E07. Se os contratos das System APIs mudarem, a transformação MuleSoft vira escopo adicional.",
+    "risks": "Só JUCESP em QA; 29/30 sem Swagger/contrato e write-back PUT/PATCH pendente (maior risco de cronograma, ~+42% no teto do Parecer).",
+    "parallel_track": true,
+    "kb_sources": ["[KB: fsc-fit-gap-report.md:1-40]", "[assumption: contratos das System APIs permanecem estáveis — confirmar na Fase 0]"]
+  }
+]

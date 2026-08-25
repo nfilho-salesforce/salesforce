@@ -89,6 +89,28 @@
         "strategy.json não persistiu KPIs quantificados (objetivos ainda qualitativos — G de discovery aberto); business case sem métricas fabricadas por design."
       ],
       "next_steps": "narratives (exec summary lê strategy.json) OU roadmap (plano faseado das 11 frentes, base de duração). Pendente ainda: seção Fase 0 no deck (bump v1.2)."
+    },
+    {
+      "date": "2026-08-25",
+      "skills_used": ["roadmap"],
+      "summary": "Roadmap de 7 fases gravado (Fase 0 ratificação + Fund. FSC + 4 ondas de build + Migração/Cutover + Reaponte 30 APIs como parallel_track). SEM compromisso de duração (escolha do usuário 'só sequência') — fases só com ordem+dependências, nenhum duration_weeks. depends_on escrito nos épicos (E01-E11). 2 assumptions de phasing persistidas como gaps (G0012 adoção FSC nativa, G0013 estabilidade contratos System APIs) → 83 gaps. 02-delivery-plan.md gerado. validate PASS. roadmap = complete.",
+      "decisions": [
+        {
+          "decision": "Sem compromisso de duração no roadmap — fases só sequência+dependências, nenhum número de semana",
+          "rejected": "Comprometer 14 semanas (deck AI-native); espelhar alvo 30/11/2026; derivar faixa top-down por shape"
+        },
+        {
+          "decision": "7 fases: Fase 0 (ratificação, sem épicos) · F1 Fundação FSC (E07,E08) · F2 Entrada (E01,E02) · F3 Proposta/Estrut/Aprov (E03,E04,E05) · F4 Formalização (E06) · F5 Migração/Regressão/Cutover (E10,E11) · F6 Reaponte 30 APIs (E09, parallel_track com F2-4)",
+          "rejected": "Espalhar E09 pelas fases de build; tratar pilares como fase única"
+        }
+      ],
+      "open_threads": [
+        "SEM estimates.json — balanceamento entre fases é qualitativo (complexidade descrita + fit/gap). Rodar estimate para fechar sizing formal + roster nomeado.",
+        "Caminho crítico E07→E08→E10→E11; E04 é o pilar mais pesado da onda de build.",
+        "Conflito central FSC nativo (G0012) ainda gate da Fase 0 — Fase 1 muda de escopo se negado.",
+        "Duração ainda TBD — user optou por não comprometer; commercials precisa de base de duração + roster antes de precificar."
+      ],
+      "next_steps": "estimate (roster nomeado + sizing formal, por lane) OU narratives (exec summary) OU validate antes do export. Pendente: seção Fase 0 no deck (bump v1.2)."
     }
   ],
   "preferences": {},
