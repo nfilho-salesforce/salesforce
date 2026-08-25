@@ -1,0 +1,183 @@
+[
+  {
+    "item_id": "E01",
+    "item_type": "epic",
+    "t_shirt_size": "M",
+    "size_drivers": {
+      "data_model": {"tier": "M", "signal": "Remap Lead→LoanApplicant + Person Account para PF; simulação em OpportunityLineItem"},
+      "integration": {"tier": "M", "signal": "Enriquecimento JUCESP + 1 callout síncrono (simulação de captação)"},
+      "ui": {"tier": "M", "signal": "9 componentes a reapontar para objetos FSC"},
+      "automation": {"tier": "S", "signal": "Fluxos de captação padrão"}
+    },
+    "size_rationale": "Vários drivers em M (dados + integração + UI); nenhum em L. Pilar já em QA reduz risco de retrabalho.",
+    "complexity_drivers": "Remap da entidade-base para Person Account; enriquecimento externo; reaproveitamento de 9 componentes existentes.",
+    "skills_needed": "Arquiteto FSC, Desenvolvedor LWC/Apex, Especialista de integração",
+    "risks": "Mapeamento Lead→LoanApplicant a validar na Fase 0; Person Accounts desabilitado hoje vs. conversão descrita (G0701)",
+    "solution_approach": "Migrar captação para objetos FSC reaproveitando componentes; enriquecimento JUCESP e callout de simulação reapontados.",
+    "confidence": "Confirmed"
+  },
+  {
+    "item_id": "E02",
+    "item_type": "epic",
+    "t_shirt_size": "L",
+    "size_drivers": {
+      "integration": {"tier": "L", "signal": "11 integrações (BioValid, Serpro, QRSA) — maior superfície de integração dos pilares"},
+      "data_model": {"tier": "M", "signal": "CreditApplication__c→ResidentialLoanApplication"},
+      "ui": {"tier": "M", "signal": "6 componentes; formulário adaptativo"},
+      "automation": {"tier": "M", "signal": "Elegibilidade via BRE/PCM; validação facial"}
+    },
+    "size_rationale": "Integração L domina, com múltiplos M ao redor. Composição L.",
+    "complexity_drivers": "Alta densidade de integração; validação facial (BioValid) e Serpro e-CAC externos; refatoração Serasa prevista.",
+    "skills_needed": "Arquiteto de integração, Desenvolvedor Apex, Especialista BRE/PCM",
+    "risks": "29/30 APIs sem contrato/Swagger; contratos BioValid/Serpro a confirmar (G0013)",
+    "solution_approach": "Migrar CreditApplication__c para RLA; elegibilidade sobre BRE/PCM; reaponte da superfície de integração (não reconstrução).",
+    "confidence": "Confirmed"
+  },
+  {
+    "item_id": "E03",
+    "item_type": "epic",
+    "t_shirt_size": "S",
+    "size_drivers": {
+      "integration": {"tier": "M", "signal": "4 integrações QRSA de leitura/status"},
+      "data_model": {"tier": "S", "signal": "Camada de leitura sobre objetos FSC"},
+      "ui": {"tier": "S", "signal": "Reaproveita componentes de acompanhamento da Home"}
+    },
+    "size_rationale": "Pilar mais leve — leitura + reuso de componentes; integração de leitura não eleva além de S.",
+    "complexity_drivers": "Essencialmente camada de leitura; baixa lógica de negócio própria.",
+    "skills_needed": "Desenvolvedor LWC, Especialista de integração (leitura)",
+    "risks": "Inventário de componentes reaproveitáveis a validar no build atual",
+    "solution_approach": "Migrar leitura para objetos FSC reaproveitando componentes da Home.",
+    "confidence": "Confirmed"
+  },
+  {
+    "item_id": "E04",
+    "item_type": "epic",
+    "t_shirt_size": "XL",
+    "size_drivers": {
+      "data_model": {"tier": "L", "signal": "Tomador→LoanApplicant/Income/Employment; Garantia__c→LoanApplicantAsset — múltiplos objetos FSC correlatos"},
+      "integration": {"tier": "L", "signal": "8 integrações + upload assíncrono S3 (6MB síncrono / 12MB assíncrono)"},
+      "ui": {"tier": "L", "signal": "14 componentes; Central de Pendências; fichas PJ/PF; geração de PDF"},
+      "automation": {"tier": "M", "signal": "Orquestração de status, bloqueio de edição, geração de PDF"}
+    },
+    "size_rationale": "Três dimensões em L (dados + integração + UI) → breadth bump. Maior superfície de migração da onda de build.",
+    "complexity_drivers": "Maior pilar; modelo de dados de tomador/garantias mais rico; upload S3 externo; Central de Pendências net-new.",
+    "skills_needed": "Arquiteto FSC, Desenvolvedor LWC/Apex sênior, Arquiteto de integração",
+    "risks": "Garantia__c→collateral destino a confirmar (G0404); repositório >12MB (Agro) diferido (G0603); maior risco de cronograma isolado",
+    "solution_approach": "Migrar dados de tomador/garantias para objetos FSC nativos; Central de Pendências substitui vaivém de e-mail; upload via S3 (MuleSoft guarda binário, envia referência ao Sinqia).",
+    "confidence": "Confirmed"
+  },
+  {
+    "item_id": "E05",
+    "item_type": "epic",
+    "t_shirt_size": "L",
+    "size_drivers": {
+      "integration": {"tier": "M", "signal": "Efetivação via Platform Event (OpportunityInfo__e) consumido pelo MuleSoft"},
+      "automation": {"tier": "M", "signal": "Orquestração de ocorrências; aceite síncrono"},
+      "data_model": {"tier": "M", "signal": "Aceite sobre objetos FSC; absorveu o escopo F13"},
+      "ui": {"tier": "S", "signal": "1 tela de decisão"}
+    },
+    "size_rationale": "Múltiplos M com padrão event-first; a reanálise elevou de M para L ao absorver o aceite (F13).",
+    "complexity_drivers": "Padrão event-driven; fronteira P3↔P5 a reconciliar; efetivação no core.",
+    "skills_needed": "Arquiteto de integração (Platform Events), Desenvolvedor Apex",
+    "risks": "Fronteira P3↔P5 não reconciliada (G0511) — risco de dupla contagem/buraco de escopo",
+    "solution_approach": "Aceite síncrono sobre objetos FSC; efetivação disparada por Platform Event consumido pelo MuleSoft.",
+    "confidence": "Confirmed"
+  },
+  {
+    "item_id": "E06",
+    "item_type": "epic",
+    "t_shirt_size": "M",
+    "size_drivers": {
+      "integration": {"tier": "M", "signal": "4 integrações (CCB, assinatura)"},
+      "ui": {"tier": "M", "signal": "3 componentes; Meus Contratos"},
+      "data_model": {"tier": "S", "signal": "Fluxo de formalização sobre objetos FSC"}
+    },
+    "size_rationale": "Integração + UI em M; sem driver L. Provedor de assinatura indefinido mantém escopo mínimo (assinatura manual).",
+    "complexity_drivers": "Download/upload de CCB; Meus Contratos; provedor de assinatura digital indefinido.",
+    "skills_needed": "Desenvolvedor LWC/Apex, Especialista de integração",
+    "risks": "Provedor de assinatura digital da CCB indefinido (G0601)",
+    "solution_approach": "Migrar fluxo de formalização (CCB) para objetos FSC; MVP com assinatura manual até definição do provedor.",
+    "confidence": "Confirmed",
+    "size_if_assumption_breaks": "M; L se assinatura digital com provedor complexo entrar no escopo (G0601)"
+  },
+  {
+    "item_id": "E07",
+    "item_type": "epic",
+    "t_shirt_size": "L",
+    "size_drivers": {
+      "data_model": {"tier": "L", "signal": "Modelo de lending nativo (RLA/LoanApplicant + Income/Employment/Liability/Asset); frente 'Alto' 3-5 sprints no fit/gap"},
+      "sharing_security": {"tier": "M", "signal": "Re-ancoragem de Apex Managed Sharing em Person Accounts"},
+      "automation": {"tier": "M", "signal": "Action Plans + configuração de relacionamento no nível declarativo"}
+    },
+    "size_rationale": "Modelo de dados L domina (fundação nativa); demais em M. Cabeça do caminho crítico.",
+    "complexity_drivers": "Adoção do modelo nativo hoje com zero registros; habilitação irreversível de Person Accounts.",
+    "skills_needed": "Arquiteto FSC, Arquiteto de dados",
+    "risks": "Adoção FSC nativa em 'REVISAR' (G0012); Person Accounts irreversível (G0701); permanência de licenças (G0807/G0704)",
+    "solution_approach": "Habilitar Person Accounts e adotar objetos nativos de lending; ensaiar em full-copy antes do cutover.",
+    "confidence": "Confirmed",
+    "size_if_assumption_breaks": "L; recua para S/M (reaponte leve) se a Fase 0 não ratificar a adoção FSC nativa (G0012)"
+  },
+  {
+    "item_id": "E08",
+    "item_type": "epic",
+    "t_shirt_size": "L",
+    "size_drivers": {
+      "data_model": {"tier": "L", "signal": "Product Catalog Management / Unified Catalog — Produto→PCM 'Alto' 2-3 sprints"},
+      "automation": {"tier": "M", "signal": "Business Rules Engine / DecisionTable — Enquadramento 'Médio' 1-2 sprints"}
+    },
+    "size_rationale": "PCM (modelo de dados L) domina; BRE em M. Depende de E07 existir.",
+    "complexity_drivers": "Reestruturação de catálogo em PCM; regras de elegibilidade em BRE/DecisionTable; Instituicao__c→Account.",
+    "skills_needed": "Especialista PCM, Especialista BRE, Arquiteto FSC",
+    "risks": "Adoção FSC nativa em 'REVISAR' (G0012); permanência de licenças Industries (G0807)",
+    "solution_approach": "Adotar PCM para catálogo, BRE/DecisionTable para elegibilidade, Account (Record Type) para instituições; manter Metrica__c.",
+    "confidence": "Confirmed",
+    "size_if_assumption_breaks": "L; recua para S/M se a adoção FSC nativa não for ratificada (G0012)"
+  },
+  {
+    "item_id": "E09",
+    "item_type": "epic",
+    "t_shirt_size": "L",
+    "size_drivers": {
+      "integration": {"tier": "L", "signal": "Reaponte lado-Salesforce de 30 integrações event-first — named credentials, mapeamento, refactor de callouts Apex, regressão por integração"},
+      "automation": {"tier": "M", "signal": "Refactor de callouts Apex"}
+    },
+    "size_rationale": "Integração multi-sistema L por volume (30); reaponte, não reconstrução, contém o tamanho.",
+    "complexity_drivers": "Volume de 30 integrações; 29/30 sem Swagger/contrato; write-back PUT/PATCH pendente.",
+    "skills_needed": "Arquiteto de integração, Desenvolvedor Apex",
+    "risks": "Contratos das System APIs instáveis (G0013) — maior risco de cronograma (~+42%)",
+    "solution_approach": "Reapontar apenas o lado Salesforce de cada integração aos objetos FSC; APIs no barramento não reconstruídas.",
+    "confidence": "Confirmed",
+    "size_if_assumption_breaks": "L; XL se contratos das System APIs mudarem e a transformação MuleSoft entrar no escopo (G0013)"
+  },
+  {
+    "item_id": "E10",
+    "item_type": "epic",
+    "t_shirt_size": "L",
+    "size_drivers": {
+      "data_migration": {"tier": "L", "signal": "ETL multi-objeto + cutover; Account/Contact→Person Accounts, CreditApplication__c→RLA, Garantia__c→collateral"},
+      "data_model": {"tier": "L", "signal": "Transformação multi-objeto com relacionamentos"}
+    },
+    "size_rationale": "Migração multi-objeto L; volume de produção desconhecido → dimensão conservadora e confiança Assumed.",
+    "complexity_drivers": "Conversão + descomissionamento (Simulacao__c, Parcela__c); reconciliação; Lead 10.105 não endereçado.",
+    "skills_needed": "Engenheiro de dados/migração, Arquiteto FSC",
+    "risks": "Volume de produção não confirmado (contagens do sandbox HML); G1004",
+    "solution_approach": "ETL/conversão para objetos nativos; desativar objetos superados; manter Metrica__c/AntiFraud; reconciliar.",
+    "confidence": "Assumed",
+    "size_if_assumption_breaks": "L; XL se volume de produção >500k ou dado sujo (contagens atuais são do sandbox HML; G1004)"
+  },
+  {
+    "item_id": "E11",
+    "item_type": "epic",
+    "t_shirt_size": "L",
+    "size_drivers": {
+      "automation": {"tier": "L", "signal": "Governança de pipeline/metadados da nova superfície declarativa (PCM/BRE/DecisionTable) + cutover irreversível"},
+      "integration": {"tier": "M", "signal": "Regressão por integração através das 30 APIs reapontadas"}
+    },
+    "size_rationale": "Regressão in-place ampla + cutover irreversível + governança de pipeline → L. Depende de E10.",
+    "complexity_drivers": "Regressão in-place num org brownfield vivo; cutover irreversível (habilitação Person Accounts em produção); hypercare.",
+    "skills_needed": "QA Lead, Engenheiro de DevOps/release, Arquiteto FSC",
+    "risks": "Regressão in-place ampla é o maior risco da migração; cutover irreversível (ensaio full-copy obrigatório)",
+    "solution_approach": "SIT/UAT, regressão in-place ampla, governança de pipeline/metadados, cutover com ensaio full-copy + hypercare.",
+    "confidence": "Confirmed"
+  }
+]

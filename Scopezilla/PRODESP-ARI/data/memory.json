@@ -111,6 +111,28 @@
         "Duração ainda TBD — user optou por não comprometer; commercials precisa de base de duração + roster antes de precificar."
       ],
       "next_steps": "estimate (roster nomeado + sizing formal, por lane) OU narratives (exec summary) OU validate antes do export. Pendente: seção Fase 0 no deck (bump v1.2)."
+    },
+    {
+      "date": "2026-08-25",
+      "skills_used": ["design"],
+      "summary": "Rodado design. Escrito outputs/01-solution.md (PT-BR, duas camadas: Fundações F1-F8 + Solução por Processo E01-E11, ordem de fluxo de valor, tags de fonte inline, tabela de 7 conflitos Fase 0). Dimensionadas as 11 épicas pela rubrica de 8 dimensões (driver dominante + breadth bump): 1 XL (E04), 7 L (E02,E05,E07,E08,E09,E10,E11), 2 M (E01,E06), 1 S (E03). estimates.json gravado com size_drivers + size_if_assumption_breaks (E06/E07/E08/E09/E10). Gate de estimativas: usuário aprovou gravar E pediu horas+perfis para SOW por fases/entregáveis (=motion do estimate). json-to-csv + validate PASS (sem leak). design = complete.",
+      "decisions": [
+        {
+          "decision": "E04 (Estruturação) = XL — 3 dimensões em L (dados+integração+UI) via breadth bump; único XL do conjunto",
+          "rejected": "L (paridade com E02/E07/E08) — perderia o sinal 'maior pilar' repetido no fit/gap e no roadmap"
+        },
+        {
+          "decision": "Inversão intencional E01=M > E03=S (baseline do build era E01=S, E03=M)",
+          "rejected": "Manter ordem do baseline — na migração E01 carrega o remap da entidade-base (Person Account), E03 vira reaponte de leitura"
+        }
+      ],
+      "open_threads": [
+        "Usuário pediu horas + perfis para SOW completo por fases e entregáveis — requer duração (user_commitment é null; roadmap optou por 'só sequência'). estimate precisa de base de duração para derivar horas.",
+        "Conflito central FSC nativo (G0012) segue gate da Fase 0 — E07/E08 recuam para S/M se negado (size_if_assumption_breaks).",
+        "E10 confiança Assumed (volume de produção desconhecido); E09 pode subir a XL se contratos das System APIs mudarem.",
+        "WARN do validador: roadmap.json anterior às estimativas — sequência inalterada, sizing agora formalizado."
+      ],
+      "next_steps": "estimate (dual-track: horas via derive-hours + roster nomeado por perfil, por fase/entregável) — precisa antes definir base de duração (commit ou range top-down derivado). Depois commercials para preço (rate validado)."
     }
   ],
   "preferences": {},

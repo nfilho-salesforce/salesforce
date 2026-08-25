@@ -3,7 +3,18 @@
     {
       "date": "2026-08-25",
       "skills_used": ["setup", "discover"],
-      "summary": "Set up ARI Vivo (vertical pace). Ingested the Vivo B2C Atendimento ROM (199 stories, 10 domains, 27-person/5-squad build, ~12.4k-29.8k productive hrs) as the primary grounding doc; ran full extraction audit (mostly Confirmed). Intent clarified: revalidate the ROM and produce a COMPLETE Salesforce PS project plan + role/hours estimate spanning all methodology phases, since the ROM prices Build/Delivery only.",
+      "summary": "Set up ARI Vivo (vertical pace). Ingested the Vivo B2C Atendimento ROM (199 stories, 10 domains, 27-person/5-squad build, ~12.4k-29.8k productive hrs) as the primary grounding doc; ran full extraction audit (mostly Confirmed). Intent clarified: revalidate the ROM and produce a COMPLETE Salesforce PS project plan + role/hours estimate spanning all methodology phases, since the ROM prices Build/Delivery only. Also ingested the ARI nomination PS-Review Q&A (reference/ari-nomination-ps-review.{png,md}) — the business case.",
+      "ari_nomination": {
+        "aov_at_risk_usd": 10281553,
+        "renewal": "full, 3-year commitment, all contracts (incl. MCE) expire Jan/2028; customer commits to renew in exchange for starting work; work begins after renewal signed",
+        "co_invest": false,
+        "services_deal_accountability": "N/A",
+        "offer": "Hands-on-Keyboard native conversational Agentforce Service Layer for B2C",
+        "success_criteria": ["single unified agentic front-end (eliminate Alt+Tab multi-window)", "-15% TMA/AHT", "improve FCR"],
+        "competing_initiatives": ["homegrown AI-powered CRM alternative", "ServiceNow (SNOW)"],
+        "decision_maker": "Alex Salgado (Neutral)",
+        "first_time_attrition_risk": true
+      },
       "friction": [],
       "decisions": [
         {"decision": "ROM = Build/Delivery anchor only; wrap full PS lifecycle (P&D + SIT/UAT/Deploy/Scale + governance) around it", "rationale": "ROM explicitly excludes PM/governance and non-build phases; scoper needs complete profile+hours estimate. Recorded as decisions/0001."}
@@ -24,7 +35,9 @@
       ]
     }
   ],
-  "preferences": {},
+  "preferences": {
+    "no_value_ceiling": "The ARI AOV-at-risk (USD 10,281,553) is attrition context only — NOT a cap or target for the PS estimate. Size the estimate purely from scope (ROM + full PS lifecycle). Do not back-fit hours/price to the AOV."
+  },
   "decision_log": [
     {
       "date": "2026-08-25",
