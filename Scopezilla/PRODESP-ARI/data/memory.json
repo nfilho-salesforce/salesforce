@@ -55,6 +55,23 @@
         "Sinais experience-design + governanca (PII/LGPD, stewardship, CoE metadados declarativos) sem dono — G0407/G0516/G0606/G0708/G1106"
       ],
       "next_steps": "Ajustar a secao dos 6 pilares no deck (20-estimate-fsc-migration-deck.html) com o escopo completo (funcionalidades + integracoes + componentes + alvo FSC + workstreams E07-E11). Recomendar Fase 0 formal (14 conflitos de fonte > 5; 81 gaps > 15)."
+    },
+    {
+      "date": "2026-08-25",
+      "skills_used": ["validate"],
+      "summary": "Deck refundido: seção dos 6 cards virou tabela única de 11 linhas (6 pilares funcionais + 5 frentes transversais E07-E11), alvos FSC nativos sem qualificadores (decisão do usuário 'assumindo adoção'). Adicionado carimbo de versão auto-numerada (v1.1) + data/hora de geração no HTML (topo/capa/rodapé) — preferência permanente. validate rodado: validate-data.py PASS (todos os checks limpos; knowledge/ 25 docs, sem leak de preço); confidence-report.py: 91% Confirmed / 9% Assumed em épicas, Fase 0 RECOMENDADA (81 gaps > 15; 14 conflitos > 5).",
+      "decisions": [
+        {
+          "decision": "Deck apresenta adoção FSC nativa (RLA/LoanApplicant/PCM/BRE/Person Accounts) como alvo decidido, sem qualificadores",
+          "rejected": "Escopo condicional com nota 'confirmar Fase 0' por linha; manter escopo atual (Lead/Opportunity/custom) + camada FSC separada"
+        }
+      ],
+      "open_threads": [
+        "MESMO conflito central da sessão anterior segue aberto: o deck agora AFIRMA a adoção FSC nativa, mas o fit/gap a marca 'REVISAR'. Os 91% Confirmed das épicas são otimistas até a Fase 0 ratificar a adoção. Resolver na Fase 0.",
+        "Fase 0 formal ainda não escrita no deck (usuário optou por rodar validate antes)",
+        "strategy.json / roadmap.json / estimates.json ainda não existem (estimativa foi produzida ad-hoc no deck, sem persistir em data/)"
+      ],
+      "next_steps": "Escrever a seção Fase 0 no deck (bump v1.2): objetivo 2 semanas, 4-5 pontos que resolve, ±20%->±10%. Depois: strategy (business case) ou roadmap (plano faseado das 11 frentes)."
     }
   ],
   "preferences": {},
