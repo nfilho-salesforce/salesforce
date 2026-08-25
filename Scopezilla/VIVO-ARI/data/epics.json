@@ -1,0 +1,122 @@
+[
+  {
+    "epic_id": "E01",
+    "epic_name": "Foundation & Enablement",
+    "description": "Camada fundacional de atendimento: AI Trust Layer para agentes (grounding, masking, toxidade, auditoria), modelo Data 360 de atendimento + federação de dados mínimos-residentes de 7 famílias TMF, resolução de identidade federada, runtime de orquestração determinística (base dos fluxos guiados), modelo de segurança/sharing Passive-Core, standup Service Cloud Voice + Amazon Connect e canais Digital Engagement, ambiente/pipeline DevOps e observabilidade.",
+    "confidence": "Confirmed",
+    "kb_sources": ["[ROM: vivo-b2c-atendimento-estimation-design.md §5·FND — 15 histórias, 65–164 SP base, 6P/9D]"],
+    "rom_domain": "FND",
+    "rom_stories": 15,
+    "rom_sp_base": "65-164",
+    "rom_sp_with_test_contingency": "88-221",
+    "rom_contingency_pct": 35
+  },
+  {
+    "epic_id": "E02",
+    "epic_name": "Operational Support",
+    "description": "Habilitação operacional do atendimento: árvore de classificação (palitagem) como metadados hierárquicos + mapeamento eTOM, captura de disposição obrigatória no wrap-up, Entitlement Process + Milestones (SLA) por tier, workflow de autoria de Knowledge + taxonomia, biblioteca de templates de mensagem (WhatsApp aprovados) e dashboards operacionais (AHT/ASA/abandono, compliance de SLA, performance do agente).",
+    "confidence": "Confirmed",
+    "kb_sources": ["[ROM: vivo-b2c-atendimento-estimation-design.md §5·OPS — 22 histórias, 60–137 SP base, 6P/16D]"],
+    "rom_domain": "OPS",
+    "rom_stories": 22,
+    "rom_sp_base": "60-137",
+    "rom_sp_with_test_contingency": "81-185",
+    "rom_contingency_pct": 35
+  },
+  {
+    "epic_id": "E03",
+    "epic_name": "Customer Interaction Management",
+    "description": "Gestão da interação de cliente: captura e registro de interação (EngagementInteraction) em qualquer canal, busca e unificação de identidade (Data 360/legado), verificação de identidade/KYC com badge de autorização, identificação do tipo de requisição e roteamento, gestão de consulta geral (caso/Knowledge/resposta), disparo de pesquisa de satisfação e atualização de dados cadastrais.",
+    "confidence": "Confirmed",
+    "kb_sources": ["[ROM: vivo-b2c-atendimento-estimation-design.md §5·CIM — 19 histórias, 59–139 SP base, 8P/11D]"],
+    "rom_domain": "CIM",
+    "rom_stories": 19,
+    "rom_sp_base": "59-139",
+    "rom_sp_with_test_contingency": "89-211",
+    "rom_contingency_pct": 35
+  },
+  {
+    "epic_id": "E04",
+    "epic_name": "Customer Problem Management",
+    "description": "Tratamento de problema de cliente ancorado no motor de entrevista determinística (contestação de fatura guiada nativa de 300+ passos, grava ajuste transacional, reusado por 6 famílias): ciclo de vida de Case, triagem técnica remota e agendamento/despacho de visita, rescisão/cancelamento + contexto de churn, fraude, jurídico/legal-hold, escalação Ouvidoria/Anatel, migrações mandatórias reguladas (cobre→fibra fim STFC, DTH→IPTV) e contestações por família (Fibra, TV, Convergente, VAS, Pré-pago).",
+    "confidence": "Assumed",
+    "kb_sources": ["[ROM: vivo-b2c-atendimento-estimation-design.md §5·CPM — 25 histórias, 115–205 SP base, 8P/17D]", "[assumption: fluxos determinísticos guiados declarados mas não modelados no story map — buffer contingência 50% (Riscos #1/#2); confirmar decomposição real dos 300+ passos]"],
+    "rom_domain": "CPM",
+    "rom_stories": 25,
+    "rom_sp_base": "115-205",
+    "rom_sp_with_test_contingency": "194-346",
+    "rom_contingency_pct": 50
+  },
+  {
+    "epic_id": "E05",
+    "epic_name": "Customer Relationship / V360",
+    "description": "Relacionamento e visão 360 do cliente: cockpit Customer 360 unificado (LWC, elimina o Alt+Tab) com painéis de perfil/segmento/NPS, financeiro/billing, product-inventory/assets, pedidos abertos e timeline de interações; next-best-action contextual, Service Contract/tier de entitlement, consentimento LGPD + data-subject-request, troca de titularidade com validação de documento e sinal de churn explicável.",
+    "confidence": "Confirmed",
+    "kb_sources": ["[ROM: vivo-b2c-atendimento-estimation-design.md §5·CRM — 13 histórias, 40–72 SP base, 5P/8D]"],
+    "rom_domain": "CRM",
+    "rom_stories": 13,
+    "rom_sp_base": "40-72",
+    "rom_sp_with_test_contingency": "61-109",
+    "rom_contingency_pct": 35
+  },
+  {
+    "epic_id": "E06",
+    "epic_name": "Product Order Capture",
+    "description": "Captura de pedido (não a gestão): motor de captura agêntico eligibility→serviceability→resource reservation→configuration→submission, decomposto por família × operação (ativação Móvel/Fibra/TV/Convergente/Pré-pago/VAS, mudança de plano, atributos, move, change ownership, troca de aparelho, desconexão). A gestão/orquestração/fulfillment do pedido é delegada ao Pillar 2 via MCP; catálogo e precificação são consumidos como ferramentas MCP, não autorados.",
+    "confidence": "Assumed",
+    "kb_sources": ["[ROM: vivo-b2c-atendimento-estimation-design.md §5·PROCP — 19 histórias, 66–112 SP base, 3P/16D — domínio novo 2026-07-23]", "[assumption: captura agêntica nova + dependência do contrato de fronteira MCP com Pillar 2 — buffer contingência 50% (Riscos #5/#7); confirmar contrato de handoff]"],
+    "rom_domain": "PROCP",
+    "rom_stories": 19,
+    "rom_sp_base": "66-112",
+    "rom_sp_with_test_contingency": "111-189",
+    "rom_contingency_pct": 50
+  },
+  {
+    "epic_id": "E07",
+    "epic_name": "Order Processing Envelope",
+    "description": "Envelope de atendimento do pedido: identificar asset/subscription ativo, submeter o pedido capturado (PROCP) à gestão via MCP e reconciliar o handoff, acompanhar status e notificar/fechar; mais as jornadas reguladas guiadas — portabilidade numérica (motor de entrevista + handoff ao clearinghouse), negociação de dívida guiada (simulação de parcelas, grava acordo) e logística reversa de comodato na rescisão.",
+    "confidence": "Assumed",
+    "kb_sources": ["[ROM: vivo-b2c-atendimento-estimation-design.md §5·COPM — 7 histórias, 25–41 SP base, 3P/4D]", "[assumption: depende do contrato de fronteira product-order (MCP com Pillar 2) — Risco #5; confirmar granularidade de reconciliação do handoff]"],
+    "rom_domain": "COPM",
+    "rom_stories": 7,
+    "rom_sp_base": "25-41",
+    "rom_sp_with_test_contingency": "38-62",
+    "rom_contingency_pct": 35
+  },
+  {
+    "epic_id": "E08",
+    "epic_name": "Omnichannel Routing",
+    "description": "Roteamento omnichannel e telefonia: Omni-Channel por prioridade/skill/capacidade, fluxo de voz de entrada + softphone/CTI via Service Cloud Voice/Amazon Connect (transferência quente/fria, transcrição ao vivo), deflexão IVR/URA com fallback, roteamento Digital Engagement (WhatsApp/chat/email) com sessões async concorrentes, supervisor barge-in/listen/whisper, outbound proativo/callback e a superfície de atendimento Parceiro/Aliado em Experience Cloud (~18k usuários).",
+    "confidence": "Confirmed",
+    "kb_sources": ["[ROM: vivo-b2c-atendimento-estimation-design.md §5·OMNI — 28 histórias, 97–228 SP base, 9P/19D]"],
+    "rom_domain": "OMNI",
+    "rom_stories": 28,
+    "rom_sp_base": "97-228",
+    "rom_sp_with_test_contingency": "147-346",
+    "rom_contingency_pct": 35
+  },
+  {
+    "epic_id": "E09",
+    "epic_name": "Agentforce / Service Dynamic Plan",
+    "description": "Camada agêntica de atendimento: catálogo de ações invocáveis (Agentforce Actions/MCP), montagem de service dynamic plan da intenção, superfície agentic/conversacional (LWC + Agentforce), copiloto de IA que sugere e executa, sumarização de caso na abertura/fechamento, sugestão de disposição assistida, recomendação de artigo de Knowledge, coaching por sentimento em tempo real e o Active Retention Agent (resolução autônoma de atrito de cobrança, detecção proativa de intenção de compra, handoff inteligente para vendas humano).",
+    "confidence": "Assumed",
+    "kb_sources": ["[ROM: vivo-b2c-atendimento-estimation-design.md §5·SDP — 15 histórias, 66–106 SP base, 5P/10D]", "[assumption: Active Retention Agent (SDP-13/14/15) é o item menos provado — decisão autônoma + execução vinculada a política; reclassificado Primary por override do Arquiteto. Confirmar guardrails e escopo de autonomia]"],
+    "rom_domain": "SDP",
+    "rom_stories": 15,
+    "rom_sp_base": "66-106",
+    "rom_sp_with_test_contingency": "100-161",
+    "rom_contingency_pct": 35
+  },
+  {
+    "epic_id": "E10",
+    "epic_name": "Integration / Core Clients",
+    "description": "Camada de integração: 36 clientes Core/Mule reconstruídos por família de API TMF — o primeiro cliente de cada família estabelece o scaffold (auth, tratamento de erro resiliente, mapeamento de DTO, retry) como Primary; operações adicionais na mesma família reutilizam como Derived. Inclui o error-handling resiliente que o estado atual não tem (telemetria: ~2,3M callouts/dia útil, ~22% respostas não-2xx). Serviço Mule é dependência externa; só o cliente é escopo.",
+    "confidence": "Assumed",
+    "kb_sources": ["[ROM: vivo-b2c-atendimento-estimation-design.md §5·INT — 36 histórias, 139–217 SP base, 17P/19D]", "[assumption: integração é o eixo de maior incerteza — volume + fragilidade da malha de origem; buffer contingência 50% (Risco #3). Confirmar qualidade dos fluxos-fonte e SLAs das facades Mule]"],
+    "rom_domain": "INT",
+    "rom_stories": 36,
+    "rom_sp_base": "139-217",
+    "rom_sp_with_test_contingency": "208-326",
+    "rom_contingency_pct": 50
+  }
+]

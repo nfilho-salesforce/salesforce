@@ -33,6 +33,38 @@
         "Revalidate ROM (grill-me-on-scope)",
         "Structure epics from ROM domains, then roadmap (full PS phases) + estimate (roles+hours all phases)"
       ]
+    },
+    {
+      "date": "2026-08-25",
+      "skills_used": ["requirements"],
+      "summary": "Structured 10 epics (E01-E10) from the ROM domains (FND, OPS, CIM, CPM, CRM, PROCP, COPM, OMNI, SDP, INT) and ran full gap analysis: one epic-analyst per epic in gaps mode, grounded strictly in the ROM (knowledge/ empty). Produced 72 gaps across all 10 epics, merged idempotently into data/gaps.json + regenerated CSVs. completion_status.requirements = complete. Prerequisite for the user's grill-me-on-scope request.",
+      "gap_analysis": {
+        "total": 72,
+        "by_category": {"Missing Requirement": 30, "Potential Risk": 13, "Ambiguity": 11, "Logical Gap": 11, "Capability Gap": 5, "Source Conflict": 1, "Assumption": 1},
+        "phase_0_recommended": true,
+        "phase_0_basis": "72 gaps far exceeds the >15 threshold; source conflicts (1) below the >5 threshold but capability gaps (5) include missing transactional write clients (Party-master, Anatel sync) and the unmodeled interview engine",
+        "cross_cutting_themes": [
+          "Experience-design discipline gap on every user-facing surface (V360 cockpit, 300-step interview, agentic capture, omnichannel console, Aliado) — none scoped; ties directly to the -15% TMA / +FCR ARI success criteria (G0405, G0505, G0607, G0807, G0908, G0306)",
+          "Governance discipline gap: no owner for regulated-flow change control, MCP cross-pillar contract versioning, routing-rule governance, AI-agent policy/audit, data stewardship/DSR (G0404, G0602, G0806, G0907, G0504, G1005)",
+          "No TMA/FCR baseline captured anywhere — the ARI's headline outcomes cannot be evidenced at go-live (G0507, G0903)",
+          "Pillar 2 MCP handoff contract undefined and load-bearing for PROCP+COPM (G0601, G0701) — the single Source Conflict",
+          "Cross-domain sequencing not reflected in the parallel-squad model: CPM-04 blocks on FND-04+INT-08; SDP agentic surface is downstream of S2/S3/S5 (G0403, G0904)",
+          "SCV/Amazon Connect telephony infra ownership external + Genesys EOL Dec-2027 hard window (G0105, G0802)",
+          "Capability gaps in the integration count: no Party-master WRITE client, no Anatel status-sync client (G1001, G1002, G0301)"
+        ]
+      },
+      "friction": [
+        "epic-analyst agents for E08 OMNI and E09 SDP each failed once with a sonnet-5 classifier/API timeout; both succeeded on immediate relaunch"
+      ],
+      "decisions": [],
+      "open_threads": [
+        "Recommend a Phase 0 (Prepare & Design refinement) to the client: model the CPM-04 interview engine, pin the Pillar 2 MCP contract, confirm MuleSoft facade inventory, capture TMA/FCR baseline, and decide experience-design + governance ownership",
+        "The 5 estimate levers still pending (PS phase model, loading factors, hours basis, traditional-vs-AI-native, reference scenario)"
+      ],
+      "next_steps": [
+        "Return to grill-me-on-scope (the user's explicit request) — stress-test persisted epics/gaps, revalidate ROM sizing bidirectionally, no value ceiling",
+        "Then confirm estimate levers and build the full PS-lifecycle role x phase x hours estimate"
+      ]
     }
   ],
   "preferences": {
