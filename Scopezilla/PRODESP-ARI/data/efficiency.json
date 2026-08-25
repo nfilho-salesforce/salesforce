@@ -1,0 +1,131 @@
+{
+  "fidelity": "category-only",
+  "generated_from": {
+    "epics_count": 11,
+    "estimates_count": 11,
+    "has_roadmap": true,
+    "has_resource_plan": false
+  },
+  "task_level": {
+    "blended_band": "~30-45%",
+    "basis": "8 de 11 epicos L/XL, dominados por engenharia/integracao e migracao brownfield; o mix puxa a foreground para Technical Engineering & QA e alarga a banda (imposto de IA maior em codigo complexo/legado). Documentacao pesada por contexto regulado nudge a banda de Documentacao para cima.",
+    "sources": ["[1]", "[4]", "[5]", "[8]"]
+  },
+  "realization_factor": {
+    "value_range": "0.30-0.40",
+    "rationale": "Straddle entre a linha regulado+legado (0.25-0.35) e config-misto+custom (0.35-0.45): FS regulado + setor publico + 30 integracoes legadas puxa para baixo; time misto de 2 squads (nao senior-only) e configuracao nativa FSC (PCM/BRE declarativo) segura o piso.",
+    "drivers": [
+      "FS regulado + setor publico — gates de revisao/auditoria multi-fornecedor obrigatorios",
+      "Migracao brownfield in-place — alto onus de revisao/verificacao (imposto de IA)",
+      "30 integracoes legadas, 29/30 sem contrato/Swagger — codigo fora da fronteira",
+      "Time misto de 2 squads, nao senior-only — algum ganho de config nativa FSC"
+    ]
+  },
+  "project_level": {
+    "realized_band": "~11-17%",
+    "basis": "task-level (~30-45%) x fator de realizacao (0.30-0.40), antes da modulacao por prontidao.",
+    "confidence": "Assumed",
+    "native_band": "~30-38%",
+    "native_basis": "task-level x fator de realizacao AI-native (0.55-0.75), aplicavel APENAS atras do portao de qualificacao (cadencia decidir-diariamente, decisor empoderado, mandato AI-first). Provisorio — magnitude nao calibrada, vendor-reported; diagnostico ancorado em DORA/METR (o gargalo e coordenacao, nao ferramenta). decisions/0033.",
+    "native_qualification": "conditional"
+  },
+  "readiness": {
+    "signals": [
+      {"signal": "AI tooling posture", "score": 1, "evidence": "Sem evidencia de politica de ferramentas de IA do cliente na discovery. A entrega e AI-augmentada do lado Salesforce, mas a postura do cliente e desconhecida — marcado Unknown (score=1) e vira pergunta de clarificacao (politica de dados IA compativel com LGPD)."},
+      {"signal": "Delivery velocity / speed bias", "score": 1, "evidence": "Data fixa agressiva (30/11/2026) e recomendacao de 2 squads / Via Aumentada indicam vies de velocidade; porem aprovacao multi-fornecedor (SF/DSP/Sinqia/Evertec) antes de cada pilar e dependencia de SLA de 24h entre partes sao arrastos de cadencia (premissas de discovery). Cadencia enterprise padrao, nao acelerada."},
+      {"signal": "Data & environment hygiene", "score": 1, "evidence": "Org unico brownfield com sandbox full-copy disponivel para ensaio (F7), disciplina de ambiente existe; porem 29/30 APIs sem Swagger/contrato (G0013) e volume de dados de producao nao confirmado (G1004, contagens sao do sandbox HML) — risco de dado sujo/fora da fronteira."},
+      {"signal": "Legal / security / compliance posture", "score": 0, "evidence": "FS regulado + setor publico: LGPD, antifraude/biometria (BioValid), integracoes Serpro/Serasa; gates de sign-off multi-fornecedor antes de cada pilar; sem politica de tratamento de dados por IA. Gates de revisao pesados."}
+    ],
+    "total_score": 3,
+    "scenarios": [
+      {
+        "scenario": "Low readiness",
+        "score_range": "0-2",
+        "realized_band": "~9-13%",
+        "narrative": "Enquanto tooling de IA e politica de dados nao alcancam, e os gates multi-fornecedor nao comprimem, os ganhos ficam no piso. O score atual (3) esta a um sinal do Low.",
+        "unlock_to_move_up": [
+          "Publicar politica de dados IA compativel com LGPD para IA-no-IDE sobre codigo do cliente",
+          "Aprovar ferramentas de codificacao IA para o time de entrega"
+        ]
+      },
+      {
+        "scenario": "Mid readiness",
+        "score_range": "3-5",
+        "realized_band": "~12-16%",
+        "narrative": "Cenario atual (score 3, no piso do Mid). O vies de velocidade e a higiene de ambiente sustentam ganho moderado, mas o onus de compliance multi-fornecedor e o legado sem contrato limitam a captura.",
+        "unlock_to_move_up": [
+          "Comprimir o loop de aprovacao multi-fornecedor (decisor empoderado, SLA de 24h efetivamente cumprido)",
+          "Contratar/Swagger as 29/30 APIs para reduzir codigo fora da fronteira"
+        ]
+      },
+      {
+        "scenario": "High readiness",
+        "score_range": "6-8",
+        "realized_band": "~16-22%",
+        "narrative": "Com politica de IA publicada, tooling aprovado, ambiente contratado e aprovacao comprimida, a captura sobe para o topo da banda. Um cliente mais rapido captura mais.",
+        "unlock_to_move_up": []
+      }
+    ],
+    "current_scenario": "Mid readiness"
+  },
+  "by_category": [
+    {
+      "category": "Documentation & Knowledge Management",
+      "task_level_band": "~35-55%",
+      "realized_band": "~13-19%",
+      "driving_tasks": ["Meeting notes & summaries", "Generate documents", "Knowledge transfer artifacts"],
+      "driving_epics": ["E11", "E07", "E08"],
+      "sources": ["[7]"],
+      "narrative": "A categoria mais confiavel: num contexto regulado doc-pesado (matriz de rastreabilidade, evidencia de teste, runbooks de cutover em E11, documentacao de habilitacao FSC em E07/E08), a IA acelera geracao e sumarizacao de forma consistente. O ganho e capturado quase todo porque nao ha imposto de verificacao de codigo aqui."
+    },
+    {
+      "category": "Analysis & Design",
+      "task_level_band": "~30-50%",
+      "realized_band": "~11-17%",
+      "driving_tasks": ["Write user stories", "Analysis & design models"],
+      "driving_epics": ["E01", "E02", "E04", "E05"],
+      "sources": ["[2]", "[4]"],
+      "narrative": "Rascunho de user stories, mapeamento Lead->LoanApplicant e modelos de analise ganham na primeira versao gerada por IA nos pilares funcionais. O refinamento com stakeholder e a ratificacao de conflitos de fonte (Fase 0) seguem humanos, o que cap o ganho liquido."
+    },
+    {
+      "category": "Technical Engineering & QA",
+      "task_level_band": "~25-45%",
+      "realized_band": "~9-15%",
+      "driving_tasks": ["Create Code (enterprise/legacy)", "Analyze Code & Fix Defects", "Write Test Classes", "Generate Test Data"],
+      "driving_epics": ["E04", "E02", "E09", "E10", "E11"],
+      "sources": ["[1]", "[4]", "[8]"],
+      "narrative": "Maior ganho bruto do programa (E04-XL, mais os L de integracao/migracao) mas tambem o maior imposto de IA: refactor de callouts Apex e reaponte das 30 integracoes legadas sem contrato (E09) e regressao in-place ampla (E11) sao codigo fora da fronteira, onde revisao e verificacao consomem parte do ganho. Por isso o realizado fica abaixo de Documentacao apesar do task-level alto."
+    },
+    {
+      "category": "Project Management & Operations",
+      "task_level_band": "~15-30%",
+      "realized_band": "~6-11%",
+      "driving_tasks": ["Status reports", "Coordination & scheduling"],
+      "driving_epics": ["E11", "E10"],
+      "sources": ["[7]"],
+      "narrative": "A categoria mais baixa: a coordenacao multi-fornecedor (SF/DSP/Sinqia/Evertec) e o alinhamento de gates de aprovacao sao trabalho humano-a-humano que a IA sumariza mas nao conduz. O ganho fica em relatorios e artefatos de status."
+    }
+  ],
+  "by_role_type": [],
+  "human_barriers": [
+    {"activity": "Project Pulse / relatorios de saude do programa", "why_no_gain": "Trabalho de construcao de confianca que a IA sumariza mas nao facilita."},
+    {"activity": "Alinhamento de stakeholders", "why_no_gain": "Negociacao humano-a-humano; a IA rascunha posicoes, as pessoas decidem."},
+    {"activity": "Resolucao de conflitos", "why_no_gain": "Julgamento humano."},
+    {"activity": "Aprovacao multi-fornecedor antes de cada pilar (SF/DSP/Sinqia/Evertec)", "why_no_gain": "Sign-off contratual e de governanca entre partes; nenhuma IA acelera o mandato de decisao alheio."},
+    {"activity": "Ratificacao dos conflitos de fonte na Fase 0 (G0012 adoção FSC nativo)", "why_no_gain": "Decisao de escopo load-bearing do cliente; a IA nao pode ratificar."},
+    {"activity": "Sign-off regulatorio (LGPD, antifraude/biometria)", "why_no_gain": "Responsabilidade de compliance humana e auditavel."},
+    {"activity": "Decisao de cutover irreversivel (habilitacao de Person Accounts)", "why_no_gain": "Ação de mao unica que exige julgamento e autorizacao humana apos ensaio full-copy."}
+  ],
+  "assumptions": [
+    "Benchmarks de dados publicados 2022-2026 (Peng et al./GitHub 2022, Paradis et al./Google 2024, METR 2025, DORA 2024-2025, GitClear 2025, Stanford HAI AI Index 2026) mais observacoes internas.",
+    "Bandas task-level convertidas para projeto-nivel via fator de realizacao que considera a lei de Amdahl + overhead de revisao/imposto de IA.",
+    "A banda AI-native e condicional e provisoria (native_qualification=conditional): o portao de operacao conjunta (decisor empoderado, cadencia diaria, mandato AI-first) NAO esta atendido hoje — aprovacao multi-fornecedor e dependencia de SLA 24h sao exatamente o risco.",
+    "Confianca Assumed no projeto-nivel: volume de producao nao confirmado (G1004) e adoção FSC nativo nao ratificada (G0012) alargam as bandas."
+  ],
+  "caveats": [
+    "Bandas qualitativas e especificas do projeto, nao garantias.",
+    "Nenhuma hora, FTE ou custo e calculado ou implicado — este artefato e band-only.",
+    "O realized_band (~11-17%) e o numero AUGMENTED honesto (tooling + operacao inalterados). A banda AI-native (~30-38%) e condicional ao portao e provisoria; overlap ~25-35% com o augmented — o portao, nao o numero, distingue as trilhas.",
+    "Gap de percepcao e real — times frequentemente sentem-se mais rapidos do que os ganhos medidos confirmam (METR 2025)."
+  ]
+}

@@ -58,7 +58,9 @@
     },
     {
       "date": "2026-08-25",
-      "skills_used": ["validate"],
+      "skills_used": [
+        "validate"
+      ],
       "summary": "Deck refundido: seção dos 6 cards virou tabela única de 11 linhas (6 pilares funcionais + 5 frentes transversais E07-E11), alvos FSC nativos sem qualificadores (decisão do usuário 'assumindo adoção'). Adicionado carimbo de versão auto-numerada (v1.1) + data/hora de geração no HTML (topo/capa/rodapé) — preferência permanente. validate rodado: validate-data.py PASS (todos os checks limpos; knowledge/ 25 docs, sem leak de preço); confidence-report.py: 91% Confirmed / 9% Assumed em épicas, Fase 0 RECOMENDADA (81 gaps > 15; 14 conflitos > 5).",
       "decisions": [
         {
@@ -75,7 +77,9 @@
     },
     {
       "date": "2026-08-25",
-      "skills_used": ["strategy"],
+      "skills_used": [
+        "strategy"
+      ],
       "summary": "Rodada full strategy (pesquisa web pulada — material em disco). Gravado data/strategy.json: contexto estratégico (5 desafios, 4 impactos, industry context, 5 value drivers 4-buckets, 4 prioridades), transformação (visão + 5 objetivos + 5 princípios), business case (why SF / why now / 5 outcomes / diferenciação) e Value Map (V1-V5). Visão aprovada VERBATIM pelo usuário ('Aprovar como está'), framework 'Aprovar e continuar'. strategy = complete.",
       "decisions": [
         {
@@ -92,7 +96,9 @@
     },
     {
       "date": "2026-08-25",
-      "skills_used": ["roadmap"],
+      "skills_used": [
+        "roadmap"
+      ],
       "summary": "Roadmap de 7 fases gravado (Fase 0 ratificação + Fund. FSC + 4 ondas de build + Migração/Cutover + Reaponte 30 APIs como parallel_track). SEM compromisso de duração (escolha do usuário 'só sequência') — fases só com ordem+dependências, nenhum duration_weeks. depends_on escrito nos épicos (E01-E11). 2 assumptions de phasing persistidas como gaps (G0012 adoção FSC nativa, G0013 estabilidade contratos System APIs) → 83 gaps. 02-delivery-plan.md gerado. validate PASS. roadmap = complete.",
       "decisions": [
         {
@@ -114,7 +120,9 @@
     },
     {
       "date": "2026-08-25",
-      "skills_used": ["design"],
+      "skills_used": [
+        "design"
+      ],
       "summary": "Rodado design. Escrito outputs/01-solution.md (PT-BR, duas camadas: Fundações F1-F8 + Solução por Processo E01-E11, ordem de fluxo de valor, tags de fonte inline, tabela de 7 conflitos Fase 0). Dimensionadas as 11 épicas pela rubrica de 8 dimensões (driver dominante + breadth bump): 1 XL (E04), 7 L (E02,E05,E07,E08,E09,E10,E11), 2 M (E01,E06), 1 S (E03). estimates.json gravado com size_drivers + size_if_assumption_breaks (E06/E07/E08/E09/E10). Gate de estimativas: usuário aprovou gravar E pediu horas+perfis para SOW por fases/entregáveis (=motion do estimate). json-to-csv + validate PASS (sem leak). design = complete.",
       "decisions": [
         {
@@ -133,6 +141,21 @@
         "WARN do validador: roadmap.json anterior às estimativas — sequência inalterada, sizing agora formalizado."
       ],
       "next_steps": "estimate (dual-track: horas via derive-hours + roster nomeado por perfil, por fase/entregável) — precisa antes definir base de duração (commit ou range top-down derivado). Depois commercials para preço (rate validado)."
+    },
+    {
+      "date": "2026-08-25",
+      "skills_used": [
+        "efficiency"
+      ],
+      "summary": "Rodou efficiency (category-only). Realizado augmented ~12-16% (Mid readiness, score 3/8). Task-level ~30-45%, fator 0.30-0.40. Banda AI-native ~30-38% conditional (portao nao atendido). Bandas por categoria: Documentacao ~13-19% (mais confiavel), Analise ~11-17%, Eng&QA ~9-15%, PM&Ops ~6-11%.",
+      "open_threads": [
+        "Usuario precisa de horas+perfis para SOW por fases/entregaveis -> proxima etapa estimate; BLOQUEIO: base de duracao (user_commitment null; alvo 30/11/2026; discovery recomenda 12-22 sem / Via Aumentada + 2 squads)",
+        "Postura de tooling IA do cliente Unknown -> pergunta de clarificacao (politica de dados IA compativel com LGPD)",
+        "G0012 adoção FSC nativo nao ratificada; G1004 volume producao nao confirmado"
+      ],
+      "next_steps": [
+        "Rodar estimate: resolver base de duracao, depois dual-track horas + roster nomeado (perfis) por fase/entregavel"
+      ]
     }
   ],
   "preferences": {},
@@ -142,7 +165,19 @@
       "area": "scope",
       "decision": "11 epicas — 6 pilares funcionais + 5 workstreams de migracao FSC transversais",
       "rationale": "A imagem dos 6 pilares esconde a fundacao FSC (Person Accounts, lending nativo, PCM/BRE, migracao de dados, reaponte de integracao, regressao/cutover) que domina esforco e risco. Explicita-la como E07-E11 mantem o sizing honesto.",
-      "rejected": ["6 epicas espelhando a imagem dos pilares"]
+      "rejected": [
+        "6 epicas espelhando a imagem dos pilares"
+      ]
+    },
+    {
+      "date": "2026-08-25",
+      "area": "efficiency",
+      "decision": "Fator de realizacao 0.30-0.40; realizado augmented ~12-16% em Mid readiness (score 3/8)",
+      "rationale": "FS regulado + setor publico + 30 integracoes legadas (29/30 sem contrato) + migracao brownfield puxam para baixo; time misto 2 squads e config nativa FSC seguram o piso. Compliance pontuado 0/2 (gates multi-fornecedor).",
+      "rejected": [
+        "Cenario High sem unlocks",
+        "Banda AI-native como numero incondicional"
+      ]
     }
   ]
 }
