@@ -2,7 +2,10 @@
   "sessions": [
     {
       "date": "2026-08-25",
-      "skills_used": ["setup", "discover"],
+      "skills_used": [
+        "setup",
+        "discover"
+      ],
       "summary": "Set up ARI Vivo (vertical pace). Ingested the Vivo B2C Atendimento ROM (199 stories, 10 domains, 27-person/5-squad build, ~12.4k-29.8k productive hrs) as the primary grounding doc; ran full extraction audit (mostly Confirmed). Intent clarified: revalidate the ROM and produce a COMPLETE Salesforce PS project plan + role/hours estimate spanning all methodology phases, since the ROM prices Build/Delivery only. Also ingested the ARI nomination PS-Review Q&A (reference/ari-nomination-ps-review.{png,md}) — the business case.",
       "ari_nomination": {
         "aov_at_risk_usd": 10281553,
@@ -10,14 +13,24 @@
         "co_invest": false,
         "services_deal_accountability": "N/A",
         "offer": "Hands-on-Keyboard native conversational Agentforce Service Layer for B2C",
-        "success_criteria": ["single unified agentic front-end (eliminate Alt+Tab multi-window)", "-15% TMA/AHT", "improve FCR"],
-        "competing_initiatives": ["homegrown AI-powered CRM alternative", "ServiceNow (SNOW)"],
+        "success_criteria": [
+          "single unified agentic front-end (eliminate Alt+Tab multi-window)",
+          "-15% TMA/AHT",
+          "improve FCR"
+        ],
+        "competing_initiatives": [
+          "homegrown AI-powered CRM alternative",
+          "ServiceNow (SNOW)"
+        ],
         "decision_maker": "Alex Salgado (Neutral)",
         "first_time_attrition_risk": true
       },
       "friction": [],
       "decisions": [
-        {"decision": "ROM = Build/Delivery anchor only; wrap full PS lifecycle (P&D + SIT/UAT/Deploy/Scale + governance) around it", "rationale": "ROM explicitly excludes PM/governance and non-build phases; scoper needs complete profile+hours estimate. Recorded as decisions/0001."}
+        {
+          "decision": "ROM = Build/Delivery anchor only; wrap full PS lifecycle (P&D + SIT/UAT/Deploy/Scale + governance) around it",
+          "rationale": "ROM explicitly excludes PM/governance and non-build phases; scoper needs complete profile+hours estimate. Recorded as decisions/0001."
+        }
       ],
       "open_threads": [
         "Confirm PS phase model (Prepare & Design, Build, SIT, UAT, Deploy, Scale/Hypercare)",
@@ -36,11 +49,21 @@
     },
     {
       "date": "2026-08-25",
-      "skills_used": ["requirements"],
+      "skills_used": [
+        "requirements"
+      ],
       "summary": "Structured 10 epics (E01-E10) from the ROM domains (FND, OPS, CIM, CPM, CRM, PROCP, COPM, OMNI, SDP, INT) and ran full gap analysis: one epic-analyst per epic in gaps mode, grounded strictly in the ROM (knowledge/ empty). Produced 72 gaps across all 10 epics, merged idempotently into data/gaps.json + regenerated CSVs. completion_status.requirements = complete. Prerequisite for the user's grill-me-on-scope request.",
       "gap_analysis": {
         "total": 72,
-        "by_category": {"Missing Requirement": 30, "Potential Risk": 13, "Ambiguity": 11, "Logical Gap": 11, "Capability Gap": 5, "Source Conflict": 1, "Assumption": 1},
+        "by_category": {
+          "Missing Requirement": 30,
+          "Potential Risk": 13,
+          "Ambiguity": 11,
+          "Logical Gap": 11,
+          "Capability Gap": 5,
+          "Source Conflict": 1,
+          "Assumption": 1
+        },
         "phase_0_recommended": true,
         "phase_0_basis": "72 gaps far exceeds the >15 threshold; source conflicts (1) below the >5 threshold but capability gaps (5) include missing transactional write clients (Party-master, Anatel sync) and the unmodeled interview engine",
         "cross_cutting_themes": [
@@ -65,6 +88,33 @@
         "Return to grill-me-on-scope (the user's explicit request) — stress-test persisted epics/gaps, revalidate ROM sizing bidirectionally, no value ceiling",
         "Then confirm estimate levers and build the full PS-lifecycle role x phase x hours estimate"
       ]
+    },
+    {
+      "date": "2026-08-25",
+      "skills_used": [
+        "grill-me-on-scope"
+      ],
+      "summary": "Grilled the persisted Vivo scope (no value ceiling). Resolved the 3 load-bearing sizing bets + the ARI-outcome discipline gap. Q1: ROM=BUILD-only, everything else additive — Confirmed (ADR 0001 reconfirmed firsthand). Q2: CPM-04 interview engine reuses across 6 dispute families — Confirmed (specialist architect's Vivo assessment); CPM-20..24 kept at 4-6 SP, G0402 resolved, G0401 downgraded to Phase-0 de-risk. Q3: MuleSoft facades exist — NOT confirmed (scoper has no inventory); G1004 stays open as Phase-0 deliverable #1, INT floor marked CONDITIONAL in estimate, G1001/G1002/G1005 folded into the same inventory sweep. Q4: TMA/FCR baseline + experience/conversation-design track — both confirmed IN SCOPE (scoper directive), added to P&D per ADR 0001 amendment; 9 discipline gaps resolved-in-scope (G0306/G0405/G0505/G0507/G0607/G0803/G0807/G0903/G0908).",
+      "friction": [],
+      "decisions": [
+        {
+          "decision": "INT floor conditional on Phase-0 facade inventory (see decision_log)",
+          "rationale": "grill Q3 opção 2"
+        },
+        {
+          "decision": "P&D includes TMA/FCR baseline + right-sized experience-design track (ADR 0001 amended)",
+          "rationale": "grill Q4, ARI outcome mechanism"
+        }
+      ],
+      "open_threads": [
+        "Phase 0 strongly recommended: #1 MuleSoft-facade inventory (incl. Party-master WRITE + Anatel/Ouvidoria sync, G1004/G1001/G1002), model CPM-04 300-step engine, pin Pillar-2 MCP contract (G0601/G0701), capture TMA/FCR baseline, confirm Aliado ~18k-user decomposition (G0801)",
+        "Deferred to gaps (not load-bearing on sizing): Aliado under-decomposition G0801, Pillar-2 MCP contract, governance ownership",
+        "5 estimate levers still pending: PS phase model, phase-loading factors, hours basis (productive vs contracted ÷0.75/÷0.70), traditional-vs-AI-native compression, reference scenario"
+      ],
+      "next_steps": [
+        "Confirm the 5 estimate levers, then build the full PS-lifecycle role x phase x hours estimate (P&D[refinement+Sprint0+baseline+design track] + Build[from ROM] + SIT/UAT/Deploy/Scale + governance, all additive per ADR 0001)",
+        "Flag INT floor as conditional-on-inventory inside the estimate output; do NOT back-fit into the 50% contingency"
+      ]
     }
   ],
   "preferences": {
@@ -76,7 +126,30 @@
       "area": "scope",
       "decision": "Ingested ROM prices Build/Delivery only; ARI estimate must span full PS lifecycle (decisions/0001)",
       "rationale": "ROM excludes governance and non-build phases; scoper requires complete profile+hours plan across all PS methodology phases",
-      "rejected": ["Treat the ROM's build hours as the total project estimate"]
+      "rejected": [
+        "Treat the ROM's build hours as the total project estimate"
+      ]
+    },
+    {
+      "date": "2026-08-25",
+      "area": "scope",
+      "decision": "INT transactional floor is CONDITIONAL on a Phase-0 MuleSoft-facade inventory; not confirmed and not resized in grill (G1004 stays open, entregável nº1 da Fase 0)",
+      "rationale": "Scoper has no facade inventory in hand (grill Q3, opção 2). The 17 MULE-disposition facades + Party-master WRITE + Anatel/Ouvidoria sync are assumed-existing per ROM premise 17 but unverified. Largest swing factor on the 50% INT contingency — must be flagged as conditional in the estimate, never back-fit into the buffer.",
+      "rejected": [
+        "Confirm the facades-exist premise on a bare endorsement",
+        "Resize INT now without the inventory"
+      ]
+    },
+    {
+      "date": "2026-08-25",
+      "area": "scope",
+      "decision": "P&D (aditivo per ADR 0001) confirmed to include two activities beyond story refinement: (a) TMA/FCR baseline capture + measurement plan; (b) right-sized experience/service/conversation-design track on high-impact surfaces only",
+      "rationale": "ARI headline outcome is −15% TMA / +FCR. No baseline captured anywhere (unauditable outcome) and no experience-design discipline in scope (the mechanism that moves TMA). Scoper directive in grill Q4: both in scope. Design track bounded to agent console + conversational flows + CPM-04 300-step interview — NOT greenfield UX across all domains.",
+      "rejected": [
+        "Leave baseline as a loose client-side dependency",
+        "Full greenfield UX research across all 10 domains (over-scope)",
+        "Treat P&D as pure story refinement (under-scopes the ARI mechanism)"
+      ]
     }
   ]
 }

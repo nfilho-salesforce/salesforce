@@ -111,19 +111,19 @@
     "gap_id": "G0306",
     "category": "Ambiguity",
     "gap_or_question": "Experience design: CIM-06 (self-service eligibility + redirect) and CIM-08 (prospect/anonymous interaction) lack defined rules and journeys — what makes a request self-service-eligible, where deflection lands (app, IVR/OMNI-12, bot), and what an unverified/anonymous caller can do before the KYC gate (CIM-05) fires. Has deflection UX / self-service journey research been done, and by whom?",
-    "impact_or_notes": "Buyer-facing question. Deflection eligibility and the anonymous-vs-verified boundary shape routing (CIM-07), self-service scope, and IVR handoff — left undefined they under-decompose CIM-06/08 (derived, 2-4 SP) and risk a deflection experience with no design basis. Flag whether experience/service design is in the delivery scope or a client dependency."
+    "impact_or_notes": "Buyer-facing question. Deflection eligibility and the anonymous-vs-verified boundary shape routing (CIM-07), self-service scope, and IVR handoff — left undefined they under-decompose CIM-06/08 (derived, 2-4 SP) and risk a deflection experience with no design basis. Flag whether experience/service design is in the delivery scope or a client dependency. [Grelha 2026-08-25 — Q4b RESOLVIDO EM ESCOPO (diretiva do scoper): coberto por track right-sized de service/conversation design no P&D, limitado às superfícies de alto impacto (console, fluxos do agente, motor de 300 passos). Ver ADR 0001.]"
   },
   {
     "gap_id": "G0401",
     "category": "Capability Gap",
     "gap_or_question": "The deterministic interview engine (CPM-04) — the load-bearing item of the whole domain, sized 13-21 SP and reused by 6 families — is DECLARED but NOT MODELED. No source flow decomposed the '300+ steps'; per Risks #1/#2 the Problem/Technical/Termination branches came from a pain corpus and platform research, not a modeled UPN flow. Where does the 300+ figure come from, and what is the actual step count, branching depth, and decision logic per family? Until the engine is modeled, 13-21 SP is a placeholder, not an estimate.",
-    "impact_or_notes": "This is the single largest sizing bet in the epic and the reason CPM carries the 50% contingency. If real depth/regulatory branching materially exceeds the assumption, even +50% is insufficient — the whole S3 track (194-346 SP) re-baselines. Highest priority to model in Phase 0/1 before committing the range."
+    "impact_or_notes": "This is the single largest sizing bet in the epic and the reason CPM carries the 50% contingency. If real depth/regulatory branching materially exceeds the assumption, even +50% is insufficient — the whole S3 track (194-346 SP) re-baselines. Highest priority to model in Phase 0/1 before committing the range. [Grelha 2026-08-25: rebaixado de risco de re-baseline para item de de-risking da Fase 0 — modelar o fluxo para refinar os 13-21 SP do especialista, NÃO re-dimensionar.]"
   },
   {
     "gap_id": "G0402",
     "category": "Logical Gap",
     "gap_or_question": "The 'one engine, reused by 6 families' premise is unproven. CPM-20..24 (Fiber, TV, Convergent, VAS, Prepaid disputes) are each derived at a flat 4-6 SP as 30% intra-capacity derivations of CPM-04, and CPM-25 (guided dispatch) plus CPM-18/19 (migrations) also 'reuse the engine.' But the families diverge structurally: Prepaid has no monthly invoice (CPM-24 is a recharge/credit dispute, not a bill contest), Convergent must attribute a line item to the correct bundle leg, TV mixes IPTV/DTH. Does the engine genuinely generalize, or does each family carry its own regulatory dispute ruleset that breaks the flat-derivation math?",
-    "impact_or_notes": "If per-family regulatory logic doesn't collapse into one reusable scaffold, the derived 4-6 SP per family understates each, and the reuse economics that justify the CPM sizing evaporate. Validate the engine's parameterization against 2-3 divergent families (Prepaid vs Convergent) early — Risk #2's 'regulatory variation per product' lives here."
+    "impact_or_notes": "If per-family regulatory logic doesn't collapse into one reusable scaffold, the derived 4-6 SP per family understates each, and the reuse economics that justify the CPM sizing evaporate. Validate the engine's parameterization against 2-3 divergent families (Prepaid vs Convergent) early — Risk #2's 'regulatory variation per product' lives here. [RESOLVIDO na grelha 2026-08-25: reuso confirmado em primeira mão pelo scoper — dimensionado por arquiteto especialista que fez assessment presencial na Vivo. Manter CPM-20..24 em 4-6 SP; não alargar a banda.]"
   },
   {
     "gap_id": "G0403",
@@ -141,7 +141,7 @@
     "gap_id": "G0405",
     "category": "Missing Requirement",
     "gap_or_question": "There is no experience-design work scoped for the 300+ step guided flow, yet completion/abandonment of that flow directly drives the ARI success KPIs (-15% TMA, +FCR). How does an agent — and, in self-service, a customer — navigate a 300-step interview without fatigue, error, or drop-off? The ROM sizes the engine's construction (CPM-04) but no UX research, service design, or content design for progressive disclosure, resume/save, or agent guidance surfaces anywhere in CPM.",
-    "impact_or_notes": "Experience-design discipline probe — buyer-facing. A technically-correct 300-step flow that agents can't run efficiently fails the exact TMA/FCR outcomes the investment is measured against. Ask whether experience/service design is expected; capture as an activity — either an owner is named or it goes to gaps as a risk to the success criteria."
+    "impact_or_notes": "Experience-design discipline probe — buyer-facing. A technically-correct 300-step flow that agents can't run efficiently fails the exact TMA/FCR outcomes the investment is measured against. Ask whether experience/service design is expected; capture as an activity — either an owner is named or it goes to gaps as a risk to the success criteria. [Grelha 2026-08-25 — Q4b RESOLVIDO EM ESCOPO (diretiva do scoper): coberto por track right-sized de service/conversation design no P&D, limitado às superfícies de alto impacto (console, fluxos do agente, motor de 300 passos). Ver ADR 0001.]"
   },
   {
     "gap_id": "G0406",
@@ -189,7 +189,7 @@
     "gap_id": "G0505",
     "category": "Missing Requirement",
     "gap_or_question": "The unified agentic cockpit is THE headline UX outcome of the ARI (success criterion #1: single front-end eliminating Alt+Tab across WDE/GPS/Next/Siebel; -15% TMA). The ROM sizes the build of CRM-01..13 but no experience-design activity — agent research/observation, service design, information hierarchy of the seven panels, content design, usability validation with real agents. Who designs and validates the cockpit UX before build, and is that effort owned by this engagement or the client?",
-    "impact_or_notes": "Experience-design discipline probe (buyer-facing). A cockpit built to a guessed panel layout risks recreating fragmentation in one window and missing the TMA target that justifies the whole ARI. Design is an implied activity, not a line in the ROM — surface it so the buyer decides whether it's scoped here, owned by Vivo, or a gap. Weight this heavily: it is the outcome the investment is measured on."
+    "impact_or_notes": "Experience-design discipline probe (buyer-facing). A cockpit built to a guessed panel layout risks recreating fragmentation in one window and missing the TMA target that justifies the whole ARI. Design is an implied activity, not a line in the ROM — surface it so the buyer decides whether it's scoped here, owned by Vivo, or a gap. Weight this heavily: it is the outcome the investment is measured on. [Grelha 2026-08-25 — Q4b RESOLVIDO EM ESCOPO (diretiva do scoper): coberto por track right-sized de service/conversation design no P&D, limitado às superfícies de alto impacto (console, fluxos do agente, motor de 300 passos). Ver ADR 0001.]"
   },
   {
     "gap_id": "G0506",
@@ -201,7 +201,7 @@
     "gap_id": "G0507",
     "category": "Missing Requirement",
     "gap_or_question": "The ARI success criteria (-15% TMA, improved FCR) are the measurable outcomes the V360 cockpit must move, but no current TMA or FCR baseline — per channel, journey, or segment — is stated in the ROM or nomination. What are today's baselines, how are they instrumented, and who owns measuring the delta post-go-live?",
-    "impact_or_notes": "Without a documented baseline the headline outcome can't be evidenced, and the renewal-insurance value case (proving ROI to a Neutral decision-maker/COO) has nothing to measure against. This is a program-level gap that lands hardest on V360 as the surface the KPIs attach to. Baseline capture is a discovery/instrumentation task to scope, not invent."
+    "impact_or_notes": "Without a documented baseline the headline outcome can't be evidenced, and the renewal-insurance value case (proving ROI to a Neutral decision-maker/COO) has nothing to measure against. This is a program-level gap that lands hardest on V360 as the surface the KPIs attach to. Baseline capture is a discovery/instrumentation task to scope, not invent. [Grelha 2026-08-25 — Q4a RESOLVIDO EM ESCOPO (diretiva do scoper): captura+congelamento do baseline TMA/FCR e plano de medição (reconciliar Connect+Omni) entram no P&D como atividade definida. Ver ADR 0001.]"
   },
   {
     "gap_id": "G0601",
@@ -243,7 +243,7 @@
     "gap_id": "G0607",
     "category": "Missing Requirement",
     "gap_or_question": "Experience design probe: the agentic capture flow UX is not designed. How does the conversational/guided capture behave across families and operations — turn-by-turn eligibility->serviceability->config, error recovery when a resource is unavailable, agent-assisted vs. autonomous framing, and the handoff moment to the customer/agent? No service-design or content-design work is scoped for the capture surface.",
-    "impact_or_notes": "Buyer-facing experience-design question. A tier-1 agentic capture flow spanning seven families is a substantial UX/content design effort that the ROM's engineering-only estimate does not carry. If the client team does not own it, it is an unscoped activity that affects adoption and the -15% AHT success criterion."
+    "impact_or_notes": "Buyer-facing experience-design question. A tier-1 agentic capture flow spanning seven families is a substantial UX/content design effort that the ROM's engineering-only estimate does not carry. If the client team does not own it, it is an unscoped activity that affects adoption and the -15% AHT success criterion. [Grelha 2026-08-25 — Q4b RESOLVIDO EM ESCOPO (diretiva do scoper): coberto por track right-sized de service/conversation design no P&D, limitado às superfícies de alto impacto (console, fluxos do agente, motor de 300 passos). Ver ADR 0001.]"
   },
   {
     "gap_id": "G0608",
@@ -303,7 +303,7 @@
     "gap_id": "G0903",
     "category": "Missing Requirement",
     "gap_or_question": "The epic carries the ARI success criteria (-15% TMA, +FCR, single agentic front-end), but no current TMA/FCR baseline is captured and no measurement instrumentation is designed beyond a single analytics story (CIM-19). How is baseline established, and how are TMA/FCR attributed to the agentic layer?",
-    "impact_or_notes": "Without a sourced baseline the target cannot be validated or claimed at go-live. Do not invent a baseline — this needs Vivo's current operational metrics. CIM-19 (conversational analytics for TMA/FCR) is a single derived 1-SP story and looks under-scoped for measuring the epic's headline outcomes."
+    "impact_or_notes": "Without a sourced baseline the target cannot be validated or claimed at go-live. Do not invent a baseline — this needs Vivo's current operational metrics. CIM-19 (conversational analytics for TMA/FCR) is a single derived 1-SP story and looks under-scoped for measuring the epic's headline outcomes. [Grelha 2026-08-25 — Q4a RESOLVIDO EM ESCOPO (diretiva do scoper): captura+congelamento do baseline TMA/FCR e plano de medição (reconciliar Connect+Omni) entram no P&D como atividade definida. Ver ADR 0001.]"
   },
   {
     "gap_id": "G0904",
@@ -333,19 +333,19 @@
     "gap_id": "G0908",
     "category": "Missing Requirement",
     "gap_or_question": "Experience-design probe: replacing the legacy Alt+Tab/iframe operation with a single agentic conversational surface (SDP-03, CRM-01) for a large agent population (~18k+ including the Aliado channel) is a major experience and behavior shift. Is there a service-design / agent-experience-research and change-adoption workstream for the new front-end?",
-    "impact_or_notes": "Adoption hinges on agents trusting AI suggestions and disposition/response automation (SDP-08/10/12); no experience-design or change-management activity is scoped. Ties to Risk #7 (Aliado channel under-decomposed). Surface as an activity for the expert to own or route to a delivery dependency — the single agentic front-end is an ARI success criterion, so adoption failure defeats the epic's purpose."
+    "impact_or_notes": "Adoption hinges on agents trusting AI suggestions and disposition/response automation (SDP-08/10/12); no experience-design or change-management activity is scoped. Ties to Risk #7 (Aliado channel under-decomposed). Surface as an activity for the expert to own or route to a delivery dependency — the single agentic front-end is an ARI success criterion, so adoption failure defeats the epic's purpose. [Grelha 2026-08-25 — Q4b RESOLVIDO EM ESCOPO (diretiva do scoper): coberto por track right-sized de service/conversation design no P&D, limitado às superfícies de alto impacto (console, fluxos do agente, motor de 300 passos). Ver ADR 0001.]"
   },
   {
     "gap_id": "G1001",
     "category": "Capability Gap",
     "gap_or_question": "No Party/Profile master WRITE client is listed among the 36. FND-11 federates the Party/Profile family (TMF632) as READ-ONLY, and no INT story writes cadastral data back to the master. CIM-17 (atualizacao de dados cadastrais) asserts a write it has no client to make. Is the Party-master write client one of the 36 (and mislabeled), delegated to a Mule facade not yet enumerated, or genuinely missing?",
-    "impact_or_notes": "This is exactly Risk #3b — a Core story asserting a dependency with no listed client. If missing, it is net-new Primary scope not in the 139-217 SP base; if it must go through a new Mule facade, it is out-of-band program work (Risk #3a). Blocks the most common contact-center action (data update). Interacts with G0301 (CIM)."
+    "impact_or_notes": "This is exactly Risk #3b — a Core story asserting a dependency with no listed client. If missing, it is net-new Primary scope not in the 139-217 SP base; if it must go through a new Mule facade, it is out-of-band program work (Risk #3a). Blocks the most common contact-center action (data update). Interacts with G0301 (CIM). [Grelha 2026-08-25 — Q3 resolvida via opção 2: scoper NÃO tem o inventário de fachadas MuleSoft em mãos. G1004 permanece ABERTO como entregável nº1 da Fase 0 (inventário de fachadas MULE-disposition, incl. WRITE Party-master e sync Anatel/Ouvidoria). INT NÃO redimensionado; piso INT marcado como CONDICIONAL ao inventário — a sinalizar explicitamente no estimate, não back-fit dentro dos 50%.]"
   },
   {
     "gap_id": "G1002",
     "category": "Capability Gap",
     "gap_or_question": "CPM-09/CPM-10 (escalate to Ouvidoria/Anatel + sync reconsideration status) require an Anatel/Ouvidoria status-sync write client, but no such client appears in the 36 (no Anatel/Ouvidoria TMF family in the INT table). Is this sync a Core client, a Mule facade, or handled outside Salesforce? [assumption: no matching client is present in the INT list]",
-    "impact_or_notes": "Regulated obligation (Anatel). A missing bidirectional status client either adds INT scope or pushes the dependency out-of-band. Compliance-sensitive: a broken sync risks regulatory exposure, not just UX. Pairs with G0406 (CPM)."
+    "impact_or_notes": "Regulated obligation (Anatel). A missing bidirectional status client either adds INT scope or pushes the dependency out-of-band. Compliance-sensitive: a broken sync risks regulatory exposure, not just UX. Pairs with G0406 (CPM). [Grelha 2026-08-25 — Q3 resolvida via opção 2: scoper NÃO tem o inventário de fachadas MuleSoft em mãos. G1004 permanece ABERTO como entregável nº1 da Fase 0 (inventário de fachadas MULE-disposition, incl. WRITE Party-master e sync Anatel/Ouvidoria). INT NÃO redimensionado; piso INT marcado como CONDICIONAL ao inventário — a sinalizar explicitamente no estimate, não back-fit dentro dos 50%.]"
   },
   {
     "gap_id": "G1003",
@@ -357,13 +357,13 @@
     "gap_id": "G1004",
     "category": "Assumption",
     "gap_or_question": "The 17 MULE dispositions (plus INT-29) assume the MuleSoft facades already exist and only the thin Core client is in scope (premise 17, Risk #3a, Exclusion table). Which of these 17 facade services exist in production today versus must be built? Any facade that must be built is out-of-band integration-program effort, not in this ROM.",
-    "impact_or_notes": "Load-bearing assumption behind roughly half the INT clients. If even a few facades are net-new, effort shifts to a separate program and the transactional floor slips. This is the single largest swing factor on the 50% INT contingency — must be confirmed before commit."
+    "impact_or_notes": "Load-bearing assumption behind roughly half the INT clients. If even a few facades are net-new, effort shifts to a separate program and the transactional floor slips. This is the single largest swing factor on the 50% INT contingency — must be confirmed before commit. [Grelha 2026-08-25 — Q3 resolvida via opção 2: scoper NÃO tem o inventário de fachadas MuleSoft em mãos. G1004 permanece ABERTO como entregável nº1 da Fase 0 (inventário de fachadas MULE-disposition, incl. WRITE Party-master e sync Anatel/Ouvidoria). INT NÃO redimensionado; piso INT marcado como CONDICIONAL ao inventário — a sinalizar explicitamente no estimate, não back-fit dentro dos 50%.]"
   },
   {
     "gap_id": "G1005",
     "category": "Missing Requirement",
     "gap_or_question": "Who owns the API contract for the Mule facade seam, and how are versioning and breaking changes governed? The Core clients (17 MULE) are consumers of an externally-owned facade contract, yet no owner, versioning scheme, deprecation policy, or change-notification process is defined for the Salesforce-team <-> MuleSoft-team boundary.",
-    "impact_or_notes": "Buyer-facing governance probe. Without contract ownership and versioning discipline, a facade change silently breaks resilient clients in production — the fragility the epic explicitly set out to fix. Determines whether the 50% contingency covers integration churn or is consumed by it."
+    "impact_or_notes": "Buyer-facing governance probe. Without contract ownership and versioning discipline, a facade change silently breaks resilient clients in production — the fragility the epic explicitly set out to fix. Determines whether the 50% contingency covers integration churn or is consumed by it. [Grelha 2026-08-25 — Q3 resolvida via opção 2: scoper NÃO tem o inventário de fachadas MuleSoft em mãos. G1004 permanece ABERTO como entregável nº1 da Fase 0 (inventário de fachadas MULE-disposition, incl. WRITE Party-master e sync Anatel/Ouvidoria). INT NÃO redimensionado; piso INT marcado como CONDICIONAL ao inventário — a sinalizar explicitamente no estimate, não back-fit dentro dos 50%.]"
   },
   {
     "gap_id": "G1006",
@@ -399,7 +399,7 @@
     "gap_id": "G0803",
     "category": "Ambiguity",
     "gap_or_question": "What is the source of truth for the operational metrics AHT/ASA/abandonment? Operational dashboards (OPS-20) declare AHT/ASA/abandonment, but real routing and queueing live partly in Amazon Connect (OMNI-03 queues mapped to Connect, OMNI-04 presence mapped to Connect). Questions: do these metrics come from Amazon Connect (CTRs/streams), from Salesforce Omni-Channel, or from reconciling both? Is there double-counting/divergence when a call traverses IVR->Connect->Omni? [assumption: if the IVR/queue is Connect and human routing is Omni, AHT/ASA/abandonment measured only in Salesforce omit pre-routing time and won't reconcile with contact-center reports].",
-    "impact_or_notes": "Without defining the metric source and capture point, service KPIs (baseline and SLA) are neither auditable nor comparable to the legacy. Affects OPS-20 acceptance and any contractual SLA target. Do not invent a baseline — the source is required before sizing reporting. Pairs with G0507/G0903 (baseline gaps)."
+    "impact_or_notes": "Without defining the metric source and capture point, service KPIs (baseline and SLA) are neither auditable nor comparable to the legacy. Affects OPS-20 acceptance and any contractual SLA target. Do not invent a baseline — the source is required before sizing reporting. Pairs with G0507/G0903 (baseline gaps). [Grelha 2026-08-25 — Q4a RESOLVIDO EM ESCOPO (diretiva do scoper): captura+congelamento do baseline TMA/FCR e plano de medição (reconciliar Connect+Omni) entram no P&D como atividade definida. Ver ADR 0001.]"
   },
   {
     "gap_id": "G0804",
@@ -423,7 +423,7 @@
     "gap_id": "G0807",
     "category": "Missing Requirement",
     "gap_or_question": "Is agent-experience design and adoption/change-management for the new omnichannel surface in scope? The epic delivers a brand-new service surface (softphone/CTI OMNI-07, warm/cold transfer OMNI-08, concurrent multi-session OMNI-19, supervisor barge-in/whisper OMNI-23/24, Aliado surface OMNI-28) to a large agent population + ~18k external partners. There is no service-design / UX-research / agent-console-design story, nor training/change-adoption. Buyer-facing experience-discipline question: who designs and validates the agent/partner experience and drives adoption?",
-    "impact_or_notes": "Concurrent multi-session and context-carrying handoffs carry high usability risk that directly impacts AHT. Adoption failure in a tier-1 contact center undermines the ROI of the entire build. Experience-discipline signal — raise as a question, not a mandate. Pairs with G0505/G0908 (experience-design gaps)."
+    "impact_or_notes": "Concurrent multi-session and context-carrying handoffs carry high usability risk that directly impacts AHT. Adoption failure in a tier-1 contact center undermines the ROI of the entire build. Experience-discipline signal — raise as a question, not a mandate. Pairs with G0505/G0908 (experience-design gaps). [Grelha 2026-08-25 — Q4b RESOLVIDO EM ESCOPO (diretiva do scoper): coberto por track right-sized de service/conversation design no P&D, limitado às superfícies de alto impacto (console, fluxos do agente, motor de 300 passos). Ver ADR 0001.]"
   },
   {
     "gap_id": "G0808",
