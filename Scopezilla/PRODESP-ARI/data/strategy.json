@@ -1,0 +1,72 @@
+{
+  "strategic_context": {
+    "current_state_challenges": [
+      {"challenge": "Jornada de crédito fragmentada sobre um build Salesforce ainda custom-heavy (CreditApplication__c, Simulacao__c, Parcela__c, Garantia__c), divergente do modelo de crédito nativo suportado pela plataforma.", "source": "discovery", "confidence": "Confirmed"},
+      {"challenge": "Nova esteira Agro (antes atendida pelo Banco do Brasil) sem canal digital; produtor rural PF fora da JUCESP e sem QRSA.", "source": "discovery", "confidence": "Confirmed"},
+      {"challenge": "30 integrações MuleSoft com apenas JUCESP em QA; forte dependência do núcleo Sinqia/Officer, com write-back PUT/PATCH e contratos das System APIs pendentes.", "source": "discovery", "confidence": "Confirmed"},
+      {"challenge": "Entrega multi-fornecedor (Prodesp, Orange, DSP, Sinqia) com aprovações em SLA de 24h, criando atrito de cronograma antes de cada pilar.", "source": "discovery", "confidence": "Confirmed"},
+      {"challenge": "Gestão documental limitada: o limite de 12 MB do Salesforce Files é insuficiente para documentos de garantia da esteira Agro (penhor, escrituras).", "source": "discovery", "confidence": "Confirmed"}
+    ],
+    "business_impacts": [
+      {"impact": "Tempo até o crédito elevado para negócios paulistas — jornada manual e fragmentada atrasa o desembolso a PMEs e produtores rurais, contra a missão de fomento da agência.", "affected_area": "Originação de crédito / missão de política pública", "severity": "high"},
+      {"impact": "Mercado Agro não atendido digitalmente equivale a cobertura de política pública não realizada em um segmento recém-assumido do Banco do Brasil.", "affected_area": "Expansão de segmento / Agro", "severity": "high"},
+      {"impact": "Divergência do modelo FSC nativo gera dívida técnica crescente e reduz a capacidade de adotar inovação do setor financeiro na plataforma.", "affected_area": "Sustentabilidade da plataforma", "severity": "high"},
+      {"impact": "Coordenação multi-fornecedor e prontidão de integração (29 de 30 APIs a confirmar) ameaçam o marco de 30/11/2026.", "affected_area": "Entrega / cronograma", "severity": "high"}
+    ],
+    "industry_context": {
+      "summary": "Agências de fomento e bancos de desenvolvimento brasileiros estão digitalizando a jornada de crédito para ampliar alcance e reduzir tempo de desembolso. A Salesforce posiciona o Financial Services Cloud como plataforma de lending nativa suportada, e o Experience Cloud (LWR) como camada de portal digital.",
+      "trends": ["Digitalização fim-a-fim da originação de crédito em agências de fomento", "Autoatendimento via portal para tomadores PF e PJ", "Adoção de modelos de dados de indústria (FSC) em vez de customização proprietária"],
+      "regulatory_factors": ["LGPD (tratamento de dados de tomadores)", "Antifraude (Serasa R6)", "Validação biométrica / facial (BioValid, SENATRAN/CNH)", "Faturamento e-CAC via Serpro", "QRSA"],
+      "competitive_pressures": ["Expectativa de experiência digital equivalente à da banca privada", "Necessidade de atender o segmento Agro antes coberto pelo Banco do Brasil"]
+    },
+    "value_drivers": [
+      {"driver": "Maior throughput de originação de crédito", "category": "revenue", "description": "Jornada digital unificada acelera a solicitação e a formalização, ampliando o volume de crédito levado à economia de São Paulo."},
+      {"driver": "Consolidação no modelo FSC nativo", "category": "efficiency", "description": "Substituir objetos custom (CreditApplication__c, Simulacao__c, Parcela__c, Garantia__c) pelo modelo nativo do FSC e descomissionar objetos superados reduz manutenção e complexidade."},
+      {"driver": "Alinhamento ao roadmap de indústria suportado", "category": "risk", "description": "Adotar o modelo de lending nativo do FSC reduz dívida técnica e mantém a plataforma apta a receber inovação do setor; cutover in-place controlado protege a produção."},
+      {"driver": "Conformidade regulatória embutida na jornada", "category": "risk", "description": "LGPD, antifraude, validação biométrica e QRSA tratados como parte do fluxo digital, não como controles manuais externos."},
+      {"driver": "Jornada digital única em três esteiras", "category": "experience", "description": "Um único portal cobre as esteiras Digital, Julgamental e Agro, incluindo o novo canal Agro para produtores rurais."}
+    ],
+    "strategic_priorities": [
+      {"priority": "Unificar e digitalizar a jornada de crédito fim-a-fim nas três esteiras sobre Salesforce", "rank": 1, "rationale": "É a razão de ser do programa e o principal vetor de valor para a missão de fomento — do simulador à formalização da CCB, em um único portal."},
+      {"priority": "Atender o novo segmento Agro digitalmente", "rank": 2, "rationale": "Segmento recém-assumido do Banco do Brasil, sem canal digital hoje; expande a cobertura de política pública da agência."},
+      {"priority": "Modernizar a plataforma para o modelo de lending nativo do FSC", "rank": 3, "rationale": "Reduz dívida técnica e sustenta a plataforma no longo prazo — porém a adoção do modelo nativo (RLA/LoanApplicant/PCM/BRE/Person Accounts) está em REVISAR no fit/gap e deve ser ratificada na Fase 0."},
+      {"priority": "Mitigar o risco da entrega multi-fornecedor e integração-pesada para cumprir a janela de go-live", "rank": 4, "rationale": "Só JUCESP está em QA; a prontidão das 30 APIs e as aprovações multi-fornecedor são os maiores riscos ao marco de 30/11/2026."}
+    ]
+  },
+  "transformation_strategy": {
+    "vision_statement": "A Desenvolve SP oferecerá uma jornada de crédito 100% digital, unificada e transparente — do simulador à formalização da CCB — sobre uma plataforma Salesforce Financial Services Cloud alinhada ao modelo de crédito nativo do setor. Empreendedores, pequenos negócios e produtores rurais paulistas passam a solicitar, acompanhar e formalizar crédito em um único portal, enquanto o núcleo Sinqia permanece como sistema de registro e o MuleSoft orquestra as integrações. O resultado é uma agência de fomento mais rápida em levar crédito à economia do estado, capaz de incorporar as inovações do setor financeiro à medida que surgem e preparada para atender novos segmentos — a começar pelo Agro — sem reconstruir sua base tecnológica a cada expansão.",
+    "strategic_objectives": [
+      {"objective": "Jornada de crédito unificada nas três esteiras no portal Experience Cloud (LWR)", "success_criteria": "24 funcionalidades / 6 pilares operando em produção — do simulador à formalização.", "timeline_horizon": "medium"},
+      {"objective": "Canal digital Agro em produção", "success_criteria": "Esteira Agro atendendo PF e produtor rural com fluxo próprio (cadastro manual sem-JUCESP, produtos Agro).", "timeline_horizon": "medium"},
+      {"objective": "Plataforma sobre o modelo de lending nativo do FSC", "success_criteria": "Objetos custom migrados para ResidentialLoanApplication/LoanApplicant/PCM/BRE; Simulacao__c e Parcela__c descomissionados. Depende de ratificação na Fase 0.", "timeline_horizon": "medium"},
+      {"objective": "Integrações reapontadas e estáveis", "success_criteria": "30 APIs reapontadas para objetos FSC (lado Salesforce), regressão por integração aprovada, sem perda no cutover.", "timeline_horizon": "short"},
+      {"objective": "Fundação e cutover controlados", "success_criteria": "Person Accounts habilitado (irreversível) após ensaio full-copy obrigatório, seguido de hypercare.", "timeline_horizon": "short"}
+    ],
+    "principles": [
+      {"principle": "Configurar antes de customizar", "rationale": "Adotar o nativo do FSC em vez de recriar o que a plataforma já entrega reduz dívida técnica e sustenta a supportability."},
+      {"principle": "Sinqia como sistema de registro, Salesforce como sistema de engajamento", "rationale": "Não duplicar a lógica de crédito; manter o padrão event-first entre portal e core."},
+      {"principle": "Migração in-place controlada e reversível até o cutover", "rationale": "Ensaio full-copy antes de qualquer passo irreversível (habilitação de Person Accounts) protege a produção."},
+      {"principle": "Fase 0 antes de comprometer sizing", "rationale": "81 gaps e 14 conflitos de fonte — ratificar adoção FSC nativa, prontidão das 30 APIs e volume de dados de produção antes de fechar o esforço."},
+      {"principle": "Valor incremental por pilar", "rationale": "Entregar as esteiras em ondas leva crédito ao mercado antes do escopo completo estar concluído."}
+    ]
+  },
+  "business_case": {
+    "why_salesforce": "A Desenvolve SP já está em Salesforce — o build atual roda sobre Sales Cloud + Experience Cloud (Captação em QA). O Financial Services Cloud é a plataforma de lending nativa suportada pela Salesforce, e o Experience Cloud (LWR) entrega o portal digital do tomador. A rota preserva e estende o investimento existente em vez de um rip-and-replace: mesmo org, migração in-place, com o MuleSoft orquestrando as 30 integrações e o Sinqia mantido como sistema de registro.",
+    "why_now": "O marco de 30/11/2026 e a nova esteira Agro criam urgência. Além disso, este é o momento mais barato para alinhar a plataforma ao modelo FSC nativo: o build ainda é jovem (Captação em QA) e o volume de dados de produção é baixo. Adiar significa acumular mais objetos custom e mais dados a converter depois, além de manter o segmento Agro sem atendimento digital.",
+    "expected_outcomes": [
+      {"outcome": "Jornada de crédito digital única nas três esteiras, do simulador à formalização da CCB", "category": "experience", "timeframe": "no go-live do programa (marco 30/11/2026)"},
+      {"outcome": "Novo canal digital Agro atendendo PF e produtor rural", "category": "experience", "timeframe": "no go-live do programa"},
+      {"outcome": "Consolidação dos objetos de crédito custom no modelo FSC nativo, com descomissionamento dos objetos superados", "category": "efficiency", "timeframe": "no cutover in-place"},
+      {"outcome": "Plataforma alinhada ao roadmap de indústria suportado, com cutover controlado por ensaio full-copy", "category": "risk", "timeframe": "no cutover in-place"},
+      {"outcome": "Maior throughput de originação de crédito para a economia de São Paulo", "category": "revenue", "timeframe": "pós go-live, incremental por pilar"}
+    ],
+    "differentiation": "Salesforce Professional Services entrega o build (Orange sai ou permanece subcontratada), com o MuleSoft dentro do escopo PS — um único responsável ponta a ponta. A entrega é AI-native / via aumentada com 2 squads em paralelo, aplicando disciplina de migração in-place (ensaio full-copy antes do irreversível) e expertise no modelo nativo do FSC, para cumprir a janela de go-live sem reconstruir a base tecnológica."
+  },
+  "business_outcomes": [
+    {"outcome_id": "V1", "outcome": "Jornada de crédito unificada e digital nas três esteiras", "pain_removed": "Jornada fragmentada e custom-heavy, do simulador à formalização, hoje sem experiência digital contínua.", "confidence": "Confirmed"},
+    {"outcome_id": "V2", "outcome": "Novo canal digital para o segmento Agro", "pain_removed": "Produtor rural PF sem canal digital, fora da JUCESP e sem QRSA; segmento recém-assumido do Banco do Brasil.", "confidence": "Confirmed"},
+    {"outcome_id": "V3", "outcome": "Plataforma sobre o modelo de lending nativo do FSC, sustentável no longo prazo", "pain_removed": "Divergência do roadmap de indústria suportado e dívida técnica de objetos custom.", "confidence": "Assumed"},
+    {"outcome_id": "V4", "outcome": "Integrações reapontadas e estáveis para os objetos FSC", "pain_removed": "29 de 30 APIs sem prontidão confirmada e dependência do core Sinqia com write-back pendente.", "confidence": "Assumed"},
+    {"outcome_id": "V5", "outcome": "Cutover in-place controlado e reversível até o ponto irreversível", "pain_removed": "Risco de migração irreversível (habilitação de Person Accounts) sem ensaio de produção.", "confidence": "Assumed"}
+  ]
+}

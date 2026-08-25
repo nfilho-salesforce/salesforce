@@ -72,6 +72,23 @@
         "strategy.json / roadmap.json / estimates.json ainda não existem (estimativa foi produzida ad-hoc no deck, sem persistir em data/)"
       ],
       "next_steps": "Escrever a seção Fase 0 no deck (bump v1.2): objetivo 2 semanas, 4-5 pontos que resolve, ±20%->±10%. Depois: strategy (business case) ou roadmap (plano faseado das 11 frentes)."
+    },
+    {
+      "date": "2026-08-25",
+      "skills_used": ["strategy"],
+      "summary": "Rodada full strategy (pesquisa web pulada — material em disco). Gravado data/strategy.json: contexto estratégico (5 desafios, 4 impactos, industry context, 5 value drivers 4-buckets, 4 prioridades), transformação (visão + 5 objetivos + 5 princípios), business case (why SF / why now / 5 outcomes / diferenciação) e Value Map (V1-V5). Visão aprovada VERBATIM pelo usuário ('Aprovar como está'), framework 'Aprovar e continuar'. strategy = complete.",
+      "decisions": [
+        {
+          "decision": "Visão afirma plataforma 'alinhada ao modelo de crédito nativo do setor' (FSC nativo) — usuário aprovou o trecho Assumed sem suavizar",
+          "rejected": "Suavizar para linguagem neutra de plataforma até a Fase 0 ratificar a adoção"
+        }
+      ],
+      "open_threads": [
+        "Conflito central segue aberto: prioridade 3 + objetivos 3-5 + Value Map V3/V4/V5 marcados Assumed porque a adoção FSC nativa está em REVISAR no fit/gap. Ratificar na Fase 0.",
+        "Se a Fase 0 NÃO ratificar a adoção FSC nativa, a frase da visão sobre o modelo nativo precisa suavizar (jornada unificada + Agro sobrevivem intactos).",
+        "strategy.json não persistiu KPIs quantificados (objetivos ainda qualitativos — G de discovery aberto); business case sem métricas fabricadas por design."
+      ],
+      "next_steps": "narratives (exec summary lê strategy.json) OU roadmap (plano faseado das 11 frentes, base de duração). Pendente ainda: seção Fase 0 no deck (bump v1.2)."
     }
   ],
   "preferences": {},
