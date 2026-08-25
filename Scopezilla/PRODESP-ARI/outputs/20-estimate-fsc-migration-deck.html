@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- ROM/Estimativa — Migração FSC · Desenvolve SP · pt-BR · Salesforce brand kit -->
-<!-- DECK-VERSION: 1.1 | GENERATED: 2026-08-25T11:41-03:00 | scheme: bump minor on cada geração/edição; ler este marcador e incrementar antes de regravar -->
+<!-- DECK-VERSION: 1.2 | GENERATED: 2026-08-25T15:42-03:00 | scheme: bump minor on cada geração/edição; ler este marcador e incrementar antes de regravar -->
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
@@ -139,8 +139,8 @@
       <span><b>Duração</b>14 semanas</span>
       <span><b>Esforço</b>≈ 3.105 horas PS</span>
       <span><b>Criado</b>24/08/2026</span>
-      <span><b>Versão</b>v1.1</span>
-      <span><b>Gerado</b>25/08/2026 11:41 (BRT)</span>
+      <span><b>Versão</b>v1.2</span>
+      <span><b>Gerado</b>25/08/2026 15:42 (BRT)</span>
     </div>
   </div>
 </section>
@@ -204,6 +204,55 @@
   </table>
 
   <div class="note"><b>A Fase 0 estreita a faixa.</b> As 2 primeiras semanas (F1 · Discovery &amp; FSC Design) confirmam esses três pontos com o cliente. Depois delas, a incerteza cai de ±20% para ~±10% e o número central pode se ajustar. <br><br><i>Em uma frase: este número é confiável para planejar; as duas primeiras semanas de discovery o transformam em um compromisso firme.</i></div>
+</section>
+
+<!-- FASE 0 -->
+<section>
+  <div class="eyebrow">O gate de entrada</div>
+  <h2>Fase 0 — Discovery &amp; Fundação</h2>
+  <p class="sub">Duas semanas que transformam esta estimativa ROM (±20%) em compromisso firme (~±10%). Antes de comprometer o sizing dos pilares, a Fase 0 ratifica o modelo-alvo e fecha os quatro pontos que hoje mais movem as horas. Recomendada porque a discovery ainda deixa em aberto mais de 80 pontos e 14 conflitos de fonte.</p>
+
+  <p style="margin-bottom:6px"><b>O que a Fase 0 resolve:</b></p>
+  <div class="pilares">
+    <div class="pilar">
+      <h3>1 · Adoção do lending nativo do FSC</h3>
+      <span class="tag">o maior gate</span>
+      <ul>
+        <li>Ratificar RLA / LoanApplicant / PCM / BRE / Person Accounts como modelo-alvo</li>
+        <li>Hoje marcado "a revisar" na análise de aderência</li>
+        <li>Se não ratificado, o escopo muda: migração de modelo de dados vs. reaponte leve</li>
+      </ul>
+    </div>
+    <div class="pilar">
+      <h3>2 · Prontidão das 30 integrações</h3>
+      <span class="tag">maior risco de cronograma</span>
+      <ul>
+        <li>Inventário de contratos / Swagger das System APIs</li>
+        <li>Confirmar write-back (PUT/PATCH) pendente</li>
+        <li>Estabilidade dos payloads sob o data model FSC</li>
+      </ul>
+    </div>
+    <div class="pilar">
+      <h3>3 · Volume de dados de produção</h3>
+      <span class="tag">infla F5 · Data Migration</span>
+      <ul>
+        <li>Contagens atuais são do sandbox de homologação</li>
+        <li>Confirmar volume real de conversão para Person Accounts</li>
+        <li>Dimensiona o esforço de ETL e reconciliação</li>
+      </ul>
+    </div>
+    <div class="pilar">
+      <h3>4 · Fronteira de escopo Proposta ↔ Aceite</h3>
+      <span class="tag">evita dupla-contagem</span>
+      <ul>
+        <li>Reconciliar a divisão entre Proposta (Pilar 3) e Aprovação/Aceite (Pilar 5)</li>
+        <li>Fechar buraco de escopo ou sobreposição no aceite</li>
+        <li>Confirma o alvo de cada pilar antes do build</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note"><b>Saída da Fase 0:</b> modelo FSC decidido e registrado · inventário de prontidão das 30 APIs · volume de produção confirmado · fronteira Proposta↔Aceite reconciliada. Com isso, o sizing dos pilares passa de indicativo a fechável e a incerteza cai de ±20% para ~±10%. <br><br><i>É o mesmo espírito da fase F1 · Discovery &amp; FSC Design no cronograma — só que aqui está explícito o que precisa ser ratificado para o número virar compromisso.</i></div>
 </section>
 
 <!-- ESCOPO / PILARES -->
@@ -514,7 +563,7 @@
 <footer>
   Salesforce Professional Services · ARI PRODESP / Desenvolve SP · Estimativa (ROM) da migração para Financial Services Cloud · 24/08/2026 ·
   Estimativa indicativa (±20%), não compromisso — refinada na Fase 0. Sem valores financeiros.<br>
-  <b>Versão v1.1</b> · gerado em 25/08/2026 11:41 (BRT, UTC−03) · documento controlado por versão.
+  <b>Versão v1.2</b> · gerado em 25/08/2026 15:42 (BRT, UTC−03) · documento controlado por versão.
 </footer>
 
 </body>
