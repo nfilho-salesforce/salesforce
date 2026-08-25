@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- DECK-VERSION: 1.0 | GENERATED: 2026-08-25T19:40:00-03:00 -->
+<!-- DECK-VERSION: 1.1 | GENERATED: 2026-08-25T19:55:00-03:00 -->
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -133,6 +133,19 @@
   .b-dep{background:linear-gradient(90deg,#1e7e57,#2fa072);}
   .b-scale{background:linear-gradient(90deg,#0f766e,#14b8a6);}
   .b-gov{background:linear-gradient(90deg,#4b5563,#6b7280);}
+  .b-prep{background:linear-gradient(90deg,#0e7490,#0891b2);}
+  .b-design{background:linear-gradient(90deg,#2563a8,#3b82c4);}
+  .b-test{background:linear-gradient(90deg,#b7791f,#d69e2e);}
+  .wp-squad-h{display:flex;align-items:center;gap:10px;margin:0 0 10px;font-size:16px;font-weight:800;color:var(--ink);}
+  .wp-squad-h .sq-num{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--purple),var(--purple-2));color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;flex:none;}
+  .wp-tag{font-size:10px;font-weight:800;letter-spacing:.4px;padding:2px 8px;border-radius:20px;background:#f2e8fb;color:var(--purple);text-transform:uppercase;}
+  .phase-dot{display:inline-flex;align-items:center;justify-content:center;font-size:12px;}
+  .pd-full{color:var(--purple);} .pd-part{color:var(--amber);} .pd-off{color:var(--line-2);}
+  .legend-row{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 2px;font-size:11px;}
+  .legend-row .lg{display:inline-flex;align-items:center;gap:5px;color:var(--muted);}
+  .legend-row .sw{width:14px;height:10px;border-radius:3px;display:inline-block;}
+  ul.bul{margin:6px 0 4px;padding-left:20px;}
+  ul.bul li{font-size:13.5px;color:var(--ink);line-height:1.65;margin-bottom:7px;}
 
   /* milestone roadmap */
   .rm{position:relative;margin:14px 0 6px;padding-left:8px;}
@@ -201,6 +214,9 @@
     <a class="nav-item" onclick="showSection('s7',this)"><span class="ico">⏱️</span> Timeline · Roles &amp; Carga</a>
     <a class="nav-item" onclick="showSection('s8',this)"><span class="ico">🚩</span> Timeline · Marcos</a>
 
+    <div class="nav-group-title">Plano de Trabalho</div>
+    <a class="nav-item" onclick="showSection('s13',this)"><span class="ico">🗓️</span> Alocação · 7 Squads × Fase <span class="nav-badge open">exercício</span></a>
+
     <div class="nav-group-title">Comparação &amp; Riscos</div>
     <a class="nav-item" onclick="showSection('s9',this)"><span class="ico">⚖️</span> Trilha Tradicional</a>
     <a class="nav-item" onclick="showSection('s10',this)"><span class="ico">✅</span> Qualificação AI-native</a>
@@ -218,7 +234,7 @@
         <h1>🟣 ARI Vivo · ROM &amp; Estimativa de Projeto — Salesforce PS</h1>
       </div>
       <div class="topbar-right">
-        <span class="ver-badge">Versão 1.0</span>
+        <span class="ver-badge">Versão 1.1</span>
         <span class="inst-badge">🔒 Preço diferido · sem valores financeiros</span>
         <span class="date-badge">📅 Gerado 25 ago 2026</span>
       </div>
@@ -697,13 +713,256 @@
       </div>
     </div>
 
+    <!-- ═══ S13 · PLANO DE TRABALHO — 7 SQUADS × FASE PS ═══ -->
+    <div id="s13" class="section">
+      <h2 class="sec-h">Plano de trabalho — alocação por squad × fase PS</h2>
+      <p class="sec-sub">Exercício de planejamento: posiciona os 7 squads e cada profissional no tempo, obedecendo às fases da metodologia Salesforce PS. Cenário Central (produtivas) como base. As barras marcam a janela de atuação de cada role por fase.</p>
+
+      <div class="alert amber"><span class="ai">🧪</span><div><b>Exercício de alocação — não altera os racionais do projeto.</b> Este é um recorte de <b>planejamento de recursos</b> em 7 squads, distinto (e paralelo) da base de dimensionamento do ROM (5 squads de Build). As horas, fases e disclaimers das demais seções permanecem inalterados. Todos os rates são <b>0</b> (sem valores financeiros). Objetivo: gerir a alocação de cada profissional ao longo das fases PS.</div></div>
+
+      <div class="card">
+        <h3>Fases da metodologia Salesforce PS (cenário central ~40 semanas)</h3>
+        <div class="tl">
+          <div class="tl-weeks"><span>Fase PS</span><div class="wk"><span>Sem 1</span><span>Sem 10</span><span>Sem 20</span><span>Sem 30</span><span>Sem 40</span></div></div>
+          <div class="tl-row"><div class="lab">Fases</div><div class="tl-track">
+            <div class="tl-bar b-prep" style="left:0%;width:7.5%;">Prep</div>
+            <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+            <div class="tl-bar b-build" style="left:17.5%;width:57.5%;">Build (config + SIT)</div>
+            <div class="tl-bar b-test" style="left:65%;width:20%;">Test / UAT</div>
+            <div class="tl-bar b-dep" style="left:82.5%;width:10%;">Deploy</div>
+            <div class="tl-bar b-scale" style="left:92.5%;width:7.5%;">HC</div>
+          </div></div>
+        </div>
+        <div class="legend-row">
+          <span class="lg"><span class="sw b-prep"></span> Prepare (sem 1–3)</span>
+          <span class="lg"><span class="sw b-design"></span> Design (sem 3–8)</span>
+          <span class="lg"><span class="sw b-build"></span> Build (sem 7–30)</span>
+          <span class="lg"><span class="sw b-test"></span> Test/UAT (sem 26–34)</span>
+          <span class="lg"><span class="sw b-dep"></span> Deploy (sem 33–37)</span>
+          <span class="lg"><span class="sw b-scale"></span> Hypercare (sem 37–40)</span>
+        </div>
+      </div>
+
+      <!-- SQUAD 1 GOVERNANCE -->
+      <div class="card">
+        <div class="wp-squad-h"><span class="sq-num">1</span> Governance <span class="wp-tag">overlay · programa inteiro</span></div>
+        <div class="tl">
+          <div class="tl-row"><div class="lab">Principal Program Manager</div><div class="tl-track"><div class="tl-bar b-gov" style="left:0%;width:100%;">Prepare → Hypercare</div></div></div>
+          <div class="tl-row"><div class="lab">Project Manager</div><div class="tl-track"><div class="tl-bar b-gov" style="left:0%;width:100%;">Prepare → Hypercare</div></div></div>
+          <div class="tl-row"><div class="lab">Principal Solution Architect</div><div class="tl-track">
+            <div class="tl-bar b-prep" style="left:0%;width:7.5%;">Prep</div>
+            <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+            <div class="tl-bar b-test" style="left:65%;width:20%;">Sign-off</div>
+            <div class="tl-bar b-dep" style="left:82.5%;width:10%;">Cut</div>
+          </div></div>
+          <div class="tl-row"><div class="lab">Principal Technical Architect</div><div class="tl-track">
+            <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+            <div class="tl-bar b-build" style="left:17.5%;width:57.5%;">Governança técnica do Build</div>
+            <div class="tl-bar b-dep" style="left:82.5%;width:10%;">Dep</div>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- SQUAD 2 FND+OPS -->
+      <div class="card">
+        <div class="wp-squad-h"><span class="sq-num">2</span> FND + OPS <span class="wp-tag">fundação · front-loaded</span></div>
+        <div class="tl">
+          <div class="tl-row"><div class="lab">Solution Architect</div><div class="tl-track">
+            <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+            <div class="tl-bar b-build" style="left:17.5%;width:27.5%;">Build (início)</div>
+          </div></div>
+          <div class="tl-row"><div class="lab">Technical Architect</div><div class="tl-track">
+            <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+            <div class="tl-bar b-build" style="left:17.5%;width:27.5%;">Build (início)</div>
+          </div></div>
+          <div class="tl-row"><div class="lab">Solution Consultant</div><div class="tl-track">
+            <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+            <div class="tl-bar b-build" style="left:17.5%;width:35%;">Build</div>
+          </div></div>
+          <div class="tl-row"><div class="lab">Developer</div><div class="tl-track"><div class="tl-bar b-build" style="left:17.5%;width:40%;">Build (config fundação)</div></div></div>
+          <div class="tl-row"><div class="lab">Quality Assurance Consultant</div><div class="tl-track">
+            <div class="tl-bar b-build" style="left:40%;width:25%;">Build/QA</div>
+            <div class="tl-bar b-test" style="left:65%;width:20%;">Test</div>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- SQUAD 3 CIM+CPM -->
+      <div class="card">
+        <div class="wp-squad-h"><span class="sq-num">3</span> CIM + CPM <span class="wp-tag">caminho crítico</span></div>
+        <div class="tl">
+          <div class="tl-row"><div class="lab">Solution Architect</div><div class="tl-track">
+            <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+            <div class="tl-bar b-build" style="left:17.5%;width:57.5%;">Build</div>
+          </div></div>
+          <div class="tl-row"><div class="lab">Technical Architect</div><div class="tl-track">
+            <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+            <div class="tl-bar b-build" style="left:17.5%;width:57.5%;">Build</div>
+          </div></div>
+          <div class="tl-row"><div class="lab">Solution Consultant</div><div class="tl-track">
+            <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+            <div class="tl-bar b-build" style="left:17.5%;width:57.5%;">Build</div>
+          </div></div>
+          <div class="tl-row"><div class="lab">Developer</div><div class="tl-track"><div class="tl-bar b-build" style="left:17.5%;width:57.5%;">Build (CPM-04 · 300 passos)</div></div></div>
+          <div class="tl-row"><div class="lab">Quality Assurance Consultant</div><div class="tl-track">
+            <div class="tl-bar b-build" style="left:30%;width:35%;">Build/QA</div>
+            <div class="tl-bar b-test" style="left:65%;width:20%;">Test</div>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- SQUAD 4 CRM+COPM -->
+      <div class="card">
+        <div class="wp-squad-h"><span class="sq-num">4</span> CRM + COPM <span class="wp-tag">relacionamento · captura</span></div>
+        <div class="tl">
+          <div class="tl-row"><div class="lab">Solution Architect</div><div class="tl-track">
+            <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+            <div class="tl-bar b-build" style="left:17.5%;width:47.5%;">Build</div>
+          </div></div>
+          <div class="tl-row"><div class="lab">Technical Architect</div><div class="tl-track">
+            <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+            <div class="tl-bar b-build" style="left:17.5%;width:47.5%;">Build</div>
+          </div></div>
+          <div class="tl-row"><div class="lab">Solution Consultant</div><div class="tl-track">
+            <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+            <div class="tl-bar b-build" style="left:17.5%;width:47.5%;">Build</div>
+          </div></div>
+          <div class="tl-row"><div class="lab">Developer</div><div class="tl-track"><div class="tl-bar b-build" style="left:17.5%;width:47.5%;">Build</div></div></div>
+          <div class="tl-row"><div class="lab">Quality Assurance Consultant</div><div class="tl-track">
+            <div class="tl-bar b-build" style="left:35%;width:30%;">Build/QA</div>
+            <div class="tl-bar b-test" style="left:65%;width:20%;">Test</div>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- SQUAD 5 SDP -->
+      <div class="card">
+        <div class="wp-squad-h"><span class="sq-num">5</span> SDP <span class="wp-tag">canais · Agentforce</span></div>
+        <div class="tl">
+          <div class="tl-row"><div class="lab">Solution Architect</div><div class="tl-track">
+            <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+            <div class="tl-bar b-build" style="left:17.5%;width:45%;">Build (Omni + voz)</div>
+          </div></div>
+          <div class="tl-row"><div class="lab">Technical Architect</div><div class="tl-track">
+            <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+            <div class="tl-bar b-build" style="left:17.5%;width:45%;">Build (SCV/Connect)</div>
+          </div></div>
+          <div class="tl-row"><div class="lab">Solution Consultant</div><div class="tl-track">
+            <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+            <div class="tl-bar b-build" style="left:17.5%;width:45%;">Build</div>
+          </div></div>
+          <div class="tl-row"><div class="lab">Developer</div><div class="tl-track"><div class="tl-bar b-build" style="left:17.5%;width:47.5%;">Build (Aliado ~18k · OMNI-28)</div></div></div>
+          <div class="tl-row"><div class="lab">Quality Assurance Consultant</div><div class="tl-track">
+            <div class="tl-bar b-build" style="left:35%;width:30%;">Build/QA</div>
+            <div class="tl-bar b-test" style="left:65%;width:20%;">Test</div>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- SQUAD 6 INT -->
+      <div class="card">
+        <div class="wp-squad-h"><span class="sq-num">6</span> INT <span class="wp-tag">integração · core · 2 TA (condicional G1004)</span></div>
+        <div class="tl">
+          <div class="tl-row"><div class="lab">Solution Architect</div><div class="tl-track">
+            <div class="tl-bar b-prep" style="left:0%;width:7.5%;">Prep</div>
+            <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+            <div class="tl-bar b-build" style="left:17.5%;width:47.5%;">Build (17 facades)</div>
+          </div></div>
+          <div class="tl-row"><div class="lab">Technical Architect (contratos)</div><div class="tl-track">
+            <div class="tl-bar b-prep" style="left:0%;width:7.5%;">Prep</div>
+            <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+            <div class="tl-bar b-build" style="left:17.5%;width:57.5%;">Build (contratos MuleSoft)</div>
+          </div></div>
+          <div class="tl-row"><div class="lab">Technical Architect (orquestração)</div><div class="tl-track">
+            <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+            <div class="tl-bar b-build" style="left:17.5%;width:57.5%;">Build (callouts ~2,3M/dia)</div>
+            <div class="tl-bar b-dep" style="left:82.5%;width:10%;">Dep</div>
+          </div></div>
+          <div class="tl-row"><div class="lab">Developer</div><div class="tl-track"><div class="tl-bar b-build" style="left:17.5%;width:57.5%;">Build (testes de contrato · G1008)</div></div></div>
+          <div class="tl-row"><div class="lab">Quality Assurance Consultant</div><div class="tl-track">
+            <div class="tl-bar b-build" style="left:30%;width:35%;">Build/QA</div>
+            <div class="tl-bar b-test" style="left:65%;width:20%;">Test</div>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- SQUAD 7 HCC -->
+      <div class="card">
+        <div class="wp-squad-h"><span class="sq-num">7</span> HCC — Human Centered Change <span class="wp-tag">experiência · adoção</span></div>
+        <div class="tl">
+          <div class="tl-row"><div class="lab">Human Centered Change Principal</div><div class="tl-track">
+            <div class="tl-bar b-prep" style="left:0%;width:7.5%;">Prep</div>
+            <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+            <div class="tl-bar b-test" style="left:65%;width:20%;">UAT</div>
+            <div class="tl-bar b-scale" style="left:92.5%;width:7.5%;">HC</div>
+          </div></div>
+          <div class="tl-row"><div class="lab">Human Centered Change Consultant</div><div class="tl-track">
+            <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+            <div class="tl-bar b-test" style="left:65%;width:20%;">UAT/Adoção</div>
+            <div class="tl-bar b-scale" style="left:92.5%;width:7.5%;">HC</div>
+          </div></div>
+          <div class="tl-row"><div class="lab">Experience Architect</div><div class="tl-track">
+            <div class="tl-bar b-prep" style="left:0%;width:7.5%;">Prep</div>
+            <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design (console/fluxos)</div>
+          </div></div>
+          <div class="tl-row"><div class="lab">Experience Designer</div><div class="tl-track">
+            <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design (CPM-04 · 300 passos)</div>
+            <div class="tl-bar b-build" style="left:17.5%;width:15%;">Suporte Build</div>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- MATRIZ SQUAD × FASE -->
+      <div class="card">
+        <h3>Matriz de intensidade — squad × fase PS</h3>
+        <p class="sec-sub" style="margin-top:2px;">Leitura rápida da carga de cada squad por fase. ● pico/dedicação plena · ◐ parcial/rampa · ○ fora de janela.</p>
+        <table class="uc-table">
+          <thead><tr><th>Squad</th><th>Prepare</th><th>Design</th><th>Build</th><th>Test/UAT</th><th>Deploy</th><th>Hypercare</th></tr></thead>
+          <tbody>
+            <tr><td><b>1 · Governance</b></td><td><span class="phase-dot pd-full">●</span></td><td><span class="phase-dot pd-full">●</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-full">●</span></td><td><span class="phase-dot pd-full">●</span></td><td><span class="phase-dot pd-part">◐</span></td></tr>
+            <tr><td><b>2 · FND + OPS</b></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-full">●</span></td><td><span class="phase-dot pd-full">●</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td></tr>
+            <tr><td><b>3 · CIM + CPM</b></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-full">●</span></td><td><span class="phase-dot pd-full">●</span></td><td><span class="phase-dot pd-full">●</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td></tr>
+            <tr><td><b>4 · CRM + COPM</b></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-full">●</span></td><td><span class="phase-dot pd-full">●</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td></tr>
+            <tr><td><b>5 · SDP</b></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-full">●</span></td><td><span class="phase-dot pd-full">●</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-off">○</span></td></tr>
+            <tr><td><b>6 · INT</b></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-full">●</span></td><td><span class="phase-dot pd-full">●</span></td><td><span class="phase-dot pd-full">●</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-off">○</span></td></tr>
+            <tr><td><b>7 · HCC</b></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-full">●</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-full">●</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-full">●</span></td></tr>
+          </tbody>
+        </table>
+        <div class="legend-row">
+          <span class="lg"><span class="phase-dot pd-full">●</span> pico / dedicação plena</span>
+          <span class="lg"><span class="phase-dot pd-part">◐</span> parcial / rampa</span>
+          <span class="lg"><span class="phase-dot pd-off">○</span> fora de janela</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Leitura do plano de trabalho</h3>
+        <ul class="bul">
+          <li><b>Front-loaded na fundação.</b> FND+OPS resolve a base cedo (Design → início do Build) para desbloquear os squads funcionais; sai antes do Deploy.</li>
+          <li><b>Caminho crítico em CIM+CPM.</b> Squad de maior duração de Build (inclui a entrevista CPM-04 de 300 passos); dimensiona a janela central.</li>
+          <li><b>INT começa no Prepare.</b> Único squad funcional que entra já no Prepare — precisa fixar o inventário de facades MuleSoft (G1004) antes do Build. Carrega 2 Technical Architects (contratos + orquestração de callouts ~2,3M/dia).</li>
+          <li><b>Governance atravessa o programa.</b> Program/Project Manager em janela plena; arquitetos Principal em picos de Prepare/Design e sign-off/cutover.</li>
+          <li><b>HCC nas bordas de valor.</b> Experiência concentrada no Design (console, fluxos, CPM-04); mudança e adoção com pico em UAT e Hypercare, quando a nova superfície chega às pessoas.</li>
+        </ul>
+      </div>
+
+      <div class="disc">
+        <b>Disclaimer — exercício de planejamento (Benchmark).</b> As janelas de fase e a intensidade por squad são derivadas top-down da forma do engajamento (cenário Central, ~40 semanas) e da metodologia Salesforce PS; carregam o Benchmark Disclaimer. Este é um <b>recorte de alocação em 7 squads para gestão de recursos</b>, distinto da base de dimensionamento do ROM (5 squads de Build) e sem alterar seus racionais, horas ou premissas. Sem rates e sem valores financeiros (todos os papéis a 0). O posicionamento no tempo é indicativo para planejamento, não um compromisso contratual de datas.
+      </div>
+
+      <div class="sec-nav">
+        <button class="sec-link" onclick="showSection('s8',null,'nav')">← Cronograma · marcos</button>
+        <button class="sec-link" onclick="showSection('s1',null,'nav')">Voltar ao início ↑</button>
+      </div>
+    </div>
+
     <!-- SECTIONS-END -->
   </div><!-- /content -->
 </div><!-- /main -->
 
 <div class="doc-footer">
   <span><b>ARI Vivo · ROM &amp; Estimativa de Projeto</b> — Salesforce Professional Services LATAM · documento controlado por versão</span>
-  <span>Versão <b>1.0</b> · gerado <b>25 ago 2026, 19:40 BRT</b></span>
+  <span>Versão <b>1.1</b> · gerado <b>25 ago 2026, 19:55 BRT</b></span>
 </div>
 
 <script>
