@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<!-- DECK-VERSION: 1.0 | GENERATED: 2026-08-25T19:40:00-03:00 -->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARI Vivo · ROM & Estimativa de Projeto (Salesforce PS)</title>
+<style>
+  :root{
+    --navy:#2b0b4a; --navy-2:#3a1063; --purple:#660099; --purple-2:#7c3aed;
+    --violet:#8b5cf6; --ink:#1a1330; --body:#332b47; --muted:#6b6480;
+    --line:#e6e1ef; --line-2:#d8d0e6; --bg:#f6f4fb; --card:#ffffff;
+    --red:#c0392b; --red-bg:#fdecea; --amber:#b7791f; --amber-bg:#fff8ec;
+    --green:#1e7e57; --green-bg:#e8f6ee; --blue:#2563a8; --blue-bg:#eaf1fb;
+    --radius:16px; --shadow:0 2px 10px rgba(43,11,74,.06),0 8px 28px rgba(43,11,74,.05);
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{font-family:var(--sans);color:var(--body);background:var(--bg);line-height:1.55;font-size:15px;-webkit-font-smoothing:antialiased;}
+
+  /* ═══ SIDEBAR ═══ */
+  #sidebar{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;
+    background:linear-gradient(170deg,var(--navy),var(--navy-2) 60%,#1c0733);color:#e9e3f5;z-index:100;}
+  #sidebar-header{padding:26px 22px 18px;border-bottom:1px solid rgba(255,255,255,.09);}
+  .logo-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+  .logo-tag{font-size:10px;font-weight:800;letter-spacing:.5px;padding:4px 9px;border-radius:20px;text-transform:uppercase;}
+  .logo-tag.vivo{background:#660099;color:#fff;}
+  .logo-tag.sf{background:#00a1e0;color:#fff;}
+  .logo-tag.ps{background:rgba(255,255,255,.14);color:#e9e3f5;}
+  #sidebar-header h2{font-size:17px;line-height:1.25;margin:0 0 6px;color:#fff;font-weight:800;}
+  #sidebar-header p{font-size:11.5px;line-height:1.4;margin:0;color:#b8abd6;}
+  .owner-line{margin-top:12px;font-size:11px;color:#cbbfe6;}
+  nav{padding:14px 12px 40px;}
+  .nav-group-title{font-size:10.5px;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+    color:#8f7fc0;padding:16px 10px 7px;}
+  .nav-item{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:10px;font-size:13px;
+    color:#ddd4f0;cursor:pointer;transition:background .12s,color .12s;margin-bottom:2px;text-decoration:none;}
+  .nav-item:hover{background:rgba(255,255,255,.07);color:#fff;}
+  .nav-item.active{background:linear-gradient(90deg,var(--purple),var(--purple-2));color:#fff;font-weight:700;box-shadow:0 3px 12px rgba(124,58,237,.35);}
+  .nav-item .ico{font-size:15px;width:20px;text-align:center;flex:none;}
+  .nav-badge{margin-left:auto;font-size:9px;font-weight:800;padding:2px 7px;border-radius:20px;background:rgba(255,255,255,.13);color:#e9e3f5;letter-spacing:.4px;}
+
+  /* ═══ MAIN ═══ */
+  #main{margin-left:280px;min-height:100vh;}
+  #topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);}
+  .topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 40px;flex-wrap:wrap;}
+  .topbar-inner h1{font-size:16px;margin:0;color:var(--ink);font-weight:800;}
+  .topbar-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .inst-badge,.date-badge,.ver-badge{font-size:11px;font-weight:700;padding:5px 11px;border-radius:20px;}
+  .inst-badge{background:var(--blue-bg);color:var(--blue);}
+  .date-badge{background:var(--bg);color:var(--muted);border:1px solid var(--line);}
+  .ver-badge{background:var(--purple);color:#fff;}
+  #content{padding:34px 40px 90px;max-width:1120px;}
+
+  /* ═══ SECTIONS ═══ */
+  .section{display:none;animation:fade .25s ease;}
+  .section.active{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+  /* ═══ HERO ═══ */
+  .hero{background:linear-gradient(150deg,var(--navy),var(--purple) 120%);color:#fff;border-radius:var(--radius);
+    padding:38px 36px;margin-bottom:26px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+  .hero .eyebrow{font-size:11.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:#d9c7f5;margin-bottom:12px;}
+  .hero h1{font-size:30px;line-height:1.15;margin:0 0 12px;font-weight:800;}
+  .hero .sub{font-size:15px;color:#e6dcf7;max-width:760px;margin:0;line-height:1.6;}
+  .hero-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:26px;}
+  .hkpi{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:16px 16px;}
+  .hkpi .n{font-size:24px;font-weight:800;color:#fff;line-height:1;}
+  .hkpi .l{font-size:11px;color:#d6c9ef;margin-top:7px;line-height:1.4;}
+
+  /* ═══ CARDS / TYPO ═══ */
+  h2.sec-h{font-size:22px;color:var(--ink);font-weight:800;margin:6px 0 4px;}
+  .sec-sub{font-size:14px;color:var(--muted);margin:0 0 22px;max-width:760px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px 26px;margin-bottom:20px;box-shadow:var(--shadow);}
+  .card h3{font-size:16px;color:var(--ink);font-weight:800;margin:0 0 12px;}
+  .lead{font-size:14px;color:var(--body);}
+  .eyebrow-dark{font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--purple);margin-bottom:6px;}
+
+  /* KPI row */
+  .kpi-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:4px 0 22px;}
+  .kpi{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--purple);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow);}
+  .kpi .n{font-size:23px;font-weight:800;color:var(--ink);line-height:1;}
+  .kpi .l{font-size:11.5px;color:var(--muted);margin-top:7px;line-height:1.4;}
+  .kpi.alt{border-left-color:var(--blue);}
+  .kpi.green{border-left-color:var(--green);}
+  .kpi.amber{border-left-color:var(--amber);}
+
+  /* chips */
+  .chip{display:inline-block;font-size:10.5px;font-weight:800;padding:3px 9px;border-radius:20px;letter-spacing:.3px;vertical-align:middle;}
+  .chip.red{background:var(--red-bg);color:var(--red);}
+  .chip.amber{background:var(--amber-bg);color:var(--amber);}
+  .chip.green{background:var(--green-bg);color:var(--green);}
+  .chip.blue{background:var(--blue-bg);color:var(--blue);}
+  .chip.purple{background:#f2e8fb;color:var(--purple);}
+  .chip.dark{background:var(--ink);color:#fff;}
+
+  /* tables */
+  .uc-table{width:100%;border-collapse:collapse;font-size:13px;margin:6px 0 4px;overflow:hidden;border-radius:12px;}
+  .uc-table thead th{background:var(--navy);color:#fff;text-align:left;padding:11px 13px;font-weight:700;font-size:12px;}
+  .uc-table thead th.r{text-align:right;}
+  .uc-table tbody td{padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top;}
+  .uc-table tbody td.r{text-align:right;font-variant-numeric:tabular-nums;}
+  .uc-table tbody tr:nth-child(even){background:#faf8fd;}
+  .uc-table tbody tr.total-row{background:#f2e8fb;font-weight:800;color:var(--ink);}
+  .uc-table tbody tr.total-row td{border-bottom:none;}
+  .table-scroll{overflow-x:auto;}
+  .num{font-variant-numeric:tabular-nums;}
+
+  /* alerts */
+  .alert{border-radius:12px;padding:14px 16px;margin-bottom:14px;font-size:13px;border:1px solid;display:flex;gap:11px;align-items:flex-start;}
+  .alert .ai{font-size:16px;flex:none;line-height:1.3;}
+  .alert.red{background:var(--red-bg);border-color:#f3c6c0;color:#8a2a1f;}
+  .alert.amber{background:var(--amber-bg);border-color:#f0dcae;color:#7a5410;}
+  .alert.green{background:var(--green-bg);border-color:#bfe6cf;color:#155f40;}
+  .alert.blue{background:var(--blue-bg);border-color:#c3d8f2;color:#1c4a7a;}
+  .alert b{font-weight:800;}
+
+  /* timeline — phases */
+  .tl{margin:8px 0 6px;}
+  .tl-weeks{display:grid;grid-template-columns:180px 1fr;gap:0;align-items:center;font-size:10.5px;color:var(--muted);padding:0 0 6px;border-bottom:1px solid var(--line);margin-bottom:8px;}
+  .tl-weeks .wk{display:flex;justify-content:space-between;font-weight:700;}
+  .tl-row{display:grid;grid-template-columns:180px 1fr;gap:0;align-items:center;padding:5px 0;}
+  .tl-row .lab{font-size:12px;color:var(--ink);font-weight:600;padding-right:12px;}
+  .tl-row .lab small{display:block;color:var(--muted);font-weight:500;font-size:10.5px;}
+  .tl-track{position:relative;height:26px;background:linear-gradient(90deg,#f3eefb,#f3eefb);border-radius:7px;}
+  .tl-bar{position:absolute;top:3px;height:20px;border-radius:6px;display:flex;align-items:center;padding:0 8px;
+    font-size:10.5px;font-weight:800;color:#fff;white-space:nowrap;overflow:hidden;box-shadow:0 1px 4px rgba(43,11,74,.2);}
+  .b-pd{background:linear-gradient(90deg,#2563a8,#3b82c4);}
+  .b-build{background:linear-gradient(90deg,#660099,#7c3aed);}
+  .b-uat{background:linear-gradient(90deg,#b7791f,#d69e2e);}
+  .b-dep{background:linear-gradient(90deg,#1e7e57,#2fa072);}
+  .b-scale{background:linear-gradient(90deg,#0f766e,#14b8a6);}
+  .b-gov{background:linear-gradient(90deg,#4b5563,#6b7280);}
+
+  /* milestone roadmap */
+  .rm{position:relative;margin:14px 0 6px;padding-left:8px;}
+  .rm::before{content:"";position:absolute;left:20px;top:8px;bottom:8px;width:3px;background:linear-gradient(180deg,var(--purple),var(--purple-2));border-radius:3px;}
+  .rm-item{position:relative;padding:0 0 22px 54px;}
+  .rm-dot{position:absolute;left:11px;top:2px;width:22px;height:22px;border-radius:50%;background:#fff;border:3px solid var(--purple);
+    display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:var(--purple);z-index:2;}
+  .rm-dot.done{background:var(--purple);color:#fff;}
+  .rm-item h4{font-size:14.5px;margin:0 0 3px;color:var(--ink);font-weight:800;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .rm-when{font-size:11px;font-weight:700;color:var(--purple);}
+  .rm-item p{margin:4px 0 0;font-size:12.5px;color:var(--body);line-height:1.5;}
+
+  /* footer nav */
+  .sec-nav{display:flex;justify-content:space-between;gap:10px;margin-top:26px;padding-top:18px;border-top:1px solid var(--line);flex-wrap:wrap;}
+  .sec-link{background:var(--card);border:1px solid var(--line-2);color:var(--purple);font-size:12.5px;font-weight:700;
+    padding:9px 15px;border-radius:9px;cursor:pointer;transition:all .12s;}
+  .sec-link:hover{background:var(--purple);color:#fff;border-color:var(--purple);}
+
+  /* page footer */
+  .doc-footer{margin-top:30px;padding:18px 40px;border-top:1px solid var(--line);font-size:11px;color:var(--muted);
+    display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-left:280px;}
+  .doc-footer b{color:var(--body);}
+
+  .disc{font-size:12px;color:var(--muted);font-style:italic;line-height:1.6;background:#faf8fd;border-left:3px solid var(--line-2);padding:12px 16px;border-radius:0 8px 8px 0;margin-bottom:12px;}
+
+  @media(max-width:1024px){
+    #sidebar{transform:translateX(-100%);transition:transform .2s;}
+    #sidebar.open{transform:none;}
+    #main,.doc-footer{margin-left:0;}
+    #content{padding:24px 18px 70px;}
+    .topbar-inner{padding:12px 18px;}
+    .menu-btn{display:inline-flex !important;}
+  }
+  .menu-btn{display:none;align-items:center;justify-content:center;width:38px;height:38px;border-radius:9px;
+    background:var(--purple);color:#fff;border:none;font-size:18px;cursor:pointer;}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ SIDEBAR ═══════════════ -->
+<aside id="sidebar">
+  <div id="sidebar-header">
+    <div class="logo-row">
+      <span class="logo-tag vivo">Vivo</span>
+      <span class="logo-tag sf">Salesforce</span>
+      <span class="logo-tag ps">PS</span>
+    </div>
+    <h2>ARI Vivo<br>ROM &amp; Estimativa</h2>
+    <p>Atendimento B2C · Ciclo completo Salesforce Professional Services</p>
+    <div class="owner-line">🤝 Salesforce Professional Services · LATAM Brasil</div>
+  </div>
+  <nav>
+    <div class="nav-group-title">Visão Geral</div>
+    <a class="nav-item active" onclick="showSection('s1',this)"><span class="ico">🎯</span> Sumário Executivo</a>
+    <a class="nav-item" onclick="showSection('s2',this)"><span class="ico">📐</span> Como Ler a Estimativa</a>
+
+    <div class="nav-group-title">Esforço</div>
+    <a class="nav-item" onclick="showSection('s3',this)"><span class="ico">📊</span> Esforço por Cenário</a>
+    <a class="nav-item" onclick="showSection('s4',this)"><span class="ico">🧩</span> Esforço por Fase</a>
+    <a class="nav-item" onclick="showSection('s5',this)"><span class="ico">🗂️</span> Matriz Papel × Fase <span class="nav-badge">10</span></a>
+
+    <div class="nav-group-title">Equipe</div>
+    <a class="nav-item" onclick="showSection('s6',this)"><span class="ico">👥</span> Roster Comprometido</a>
+
+    <div class="nav-group-title">Cronogramas</div>
+    <a class="nav-item" onclick="showSection('s7',this)"><span class="ico">⏱️</span> Timeline · Roles &amp; Carga</a>
+    <a class="nav-item" onclick="showSection('s8',this)"><span class="ico">🚩</span> Timeline · Marcos</a>
+
+    <div class="nav-group-title">Comparação &amp; Riscos</div>
+    <a class="nav-item" onclick="showSection('s9',this)"><span class="ico">⚖️</span> Trilha Tradicional</a>
+    <a class="nav-item" onclick="showSection('s10',this)"><span class="ico">✅</span> Qualificação AI-native</a>
+    <a class="nav-item" onclick="showSection('s11',this)"><span class="ico">🔴</span> Riscos &amp; Sinalizadores <span class="nav-badge">4</span></a>
+    <a class="nav-item" onclick="showSection('s12',this)"><span class="ico">📎</span> Disclaimers</a>
+  </nav>
+</aside>
+
+<!-- ═══════════════ MAIN ═══════════════ -->
+<div id="main">
+  <div id="topbar">
+    <div class="topbar-inner">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button class="menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+        <h1>🟣 ARI Vivo · ROM &amp; Estimativa de Projeto — Salesforce PS</h1>
+      </div>
+      <div class="topbar-right">
+        <span class="ver-badge">Versão 1.0</span>
+        <span class="inst-badge">🔒 Preço diferido · sem valores financeiros</span>
+        <span class="date-badge">📅 Gerado 25 ago 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="content">
+
+    <!-- ═══ S1 · SUMÁRIO EXECUTIVO ═══ -->
+    <div id="s1" class="section active">
+      <div class="hero">
+        <div class="eyebrow">Atendimento B2C · Telefônica Brasil (Vivo) · Salesforce Professional Services</div>
+        <h1>Estimativa de ciclo completo<br>sobre o ROM de Build revalidado</h1>
+        <p class="sub">Estimativa de duas trilhas (AI-native comprometida e Tradicional notional) sobre uma única base de escopo, cobrindo todo o ciclo da metodologia Salesforce PS — Prepare &amp; Design → Build/Delivery → SIT → UAT → Deploy → Scale/Hypercare. Dimensionamento 100% orientado por escopo, sem teto de valor. Preço diferido.</p>
+        <div class="hero-kpis">
+          <div class="hkpi"><div class="n">~40 sem</div><div class="l">Duração central (~9,5 meses), trilha AI-native</div></div>
+          <div class="hkpi"><div class="n">43.172 h</div><div class="l">Horas contratadas · cenário central AI-native</div></div>
+          <div class="hkpi"><div class="n">~27</div><div class="l">Pessoas no pico de Build (5 squads) + overlay</div></div>
+          <div class="hkpi"><div class="n">10 papéis</div><div class="l">PS + 4 papéis load-bearing do lado cliente</div></div>
+        </div>
+      </div>
+
+      <div class="kpi-wrap">
+        <div class="kpi"><div class="n">20.485 h</div><div class="l">Otimista (produtivas)</div></div>
+        <div class="kpi"><div class="n">32.379 h</div><div class="l">Central (produtivas) — base</div></div>
+        <div class="kpi amber"><div class="n">49.230 h</div><div class="l">Pessimista (produtivas)</div></div>
+        <div class="kpi alt"><div class="n">6 fases</div><div class="l">Ciclo PS completo sobre o ROM de Build</div></div>
+      </div>
+
+      <div class="card">
+        <div class="eyebrow-dark">O que esta estimativa é</div>
+        <h3>Uma estimativa de tempo, esforço e equipe — não um preço</h3>
+        <p class="lead">O produto entregue aqui é <b>tempo, esforço e roster</b> por trilha de entrega. O preço é a última camada e está deliberadamente <b>diferido</b>: nenhuma taxa validada consta em arquivo, então nenhum valor financeiro aparece neste documento. A trilha <b>AI-native</b> é a âncora comprometida (o número dimensionado a partir do escopo); a trilha <b>Tradicional</b> é ilustrativa — quanto o mesmo escopo custaria no modelo tradicional.</p>
+        <div class="alert blue" style="margin-top:14px;">
+          <span class="ai">📌</span>
+          <div><b>Duas premissas de método governam tudo abaixo.</b> (1) O ROM ingerido cobre <b>apenas a fase de Build/Delivery</b> — P&amp;D, SIT, UAT, Deploy, Scale/Hypercare e governança de programa são <b>aditivos</b> (premissa 16 do ROM; ADR <code>decisions/0001</code>). (2) <b>Sem teto de valor</b> — o dimensionamento é 100% orientado pelo escopo; nenhum valor externo foi usado como alvo ou limite.</div>
+        </div>
+      </div>
+
+      <div class="alert red"><span class="ai">🔴</span><div><b>Fase 0 fortemente recomendada.</b> 72 gaps + 14 conflitos de fonte. O <b>inventário de facades MuleSoft (G1004)</b> é o deliverable #1 — fixa o piso do domínio de Integração e é condição da trilha AI-native.</div></div>
+
+      <div class="sec-nav">
+        <span></span>
+        <button class="sec-link" onclick="showSection('s2',null,'nav')">Como ler a estimativa →</button>
+      </div>
+    </div>
+
+    <!-- ═══ S2 · COMO LER ═══ -->
+    <div id="s2" class="section">
+      <h2 class="sec-h">Como ler esta estimativa</h2>
+      <p class="sec-sub">Duas trilhas sobre uma única base de escopo, e as duas premissas de método que governam os números.</p>
+
+      <div class="card">
+        <h3>Duas trilhas, uma base de escopo</h3>
+        <table class="uc-table">
+          <thead><tr><th style="width:210px;">Trilha</th><th>O que representa</th></tr></thead>
+          <tbody>
+            <tr><td><span class="chip purple">AI-native</span> <b>âncora comprometida</b></td><td>O número dimensionado a partir do escopo, no modelo de entrega AI-native. É a trilha de referência deste documento.</td></tr>
+            <tr><td><span class="chip dark">Tradicional</span> notional</td><td>Quanto o mesmo escopo custaria no modelo de entrega tradicional. É ilustrativa (gross-up), não derivada de forma independente.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>Base de horas</h3>
+        <div class="kpi-wrap" style="margin-bottom:6px;">
+          <div class="kpi"><div class="n">6h/dia</div><div class="l"><b>Horas produtivas</b> — tempo efetivo de trabalho (base do ROM)</div></div>
+          <div class="kpi alt"><div class="n">÷ 0,75</div><div class="l"><b>Horas contratadas</b> = produtivas ÷ 0,75 (jornada de 8h; inclui cerimônias, overhead e tempo não-produtivo)</div></div>
+        </div>
+        <p class="lead"><b>P&amp;D não é discovery greenfield.</b> A premissa é que épicos e o plano técnico já existem (o ROM e seu mapa de histórias). P&amp;D é refino + Sprint 0, mais duas atividades aditivas que são o <b>mecanismo</b> do resultado ARI (não decoração): (a) baseline de TMA/FCR auditável; (b) design <i>right-sized</i> das superfícies de alto impacto.</p>
+      </div>
+
+      <div class="sec-nav">
+        <button class="sec-link" onclick="showSection('s1',null,'nav')">← Sumário executivo</button>
+        <button class="sec-link" onclick="showSection('s3',null,'nav')">Esforço por cenário →</button>
+      </div>
+    </div>
+
+    <!-- ═══ S3 · ESFORÇO POR CENÁRIO ═══ -->
+    <div id="s3" class="section">
+      <h2 class="sec-h">Esforço por cenário — Trilha AI-native</h2>
+      <p class="sec-sub">Faixa otimista / central / pessimista, em horas produtivas e contratadas.</p>
+
+      <div class="card">
+        <div class="table-scroll">
+        <table class="uc-table">
+          <thead><tr><th>Cenário</th><th class="r">Horas produtivas (6h/dia)</th><th class="r">Horas contratadas (÷ 0,75)</th></tr></thead>
+          <tbody>
+            <tr><td>Otimista</td><td class="r">20.485</td><td class="r">27.313</td></tr>
+            <tr class="total-row"><td>Central (base)</td><td class="r">32.379</td><td class="r">43.172</td></tr>
+            <tr><td>Pessimista</td><td class="r">49.230</td><td class="r">65.639</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+
+      <div class="kpi-wrap">
+        <div class="kpi"><div class="n">~40 sem</div><div class="l">Duração central (~9,5 meses)</div></div>
+        <div class="kpi alt"><div class="n">36–48 sem</div><div class="l">Faixa de duração (benchmark-derived)</div></div>
+        <div class="kpi green"><div class="n">~27</div><div class="l">FTE de programa — pico maior no meio do Build, cauda leve em UAT/Deploy/Scale</div></div>
+      </div>
+
+      <div class="disc">Esta figura é baseada em benchmark, derivada de dados de treinamento do modelo de IA e padrões gerais de entrega (não validados pela Salesforce) — não é um compromisso. Aplica-se às faixas de duração derivadas top-down. Números finais são confirmados através do acordo comercial aplicável.</div>
+
+      <div class="sec-nav">
+        <button class="sec-link" onclick="showSection('s2',null,'nav')">← Como ler</button>
+        <button class="sec-link" onclick="showSection('s4',null,'nav')">Esforço por fase →</button>
+      </div>
+    </div>
+
+    <!-- ═══ S4 · ESFORÇO POR FASE ═══ -->
+    <div id="s4" class="section">
+      <h2 class="sec-h">Esforço por fase — ciclo PS completo</h2>
+      <p class="sec-sub">Cenário central, horas produtivas. O ROM cobre só Build; as demais fases são aditivas sobre a base de Build (ADR <code>decisions/0001</code>).</p>
+
+      <div class="card">
+        <div class="table-scroll">
+        <table class="uc-table">
+          <thead><tr><th>Fase</th><th class="r">Horas produtivas</th><th style="width:140px;">Fator</th><th>Conteúdo</th></tr></thead>
+          <tbody>
+            <tr><td><span class="chip blue">P&amp;D</span> Prepare &amp; Design</td><td class="r">2.940</td><td>15% do Build</td><td>Refino de histórias + Sprint 0 + captura de baseline TMA/FCR e plano de medição + trilha <i>right-sized</i> de experience/service/conversation design nas superfícies de alto impacto</td></tr>
+            <tr><td><span class="chip purple">Build/Delivery</span></td><td class="r">19.600</td><td>supplied (ROM)</td><td>17.040 build (5 squads) + 2.556 QA/transversal (+15%); SIT embutido no ajuste de teste +12,5% do ROM</td></tr>
+            <tr><td><span class="chip amber">UAT</span></td><td class="r">1.568</td><td>8% do Build</td><td>Ciclos de aceitação de negócio, correção de defeitos, sign-off</td></tr>
+            <tr><td><span class="chip green">Deploy</span></td><td class="r">1.372</td><td>7% do Build</td><td>Cutover, release, go-live coordenado com dependências de infra (SCV / Amazon Connect)</td></tr>
+            <tr><td><span class="chip green">Scale / Hypercare</span></td><td class="r">1.960</td><td>10% do Build</td><td>Estabilização pós-go-live, hypercare, adoção</td></tr>
+            <tr><td><span class="chip dark">Governança / PM</span> <small>(overlay)</small></td><td class="r">4.939</td><td>18% overlay</td><td>Gestão de programa/entrega, Scrum Masters, PMO — excluídos do ROM (premissa 16), adicionados aqui</td></tr>
+            <tr class="total-row"><td>Total (produtivas, central)</td><td class="r">32.379</td><td>—</td><td>= 43.172 h contratadas (÷ 0,75)</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+
+      <div class="alert blue"><span class="ai">🧩</span><div><b>Por que as fases somam além do ROM.</b> O ROM ingerido dimensiona <b>apenas Build/Delivery</b>. P&amp;D, UAT, Deploy, Scale/Hypercare e o overlay de Governança/PM são <b>aditivos</b> por método (premissa 16 do ROM; ADR <code>decisions/0001</code>) — não estão embutidos no número de Build. O SIT é a exceção: já está dentro do ajuste de teste de +12,5% do próprio ROM.</div></div>
+
+      <div class="sec-nav">
+        <button class="sec-link" onclick="showSection('s3',null,'nav')">← Esforço por cenário</button>
+        <button class="sec-link" onclick="showSection('s5',null,'nav')">Matriz papel × fase →</button>
+      </div>
+    </div>
+
+    <!-- ═══ S5 · MATRIZ PAPEL × FASE ═══ -->
+    <div id="s5" class="section">
+      <h2 class="sec-h">Matriz papel × fase</h2>
+      <p class="sec-sub">10 papéis PS × 6 fases, horas produtivas (base 6h/dia). Contratadas = produtivas ÷ 0,75. Trilha AI-native, cenário central.</p>
+
+      <div class="card">
+        <div class="table-scroll">
+        <table class="uc-table">
+          <thead><tr>
+            <th style="min-width:230px;">Papel</th>
+            <th class="r">P&amp;D</th><th class="r">Build</th><th class="r">UAT</th><th class="r">Deploy</th><th class="r">Scale</th><th class="r">Gov</th>
+            <th class="r">Produtivas</th><th class="r">Contratadas</th>
+          </tr></thead>
+          <tbody>
+            <tr><td>Program / Delivery Lead</td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="r">160</td><td class="r">2.000</td><td class="r">2.160</td><td class="r">2.880</td></tr>
+            <tr><td>Solution Architect (programa)</td><td class="r">500</td><td class="r">—</td><td class="r">168</td><td class="r">100</td><td class="r">—</td><td class="r">—</td><td class="r">768</td><td class="r">1.024</td></tr>
+            <tr><td>Technical Architect / Agent Orchestrator</td><td class="r">400</td><td class="r">—</td><td class="r">—</td><td class="r">300</td><td class="r">200</td><td class="r">—</td><td class="r">900</td><td class="r">1.200</td></tr>
+            <tr><td>Engenharia de Build (5 squads, ROM)</td><td class="r">—</td><td class="r">17.040</td><td class="r">600</td><td class="r">272</td><td class="r">1.100</td><td class="r">—</td><td class="r">19.012</td><td class="r">25.349</td></tr>
+            <tr><td>QA / Test Automation</td><td class="r">—</td><td class="r">2.556</td><td class="r">700</td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="r">3.256</td><td class="r">4.341</td></tr>
+            <tr><td>Experience / Service / Conversation Designer</td><td class="r">1.100</td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="r">1.100</td><td class="r">1.467</td></tr>
+            <tr><td>Analista de Baseline TMA/FCR (BI)</td><td class="r">540</td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="r">540</td><td class="r">720</td></tr>
+            <tr><td>Release / DevOps Engineer</td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="r">700</td><td class="r">—</td><td class="r">—</td><td class="r">700</td><td class="r">933</td></tr>
+            <tr><td>Adoption / Change Architect</td><td class="r">400</td><td class="r">—</td><td class="r">100</td><td class="r">—</td><td class="r">500</td><td class="r">—</td><td class="r">1.000</td><td class="r">1.333</td></tr>
+            <tr><td>Scrum Masters + PMO</td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="r">2.939</td><td class="r">2.939</td><td class="r">3.919</td></tr>
+            <tr class="total-row"><td>Total</td><td class="r">3.440</td><td class="r">19.596</td><td class="r">1.568</td><td class="r">1.672</td><td class="r">1.960</td><td class="r">4.939</td><td class="r">32.375</td><td class="r">43.167</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <p class="disc">Pequenas diferenças de arredondamento entre esta matriz (32.375 / 43.167) e o total por fase (32.379 / 43.172) são de arredondamento de linha; a base de dimensionamento é a mesma.</p>
+
+      <div class="sec-nav">
+        <button class="sec-link" onclick="showSection('s4',null,'nav')">← Esforço por fase</button>
+        <button class="sec-link" onclick="showSection('s6',null,'nav')">Roster comprometido →</button>
+      </div>
+    </div>
+
+    <!-- ═══ S6 · ROSTER COMPROMETIDO ═══ -->
+    <div id="s6" class="section">
+      <h2 class="sec-h">Roster comprometido — PS + Cliente</h2>
+      <p class="sec-sub">14 papéis Salesforce PS + 4 papéis <i>load-bearing</i> do lado cliente. O núcleo é full-time; a cauda de especialistas é fracional; os squads são time-boxed à janela de Build. Trilha AI-native.</p>
+
+      <div class="kpi-wrap">
+        <div class="kpi"><div class="n">14 PS</div><div class="l">Papéis Salesforce Professional Services</div></div>
+        <div class="kpi alt"><div class="n">4 cliente</div><div class="l">Papéis do lado Vivo (readiness da porta AI-native)</div></div>
+        <div class="kpi green"><div class="n">27</div><div class="l">Pessoas nos 5 squads de Build (pico)</div></div>
+        <div class="kpi amber"><div class="n">~27 FTE</div><div class="l">Média de programa (pico maior no meio do Build)</div></div>
+      </div>
+
+      <div class="card">
+        <h3>Lado Salesforce PS</h3>
+        <div class="table-scroll">
+        <table class="uc-table">
+          <thead><tr>
+            <th>#</th><th>Papel</th><th>Senioridade</th><th>Local</th><th class="r">Qtd</th><th>Alocação</th><th>Fases</th>
+          </tr></thead>
+          <tbody>
+            <tr><td>R01</td><td>Program / Delivery Lead</td><td>Senior</td><td>Onshore</td><td class="r">1</td><td><span class="chip blue">full</span></td><td>P&amp;D→Scale</td></tr>
+            <tr><td>R02</td><td>Solution Architect (programa)</td><td>Senior</td><td>Onshore</td><td class="r">1</td><td><span class="chip amber">half</span></td><td>P&amp;D · UAT · Deploy</td></tr>
+            <tr><td>R03</td><td>Technical Architect / Agent Orchestrator</td><td>Senior</td><td>Onshore</td><td class="r">1</td><td><span class="chip amber">half</span></td><td>P&amp;D · Deploy · Scale</td></tr>
+            <tr><td>R04</td><td>Squad 1 — Foundation &amp; Ops (FND+OPS)</td><td>Regular</td><td>Offshore</td><td class="r">5</td><td><span class="chip blue">full</span></td><td>Build</td></tr>
+            <tr><td>R05</td><td>Squad 2 — Interaction/Relationship/Capture</td><td>Regular</td><td>Offshore</td><td class="r">6</td><td><span class="chip blue">full</span></td><td>Build <span class="chip red">caminho crítico</span></td></tr>
+            <tr><td>R06</td><td>Squad 3 — Problem &amp; Guided Flows (CPM)</td><td>Regular</td><td>Offshore</td><td class="r">5</td><td><span class="chip blue">full</span></td><td>Build</td></tr>
+            <tr><td>R07</td><td>Squad 4 — Channels &amp; Agentforce (OMNI+SDP)</td><td>Regular</td><td>Offshore</td><td class="r">6</td><td><span class="chip blue">full</span></td><td>Build</td></tr>
+            <tr><td>R08</td><td>Squad 5 — Integration/Core (INT)</td><td>Senior</td><td>Onshore</td><td class="r">5</td><td><span class="chip blue">full</span></td><td>Build <span class="chip amber">condicional G1004</span></td></tr>
+            <tr><td>R09</td><td>QA / Test Automation</td><td>Senior</td><td>Offshore</td><td class="r">2</td><td><span class="chip blue">full</span></td><td>Build · UAT (surge)</td></tr>
+            <tr><td>R10</td><td>Experience/Service/Conversation Designer</td><td>Senior</td><td>Onshore</td><td class="r">1</td><td><span class="chip blue">full</span></td><td>P&amp;D</td></tr>
+            <tr><td>R11</td><td>Analista de Baseline TMA/FCR (BI)</td><td>Regular</td><td>Offshore</td><td class="r">1</td><td><span class="chip amber">half</span></td><td>P&amp;D</td></tr>
+            <tr><td>R12</td><td>Release / DevOps Engineer</td><td>Senior</td><td>Offshore</td><td class="r">1</td><td><span class="chip blue">full</span></td><td>Deploy</td></tr>
+            <tr><td>R13</td><td>Adoption / Change Architect</td><td>Senior</td><td>Onshore</td><td class="r">1</td><td><span class="chip green">quarter</span></td><td>P&amp;D · UAT · Scale</td></tr>
+            <tr><td>R14</td><td>Scrum Masters</td><td>Regular</td><td>Offshore</td><td class="r">3</td><td><span class="chip blue">full</span></td><td>Build · UAT</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Lado Cliente (Vivo) — <span style="font-weight:600;font-size:13px;color:var(--muted);">readiness da porta de qualificação AI-native</span></h3>
+        <div class="table-scroll">
+        <table class="uc-table">
+          <thead><tr>
+            <th>#</th><th>Papel</th><th>Senioridade</th><th class="r">Qtd</th><th>Alocação</th><th>Por que é load-bearing</th>
+          </tr></thead>
+          <tbody>
+            <tr><td>R15</td><td>Product Owner / Decisor de Negócio</td><td>Senior</td><td class="r">1</td><td><span class="chip blue">full</span></td><td>Decisor disponível diariamente e empoderado — input da porta AI-native. Sem ele, a trilha é condicional.</td></tr>
+            <tr><td>R16</td><td>Business Owners / SMEs de Contact-Center</td><td>Senior</td><td class="r">3</td><td><span class="chip amber">half</span></td><td>Donos empoderados por domínio (atendimento, cobrança/CPM, omnichannel) para refino e aceitação.</td></tr>
+            <tr><td>R17</td><td>Time MuleSoft / Dono do contrato de facades</td><td>Senior</td><td class="r">1</td><td><span class="chip amber">half</span></td><td>Dono do contrato dos 17 facades (G1004/G1005). Se net-new, é programa fora-de-banda do cliente.</td></tr>
+            <tr><td>R18</td><td>Dono de Telefonia / AWS Connect</td><td>Senior</td><td class="r">1</td><td><span class="chip amber">half</span></td><td>Provisão do tenant Amazon Connect + migração Genesys→Connect (EOL Dez-2027). Bloqueia voz OMNI se não pronto.</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+
+      <div class="alert amber"><span class="ai">👥</span><div><b>Fold, time-box, fraction.</b> O núcleo (leads, arquitetos, squads enquanto engajados) é full-time. Especialistas de P&amp;D (Designer, Analista BI) e a cauda de adoção são fracionais. Os 5 squads são full-time <b>apenas na janela de Build</b> — time-boxed, não part-time. Sub-staffar o lado cliente é um matador clássico de entrega.</div></div>
+
+      <div class="sec-nav">
+        <button class="sec-link" onclick="showSection('s5',null,'nav')">← Matriz papel × fase</button>
+        <button class="sec-link" onclick="showSection('s7',null,'nav')">Timeline · roles &amp; carga →</button>
+      </div>
+    </div>
+
+    <!-- ═══ S7 · TIMELINE ROLES & CARGA HORÁRIA ═══ -->
+    <div id="s7" class="section">
+      <h2 class="sec-h">Timeline · roles &amp; carga horária</h2>
+      <p class="sec-sub">Quando cada papel atua ao longo das ~40 semanas e a carga horária contratada que ele carrega. Trilha AI-native, cenário central. Barras posicionadas por janela de fase; a etiqueta traz as horas contratadas do papel.</p>
+
+      <div class="card">
+        <h3>Janela das fases (cenário central ~40 semanas)</h3>
+        <div class="tl">
+          <div class="tl-weeks"><span>Fase</span><div class="wk"><span>Sem 1</span><span>Sem 10</span><span>Sem 20</span><span>Sem 30</span><span>Sem 40</span></div></div>
+          <div class="tl-row"><div class="lab">P&amp;D <small>refino + Sprint 0</small></div><div class="tl-track"><div class="tl-bar b-pd" style="left:0%;width:15%;">P&amp;D · sem 1–6</div></div></div>
+          <div class="tl-row"><div class="lab">Build / Delivery <small>5 squads · 13 sprints</small></div><div class="tl-track"><div class="tl-bar b-build" style="left:10%;width:65%;">Build · sem 5–30</div></div></div>
+          <div class="tl-row"><div class="lab">UAT <small>aceitação + defeitos</small></div><div class="tl-track"><div class="tl-bar b-uat" style="left:68%;width:17%;">UAT · sem 28–34</div></div></div>
+          <div class="tl-row"><div class="lab">Deploy <small>cutover / go-live</small></div><div class="tl-track"><div class="tl-bar b-dep" style="left:80%;width:12%;">Deploy · 33–37</div></div></div>
+          <div class="tl-row"><div class="lab">Scale / Hypercare <small>estabilização</small></div><div class="tl-track"><div class="tl-bar b-scale" style="left:88%;width:12%;">Scale · 36–40</div></div></div>
+          <div class="tl-row"><div class="lab">Governança / PM <small>overlay do programa</small></div><div class="tl-track"><div class="tl-bar b-gov" style="left:0%;width:100%;">Gov / PM · sem 1–40</div></div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Carga por papel × janela de atuação</h3>
+        <div class="tl">
+          <div class="tl-weeks"><span>Papel (horas contratadas)</span><div class="wk"><span>Sem 1</span><span>Sem 10</span><span>Sem 20</span><span>Sem 30</span><span>Sem 40</span></div></div>
+
+          <div class="tl-row"><div class="lab">Program / Delivery Lead</div><div class="tl-track"><div class="tl-bar b-gov" style="left:0%;width:100%;">2.880 h · programa inteiro</div></div></div>
+          <div class="tl-row"><div class="lab">Solution Architect</div><div class="tl-track">
+            <div class="tl-bar b-pd" style="left:0%;width:15%;">P&amp;D</div>
+            <div class="tl-bar b-uat" style="left:68%;width:17%;">UAT</div>
+            <div class="tl-bar b-dep" style="left:80%;width:12%;">Dep</div>
+            <span style="position:absolute;right:6px;top:4px;font-size:10.5px;font-weight:800;color:var(--ink);">1.024 h</span>
+          </div></div>
+          <div class="tl-row"><div class="lab">Technical Architect / Agent Orch.</div><div class="tl-track">
+            <div class="tl-bar b-pd" style="left:0%;width:15%;">P&amp;D</div>
+            <div class="tl-bar b-dep" style="left:80%;width:12%;">Dep</div>
+            <div class="tl-bar b-scale" style="left:88%;width:12%;">Scale</div>
+            <span style="position:absolute;left:35%;top:4px;font-size:10.5px;font-weight:800;color:var(--ink);">1.200 h</span>
+          </div></div>
+          <div class="tl-row"><div class="lab">Engenharia de Build (5 squads)</div><div class="tl-track">
+            <div class="tl-bar b-build" style="left:10%;width:65%;">Build · 25.349 h</div>
+            <div class="tl-bar b-scale" style="left:88%;width:12%;">Scale</div>
+          </div></div>
+          <div class="tl-row"><div class="lab">QA / Test Automation</div><div class="tl-track">
+            <div class="tl-bar b-build" style="left:10%;width:58%;">Build</div>
+            <div class="tl-bar b-uat" style="left:68%;width:17%;">UAT surge</div>
+            <span style="position:absolute;right:6px;top:4px;font-size:10.5px;font-weight:800;color:var(--ink);">4.341 h</span>
+          </div></div>
+          <div class="tl-row"><div class="lab">Experience/Service/Conv. Designer</div><div class="tl-track"><div class="tl-bar b-pd" style="left:0%;width:15%;">P&amp;D · 1.467 h</div></div></div>
+          <div class="tl-row"><div class="lab">Analista Baseline TMA/FCR (BI)</div><div class="tl-track"><div class="tl-bar b-pd" style="left:0%;width:15%;">P&amp;D · 720 h</div></div></div>
+          <div class="tl-row"><div class="lab">Release / DevOps Engineer</div><div class="tl-track"><div class="tl-bar b-dep" style="left:80%;width:12%;">Deploy · 933 h</div></div></div>
+          <div class="tl-row"><div class="lab">Adoption / Change Architect</div><div class="tl-track">
+            <div class="tl-bar b-pd" style="left:0%;width:15%;">P&amp;D</div>
+            <div class="tl-bar b-uat" style="left:68%;width:17%;">UAT</div>
+            <div class="tl-bar b-scale" style="left:88%;width:12%;">Scale</div>
+            <span style="position:absolute;left:35%;top:4px;font-size:10.5px;font-weight:800;color:var(--ink);">1.333 h</span>
+          </div></div>
+          <div class="tl-row"><div class="lab">Scrum Masters + PMO</div><div class="tl-track"><div class="tl-bar b-gov" style="left:10%;width:75%;">Build+UAT · 3.919 h</div></div></div>
+        </div>
+      </div>
+
+      <div class="disc">Janelas de fase derivadas top-down do caminho crítico do ROM (Squad 2 = 13 sprints ≈ 26 semanas) + P&amp;D (~2 sprints) + cauda UAT/Deploy/Scale (~10–14 semanas). Figura baseada em benchmark (dados de treinamento do modelo, não validados pela Salesforce) — não é compromisso. Datas finais confirmadas no acordo comercial aplicável.</div>
+
+      <div class="sec-nav">
+        <button class="sec-link" onclick="showSection('s6',null,'nav')">← Roster comprometido</button>
+        <button class="sec-link" onclick="showSection('s8',null,'nav')">Timeline · marcos →</button>
+      </div>
+    </div>
+
+    <!-- ═══ S8 · TIMELINE MARCOS DE ENTREGA ═══ -->
+    <div id="s8" class="section">
+      <h2 class="sec-h">Timeline · marcos de entrega</h2>
+      <p class="sec-sub">Os pontos de controle de entrega ao longo do programa (~40 semanas, cenário central). Marcos derivados das fronteiras de fase + estrutura de squads do ROM — não são compromissos de data; carregam o Disclaimer de Benchmark.</p>
+
+      <div class="card">
+        <div class="rm">
+          <div class="rm-item">
+            <div class="rm-dot">M0</div>
+            <h4>Kick-off &amp; Fase 0 <span class="rm-when">· Semana 1</span> <span class="chip red">crítico</span></h4>
+            <p>Início do programa e da Fase 0. <b>Deliverable #1: inventário de facades MuleSoft (G1004)</b> — fixa o piso do domínio de Integração e é condição da trilha AI-native. Modelo operacional conjunto confirmado (decisor diário + business owners empoderados).</p>
+          </div>
+          <div class="rm-item">
+            <div class="rm-dot">M1</div>
+            <h4>Sprint 0 concluído + baseline capturado <span class="rm-when">· Semana 6 (fim de P&amp;D)</span></h4>
+            <p>Refino de histórias concluído, ambiente Sprint 0 pronto, <b>baseline auditável de TMA/FCR</b> capturado e plano de medição acordado. Design <i>right-sized</i> das superfícies de alto impacto (console, fluxos conversacionais, entrevista CPM-04 de 300 passos).</p>
+          </div>
+          <div class="rm-item">
+            <div class="rm-dot">M2</div>
+            <h4>Foundation &amp; Ops entregue <span class="rm-when">· ~Semana 14 (Squad 1)</span></h4>
+            <p>Squad 1 conclui a fundação e operações (FND+OPS) — base de config sobre a qual os demais squads assentam.</p>
+          </div>
+          <div class="rm-item">
+            <div class="rm-dot">M3</div>
+            <h4>Caminho crítico concluído <span class="rm-when">· ~Semana 30 (Squad 2)</span> <span class="chip red">caminho crítico</span></h4>
+            <p>Squad 2 (Interaction/Relationship/Capture, 13 sprints) conclui o caminho crítico, incluindo a entrevista CPM-04 de 300 passos. Squad 3 (fluxos guiados + escalonamento Ouvidoria/Anatel) e Squad 4 (omnichannel + voz + Aliado) convergem na mesma janela.</p>
+          </div>
+          <div class="rm-item">
+            <div class="rm-dot">M4</div>
+            <h4>Omnichannel + voz operacional <span class="rm-when">· ~Semana 30</span> <span class="chip amber">dep. infra</span></h4>
+            <p>Squad 4 entrega omnichannel e voz — <b>dependente de SCV + Amazon Connect provisionados</b> e da migração Genesys→Connect (EOL Dez-2027). Bloqueia ~40% das histórias OMNI se a infra não estiver pronta (G0802).</p>
+          </div>
+          <div class="rm-item">
+            <div class="rm-dot">M5</div>
+            <h4>Integração / Core concluída <span class="rm-when">· ~Semana 30</span> <span class="chip amber">condicional G1004</span></h4>
+            <p>Squad 5 (Integration/Core, 10 sprints) conclui os contratos de integração. Esforço condicional ao inventário de facades — facade net-new é programa fora-de-banda, não coberto pela contingência de 50% do INT.</p>
+          </div>
+          <div class="rm-item">
+            <div class="rm-dot">M6</div>
+            <h4>UAT sign-off <span class="rm-when">· ~Semana 34</span></h4>
+            <p>Ciclos de aceitação de negócio concluídos, defeitos corrigidos, <b>sign-off formal</b> dos business owners. Surge de QA na janela de hardening (go-live regulado/financeiro).</p>
+          </div>
+          <div class="rm-item">
+            <div class="rm-dot">M7</div>
+            <h4>Go-live / cutover <span class="rm-when">· ~Semana 37</span> <span class="chip green">deploy</span></h4>
+            <p>Cutover e release coordenados com as dependências de infra. Entrada em produção da nova superfície de atendimento B2C.</p>
+          </div>
+          <div class="rm-item">
+            <div class="rm-dot done">M8</div>
+            <h4>Hypercare / estabilização concluída <span class="rm-when">· ~Semana 40</span></h4>
+            <p>Estabilização pós-go-live encerrada, adoção acompanhada (grande população de agentes + ~18k parceiros Aliado), resultado ARI (−15% TMA / +FCR) medido contra o baseline de M1.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="disc">Marcos derivados das fronteiras de fase e da estrutura de 5 squads do ROM (cenário central). Figura baseada em benchmark (dados de treinamento do modelo, não validados pela Salesforce) — não é compromisso de data. Datas finais confirmadas no acordo comercial aplicável e sujeitas às condições de qualificação e às dependências de infra nomeadas.</div>
+
+      <div class="sec-nav">
+        <button class="sec-link" onclick="showSection('s7',null,'nav')">← Timeline · roles &amp; carga</button>
+        <button class="sec-link" onclick="showSection('s9',null,'nav')">Trilha tradicional →</button>
+      </div>
+    </div>
+
+    <!-- ═══ S9 · TRILHA TRADICIONAL ═══ -->
+    <div id="s9" class="section">
+      <h2 class="sec-h">Trilha tradicional (notional)</h2>
+      <p class="sec-sub">Quanto o mesmo escopo custaria no modelo de entrega tradicional. É ilustrativa (gross-up da trilha AI-native comprometida), não derivada de forma independente.</p>
+
+      <div class="card">
+        <div class="table-scroll">
+        <table class="uc-table">
+          <thead><tr><th>Cenário</th><th class="r">Horas contratadas (faixa)</th></tr></thead>
+          <tbody>
+            <tr><td>Otimista</td><td class="r">42.020 – 45.522</td></tr>
+            <tr class="total-row"><td>Central</td><td class="r">66.419 – 71.954</td></tr>
+            <tr><td>Pessimista</td><td class="r">100.984 – 109.399</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+
+      <div class="kpi-wrap">
+        <div class="kpi"><div class="n">55–70 sem</div><div class="l">Faixa de duração tradicional (central ~63 sem)</div></div>
+        <div class="kpi alt"><div class="n">~35–40%</div><div class="l">Banda de compressão AI-native aplicada (invertida para o gross-up)</div></div>
+      </div>
+
+      <div class="alert amber"><span class="ai">⚖️</span><div><b>Por que é notional.</b> Não há <code>efficiency.json</code> com banda derivada neste projeto — foi aplicada a banda-padrão de compressão AI-native de 35–40% (÷0,60 a ÷0,65) sobre as horas contratadas da trilha AI-native, invertida, para ilustrar "quanto custaria do modo tradicional". Para uma banda fundamentada, rodar o skill <code>efficiency</code>.</div></div>
+
+      <div class="sec-nav">
+        <button class="sec-link" onclick="showSection('s8',null,'nav')">← Timeline · marcos</button>
+        <button class="sec-link" onclick="showSection('s10',null,'nav')">Qualificação AI-native →</button>
+      </div>
+    </div>
+
+    <!-- ═══ S10 · QUALIFICAÇÃO AI-NATIVE ═══ -->
+    <div id="s10" class="section">
+      <h2 class="sec-h">Qualificação da trilha AI-native</h2>
+      <p class="sec-sub">A trilha AI-native comprometida é <b>condicional</b>. Sem os três compromissos abaixo, ela permanece um motivador dimensionado por escopo — não um número achável.</p>
+
+      <div class="alert green"><span class="ai">✅</span><div>A porta de qualificação não é o número — é o <b>modo de trabalhar</b>. A compressão AI-native (~35–40%) só é real se o cliente puder sustentar o modelo operacional conjunto.</div></div>
+
+      <div class="card">
+        <h3>Condições da trilha AI-native</h3>
+        <table class="uc-table">
+          <thead><tr><th style="width:60px;">#</th><th>Condição</th></tr></thead>
+          <tbody>
+            <tr><td><span class="chip purple">1</span></td><td><b>Modelo operacional conjunto</b> — disponibilidade diária de decisor, business owners empoderados, mandato AI-first. (Papéis R15/R16 do lado cliente.)</td></tr>
+            <tr><td><span class="chip purple">2</span></td><td><b>Confirmação do inventário de facades MuleSoft (G1004)</b> — quais dos 17 facades existem em produção vs. precisam ser construídos. Fixa o piso do domínio de Integração. (Papel R17.)</td></tr>
+            <tr><td><span class="chip purple">3</span></td><td><b>Confirmação da contagem de usuários</b> — agentes B2C + ~18k Aliado (OMNI-28, Experience Cloud). (Papel R18 para a dependência de telefonia associada.)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="alert blue"><span class="ai">📌</span><div>Ainda mostramos a trilha AI-native mesmo quando as condições não estão fechadas — explicitamente rotulada como <b>condicional</b>: <i>"se você puder se comprometer com este modo de trabalhar, é isto que custaria."</i> Nunca apresentada como alcançável sem nomear o compromisso de que depende.</div></div>
+
+      <div class="sec-nav">
+        <button class="sec-link" onclick="showSection('s9',null,'nav')">← Trilha tradicional</button>
+        <button class="sec-link" onclick="showSection('s11',null,'nav')">Riscos &amp; sinalizadores →</button>
+      </div>
+    </div>
+
+    <!-- ═══ S11 · RISCOS & SINALIZADORES ═══ -->
+    <div id="s11" class="section">
+      <h2 class="sec-h">Riscos &amp; sinalizadores</h2>
+      <p class="sec-sub">Quatro sinalizadores que moldam a estimativa. Cada risco é capturado como risco — sua mitigação é uma atividade a escopar, não um inflador silencioso da estimativa.</p>
+
+      <div class="alert red"><span class="ai">🔴</span><div><b>INT-floor-conditional <span class="chip red">alta</span></b><br>O piso do domínio de Integração (139–217 SP) é <b>condicional ao inventário de facades MuleSoft (G1004)</b> — quais dos 17 facades existem em produção vs. precisam ser construídos. Facade net-new = trabalho de programa fora-de-banda, <b>NÃO coberto</b> pela contingência de 50% do INT. Deliverable #1 da Fase 0. Não retro-embutido na contingência.</div></div>
+
+      <div class="alert red"><span class="ai">🔴</span><div><b>infra-dependencies <span class="chip red">alta</span></b><br>O subdomínio de voz OMNI depende de <b>SCV + Amazon Connect provisionados</b> e da migração Genesys→Connect (EOL Dez-2027) — pré-requisito de infra <b>fora</b> do build Salesforce (G0802). Bloqueia ~40% das histórias OMNI se não estiver pronto.</div></div>
+
+      <div class="alert red"><span class="ai">🔴</span><div><b>phase-0-recommended <span class="chip red">alta</span></b><br>72 gaps + 14 conflitos de fonte → <b>Fase 0 fortemente recomendada</b>. O inventário de facades (G1004) é o deliverable #1.</div></div>
+
+      <div class="alert amber"><span class="ai">🟠</span><div><b>user-count-assumed <span class="chip amber">média</span></b><br>Contagem de usuários assumida: faixa de agentes B2C + ~18k Aliado (OMNI-28, Experience Cloud). G0801 aponta subdecomposição do Aliado (licenciamento / sharing / onboarding). Confirmar na Fase 0.</div></div>
+
+      <div class="sec-nav">
+        <button class="sec-link" onclick="showSection('s10',null,'nav')">← Qualificação AI-native</button>
+        <button class="sec-link" onclick="showSection('s12',null,'nav')">Disclaimers →</button>
+      </div>
+    </div>
+
+    <!-- ═══ S12 · DISCLAIMERS ═══ -->
+    <div id="s12" class="section">
+      <h2 class="sec-h">Disclaimers</h2>
+      <p class="sec-sub">As premissas de leitura que governam todos os números deste documento.</p>
+
+      <div class="card">
+        <h3>📊 Disclaimer de Benchmark</h3>
+        <p class="lead">Esta figura é baseada em benchmark, derivada de dados de treinamento do modelo de IA e padrões gerais de entrega (não validados pela Salesforce) — não é um compromisso. Aplica-se às faixas de duração derivadas top-down. Os números finais são confirmados através do acordo comercial aplicável.</p>
+      </div>
+
+      <div class="card">
+        <h3>🔒 Sem preço</h3>
+        <p class="lead">Nenhuma taxa validada consta em arquivo — a estimativa é <b>tempo / esforço / roster</b>. O preço é a última camada, produzido via <code>commercials</code> apenas a partir de uma taxa que o usuário forneça e valide. Nenhum valor financeiro aparece neste documento por decisão de escopo.</p>
+      </div>
+
+      <div class="card">
+        <h3>📐 ROM = apenas Build (ADR decisions/0001)</h3>
+        <p class="lead">O ROM ingerido cobre <b>apenas a fase de Build/Delivery</b> (premissa 16 do ROM). P&amp;D, SIT (exceto o embutido no ajuste de +12,5%), UAT, Deploy, Scale/Hypercare e o overlay de Governança/PM são <b>aditivos</b> sobre a base de Build. Fatores de carga: P&amp;D 15%, UAT 8%, Deploy 7%, Scale 10%, Governança/PM 18% (overlay). Conversão produtivas→contratadas: ÷ 0,75 (jornada 6h/8h).</p>
+      </div>
+
+      <div class="card">
+        <h3>🚫 Sem teto de valor</h3>
+        <p class="lead">Dimensionamento 100% orientado por escopo (ROM + ciclo PS completo). O AOV em risco <b>não</b> foi usado como teto, alvo ou limite. Diretriz do scoper de 2026-08-25.</p>
+      </div>
+
+      <div class="sec-nav">
+        <button class="sec-link" onclick="showSection('s11',null,'nav')">← Riscos &amp; sinalizadores</button>
+        <button class="sec-link" onclick="showSection('s1',null,'nav')">↑ Voltar ao sumário</button>
+      </div>
+    </div>
+
+    <!-- SECTIONS-END -->
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<div class="doc-footer">
+  <span><b>ARI Vivo · ROM &amp; Estimativa de Projeto</b> — Salesforce Professional Services LATAM · documento controlado por versão</span>
+  <span>Versão <b>1.0</b> · gerado <b>25 ago 2026, 19:40 BRT</b></span>
+</div>
+
+<script>
+  function showSection(id, el, src){
+    document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});
+    var sec = document.getElementById(id);
+    if(sec) sec.classList.add('active');
+    // sync sidebar active state
+    document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('active');});
+    if(el && el.classList.contains('nav-item')){
+      el.classList.add('active');
+    } else {
+      var link = document.querySelector('.nav-item[onclick*="\''+id+'\'"]');
+      if(link) link.classList.add('active');
+    }
+    document.getElementById('sidebar').classList.remove('open');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+</script>
+</body>
+</html>
