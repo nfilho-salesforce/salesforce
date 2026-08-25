@@ -58,6 +58,21 @@
   .pilar ul{list-style:none;margin:10px 0 0;padding:0}
   .pilar li{font-size:12.5px;color:var(--sf-text);padding:5px 0 5px 15px;border-top:1px solid var(--sf-line);position:relative;line-height:1.35}
   .pilar li::before{content:"▸";color:var(--sf-cloud);position:absolute;left:0;top:5px}
+  /* migration table (unified: 6 pilares + 5 frentes transversais) */
+  .migtbl{width:100%;border-collapse:collapse;margin-top:var(--space-md);font-size:12.5px}
+  .migtbl th{background:var(--sf-navy);color:#fff;text-align:left;padding:8px 9px;font-size:12px;font-weight:700;vertical-align:bottom}
+  .migtbl td{border-bottom:1px solid var(--sf-line);padding:9px;vertical-align:top;color:var(--sf-text)}
+  .migtbl tr.grp td{background:var(--sf-light-bg);color:var(--sf-blue);font-family:var(--font-heading);font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:6px 9px;border-bottom:2px solid var(--sf-blue)}
+  .migtbl .fr{font-weight:700;color:var(--sf-navy);white-space:nowrap}
+  .migtbl .frtag{display:block;margin-top:4px;font-size:10.5px;font-weight:700;color:var(--sf-blue);white-space:normal}
+  .migtbl ul{list-style:none;margin:0;padding:0}
+  .migtbl li{padding:2px 0 2px 12px;position:relative;line-height:1.3}
+  .migtbl li::before{content:"▸";color:var(--sf-cloud);position:absolute;left:0;top:2px}
+  .migtbl .ct{text-align:center;font-weight:700;color:var(--sf-navy);white-space:nowrap}
+  .migtbl .fsc{color:var(--sf-text-weak)}
+  .migtbl .fsc b{color:var(--sf-type)}
+  .migtbl tr.ws td{background:#FBFDFF}
+  .migtbl-wrap{overflow-x:auto}
   /* weekly effort grid */
   .wkgrid{width:100%;border-collapse:collapse;margin-top:var(--space-md);font-size:11.5px}
   .wkgrid th{background:var(--sf-navy);color:#fff;padding:6px 3px;font-weight:700;text-align:center;font-size:11px}
@@ -157,7 +172,7 @@
     <div class="stat warn"><div class="num">~3.730 h</div><div class="lbl">Âncora tradicional (referência) · ganho ~17%</div></div>
     <div class="stat"><div class="num">14 sem</div><div class="lbl">Duração · 2 squads em paralelo</div></div>
     <div class="stat alt"><div class="num">~9–10</div><div class="lbl">Perfis no pico (sem. 5–10)</div></div>
-    <div class="stat"><div class="num">6</div><div class="lbl">Pilares migrados · 33 componentes</div></div>
+    <div class="stat"><div class="num">6+5</div><div class="lbl">Pilares funcionais + frentes transversais · 33 componentes</div></div>
     <div class="stat"><div class="num">30</div><div class="lbl">Integrações reapontadas</div></div>
   </div>
   <div class="note">Faixa de confiança <b>±20%</b> — depende de volume de dados, profundidade dos recursos FSC e estabilidade dos contratos das System APIs. A Fase 0 estreita a faixa.</div>
@@ -190,73 +205,175 @@
 
 <!-- ESCOPO / PILARES -->
 <section>
-  <div class="eyebrow">Superfície de migração</div>
-  <h2>Os 6 pilares do portal — funcionalidades e componentes</h2>
-  <p class="sub">Jornada de crédito unificada. Cada item abaixo é reapontado para o data model FSC (refactor, não reconstrução). Itens validados contra o diagrama "Unificação da Jornada de Crédito" do cliente — nada omitido.</p>
-  <div class="pilares">
-    <div class="pilar"><h3>1 · Captação</h3><span class="tag">Migração F3: 123h · já em QA</span>
-      <ul>
-        <li>Site Público &amp; Simulador</li>
-        <li>Cadastro &amp; Criação de Conta</li>
-        <li>Antifraude &amp; Aceite de Termos</li>
-        <li>Análise do Cadastro (SURIC) + e-mail + SLA</li>
-        <li>Regras de Elegibilidade</li>
-        <li>Validação de Vínculo PJ — Jucesp/Sintegra</li>
-        <li>Área Logada &amp; Início do Pedido</li>
-      </ul>
-    </div>
-    <div class="pilar"><h3>2 · Pré-Qualificação</h3><span class="tag">Migração F3: 170h · Grande</span>
-      <ul>
-        <li>Consultas de Regularidade</li>
-        <li>Regularização (Cadin / CND)</li>
-        <li>Quadro de Sócios JUCESP</li>
-        <li>Regras de enquadramento de Linha (SUNEP)</li>
-        <li>Consulta de Crédito Serasa</li>
-        <li>Parametrização Rating / conversão</li>
-        <li>Matriz Rating × Fase × Proposta</li>
-      </ul>
-    </div>
-    <div class="pilar"><h3>3 · Proposta</h3><span class="tag">Migração F3: 75h · Médio</span>
-      <ul>
-        <li>Entrada na Simulação Logada</li>
-        <li>Matriz Rating × Porte × Produto</li>
-        <li>Simulação Agro (Esteira Agro)</li>
-        <li>Simulação Consultiva SUNEP (Julgamental)</li>
-        <li>Apresentação do Resultado ao Cliente</li>
-        <li>Geração de PDF da Simulação</li>
-      </ul>
-    </div>
-    <div class="pilar"><h3>4 · Estruturação</h3><span class="tag">Migração F3: 237h · Grande</span>
-      <ul>
-        <li>Assignment de tarefa para Backoffice</li>
-        <li>Checklist e validação de documentos</li>
-        <li>Notificação de pendências documentais</li>
-        <li>Dados complementares Sintegra / Sefaz</li>
-        <li>Garantias e validação SUPEN</li>
-        <li>Validação conformidade SUSEP</li>
-      </ul>
-    </div>
-    <div class="pilar"><h3>5 · Aprovação</h3><span class="tag">Migração F3: 62h · Médio</span>
-      <ul>
-        <li>Fluxo de Aprovação da proposta</li>
-        <li>Visita Técnica SUPEN</li>
-        <li>SUCRE — Análise de Crédito</li>
-        <li>Matéria de Crédito + Parecer SUCRE</li>
-        <li>Aprovação comitê de crédito</li>
-        <li>Formalização e comunicação do resultado</li>
-      </ul>
-    </div>
-    <div class="pilar"><h3>6 · Formalização</h3><span class="tag">Migração F3: 108h · Médio</span>
-      <ul>
-        <li>SUSEP realiza checklist final para formalização</li>
-        <li>Geração do Contrato</li>
-        <li>CCB emitida digitalmente</li>
-        <li>Assinatura contrato + CCB digital no portal</li>
-        <li>Operação no core bancário Sinqia</li>
-        <li>Desembolso via Sinqia</li>
-        <li>Minhas Parcelas no Portal</li>
-      </ul>
-    </div>
+  <div class="eyebrow">Superfície completa da migração</div>
+  <h2>6 pilares funcionais + 5 frentes transversais</h2>
+  <p class="sub">A jornada de crédito unificada migra para o data model nativo do Financial Services Cloud. Os 6 pilares carregam funcionalidades, integrações, componentes e o objeto-alvo no FSC; as 5 frentes transversais habilitam a fundação, o catálogo, o reapontamento das integrações, a migração de dados e o cutover. Funcionalidades validadas contra o diagrama "Unificação da Jornada de Crédito" — nada omitido.</p>
+  <div class="migtbl-wrap">
+  <table class="migtbl">
+    <thead>
+      <tr>
+        <th style="width:15%">Frente</th>
+        <th style="width:40%">Funcionalidades / escopo</th>
+        <th style="width:6%">Integr.</th>
+        <th style="width:6%">Comp.</th>
+        <th style="width:33%">Alvo no FSC</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="grp"><td colspan="5">6 pilares funcionais · jornada de crédito unificada</td></tr>
+      <tr>
+        <td class="fr">1 · Captação<span class="frtag">F3 · 123h · já em QA</span></td>
+        <td><ul>
+          <li>Site Público &amp; Simulador</li>
+          <li>Cadastro &amp; Criação de Conta</li>
+          <li>Antifraude &amp; Aceite de Termos</li>
+          <li>Análise do Cadastro (SURIC) + e-mail + SLA</li>
+          <li>Regras de Elegibilidade</li>
+          <li>Validação de Vínculo PJ — Jucesp/Sintegra</li>
+          <li>Área Logada &amp; Início do Pedido</li>
+        </ul></td>
+        <td class="ct">2<br><small>API-07/18</small></td>
+        <td class="ct">9<br><small>CMP-01–09</small></td>
+        <td class="fsc"><b>Lead → LoanApplicant</b> · Person Account (PF) · simulação → OpportunityLineItem</td>
+      </tr>
+      <tr>
+        <td class="fr">2 · Pré-Qualificação<span class="frtag">F3 · 170h · Grande</span></td>
+        <td><ul>
+          <li>Consultas de Regularidade</li>
+          <li>Regularização (Cadin / CND)</li>
+          <li>Quadro de Sócios JUCESP</li>
+          <li>Regras de enquadramento de Linha (SUNEP)</li>
+          <li>Consulta de Crédito Serasa</li>
+          <li>Parametrização Rating / conversão</li>
+          <li>Matriz Rating × Fase × Proposta</li>
+        </ul></td>
+        <td class="ct">11<br><small>BioValid, Serpro, QRSA</small></td>
+        <td class="ct">6<br><small>CMP-10–15</small></td>
+        <td class="fsc"><b>CreditApplication__c → ResidentialLoanApplication</b> · validação facial + envio síncrono ao core</td>
+      </tr>
+      <tr>
+        <td class="fr">3 · Proposta<span class="frtag">F3 · 75h · Médio</span></td>
+        <td><ul>
+          <li>Entrada na Simulação Logada</li>
+          <li>Matriz Rating × Porte × Produto</li>
+          <li>Simulação Agro (Esteira Agro)</li>
+          <li>Simulação Consultiva SUNEP (Julgamental)</li>
+          <li>Apresentação do Resultado ao Cliente</li>
+          <li>Geração de PDF da Simulação</li>
+        </ul></td>
+        <td class="ct">4<br><small>API-22/23/24/25</small></td>
+        <td class="ct">1<br><small>CMP-30 (reuso)</small></td>
+        <td class="fsc">Leitura sobre <b>ResidentialLoanApplication</b> + OpportunityLineItem</td>
+      </tr>
+      <tr>
+        <td class="fr">4 · Estruturação<span class="frtag">F3 · 237h · Grande</span></td>
+        <td><ul>
+          <li>Assignment de tarefa para Backoffice</li>
+          <li>Checklist e validação de documentos</li>
+          <li>Notificação de pendências documentais</li>
+          <li>Dados complementares Sintegra / Sefaz</li>
+          <li>Garantias e validação SUPEN</li>
+          <li>Validação conformidade SUSEP</li>
+        </ul></td>
+        <td class="ct">8</td>
+        <td class="ct">14<br><small>CMP-16–29</small></td>
+        <td class="fsc"><b>Garantia__c → LoanApplicantAsset</b> · tomador → LoanApplicant / Income / Employment</td>
+      </tr>
+      <tr>
+        <td class="fr">5 · Aprovação<span class="frtag">F3 · 62h · Médio</span></td>
+        <td><ul>
+          <li>Fluxo de Aprovação da proposta</li>
+          <li>Visita Técnica SUPEN</li>
+          <li>SUCRE — Análise de Crédito</li>
+          <li>Matéria de Crédito + Parecer SUCRE</li>
+          <li>Aprovação comitê de crédito</li>
+          <li>Formalização e comunicação do resultado</li>
+        </ul></td>
+        <td class="ct">1<br><small>API-09</small></td>
+        <td class="ct">1<br><small>tela decisão</small></td>
+        <td class="fsc">Efetivação síncrona no core via <b>Platform Event (OpportunityInfo)</b></td>
+      </tr>
+      <tr>
+        <td class="fr">6 · Formalização<span class="frtag">F3 · 108h · Médio</span></td>
+        <td><ul>
+          <li>SUSEP realiza checklist final para formalização</li>
+          <li>Geração do Contrato</li>
+          <li>CCB emitida digitalmente</li>
+          <li>Assinatura contrato + CCB digital no portal</li>
+          <li>Operação no core bancário Sinqia</li>
+          <li>Desembolso via Sinqia</li>
+          <li>Minhas Parcelas no Portal</li>
+        </ul></td>
+        <td class="ct">4<br><small>API-03/04/29/30</small></td>
+        <td class="ct">3<br><small>CMP-31–33</small></td>
+        <td class="fsc">Leitura/escrita sobre <b>ResidentialLoanApplication</b> + assinatura digital da CCB</td>
+      </tr>
+      <tr class="grp"><td colspan="5">5 frentes transversais · fundação e migração FSC</td></tr>
+      <tr class="ws">
+        <td class="fr">7 · Habilitação FSC &amp; Modelo de Dados<span class="frtag">F2 · FSC Enablement</span></td>
+        <td><ul>
+          <li>Habilitar Person Accounts (irreversível)</li>
+          <li>Adotar o lending nativo do FSC</li>
+          <li>Objetos: RLA, LoanApplicant + Income / Employment / Liability / Asset</li>
+          <li>Configurar ARC / Action Plans</li>
+          <li>Fundação transversal aos 6 pilares</li>
+        </ul></td>
+        <td class="ct">—</td>
+        <td class="ct">config</td>
+        <td class="fsc"><b>Data model FinServ nativo</b> · Person Accounts + lending nativo</td>
+      </tr>
+      <tr class="ws">
+        <td class="fr">8 · Catálogo &amp; Elegibilidade Nativos<span class="frtag">F2 / F3</span></td>
+        <td><ul>
+          <li>Product2 + EnquadramentoProduto__c → PCM</li>
+          <li>Enquadramento__c → DecisionTable / Business Rules Engine</li>
+          <li>Instituicao__c → Account (Record Type)</li>
+        </ul></td>
+        <td class="ct">—</td>
+        <td class="ct">config</td>
+        <td class="fsc"><b>Product Catalog Management (PCM)</b> + <b>Business Rules Engine (BRE)</b> nativos</td>
+      </tr>
+      <tr class="ws">
+        <td class="fr">9 · Reapontamento de Integrações<span class="frtag">F4 · Integration Re-point</span></td>
+        <td><ul>
+          <li>Named credentials</li>
+          <li>Mapeamento de campos para objetos FSC</li>
+          <li>Refactor de callouts Apex</li>
+          <li>Regressão por integração</li>
+        </ul></td>
+        <td class="ct">30<br><small>todas</small></td>
+        <td class="ct">—</td>
+        <td class="fsc">Somente lado Salesforce — as APIs no barramento MuleSoft <b>não</b> são reconstruídas</td>
+      </tr>
+      <tr class="ws">
+        <td class="fr">10 · Migração de Dados &amp; Descomissionamento<span class="frtag">F5 · Data Migration</span></td>
+        <td><ul>
+          <li>Account / Contact → Person Accounts</li>
+          <li>CreditApplication__c → ResidentialLoanApplication</li>
+          <li>Garantia__c → collateral</li>
+          <li>Descontinuar Simulacao__c e Parcela__c (superados)</li>
+          <li>Preservar Metrica__c e AntiFraudAnalysis__c</li>
+          <li>Reconciliação pós-carga</li>
+        </ul></td>
+        <td class="ct">—</td>
+        <td class="ct">ETL</td>
+        <td class="fsc"><b>Objetos FinServ populados</b> · conversão + reconciliação (volume de produção a confirmar)</td>
+      </tr>
+      <tr class="ws">
+        <td class="fr">11 · Testes, Regressão &amp; Cutover<span class="frtag">F6 / F7</span></td>
+        <td><ul>
+          <li>SIT / UAT</li>
+          <li>Regressão in-place ampla (maior risco da migração)</li>
+          <li>Governança de pipeline / metadados (PCM / BRE / DecisionTable)</li>
+          <li>Cutover em produção (Person Accounts + run de migração)</li>
+          <li>Hypercare</li>
+        </ul></td>
+        <td class="ct">—</td>
+        <td class="ct">—</td>
+        <td class="fsc"><b>Go-live in-place</b> · ensaio full-copy obrigatório antes do cutover irreversível</td>
+      </tr>
+    </tbody>
+  </table>
   </div>
 </section>
 
