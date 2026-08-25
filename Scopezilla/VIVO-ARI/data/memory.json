@@ -1,0 +1,37 @@
+{
+  "sessions": [
+    {
+      "date": "2026-08-25",
+      "skills_used": ["setup", "discover"],
+      "summary": "Set up ARI Vivo (vertical pace). Ingested the Vivo B2C Atendimento ROM (199 stories, 10 domains, 27-person/5-squad build, ~12.4k-29.8k productive hrs) as the primary grounding doc; ran full extraction audit (mostly Confirmed). Intent clarified: revalidate the ROM and produce a COMPLETE Salesforce PS project plan + role/hours estimate spanning all methodology phases, since the ROM prices Build/Delivery only.",
+      "friction": [],
+      "decisions": [
+        {"decision": "ROM = Build/Delivery anchor only; wrap full PS lifecycle (P&D + SIT/UAT/Deploy/Scale + governance) around it", "rationale": "ROM explicitly excludes PM/governance and non-build phases; scoper needs complete profile+hours estimate. Recorded as decisions/0001."}
+      ],
+      "open_threads": [
+        "Confirm PS phase model (Prepare & Design, Build, SIT, UAT, Deploy, Scale/Hypercare)",
+        "Confirm phase-loading factors for non-build phases",
+        "Confirm governance/PM inclusion (assumed yes)",
+        "Confirm hours basis: productive vs contracted (0.75/0.70)",
+        "Confirm traditional vs AI-native compression (biggest hours lever)",
+        "Reference scenario (assumed central)",
+        "Internal agent/user count unknown (sizes UAT/training/adoption/scale)"
+      ],
+      "next_steps": [
+        "Confirm the 5-7 estimate-shaping assumptions",
+        "Revalidate ROM (grill-me-on-scope)",
+        "Structure epics from ROM domains, then roadmap (full PS phases) + estimate (roles+hours all phases)"
+      ]
+    }
+  ],
+  "preferences": {},
+  "decision_log": [
+    {
+      "date": "2026-08-25",
+      "area": "scope",
+      "decision": "Ingested ROM prices Build/Delivery only; ARI estimate must span full PS lifecycle (decisions/0001)",
+      "rationale": "ROM excludes governance and non-build phases; scoper requires complete profile+hours plan across all PS methodology phases",
+      "rejected": ["Treat the ROM's build hours as the total project estimate"]
+    }
+  ]
+}

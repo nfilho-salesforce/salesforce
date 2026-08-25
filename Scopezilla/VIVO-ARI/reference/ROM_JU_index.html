@@ -1,0 +1,794 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ROM · Vivo B2C Atendimento — Estimativa de Ordem de Grandeza</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;800;900&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#032D60; --cloud:#0176D3; --sky:#1B96FF; --mist:#EEF4FF;
+  --signal:#FE9339; --critical:#EA001E;
+  --paper:#ffffff; --fog:#F6F9FE; --line:#D8E3F4; --line2:#E7EEF9;
+  --text:#0B2545; --muted:#4A6285; --faint:#7E93B4;
+  --p:#0176D3; --d:#7E93B4;
+  --disp-core:#0176D3; --disp-mule:#FE9339; --disp-event:#7B4FD6;
+  --disp-fed:#3BA55D; --disp-ret:#98A7BE; --disp-del:#C24A8A;
+  --sans:"Inter",system-ui,-apple-system,sans-serif;
+  --disp:"Figtree",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --wrap:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--text);font-family:var(--sans);
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--disp);line-height:1.1;margin:0;color:var(--ink);letter-spacing:-.02em}
+a{color:var(--cloud);text-decoration:none}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:600}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
+
+/* ---- NAV ---- */
+nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);
+  backdrop-filter:blur(14px);border-bottom:1px solid var(--line2)}
+nav .wrap{display:flex;align-items:center;gap:6px;height:56px;overflow-x:auto}
+nav .brand{font-family:var(--disp);font-weight:900;color:var(--ink);font-size:15px;
+  margin-right:14px;white-space:nowrap;letter-spacing:-.02em}
+nav .brand b{color:var(--cloud)}
+nav a{color:var(--muted);font-size:13.5px;font-weight:500;padding:7px 11px;border-radius:8px;white-space:nowrap}
+nav a:hover{background:var(--mist);color:var(--ink)}
+
+/* ---- HERO ---- */
+.hero{background:
+   radial-gradient(1200px 520px at 78% -8%, rgba(27,150,255,.22), transparent 60%),
+   radial-gradient(900px 480px at 8% 0%, rgba(1,118,211,.14), transparent 55%),
+   linear-gradient(180deg,#F3F8FF 0%, #ffffff 78%);
+  border-bottom:1px solid var(--line2);padding:74px 0 56px}
+.eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--cloud);font-weight:600;margin-bottom:20px}
+.hero h1{font-size:clamp(38px,6.6vw,74px);font-weight:900;max-width:14ch}
+.hero h1 .accent{color:var(--signal)}
+.hero .lede{font-size:clamp(17px,2.2vw,21px);color:var(--muted);max-width:60ch;margin-top:22px;line-height:1.5}
+.hero .lede b{color:var(--text);font-weight:600}
+.tri-cap{font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--faint);margin-top:38px;
+  text-transform:uppercase;font-weight:600}
+.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:12px;max-width:720px}
+.tri .cell{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px}
+.tri .cell .v{font-family:var(--mono);font-weight:600;font-size:30px;color:var(--ink);letter-spacing:-.02em}
+.tri .cell.crit .v{color:var(--critical)}
+.tri .cell.sig .v{color:var(--signal)}
+.tri .cell .k{font-size:13px;color:var(--muted);margin-top:4px;line-height:1.35}
+
+/* ---- SECTION scaffolding ---- */
+section{padding:64px 0;border-bottom:1px solid var(--line2)}
+section.tight{padding:52px 0}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:8px}
+.sec-num{font-family:var(--mono);font-size:13px;color:var(--sky);font-weight:600}
+.sec-head h2{font-size:clamp(26px,3.6vw,38px);font-weight:800}
+.sec-sub{color:var(--muted);max-width:74ch;margin:10px 0 30px;font-size:16.5px}
+
+/* ---- KPI band ---- */
+.kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:30px}
+.kpi .k{background:var(--fog);border:1px solid var(--line2);border-radius:14px;padding:18px}
+.kpi .k .v{font-family:var(--mono);font-weight:600;font-size:26px;color:var(--ink)}
+.kpi .k .l{font-size:12.5px;color:var(--muted);margin-top:5px;text-transform:uppercase;letter-spacing:.05em}
+.kpi .k small{display:block;color:var(--faint);font-size:12px;margin-top:6px;font-family:var(--sans);text-transform:none;letter-spacing:0}
+
+/* ---- generic table ---- */
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line2);vertical-align:top}
+th{font-family:var(--disp);font-weight:600;color:var(--ink);font-size:13px;text-transform:uppercase;letter-spacing:.04em;
+  background:var(--fog)}
+td.n,th.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+tbody tr:hover{background:var(--mist)}
+tr.total td{font-weight:700;background:var(--mist);border-top:2px solid var(--cloud)}
+.tbl-card{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:22px}
+.tbl-card table th:first-child,.tbl-card table td:first-child{padding-left:18px}
+.tbl-card table th:last-child,.tbl-card table td:last-child{padding-right:18px}
+
+/* ---- pills ---- */
+.pill{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;
+  letter-spacing:.02em;white-space:nowrap}
+.pill.P{background:rgba(1,118,211,.12);color:var(--cloud)}
+.pill.D{background:#EEF1F6;color:var(--d)}
+.pill.core{background:rgba(1,118,211,.12);color:var(--disp-core)}
+.pill.mule{background:rgba(254,147,57,.16);color:#B4620E}
+.pill.event{background:rgba(123,79,214,.14);color:var(--disp-event)}
+.pill.federate{background:rgba(59,165,93,.14);color:#217A40}
+.pill.retire{background:#EEF1F6;color:#65758C}
+.pill.delegate{background:rgba(194,74,138,.13);color:var(--disp-del)}
+.tag{display:inline-block;font-size:11.5px;color:var(--muted);background:var(--fog);border:1px solid var(--line2);
+  border-radius:6px;padding:1px 7px;font-family:var(--mono)}
+
+/* ---- premises ---- */
+.prem-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+.prem{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;position:relative}
+.prem.rev{border-color:var(--signal);box-shadow:0 0 0 1px rgba(254,147,57,.25) inset}
+.prem .pn{font-family:var(--mono);font-size:12px;color:var(--faint);font-weight:600}
+.prem h4{font-size:16px;margin:4px 0 8px;letter-spacing:-.01em}
+.prem p{margin:0;font-size:14px;color:var(--muted);line-height:1.5}
+.prem .rev-badge{position:absolute;top:14px;right:14px;font-family:var(--mono);font-size:10.5px;font-weight:600;
+  color:#B4620E;background:rgba(254,147,57,.15);padding:2px 8px;border-radius:20px}
+.callout{margin-top:26px;border-left:4px solid var(--signal);background:linear-gradient(90deg,rgba(254,147,57,.08),transparent);
+  padding:18px 20px;border-radius:0 12px 12px 0}
+.callout b{color:var(--ink)}
+.callout .lbl{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#B4620E;font-weight:600;display:block;margin-bottom:6px}
+
+/* ---- scope line + pillars (solution premises) ---- */
+.scope-line{background:var(--ink);color:#DCEBFF;border-radius:14px;padding:22px 24px;margin-bottom:26px;
+  font-size:15.5px;line-height:1.55;max-width:none}
+.scope-line b{color:#fff;font-weight:600}
+.scope-line .lbl{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--sky);font-weight:600;display:block;margin-bottom:8px}
+.pillars-h{font-size:20px;margin:40px 0 4px;letter-spacing:-.01em}
+
+/* ---- methodology steps ---- */
+.steps{display:grid;gap:0;counter-reset:step;margin-top:8px}
+.step{display:grid;grid-template-columns:56px 1fr;gap:20px;padding:22px 0;border-bottom:1px solid var(--line2)}
+.step:last-child{border-bottom:none}
+.step .sn{counter-increment:step;font-family:var(--mono);font-weight:600;font-size:22px;color:var(--sky);
+  border:2px solid var(--line);border-radius:12px;width:56px;height:56px;display:grid;place-items:center}
+.step .sn::before{content:counter(step,decimal-leading-zero)}
+.step h4{font-size:18px;margin-bottom:6px}
+.step p{margin:0;color:var(--muted);font-size:15px}
+.step .formula{font-family:var(--mono);font-size:13.5px;background:var(--ink);color:#CFE4FF;padding:10px 14px;
+  border-radius:10px;margin-top:10px;display:inline-block}
+.step code{font-family:var(--mono);background:var(--mist);color:var(--ink);padding:1px 6px;border-radius:5px;font-size:13px}
+
+/* ---- honesty note ---- */
+.honest{margin-top:8px;background:var(--fog);border:1px dashed var(--faint);border-radius:12px;padding:18px 20px}
+.honest .lbl{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;display:block;margin-bottom:6px}
+.honest b{color:var(--ink)}
+
+/* ---- scenario toggle + swimlanes (signature) ---- */
+.scenario-bar{display:inline-flex;background:var(--fog);border:1px solid var(--line);border-radius:12px;padding:5px;gap:4px;margin-bottom:8px}
+.scenario-bar button{font-family:var(--disp);font-weight:600;font-size:14px;border:none;background:transparent;color:var(--muted);
+  padding:9px 18px;border-radius:8px;cursor:pointer;transition:all .18s}
+.scenario-bar button .s{display:block;font-family:var(--mono);font-size:12px;font-weight:500;color:var(--faint);margin-top:2px}
+.scenario-bar button.on{background:var(--cloud);color:#fff;box-shadow:0 2px 8px rgba(1,118,211,.3)}
+.scenario-bar button.on .s{color:rgba(255,255,255,.85)}
+.scenario-meta{color:var(--muted);margin:14px 0 26px;font-size:15.5px}
+.scenario-meta b{color:var(--ink);font-family:var(--mono)}
+.lanes{display:grid;gap:12px}
+.lane{display:grid;grid-template-columns:210px 1fr 78px;gap:16px;align-items:center}
+.lane .lname{font-size:14px;font-weight:500}
+.lane .lname .dom{font-family:var(--mono);font-size:11.5px;color:var(--faint);display:block}
+.lane .track{background:var(--fog);border-radius:9px;height:34px;position:relative;overflow:hidden;border:1px solid var(--line2)}
+.lane .bar{position:absolute;top:0;left:0;height:100%;border-radius:8px;
+  background:linear-gradient(90deg,var(--sky),var(--cloud));transition:width .6s cubic-bezier(.4,0,.2,1);
+  display:flex;align-items:center;justify-content:flex-end;padding-right:10px}
+.lane .bar span{font-family:var(--mono);font-size:12px;color:#fff;font-weight:600}
+.lane.crit .bar{background:linear-gradient(90deg,#FFB55C,var(--signal))}
+.lane .spr{font-family:var(--mono);font-size:15px;font-weight:600;text-align:right;color:var(--ink)}
+.lane.crit .spr{color:#B4620E}
+.crit-flag{display:inline-block;font-family:var(--mono);font-size:10.5px;font-weight:600;color:#B4620E;
+  background:rgba(254,147,57,.15);padding:1px 7px;border-radius:20px;margin-left:6px}
+
+/* ---- domain accordion ---- */
+.dfilter{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:22px}
+.dfilter input{font-family:var(--sans);font-size:14px;border:1px solid var(--line);border-radius:10px;padding:9px 13px;
+  min-width:230px;flex:1;max-width:340px}
+.dfilter .ctl{font-size:13px;color:var(--cloud);cursor:pointer;font-weight:500;padding:8px 10px;border-radius:8px}
+.dfilter .ctl:hover{background:var(--mist)}
+.dfilter .count{font-family:var(--mono);font-size:13px;color:var(--faint);margin-left:auto}
+.dom{border:1px solid var(--line);border-radius:14px;margin-bottom:14px;overflow:hidden;background:var(--paper)}
+.dom.hidden{display:none}
+.dhead{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:18px 20px;cursor:pointer;
+  background:linear-gradient(180deg,var(--fog),#fff)}
+.dhead:hover{background:var(--mist)}
+.dhead .dt{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.dhead .code{font-family:var(--mono);font-weight:600;font-size:15px;color:#fff;background:var(--cloud);
+  padding:4px 10px;border-radius:8px}
+.dom[data-dom="INT"] .dhead .code{background:var(--signal)}
+.dom[data-dom="CPM"] .dhead .code{background:var(--critical)}
+.dhead h3{font-size:18px}
+.dhead .meta{display:flex;gap:16px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.dhead .meta .sp{font-family:var(--mono);font-weight:600;color:var(--ink);font-size:14px}
+.dhead .chev{font-size:13px;color:var(--faint);font-family:var(--mono);transition:transform .2s}
+.dom.open .chev{transform:rotate(90deg)}
+.dbody{display:none}
+.dom.open .dbody{display:block}
+.dbody table{font-size:14px}
+.dbody .sid{font-family:var(--mono);font-weight:600;color:var(--ink);white-space:nowrap}
+.dbody .desc{color:var(--text)}
+.dbody .desc .src{display:block;color:var(--faint);font-size:12px;margin-top:2px}
+.dbody tr.hit{background:#FFF6E9}
+.persona{font-family:var(--mono);font-size:11.5px;color:var(--muted);background:var(--fog);border:1px solid var(--line2);
+  padding:1px 6px;border-radius:6px;white-space:nowrap}
+
+/* disposition legend */
+.legend{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0 26px}
+.legend .li{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted)}
+.legend .sw{width:12px;height:12px;border-radius:3px}
+
+/* two-col prose */
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.card{background:var(--fog);border:1px solid var(--line2);border-radius:14px;padding:22px}
+.card h4{font-size:17px;margin-bottom:8px}
+.card p{margin:0 0 10px;font-size:14.5px;color:var(--muted)}
+.card p:last-child{margin-bottom:0}
+
+/* risks */
+.risk{border:1px solid var(--line);border-radius:13px;padding:18px 20px;margin-bottom:12px;background:var(--paper)}
+.risk.hi{border-left:4px solid var(--critical)}
+.risk .rh{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.risk .rn{font-family:var(--mono);font-weight:600;color:var(--critical);font-size:14px}
+.risk.lo .rn{color:var(--faint)}
+.risk h4{font-size:16px}
+.risk p{margin:0;color:var(--muted);font-size:14.5px}
+.risk .drives{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:600;color:#B4620E;
+  background:rgba(254,147,57,.15);padding:1px 8px;border-radius:20px;margin-top:8px}
+
+/* pillars */
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.pillar{border:1px solid var(--line);border-radius:14px;padding:20px;background:var(--paper)}
+.pillar.in{border-top:4px solid var(--cloud)}
+.pillar.out{border-top:4px solid var(--disp-ret)}
+.pillar.dep{border-top:4px solid var(--signal)}
+.pillar .st{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.pillar.in .st{color:var(--cloud)} .pillar.out .st{color:var(--disp-ret)} .pillar.dep .st{color:#B4620E}
+.pillar h4{font-size:16px;margin:8px 0}
+.pillar p{margin:0;font-size:14px;color:var(--muted)}
+
+footer{padding:48px 0 70px;color:var(--faint);font-size:13.5px}
+footer .wrap{display:flex;flex-direction:column;gap:8px}
+footer code{font-family:var(--mono);color:var(--muted)}
+
+.note-inline{font-size:13px;color:var(--faint);margin-top:10px}
+details.raw{margin-top:14px;border:1px solid var(--line2);border-radius:12px;padding:0 18px;background:var(--fog)}
+details.raw summary{cursor:pointer;padding:14px 0;font-weight:600;color:var(--ink);font-family:var(--disp);font-size:15px}
+details.raw[open]{padding-bottom:16px}
+
+@media(max-width:860px){
+  .tri,.kpi,.cols,.pillars{grid-template-columns:1fr}
+  .kpi{grid-template-columns:1fr 1fr}
+  .lane{grid-template-columns:120px 1fr 56px;gap:10px}
+  .lane .lname{font-size:12.5px}
+  .scenario-bar{width:100%}
+  .scenario-bar button{flex:1}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <span class="brand">Vivo B2C · <b>ROM</b></span>
+  <a href="#solucao">Solução</a>
+  <a href="#numeros">Números</a>
+  <a href="#premissas">Estimação</a>
+  <a href="#metodo">Como estimamos</a>
+  <a href="#cronograma">Cronograma</a>
+  <a href="#dominios">Domínios</a>
+  <a href="#integracao">Integração</a>
+  <a href="#riscos">Riscos</a>
+  <a href="#anexos">Anexos</a>
+</div></nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="tese"><div class="wrap">
+  <div class="eyebrow">Rough Order of Magnitude · Camada de Atendimento · Salesforce Core</div>
+  <h1>Trazer o atendimento B2C para <span class="accent">dentro</span> do Salesforce.</h1>
+  <p class="lede">Hoje as jornadas de atendimento da Vivo <b>não estão de fato implementadas em
+  Salesforce</b> — os atendentes ainda operam WDE, GPS, Next e Siebel, alguns embutidos via iframe
+  mal integrado, alternando telas e recopiando dados à mão. Esta ROM dimensiona <b>construí-las
+  nativamente</b>: uma experiência de atendimento agentic sobre Service Cloud + Agentforce, para
+  quatro capacidades eTOM Customer — delegando a mecânica de product-order a sistemas externos via
+  API/MCP.</p>
+  <div class="tri-cap">O ponto de partida — a operação legada que esta ROM substitui</div>
+  <div class="tri">
+    <div class="cell"><div class="v">~2,7M</div><div class="k">callouts por dia útil na malha de integração atual</div></div>
+    <div class="cell crit"><div class="v">~23%</div><div class="k">taxa de erro (não-2xx) sistêmica hoje</div></div>
+    <div class="cell sig"><div class="v">72%</div><div class="k">do tráfego origina-se de OmniStudio — sendo aposentado</div></div>
+  </div>
+</div></header>
+
+<!-- ============ 1. PREMISSAS DE SOLUÇÃO ============ -->
+<section id="solucao"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Premissas de solução</h2></div>
+  <p class="sec-sub">Antes de qualquer número: <b>o que estamos construindo e o que deliberadamente não</b>.
+  Estas seis premissas vêm do corpus da conta Vivo — não da baseline whitelabel — e <b>governam toda a
+  ROM</b>. Onde a realidade Vivo conflita com o template, a realidade Vivo vence. Elas definem a fronteira
+  de escopo que sustenta cada história e cada estimativa adiante.</p>
+
+  <div class="scope-line">
+    <span class="lbl">Escopo em uma linha</span>
+    A <b>camada de atendimento/serviço nativa em Salesforce</b> para quatro capacidades eTOM Customer —
+    Customer Interaction, Customer Problem, Customer Relationship e Customer Order Processing
+    (<b>apenas o envelope de atendimento</b>). A mecânica de product-order — catálogo, CPQ, precificação,
+    decomposição, fulfillment, provisionamento — é <b>delegada</b> a sistemas externos e está fora de escopo.
+  </div>
+
+  <div class="prem-grid">
+    <div class="prem"><div class="pn">Premissa 1</div>
+      <h4>Implementação nativa net-new — não wrapping de iframe</h4>
+      <p>Hoje as jornadas de atendimento B2C <b>não estão implementadas em Salesforce</b>: os atendentes
+      operam WDE, GPS, Next e Siebel, alguns embutidos via iframe mal integrado. Esta ROM dimensiona
+      <b>construí-las nativamente</b>, substituindo Alt+Tab / Notepad / iframe por uma experiência de
+      atendimento nativa e agentic.</p></div>
+
+    <div class="prem"><div class="pn">Premissa 2</div>
+      <h4>Fronteira de product-order delegada</h4>
+      <p>Um customer order pode ser um pedido de atendimento que <b>não</b> é um product order (ex.: agendar
+      visita técnica) — e a jornada o suporta. Quando <b>é</b> um product order, não somos responsáveis por
+      catálogo, validação, configuração, submissão, decomposição ou fulfillment: isso pertence a outro
+      sistema alcançável via API/MCP. Capturamos a intenção, orquestramos, invocamos, acompanhamos e notificamos.</p></div>
+
+    <div class="prem"><div class="pn">Premissa 3</div>
+      <h4>Sistemas externos alcançáveis via APIs / MCP</h4>
+      <p>Todos os recursos de que o Core precisa estão disponíveis como <b>serviços limpos e invocáveis</b>.
+      Este é o habilitador que separa o modelo agentic-invocável da integração ruim por iframe de hoje — e
+      também o maior risco de programa se não se confirmar.</p></div>
+
+    <div class="prem"><div class="pn">Premissa 4</div>
+      <h4>Federação de dados via Data 360</h4>
+      <p>A Vivo é dona do seu customer master. Premissa: apenas <b>dados mínimos residentes</b> em Salesforce,
+      o restante federado em tempo de consulta (Data Cloud / Data 360). Isso remove uma classe inteira de
+      integração de sincronização do escopo de construção.</p></div>
+
+    <div class="prem"><div class="pn">Premissa 5</div>
+      <h4>Agentforce entrega o <i>service dynamic plan</i></h4>
+      <p>A interface é agentic/conversacional (LWC + Agentforce actions). Um <i>service dynamic plan</i> é
+      montado <b>dinamicamente</b> a partir de um catálogo de ações invocáveis — distinto de um workflow
+      determinístico externo, que é <i>invocado</i>, não implementado. <b>OmniStudio é descartado</b> em favor
+      de LWC + Apex.</p></div>
+
+    <div class="prem"><div class="pn">Premissa 6</div>
+      <h4>Voz em Service Cloud Voice / Amazon Connect</h4>
+      <p>Transcrição feita por eles, consumida por nós; Digital Engagement para WhatsApp/chat/email. O
+      <b>MuleSoft é aplicado cirurgicamente</b> — na frente das integrações onde o Core faria orquestração
+      indevida (correção de passive-core), não como camada indiscriminada. Chamadas síncronas críticas
+      permanecem clientes Core diretos; dados de referência com muita leitura são federados via Data 360.</p></div>
+  </div>
+
+  <div class="callout">
+    <span class="lbl">Ressalva de orquestração determinística — carregada como risco de programa</span>
+    <b>Workflows determinísticos pesados e regulados</b> (contestação de fatura ≈ 300+ passos, cadeias
+    de agendamento técnico) são <b>invocados, não construídos</b> aqui. A lacuna entre AI-como-interação
+    e AI-como-workflow é o maior risco de programa — se os sistemas externos não forem de fato invocáveis
+    via APIs/MCP limpas (premissa 3), o envelope de atendimento colapsa de volta ao wrapping de iframe.
+  </div>
+
+  <h3 class="pillars-h">Contexto de solução — "Salesforce &amp; vivo: Our Way Forward"</h3>
+  <p class="sec-sub" style="margin-bottom:18px">A proposta enquadra o engajamento em três pilares. Esta ROM
+  dimensiona <b>apenas a superfície de atendimento do Pillar 1</b>; os outros dois são a fronteira delegada
+  e a fundação da qual este escopo depende, mas não constrói.</p>
+  <div class="pillars">
+    <div class="pillar in"><span class="st">Em escopo</span>
+      <h4>Pillar 1 — AI-powered Customer Service</h4>
+      <p>Service Cloud + Agentforce em todos os canais. Console omnichannel sobre Customer 360, assistência
+      de IA (sentimento, transcrição ao vivo, next-best-action) e a jornada de <b>Active Retention &amp;
+      Cross-Sell</b>. É o que dimensionamos.</p></div>
+    <div class="pillar out"><span class="st">Fora — fronteira delegada</span>
+      <h4>Pillar 2 — Unified B2X Commerce</h4>
+      <p>Commerce convergente em Communications Cloud (EPC + CPQ, headless, MuleSoft/Informatica downstream).
+      É exatamente a fronteira de product-order que a premissa 2 delega — o sistema concreto ao qual as
+      histórias de COPM fazem handoff.</p></div>
+    <div class="pillar dep"><span class="st">Fundação — fatia FND</span>
+      <h4>Pillar 3 — Headless 360 / AI Trust / determinística</h4>
+      <p>AI Trust Layer, modelo Data-360, resolução de identidade federada e o runtime de orquestração
+      determinística. Só a <b>fatia de atendimento</b> é precificada aqui (domínio FND) — o resto é fundação
+      herdada.</p></div>
+  </div>
+</div></section>
+
+<!-- ============ 2. NÚMEROS DE TOPO ============ -->
+<section id="numeros" style="background:var(--fog)"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Os números de topo</h2></div>
+  <p class="sec-sub">A ROM é uma faixa de esforço para decisão de investimento — não um plano de sprint
+  comprometido. Da base de Story Points aos meses de caminho crítico.</p>
+
+  <div class="kpi">
+    <div class="k"><div class="v">655–1.280</div><div class="l">SP base</div><small>177 itens, antes de ajustes</small></div>
+    <div class="k"><div class="v">1.017–1.970</div><div class="l">SP ajustado</div><small>mid 1.494 · +teste +contingência</small></div>
+    <div class="k"><div class="v">10–18</div><div class="l">sprints (crítico)</div><small>~4,6 a ~8,3 meses</small></div>
+    <div class="k"><div class="v">28</div><div class="l">pessoas</div><small>23 build + 3 QA + 2 transversal</small></div>
+  </div>
+
+  <div class="tbl-card"><table>
+    <thead><tr><th>Cenário</th><th>Caminho crítico</th><th class="n">Sprints</th><th>Duração</th>
+      <th class="n">Horas produtivas</th></tr></thead>
+    <tbody>
+      <tr><td><b>Otimista</b></td><td>S6 Integration</td><td class="n">10</td><td>~4,6 meses</td><td class="n">~10.200 h</td></tr>
+      <tr><td><b>Central</b></td><td>S6 Integration</td><td class="n">14</td><td>~6,5 meses</td><td class="n">~16.200 h</td></tr>
+      <tr><td><b>Pessimista</b></td><td>S6 Integration</td><td class="n">18</td><td>~8,3 meses</td><td class="n">~22.800 h</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 style="font-size:19px;margin:34px 0 6px">Horas produtivas × horas contratadas</h3>
+  <p class="sec-sub" style="margin-bottom:18px">As FTE-horas da ROM são <b>horas produtivas</b> (entrega
+  efetiva). O fator de produtividade já está embutido na base de 6h/dia. Para planejamento comercial,
+  convertem-se em horas contratadas pela operação <b>inversa</b> — divide-se pela produtividade.</p>
+
+  <div class="tbl-card"><table>
+    <thead><tr><th>Cenário</th>
+      <th class="n">Produtivas (engenharia)</th>
+      <th class="n">Contratadas — equiv. 8h/dia (@ 75%)</th>
+      <th class="n">Contratadas — ajuste comercial (@ 70%)</th></tr></thead>
+    <tbody>
+      <tr><td><b>Otimista</b></td><td class="n">~10.200 h</td><td class="n">~13.600 h</td><td class="n">~14.600 h</td></tr>
+      <tr><td><b>Central</b></td><td class="n">~16.200 h</td><td class="n">~21.600 h</td><td class="n">~23.100 h</td></tr>
+      <tr><td><b>Pessimista</b></td><td class="n">~22.800 h</td><td class="n">~30.400 h</td><td class="n">~32.600 h</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="cols" style="margin-top:6px">
+    <div class="card"><h4>Não redescontar</h4>
+      <p>As horas produtivas <b>já são líquidas</b>: o overhead foi descontado na base de 6h/dia.
+      <i>Multiplicá-las</i> por um fator de produtividade desconta o overhead duas vezes — ex.:
+      <code style="font-family:var(--mono);background:#fff;padding:1px 6px;border-radius:5px">16.200 × 0,70 = 11.340</code>
+      está <b>errado</b>. A conversão é sempre a divisão; contratadas &gt; produtivas, nunca menores.</p></div>
+    <div class="card"><h4>Contingência ≠ produtividade</h4>
+      <p>A contingência (35% global; 50% em CPM e INT) é o buffer do <b>cone de incerteza de escopo</b>,
+      não folga de capacidade do time. Um eixo não cobre o outro: usar contingência para absorver
+      déficit de produtividade — ou vice-versa — desbalanceia ambos.</p></div>
+  </div>
+</div></section>
+
+<!-- ============ 2. PREMISSAS ============ -->
+<section id="premissas"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Premissas de estimação</h2></div>
+  <p class="sec-sub">Sobre as premissas de solução acima, a estimativa em si repousa sobre este segundo
+  conjunto — o <b>contrato de leitura dos números</b>: derivação, Fibonacci, contingência, squads e cadência.
+  As marcadas <b>⟳ revisada</b> divergem do default do template porque a realidade Vivo governa esta ROM,
+  não a baseline whitelabel.</p>
+  <div class="prem-grid" id="prem-grid"></div>
+</div></section>
+
+<!-- ============ 4. COMO A ROM FOI GERADA ============ -->
+<section id="metodo" style="background:var(--fog)"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Como a ROM foi gerada</h2></div>
+  <p class="sec-sub">Nenhum número é arbitrário. Este é o motor da estimativa — o mesmo caminho que
+  qualquer pessoa pode reconstruir a partir do story map.</p>
+
+  <div class="steps">
+    <div class="step"><div class="sn"></div><div>
+      <h4>Story Points em Fibonacci</h4>
+      <p>Cada história <b>Primary</b> recebe uma faixa min–max na sequência Fibonacci
+      (1, 2, 3, 5, 8, 13, 21), com ambos os limites em números Fibonacci, conforme a complexidade e o domínio.</p>
+    </div></div>
+    <div class="step"><div class="sn"></div><div>
+      <h4>Derivação por reuso</h4>
+      <p>Histórias <b>Derived</b> não são reestimadas do zero — herdam um percentual da faixa <i>computada</i>
+      do seu referente imediato: cross-persona <b>22,5%</b>, cross-pattern <b>27,5%</b>, intra-capacidade
+      <b>30%</b>. Arredonda-se ao inteiro, piso de 1 SP; SP derivado não precisa ser Fibonacci.</p>
+    </div></div>
+    <div class="step"><div class="sn"></div><div>
+      <h4>Ajuste de teste +12,5%</h4>
+      <p>Automação de teste funcional entra na Definition of Done. Adiciona-se <b>+12,5%</b> à base dos
+      squads que produzem código — <b>todos exceto FND e OPS</b> (majoritariamente configuração/plataforma,
+      com estratégia de verificação própria).</p>
+    </div></div>
+    <div class="step"><div class="sn"></div><div>
+      <h4>Contingência 35% / 50%</h4>
+      <p>O cone de incerteza vira buffer: <b>35% global</b>, <b>50% para CPM</b> (jornadas de maior dor,
+      não modeladas nos fluxos de origem) e <b>50% para INT</b> (malha de integração frágil). São os dois
+      eixos de maior incerteza.</p>
+    </div></div>
+    <div class="step"><div class="sn"></div><div>
+      <h4>Caminho crítico</h4>
+      <p>Seis squads em paralelo desde o Sprint 0. A duração é o squad mais longo, não a soma. Sprints por
+      cenário fixam a faixa de SP ao par de velocidade correspondente para reprodutibilidade.</p>
+      <div class="formula">sprints = SP (com contingência) ÷ velocidade  →  ↑ ao próximo sprint inteiro</div>
+    </div></div>
+    <div class="step"><div class="sn"></div><div>
+      <h4>FTE-horas</h4>
+      <p>Build alocado pelos próprios sprints; QA e Transversal pela duração total (caminho crítico).</p>
+      <div class="formula">FTE-horas = headcount × sprints alocados × 60 FTE-h/sprint</div>
+    </div></div>
+  </div>
+
+  <div class="honest">
+    <span class="lbl">Nota de honestidade — override registrado, não silencioso</span>
+    <p style="margin:0;color:var(--muted);font-size:14.5px">O total de CPM produzido por um passo anterior
+    (<b>87/196 SP</b>) <b>não era reconstruível</b> pela metodologia de derivação — o teto honesto ficava em
+    ~81/168. Em vez de aceitar um número não-rastreável, recalibrou-se CPM para <b>79/150 SP</b> com primaries
+    defensáveis-altos (CPM é o domínio de maior dor da Vivo). Além disso, 4 histórias foram reclassificadas
+    Primary por decisão do Arquiteto — COPM-10 e o Active Retention Agent (SDP-13/14/15) — porque a cadeia de
+    derivação as colapsava artificialmente a 1–2 SP, subestimando o risco. Tudo registrado, nunca resolvido em silêncio.</p>
+  </div>
+</div></section>
+
+<!-- ============ 4. CRONOGRAMA (signature) ============ -->
+<section id="cronograma" style="background:var(--ink);border-bottom:none"><div class="wrap">
+  <div class="sec-head"><span class="sec-num" style="color:var(--sky)">05</span>
+    <h2 style="color:#fff">O caminho crítico, nos três cenários</h2></div>
+  <p class="sec-sub" style="color:#A8C4E8;max-width:70ch">Cada barra é um squad, proporcional aos sprints que
+  precisa. Nos três cenários, <b style="color:#fff">S6 Integration é a mais longa</b> e define o teto do
+  cronograma — consequência direta da malha de integração de origem que a premissa 3 assume alcançável.
+  Mude o cenário: a ordem se mantém.</p>
+
+  <div class="scenario-bar" id="scenario-bar">
+    <button data-sc="0" class="on">Otimista<span class="s">10 spr · 4,6m</span></button>
+    <button data-sc="1">Central<span class="s">14 spr · 6,5m</span></button>
+    <button data-sc="2">Pessimista<span class="s">18 spr · 8,3m</span></button>
+  </div>
+  <div class="scenario-meta" id="scenario-meta"></div>
+  <div class="lanes" id="lanes"></div>
+
+  <p style="color:#7FA8D8;font-size:14px;margin-top:30px;max-width:74ch">
+    <b style="color:#FFB55C">Alavanca de aceleração:</b> investir cedo em desbloqueio de integração — facades
+    MuleSoft confirmadas, contratos de API limpos, uma fábrica de clientes resilientes reutilizável — encurta
+    o projeto mais que qualquer outra intervenção, porque ataca o squad que define o teto. Liga-se ao Risco&nbsp;#3.</p>
+</div></section>
+
+<!-- ============ 5. DOMÍNIOS (todo o story map) ============ -->
+<section id="dominios"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Os nove domínios · 177 itens</h2></div>
+  <p class="sec-sub">Todo o story map, navegável. Cada domínio abre para a tabela completa de histórias com
+  SP min–max. Consolidação sempre visível; as linhas abrem a um clique. Use a busca para achar qualquer
+  história (ID, texto ou persona).</p>
+
+  <div class="dfilter">
+    <input id="q" type="search" placeholder="Buscar história, ID ou persona…" autocomplete="off">
+    <span class="ctl" id="expand-all">Expandir todos</span>
+    <span class="ctl" id="collapse-all">Recolher todos</span>
+    <span class="count" id="q-count"></span>
+  </div>
+  <div id="domains"></div>
+</div></section>
+
+<!-- ============ 6. INTEGRAÇÃO ============ -->
+<section id="integracao" style="background:var(--fog)"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">07</span><h2>Integração em detalhe</h2></div>
+  <p class="sec-sub">Os 74 serviços <code style="font-family:var(--mono);background:#fff;padding:1px 6px;border-radius:5px">WebService__c</code>
+  reais foram normalizados a famílias TM Forum Open API e receberam uma disposição. Só as três que exigem um
+  cliente Core viram história estimável (43); as outras 31 carregam zero esforço de cliente Core.</p>
+
+  <div class="legend">
+    <span class="li"><span class="sw" style="background:var(--disp-core)"></span>CORE · cliente sync direto (24)</span>
+    <span class="li"><span class="sw" style="background:var(--disp-mule)"></span>MULE · cliente fino p/ facade (18)</span>
+    <span class="li"><span class="sw" style="background:var(--disp-event)"></span>EVENT · pub/sub (1)</span>
+    <span class="li"><span class="sw" style="background:var(--disp-fed)"></span>FEDERATE · Data 360 absorve (10)</span>
+    <span class="li"><span class="sw" style="background:var(--disp-ret)"></span>RETIRE · morre com a nova UX (19)</span>
+    <span class="li"><span class="sw" style="background:var(--disp-del)"></span>DELEGATE · fronteira Pillar-2 (2)</span>
+  </div>
+
+  <div class="tbl-card"><table>
+    <thead><tr><th>Disposição</th><th class="n">Contagem</th><th>Cliente Core?</th><th>Dimensionado onde</th></tr></thead>
+    <tbody>
+      <tr><td><span class="pill core">CORE</span> cliente sync direto</td><td class="n">24</td><td>Sim</td><td>Domínio INT (estimável)</td></tr>
+      <tr><td><span class="pill mule">MULE</span> cliente fino p/ facade</td><td class="n">18</td><td>Sim (só o cliente)</td><td>Domínio INT</td></tr>
+      <tr><td><span class="pill event">EVENT</span> pub/sub</td><td class="n">1</td><td>Sim</td><td>Domínio INT (INT-43)</td></tr>
+      <tr><td><span class="pill federate">FEDERATE</span> Data 360 absorve</td><td class="n">10</td><td>Não</td><td>Federação FND-02</td></tr>
+      <tr><td><span class="pill retire">RETIRE</span> morre com a nova UX/AI</td><td class="n">19</td><td>Não</td><td>Risco de migração</td></tr>
+      <tr><td><span class="pill delegate">DELEGATE</span> fronteira Pillar-2</td><td class="n">2</td><td>Não</td><td>Fora de escopo</td></tr>
+      <tr class="total"><td>Total de serviços reais</td><td class="n">74</td><td>43 precisam de cliente</td><td>—</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="cols">
+    <div class="card"><h4>Postura de design</h4>
+      <p>MuleSoft <b>não</b> é indiscriminadamente mandatório — é aplicado cirurgicamente onde o Core faz
+      orquestração/agregação que não deveria (os 18 MULE). Chamadas sync single-purpose críticas para a
+      jornada permanecem <b>diretas</b> (os 24 CORE) para não adicionar latência. Dados de referência
+      read-heavy são <b>federados</b> via Data 360 (os 10 FEDERATE). O Core permanece passivo: constrói
+      clientes, não orquestração.</p></div>
+    <div class="card"><h4>Estimativa da trilha INT</h4>
+      <p>43 histórias de cliente Core (18 Primary / 25 Derived, por família de API TMF). Base
+      <b>165–264 SP</b>; com contingência de 50% e sem ajuste de teste (carrega estratégia de teste de
+      contrato própria), <b>278–446 SP</b>. É a trilha de maior massa e maior incerteza — e o caminho
+      crítico nos três cenários.</p></div>
+  </div>
+  <p class="note-inline">A batimetria completa por serviço (incl. os 31 sem cliente Core: 10 FEDERATE, 19
+  RETIRE, 2 DELEGATE) vive no story map de origem. As 43 histórias INT com família TMF e disposição estão
+  no domínio INT acima (§05).</p>
+</div></section>
+
+<!-- ============ 7. RISCOS ============ -->
+<section id="riscos"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">08</span><h2>Riscos identificados</h2></div>
+  <p class="sec-sub">Gaps que dirigem a contingência. Os riscos #1, #2 e #3 mais influenciam a faixa;
+  #1 e #3 justificam os buffers de 50% em CPM e INT.</p>
+  <div id="risks"></div>
+</div></section>
+
+<!-- ============ 8. ANEXOS ============ -->
+<section id="anexos" style="background:var(--fog);border-bottom:none"><div class="wrap">
+  <div class="sec-head"><span class="sec-num">09</span><h2>Anexos</h2></div>
+  <p class="sec-sub">O contexto que ancora o escopo — os três pilares da solução, as personas, a taxonomia de
+  motivos de contato, a rastreabilidade fluxo→história e as exclusões.</p>
+
+  <h3 style="font-size:20px;margin:10px 0 16px">Contexto de solução — "Salesforce &amp; vivo: Our Way Forward"</h3>
+  <div class="pillars">
+    <div class="pillar in"><div class="st">Pillar 1 · Em escopo</div>
+      <h4>AI-powered Customer Service</h4>
+      <p>Service Cloud + Agentforce em todos os canais. Console omnichannel unificado sobre Customer 360,
+      assistência de IA e a jornada de Active Retention &amp; Cross-Sell. É o que esta ROM dimensiona.</p></div>
+    <div class="pillar out"><div class="st">Pillar 2 · Fora (delegado)</div>
+      <h4>Unified B2X Commerce</h4>
+      <p>Commerce convergente (EPC/CPQ, pricing, headless), descomissionando Amdocs/SAP Hybris. É a fronteira
+      de product-order que esta ROM delega (premissa 2) — o "outro sistema" ao qual o COPM faz handoff.</p></div>
+    <div class="pillar dep"><div class="st">Pillar 3 · Dependência + fatia FND</div>
+      <h4>Headless 360 / Agentic OS</h4>
+      <p>A AI Trust Layer e o substrato determinístico. A <b>fatia de atendimento</b> é dimensionada aqui como
+      FND; a plataforma enterprise transversal (B2X/Billing/ERP) permanece dependência de programa.</p></div>
+  </div>
+
+  <details class="raw" id="personas-wrap"><summary>Personas (autorais — operação Vivo B2C)</summary>
+    <div id="personas"></div></details>
+  <details class="raw" id="taxonomy-wrap"><summary>Taxonomia de motivos de contato (seed — relatório TM Forum)</summary>
+    <div id="taxonomy"></div></details>
+  <details class="raw" id="trace-wrap"><summary>Rastreabilidade fluxo → história</summary>
+    <div id="trace"></div></details>
+  <details class="raw" id="excl-wrap"><summary>Exclusões (fora de escopo, com racional)</summary>
+    <div id="excl"></div></details>
+</div></section>
+
+<footer><div class="wrap">
+  <div>Vivo B2C Atendimento — ROM Estimation. Números são <b>Rough Order of Magnitude</b> (faixa de esforço
+  para decisão de investimento), não um plano de sprint comprometido.</div>
+  <div>Derivado de <code>architecture/vivo-b2c-atendimento-story-map.md</code> ·
+  spec <code>docs/superpowers/specs/vivo-b2c-atendimento-estimation-design.md</code></div>
+  <div>Escopo: camada de atendimento nativa em Salesforce · 4 capacidades eTOM Customer · mecânica de
+  product-order delegada.</div>
+</div></footer>
+
+<script id="data" type="application/json">{"premises":[{"n":1,"t":"Percentuais de derivação","d":"Cross-persona 22,5%, cross-pattern 27,5%, intra-capacidade 30% — ponto médio da banda. Arredonda ao inteiro, piso 1 SP; derivado não precisa ser Fibonacci. Cadeias resolvem pela faixa computada do referente imediato."},{"n":2,"t":"Story Points — faixa Fibonacci","d":"Fibonacci (1,2,3,5,8,13,21), faixa min–max por história. Primary com SP cheio e ambos os limites Fibonacci; Derived ao percentual da premissa 1."},{"n":3,"t":"Cone de incerteza (contingência)","d":"Buffer: 35% global, 50% para INT (integração) e 50% para CPM (Customer Problem) — os dois eixos de maior incerteza."},{"n":4,"t":"Testes funcionais como Definition of Done","d":"Automação de teste funcional na DoD. Ajuste +12,5% aos squads que produzem código — todos exceto FND e OPS (config/plataforma, verificação própria)."},{"n":5,"t":"Multi-squad, velocidade diferenciada","d":"Squads distintos operam em paralelo desde o Sprint 0. A duração é o caminho crítico, não a soma sequencial."},{"n":6,"t":"Cadência","d":"Sprints de 2 semanas, velocidade diferenciada por squad."},{"n":7,"t":"Horas produtivas","d":"6h/dia × 10 dias/sprint = 60 FTE-h/pessoa/sprint."},{"n":8,"rev":true,"t":"Port de brownfield para org nova — sem dívida técnica","d":"NÃO é greenfield puro nem construção sobre legado: é um port das capacidades de uma operação brownfield para uma org Salesforce nova, sem dívida herdada. As jornadas B2C da Vivo hoje não estão de fato em Salesforce — atendentes operam WDE/GPS/Next/Siebel via Alt+Tab/iframe. A incerteza vem da malha de origem, não da org-alvo."},{"n":9,"rev":true,"t":"Integração é o eixo de maior incerteza","d":"O estado atual dispara ~2,5–2,9M callouts/dia útil com ~23% de erro e 72% originados de OmniStudio (sendo aposentado). Cada cliente reconstruído no Core precisa adicionar o tratamento de erro resiliente ausente hoje. Daí o buffer de 50% no INT."},{"n":10,"t":"Tech stack","d":"Salesforce Core (LWC + Apex, OmniStudio descartado) + Agentforce + Data 360 + Service Cloud Voice / Amazon Connect + Digital Engagement + MuleSoft (cirúrgico)."},{"n":11,"rev":true,"t":"Add-ons IN na baseline","d":"Ao contrário do default no-add-on, Digital Engagement, Data 360 e Agentforce estão dentro da baseline — são o núcleo da solução-alvo, não candidatos opcionais."},{"n":12,"t":"Federação de dados via Data 360","d":"A Vivo é dona do customer master; apenas dados mínimos-residentes em Salesforce, o resto federado em tempo de consulta."},{"n":13,"t":"eTOM em escopo","d":"Customer Interaction, Customer Problem, Customer Relationship, Customer Order Processing Management (apenas o envelope de atendimento)."},{"n":14,"t":"eTOM fora de escopo","d":"Product Order Management, camadas Product/Service/Resource, catálogo/PCM/CPQ, decomposição→orquestração, DRO fulfillment, provisionamento TMF641/639."},{"n":15,"t":"Ambiguidade","d":"Alta — telco tier-1, processos regulados (Anatel, LGPD, fim de concessão STFC), integrações legadas frágeis."},{"n":16,"t":"Gestão de projeto não incluída","d":"A ROM cobre engenharia e arquitetura. PM, Scrum Master, Agile Coach e Delivery Manager não estão incluídos — responsabilidade do cliente."}],"personas":[{"n":1,"name":"Consultor de Loja / Revenda (Aliado Externo)","code":"Aliado","pop":"~18.094","role":"Canal front-line dominante — loja/revenda, via Experience Cloud"},{"n":2,"name":"Representante de Atendimento (Central/Loja Própria)","code":"Rep","pop":"~1.702","role":"Maior front-line interno; atendimento end-to-end; copiloto Chat IA"},{"n":3,"name":"Especialista de Atendimento Convergente (Backoffice E2E)","code":"Esp","pop":"~42","role":"Resolve casos escalados; operações de order/product"},{"n":4,"name":"Atendente de Canais / Tratativa","code":"Canais","pop":"~24","role":"Canais digitais/sociais; dono da tratativa"},{"n":5,"name":"Consultor de Retenção","code":"Reten","pop":"~3","role":"Churn/downgrade; reposicionamento de plano; por tier"},{"n":6,"name":"Analista de Ouvidoria","code":"Ouvid","pop":"~4","role":"Última instância; contestação; Anatel/regulatório"},{"n":7,"name":"Analista Antifraude","code":"Fraude","pop":"~14/4","role":"Validação de operação suspeita; desprogramação/bloqueio de linha"},{"n":8,"name":"Analista de Serviços Especiais & Jurídico","code":"Juri","pop":"~3/7","role":"Retenção judicial, titularidade, contestações formais"},{"n":9,"name":"Consultor de Vendas / Novos Negócios","code":"Vendas","pop":"~3/4","role":"Aquisição (majoritariamente fora — domínio de vendas)"},{"n":10,"name":"Supervisor / Adm de Processos de Atendimento","code":"Sup","pop":"governança","role":"Gestão de fila/performance; parametriza regras de atendimento"},{"n":0,"name":"System (sem ator humano)","code":"System","pop":"—","role":"Capacidade automatizada conforme DECOMPOSITION-RULES"}],"lanes":[{"squad":"S1 Foundation & Ops","dom":"FND + OPS","spr":[4,8,12]},{"squad":"S2 Interaction & Problem","dom":"CIM + CPM","spr":[6,10,16]},{"squad":"S3 Relationship & Envelope","dom":"CRM + COPM","spr":[3,5,7]},{"squad":"S4 Omnichannel","dom":"OMNI","spr":[4,8,12]},{"squad":"S5 Agentforce/SDP","dom":"SDP","spr":[3,5,7]},{"squad":"S6 Integration/Core","dom":"INT","spr":[10,14,18],"crit":true}],"scenarios":[{"name":"Otimista","sprints":10,"dur":"20 sem · ~4,6 meses","basis":"SP min (c/ cont.) ÷ velocidade alta"},{"name":"Central","sprints":14,"dur":"28 sem · ~6,5 meses","basis":"SP midpoint ÷ velocidade média"},{"name":"Pessimista","sprints":18,"dur":"36 sem · ~8,3 meses","basis":"SP max (c/ cont.) ÷ velocidade baixa"}],"risks":[{"n":1,"hi":true,"t":"Jornadas de maior dor não modeladas","drives":"dirige o buffer de 50% do CPM","d":"Os ramos Problem, Technical Complaint e Termination estavam declarados mas não desenhados nos fluxos de origem. A substância veio do corpus de dor Vivo + pesquisa, não de um fluxo UPN modelado — maior incerteza de design, e são as maiores dores da Vivo."},{"n":2,"hi":true,"t":"Lacuna de orquestração determinística","drives":"maior risco de programa","d":"Workflows regulados pesados (contestação ≈ 300+ passos, agendamento técnico) são invocados, não construídos. Se os externos não forem invocáveis via APIs/MCP limpas, o envelope colapsa de volta ao iframe. A fatia de atendimento é dimensionada em FND; a plataforma Headless-360 enterprise transversal permanece dependência."},{"n":3,"hi":true,"t":"Malha de integração de origem — volume + fragilidade","drives":"dirige o buffer de 50% do INT e o caminho crítico","d":"Não é dívida técnica na org-alvo (construímos limpo), mas a origem dispara ~2,5–2,9M callouts/dia, 23% de erro, 72% OmniStudio (sendo aposentado). Cada um dos 43 clientes Core precisa de tratamento de erro resiliente ausente hoje. As 18 disposições MULE assumem que a facade já existe."},{"n":4,"t":"Federação Data 360 vs latência de atendimento","d":"Federação de queries e 'dados mínimos residentes' não comprovadas na escala Vivo para latência sub-segundo por voz/chat → possível redesenho de replicação seletiva."},{"n":5,"t":"Qualidade de dados dos fluxos de origem","d":"Todos em state: draft; numeração de atividade não mapeia a IDs de nó; reserve-resources com Notes vazias; identidade com descrição errada por copy-paste; add/remove-VAS com billing duplicado. Reconciliar na Phase 2."},{"n":6,"t":"Escala do canal Parceiro/Aliado","d":"A persona dominante (~18k Aliado via Experience Cloud) está numa única história (OMNI-28, dimensionada 13–21 por isso). Licenciamento, sharing e paridade da superfície provavelmente sub-decompostos."},{"n":7,"t":"Contrato de fronteira de product-order","d":"As histórias COPM assumem um contrato de handoff estável (TMF622 + status callback) com o sistema delegado (Pillar 2). Ausência bloqueia COPM-02/06/07/08/09."},{"n":8,"t":"Pré-requisito de Voz/Amazon Connect","d":"Provisionamento SCV + Amazon Connect, migração de telefonia (Genesys EOL Dez-2027) e contratos AWS CCaaS são pré-requisitos para todo o subconjunto de voz OMNI — infraestrutura fora da construção Salesforce."},{"n":9,"t":"Pico de volume de migração mandatória (regulatório)","d":"Cobre→fibra (fim STFC) e DTH→IPTV (2026) geram picos nas jornadas de migração. CPM-18/19 são envelopes únicos, mas a escala da campanha pode justificar plano de capacidade de outbound dedicado."},{"n":10,"t":"Reconciliações de refinamento (impacto marginal)","d":"Já ajustados nesta ROM: (a) COPM-10 reclassificada Primary; (b) COPM-06 com piso de 2 SP; (c) SDP-13/14/15 reclassificadas Primary (Active Retention Agent). Nenhum altera contagens de histórias."},{"n":11,"t":"Product Design fora de escopo (dependência de entrega)","d":"Catálogo/PCM, CPQ, precificação, crédito, billing, contrato e fulfillment excluídos — entregues por outro time/agente. A ausência é dependência de entrega, não linha da ROM."}],"taxonomy":[["Billing","1.1.1.12","Handle Billing Inquiries","Contestação de reajuste tarifário anual","CPM-04, CIM-14"],["Billing","1.1.1.12","Handle Billing Inquiries","Expiração de degustação de SVA (Gemini/Perplexity/Prime)","CPM-17"],["Billing","1.1.1.11","Manage Payments & Receivables","Erro de débito automático (dessincronia BSS↔adquirente)","CPM-03, COPM-09"],["Technical Support","1.1.1.6","Handle Customer Problem","Instabilidade/ruído na linha de voz fixa","CPM-05, CPM-18"],["Technical Support","1.1.1.6","Handle Customer Problem","Desconexão Wi-Fi / perda de pacotes","CPM-05, CPM-06"],["Technical Support","1.1.1.6","Handle Customer Problem","Falha de pareamento de câmera (Casa Inteligente)","CPM-05, CPM-07"],["Migrations","1.1.1.9","Manage Retention & Loyalty","Substituição mandatória de cabo de cobre (fim da concessão)","CPM-18"],["Migrations","1.1.1.9","Manage Retention & Loyalty","Incompatibilidade física PBX↔ATA (voz)","CPM-18 (B2B-adj.)"],["Migrations","1.1.1.9","Manage Retention & Loyalty","Descomissionamento/substituição de decoder DTH","CPM-19"],["Retention","1.1.1.9","Manage Retention & Loyalty","Cancelamento — fibra de concorrente mais barata","CPM-11, CPM-12, CRM-13"],["Retention","1.1.1.9","Manage Retention & Loyalty","Cancelamento — sem alternativa de voz após cobre","CPM-11, CPM-18"]],"trace":[["FND","Presentation Pillar 3 (Headless 360 / AI Trust Layer) — fatia de atendimento","devolutiva Alex Salgado; premissas 3–6"],["CIM","Manage Contact; Manage and Route Request; Initiate Inquiry Management; Validate Customer Satisfaction","architecture/flows/request-to-answer/"],["CPM","Manage and Route Request (ramos Problem/Technical/Termination 33/35/39) + corpus de dor Vivo","request-to-answer-manage-and-route-request.md; vivo-desafios-atendimento-compilado.md"],["CRM / V360","V360 Consult and Action Customer 360 Context; V360 Capability Map","architecture/flows/customer-relationship-management-v360/"],["COPM","Request to Change (Add/Remove VAS; MSISDN Change; Plan Migration); E2E Order to Payment","architecture/flows/request-to-change/; order-to-payment/"],["OMNI","Pesquisa Service Cloud Voice / Amazon Connect / Omni-Channel / Digital Engagement","pesquisa; premissas"],["SDP","Premissa Agentforce / service-dynamic-plan + arquitetura CRM+","premissas; ../vivob2c/docs/"],["SDP-13/14/15","Proposta 'Our Way Forward' (Active Retention Agent)","devolutiva Alex Salgado"],["OPS","Pesquisa de plataforma (palitagem, entitlements, Knowledge) + corpus Vivo §3","pesquisa; ../vivob2c/"],["INT","74 serviços WebService__c vivos normalizados a TM Forum Open APIs + telemetria Splunk","org viva WebService__c; logs apout Splunk; tmforum-apis"],["CIM-18/19, CPM-17/18/19, CRM-13, COPM-10","Relatório TM Forum eTOM (contact-driver, migrações R2C, churn SHAP)","Fluxos de Atendimento e Motivos de Contato (TM Forum).md"]],"exclusions":[["Product Order Management (decomposição→orquestração, submit TMF622 downstream)","Fronteira delegada (premissa 2); pertence ao Pillar 2. O envelope COPM apenas invoca."],["Camadas Product/Service/Resource (provisionamento TMF641/639, fulfillment)","Fora das 4 capacidades eTOM Customer em escopo."],["Autoria de catálogo/PCM, CPQ, precificação, crédito, billing setup, contrato","Product Design — fronteira delegada; entregue por outro time/agente."],["Jornadas de venda/aquisição (r2a-sales-journey-b2c, b2b-selling, catalog, sales-home)","Domínio de vendas/product-order — adjacente, fora do atendimento."],["Plataforma Headless-360 enterprise transversal (B2X, Billing, ERP)","Dependência de programa; a FND dimensiona só o enablement de atendimento sobre ela."],["Serviços Mule (a facade em si), para as 18 disposições MULE","Assumidos pré-existentes; se precisarem ser construídos, é esforço do programa de integração."],["Migração de voz B2B-adjacente (PBX/ATA)","Esta ROM é B2C; a variante corporativa está fora, anotada como fronteira."],["Gestão de projeto (PM, SM, Agile Coach, Delivery Manager)","Premissa 16 — responsabilidade do cliente."]],"domains":[{"code":"FND","name":"Foundation / Enablement","squad":"S1","p":6,"d":2,"min":51,"max":122,"cmin":69,"cmax":165,"cont":35,"s":[["FND-01","P","Sup",13,21,"Configurar a AI Trust Layer para agentes de atendimento (grounding, masking, toxidade, auditoria) sobre os LLMs aprovados"],["FND-02","P","System",8,21,"Levantar o modelo de dados Data-360 de atendimento + federação de dados mínimos-residentes ao customer master"],["FND-03","D","System",2,6,"Resolução de identidade federada entre Salesforce + master + legado (WDE/GPS/Next/Siebel)"],["FND-04","P","System",8,21,"Runtime de orquestração determinística sobre o qual planos dinâmicos e ações invocáveis executam"],["FND-05","P","Sup",5,13,"Modelo de segurança & sharing Passive-Core (OWD, PS/PSG, identidades de integração)"],["FND-06","P","Sup",8,21,"Standup Service Cloud Voice + Amazon Connect (telefonia, contact flows, wiring)"],["FND-07","D","Sup",2,6,"Standup canais Digital Engagement (WhatsApp/chat/email, contas de negócio, roteamento)"],["FND-08","P","Sup",5,13,"Ambiente, pipeline DevOps e observabilidade para a construção de atendimento"]]},{"code":"OPS","name":"Operation Support","squad":"S1","p":6,"d":16,"min":60,"max":137,"cmin":81,"cmax":185,"cont":35,"s":[["OPS-01","P","Sup",5,13,"Árvore de classificação (palitagem) como metadados hierárquicos versionados + mapeamento eTOM L3/L4"],["OPS-02","D","Sup",2,4,"Publicar/versionar mudança na árvore sem quebrar relatórios (effective-dated)"],["OPS-03","D","Sup",2,4,"Mapear disposição → RecordType/Origin/Queue elegíveis"],["OPS-04","D","Sup",2,4,"Níveis de disposição obrigatórios vs opcionais por canal"],["OPS-05","D","Sup",2,4,"Import/export em massa da árvore a partir de planilha com validação"],["OPS-06","D","Sup",2,4,"Aposentar/depreciar nós obsoletos preservando histórico"],["OPS-07","P","Rep",5,13,"Captura de disposição obrigatória (palito) no wrap-up, imposta antes do fechamento"],["OPS-08","D","Rep",2,4,"Seletor de disposição guiado/progressivo (árvore em cascata)"],["OPS-09","D","Rep",2,4,"Disposições secundárias/contribuintes para contatos multi-issue"],["OPS-10","D","System",2,4,"Ações pós-caso dirigidas por disposição (follow-up, desqualificação de NBA, pesquisa)"],["OPS-11","P","Sup",5,13,"Entitlement Process + Milestones (SLA first-response/resolution) por tier"],["OPS-12","D","Sup",2,4,"Calendário de horário comercial/feriado por região/canal"],["OPS-13","D","System",2,4,"Notificação de breach/warning de SLA para agente e supervisor"],["OPS-14","D","System",2,4,"Pause/resume de SLA atrelado ao status/disposição do caso"],["OPS-15","P","Sup",5,13,"Workflow de autoria de artigos de Knowledge (draft/review/aprovação/publish)"],["OPS-16","D","Sup",2,4,"Taxonomia de Data Category alinhada à árvore de disposição / domínios eTOM"],["OPS-17","D","Sup",2,4,"Analytics de uso/gap de artigos (buscado-mas-não-encontrado → backlog)"],["OPS-18","D","Sup",2,4,"Governança de expiração/lembrete-de-revisão de artigos (Anatel)"],["OPS-19","P","Sup",3,8,"Biblioteca de templates de mensagem (WhatsApp aprovados, canned) com aprovação"],["OPS-20","P","Sup",5,13,"Dashboards operacionais — volume por disposição, AHT/ASA/abandono/ocupação"],["OPS-21","D","Sup",2,4,"Relatório de compliance de Entitlement/SLA (breach por disposição/fila)"],["OPS-22","D","Sup",2,4,"Dashboard de performance/qualidade do agente (AHT, acurácia, aceite de IA)"]]},{"code":"CIM","name":"Customer Interaction Management","squad":"S2","p":8,"d":11,"min":59,"max":139,"cmin":90,"cmax":211,"cont":35,"s":[["CIM-01","P","Rep",5,13,"Capturar & registrar interação (EngagementInteraction) em qualquer canal, histórico único"],["CIM-02","D","Canais",1,3,"Capturar interação de canal digital/social sem perder contexto no handoff"],["CIM-03","D","Rep",2,4,"Normalizar/formatar dados capturados (telefone, nome) para qualidade de registro"],["CIM-04","P","Rep",5,8,"Buscar & unificar identidade entre Salesforce e master federado (Data 360/legado)"],["CIM-05","P","Rep",8,21,"Verificar identidade/KYC com badge de autorização antes de prosseguir"],["CIM-06","D","Canais",2,4,"Avaliar elegibilidade de self-service e redirecionar a canal digital"],["CIM-07","P","Rep",5,13,"Identificar tipo de requisição e rotear ao processo correto (Manage Interface)"],["CIM-08","D","Rep",2,4,"Capturar interação de prospect/anônimo (no-Leads) quando cliente não é encontrado"],["CIM-09","P","Rep",8,21,"Gerenciar consulta geral (abrir caso, buscar Knowledge, responder)"],["CIM-10","D","Rep",2,6,"Rotear caso para fila de especialista quando cliente não satisfeito"],["CIM-11","D","Rep",2,6,"Capturar motivo/gap da insatisfação"],["CIM-12","P","System",3,5,"Disparar pesquisa de satisfação e capturar feedback"],["CIM-13","D","System",1,2,"Registrar não-resposta a pesquisa dentro do prazo"],["CIM-14","P","Canais",2,3,"Requisição & entrega de segunda via de fatura por email/WhatsApp"],["CIM-15","D","Rep",2,6,"Consulta de saldo/recarga com handoff ao vivo em falha"],["CIM-16","D","Rep",1,2,"Consulta de consumo/uso apresentada ao agente"],["CIM-17","P","Canais",5,13,"Atualização de dados cadastrais (endereço/contato/documento)"],["CIM-18","D","Rep",2,4,"Classificar motivo de contato de entrada (contact driver) na captura"],["CIM-19","D","System",1,1,"Vincular fase conversacional (Saudação/Investigação/…/Encerramento) para analytics TMA/FCR"]]},{"code":"CPM","name":"Customer Problem Management","squad":"S2","p":7,"d":12,"min":79,"max":150,"cmin":133,"cmax":253,"cont":50,"s":[["CPM-01","P","Rep",13,21,"Abrir e classificar caso de problema (ciclo de vida de Case — fundação de todo o problem handling)"],["CPM-02","D","Rep",4,6,"Gerenciar caso de reclamação técnica para falha de serviço"],["CPM-03","P","Rep",5,13,"Consultar & apresentar a fatura via sistema externo/federado"],["CPM-04","D","Ouvid",1,3,"Capturar contestação de fatura e invocar workflow externo, acompanhando (C2S)"],["CPM-05","P","Rep",8,13,"Triagem técnica remota antes de despachar visita (P2S)"],["CPM-06","D","Rep",2,4,"Disparar network refresh / ação técnica remota via ação invocável (MCP/MuleSoft)"],["CPM-07","P","Rep",5,8,"Agendar visita técnica para casos que exigem presença"],["CPM-08","D","System",1,1,"Notificar proativamente mudança/cancelamento de visita (SMS/WhatsApp)"],["CPM-09","D","Ouvid",1,1,"Escalar caso para especialista/Ouvidoria/Anatel em tratativa sensível"],["CPM-10","D","Ouvid",1,1,"Sincronizar status de reconsideração/recurso Anatel de volta ao caso"],["CPM-11","P","Reten",8,13,"Capturar requisição de rescisão/cancelamento e registrá-la como caso/order-intent"],["CPM-12","D","Reten",2,3,"Receber contexto de churn e oferecer contraproposta de retenção"],["CPM-13","P","Fraude",8,21,"Tratativa de fraude — bloqueio temporário de linha / desprogramação com acesso restrito"],["CPM-14","D","Fraude",2,6,"Workflow de escalação & investigação de fraude (Consultivo × Gerencial)"],["CPM-15","P","Juri",8,21,"Tratativa jurídica/serviços especiais (bloqueio por ordem judicial) com legal-hold"],["CPM-16","D","Rep",4,6,"Contato multi-issue — vincular problemas contribuintes a uma interação"],["CPM-17","D","Reten",1,1,"Retenção proativa — oferta de fidelização agendada antes do gatilho de churn"],["CPM-18","D","Esp",4,6,"Migração tecnológica mandatória (cobre/xDSL → fibra, fim STFC) — capturar, notificar, handoff, acompanhar"],["CPM-19","D","Esp",1,2,"Descomissionamento TV-satélite DTH → migração IPTV/OTT (instalação + logística reversa)"]]},{"code":"CRM","name":"Customer Relationship / V360","squad":"S3","p":5,"d":8,"min":40,"max":72,"cmin":61,"cmax":109,"cont":35,"s":[["CRM-01","P","Rep",8,13,"Cockpit Customer 360 unificado (LWC) para atender sem Alt+Tab"],["CRM-02","D","Rep",2,4,"Painel de perfil/segmento/NPS/valor para adaptar a abordagem"],["CRM-03","D","Rep",2,4,"Painel de endereços de serviço/contatos/contas de billing relacionados"],["CRM-04","D","Rep",2,4,"Painel de status financeiro/billing (saldo, vencimento, forma de pagamento)"],["CRM-05","D","Rep",2,4,"Painel de product-inventory/assets (plano, MSISDN, dispositivo, status)"],["CRM-06","D","Rep",2,4,"Acompanhamento de pedidos abertos/pendentes (status de provisionamento, ETA)"],["CRM-07","D","Rep",2,4,"Timeline de histórico de interações para o cliente nunca repetir o contexto"],["CRM-08","P","Rep",5,8,"Next-best-action contextual (Start Order, Open Case, Collection) a partir do 360"],["CRM-09","P","Sup",3,5,"Vínculo de Service Contract / tier de entitlement na Account"],["CRM-10","P","Canais",5,8,"Consentimento LGPD + rastreamento de data-subject-request (opt-out, acesso/apagamento)"],["CRM-11","P","Esp",5,8,"Troca de titularidade com validação de documento"],["CRM-12","D","Esp",1,4,"SIM swap / desbloqueio de dispositivo com re-verificação de identidade"],["CRM-13","D","Reten",1,2,"Sinal de propensão a churn com drivers explicáveis (SHAP) no 360"]]},{"code":"COPM","name":"Order Processing (envelope de atendimento)","squad":"S3","p":5,"d":5,"min":38,"max":62,"cmin":58,"cmax":94,"cont":35,"s":[["COPM-01","P","Esp",3,5,"Identificar asset/subscription ativo no console para iniciar uma mudança"],["COPM-02","P","Esp",8,13,"Capturar requisição MACD e delegá-la ao sistema de product-order (API/MCP)"],["COPM-03","D","Esp",2,4,"Envelope de atendimento Add/Remove VAS"],["COPM-04","D","Reten",2,4,"Envelope de atendimento de migração de plano (up/downgrade)"],["COPM-05","P","Esp",5,8,"Mudança de MSISDN — validar, consultar disponibilidade, escolher número"],["COPM-06","D","Rep",2,2,"Acompanhar status do pedido/mudança e atualizar o cliente (piso 2 SP)"],["COPM-07","D","Rep",1,1,"Notificar conclusão da mudança e fechar a requisição"],["COPM-08","P","Esp",8,13,"Portabilidade numérica (in/out) + handoff ao clearinghouse"],["COPM-09","D","Reten",2,4,"Acordo de pagamento / negociação de dívida (parcelamento) + handoff à cobrança"],["COPM-10","P","Esp",5,8,"Logística reversa de comodato na rescisão (devolução, logística externa, pro-rata, acompanhar) — reclassificada Primary"]]},{"code":"OMNI","name":"Omnichannel Routing","squad":"S4","p":9,"d":19,"min":97,"max":228,"cmin":147,"cmax":346,"cont":35,"s":[["OMNI-01","P","Sup",5,13,"Roteamento Omni-Channel (prioridade, modelo de capacidade) por canal"],["OMNI-02","D","Sup",2,4,"Roteamento por skills (definir, atribuir, matching por peso)"],["OMNI-03","D","Sup",2,4,"Filas mapeadas a filas do Amazon Connect (import/sync, atribuição em massa)"],["OMNI-04","D","Sup",2,4,"Status de presença/estados de agente mapeados ao Amazon Connect"],["OMNI-05","D","Sup",2,4,"Unified Routing — voz pela mesma engine Omni dos canais digitais"],["OMNI-06","P","System",8,21,"Omni flow de voz de entrada (identificar chamador, rotear, Case, screen-pop)"],["OMNI-07","P","Rep",8,21,"Softphone de voz/CTI — click-to-dial, screen-pop, controles de chamada"],["OMNI-08","D","Rep",2,6,"Transferência quente/fria com contexto (caso, transcrição, notas)"],["OMNI-09","D","Rep",1,2,"Transferência aprimorada — capacidade consumida do agente-alvo antes de transferir"],["OMNI-10","P","Rep",8,21,"Consumir transcrição de chamada ao vivo durante a chamada (Amazon Connect)"],["OMNI-11","D","System",2,6,"Persistir transcrição pós-chamada no Voice Call para busca/QA"],["OMNI-12","P","System",5,13,"Deflexão de self-service por IVR/URA com fallback para fila ao vivo"],["OMNI-13","D","System",2,4,"Passagem de contexto IVR→Salesforce (atributos sfdc- → VoiceCall)"],["OMNI-14","D","System",2,6,"Fallback de resiliência de voz (fila default; nunca desconectar)"],["OMNI-15","D","Rep",2,6,"Callback enfileirado (em vez de espera) para voz"],["OMNI-16","D","Rep",1,2,"Roteamento, playback e transcrição de voicemail para follow-up"],["OMNI-17","P","Sup",5,13,"Roteamento Digital Engagement para WhatsApp/chat/email (capacidade, concorrência)"],["OMNI-18","D","System",2,4,"Ciclo de vida de sessão de mensageria assíncrona (start/idle/end)"],["OMNI-19","D","Canais",2,4,"Múltiplas sessões concorrentes por agente (capacidade omni entre chats/WhatsApp)"],["OMNI-20","D","System",2,6,"Channel-to-Case com dedupe contra casos abertos do mesmo cliente"],["OMNI-21","D","Canais",2,4,"Tratamento de anexos (imagem/PDF/áudio) de WhatsApp/chat vinculados ao Case"],["OMNI-22","D","System",2,4,"Mensagem de tempo de espera estimado no escalonamento bot→humano"],["OMNI-23","P","Sup",5,13,"Barge-in/listen-in/whisper coaching de supervisor em chamadas ao vivo"],["OMNI-24","D","Sup",2,4,"Omni Supervisor — backlog de fila & status/capacidade em tempo real"],["OMNI-25","D","Sup",1,1,"Reatribuição em massa de agentes entre filas sincronizada ao Amazon Connect"],["OMNI-26","D","Sup",2,4,"After Conversation Work Time (janela de wrap-up configurável por canal)"],["OMNI-27","P","Canais",5,13,"Outbound proativo / agendamento de callback no horário preferido do cliente"],["OMNI-28","P","Aliado",13,21,"Superfície de atendimento de Parceiro/Aliado via Experience Cloud (~18k)"]]},{"code":"SDP","name":"Agentforce / Service Dynamic Plan","squad":"S5","p":5,"d":10,"min":66,"max":106,"cmin":100,"cmax":161,"cont":35,"s":[["SDP-01","P","System",13,21,"Catálogo de ações de atendimento invocáveis (Agentforce Actions/MCP) para compor planos"],["SDP-02","D","System",4,6,"Montar service dynamic plan para a intenção capturada a partir do catálogo"],["SDP-03","P","Rep",13,21,"Superfície agentic/conversacional (LWC + Agentforce) substituindo iframes legados"],["SDP-04","D","System",4,6,"Consumir transcrição Service Cloud Voice / Amazon Connect para o contexto"],["SDP-05","D","Rep",1,2,"Copiloto de IA ativo (não passivo) que sugere e executa ações para reduzir AHT"],["SDP-06","D","Rep",1,2,"NBA contextual (não oferecer TV a quem ligou irritado com fatura)"],["SDP-07","D","System",1,1,"Sumarização de caso/histórico na abertura do caso"],["SDP-08","D","Canais",1,1,"Recomendações de resposta para chat/email/WhatsApp, editáveis"],["SDP-09","D","System",1,1,"Sumarização de caso no fechamento (auto-draft de notas de resolução)"],["SDP-10","D","System",1,4,"Sugestão de disposição assistida por Agentforce alimentando a palitagem"],["SDP-11","D","System",4,6,"Recomendação de artigo de Knowledge como ação Agentforce no plano"],["SDP-12","D","Sup",1,1,"Nudge de coaching por sentimento em tempo real (risco de escalonamento)"],["SDP-13","P","System",8,13,"Active Retention Agent — resolução autônoma de atrito de cobrança (ex.: isenção dentro da política) — reclassificada Primary"],["SDP-14","P","Rep",8,13,"Active Retention Agent — detecção proativa de intenção de compra durante o suporte — reclassificada Primary"],["SDP-15","P","Rep",5,8,"Active Retention Agent — handoff inteligente sem atrito para especialista de vendas humano — reclassificada Primary"]]},{"code":"INT","name":"Integration / Core Clients","squad":"S6","p":18,"d":25,"min":165,"max":264,"cmin":278,"cmax":446,"cont":50,"s":[["INT-01","P","CORE",5,8,"GeographicAddressCallout · TMF673 · serviceabilidade (CPM-07, COPM-05)"],["INT-02","D","CORE",2,2,"GeographicAddressValidationCallout · TMF673 (CPM-07)"],["INT-03","D","CORE",2,2,"SreAddress · TMF673 (CIM-17, COPM-05)"],["INT-04","P","CORE",8,13,"ServiceCoverageAvailabilityCallout · TMF645 · cobertura (COPM-05, CPM-05)"],["INT-05","P","CORE",8,13,"CustomerBillingCycleCallout · TMF678 (CPM-03, CRM-04)"],["INT-06","D","CORE",2,4,"InvoiceChargesCallout · TMF678 · contestação (CPM-04)"],["INT-07","D","CORE",2,4,"SearchInvoceCreditsCallout · TMF678 (CPM-04)"],["INT-08","D","MULE",2,4,"CalculatePlanProrationCallout · TMF678 (COPM-04, CPM-17)"],["INT-09","P","CORE",5,8,"SearchCustomerKeysCallout · TMF666 · resolução de chave (CIM-04, FND-03)"],["INT-10","P","CORE",8,13,"CustomerInteractionCallout · TMF683 · histórico de protocolo (CIM-01, CRM-07)"],["INT-11","D","MULE",2,4,"CIMServiceCallout (mTLS) · TMF683 · escrita de interação (CIM-01)"],["INT-12","P","CORE",8,13,"DocumentRepository (mTLS) · TMF667 · visualização de doc (CPM-04, CRM-11)"],["INT-13","P","CORE",8,13,"BiometryHistoryCallout · TMF720 · identidade/KYC (CIM-05, CRM-12)"],["INT-14","P","CORE",8,13,"WorkForceManagementCallout · TMF697 · field WO (CPM-07, CPM-05)"],["INT-15","D","CORE",2,4,"WfmGetWorkOrderById (mTLS) · TMF697 (CPM-07)"],["INT-16","D","CORE",2,4,"WFMSearchByWorkOrderCallout · TMF697 (CPM-07)"],["INT-17","P","CORE",8,13,"RetrieveOrderDetailsCallout · TMF622 · acompanhamento de pedido (COPM-06, CRM-06)"],["INT-18","D","CORE",2,4,"RetrieveOrdersListCallout · TMF622 (COPM-06, CRM-06)"],["INT-19","P","CORE",8,13,"RtdNbaNboServiceCallout · TMF680 · NBA/NBO (CRM-08, SDP-06)"],["INT-20","P","CORE",8,13,"RetrieveContractsCallout · TMF651/658 · contratos (CRM-09, CPM-11)"],["INT-21","D","MULE",2,4,"ContractTrackingCallout · TMF658 · loyalty/contrato (CPM-17)"],["INT-22","D","MULE",2,4,"PaymentAgreementCallout · TMF651 · parcelamento (COPM-09)"],["INT-23","P","MULE",3,5,"CommunicationSendEmail · TMF681 · notificar (CIM-14, CPM-08, COPM-07)"],["INT-24","D","MULE",1,2,"API_GW_SendMailCSS · TMF681 · SMS/email (CPM-08)"],["INT-25","P","CORE",8,13,"GPSQueryServiceFlowsCallout · GPS diag. · triagem remota (CPM-05)"],["INT-26","D","CORE",2,4,"ServiceFlowDiagnosticCallout · GPS diag. (CPM-05)"],["INT-27","D","CORE",2,4,"ServiceFlowFormCallout · GPS diag. (CPM-05)"],["INT-28","D","CORE",2,4,"ServiceFlowProtocolCallout · GPS diag. · protocolo (CPM-05, CIM-07)"],["INT-29","D","MULE",2,4,"ServiceFlowGPSCreateSSCallout · GPS (create SS) (CPM-06, CPM-07)"],["INT-30","P","CORE",5,8,"MassiveFixedCallout · TMF656 · outage massivo (CPM-05)"],["INT-31","D","CORE",2,2,"MassiveSuspicionCallout · TMF656 (CPM-05)"],["INT-32","D","MULE",2,2,"CustomerProblemManagement · TMF656 · problem mgmt externo (CPM-01)"],["INT-33","P","MULE",5,8,"PointOfServiceCallout · POS/Queue · ops de POS/fila (OPS-20, OMNI-24)"],["INT-34","D","MULE",2,2,"PointOfServiceAttendanceCallout · POS/Queue (OPS-20)"],["INT-35","D","MULE",2,2,"PointOfServiceAttendantCallout · POS/Queue (OPS-22)"],["INT-36","D","MULE",2,2,"PointOfServiceTicketsCallout · POS/Queue (OPS-20)"],["INT-37","D","MULE",2,2,"OperationalInformationsCallout · POS/Queue (OPS-20)"],["INT-38","D","MULE",2,2,"QueueInformationAttendanceCallout · POS/Queue (OMNI-24)"],["INT-39","D","MULE",2,2,"QueueInformationStatusCallout · POS/Queue (OMNI-24)"],["INT-40","D","MULE",2,2,"UpdateWorkPositionCallout · POS/Queue (write) (OMNI-25)"],["INT-41","P","MULE",5,8,"CamundaTicketInformation (eSIM GW) · orquestração det. (CPM-04, FND-04)"],["INT-42","P","MULE",5,8,"ServiceAuthorizationPID · Service Auth · autorização de serviço (CPM-06)"],["INT-43","P","EVENT",3,5,"KafkaEvents · pub/sub · notificação async (FND-04, CPM/COPM)"]]}]}</script>
+<script>(function(){
+  "use strict";
+  var D = JSON.parse(document.getElementById("data").textContent);
+  var DOMS = D.domains;
+  var el = function(id){return document.getElementById(id);};
+  var esc = function(s){return String(s).replace(/[&<>]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c];});};
+
+  /* ---------- PREMISES ---------- */
+  el("prem-grid").innerHTML = D.premises.map(function(p){
+    return '<div class="prem'+(p.rev?' rev':'')+'">'+
+      (p.rev?'<span class="rev-badge">⟳ revisada</span>':'')+
+      '<div class="pn">Premissa '+p.n+'</div>'+
+      '<h4>'+esc(p.t)+'</h4><p>'+esc(p.d)+'</p></div>';
+  }).join("");
+
+  /* ---------- SCENARIO LANES (signature) ---------- */
+  var maxSpr = 18; // pessimista S6
+  function renderLanes(sc){
+    var meta = D.scenarios[sc];
+    el("scenario-meta").innerHTML = 'Cenário <b>'+esc(meta.name)+'</b> · caminho crítico '+
+      '<b>'+meta.sprints+'</b> sprints · '+esc(meta.dur)+' · base: '+esc(meta.basis);
+    el("lanes").innerHTML = D.lanes.map(function(l){
+      var s = l.spr[sc];
+      var pct = Math.max(6, Math.round(s/maxSpr*100));
+      return '<div class="lane'+(l.crit?' crit':'')+'">'+
+        '<div class="lname">'+esc(l.squad)+'<span class="dom">'+esc(l.dom)+
+          (l.crit?'<span class="crit-flag">caminho crítico</span>':'')+'</span></div>'+
+        '<div class="track"><div class="bar" style="width:'+pct+'%"><span>'+s+' spr</span></div></div>'+
+        '<div class="spr">'+s+'</div></div>';
+    }).join("");
+  }
+  renderLanes(0);
+  Array.prototype.forEach.call(el("scenario-bar").children, function(btn){
+    btn.addEventListener("click", function(){
+      Array.prototype.forEach.call(el("scenario-bar").children, function(b){b.classList.remove("on");});
+      btn.classList.add("on");
+      renderLanes(parseInt(btn.getAttribute("data-sc"),10));
+    });
+  });
+
+  /* ---------- DOMAINS (accordion + search) ---------- */
+  var dispClass = {CORE:"core",MULE:"mule",EVENT:"event"};
+  function storyRow(s, domCode){
+    var isInt = domCode === "INT";
+    var pd = s[1];
+    var pdPill = isInt
+      ? '<span class="pill '+(pd==="P"?"P":"D")+'">'+(pd==="P"?"Primary":"Derived")+'</span>'
+        +' <span class="pill '+dispClass[s[2]]+'">'+s[2]+'</span>'
+      : '<span class="pill '+(pd==="P"?"P":"D")+'">'+(pd==="P"?"Primary":"Derived")+'</span>';
+    var personaCell = isInt ? '' : '<td><span class="persona">'+esc(s[2])+'</span></td>';
+    return '<tr data-k="'+esc((s[0]+" "+s[5]+" "+s[2]).toLowerCase())+'">'+
+      '<td class="sid">'+esc(s[0])+'</td>'+
+      '<td class="desc">'+esc(s[5])+'</td>'+
+      personaCell+
+      '<td>'+pdPill+'</td>'+
+      '<td class="n">'+s[3]+'</td><td class="n">'+s[4]+'</td></tr>';
+  }
+  function renderDomains(){
+    el("domains").innerHTML = DOMS.map(function(dm){
+      var isInt = dm.code === "INT";
+      var head =
+        '<div class="dhead" role="button" tabindex="0">'+
+          '<div class="dt"><span class="code">'+dm.code+'</span>'+
+            '<h3>'+esc(dm.name)+'</h3></div>'+
+          '<div class="meta">'+
+            '<span>'+dm.s.length+' histórias</span>'+
+            '<span>'+dm.p+'P · '+dm.d+'D</span>'+
+            '<span class="sp">'+dm.min+'–'+dm.max+' SP base</span>'+
+            '<span class="sp" style="color:var(--signal)">'+dm.cmin+'–'+dm.cmax+' aj.</span>'+
+            '<span class="tag">'+dm.squad+'</span>'+
+            '<span class="chev">▸</span>'+
+          '</div>'+
+        '</div>';
+      var cols = isInt
+        ? '<tr><th>ID</th><th>Cliente · TMF · serve</th><th>P/D · disp.</th><th class="n">Min</th><th class="n">Max</th></tr>'
+        : '<tr><th>ID</th><th>História</th><th>Persona</th><th>P/D</th><th class="n">Min</th><th class="n">Max</th></tr>';
+      var body = '<div class="dbody"><table><thead>'+cols+'</thead><tbody>'+
+        dm.s.map(function(s){return storyRow(s, dm.code);}).join("")+
+        '<tr class="total"><td>'+dm.code+'</td><td'+(isInt?'':' colspan="2"')+'>'+
+          'contingência '+dm.cont+'%</td><td>'+dm.p+'P/'+dm.d+'D</td>'+
+          '<td class="n">'+dm.min+'</td><td class="n">'+dm.max+'</td></tr>'+
+        '</tbody></table></div>';
+      return '<div class="dom" data-dom="'+dm.code+'">'+head+body+'</div>';
+    }).join("");
+    // wire accordions
+    Array.prototype.forEach.call(document.querySelectorAll("#domains .dom .dhead"), function(h){
+      var toggle = function(){ h.parentNode.classList.toggle("open"); };
+      h.addEventListener("click", toggle);
+      h.addEventListener("keydown", function(e){ if(e.key==="Enter"||e.key===" "){e.preventDefault();toggle();} });
+    });
+  }
+  renderDomains();
+
+  el("expand-all").addEventListener("click", function(){
+    Array.prototype.forEach.call(document.querySelectorAll("#domains .dom"), function(d){d.classList.add("open");});
+  });
+  el("collapse-all").addEventListener("click", function(){
+    Array.prototype.forEach.call(document.querySelectorAll("#domains .dom"), function(d){d.classList.remove("open");});
+  });
+
+  /* search */
+  var q = el("q"), qc = el("q-count");
+  q.addEventListener("input", function(){
+    var term = q.value.trim().toLowerCase();
+    var totalHits = 0;
+    Array.prototype.forEach.call(document.querySelectorAll("#domains .dom"), function(d){
+      var rows = d.querySelectorAll("tbody tr[data-k]"), domHits = 0;
+      Array.prototype.forEach.call(rows, function(r){
+        var hit = term && r.getAttribute("data-k").indexOf(term) !== -1;
+        r.classList.toggle("hit", hit);
+        if(hit){domHits++;totalHits++;}
+      });
+      if(term){
+        d.classList.toggle("hidden", domHits===0);
+        d.classList.toggle("open", domHits>0);
+      } else {
+        d.classList.remove("hidden");
+      }
+    });
+    qc.textContent = term ? (totalHits+(totalHits===1?" história":" histórias")) : "";
+    if(!term){
+      Array.prototype.forEach.call(document.querySelectorAll("#domains .dom"), function(d){d.classList.remove("open");});
+    }
+  });
+
+  /* ---------- RISKS ---------- */
+  el("risks").innerHTML = D.risks.map(function(r){
+    return '<div class="risk '+(r.hi?"hi":"lo")+'">'+
+      '<div class="rh"><span class="rn">Risco #'+r.n+'</span><h4>'+esc(r.t)+'</h4></div>'+
+      '<p>'+esc(r.d)+'</p>'+
+      (r.drives?'<span class="drives">'+esc(r.drives)+'</span>':'')+'</div>';
+  }).join("");
+
+  /* ---------- ANEXOS ---------- */
+  el("personas").innerHTML = '<table><thead><tr><th>#</th><th>Persona</th><th>Código</th>'+
+    '<th>População</th><th>Papel</th></tr></thead><tbody>'+
+    D.personas.map(function(p){
+      return '<tr><td class="n">'+(p.n||"—")+'</td><td>'+esc(p.name)+'</td>'+
+        '<td><span class="persona">'+esc(p.code)+'</span></td>'+
+        '<td class="n">'+esc(p.pop)+'</td><td style="color:var(--muted)">'+esc(p.role)+'</td></tr>';
+    }).join("")+'</tbody></table>';
+
+  el("taxonomy").innerHTML = '<table><thead><tr><th>Categoria</th><th>Código eTOM</th>'+
+    '<th>Processo L3/L4</th><th>Contact driver</th><th>Alimenta</th></tr></thead><tbody>'+
+    D.taxonomy.map(function(t){
+      return '<tr><td>'+esc(t[0])+'</td><td class="mono">'+esc(t[1])+'</td><td style="color:var(--muted)">'+
+        esc(t[2])+'</td><td>'+esc(t[3])+'</td><td class="mono" style="font-size:12px">'+esc(t[4])+'</td></tr>';
+    }).join("")+'</tbody></table>';
+
+  el("trace").innerHTML = '<table><thead><tr><th>Epic / Domínio</th><th>Fluxo(s) de origem</th>'+
+    '<th>Caminho no repo</th></tr></thead><tbody>'+
+    D.trace.map(function(t){
+      return '<tr><td class="sid">'+esc(t[0])+'</td><td style="color:var(--muted)">'+esc(t[1])+
+        '</td><td class="mono" style="font-size:12px">'+esc(t[2])+'</td></tr>';
+    }).join("")+'</tbody></table>';
+
+  el("excl").innerHTML = '<table><thead><tr><th>Excluído</th><th>Racional</th></tr></thead><tbody>'+
+    D.exclusions.map(function(e){
+      return '<tr><td><b>'+esc(e[0])+'</b></td><td style="color:var(--muted)">'+esc(e[1])+'</td></tr>';
+    }).join("")+'</tbody></table>';
+})();
+</script>
+</body>
+</html>

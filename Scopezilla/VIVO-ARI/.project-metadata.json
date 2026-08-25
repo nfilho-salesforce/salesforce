@@ -1,0 +1,39 @@
+{
+  "project_name": "ARI Vivo",
+  "created_at": "2026-08-25",
+  "depth_mode": "epic-level",
+  "vertical": "pace",
+  "rfp_tier": null,
+  "engagement_type": "standard",
+  "benchmark_source": "model-training-data",
+  "products_in_scope": ["service-cloud", "agentforce", "data-cloud", "service-cloud-voice", "digital-engagement", "experience-cloud", "mulesoft"],
+  "products_with_overlay": [],
+  "completion_status": {
+    "setup": "complete",
+    "tutorial": "not-started",
+    "discover": "complete",
+    "strategy": "not-started",
+    "requirements": "not-started",
+    "design": "not-started",
+    "roadmap": "not-started",
+    "efficiency": "not-started",
+    "estimate": "not-started",
+    "commercials": "not-started",
+    "validate": "not-started",
+    "narratives": "not-started",
+    "export": "not-started",
+    "backlog": "not-started",
+    "quantum-leap": "not-started",
+    "slides": "not-started",
+    "rfp": "not-started",
+    "illuminate": "not-started",
+    "cleanup": "not-started",
+    "wrapup": "not-started",
+    "help": "not-started",
+    "contribute": "not-started"
+  },
+  "timeline": {
+    "client_target": null,
+    "user_commitment": null
+  }
+}
