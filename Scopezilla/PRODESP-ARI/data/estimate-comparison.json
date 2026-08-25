@@ -68,6 +68,12 @@
     "native_vs_traditional": "~30-38% menos, CONDICIONAL ao portao de operacao conjunta. Numa data fixa (30/11), converte para time mais enxuto/senior + buffer, nao go-live antecipado."
   },
   "pricing": "DIFERIDA. Nenhuma taxa/valor calculado — estimate pricing-deferred e um deliverable completo. Rodar commercials com uma rate que o usuario forneca e valide para a camada indicativa (so a lane committed).",
+  "rom_point_reanchor": {
+    "date": "2026-08-25",
+    "decision_by": "user (SSSL)",
+    "summary": "Roster PS revisado: Project Manager full (560h), Program Manager meio periodo (280h, NOVO), Solution Architect e Technical Architect em alocacao integral 40h/sem (160h->560h e 210h->560h). Ponto-estimativa ROM: 3.105h -> 4.135h (+1.030h). Ancora tradicional re-grossada pelo mesmo delta de staffing (aplica as duas lanes): 3.730h -> 4.760h. Ganho AI mantido ~13% (era ~17%). Banda +-20%: piso ~3.308h / central 4.135h / teto ~4.962h. O ponto ROM permanece dentro da faixa committed da lane Aumentada (~3.630-7.010h); as bandas dual-track nao mudam.",
+    "note": "O ROM (outputs/20 e p5 de outputs/21) deixa de ser 'v1.2 verbatim' e passa a refletir este roster."
+  },
   "validated_by": "user",
   "disclaimer_class": "input-derived",
   "sign_off": "Pendente Solution Lead (SSSL). O output aproxima com o raciocinio anexado; o SSSL refina para os numeros finais e assina."
