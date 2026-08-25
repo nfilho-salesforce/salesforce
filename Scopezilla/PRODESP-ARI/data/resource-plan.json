@@ -1,15 +1,26 @@
 [
   {
     "resource_id": "R01",
-    "role": "Project / Program Manager",
+    "role": "Project Manager",
     "seniority": "senior",
     "location": "onshore",
     "count": 1,
     "allocation": "full",
     "phases_active": "0-5",
     "side": "ps",
-    "justification": "Relacionamento com cliente, governanca de gates e do plano. A coordenacao multi-fornecedor (SF/DSP/Sinqia/Evertec) com sign-off antes de cada pilar e o maior arrasto de cadencia do programa (efficiency: trabalho so-humano) e exige owner senior onshore, timezone-acoplado ao cliente e aos gates de aprovacao. 1 e suficiente: um programa, um patrocinador.",
-    "comments": "Lane comprometida = Aumentada (metodologia tradicional + tooling de IA, 2 squads), faixa 12-22 semanas da discovery. Programa: ~7.6-8.0 FTE media (10 pessoas nomeadas -> FTE abaixo do headcount por time-box e cauda fracionada). Detalhe das lanes em estimate-comparison.json."
+    "justification": "Gestao de projeto full-time (40h/sem, 560h): plano, cadencia diaria das squads, gates de entrega e relacionamento operacional com o cliente. Owner senior onshore, timezone-acoplado ao cliente e aos gates de aprovacao. Decisao do usuario (SSSL): mantido full; a coordenacao de PROGRAMA multi-fornecedor foi destacada para uma linha propria de Program Manager (R12) meio periodo.",
+    "comments": "Lane comprometida = Aumentada (metodologia tradicional + tooling de IA, 2 squads), faixa 12-22 semanas da discovery. Roster PS revisado (SSSL, 2026-08-25): PM full + Program Manager meio periodo (R12), Solution Architect e Technical Architect em alocacao integral 40h/sem. FTE PS media ~7.4 (ROM 14 sem = 4.135h / 560). Detalhe das lanes em estimate-comparison.json."
+  },
+  {
+    "resource_id": "R12",
+    "role": "Program Manager",
+    "seniority": "senior",
+    "location": "onshore",
+    "count": 1,
+    "allocation": "half",
+    "phases_active": "0-5",
+    "side": "ps",
+    "justification": "Governanca de PROGRAMA meio periodo (20h/sem, 280h), separada da gestao de projeto (R01) por decisao do usuario (SSSL). Coordena a camada multi-fornecedor (SF/DSP/Sinqia/Evertec) com sign-off antes de cada pilar — o maior arrasto de cadencia do programa (efficiency: trabalho so-humano) — alem da cadencia executiva/steering. Meio periodo por ser oversight/coordenacao acima da entrega, nao gestao de delivery full-time. Onshore, timezone-acoplado aos gates de aprovacao."
   },
   {
     "resource_id": "R02",

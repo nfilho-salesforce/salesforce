@@ -43,7 +43,7 @@
       "duration_weeks_range": "12-22",
       "effort_hours_range": "~3.630-7.010",
       "program_average_fte": "~7.6-8.0",
-      "roster_ref": "data/resource-plan.json (10 pessoas nomeadas, side=ps)",
+      "roster_ref": "data/resource-plan.json (9 pessoas nomeadas, side=ps) — revisado pelo SSSL 2026-08-25: Project Manager full + Program Manager meio periodo (governanca de programa destacada); Solution Architect e Technical Architect em alocacao integral 40h/sem.",
       "phase_hours_low": {"F0":240,"F1":640,"F2":720,"F3":1080,"F4":370,"F5":580},
       "phase_hours_high": {"F0":240,"F1":1280,"F2":1080,"F3":2880,"F4":370,"F5":1160},
       "disclaimer": "Faixa da discovery + alocacao por complexidade. Benchmark-based para a comparacao; horas derivadas do roster committed."

@@ -1,0 +1,92 @@
+[
+  {
+    "resource_id": "R01", "role": "Program/Delivery Lead", "seniority": "senior", "location": "onshore", "count": 1,
+    "side": "ps", "phases_active": ["P&D", "Build", "UAT", "Deploy", "Scale"], "allocation": "full",
+    "justification": "Programa multi-domínio (10 épicos, 5 squads, ~40 semanas) com dependências reguladas (Anatel/LGPD) e de infra (Genesys→Connect). O ROM exclui gestão de programa (premissa 16); esta é a accountability de entrega ponta-a-ponta adicionada. Núcleo AI-native: Program Lead."
+  },
+  {
+    "resource_id": "R02", "role": "Solution Architect (programa)", "seniority": "senior", "location": "onshore", "count": 1,
+    "side": "ps", "phases_active": ["P&D", "UAT", "Deploy"], "allocation": "half",
+    "justification": "Coerência de solução cross-squad (FSC + Service + Data Cloud + Experience) acima dos arquitetos embutidos em cada squad do ROM. Meio período: consulta no refino (P&D), sign-off de aceitação (UAT) e cutover (Deploy). Intent Architect do núcleo AI-native."
+  },
+  {
+    "resource_id": "R03", "role": "Technical Architect / Agent Orchestrator", "seniority": "senior", "location": "onshore", "count": 1,
+    "side": "ps", "phases_active": ["P&D", "Deploy", "Scale"], "allocation": "half",
+    "justification": "Orquestração de agentes/integração e governança técnica de callouts em escala (~2,3M/dia útil, G1007) e do seam de facades MuleSoft (G1004/G1005). Núcleo AI-native: Agent Orchestrator."
+  },
+  {
+    "resource_id": "R04", "role": "Squad 1 — Foundation & Ops (FND+OPS)", "seniority": "regular", "location": "offshore", "count": 5,
+    "side": "ps", "phases_active": ["Build"], "allocation": "full",
+    "justification": "Conforme ROM §5: 5 pessoas, 30-40 SP/sprint, config sem ajuste de teste. 9 sprints no cenário central. Time-box: full-time apenas na janela de Build."
+  },
+  {
+    "resource_id": "R05", "role": "Squad 2 — Interaction/Relationship/Capture (CIM+CRM+COPM+PROCP)", "seniority": "regular", "location": "offshore", "count": 6,
+    "side": "ps", "phases_active": ["Build"], "allocation": "full",
+    "justification": "Conforme ROM §5: 6 pessoas, caminho crítico em todos os cenários (13 sprints no central). Inclui a entrevista CPM-04 de 300 passos. Time-box: full-time na janela de Build."
+  },
+  {
+    "resource_id": "R06", "role": "Squad 3 — Problem & Guided Flows (CPM)", "seniority": "regular", "location": "offshore", "count": 5,
+    "side": "ps", "phases_active": ["Build"], "allocation": "full",
+    "justification": "Conforme ROM §5: 5 pessoas, 25-35 SP/sprint, 9 sprints no central. Fluxos guiados e escalonamento Ouvidoria/Anatel (CPM-09/10, dependência G1002)."
+  },
+  {
+    "resource_id": "R07", "role": "Squad 4 — Channels & Agentforce (OMNI+SDP)", "seniority": "regular", "location": "offshore", "count": 6,
+    "side": "ps", "phases_active": ["Build"], "allocation": "full",
+    "justification": "Conforme ROM §5: 6 pessoas, 11 sprints no central. Omnichannel + voz (SCV/Connect) + Aliado (~18k, OMNI-28). Alta usabilidade em multi-sessão concorrente."
+  },
+  {
+    "resource_id": "R08", "role": "Squad 5 — Integration/Core (INT)", "seniority": "senior", "location": "onshore", "count": 5,
+    "side": "ps", "phases_active": ["Build"], "allocation": "full",
+    "justification": "Conforme ROM §5: 5 pessoas, 10 sprints no central. CONDICIONAL: piso do domínio depende do inventário de facades MuleSoft (G1004). Onshore por acoplamento de timezone com sistemas do cliente e testes de contrato (G1008). Facade net-new empurra esforço para programa fora-de-banda."
+  },
+  {
+    "resource_id": "R09", "role": "QA / Test Automation", "seniority": "senior", "location": "offshore", "count": 2,
+    "side": "ps", "phases_active": ["Build", "UAT"], "allocation": "full",
+    "justification": "QA AI-amplificado, não substituído — check independente. O ROM carrega QA como +15% de esforço transversal; aqui nomeado como 2 pessoas com surge na janela de UAT (go-live regulado, financeiro). Adjustment 2 AI-native (surge em janela de hardening)."
+  },
+  {
+    "resource_id": "R10", "role": "Experience/Service/Conversation Designer", "seniority": "senior", "location": "onshore", "count": 1,
+    "side": "ps", "phases_active": ["P&D"], "allocation": "full",
+    "justification": "Trilha right-sized de design (ADR 0001): console do agente, fluxos conversacionais, entrevista CPM-04 de 300 passos — superfícies de alto impacto apenas, não UX greenfield. Resolve G0505/G0807/G0908/G0405/G0607/G0306. Especialista fracional consumido em P&D."
+  },
+  {
+    "resource_id": "R11", "role": "Analista de Baseline TMA/FCR (BI)", "seniority": "regular", "location": "offshore", "count": 1,
+    "side": "ps", "phases_active": ["P&D"], "allocation": "half",
+    "justification": "Captura de baseline atual de TMA/FCR e plano de medição que reconcilia Amazon Connect (fila/IVR) com Salesforce Omni (roteamento humano), tornando o resultado ARI (−15% TMA / +FCR) auditável. Resolve G0507/G0903/G0803. Especialista fracional em P&D."
+  },
+  {
+    "resource_id": "R12", "role": "Release / DevOps Engineer", "seniority": "senior", "location": "offshore", "count": 1,
+    "side": "ps", "phases_active": ["Deploy"], "allocation": "full",
+    "justification": "Cutover e release coordenados com dependências de infra (SCV/Amazon Connect, migração Genesys). Programa multi-fase implica release management (dimensão invisível). Time-box na janela de Deploy."
+  },
+  {
+    "resource_id": "R13", "role": "Adoption / Change Architect", "seniority": "senior", "location": "onshore", "count": 1,
+    "side": "ps", "phases_active": ["P&D", "UAT", "Scale"], "allocation": "quarter",
+    "justification": "Superfície de serviço nova para grande população de agentes + ~18k parceiros Aliado; adoção falha mata ROI. Núcleo AI-native: Adoption Architect (escopo de adoção real). Fracional: toque leve em P&D e UAT, foco em Scale/Hypercare."
+  },
+  {
+    "resource_id": "R14", "role": "Scrum Masters", "seniority": "regular", "location": "offshore", "count": 3,
+    "side": "ps", "phases_active": ["Build", "UAT"], "allocation": "full",
+    "justification": "5 squads exigem coordenação ágil; ~3 Scrum Masters cobrindo os squads (excluídos do ROM, premissa 16). Overlay de governança."
+  },
+  {
+    "resource_id": "R15", "role": "Product Owner / Decisor de Negócio", "seniority": "senior", "location": "onshore", "count": 1,
+    "side": "client", "phases_active": ["P&D", "Build", "UAT", "Deploy", "Scale"], "allocation": "full",
+    "justification": "Input da porta de qualificação AI-native: decisor disponível diariamente e empoderado. Sem ele a lane AI-native é conditional. Cliente-owned."
+  },
+  {
+    "resource_id": "R16", "role": "Business Owners / SMEs de Contact-Center", "seniority": "senior", "location": "onshore", "count": 3,
+    "side": "client", "phases_active": ["P&D", "Build", "UAT"], "allocation": "half",
+    "justification": "Donos empoderados por domínio (atendimento, cobrança/CPM, omnichannel) para refino e aceitação. Input da porta de qualificação. Cliente-owned."
+  },
+  {
+    "resource_id": "R17", "role": "Time MuleSoft / Dono do contrato de facades", "seniority": "senior", "location": "onshore", "count": 1,
+    "side": "client", "phases_active": ["P&D", "Build"], "allocation": "half",
+    "justification": "Dono do contrato dos 17 facades MuleSoft (G1004/G1005) — versionamento, quebras, specs autoritativas (G1008). Se facades são net-new, é programa fora-de-banda do cliente. Cliente-owned; risco se não staffado."
+  },
+  {
+    "resource_id": "R18", "role": "Dono de Telefonia / AWS Connect", "seniority": "senior", "location": "onshore", "count": 1,
+    "side": "client", "phases_active": ["P&D", "Build", "Deploy"], "allocation": "half",
+    "justification": "Provisão do tenant Amazon Connect, migração Genesys→Connect (EOL Dez-2027), contrato AWS CCaaS (G0802). Prerequisito de infra fora do build Salesforce. Cliente-owned; bloqueia voz OMNI se não pronto."
+  }
+]

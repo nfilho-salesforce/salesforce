@@ -1,0 +1,72 @@
+{
+  "generated": "2026-08-25",
+  "project": "ARI Vivo",
+  "engagement": "Migração/entrega Atendimento B2C — ciclo completo Salesforce PS (P&D → Build → SIT → UAT → Deploy → Scale) sobre o ROM de Build",
+  "anchor": "quantum-leap",
+  "scenario_basis": "central",
+  "productive_to_contracted_factor": 0.75,
+  "validated_by": "user",
+  "disclaimer_class": "input-derived",
+  "value_ceiling": null,
+  "value_ceiling_note": "Diretriz do scoper 2026-08-25: NÃO usar o AOV em risco (USD 10.281.553) como teto/alvo. Dimensionamento é 100% por escopo (ROM + ciclo PS completo).",
+  "no_value_ceiling": true,
+  "basis_of_build_anchor": "discovery-notes/vivo-b2c-atendimento-estimation-design.md §5,§7,§9 — ROM de Build revalidado; horas produtivas por cenário e modelo de 5 squads / 27 pessoas conforme §9.",
+  "adr": "decisions/0001-rom-is-build-only-full-ps-lifecycle-required.md",
+  "lanes": {
+    "quantum-leap": {
+      "label": "AI-native",
+      "role": "committed / anchor",
+      "basis": "supplied",
+      "basis_detail": "supplied (Build, do ROM) + derived (fases aditivas de PS)",
+      "duration_weeks_range": {"low": 36, "high": 48, "central": 40},
+      "qualification": "conditional",
+      "provisional_note": "Lane AI-native comprometida CONDICIONADA a: (1) modelo operacional conjunto (disponibilidade diária de decisor, business owners empoderados, mandato AI-first); (2) confirmação do inventário de facades MuleSoft (G1004) que fixa o piso do domínio INT; (3) confirmação da contagem de usuários (agentes B2C + ~18k Aliado, OMNI-28). Sem (1)-(3), a lane permanece um motivador dimensionado por escopo, não um número achável sem os compromissos nomeados.",
+      "productive_hours": {"optimistic": 20485, "central": 32379, "pessimistic": 49230},
+      "contracted_hours": {"optimistic": 27313, "central": 43172, "pessimistic": 65639},
+      "duration_weeks_central": 40,
+      "duration_provenance": "ROM critical path S2 = 13 sprints (~26 sem) + P&D (~2 sprints) + UAT/Deploy/Scale (cauda ~10-14 sem). Benchmark-derived shape; carrega Benchmark Disclaimer."
+    },
+    "traditional": {
+      "label": "Tradicional (notional gross-up)",
+      "role": "notional",
+      "basis": "derived",
+      "basis_detail": "notional gross-up da lane AI-native comprometida (banda de compressão 35-40% invertida)",
+      "duration_weeks_range": {"low": 55, "high": 70, "central": 63},
+      "provisional_note": "NOTIONAL. Não há efficiency.json com native_band derivado neste projeto — aplicada banda-padrão de compressão AI-native de 35-40% (÷0.60 a ÷0.65) sobre as horas contratadas para ilustrar 'quanto custaria do modo tradicional'. Para uma banda fundamentada, rodar o skill efficiency.",
+      "contracted_hours": {"optimistic": [42020, 45522], "central": [66419, 71954], "pessimistic": [100984, 109399]},
+      "duration_provenance": "notional gross-up from the committed AI-native lane (banda-padrão 35-40%, invertida)"
+    }
+  },
+  "phases_productive_central": {
+    "P&D": {"hours": 2940, "factor": "15% do Build", "content": "refino de histórias + Sprint 0 + captura de baseline TMA/FCR e plano de medição + trilha right-sized de experience/service/conversation design nas superfícies de alto impacto"},
+    "Build/Delivery": {"hours": 19600, "factor": "supplied (ROM)", "content": "17.040 build (5 squads) + 2.556 QA/transversal (+15%); SIT embutido no ajuste de teste +12,5% do ROM"},
+    "UAT": {"hours": 1568, "factor": "8% do Build", "content": "ciclos de aceitação de negócio, correção de defeitos, sign-off"},
+    "Deploy": {"hours": 1372, "factor": "7% do Build", "content": "cutover, release, go-live coordenado com dependências de infra (SCV/Amazon Connect)"},
+    "Scale/Hypercare": {"hours": 1960, "factor": "10% do Build", "content": "estabilização pós-go-live, hypercare, adoção"},
+    "Governanca/PM (overlay)": {"hours": 4939, "factor": "18% overlay", "content": "gestão de programa/entrega, Scrum Masters, PMO — excluídos do ROM (premissa 16), adicionados aqui"}
+  },
+  "phases_total_productive_central": 32379,
+  "role_phase_matrix_productive_central": {
+    "note": "Horas produtivas (base 6h/dia). Contratadas = produtivas ÷ 0,75. Lane AI-native.",
+    "rows": [
+      {"role": "Program/Delivery Lead", "P&D": 0, "Build": 0, "UAT": 0, "Deploy": 0, "Scale": 160, "Gov": 2000, "total_productive": 2160, "total_contracted": 2880},
+      {"role": "Solution Architect (programa)", "P&D": 500, "Build": 0, "UAT": 168, "Deploy": 100, "Scale": 0, "Gov": 0, "total_productive": 768, "total_contracted": 1024},
+      {"role": "Technical Architect / Agent Orchestrator", "P&D": 400, "Build": 0, "UAT": 0, "Deploy": 300, "Scale": 200, "Gov": 0, "total_productive": 900, "total_contracted": 1200},
+      {"role": "Engenharia de Build (5 squads, ROM)", "P&D": 0, "Build": 17040, "UAT": 600, "Deploy": 272, "Scale": 1100, "Gov": 0, "total_productive": 19012, "total_contracted": 25349},
+      {"role": "QA / Test Automation", "P&D": 0, "Build": 2556, "UAT": 700, "Deploy": 0, "Scale": 0, "Gov": 0, "total_productive": 3256, "total_contracted": 4341},
+      {"role": "Experience/Service/Conversation Designer", "P&D": 1100, "Build": 0, "UAT": 0, "Deploy": 0, "Scale": 0, "Gov": 0, "total_productive": 1100, "total_contracted": 1467},
+      {"role": "Analista de Baseline TMA/FCR (BI)", "P&D": 540, "Build": 0, "UAT": 0, "Deploy": 0, "Scale": 0, "Gov": 0, "total_productive": 540, "total_contracted": 720},
+      {"role": "Release / DevOps Engineer", "P&D": 0, "Build": 0, "UAT": 0, "Deploy": 700, "Scale": 0, "Gov": 0, "total_productive": 700, "total_contracted": 933},
+      {"role": "Adoption / Change Architect", "P&D": 400, "Build": 0, "UAT": 100, "Deploy": 0, "Scale": 500, "Gov": 0, "total_productive": 1000, "total_contracted": 1333},
+      {"role": "Scrum Masters + PMO", "P&D": 0, "Build": 0, "UAT": 0, "Deploy": 0, "Scale": 0, "Gov": 2939, "total_productive": 2939, "total_contracted": 3919}
+    ],
+    "totals": {"total_productive": 32375, "total_contracted": 43167}
+  },
+  "flags": [
+    {"id": "INT-floor-conditional", "severity": "high", "note": "Piso do domínio INT (139-217 SP) é CONDICIONAL ao inventário de facades MuleSoft (G1004) — quais dos 17 facades existem em produção vs precisam ser construídos. Facade net-new = trabalho de programa fora-de-banda, NÃO coberto pela contingência de 50% do INT. Deliverable #1 da Fase 0. Não retro-embutido na contingência."},
+    {"id": "user-count-assumed", "severity": "medium", "note": "Contagem de usuários assumida: faixa de agentes B2C + ~18k Aliado (OMNI-28, Experience Cloud). G0801 aponta subdecomposição do Aliado (licenciamento/sharing/onboarding). Confirmar na Fase 0."},
+    {"id": "infra-dependencies", "severity": "high", "note": "Subdomínio de voz OMNI depende de SCV + Amazon Connect provisionados e migração Genesys→Connect (EOL Dez-2027) — prerequisito de infra FORA do build Salesforce (G0802). Bloqueia ~40% das histórias OMNI se não pronto."},
+    {"id": "phase-0-recommended", "severity": "high", "note": "72 gaps + 14 conflitos → Fase 0 fortemente recomendada. Facade inventory (G1004) é deliverable #1."}
+  ],
+  "disclaimers": ["Benchmark Disclaimer aplica-se às faixas de duração derivadas top-down.", "Sem preço: nenhuma taxa validada em arquivo — estimativa é tempo/esforço/roster (preço é a última camada, via commercials com taxa validada)."]
+}

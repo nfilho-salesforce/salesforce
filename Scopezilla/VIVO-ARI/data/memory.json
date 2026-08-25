@@ -115,6 +115,38 @@
         "Confirm the 5 estimate levers, then build the full PS-lifecycle role x phase x hours estimate (P&D[refinement+Sprint0+baseline+design track] + Build[from ROM] + SIT/UAT/Deploy/Scale + governance, all additive per ADR 0001)",
         "Flag INT floor as conditional-on-inventory inside the estimate output; do NOT back-fit into the 50% contingency"
       ]
+    },
+    {
+      "date": "2026-08-25",
+      "skills_used": [
+        "estimate"
+      ],
+      "summary": "Motion estimate completa. Trilha dupla sobre base única: AI-native (âncora comprometida, condicional) + Tradicional (notional). Base = ROM revalidado como Build-only (supplied); P&D/UAT/Deploy/Scale/Gov aditivos por fatores travados. Central: 32.379 produtivas / 43.172 contratadas; ~40 sem; FTE médio ~27. Gerados estimate-comparison.json, resource-plan.json (18 linhas, 14 PS + 4 cliente) e outputs/artifacts/estimate-comparison.md (PT-BR). validate-data PASS limpo.",
+      "friction": [
+        "knowledge/ vazio (WARN não-bloqueante) — épicos/design sem grounding em docs de produto"
+      ],
+      "decisions": [
+        {
+          "decision": "ROM tratado como base supplied (Build), NÃO roteado para design",
+          "rationale": "ROM (SP + hora produtiva) é mais granular que T-shirts; fases PS derivadas por cima"
+        },
+        {
+          "decision": "Sem teto de valor",
+          "rationale": "Diretriz do scoper: AOV USD 10.281.553 não é alvo nem limite; dimensionamento 100% por escopo"
+        }
+      ],
+      "open_threads": [
+        "Preço diferido: nenhuma taxa validada — rodar commercials com taxa validada para faixa indicativa",
+        "Piso INT condicional ao inventário de facades MuleSoft (G1004) — deliverable #1 da Fase 0",
+        "Contagem de usuários (OMNI-28) e dependências de infra (SCV/Amazon Connect, Genesys EOL Dez-2027) a confirmar na Fase 0",
+        "Fase 0 fortemente recomendada (72 gaps, 14 conflitos)",
+        "Sign-off final do SSSL sobre os números — validated_by=user gravado sob direção permanente 'seguir recomendacao'"
+      ],
+      "next_steps": [
+        "commercials (faixa indicativa, taxa validada)",
+        "narratives/slides",
+        "Fase 0 (facade inventory)"
+      ]
     }
   ],
   "preferences": {
