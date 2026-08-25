@@ -1,0 +1,74 @@
+{
+  "generated": "2026-08-25",
+  "project": "ARI PRODESP / Desenvolve SP",
+  "scope_base": {
+    "epics_count": 11,
+    "size_distribution": "1 XL (E04), 8 L, 2 M (E01,E06), 1 S (E03)",
+    "critical_path": "E07 -> E08 -> E10 -> E11 (Fundacao FSC -> PCM/BRE -> Migracao/Regressao -> Cutover)",
+    "confidence_note": "10 de 11 Confirmed; E10 (Migracao/Regressao) Assumed — volume de producao nao confirmado (G1004) alarga as bandas para cima.",
+    "assumptions_loadbearing": [
+      "Adocao FSC nativa (G0012) em REVISAR — gate da Fase 0; se nao ratificada, prioridade 3 muda de escopo (reaponte leve vs migracao de modelo).",
+      "30 integracoes MuleSoft apenas reapontadas do lado Salesforce, NAO reconstruidas; contratos das System APIs estaveis (G0013).",
+      "Volume de dados de producao a confirmar (G1004) — contagens atuais sao do sandbox HML."
+    ]
+  },
+  "ownership_split": {
+    "ps_owned": "Todos os 11 epicos (migracao Salesforce-side): fundacao FSC, migracao dos pilares, reaponte lado-Salesforce das 30 APIs, ETL/conversao, regressao e cutover.",
+    "client_owned": "Product Owner/decisor (DSP); SME de credito (DSP); owner de integracao core banking + contratos/Swagger das System APIs (Sinqia/Evertec); sign-off regulatorio LGPD/antifraude (DSP). Barramento MuleSoft e as System APIs no lado servidor NAO sao escopo PS.",
+    "note": "Split por reclassificacao: o numero PS cobre so o lado Salesforce. As linhas side=client estao no resource-plan.json — sub-staffar o lado cliente e o principal risco de entrega e o gatilho da qualificacao AI-native."
+  },
+  "anchor": "augmented",
+  "currency": null,
+  "date_fixed_external": {
+    "value": "30/11/2026 (5 pilares; Pilar 6 em dezembro)",
+    "source": "Parecer de Viabilidade Desenvolve SP (19/08/2026)",
+    "treatment": "Data-alvo externa (regulatoria/negocio). A faixa committed 12-22 sem cabe dentro da janela ate 30/11 se o kickoff ocorrer a tempo. Numa data fixa, a compressao de IA compra time mais enxuto/senior e buffer de cronograma, nao um go-live antecipado. user_commitment.fixed_external tratado como true para este run (flag ausente no metadata legado)."
+  },
+  "lanes": {
+    "traditional": {
+      "lane": "traditional",
+      "label": "Tradicional (sem IA)",
+      "basis": "derived",
+      "duration_provenance": "Notional gross-up da lane Aumentada committed (efficiency realized_band 12-16%, invertido). Nao e a lane comprometida — mostra o custo 'do jeito antigo'.",
+      "duration_weeks_range": "14-26",
+      "effort_hours_range": "~4.100-8.350",
+      "program_average_fte": "~8-9 (roster carregaria mais volume de build offshore e janelas mais longas que a Aumentada)",
+      "disclaimer": "Benchmark-based, nao e um compromisso. Fonte: model-training-data."
+    },
+    "augmented": {
+      "lane": "augmented",
+      "label": "Aumentada (IA-tooling + 2 squads) — COMMITTED",
+      "basis": "supplied",
+      "duration_provenance": "Faixa 12-22 semanas da discovery (Via Aumentada + 2 squads), escolhida pelo usuario como base de compromisso, alocada por complexidade (T-shirt points). E a lane tradicional comprimida por realized_band ~12-16%.",
+      "duration_weeks_range": "12-22",
+      "effort_hours_range": "~3.630-7.010",
+      "program_average_fte": "~7.6-8.0",
+      "roster_ref": "data/resource-plan.json (10 pessoas nomeadas, side=ps)",
+      "phase_hours_low": {"F0":240,"F1":640,"F2":720,"F3":1080,"F4":370,"F5":580},
+      "phase_hours_high": {"F0":240,"F1":1280,"F2":1080,"F3":2880,"F4":370,"F5":1160},
+      "disclaimer": "Faixa da discovery + alocacao por complexidade. Benchmark-based para a comparacao; horas derivadas do roster committed."
+    },
+    "quantum-leap": {
+      "lane": "quantum-leap",
+      "label": "AI-native (CONDICIONAL)",
+      "basis": "derived",
+      "duration_provenance": "Tradicional comprimida por efficiency native_band ~30-38% (decisions/0033). Condicional — o portao de operacao conjunta (decisor empoderado, cadencia diaria, mandato AI-first) NAO esta atendido hoje.",
+      "qualification": "conditional",
+      "qualification_gate": "Aprovacao multi-fornecedor antes de cada pilar (SF/DSP/Sinqia/Evertec) e dependencia de SLA 24h sao exatamente o risco. Product Owner empoderado e cadencia diaria de decisao precisam ser comprometidos para esta lane virar committed.",
+      "duration_weeks_range": "10-16",
+      "effort_hours_range": "~2.160-3.680",
+      "program_average_fte": "~5.4-5.8",
+      "roster_shape": "Core-accountability floor: Program Lead (PM sr on), Intent Architect (SA sr on), Agent Orchestrator (TA sr on) + Functional Consultant agent-assisted (sr on), Logic & Integration Engineer (Dev sr on) + 1 L&I regular offshore time-boxed no E09, Logic Validator (QA sr on, surge F5). Adoption dobrada no Intent Architect (escopo fino). Mais enxuto e senior-weighted; QA NAO encolhe.",
+      "disclaimer": "Provisorio e vendor-reported (magnitude nao calibrada); diagnostico ancorado em DORA/METR (o gargalo e coordenacao, nao ferramenta). Overlap ~25-35% com a Aumentada — o PORTAO, nao o numero, distingue as lanes. Nunca apresentar como alcancavel sem nomear o compromisso de operacao conjunta."
+    }
+  },
+  "delta": {
+    "summary": "Aumentada vs Tradicional: ~12-16% menos esforco/prazo (realized_band, IA-tooling). AI-native vs Tradicional: ~30-38% menos, CONDICIONAL ao portao de operacao conjunta.",
+    "augmented_vs_traditional": "~12-16% menos esforco/prazo pela realized_band (IA-tooling, operacao inalterada). Ganho de ritmo e qualidade dentro da mesma forma de time.",
+    "native_vs_traditional": "~30-38% menos, CONDICIONAL ao portao de operacao conjunta. Numa data fixa (30/11), converte para time mais enxuto/senior + buffer, nao go-live antecipado."
+  },
+  "pricing": "DIFERIDA. Nenhuma taxa/valor calculado — estimate pricing-deferred e um deliverable completo. Rodar commercials com uma rate que o usuario forneca e valide para a camada indicativa (so a lane committed).",
+  "validated_by": "user",
+  "disclaimer_class": "input-derived",
+  "sign_off": "Pendente Solution Lead (SSSL). O output aproxima com o raciocinio anexado; o SSSL refina para os numeros finais e assina."
+}

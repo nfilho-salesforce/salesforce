@@ -156,6 +156,37 @@
       "next_steps": [
         "Rodar estimate: resolver base de duracao, depois dual-track horas + roster nomeado (perfis) por fase/entregavel"
       ]
+    },
+    {
+      "date": "2026-08-25",
+      "skills_used": [
+        "estimate"
+      ],
+      "summary": "Rodei o estimate dual-track (orquestrador fino) sobre a base compartilhada de 11 epicos. Anchor=augmented: a faixa 12-22 semanas da discovery (Via Aumentada + 2 squads) e a lane committed. Tres lanes gravadas em estimate-comparison.json: Tradicional (derivada notional, 14-26 sem, ~4.100-8.350h), Aumentada (supplied/committed, 12-22 sem, ~3.630-7.010h, ~7.6-8.0 FTE), AI-native (derivada condicional, 10-16 sem, ~2.160-3.680h, ~5.4-5.8 FTE). Roster nomeado (resource-plan.json, bare array): 8 linhas PS (10 pessoas) + 3 linhas side=client. Horas alocadas por fase (F0-F5) por peso de complexidade T-shirt; pico em F3/Nucleo. Deliverable PT-BR estimate-comparison.md. Precificacao DIFERIDA (nenhum valor). SSSL sign-off = user aprovado (validated_by=user).",
+      "friction": [
+        "json-to-csv exigiu resource-plan como bare array (nao objeto wrapped) e lanes como objeto keyed (nao array); validate exigiu phases_active numerico (0-5, nao F0-F5), allocation_by_phase objeto e disclaimer_class=input-derived"
+      ],
+      "decisions": [
+        {
+          "decision": "anchor=augmented; faixa 12-22 sem committed",
+          "rationale": "A faixa da discovery E a lane Aumentada (Via Aumentada + 2 squads); Tradicional vira gross-up notional, AI-native fica condicional"
+        },
+        {
+          "decision": "Precificacao diferida",
+          "rationale": "Deal gated/sem rate validada; dual-track tempo+esforco+roster e um deliverable completo"
+        }
+      ],
+      "open_threads": [
+        "Rodar commercials para camada indicativa (so lane committed) quando houver rate fornecida e validada",
+        "Ratificar adocao FSC nativa (G0012, gate Fase 0) — desloca sizing prioridade 3 se nao ratificada",
+        "Confirmar volume de producao (G1004) — alarga banda alta de F3/F5",
+        "Obter Swagger das 30 System APIs (G0013) — maior risco de cronograma"
+      ],
+      "next_steps": [
+        "commercials (gated) se pedir preco",
+        "slides do estimate se precisar deck",
+        "validate/export para pacote cliente"
+      ]
     }
   ],
   "preferences": {},
@@ -177,6 +208,16 @@
       "rejected": [
         "Cenario High sem unlocks",
         "Banda AI-native como numero incondicional"
+      ]
+    },
+    {
+      "date": "2026-08-25",
+      "area": "estimate",
+      "decision": "Estimativa dual-track com anchor=augmented; lane committed = Aumentada 12-22 sem / ~3.630-7.010h / ~7.6-8.0 FTE; AI-native condicional (portao de operacao conjunta nao atendido)",
+      "rationale": "Data 30/11/2026 externa: compressao de IA compra time enxuto+buffer, nao go-live antecipado. Roster: fold+time-box+fraction, cada count justificado. Precificacao diferida.",
+      "rejected": [
+        "anchor=traditional (nao reflete o compromisso 12-22 da discovery)",
+        "apresentar AI-native como committed (portao nao atendido)"
       ]
     }
   ]

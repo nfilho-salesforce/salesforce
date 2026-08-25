@@ -1,0 +1,4 @@
+Lane,Anchor,Basis,Duration Weeks Range,Indicative Price Low,Indicative Price High,Currency,Roster,Capacity Summary,Delta vs Other Lane,Validated By,Disclaimer Class
+traditional,,derived,14-26,,,,,,"Aumentada vs Tradicional: ~12-16% menos esforco/prazo (realized_band, IA-tooling). AI-native vs Tradicional: ~30-38% menos, CONDICIONAL ao portao de operacao conjunta.",user,input-derived
+augmented,yes,supplied,12-22,,,,,,"Aumentada vs Tradicional: ~12-16% menos esforco/prazo (realized_band, IA-tooling). AI-native vs Tradicional: ~30-38% menos, CONDICIONAL ao portao de operacao conjunta.",user,input-derived
+quantum-leap,,derived,10-16,,,,,,"Aumentada vs Tradicional: ~12-16% menos esforco/prazo (realized_band, IA-tooling). AI-native vs Tradicional: ~30-38% menos, CONDICIONAL ao portao de operacao conjunta.",user,input-derived

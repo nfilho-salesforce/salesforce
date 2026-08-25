@@ -15,7 +15,7 @@
     "design": "complete",
     "roadmap": "complete",
     "efficiency": "complete",
-    "estimate": "not-started",
+    "estimate": "complete",
     "commercials": "not-started",
     "validate": "not-started",
     "narratives": "not-started",
@@ -36,6 +36,13 @@
       "source": "Parecer de Viabilidade Desenvolve SP (19/08/2026)",
       "note": "Mudou de 30/09; restrição é prazo, não viabilidade. Faixa realista 12-22 semanas."
     },
-    "user_commitment": null
+    "user_commitment": {
+      "range_low_weeks": 12,
+      "range_high_weeks": 22,
+      "rationale": "Faixa da discovery (Via Aumentada + 2 squads), escolhida como base de compromisso da lane Aumentada no estimate dual-track. Faixa, nao ponto unico — alocada por complexidade (T-shirt points) atraves das fases F0-F5.",
+      "set_by": "user",
+      "fixed_external": true,
+      "note": "Data 30/11/2026 e alvo externo (Parecer de Viabilidade). A faixa cabe dentro da janela se o kickoff ocorrer a tempo; compressao de IA compra time enxuto/senior + buffer, nao go-live antecipado. Ver data/estimate-comparison.json (anchor=augmented)."
+    }
   }
 }
