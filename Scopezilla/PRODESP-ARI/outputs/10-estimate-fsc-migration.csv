@@ -1,0 +1,36 @@
+Phase,Workstream,Role,Hours,Start Week,End Week,FTE (14 wk),Skills/Certifications,Product Align,Notes
+F1,Discovery & FSC Design,Solution Architect,80,1,2,,FSC Accredited,FSC,Data model FinServ + arquitetura de recursos
+F1,Discovery & FSC Design,Technical Architect,80,1,2,,Platform Dev II,FSC,Estratégia migração/cutover + design reapontamento
+F1,Discovery & FSC Design,FSC Functional Consultant / BA,60,1,2,,FSC Consultant,FSC,Mapeamento funcional e refino de backlog
+F1,Discovery & FSC Design,Integration Developer,40,1,2,,MuleSoft,MuleSoft,Assessment reapontamento das 30 APIs
+F1,Discovery & FSC Design,Data Engineer,40,1,2,,Data Migration,FSC,Assessment migração de dados
+F2,FSC Platform Enablement,Solution Architect,40,2,4,,FSC Accredited,FSC,Config data model + segurança
+F2,FSC Platform Enablement,Technical Architect,40,2,4,,Platform Dev II,FSC,Modelo de sharing FSC
+F2,FSC Platform Enablement,Senior Developer,80,2,4,,Platform Dev II,FSC,Habilitar FSC + Person Accounts + data model
+F2,FSC Platform Enablement,Developer,80,2,4,,Platform App Builder,FSC,Layouts / record types / segurança
+F2,FSC Platform Enablement,FSC Functional Consultant / BA,40,2,4,,FSC Consultant,FSC,Config ARC / Financial Deals / Interest Tags / Action Plans
+F2,FSC Platform Enablement,QA Engineer,20,3,4,,Test Automation,FSC,Smoke test da fundação FSC
+F3,Solution Migration (6 pilares),Senior Developer,300,3,10,,Platform Dev II,FSC / Experience Cloud,Refactor Apex/LWC para objetos FSC (2 squads)
+F3,Solution Migration (6 pilares),Developer,340,3,10,,JS Developer I,Experience Cloud,Reapontamento componentes/flows/páginas EC
+F3,Solution Migration (6 pilares),FSC Functional Consultant / BA,90,3,10,,FSC Consultant,FSC,Regras funcionais por pilar
+F3,Solution Migration (6 pilares),QA Engineer,45,3,10,,Test Automation,FSC,Teste unitário/funcional por pilar
+F4,Integration Re-pointing (30 APIs),Integration Developer,220,4,9,,MuleSoft,MuleSoft,Named credentials + mapeamento campos FSC + callouts (lado SF)
+F4,Integration Re-pointing (30 APIs),Senior Developer,40,4,9,,Platform Dev II,FSC,Refactor camada de integração Apex
+F4,Integration Re-pointing (30 APIs),QA Engineer,60,4,9,,Test Automation,MuleSoft,Regressão das 30 integrações
+F5,Data Migration,Data Engineer,200,5,11,,Data Migration,FSC,ETL + conversão Person Accounts + objetos financeiros + reconciliação
+F5,Data Migration,Technical Architect,30,5,11,,Platform Dev II,FSC,Oversight de migração
+F5,Data Migration,FSC Functional Consultant / BA,20,5,11,,FSC Consultant,FSC,Regras de mapeamento de dados
+F5,Data Migration,QA Engineer,40,5,11,,Test Automation,FSC,Validação de dados migrados
+F6,Testing (SIT/UAT/Regressão),QA Engineer,180,9,13,,Test Automation,FSC / Experience Cloud,SIT + regressão in-place + suporte UAT
+F6,Testing (SIT/UAT/Regressão),Senior Developer,40,9,13,,Platform Dev II,FSC,Correção de defeitos
+F6,Testing (SIT/UAT/Regressão),Developer,80,9,13,,JS Developer I,Experience Cloud,Correção de defeitos
+F6,Testing (SIT/UAT/Regressão),FSC Functional Consultant / BA,40,9,13,,FSC Consultant,FSC,Suporte UAT
+F6,Testing (SIT/UAT/Regressão),Technical Architect,20,9,13,,Platform Dev II,FSC,Triagem técnica
+F7,Cutover & Hypercare,Technical Architect,40,13,14,,Platform Dev II,FSC,Execução do cutover + Person Accounts em prod
+F7,Cutover & Hypercare,Data Engineer,40,13,14,,Data Migration,FSC,Run de migração de dados em produção
+F7,Cutover & Hypercare,Senior Developer,30,13,14,,Platform Dev II,FSC,Suporte hypercare
+F7,Cutover & Hypercare,Integration Developer,20,13,14,,MuleSoft,MuleSoft,Validação reapontamento em prod
+F7,Cutover & Hypercare,QA Engineer,30,13,14,,Test Automation,FSC,Validação pós-cutover
+F8,PM & Governança,Senior Project Manager,560,1,14,1.0,PS Delivery,FSC,Gestão de projeto full-time (40h/sem) — governança / ceremonies / cutover / gestão multi-fornecedor
+F8,PM & Governança,Solution Architect,40,1,14,,FSC Accredited,FSC,Oversight arquitetural contínuo
+TOTAL,,,3105,1,14,,,,AI-native / via aumentada; sem valores financeiros

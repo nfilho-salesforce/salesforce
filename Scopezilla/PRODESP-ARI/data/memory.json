@@ -1,0 +1,70 @@
+{
+  "sessions": [
+    {
+      "date": "2026-08-24",
+      "skills_used": [
+        "setup",
+        "discover"
+      ],
+      "summary": "Inicializado ARI PRODESP; ingeridos 3 docs de discovery (canvas Slack, Parecer de Viabilidade Desenvolve SP, timeline HTML); produzido Discovery Brief. Deal: portal de credito fim-a-fim Desenvolve SP em Experience Cloud + MuleSoft, core Sinqia.",
+      "decisions": [
+        {
+          "decision": "Entregavel = ROM/estimativa PS para o build; PS entrega a implementacao (Orange sai/subcontratada)",
+          "rejected": "Orange constroi / entrega compartilhada"
+        },
+        {
+          "decision": "MuleSoft (30 APIs) DENTRO do escopo PS",
+          "rejected": "so consumo Salesforce"
+        },
+        {
+          "decision": "Base de estimativa AI-native/via aumentada + 2 squads paralelo (~12-22 sem)",
+          "rejected": "Tradicional; dual-track"
+        }
+      ],
+      "open_threads": [
+        "Contagem usuarios/licencas Experience Cloud (fora de escopo desta ROM)",
+        "Budget/modelo comercial",
+        "Migracao de dados nao mencionada",
+        "KPIs nao quantificados",
+        "Fornecedor build + data inicio (gate Fase 0)",
+        "Decisoes Agro (portal unico vs dois)",
+        "Assinatura digital CCB provedor"
+      ],
+      "next_steps": "requirements (definir epicas dos 6 pilares) ou strategy (business case)"
+    },
+    {
+      "date": "2026-08-25",
+      "skills_used": [
+        "requirements"
+      ],
+      "summary": "Definidas 11 epicas (6 pilares funcionais E01-E06 + 5 workstreams de migracao FSC E07-E11) e rodada analise de gaps (81 gaps, 11 epic-analysts em paralelo). Todas ancoradas em fsc-fit-gap-report.md. Aprovacao do skeleton pelo usuario: 'Aprovar e salvar'. gaps.json + epics.json + CSVs gerados. requirements = complete.",
+      "decisions": [
+        {
+          "decision": "11 epicas: 6 pilares funcionais (E01-E06) + 5 workstreams transversais de migracao FSC (E07 Habilitacao FSC/Data Model, E08 Catalogo/Elegibilidade Nativos, E09 Reapontamento 30 APIs, E10 Migracao Dados/Descomissionamento, E11 Testes/Regressao/Cutover)",
+          "rejected": "Somente 6 epicas espelhando a imagem dos pilares (esconderia a fundacao FSC transversal que domina o esforco e o risco)"
+        }
+      ],
+      "open_threads": [
+        "CONFLITO CENTRAL (repetido em E02/E03/E04/E05/E07/E08/E09/E10): adocao do modelo de lending nativo FSC (ResidentialLoanApplication, LoanApplicant, PCM, Person Accounts) NAO esta confirmada/aprovada — marcada 'REVISAR' / 'em proposta' no fit/gap. Se aprovada = migracao de modelo de dados 3-5 sprints; se nao = reaponte leve. Ate resolver, sizing dos pilares e um chute. Resolver na Fase 0.",
+        "Person Accounts DESABILITADO hoje vs. arquitetura descreve conversao Lead->Person Account em prod (G0701 — conflito de fonte, confirmar ao vivo)",
+        "Prontidao de API: so JUCESP em QA; 29/30 sem Swagger/contrato; write-back PUT/PATCH pendente (maior risco de cronograma, +42%/~5 sem)",
+        "Volume de dados de producao nao confirmado (contagens sao do sandbox HML); Lead 10.105 registros nao endereexado no plano de migracao (G1004)",
+        "Fronteira P3<->P5 (F13 aceite) nao reconciliada — dupla-contagem ou buraco de escopo (G0511)",
+        "Licencas Industries (PCM/BRE/Digital Lending) permanencia contratual nao confirmada (G0807/G0704)",
+        "Repositorio de documentos >12MB (Agro) diferido/indefinido (G0404/G0603); provedor assinatura CCB indefinido (G0601)",
+        "Sinais experience-design + governanca (PII/LGPD, stewardship, CoE metadados declarativos) sem dono — G0407/G0516/G0606/G0708/G1106"
+      ],
+      "next_steps": "Ajustar a secao dos 6 pilares no deck (20-estimate-fsc-migration-deck.html) com o escopo completo (funcionalidades + integracoes + componentes + alvo FSC + workstreams E07-E11). Recomendar Fase 0 formal (14 conflitos de fonte > 5; 81 gaps > 15)."
+    }
+  ],
+  "preferences": {},
+  "decision_log": [
+    {
+      "date": "2026-08-25",
+      "area": "scope",
+      "decision": "11 epicas — 6 pilares funcionais + 5 workstreams de migracao FSC transversais",
+      "rationale": "A imagem dos 6 pilares esconde a fundacao FSC (Person Accounts, lending nativo, PCM/BRE, migracao de dados, reaponte de integracao, regressao/cutover) que domina esforco e risco. Explicita-la como E07-E11 mantem o sizing honesto.",
+      "rejected": ["6 epicas espelhando a imagem dos pilares"]
+    }
+  ]
+}

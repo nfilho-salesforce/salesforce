@@ -1195,6 +1195,80 @@ body.lang-en .t-en{display:inline;}
         </div>
       </div>
 
+      <!-- ══ DESTAQUE · NOVOS REQUISITOS TÉCNICOS · AVALIAÇÃO DE IMPACTO (NÃO INCORPORADO AO ESCOPO) ══ -->
+      <div class="card" style="margin-bottom:24px;border:2px solid var(--orange);border-left:6px solid var(--orange);background:linear-gradient(180deg,#fff8f1,#ffffff);">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px;">
+          <span class="chip orange" style="font-weight:800;">⚠️ NOVOS REQUISITOS · 11–14 AGO 2026</span>
+          <span class="chip dark" style="font-weight:700;">Avaliação de impacto — pendente de validação</span>
+        </div>
+        <h2 style="margin-top:6px;">📥 Requisitos técnicos recebidos após a proposta · o que muda no escopo</h2>
+        <p class="lead" style="margin-bottom:10px;">Entre 11 e 14/ago a Dataprev/MTE encaminhou <b>três documentos técnicos</b> — <i>Documento de Visão DM v0.7 (10/ago)</i>, <i>Recomendações Arquiteturais (DEAT/DIAS)</i> e <i>Anexo III · Requisitos de Monitoramento e Gestão Orientada a Dados</i> — mais duas atas (Alinhamento 11/ago, Integrações 13/ago). Vários pontos <b>ampliam ou alteram premissas</b> desta proposta. <b>Este ROM ainda NÃO foi alterado:</b> o quadro abaixo é uma leitura de impacto para a sessão de arquitetura com a Dataprev, antes de qualquer redimensionamento ou repactuação comercial.</p>
+
+        <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:12.5px;margin:8px 0 4px;">
+          <thead>
+            <tr style="background:var(--gray-bg);text-align:left;">
+              <th style="padding:8px 10px;border-bottom:2px solid var(--gray-border);">Tipo</th>
+              <th style="padding:8px 10px;border-bottom:2px solid var(--gray-border);">Requisito novo / alterado</th>
+              <th style="padding:8px 10px;border-bottom:2px solid var(--gray-border);">Afeta</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);vertical-align:top;"><span class="chip red">CONFLITO</span></td>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);"><b>Residência ampliada — "dado ouro" na infra Dataprev.</b> O Anexo III exige réplica de <b>todo o dado transacional</b> (não só CPF): cotação, contrato, folha, split, boleto, transações do trabalhador e logs — na <b>menor granularidade</b>, sem agregação, com <b>SLA de 1–4h</b>, via pipeline <b>CDC/orientado a eventos</b>, retenção de <b>5 anos</b> e <b>penalidade contratual</b>. Vai além do ADR 0001 (que só trata da não-persistência do CPF).</td>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);vertical-align:top;">ADR 0001 · E05 · E08 · E10</td>
+            </tr>
+            <tr>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);vertical-align:top;"><span class="chip orange">NOVO</span></td>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);"><b>Módulo de Monitoramento dentro do MVP (15/nov).</b> API para receber transações das facilitadoras/adquirentes dimensionada para <b>até 30 mi transações/dia</b> (programa ~50 mi/dia). A proposta declarava analytics/monitoramento "fora desta rodada". Exige camada de <b>staging/streaming</b> (Data Cloud / fila MuleSoft / Heroku) — não cabe na frente Tableau atual.</td>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);vertical-align:top;">Frente nova · E05 · E10</td>
+            </tr>
+            <tr>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);vertical-align:top;"><span class="chip orange">NOVO</span></td>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);"><b>+6 integrações de identidade/dados.</b> gov.br Prata/Ouro (retorna CNPJs por CPF), GERID, eSocial/Extrato, CNIS-PJ, CNIS-PF, SDC — além de <b>adquirentes</b> como consumidor de API e <b>autenticação por certificado digital (mTLS)</b>.</td>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);vertical-align:top;">E05</td>
+            </tr>
+            <tr>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);vertical-align:top;"><span class="chip orange">NOVO</span></td>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);"><b>NFRs formais duras.</b> SLA 99% / 99,5%, resposta <b>≤3s</b> em 95% das chamadas, <b>W3C Trace Context</b>, conformidade <b>RFC 9110</b>, auditoria com IP/porta de origem, acessibilidade <b>e-MAG 3.1 + WCAG 2.1 AA</b>. Não havia documento de NFR/SLA acordado no escopo.</td>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);vertical-align:top;">E05 · E08 · E01</td>
+            </tr>
+            <tr>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);vertical-align:top;"><span class="chip blue">MUDA ↓</span></td>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);"><b>Split pode encolher.</b> O Documento de Visão afirma que a plataforma <b>não participa da transação no ponto de venda</b> — é conciliação <b>B2B</b> (folha → boleto → nota fiscal), não split transacional em tempo real. Recalibra E03 (hoje dimensionada XL). Resíduo "Instituição Financeira" no NFR de resiliência a confirmar.</td>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);vertical-align:top;">E03 · ADR 0003</td>
+            </tr>
+            <tr>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);vertical-align:top;"><span class="chip red">CONFLITO</span></td>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);"><b>Diretriz "nuvem privada Dataprev + containers".</b> As Recomendações Arquiteturais pedem hospedagem preferencial na nuvem privada da Dataprev e portabilidade via contêineres. Sales/Experience Cloud são SaaS multi-tenant (Hyperforce) — não atendem. É "desejável", mas exige <b>resposta formal</b> na proposta (compensada por ADR 0001/0003 + MuleSoft on-premise).</td>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);vertical-align:top;">ADR 0002 · 0005</td>
+            </tr>
+            <tr>
+              <td style="padding:8px 10px;vertical-align:top;"><span class="chip blue">MUDA</span></td>
+              <td style="padding:8px 10px;"><b>Cronograma paralelo com datas duras.</b> O Anexo III fixa marcos próprios (esquemas 01/set · cadastros em produção 30/set · transações+folha+split 18/out · capacidade analítica operacional 15/nov) e o Documento de Visão confirma marco intermediário de <b>cotação em 30/set</b>. A frente de dados corre em paralelo ao core, disputando os mesmos recursos de arquitetura sob a data fixa.</td>
+              <td style="padding:8px 10px;vertical-align:top;">Programa · roadmap</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+
+        <div class="alert blue" style="margin-top:14px;">
+          <span class="ic">📐</span>
+          <div><strong>Direção de impacto na estimativa (qualitativa — preço deferido).</strong> Sem converter em horas antes do grill de escopo:
+          <b>↑↑</b> frente nova de <b>Dados &amp; Monitoramento</b> (residência total + pipeline CDC + ingestão transacional) — não dimensionada, candidata a nova épica e a posicionar <b>Data Cloud</b>;
+          <b>↑</b> <b>E05 Integração</b> (novas integrações + camada de exportação CDC + resiliência/DLQ + mTLS) e <b>E08 Segurança/Residência</b> (retenção 5 anos, auditoria total, catálogo/contrato de dados, NFR);
+          <b>↕</b> <b>E10 Tableau</b> muda de natureza (deixa de ser "3 painéis sobre objetos nativos" e vira camada de exportação de dado) — as 280h a rever;
+          <b>↓</b> possível redução em <b>E03</b> (sem split em tempo real).
+          <b>Nenhum número de horas ou valor é alterado até a sessão de arquitetura e a decisão sobre Data Cloud.</b></div>
+        </div>
+
+        <div class="alert" style="margin-top:10px;background:#fff8f1;border-color:var(--orange);">
+          <span class="ic">▶️</span>
+          <div><strong>Próximos passos.</strong> (1) Sessão de arquitetura apartada com a Dataprev (Daniel Jesus / equipe Rigan) — pedida como prioridade em 13/ago; (2) decidir se <b>Data Cloud</b> entra nesta rodada para viabilizar o pipeline analítico contínuo; (3) confirmar o resíduo de <b>integração bancária</b> ("Instituição Financeira") no Anexo/Documento de Visão; (4) obter contratos de API (Swagger do Novo PAT) para o marco de cotação de 30/set. Só então redimensionar épicas e repactuar o comercial.</div>
+        </div>
+      </div>
+
       <!-- BADGE INSTÂNCIA DEDICADA -->
       <div class="alert red" style="margin-bottom:24px;">
         <span class="ic">🔒</span>
@@ -4900,6 +4974,80 @@ function setLang(lang){
             <div class="n">Dec. 12,712</div>
             <div class="l">2025 presidential decree · legal basis for the PAT Marketplace</div>
           </div>
+        </div>
+      </div>
+
+      <!-- ══ HIGHLIGHT · NEW TECHNICAL REQUIREMENTS · IMPACT ASSESSMENT (NOT YET INCORPORATED) ══ -->
+      <div class="card" style="margin-bottom:24px;border:2px solid var(--orange);border-left:6px solid var(--orange);background:linear-gradient(180deg,#fff8f1,#ffffff);">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:4px;">
+          <span class="chip orange" style="font-weight:800;">⚠️ NEW REQUIREMENTS · 11–14 AUG 2026</span>
+          <span class="chip dark" style="font-weight:700;">Impact assessment — pending validation</span>
+        </div>
+        <h2 style="margin-top:6px;">📥 Technical requirements received after the proposal · what changes in scope</h2>
+        <p class="lead" style="margin-bottom:10px;">Between Aug 11–14, Dataprev/MTE sent <b>three technical documents</b> — <i>Vision Document DM v0.7 (Aug 10)</i>, <i>Architectural Recommendations (DEAT/DIAS)</i> and <i>Annex III · Requirements for Data-Oriented Monitoring &amp; Management of the PAT</i> — plus two meeting minutes (Alignment Aug 11, Integrations Aug 13). Several points <b>expand or alter premises</b> of this proposal. <b>This ROM has NOT been changed yet:</b> the table below is an impact read for the architecture session with Dataprev, before any resize or commercial repricing.</p>
+
+        <div style="overflow-x:auto;">
+        <table style="width:100%;border-collapse:collapse;font-size:12.5px;margin:8px 0 4px;">
+          <thead>
+            <tr style="background:var(--gray-bg);text-align:left;">
+              <th style="padding:8px 10px;border-bottom:2px solid var(--gray-border);">Type</th>
+              <th style="padding:8px 10px;border-bottom:2px solid var(--gray-border);">New / changed requirement</th>
+              <th style="padding:8px 10px;border-bottom:2px solid var(--gray-border);">Affects</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);vertical-align:top;"><span class="chip red">CONFLICT</span></td>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);"><b>Expanded residency — "golden data" on Dataprev infrastructure.</b> Annex III requires replication of <b>all transactional data</b> (not just CPF): quotes, contracts, payroll, split, invoices, worker transactions and logs — at the <b>finest granularity</b>, no aggregation, with a <b>1–4h SLA</b>, via a <b>CDC/event-driven</b> pipeline, <b>5-year</b> retention and a <b>contractual penalty</b>. This goes beyond ADR 0001 (which only covers not persisting the CPF).</td>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);vertical-align:top;">ADR 0001 · E05 · E08 · E10</td>
+            </tr>
+            <tr>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);vertical-align:top;"><span class="chip orange">NEW</span></td>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);"><b>Monitoring module inside the MVP (Nov 15).</b> An API to receive transactions from facilitators/acquirers sized for <b>up to 30M transactions/day</b> (program ~50M/day). The proposal declared analytics/monitoring "out of this round". Requires a <b>staging/streaming</b> layer (Data Cloud / MuleSoft queue / Heroku) — it does not fit within the current Tableau workstream.</td>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);vertical-align:top;">New workstream · E05 · E10</td>
+            </tr>
+            <tr>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);vertical-align:top;"><span class="chip orange">NEW</span></td>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);"><b>+6 identity/data integrations.</b> gov.br Silver/Gold (returns CNPJs by CPF), GERID, eSocial/Statement, CNIS-PJ, CNIS-PF, SDC — plus <b>acquirers</b> as API consumers and <b>digital-certificate authentication (mTLS)</b>.</td>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);vertical-align:top;">E05</td>
+            </tr>
+            <tr>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);vertical-align:top;"><span class="chip orange">NEW</span></td>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);"><b>Hard formal NFRs.</b> SLA 99% / 99.5%, response <b>≤3s</b> on 95% of calls, <b>W3C Trace Context</b>, <b>RFC 9110</b> compliance, audit logging with source IP/port, accessibility <b>e-MAG 3.1 + WCAG 2.1 AA</b>. No NFR/SLA document had been agreed in scope.</td>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);vertical-align:top;">E05 · E08 · E01</td>
+            </tr>
+            <tr>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);vertical-align:top;"><span class="chip blue">CHANGES ↓</span></td>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);"><b>Split may shrink.</b> The Vision Document states the platform <b>does not participate in the point-of-sale transaction</b> — it is <b>B2B</b> reconciliation (payroll → invoice → tax note), not real-time transactional split. This recalibrates E03 (currently sized XL). A residual "Financial Institution" reference in the resilience NFR is to be confirmed.</td>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);vertical-align:top;">E03 · ADR 0003</td>
+            </tr>
+            <tr>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);vertical-align:top;"><span class="chip red">CONFLICT</span></td>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);"><b>"Dataprev private cloud + containers" directive.</b> The Architectural Recommendations ask for preferred hosting on Dataprev's private cloud and portability via containers. Sales/Experience Cloud are multi-tenant SaaS (Hyperforce) — they do not meet this. It is "desirable", but requires a <b>formal response</b> in the proposal (offset by ADR 0001/0003 + on-premise MuleSoft).</td>
+              <td style="padding:8px 10px;border-bottom:1px solid var(--gray-border);vertical-align:top;">ADR 0002 · 0005</td>
+            </tr>
+            <tr>
+              <td style="padding:8px 10px;vertical-align:top;"><span class="chip blue">CHANGES</span></td>
+              <td style="padding:8px 10px;"><b>Parallel schedule with hard dates.</b> Annex III sets its own milestones (schemas Sep 1 · registrations in production Sep 30 · transactions+payroll+split Oct 18 · analytical capability operational Nov 15) and the Vision Document confirms an intermediate <b>quote milestone on Sep 30</b>. The data workstream runs in parallel with the core, competing for the same architecture resources under the fixed date.</td>
+              <td style="padding:8px 10px;vertical-align:top;">Program · roadmap</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+
+        <div class="alert blue" style="margin-top:14px;">
+          <span class="ic">📐</span>
+          <div><strong>Direction of impact on the estimate (qualitative — pricing deferred).</strong> Without converting to hours before the scope grill:
+          <b>↑↑</b> new <b>Data &amp; Monitoring</b> workstream (full residency + CDC pipeline + transactional ingestion) — not sized, a candidate for a new epic and to position <b>Data Cloud</b>;
+          <b>↑</b> <b>E05 Integration</b> (new integrations + CDC export layer + resilience/DLQ + mTLS) and <b>E08 Security/Residency</b> (5-year retention, full audit, data catalog/contract, NFR);
+          <b>↕</b> <b>E10 Tableau</b> changes in nature (no longer "3 dashboards over native objects" — becomes a data-export layer) — the 280h to be reviewed;
+          <b>↓</b> possible reduction in <b>E03</b> (no real-time split).
+          <b>No hour or dollar figure is changed until the architecture session and the Data Cloud decision.</b></div>
+        </div>
+
+        <div class="alert" style="margin-top:10px;background:#fff8f1;border-color:var(--orange);">
+          <span class="ic">▶️</span>
+          <div><strong>Next steps.</strong> (1) A separate architecture session with Dataprev (Daniel Jesus / Rigan's team) — requested as a priority on Aug 13; (2) decide whether <b>Data Cloud</b> enters this round to enable the continuous analytical pipeline; (3) confirm the <b>banking-integration</b> residual ("Financial Institution") in the Annex/Vision Document; (4) obtain API contracts (Novo PAT Swagger) for the Sep 30 quote milestone. Only then resize epics and reprice commercially.</div>
         </div>
       </div>
 

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<!-- ROM/Estimativa — Migração FSC · Desenvolve SP · pt-BR · Salesforce brand kit -->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estimativa PS — Migração para Financial Services Cloud · Desenvolve SP</title>
+<style>
+  :root {
+    --sf-navy:#001E5B; --sf-type:#002775; --sf-container:#022AC0; --sf-blue:#066AFE;
+    --sf-cloud:#00B3FF; --sf-cloud-80:#90D0FE; --sf-bg:#CFE9FE; --sf-light-bg:#EAF5FE;
+    --sf-text:#002775; --sf-text-weak:#4A5578; --sf-line:#D6E4F5;
+    --ext-teal:#06A59A; --ext-teal-95:#DEF9F3; --ext-yellow:#FCC003; --ext-yellow-70:#E4A201;
+    --ext-yellow-95:#FBF3E0; --ext-pink:#FF538A; --ext-pink-40:#B60554; --ext-pink-95:#FEF0F3;
+    --font-heading:'ITC Avant Garde Gothic Demi','Century Gothic','Salesforce Sans','Source Sans 3',Arial,sans-serif;
+    --font-body:'Salesforce Sans','Source Sans 3','Helvetica Neue',Arial,sans-serif;
+    --radius-sm:6px; --radius-md:10px; --radius-lg:18px;
+    --shadow:2.6px 9.7px 25px rgba(6,106,254,0.14);
+    --space-md:16px; --space-lg:24px; --space-xl:36px;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--font-body);color:var(--sf-text);background:var(--sf-light-bg);line-height:1.5}
+  h1,h2,h3,.num{font-family:var(--font-heading);color:var(--sf-navy);line-height:1.15}
+  section{max-width:1120px;margin:0 auto;padding:var(--space-xl) var(--space-lg);border-bottom:1px solid var(--sf-line)}
+  .eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:13px;font-weight:700;color:var(--sf-blue);margin-bottom:8px}
+  h1{font-size:44px;margin-bottom:12px}
+  h2{font-size:30px;margin-bottom:6px}
+  .sub{font-size:19px;color:var(--sf-text-weak);margin-bottom:var(--space-lg)}
+  p{margin-bottom:12px}
+  /* Cover */
+  .cover{background:linear-gradient(135deg,var(--sf-navy),var(--sf-container) 60%,var(--sf-blue));color:#fff;border:none;max-width:none;padding:72px 24px}
+  .cover-inner{max-width:1120px;margin:0 auto}
+  .cover .eyebrow{color:var(--sf-cloud-80)}
+  .cover h1{color:#fff;font-size:52px;max-width:900px}
+  .cover .sub{color:#DCEBFF;font-size:22px;max-width:760px}
+  .cover .meta{display:flex;gap:32px;flex-wrap:wrap;margin-top:28px;font-size:15px;color:#BFD8FF}
+  .cover .meta b{color:#fff;display:block;font-size:15px}
+  /* Stat tiles */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:var(--space-md);margin-top:var(--space-md)}
+  .stat{background:#fff;border-radius:var(--radius-md);padding:22px;box-shadow:var(--shadow);border-top:4px solid var(--sf-blue)}
+  .stat .num{font-size:38px;color:var(--sf-blue)}
+  .stat .lbl{font-size:14px;color:var(--sf-text-weak);margin-top:4px}
+  .stat.alt{border-top-color:var(--ext-teal)} .stat.alt .num{color:var(--ext-teal)}
+  .stat.warn{border-top-color:var(--ext-yellow-70)} .stat.warn .num{color:var(--ext-yellow-70)}
+  /* flow */
+  .flow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:var(--space-md) 0;font-weight:700}
+  .flow .box{background:#fff;border:2px solid var(--sf-line);border-radius:var(--radius-md);padding:14px 18px;box-shadow:var(--shadow);font-size:15px;text-align:center}
+  .flow .from{border-color:var(--sf-cloud-80)}
+  .flow .to{border-color:var(--sf-blue);background:var(--sf-light-bg)}
+  .flow .arrow{color:var(--sf-blue);font-size:26px}
+  .pill{display:inline-block;background:var(--ext-teal-95);color:var(--ext-teal);border-radius:999px;padding:3px 12px;font-size:13px;font-weight:700;margin:2px}
+  .pill.out{background:#F1F3F7;color:var(--sf-text-weak);text-decoration:line-through}
+  /* pilares */
+  .pilares{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:14px;margin-top:var(--space-md);align-items:start}
+  .pilar{background:#fff;border-radius:var(--radius-md);padding:16px;box-shadow:var(--shadow);border-left:4px solid var(--sf-blue)}
+  .pilar h3{font-size:16px} .pilar small{color:var(--sf-text-weak);font-size:12.5px}
+  .pilar .tag{display:inline-block;margin-top:6px;font-size:11.5px;color:var(--sf-blue);font-weight:700;background:var(--sf-light-bg);border-radius:999px;padding:2px 10px}
+  .pilar ul{list-style:none;margin:10px 0 0;padding:0}
+  .pilar li{font-size:12.5px;color:var(--sf-text);padding:5px 0 5px 15px;border-top:1px solid var(--sf-line);position:relative;line-height:1.35}
+  .pilar li::before{content:"▸";color:var(--sf-cloud);position:absolute;left:0;top:5px}
+  /* weekly effort grid */
+  .wkgrid{width:100%;border-collapse:collapse;margin-top:var(--space-md);font-size:11.5px}
+  .wkgrid th{background:var(--sf-navy);color:#fff;padding:6px 3px;font-weight:700;text-align:center;font-size:11px}
+  .wkgrid th.role,.wkgrid td.role{text-align:left;padding-left:10px;width:180px;white-space:nowrap}
+  .wkgrid td{border:1px solid var(--sf-line);padding:4px 3px;text-align:center;color:var(--sf-text)}
+  .wkgrid td.role{font-weight:600;color:var(--sf-navy)}
+  .wkgrid td.tot,.wkgrid th.tot{background:var(--sf-light-bg);font-weight:700;color:var(--sf-navy)}
+  .wkgrid tr.totrow td{background:var(--sf-navy);color:#fff;font-weight:700;border-color:var(--sf-navy)}
+  .wkgrid td.z{color:#C9D6E8}
+  .wkgrid td.hi{background:#CFE9FE;font-weight:700}
+  .wkgrid-wrap{overflow-x:auto}
+  /* bars */
+  .bar-row{display:grid;grid-template-columns:180px 1fr 60px;align-items:center;gap:12px;margin:7px 0;font-size:14.5px}
+  .bar-track{background:var(--sf-bg);border-radius:6px;height:22px;overflow:hidden}
+  .bar-fill{height:100%;border-radius:6px;background:var(--sf-blue);display:block}
+  .bar-fill.t{background:var(--ext-teal)}
+  .bar-val{text-align:right;font-weight:700;color:var(--sf-navy)}
+  /* timeline / gantt */
+  .gantt{width:100%;border-collapse:collapse;margin-top:var(--space-md);font-size:13px}
+  .gantt th{background:var(--sf-navy);color:#fff;padding:8px 4px;font-weight:700;text-align:center;font-size:12px}
+  .gantt th.lbl{text-align:left;padding-left:12px;width:210px}
+  .gantt td{border:1px solid var(--sf-line);height:30px;padding:0;text-align:center}
+  .gantt td.lbl{text-align:left;padding-left:12px;font-weight:600;color:var(--sf-navy);font-size:13px}
+  .g1{background:var(--sf-navy)} .g2{background:var(--sf-container)} .g3{background:var(--sf-blue)}
+  .g4{background:var(--sf-cloud)} .g5{background:var(--ext-teal)} .g6{background:var(--ext-yellow)}
+  .g7{background:var(--ext-pink)} .g8{background:repeating-linear-gradient(90deg,var(--sf-cloud-80),var(--sf-cloud-80) 6px,#fff 6px,#fff 12px)}
+  /* milestones */
+  .ms{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:var(--space-md)}
+  .milestone{background:#fff;border-radius:var(--radius-md);padding:18px;box-shadow:var(--shadow);position:relative;border-top:4px solid var(--ext-yellow-70)}
+  .milestone .wk{display:inline-block;background:var(--sf-navy);color:#fff;border-radius:999px;padding:3px 12px;font-size:12.5px;font-weight:700;margin-bottom:8px}
+  .milestone h3{font-size:15.5px;margin-bottom:4px}
+  .milestone p{font-size:13.5px;color:var(--sf-text-weak);margin:0}
+  /* generic table */
+  table.data{width:100%;border-collapse:collapse;margin-top:var(--space-md);font-size:14px}
+  table.data th{background:var(--sf-light-bg);color:var(--sf-navy);text-align:left;padding:10px;border-bottom:2px solid var(--sf-blue)}
+  table.data td{padding:9px 10px;border-bottom:1px solid var(--sf-line)}
+  table.data tr:last-child td{font-weight:700;background:var(--sf-light-bg)}
+  .r{text-align:right}
+  /* risk cards */
+  .risks{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:var(--space-md)}
+  .risk{background:#fff;border-radius:var(--radius-md);padding:16px;box-shadow:var(--shadow);border-left:4px solid var(--ext-pink)}
+  .risk h3{font-size:15px;color:var(--ext-pink-40);margin-bottom:6px}
+  .risk p{font-size:13.5px;color:var(--sf-text-weak);margin:0}
+  .note{background:var(--ext-yellow-95);border-left:4px solid var(--ext-yellow-70);border-radius:var(--radius-sm);padding:14px 18px;margin-top:var(--space-md);font-size:14.5px}
+  .legend{font-size:12.5px;color:var(--sf-text-weak);margin-top:10px}
+  .legend span{display:inline-block;margin-right:14px}
+  .sw{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:middle;margin-right:5px}
+  footer{max-width:1120px;margin:0 auto;padding:24px;color:var(--sf-text-weak);font-size:12.5px}
+  @media print{section{page-break-inside:avoid}body{background:#fff}}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<section class="cover">
+  <div class="cover-inner">
+    <div class="eyebrow">Salesforce Professional Services · Estimativa (ROM)</div>
+    <h1>Migração para Financial Services Cloud</h1>
+    <p class="sub">Portal de crédito Desenvolve SP · de Sales Cloud + Experience Cloud para FSC + Experience Cloud</p>
+    <div class="meta">
+      <span><b>Modelo</b>In-place (mesma org)</span>
+      <span><b>Base</b>AI-native · 2 squads</span>
+      <span><b>Duração</b>14 semanas</span>
+      <span><b>Esforço</b>≈ 3.105 horas PS</span>
+      <span><b>Data</b>24/08/2026</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTEXTO -->
+<section>
+  <div class="eyebrow">Contexto</div>
+  <h2>O que estamos estimando</h2>
+  <p class="sub">O portal de crédito fim-a-fim já está sendo construído em Sales Cloud + Experience Cloud. Esta estimativa cobre a <b>migração dessa solução para o Financial Services Cloud</b>, adotando o data model FinServ e seus recursos, com migração de dados de produção.</p>
+  <div class="flow">
+    <div class="box from">Sales Cloud<br>+ Experience Cloud</div>
+    <div class="arrow">→</div>
+    <div class="box to">Financial Services Cloud<br>+ Experience Cloud</div>
+  </div>
+  <p><b>No escopo:</b>
+    <span class="pill">Data model FinServ + Person Accounts</span>
+    <span class="pill">Recursos FSC (ARC, Financial Deals/Servicing, Interest Tags)</span>
+    <span class="pill">Migração de dados de produção</span>
+    <span class="pill">Reapontamento das 30 integrações (lado Salesforce)</span>
+  </p>
+  <p><b>Fora do escopo:</b>
+    <span class="pill out">Reconstruir APIs MuleSoft</span>
+  </p>
+</section>
+
+<!-- NÚMEROS -->
+<section>
+  <div class="eyebrow">Números-chave</div>
+  <h2>Resumo da estimativa</h2>
+  <div class="stats">
+    <div class="stat"><div class="num">3.105 h</div><div class="lbl">Esforço PS (base AI-native)</div></div>
+    <div class="stat warn"><div class="num">~3.730 h</div><div class="lbl">Âncora tradicional (referência) · ganho ~17%</div></div>
+    <div class="stat"><div class="num">14 sem</div><div class="lbl">Duração · 2 squads em paralelo</div></div>
+    <div class="stat alt"><div class="num">~9–10</div><div class="lbl">Perfis no pico (sem. 5–10)</div></div>
+    <div class="stat"><div class="num">6</div><div class="lbl">Pilares migrados · 33 componentes</div></div>
+    <div class="stat"><div class="num">30</div><div class="lbl">Integrações reapontadas</div></div>
+  </div>
+  <div class="note">Faixa de confiança <b>±20%</b> — depende de volume de dados, profundidade dos recursos FSC e estabilidade dos contratos das System APIs. A Fase 0 estreita a faixa.</div>
+</section>
+
+<!-- COMO LER -->
+<section>
+  <div class="eyebrow">Como ler esta estimativa</div>
+  <h2>Uma faixa para planejar, não um compromisso fechado</h2>
+  <p class="sub">Este é um número em nível <b>ROM</b> (Rough Order of Magnitude): feito com o que se sabe hoje, antes do detalhamento fino. Serve para decidir "vale a pena e cabe no prazo?", e vira compromisso firme após a Fase 0.</p>
+
+  <div class="stats" style="grid-template-columns:repeat(3,1fr)">
+    <div class="stat alt"><div class="num">~2.485 h</div><div class="lbl">Piso da faixa (−20%)</div></div>
+    <div class="stat"><div class="num">3.105 h</div><div class="lbl">Ponto central (planejamento)</div></div>
+    <div class="stat warn"><div class="num">~3.725 h</div><div class="lbl">Teto da faixa (+20%)</div></div>
+  </div>
+
+  <p style="margin-top:24px"><b>Por que ±20% — os 3 drivers que movem as horas:</b></p>
+  <table class="data">
+    <thead><tr><th>Driver</th><th>Premissa de hoje</th><th>Se for pior que o assumido…</th><th>Fase que infla</th></tr></thead>
+    <tbody>
+      <tr><td><b>Volume de dados</b></td><td>Volume "moderado" na migração</td><td>Muitos registros/objetos complexos de converter para Person Accounts → mais ETL e reconciliação</td><td>F5 · Data Migration</td></tr>
+      <tr><td><b>Profundidade dos recursos FSC</b></td><td>FSC em nível de configuração (ARC, Financial Deals, Interest Tags)</td><td>Customização pesada dos recursos vira desenvolvimento</td><td>F2 · F3</td></tr>
+      <tr><td><b>Contratos das System APIs</b></td><td>Reapontamento só do lado Salesforce</td><td>Se o data model FSC mudar os payloads, o MuleSoft precisa de transformação (hoje fora do escopo)</td><td>F4 + escopo novo</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note"><b>A Fase 0 estreita a faixa.</b> As 2 primeiras semanas (F1 · Discovery &amp; FSC Design) confirmam esses três pontos com o cliente. Depois delas, a incerteza cai de ±20% para ~±10% e o número central pode se ajustar. <br><br><i>Em uma frase: este número é confiável para planejar; as duas primeiras semanas de discovery o transformam em um compromisso firme.</i></div>
+</section>
+
+<!-- ESCOPO / PILARES -->
+<section>
+  <div class="eyebrow">Superfície de migração</div>
+  <h2>Os 6 pilares do portal — funcionalidades e componentes</h2>
+  <p class="sub">Jornada de crédito unificada. Cada item abaixo é reapontado para o data model FSC (refactor, não reconstrução). Itens validados contra o diagrama "Unificação da Jornada de Crédito" do cliente — nada omitido.</p>
+  <div class="pilares">
+    <div class="pilar"><h3>1 · Captação</h3><span class="tag">Migração F3: 123h · já em QA</span>
+      <ul>
+        <li>Site Público &amp; Simulador</li>
+        <li>Cadastro &amp; Criação de Conta</li>
+        <li>Antifraude &amp; Aceite de Termos</li>
+        <li>Análise do Cadastro (SURIC) + e-mail + SLA</li>
+        <li>Regras de Elegibilidade</li>
+        <li>Validação de Vínculo PJ — Jucesp/Sintegra</li>
+        <li>Área Logada &amp; Início do Pedido</li>
+      </ul>
+    </div>
+    <div class="pilar"><h3>2 · Pré-Qualificação</h3><span class="tag">Migração F3: 170h · Grande</span>
+      <ul>
+        <li>Consultas de Regularidade</li>
+        <li>Regularização (Cadin / CND)</li>
+        <li>Quadro de Sócios JUCESP</li>
+        <li>Regras de enquadramento de Linha (SUNEP)</li>
+        <li>Consulta de Crédito Serasa</li>
+        <li>Parametrização Rating / conversão</li>
+        <li>Matriz Rating × Fase × Proposta</li>
+      </ul>
+    </div>
+    <div class="pilar"><h3>3 · Proposta</h3><span class="tag">Migração F3: 75h · Médio</span>
+      <ul>
+        <li>Entrada na Simulação Logada</li>
+        <li>Matriz Rating × Porte × Produto</li>
+        <li>Simulação Agro (Esteira Agro)</li>
+        <li>Simulação Consultiva SUNEP (Julgamental)</li>
+        <li>Apresentação do Resultado ao Cliente</li>
+        <li>Geração de PDF da Simulação</li>
+      </ul>
+    </div>
+    <div class="pilar"><h3>4 · Estruturação</h3><span class="tag">Migração F3: 237h · Grande</span>
+      <ul>
+        <li>Assignment de tarefa para Backoffice</li>
+        <li>Checklist e validação de documentos</li>
+        <li>Notificação de pendências documentais</li>
+        <li>Dados complementares Sintegra / Sefaz</li>
+        <li>Garantias e validação SUPEN</li>
+        <li>Validação conformidade SUSEP</li>
+      </ul>
+    </div>
+    <div class="pilar"><h3>5 · Aprovação</h3><span class="tag">Migração F3: 62h · Médio</span>
+      <ul>
+        <li>Fluxo de Aprovação da proposta</li>
+        <li>Visita Técnica SUPEN</li>
+        <li>SUCRE — Análise de Crédito</li>
+        <li>Matéria de Crédito + Parecer SUCRE</li>
+        <li>Aprovação comitê de crédito</li>
+        <li>Formalização e comunicação do resultado</li>
+      </ul>
+    </div>
+    <div class="pilar"><h3>6 · Formalização</h3><span class="tag">Migração F3: 108h · Médio</span>
+      <ul>
+        <li>SUSEP realiza checklist final para formalização</li>
+        <li>Geração do Contrato</li>
+        <li>CCB emitida digitalmente</li>
+        <li>Assinatura contrato + CCB digital no portal</li>
+        <li>Operação no core bancário Sinqia</li>
+        <li>Desembolso via Sinqia</li>
+        <li>Minhas Parcelas no Portal</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ESFORÇO POR FASE -->
+<section>
+  <div class="eyebrow">Distribuição do esforço</div>
+  <h2>Horas por fase</h2>
+  <div class="bar-row"><span>F3 · Solution Migration</span><div class="bar-track"><span class="bar-fill" style="width:100%"></span></div><span class="bar-val">775</span></div>
+  <div class="bar-row"><span>F6 · Testing / Regressão</span><div class="bar-track"><span class="bar-fill" style="width:46%"></span></div><span class="bar-val">360</span></div>
+  <div class="bar-row"><span>F1 · Discovery & FSC Design</span><div class="bar-track"><span class="bar-fill" style="width:44%"></span></div><span class="bar-val">340</span></div>
+  <div class="bar-row"><span>F4 · Integration Re-pointing</span><div class="bar-track"><span class="bar-fill" style="width:41%"></span></div><span class="bar-val">320</span></div>
+  <div class="bar-row"><span>F2 · FSC Enablement</span><div class="bar-track"><span class="bar-fill" style="width:39%"></span></div><span class="bar-val">300</span></div>
+  <div class="bar-row"><span>F5 · Data Migration</span><div class="bar-track"><span class="bar-fill" style="width:37%"></span></div><span class="bar-val">290</span></div>
+  <div class="bar-row"><span>F8 · PM & Governança</span><div class="bar-track"><span class="bar-fill" style="width:34%"></span></div><span class="bar-val">260</span></div>
+  <div class="bar-row"><span>F7 · Cutover & Hypercare</span><div class="bar-track"><span class="bar-fill" style="width:25%"></span></div><span class="bar-val">190</span></div>
+
+  <h2 style="margin-top:32px">Horas por perfil</h2>
+  <div class="bar-row"><span>Senior Project Manager <small style="color:var(--sf-text-weak);font-weight:400">(full-time)</small></span><div class="bar-track"><span class="bar-fill t" style="width:100%"></span></div><span class="bar-val">560</span></div>
+  <div class="bar-row"><span>Developer (2 squads)</span><div class="bar-track"><span class="bar-fill t" style="width:89%"></span></div><span class="bar-val">500</span></div>
+  <div class="bar-row"><span>Senior Developer</span><div class="bar-track"><span class="bar-fill t" style="width:88%"></span></div><span class="bar-val">490</span></div>
+  <div class="bar-row"><span>QA Engineer</span><div class="bar-track"><span class="bar-fill t" style="width:67%"></span></div><span class="bar-val">375</span></div>
+  <div class="bar-row"><span>Integration Developer</span><div class="bar-track"><span class="bar-fill t" style="width:50%"></span></div><span class="bar-val">280</span></div>
+  <div class="bar-row"><span>Data Engineer</span><div class="bar-track"><span class="bar-fill t" style="width:50%"></span></div><span class="bar-val">280</span></div>
+  <div class="bar-row"><span>FSC Functional / BA</span><div class="bar-track"><span class="bar-fill t" style="width:45%"></span></div><span class="bar-val">250</span></div>
+  <div class="bar-row"><span>Technical Architect</span><div class="bar-track"><span class="bar-fill t" style="width:38%"></span></div><span class="bar-val">210</span></div>
+  <div class="bar-row"><span>Solution Architect</span><div class="bar-track"><span class="bar-fill t" style="width:29%"></span></div><span class="bar-val">160</span></div>
+</section>
+
+<!-- TIMELINE / GANTT -->
+<section>
+  <div class="eyebrow">Linha do tempo</div>
+  <h2>Cronograma da migração · 14 semanas</h2>
+  <p class="sub">Duas squads em paralelo. Integração e migração de dados correm transversalmente; teste e cutover concentram o risco da migração in-place.</p>
+  <table class="gantt">
+    <thead>
+      <tr><th class="lbl">Fase</th>
+        <th>S1</th><th>S2</th><th>S3</th><th>S4</th><th>S5</th><th>S6</th><th>S7</th><th>S8</th><th>S9</th><th>S10</th><th>S11</th><th>S12</th><th>S13</th><th>S14</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="lbl">F1 · Discovery & FSC Design</td><td class="g1"></td><td class="g1"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="lbl">F2 · FSC Enablement</td><td></td><td class="g2"></td><td class="g2"></td><td class="g2"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="lbl">F3 · Solution Migration (Sq1+Sq2)</td><td></td><td></td><td class="g3"></td><td class="g3"></td><td class="g3"></td><td class="g3"></td><td class="g3"></td><td class="g3"></td><td class="g3"></td><td class="g3"></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="lbl">F4 · Integration Re-pointing</td><td></td><td></td><td></td><td class="g4"></td><td class="g4"></td><td class="g4"></td><td class="g4"></td><td class="g4"></td><td class="g4"></td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td class="lbl">F5 · Data Migration</td><td></td><td></td><td></td><td></td><td class="g5"></td><td class="g5"></td><td class="g5"></td><td class="g5"></td><td class="g5"></td><td class="g5"></td><td class="g5"></td><td></td><td></td><td></td></tr>
+      <tr><td class="lbl">F6 · Testing SIT/UAT/Regressão</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="g6"></td><td class="g6"></td><td class="g6"></td><td class="g6"></td><td class="g6"></td><td></td></tr>
+      <tr><td class="lbl">F7 · Cutover & Hypercare</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="g7"></td><td class="g7"></td></tr>
+      <tr><td class="lbl">F8 · PM full-time (40h/sem)</td><td class="g8"></td><td class="g8"></td><td class="g8"></td><td class="g8"></td><td class="g8"></td><td class="g8"></td><td class="g8"></td><td class="g8"></td><td class="g8"></td><td class="g8"></td><td class="g8"></td><td class="g8"></td><td class="g8"></td><td class="g8"></td></tr>
+    </tbody>
+  </table>
+  <div class="legend">
+    <span><span class="sw g1"></span>Discovery/Design</span>
+    <span><span class="sw g2"></span>FSC Enablement</span>
+    <span><span class="sw g3"></span>Solution Migration</span>
+    <span><span class="sw g4"></span>Integração</span>
+    <span><span class="sw g5"></span>Dados</span>
+    <span><span class="sw g6"></span>Testes</span>
+    <span><span class="sw g7"></span>Cutover</span>
+    <span><span class="sw g8"></span>PM (contínuo)</span>
+  </div>
+</section>
+
+<!-- MARCOS -->
+<section>
+  <div class="eyebrow">Marcos de entrega principais</div>
+  <h2>Milestones</h2>
+  <div class="ms">
+    <div class="milestone"><span class="wk">Fim da Semana 2</span><h3>Arquitetura FSC aprovada</h3><p>Data model FinServ, estratégia de migração/cutover e backlog de migração refinado.</p></div>
+    <div class="milestone"><span class="wk">Fim da Semana 4</span><h3>FSC habilitado em sandbox</h3><p>Person Accounts + data model FinServ ligados; recursos FSC (ARC, Financial Deals, Interest Tags) configurados.</p></div>
+    <div class="milestone"><span class="wk">Fim da Semana 10</span><h3>Solução reapontada</h3><p>6 pilares migrados para objetos FSC; 30 integrações reapontadas (lado Salesforce).</p></div>
+    <div class="milestone"><span class="wk">Fim da Semana 11</span><h3>Dados validados</h3><p>Migração de dados executada e reconciliada em sandbox full-copy.</p></div>
+    <div class="milestone"><span class="wk">Fim da Semana 13</span><h3>Testes concluídos</h3><p>SIT, UAT e regressão in-place aprovados.</p></div>
+    <div class="milestone"><span class="wk">Semana 14</span><h3>Go-live FSC + Hypercare</h3><p>Cutover em produção (Person Accounts + dados) e estabilização.</p></div>
+  </div>
+</section>
+
+<!-- ALOCAÇÃO (tabela) -->
+<section>
+  <div class="eyebrow">Detalhe</div>
+  <h2>Esforço por fase e perfil (horas)</h2>
+  <table class="data">
+    <thead><tr><th>Fase</th><th class="r">PM</th><th class="r">SA</th><th class="r">TA</th><th class="r">BA/FSC</th><th class="r">Sr Dev</th><th class="r">Dev</th><th class="r">Int</th><th class="r">Data</th><th class="r">QA</th><th class="r">Total</th></tr></thead>
+    <tbody>
+      <tr><td>F1 Discovery & FSC Design</td><td class="r">–</td><td class="r">80</td><td class="r">80</td><td class="r">60</td><td class="r">–</td><td class="r">–</td><td class="r">40</td><td class="r">40</td><td class="r">–</td><td class="r">300</td></tr>
+      <tr><td>F2 FSC Enablement</td><td class="r">–</td><td class="r">40</td><td class="r">40</td><td class="r">40</td><td class="r">80</td><td class="r">80</td><td class="r">–</td><td class="r">–</td><td class="r">20</td><td class="r">300</td></tr>
+      <tr><td>F3 Solution Migration</td><td class="r">–</td><td class="r">–</td><td class="r">–</td><td class="r">90</td><td class="r">300</td><td class="r">340</td><td class="r">–</td><td class="r">–</td><td class="r">45</td><td class="r">775</td></tr>
+      <tr><td>F4 Integration Re-pointing</td><td class="r">–</td><td class="r">–</td><td class="r">–</td><td class="r">–</td><td class="r">40</td><td class="r">–</td><td class="r">220</td><td class="r">–</td><td class="r">60</td><td class="r">320</td></tr>
+      <tr><td>F5 Data Migration</td><td class="r">–</td><td class="r">–</td><td class="r">30</td><td class="r">20</td><td class="r">–</td><td class="r">–</td><td class="r">–</td><td class="r">200</td><td class="r">40</td><td class="r">290</td></tr>
+      <tr><td>F6 Testing SIT/UAT/Regressão</td><td class="r">–</td><td class="r">–</td><td class="r">20</td><td class="r">40</td><td class="r">40</td><td class="r">80</td><td class="r">–</td><td class="r">–</td><td class="r">180</td><td class="r">360</td></tr>
+      <tr><td>F7 Cutover & Hypercare</td><td class="r">–</td><td class="r">–</td><td class="r">40</td><td class="r">–</td><td class="r">30</td><td class="r">–</td><td class="r">20</td><td class="r">40</td><td class="r">30</td><td class="r">160</td></tr>
+      <tr><td>F8 PM & Governança (full-time)</td><td class="r">560</td><td class="r">40</td><td class="r">–</td><td class="r">–</td><td class="r">–</td><td class="r">–</td><td class="r">–</td><td class="r">–</td><td class="r">–</td><td class="r">600</td></tr>
+      <tr><td>Total</td><td class="r">560</td><td class="r">160</td><td class="r">210</td><td class="r">250</td><td class="r">490</td><td class="r">500</td><td class="r">280</td><td class="r">280</td><td class="r">375</td><td class="r">3.105</td></tr>
+    </tbody>
+  </table>
+
+  <h2 style="margin-top:36px">Esforço por perfil e por semana (horas)</h2>
+  <p class="sub" style="font-size:15px">Distribuição das horas de cada perfil ao longo das 14 semanas, conforme as fases em que atua. Picos de esforço nas semanas 4 e 9 (mobilização de build + entrada dos testes).</p>
+  <div class="wkgrid-wrap">
+  <table class="wkgrid">
+    <thead>
+      <tr><th class="role">Perfil</th>
+        <th>S1</th><th>S2</th><th>S3</th><th>S4</th><th>S5</th><th>S6</th><th>S7</th><th>S8</th><th>S9</th><th>S10</th><th>S11</th><th>S12</th><th>S13</th><th>S14</th><th class="tot">Total</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="role">Senior Project Manager</td><td>40</td><td>40</td><td>40</td><td>40</td><td>40</td><td>40</td><td>40</td><td>40</td><td>40</td><td>40</td><td>40</td><td>40</td><td>40</td><td>40</td><td class="tot">560</td></tr>
+      <tr><td class="role">Solution Architect</td><td>43</td><td>56</td><td>16</td><td>16</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td>3</td><td class="tot">160</td></tr>
+      <tr><td class="role">Technical Architect</td><td>40</td><td>53</td><td>13</td><td>13</td><td>4</td><td>4</td><td>4</td><td>4</td><td>8</td><td>8</td><td>8</td><td>4</td><td>24</td><td>20</td><td class="tot">210</td></tr>
+      <tr><td class="role">FSC Functional / BA</td><td>30</td><td>43</td><td>25</td><td>25</td><td>14</td><td>14</td><td>14</td><td>14</td><td>22</td><td>22</td><td>11</td><td>8</td><td>8</td><td class="z">·</td><td class="tot">250</td></tr>
+      <tr><td class="role">Senior Developer</td><td class="z">·</td><td>27</td><td>64</td><td>71</td><td>44</td><td>44</td><td>44</td><td>44</td><td>52</td><td>46</td><td>8</td><td>8</td><td>23</td><td>15</td><td class="tot">490</td></tr>
+      <tr><td class="role">Developer (2 squads)</td><td class="z">·</td><td>27</td><td>69</td><td>69</td><td>43</td><td>43</td><td>43</td><td>43</td><td>59</td><td>59</td><td>16</td><td>16</td><td>16</td><td class="z">·</td><td class="tot">500</td></tr>
+      <tr><td class="role">Integration Developer</td><td>20</td><td>20</td><td class="z">·</td><td>37</td><td>37</td><td>37</td><td>37</td><td>37</td><td>37</td><td class="z">·</td><td class="z">·</td><td class="z">·</td><td>10</td><td>10</td><td class="tot">280</td></tr>
+      <tr><td class="role">Data Engineer</td><td>20</td><td>20</td><td class="z">·</td><td class="z">·</td><td>29</td><td>29</td><td>29</td><td>29</td><td>29</td><td>29</td><td>29</td><td class="z">·</td><td>20</td><td>20</td><td class="tot">280</td></tr>
+      <tr><td class="role">QA Engineer</td><td class="z">·</td><td class="z">·</td><td>16</td><td>26</td><td>21</td><td>21</td><td>21</td><td>21</td><td>57</td><td>47</td><td>42</td><td>36</td><td>51</td><td>15</td><td class="tot">375</td></tr>
+      <tr class="totrow"><td class="role">Total / semana</td><td>193</td><td>286</td><td>243</td><td>297</td><td>235</td><td>235</td><td>235</td><td>235</td><td>307</td><td>254</td><td>157</td><td>115</td><td>195</td><td>123</td><td>3.105</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="legend">Distribuição semanal aproximada (horas rateadas pelas semanas de cada fase); o total por perfil é o valor autoritativo. Perfis ativos no pico (S9): 9.</div>
+</section>
+
+<!-- RISCOS -->
+<section>
+  <div class="eyebrow">Riscos & premissas</div>
+  <h2>O que pode mover a estimativa</h2>
+  <div class="risks">
+    <div class="risk"><h3>Person Accounts irreversível</h3><p>Habilitação não tem volta. Exige ensaio completo em sandbox full-copy antes do cutover.</p></div>
+    <div class="risk"><h3>Regressão in-place</h3><p>Maior fase de teste (360h). Toda a solução existente precisa ser revalidada sobre o novo data model.</p></div>
+    <div class="risk"><h3>Contratos das System APIs</h3><p>Se os payloads mudarem com o data model FSC, transformação no MuleSoft entra como escopo adicional.</p></div>
+    <div class="risk"><h3>Volume de migração de dados</h3><p>Premissa = volume moderado. Volumes altos elevam o esforço de Data Engineer.</p></div>
+    <div class="risk"><h3>Profundidade dos recursos FSC</h3><p>Premissa = configuração. Customização pesada de ARC/Financial Deals eleva F2 e F3.</p></div>
+    <div class="risk"><h3>Aprovação multi-fornecedor</h3><p>SF / DSP / Sinqia validam por fase. SLA de 24h herdado do Parecer.</p></div>
+  </div>
+  <div class="note"><b>Premissas centrais:</b> migração in-place na org atual · recursos FSC em nível de configuração · 30 integrações apenas reapontadas (lado Salesforce) · superfície = 6 pilares estáveis em Sales Cloud · base AI-native com 2 squads · Senior Project Manager full-time (40h/sem × 14 sem) · sprints de 2 semanas, 40h/FTE.</div>
+</section>
+
+<footer>
+  Salesforce Professional Services · ARI PRODESP / Desenvolve SP · Estimativa (ROM) da migração para Financial Services Cloud · 24/08/2026 ·
+  Estimativa indicativa (±20%), não compromisso — refinada na Fase 0. Sem valores financeiros.
+</footer>
+
+</body>
+</html>

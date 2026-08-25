@@ -1,0 +1,187 @@
+digraph ArquiteturaVisaoNeutra {
+  rankdir=TB;
+  bgcolor="white";
+  fontname="Helvetica";
+  labelloc="t";
+  fontsize=27;
+  label=<<b>Visão de Arquitetura — Marketplace PAT</b><br/><font point-size="14" color="#555555">Consolidada dos 4 documentos técnicos · agnóstica de plataforma · com fluxos<br/>Doc. de Visão DM v0.7 · Recomendações Arquiteturais · Requisitos de Monitoramento (Anexo III) · Fluxos BPMN &amp; Protótipos</font><br/> >;
+  node [fontname="Helvetica", shape=box, style="rounded,filled", fontsize=12.5, margin="0.18,0.10"];
+  nodesep=0.34;
+  ranksep=0.70;
+  newrank=true;
+  splines=spline;
+  concentrate=false;
+
+  /* ---- estilo padrão das SETAS (fluxo principal) ---- */
+  edge [color="#6B7A8D", penwidth=1.3, arrowsize=0.7, fontname="Helvetica", fontsize=10, fontcolor="#4A5666"];
+
+  /* ===== espinha invisível: fixa bandas horizontais e a ordem vertical ===== */
+  s1 [shape=point, width=0.01, style=invis];
+  s2 [shape=point, width=0.01, style=invis];
+  s3 [shape=point, width=0.01, style=invis];
+  s4 [shape=point, width=0.01, style=invis];
+  s5 [shape=point, width=0.01, style=invis];
+  s6 [shape=point, width=0.01, style=invis];
+  s7 [shape=point, width=0.01, style=invis];
+  s8 [shape=point, width=0.01, style=invis];
+  s1 -> s2 -> s3 -> s4 -> s5 -> s6 -> s7 -> s8 [style=invis];
+
+  /* ===== 1 · CANAIS / ATORES ===== */
+  subgraph cluster_atores {
+    label=<<b>1 · Canais &amp; Atores  (autenticação)</b>>;
+    fontsize=15; color="#B0B0B0"; style="rounded"; bgcolor="#F5F7FA"; margin=16;
+    node [fillcolor="#E8EDF3", color="#9AA7B4"];
+    a_benef  [label="Empresa Beneficiária\n(PAT / não-PAT)\ngov.br Prata/Ouro"];
+    a_estab  [label="Estabelecimento\nComercial\ngov.br Prata/Ouro"];
+    a_facil  [label="Facilitadora\nCertificado digital (mTLS)"];
+    a_adq    [label="Adquirente / Rede\nCertificado digital (mTLS)"];
+    a_mte    [label="Gestor / Fiscal MTE\nGERID"];
+    a_trab   [label="Trabalhador\nCTPS Digital"];
+    { rank=same; s1; a_benef; a_estab; a_facil; a_adq; a_mte; a_trab; }
+  }
+
+  /* ===== 2 · EXPERIÊNCIA ===== */
+  subgraph cluster_exp {
+    label=<<b>2 · Camada de Experiência &amp; APIs de Entrada</b>>;
+    fontsize=15; color="#B0B0B0"; style="rounded"; bgcolor="#EAF3EC"; margin=16;
+    node [fillcolor="#D6EBDB", color="#7FB08A"];
+    e_portal_b [label="Portal da Beneficiária\n(cotar · comparar · folha · boleto)"];
+    e_portal_e [label="Portal do Estabelecimento\n(credenciar autosserviço · status)"];
+    e_gestao   [label="Módulo de Gestão MTE\n(cotações · contratos · financeiro\n· credenciamento · descredenciamento)"];
+    e_api      [label="APIs Públicas (OpenAPI 3.0 · REST)\nFacilitadoras / Adquirentes"];
+    { rank=same; s2; e_portal_b; e_portal_e; e_gestao; e_api; }
+  }
+
+  /* ===== 3 · CAPACIDADES DE NEGÓCIO ===== */
+  subgraph cluster_cap {
+    label=<<b>3 · Capacidades de Negócio  (fluxos BPMN)</b>>;
+    fontsize=15; color="#B0B0B0"; style="rounded"; bgcolor="#FDF3E7"; margin=16;
+    node [fillcolor="#FBE3C4", color="#E0A458"];
+    c_cot  [label="N01 · Marketplace\nCotação &amp; Propostas\n(seleção livre)"];
+    c_con  [label="N01 · Gestão de Contratos\n(PAT / não-PAT · vínculo NOVO PAT)"];
+    c_fin  [label="N02 · Financeiro · Folha (layout único)\nboleto · repasse · NF\n(pagamento FORA da plataforma)"];
+    c_cred [label="N04 · Credenciamento (autosserviço)\n+ Descredenciamento\n(motor analítico · blacklist · defesa 2x)"];
+    c_gest [label="N05 · Gestão &amp;\nGovernança (MTE)"];
+    c_mon  [label="N06 · Monitoramento\nde Transações (até 30M/dia)"];
+    c_not  [label="N07 · Notificação de\nCrédito ao Trabalhador"];
+    { rank=same; s3; c_cot; c_con; c_fin; c_cred; c_gest; c_mon; c_not; }
+  }
+
+  /* ===== 4 · DADOS ===== */
+  subgraph cluster_dados {
+    label=<<b>4 · Domínios de Dados</b>>;
+    fontsize=15; color="#B0B0B0"; style="rounded"; bgcolor="#EDE9F5"; margin=16;
+    node [fillcolor="#DDD4EC", color="#9B87C4"];
+    d_neg  [label="Cotações · Propostas\n· Contratos"];
+    d_fin  [label="Folhas · Transações\nFinanceiras (split / boleto)"];
+    d_est  [label="Estabelecimentos\nCredenciados / blacklist"];
+    d_ven  [label="Transações de Vendas\n(monitoramento)"];
+    d_log  [label="Logs de integração\ne auditoria"];
+    { rank=same; s4; d_neg; d_fin; d_est; d_ven; d_log; }
+  }
+
+  /* ===== 5 · DISPONIBILIZAÇÃO DE DADOS À DATAPREV (ANEXO III) ===== */
+  subgraph cluster_egress {
+    label=<<b>5 · Disponibilização de Dados à Dataprev — obrigação contratual (Anexo III)</b>>;
+    fontsize=15; color="#1A7F5A"; style="rounded,bold"; bgcolor="#E4F5EC"; margin=16;
+    node [fillcolor="#CDEBDB", color="#1A7F5A", fontcolor="#0B4A34"];
+    g_cdc [label="Captura de Mudanças (CDC) / eventos\nexportação incremental imediata\n+ carga inicial completa · integralidade"];
+    g_sla [label="SLA de latência por conjunto\ncadastros ≤1h · cotações/contratos ≤2h · folhas ≤4h\ntransações ≤2h · split ≤4h · boletos ≤2h · logs ≤2h"];
+    g_gov [label="Contratos de Dados · Catálogo · Dicionário\nreconciliação · idempotência · DLQ"];
+    g_dst [label="Infra Analítica indicada pela Dataprev\n(object storage · filas · streaming · SFTP)\nretenção ≥ 5 anos · nada exclusivo da contratada"];
+    { rank=same; s5; g_cdc; g_sla; g_gov; g_dst; }
+  }
+
+  /* ===== 6 · INTEGRAÇÃO ===== */
+  subgraph cluster_int {
+    label=<<b>6 · Camada de Integração  (Recomendações Arquiteturais)</b>>;
+    fontsize=15; color="#B0B0B0"; style="rounded"; bgcolor="#E7F0F7"; margin=16;
+    node [fillcolor="#CFE2F0", color="#6FA3C7"];
+    i_bus [label="Barramento de Integração (API-led · modular)\nAPIs de polling p/ facilitadoras · throttling + filas de vazão · retry+backoff · DLQ · auto-scale\nW3C Trace Context · RFC 9110 · conformidade com governança de APIs Dataprev", width=11];
+    { rank=same; s6; i_bus; }
+  }
+
+  /* ===== 7 · SISTEMAS EXTERNOS ===== */
+  subgraph cluster_ext {
+    label=<<b>7 · Sistemas Externos (governo &amp; terceiros)</b>>;
+    fontsize=15; color="#B0B0B0"; style="rounded"; bgcolor="#F2F2F2"; margin=16;
+    node [fillcolor="#E0E0E0", color="#A0A0A0"];
+    x_pat  [label="NOVO PAT\n(adesão / vínculo — DTI/MTE)\n⚠ hoje sem API"];
+    x_gov  [label="gov.br\n(identidade)"];
+    x_ger  [label="GERID\n(IdP MTE)"];
+    x_ctps [label="CTPS Digital"];
+    x_gw   [label="Gateway /\nInstituição Financeira\n(pagamento fora da plataforma)"];
+    x_rf   [label="Receita Federal\n(CNPJ / CNAE)"];
+    x_vs   [label="Vigilância Sanitária\n(autodeclaração)"];
+    { rank=same; s7; x_pat; x_gov; x_ger; x_ctps; x_gw; x_rf; x_vs; }
+  }
+
+  /* ===== FAIXA · REQUISITOS NÃO FUNCIONAIS + MARCOS (rodapé) ===== */
+  subgraph cluster_cross {
+    label=<<b>Requisitos Não Funcionais &amp; Marcos de Dados — Anexo III (transversais)</b>>;
+    fontsize=14; color="#C05A2E"; style="rounded,dashed"; bgcolor="#FBEDE6"; margin=14;
+    node [fillcolor="#F6D9CB", color="#C97B54", fontsize=11.5];
+    nf_lgpd [label="LGPD · Residência\nde dados (CPF)"];
+    nf_aud  [label="Auditoria\n(timestamp · IP · porta)"];
+    nf_seg  [label="Segurança\n(gov.br · mTLS · GERID)"];
+    nf_disp [label="Disponibilidade\n99% / 99,5% · ≤ 3s p95"];
+    nf_acc  [label="Acessibilidade\ne-MAG 3.1 / WCAG 2.1 AA"];
+    nf_res  [label="Resiliência\n(retry · fila · DLQ · fallback)"];
+    nf_mrc  [label="Marcos Anexo III\n01/09 schemas → 30/09 cadastros prod\n18/10 transações+carga → 15/11 lançamento"];
+    { rank=same; s8; nf_lgpd; nf_aud; nf_seg; nf_disp; nf_acc; nf_res; nf_mrc; }
+  }
+
+  /* ================= SETAS SEMÂNTICAS (não afetam o ranqueamento) ================= */
+  edge [constraint=false];
+
+  /* 1 → 2 · atores acessam canais */
+  a_benef -> e_portal_b;
+  a_estab -> e_portal_e;
+  a_facil -> e_api [label="polling", style=dashed];
+  a_adq   -> e_api [style=dashed];
+  a_mte   -> e_gestao;
+
+  /* 2 → 3 · canais acionam capacidades */
+  e_portal_b -> c_cot;
+  e_portal_b -> c_fin;
+  e_portal_e -> c_cred;
+  e_gestao   -> c_gest;
+  e_api      -> c_cot [label="consulta cotações"];
+  e_api      -> c_fin [label="folha + boleto"];
+
+  /* 3 → 4 · capacidades persistem dados */
+  c_cot  -> d_neg;
+  c_con  -> d_neg;
+  c_fin  -> d_fin;
+  c_cred -> d_est;
+  c_mon  -> d_ven;
+  c_gest -> d_log;
+
+  /* 4 → 5 · TODO dado transacional é replicado (Anexo III) — setas verdes */
+  edge [color="#1A7F5A", penwidth=1.6, style=solid, fontcolor="#0B4A34"];
+  d_neg -> g_cdc;
+  d_fin -> g_cdc;
+  d_est -> g_cdc;
+  d_ven -> g_cdc;
+  d_log -> g_cdc;
+  g_cdc -> g_dst [label="≤ 1h–4h", xlabel="incremental + eventos"];
+
+  /* 3/4 → 6 · chamadas a sistemas externos passam pelo barramento — setas laranja */
+  edge [color="#C07A2B", penwidth=1.3, style=solid, fontcolor="#8A5418"];
+  c_con  -> i_bus [label="vínculo"];
+  c_cred -> i_bus [label="CNPJ/CNAE/VS"];
+  c_fin  -> i_bus [label="boleto/repasse"];
+  c_not  -> i_bus [label="notificação"];
+
+  /* 6 → 7 · barramento integra os sistemas externos */
+  i_bus -> x_pat;
+  i_bus -> x_gov;
+  i_bus -> x_ger;
+  i_bus -> x_ctps;
+  i_bus -> x_gw;
+  i_bus -> x_rf;
+  i_bus -> x_vs;
+
+  /* notificação chega ao trabalhador via CTPS Digital */
+  x_ctps -> a_trab [label="crédito programado", style=dashed, color="#6B7A8D", fontcolor="#4A5666"];
+}

@@ -1,0 +1,1579 @@
+<!DOCTYPE html>
+<!-- Parecer de Viabilidade — Portal Desenvolve SP · pt-BR · Scopezilla brand kit -->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Parecer de Viabilidade — Portal Desenvolve SP</title>
+<style>
+  :root {
+    --sf-navy:#001E5B; --sf-type:#002775; --sf-container:#022AC0; --sf-blue:#066AFE;
+    --sf-cloud:#00B3FF; --sf-cloud-80:#90D0FE; --sf-bg:#CFE9FE; --sf-light-bg:#EAF5FE;
+    --sf-text:#002775; --sf-text-weak:#4A5578;
+    --ext-teal:#06A59A; --ext-teal-95:#DEF9F3; --ext-yellow:#FCC003; --ext-yellow-70:#E4A201;
+    --ext-yellow-95:#FBF3E0; --ext-pink:#FF538A; --ext-pink-40:#B60554; --ext-pink-95:#FEF0F3;
+    --client-primary:#066AFE; --client-dark:#022AC0;
+    --font-heading:'ITC Avant Garde Gothic Demi','Century Gothic','Salesforce Sans','Source Sans 3',Arial,sans-serif;
+    --font-body:'Salesforce Sans','Source Sans 3','Helvetica Neue',Arial,sans-serif;
+    --fs-title:54px; --fs-subtitle:36px; --fs-l1:30px; --fs-cat:26px; --fs-l2:24px; --fs-desc:22px; --fs-body:16px;
+    --space-xs:4px; --space-sm:8px; --space-md:16px; --space-lg:24px; --space-xl:32px; --space-2xl:48px;
+    --radius-sm:4px; --radius-md:8px; --radius-lg:16px;
+    --shadow-brand:2.6px 9.7px 25px rgba(6,106,254,0.15);
+  }
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  h1,h2,h3,.sz-title,.sz-stat-num { font-family:var(--font-heading); color:var(--sf-navy); line-height:1.15; }
+  .sz-card { background:#fff; border-radius:var(--radius-md); padding:var(--space-lg); box-shadow:var(--shadow-brand); }
+  .sz-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:var(--space-md); }
+  .sz-stat { background:#fff; border-radius:var(--radius-md); padding:var(--space-lg) var(--space-md); text-align:center; box-shadow:var(--shadow-brand); }
+  .sz-stat-num { font-size:var(--fs-title); color:var(--client-primary); }
+  .sz-stat-lbl { font-size:14px; color:var(--sf-text-weak); margin-top:var(--space-xs); }
+  .sz-table { width:100%; border-collapse:collapse; background:#fff; border-radius:var(--radius-md); overflow:hidden; box-shadow:var(--shadow-brand); }
+  .sz-table th { background:var(--sf-container); color:#fff; font-family:var(--font-heading); text-align:left; padding:var(--space-sm) var(--space-md); font-size:14px; }
+  .sz-table td { padding:var(--space-sm) var(--space-md); border-top:1px solid var(--sf-light-bg); font-size:14px; vertical-align:top; }
+  .sz-table tbody tr:nth-child(even) { background:var(--sf-light-bg); }
+  .sz-tag { display:inline-block; font-size:12px; font-weight:700; padding:2px 10px; border-radius:999px; line-height:1.6; }
+  .sz-tag--critical { background:var(--ext-pink-95); color:var(--ext-pink-40); }
+  .sz-tag--high { background:var(--ext-yellow-95); color:var(--ext-yellow-70); }
+  .sz-tag--low { background:var(--ext-teal-95); color:var(--ext-teal); }
+  .sz-tag--info { background:var(--sf-light-bg); color:var(--sf-blue); }
+  .sz-tag--sz-s { background:var(--sf-light-bg); color:var(--sf-blue); }
+  .sz-tag--sz-m { background:#DCEBFF; color:var(--sf-blue); }
+  .sz-tag--sz-l { background:var(--sf-cloud); color:var(--sf-navy); }
+  .sz-tag--sz-xl { background:var(--sf-container); color:#fff; }
+  .sz-tldr { background:var(--sf-light-bg); border-left:4px solid var(--sf-blue); border-radius:var(--radius-sm); padding:var(--space-md) var(--space-lg); }
+  .sz-tldr-label { font-family:var(--font-heading); font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--sf-blue); margin-bottom:var(--space-xs); }
+  .sz-timeline { display:flex; gap:2px; border-radius:var(--radius-sm); overflow:hidden; box-shadow:var(--shadow-brand); }
+  .sz-phase { flex:1; padding:var(--space-md); color:#fff; text-align:center; font-size:13px; }
+  .sz-phase-name { font-family:var(--font-heading); }
+  .sz-phase-dur { opacity:.85; font-size:11px; }
+  .sz-chips { display:flex; flex-wrap:wrap; gap:var(--space-xs); }
+  .sz-chip { background:var(--sf-light-bg); color:var(--sf-container); border:1px solid var(--sf-cloud-80); border-radius:999px; padding:4px 12px; font-size:13px; }
+  .sz-panorama { position:relative; background:var(--sf-cloud); color:var(--sf-navy); padding:var(--space-2xl) var(--space-xl); text-align:center; border-radius:var(--radius-lg); box-shadow:var(--shadow-brand); }
+  .sz-panorama--navy { background:linear-gradient(135deg,var(--sf-navy),var(--sf-container)); color:#fff; }
+  .sz-panorama h2 { color:inherit; }
+
+  /* Deck-shell layout */
+  html,body { height:100%; }
+  body { font-family:var(--font-body); color:var(--sf-text); background:var(--sf-navy); overflow:hidden; display:flex; align-items:center; justify-content:center; line-height:1.5; -webkit-font-smoothing:antialiased; }
+  .slide { width:1280px; height:720px; background:var(--sf-light-bg); position:relative; display:none; flex-direction:column; padding:48px 64px; overflow:hidden; transform:scale(var(--scale,1)); transform-origin:center center; }
+  .slide.active { display:flex; }
+  .slide::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--client-primary),var(--sf-cloud)); }
+  .slide-eyebrow { font-family:var(--font-heading); font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:var(--sf-blue); }
+  .slide-title { font-size:var(--fs-subtitle); margin:var(--space-xs) 0 var(--space-lg); }
+  .slide-num { position:absolute; bottom:20px; right:28px; font-size:12px; color:var(--sf-text-weak); }
+  .cover { justify-content:center; background:linear-gradient(135deg,var(--sf-navy),var(--sf-container)); }
+  .cover .slide-title { font-size:var(--fs-title); color:#fff; }
+  .cover .slide-eyebrow { color:var(--sf-cloud-80); }
+  .cover .cover-sub { color:#fff; opacity:.85; font-size:var(--fs-desc); margin-top:var(--space-md); }
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-lg); }
+  .three-col { display:grid; grid-template-columns:1fr 1fr 1fr; gap:var(--space-md); }
+  .fill { flex:1; }
+  .lead { font-size:var(--fs-desc); color:var(--sf-type); }
+  ul.tight { padding-left:20px; } ul.tight li { margin:6px 0; font-size:15px; }
+  .cap { font-size:12px; color:var(--sf-text-weak); margin-top:var(--space-sm); }
+  .big-num { font-family:var(--font-heading); font-size:64px; color:var(--client-primary); line-height:1; }
+  .vs-row { display:flex; align-items:center; gap:var(--space-xl); justify-content:center; }
+  .card-h { font-family:var(--font-heading); color:var(--sf-container); font-size:18px; margin-bottom:var(--space-sm); }
+  .nav { position:fixed; bottom:20px; left:50%; transform:translateX(-50%); display:flex; gap:8px; align-items:center; background:rgba(0,30,91,.9); border-radius:999px; padding:8px 16px; z-index:50; transition:opacity .4s ease; }
+  .nav.idle { opacity:0; pointer-events:none; }
+  .nav button { background:var(--sf-blue); color:#fff; border:none; border-radius:999px; padding:6px 14px; cursor:pointer; font-family:var(--font-heading); }
+  .nav span { color:#fff; font-size:13px; padding:0 8px; }
+  @media print {
+    @page { size:1280px 720px; margin:0; }
+    html,body { background:#fff; width:1280px; height:auto; display:block; overflow:visible; }
+    .slide { display:flex !important; page-break-after:always; box-shadow:none; transform:none !important; }
+    .slide:last-of-type { page-break-after:auto; }
+    .nav,.slide-num { display:none; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Slide 1 · Capa -->
+  <section class="slide cover active" style="justify-content:space-between; padding:56px 64px">
+    <!-- Salesforce lockup -->
+    <div style="display:flex; align-items:center; gap:14px">
+      <svg width="60" height="42" viewBox="0 0 120 84" role="img" aria-label="Salesforce" style="flex:none">
+        <path fill="#00A1E0" d="M74 20c-4-2.5-8.8-4-14-4-9 0-16.9 4.6-21.6 11.6-2.4-1.6-5.3-2.5-8.4-2.5-8.5 0-15.4 6.9-15.4 15.5 0 1.3.2 2.6.5 3.8C4.2 47.2 0 52.4 0 58.6 0 66.1 6.4 72 14.3 72h74.4C99.9 72 109 63.4 109 52.8c0-10.6-9.1-19.2-20.3-19.2-1.9 0-3.7.2-5.4.7C81.5 29.2 78.3 23.7 74 20z"/>
+      </svg>
+      <span style="font-family:var(--font-heading); color:#fff; font-size:26px; letter-spacing:.02em">salesforce</span>
+    </div>
+
+    <!-- Hero -->
+    <div>
+      <div class="slide-eyebrow" style="margin-bottom:14px">Parecer da Análise Técnica · 19 de agosto de 2026</div>
+      <h1 class="slide-title" style="font-size:56px; line-height:1.1; margin-bottom:18px">Portal Desenvolve SP<br>Análise Técnica da Solução Salesforce</h1>
+      <div class="cover-sub" style="max-width:900px; font-size:20px; opacity:.9">Portal de crédito fim-a-fim para entrega de valor em 2026.</div>
+    </div>
+
+    <!-- Footer meta -->
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; border-top:1px solid rgba(144,208,254,.35); padding-top:16px">
+      <div style="display:flex; gap:40px">
+        <div>
+          <div style="font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--sf-cloud-80); margin-bottom:3px">Cliente</div>
+          <div style="color:#fff; font-size:15px; font-family:var(--font-heading)">Desenvolve SP</div>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--sf-cloud-80); margin-bottom:3px">Autores</div>
+        <div style="color:#fff; font-size:15px; font-family:var(--font-heading)">Giselle Hamano · Pedro Martire · Adriana Cardoso · Felipe Guerra</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 2 · Objetivo da apresentação -->
+  <section class="slide" style="justify-content:center">
+    <div class="slide-eyebrow" style="margin-bottom:24px">Objetivo</div>
+    <h2 class="slide-title" style="font-size:34px; line-height:1.35; max-width:1050px; font-weight:700">Apresentar o plano de entrega do portal de crédito fim-a-fim no Salesforce — com a lógica de crédito mantida na Sinqia — para a Desenvolve SP entregar valor em 2026.</h2>
+    <span class="slide-num"></span>
+  </section>
+
+
+
+
+  <!-- Slide 3 · Catálogo: 6 pilares (épicos x volumes) -->
+  <section class="slide">
+    <div class="slide-eyebrow">Catálogo de funcionalidades</div>
+    <h2 class="slide-title">A jornada em 6 pilares (épicos) — funcionalidades, integrações e componentes</h2>
+    <table class="sz-table" style="font-size:12px; table-layout:fixed">
+      <thead><tr>
+        <th style="width:17%">Pilar (épico)</th>
+        <th style="width:8%; text-align:center">Tam.</th>
+        <th style="width:7%; text-align:center">Func.</th>
+        <th style="width:7%; text-align:center">Integr.</th>
+        <th style="width:7%; text-align:center">Comp.</th>
+        <th>Foco</th>
+      </tr></thead>
+      <tbody>
+        <tr><td>1 · Captação <span class="sz-tag sz-tag--low">QA</span></td><td style="text-align:center"><span class="sz-tag sz-tag--sz-s">P</span></td><td style="text-align:center">5</td><td style="text-align:center">2</td><td style="text-align:center">9</td><td>Login CPF/CNPJ, enriquecimento JUCESP, simulador de crédito público, cadastro manual de contas, visibilidade de cooperativas</td></tr>
+        <tr><td>2 · Pré-qualificação</td><td style="text-align:center"><span class="sz-tag sz-tag--sz-l">G</span></td><td style="text-align:center">5</td><td style="text-align:center">11</td><td style="text-align:center">6</td><td>Formulário de pedido adaptativo, validação facial BioValid, exclusão/isenção QRSA, faturamento via Serpro, envio síncrono ao core</td></tr>
+        <tr><td>3 · Proposta</td><td style="text-align:center"><span class="sz-tag sz-tag--sz-m">M</span></td><td style="text-align:center">2</td><td style="text-align:center">4</td><td style="text-align:center">—</td><td>Lista e detalhamento das solicitações com status sincronizado do Sinqia (leitura); o aceite/recusa migrou para o Pilar 5</td></tr>
+        <tr><td>4 · Estruturação</td><td style="text-align:center"><span class="sz-tag sz-tag--sz-l">G</span></td><td style="text-align:center">6</td><td style="text-align:center">8</td><td style="text-align:center">14</td><td>Fichas cadastrais PF e PJ (sócios/garantidores), geração de PDF, upload assíncrono de anexos, pendências de documentação</td></tr>
+        <tr><td>5 · Aprovação</td><td style="text-align:center"><span class="sz-tag sz-tag--sz-m">M</span></td><td style="text-align:center">2</td><td style="text-align:center">1</td><td style="text-align:center">1</td><td>Decisão do cliente: tela de proposta (detalhes financeiros) + aceite/recusa que grava/liquida/consolida no core; orquestração via ocorrências como mecanismo</td></tr>
+        <tr><td>6 · Formalização</td><td style="text-align:center"><span class="sz-tag sz-tag--sz-m">M</span></td><td style="text-align:center">4</td><td style="text-align:center">4</td><td style="text-align:center">3</td><td>Download e upload da CCB (assinatura manual), pendências de garantias pós-comitê, sessão de contratos com detalhes da operação</td></tr>
+        <tr style="font-weight:700; background:var(--sf-light-bg)"><td>Total da jornada</td><td style="text-align:center">2G·3M·1P</td><td style="text-align:center">24</td><td style="text-align:center">30</td><td style="text-align:center">33</td><td>6 épicos · 3 jornadas</td></tr>
+      </tbody>
+    </table>
+    <span class="slide-num"></span>
+  </section>
+
+
+  <!-- Slide 4 · Referência · Esteira por pilar, barras por squad (leapfrog) -->
+  <section class="slide">
+    <div class="slide-eyebrow">Plano de entrega · Cronograma</div>
+    <h2 class="slide-title">Plano de entrega</h2>
+
+    <!-- Gantt por pilar: escala 0–28 semanas a partir de 24/08/2026. Cada semana = 3.571%. Uma linha por pilar; cor da barra = squad; posição = fluxo contínuo (leapfrog). -->
+    <div class="fill" style="display:flex; flex-direction:column; justify-content:center; gap:10px; position:relative; padding:8px 0">
+
+      <div style="position:relative; display:flex; flex-direction:column; gap:16px">
+
+        <!-- gridlines por mês (posições de calendário reais) -->
+        <div style="position:absolute; left:174px; right:0; top:0; bottom:0; z-index:0; pointer-events:none"><span style="position:absolute; top:0; bottom:0; left:6.8%; border-left:1px dotted var(--sf-cloud-80); opacity:.6"></span><span style="position:absolute; top:0; bottom:0; left:32.3%; border-left:1px dotted var(--sf-cloud-80); opacity:.6"></span><span style="position:absolute; top:0; bottom:0; left:58.7%; border-left:1px dotted var(--sf-cloud-80); opacity:.6"></span><span style="position:absolute; top:0; bottom:0; left:84.2%; border-left:1px dotted var(--sf-cloud-80); opacity:.6"></span></div>
+
+        <!-- marco 30/11 -->
+        <div style="position:absolute; left:174px; right:0; top:0; bottom:0; z-index:2; pointer-events:none"><div style="position:absolute; left:83.3%; top:-4px; bottom:-4px; border-left:2px dashed var(--ext-pink-40)"></div><div style="position:absolute; left:83.3%; top:-16px; transform:translateX(-50%); background:var(--ext-pink-40); color:#fff; font-size:9px; font-weight:700; border-radius:3px; padding:1px 6px; white-space:nowrap">Marco · 30/11</div></div>
+
+
+        <!-- Discovery · compartilhada -->
+        <div style="display:flex; align-items:center; gap:12px; position:relative; z-index:1">
+          <div style="width:162px; text-align:right; font-size:10px; font-weight:700; color:var(--sf-text-weak)">Discovery / Foundation</div>
+          <div style="flex:1; position:relative; height:24px">
+            <div style="position:absolute; left:0.0%; width:8.8%; height:100%; background:var(--sf-text-weak); opacity:.35; border-radius:4px; display:flex; align-items:center; padding-left:6px; color:#fff; font-size:8.5px; font-weight:700; white-space:nowrap">Fase 0</div>
+          </div>
+        </div>
+
+        <!-- P1 Captação · S1 -->
+        <div style="display:flex; align-items:center; gap:12px; position:relative; z-index:1">
+          <div style="width:162px; text-align:right; font-size:11px; font-weight:700; color:var(--sf-navy)">Pilar 1 · Captação</div>
+          <div style="flex:1; position:relative; height:24px">
+            <div style="position:absolute; left:8.8%; width:13.3%; height:100%; background:var(--sf-navy); border-radius:4px; display:flex; align-items:center; padding-left:6px; color:#fff; font-size:8.5px; font-weight:700; white-space:nowrap">Squad 1</div>
+          </div>
+        </div>
+
+        <!-- P2 Pré-qualificação · S2 (inicia junto com P1) -->
+        <div style="display:flex; align-items:center; gap:12px; position:relative; z-index:1">
+          <div style="width:162px; text-align:right; font-size:11px; font-weight:700; color:var(--sf-container)">Pilar 2 · Pré-qualificação</div>
+          <div style="flex:1; position:relative; height:24px">
+            <div style="position:absolute; left:8.8%; width:26.6%; height:100%; background:var(--sf-container); border-radius:4px; display:flex; align-items:center; padding-left:6px; color:#fff; font-size:8.5px; font-weight:700; white-space:nowrap">Squad 2</div>
+          </div>
+        </div>
+
+        <!-- P3 Proposta · S1 (após P1) -->
+        <div style="display:flex; align-items:center; gap:12px; position:relative; z-index:1">
+          <div style="width:162px; text-align:right; font-size:11px; font-weight:700; color:var(--sf-navy)">Pilar 3 · Proposta</div>
+          <div style="flex:1; position:relative; height:24px">
+            <div style="position:absolute; left:22.0%; width:13.3%; height:100%; background:var(--sf-navy); border-radius:4px; display:flex; align-items:center; padding-left:6px; color:#fff; font-size:8.5px; font-weight:700; white-space:nowrap">Squad 1</div>
+          </div>
+        </div>
+
+        <!-- P4 Estruturação · S1 (após P3) -->
+        <div style="display:flex; align-items:center; gap:12px; position:relative; z-index:1">
+          <div style="width:162px; text-align:right; font-size:11px; font-weight:700; color:var(--sf-navy)">Pilar 4 · Estruturação</div>
+          <div style="flex:1; position:relative; height:24px">
+            <div style="position:absolute; left:35.3%; width:26.5%; height:100%; background:var(--sf-navy); border-radius:4px; display:flex; align-items:center; padding-left:6px; color:#fff; font-size:8.5px; font-weight:700; white-space:nowrap">Squad 1</div>
+          </div>
+        </div>
+
+        <!-- P5 Aprovação · S2 (após P2) -->
+        <div style="display:flex; align-items:center; gap:12px; position:relative; z-index:1">
+          <div style="width:162px; text-align:right; font-size:11px; font-weight:700; color:var(--sf-container)">Pilar 5 · Aprovação</div>
+          <div style="flex:1; position:relative; height:24px">
+            <div style="position:absolute; left:35.4%; width:17.7%; height:100%; background:var(--sf-container); border-radius:4px; display:flex; align-items:center; padding-left:6px; color:#fff; font-size:8.5px; font-weight:700; white-space:nowrap">Squad 2</div>
+          </div>
+        </div>
+
+        <!-- P6 Formalização · S2 (após P5) -->
+        <div style="display:flex; align-items:center; gap:12px; position:relative; z-index:1">
+          <div style="width:162px; text-align:right; font-size:11px; font-weight:700; color:var(--sf-container)">Pilar 6 · Formalização</div>
+          <div style="flex:1; position:relative; height:24px">
+            <div style="position:absolute; left:53.1%; width:17.7%; height:100%; background:var(--sf-container); border-radius:4px; display:flex; align-items:center; padding-left:6px; color:#fff; font-size:8.5px; font-weight:700; white-space:nowrap">Squad 2</div>
+          </div>
+        </div>
+
+        <!-- SIT & UAT · 2 semanas após o fim do P6 -->
+        <div style="display:flex; align-items:center; gap:12px; position:relative; z-index:1">
+          <div style="width:162px; text-align:right; font-size:11px; font-weight:700; color:var(--sf-text-weak)">SIT &amp; UAT</div>
+          <div style="flex:1; position:relative; height:24px">
+            <div style="position:absolute; left:70.8%; width:11.8%; height:100%; background:var(--sf-text-weak); opacity:.5; border-radius:4px; display:flex; align-items:center; padding-left:6px; color:#fff; font-size:8.5px; font-weight:700; white-space:nowrap">2 semanas</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- eixo temporal (meses em posições de calendário reais) -->
+      <div style="display:flex; align-items:center; gap:12px; margin-top:2px; position:relative; z-index:1">
+        <div style="width:162px"></div>
+        <div style="flex:1; position:relative; height:14px; font-size:10px; color:var(--sf-text-weak)"><span style="position:absolute; left:0.0%">Ago/26</span><span style="position:absolute; left:6.8%">Set/26</span><span style="position:absolute; left:32.3%">Out/26</span><span style="position:absolute; left:58.7%">Nov/26</span><span style="position:absolute; left:84.2%">Dez/26</span></div>
+      </div>
+
+      <!-- legenda -->
+      <div style="display:flex; align-items:center; gap:18px; margin-top:2px; padding-left:174px; font-size:10.5px; color:var(--sf-text-weak)">
+        <span style="display:flex; align-items:center; gap:6px"><span style="width:14px; height:12px; background:var(--sf-navy); border-radius:2px; display:inline-block"></span> Squad 1</span>
+        <span style="display:flex; align-items:center; gap:6px"><span style="width:14px; height:12px; background:var(--sf-container); border-radius:2px; display:inline-block"></span> Squad 2</span>
+      </div>
+    </div>
+
+    <div class="sz-tldr" style="margin-top:8px; border-left-color:var(--ext-yellow-70); background:var(--ext-yellow-95)"><p style="font-size:11px"><strong>⚠ Atenção:</strong> <strong>início esperado em 24/08/2026</strong> — o cronograma apresentado só se sustenta a partir dessa data de arranque.</p>
+    <span class="slide-num"></span>
+  </section>
+
+  <!-- Slide 5 · Marcos mensais (o que o cliente ganha) -->
+  <section class="slide">
+    <div class="slide-eyebrow">Plano de entrega · Marcos mensais</div>
+    <h2 class="slide-title">O que o cliente ganha a cada mês</h2>
+    <p style="font-size:12px; color:var(--sf-text-weak); margin-bottom:14px">Cada marco entrega uma capacidade de negócio pronta para uso — as funcionalidades que a compõem estão listadas abaixo.</p>
+
+    <div class="fill" style="display:flex; flex-direction:column; gap:20px; justify-content:center">
+      <style>
+        .mstone{display:flex; align-items:stretch; gap:16px}
+        .mstone .mo{flex:none; width:100px; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:8px; color:#fff; font-weight:700}
+        .mstone .mo .mo-m{font-size:19px; line-height:1} .mstone .mo .mo-y{font-size:11px; opacity:.85}
+        .mstone .body{flex:1; background:#fff; border:1px solid var(--sf-cloud-80); border-radius:8px; padding:14px 18px; display:flex; flex-direction:column; justify-content:center}
+        .mstone .cap-t{font-size:15px; font-weight:700; line-height:1.2}
+        .mstone .cap-f{font-size:11.5px; color:var(--sf-text-weak); margin-top:5px; line-height:1.4}
+      </style>
+
+      <div class="mstone">
+        <div class="mo" style="background:#6b7280"><span class="mo-m">SET</span><span class="mo-y">2026</span></div>
+        <div class="body" style="border-left:4px solid #6b7280"><div class="cap-t" style="color:#6b7280">Fundação + Captação · <span style="font-weight:400">Fase 0 + P1</span></div><div class="cap-f">Discovery (requisitos, contratos de API, critérios de aceite, equipe alinhada) · Captação: cadastro manual de conta (Jornada Agro) · sessão de contas (Jornada Agro) · visibilidade de cooperativas (Jornada Agro) · refatoração da API Serasa.</div></div>
+      </div>
+      <div class="mstone">
+        <div class="mo" style="background:var(--sf-navy)"><span class="mo-m">OUT</span><span class="mo-y">2026</span></div>
+        <div class="body" style="border-left:4px solid var(--ext-teal)"><div class="cap-t" style="color:var(--ext-teal)">Solicita, acompanha e aprova a proposta · <span style="font-weight:400">P2 + P3 + P5</span></div><div class="cap-f">Formulário adaptativo · BioValid · exclusão/isenção QRSA · Serpro · envio ao core · lista e detalhamento com status · tela de proposta + aceite/recusa com efetivação síncrona no core.</div></div>
+      </div>
+      <div class="mstone">
+        <div class="mo" style="background:var(--ext-pink-40)"><span class="mo-m">NOV</span><span class="mo-y">2026</span></div>
+        <div class="body" style="border-left:4px solid var(--ext-pink-40)"><div class="cap-t" style="color:var(--ext-pink-40)">🏁 Jornada completa + testes · <span style="font-weight:400">P4 + P6 + SIT/UAT</span></div><div class="cap-f">Fichas PF/PJ · geração de PDF · bloqueio de edição · upload assíncrono · pendências de documentação · CCB (download/upload) · garantias · sessão de contratos · SIT/UAT (2 semanas).</div></div>
+      </div>
+    </div>
+    <span class="slide-num"></span>
+  </section>
+
+  <!-- Slide 6 · Premissas do cronograma -->
+  <section class="slide">
+    <div class="slide-eyebrow">Premissas do cronograma</div>
+    <h2 class="slide-title">Premissas que sustentam o cronograma</h2>
+    <p style="font-size:13px; color:var(--sf-text-weak); margin-bottom:14px">O cronograma vale <strong>sobre este conjunto de premissas</strong>. Cada uma precisa ser garantida na <strong>Fase 0</strong>; se não valer, o prazo desloca.</p>
+    <table class="sz-table" style="font-size:12.5px; table-layout:fixed">
+      <thead><tr><th style="width:40%">Premissa</th><th>Se não valer</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Escopo integral fixo</strong><div style="font-size:10.5px; color:var(--sf-text-weak)">24 func · 30 integr · 33 comp</div></td><td>Mudança de escopo desloca o prazo nas duas pontas.</td></tr>
+        <tr><td><strong>Captação reaproveitada</strong><div style="font-size:10.5px; color:var(--sf-text-weak)">já em QA</div></td><td>Retrabalho na Captação soma esforço não previsto.</td></tr>
+        <tr><td><strong>Integrações prontas 1 semana antes</strong><div style="font-size:10.5px; color:var(--sf-text-weak)">integrações como um todo entregues ao menos 1 semana antes de a frente começar o pilar — incluindo cenários de sucesso, falha, desenho de arquitetura, etc.</div></td><td>Se as integrações não chegarem completas com essa antecedência, a frente para no início do pilar.</td></tr>
+        <tr><td><strong>Ajustes de API em até 24h</strong><div style="font-size:10.5px; color:var(--sf-text-weak)">alterações nas APIs identificadas como necessárias realizadas em até 24h</div></td><td>Ajuste não resolvido nesse prazo bloqueia a frente que depende da API e desloca o pilar.</td></tr>
+        <tr><td><strong>Comunicação entre as 3 frentes com SLA de 24h</strong><div style="font-size:10.5px; color:var(--sf-text-weak)">solicitações e respostas entre Salesforce · DSP · Sinqia/Evertec em até 24h</div></td><td>Comunicação fora desse SLA atrasa o início das frentes e reduz o ganho do paralelismo.</td></tr>
+        <tr><td><strong>Aprovação de US em 24h</strong><div style="font-size:10.5px; color:var(--sf-text-weak)">US, após apresentadas, aprovadas pelas 3 frentes em 24h (protótipo · US funcional · US técnica)</div></td><td>Aprovação fora desse prazo desloca o início do pilar e trava o ritmo das Sprints.</td></tr>
+      </tbody>
+    </table>
+    <span class="slide-num"></span>
+  </section>
+
+
+
+  <!-- Slide 7 · Encerramento (obrigado) -->
+  <section class="slide cover" style="justify-content:space-between; padding:56px 64px">
+    <!-- Salesforce lockup -->
+    <div style="display:flex; align-items:center; gap:14px">
+      <svg width="60" height="42" viewBox="0 0 120 84" role="img" aria-label="Salesforce" style="flex:none">
+        <path fill="#00A1E0" d="M74 20c-4-2.5-8.8-4-14-4-9 0-16.9 4.6-21.6 11.6-2.4-1.6-5.3-2.5-8.4-2.5-8.5 0-15.4 6.9-15.4 15.5 0 1.3.2 2.6.5 3.8C4.2 47.2 0 52.4 0 58.6 0 66.1 6.4 72 14.3 72h74.4C99.9 72 109 63.4 109 52.8c0-10.6-9.1-19.2-20.3-19.2-1.9 0-3.7.2-5.4.7C81.5 29.2 78.3 23.7 74 20z"/>
+      </svg>
+      <span style="font-family:var(--font-heading); color:#fff; font-size:26px; letter-spacing:.02em">salesforce</span>
+    </div>
+
+    <!-- Hero -->
+    <div>
+      <h1 class="slide-title" style="font-size:96px; line-height:1.05; margin-bottom:16px">Obrigado</h1>
+      <div class="cover-sub" style="max-width:900px; font-size:20px; opacity:.9">Portal Desenvolve SP · Análise Técnica da Solução Salesforce</div>
+    </div>
+
+    <!-- Footer meta -->
+    <div style="display:flex; justify-content:space-between; align-items:flex-end; border-top:1px solid rgba(144,208,254,.35); padding-top:16px">
+      <div>
+        <div style="font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--sf-cloud-80); margin-bottom:3px">Cliente</div>
+        <div style="color:#fff; font-size:15px; font-family:var(--font-heading)">Desenvolve SP</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--sf-cloud-80); margin-bottom:3px">Autores</div>
+        <div style="color:#fff; font-size:15px; font-family:var(--font-heading)">Giselle Hamano · Pedro Martire · Adriana Cardoso · Felipe Guerra</div>
+      </div>
+    </div>
+  </section>
+<!-- Slide 9 · Referência · Integrações por pilar (antecedência 1 semana) -->
+  <section class="slide">
+    <div class="slide-eyebrow">Material de referência · Integrações por pilar</div>
+    <h2 class="slide-title">Integrações necessárias — prontas 1 semana antes de cada pilar</h2>
+    <p style="font-size:12px; color:var(--sf-text-weak); margin-bottom:12px">Cada conjunto de integrações (cenários de sucesso, falha e desenho de arquitetura) deve estar <strong>concluído ao menos 1 semana antes</strong> de a frente iniciar o pilar que o consome. Ordem pela sequência de início no cronograma.</p>
+    <table class="sz-table" style="font-size:11px; table-layout:fixed">
+      <thead><tr><th style="width:17%">Pilar</th><th style="width:10%; text-align:center">Qtd.</th><th style="width:15%; text-align:center">Pronta até</th><th>Integrações que precisam estar prontas antes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>P1 · Captação</strong> <span style="color:var(--sf-text-weak)">(S1)</span></td><td style="text-align:center">2</td><td style="text-align:center"><span class="sz-tag sz-tag--high">no arranque · 24/08</span></td><td>API-07 JUCESP · API-18 Simulação. <span style="color:var(--sf-text-weak)">(Serasa R6 já opera via BRE.)</span></td></tr>
+        <tr><td><strong>P2 · Pré-qualificação</strong> <span style="color:var(--sf-text-weak)">(S2)</span></td><td style="text-align:center">11</td><td style="text-align:center"><span class="sz-tag sz-tag--high">no arranque · 24/08</span></td><td>API-01/02 solicitações · API-05/06 declarações · API-08 impressão · API-16 conta-proposta · API-17 listas de valor · API-20 parceiro · API-21 sensibilização · API-27 BioValid · API-28 entidade.</td></tr>
+        <tr><td><strong>P3 · Proposta</strong> <span style="color:var(--sf-text-weak)">(S1)</span></td><td style="text-align:center">4</td><td style="text-align:center"><strong>11/09</strong></td><td>API-22/23/24/25 — Declaração/QRSA (leitura, gravação, comando, cálculo/rating).</td></tr>
+        <tr><td><strong>P5 · Aprovação</strong> <span style="color:var(--sf-text-weak)">(S2)</span></td><td style="text-align:center">1</td><td style="text-align:center"><strong>27/09</strong></td><td>API-09 — Comando de aceite/recusa no workflow (efetivação síncrona no core).</td></tr>
+        <tr><td><strong>P4 · Estruturação</strong> <span style="color:var(--sf-text-weak)">(S1)</span></td><td style="text-align:center">8</td><td style="text-align:center"><strong>27/09</strong></td><td>API-10 tipos de arquivo · API-11/12/13 CRUD Conta/Contato · API-14 ficha · API-15 sync de contas · API-19 anexos · API-26 ficha PJ.</td></tr>
+        <tr><td><strong>P6 · Formalização</strong> <span style="color:var(--sf-text-weak)">(S2)</span></td><td style="text-align:center">4</td><td style="text-align:center"><strong>18/10</strong></td><td>API-03 lista de contratos · API-04 arquivo do contrato · API-29 assinatura da CCB · API-30 geração da CCB.</td></tr>
+        <tr style="font-weight:700; background:var(--sf-light-bg)"><td>Total</td><td style="text-align:center">30</td><td style="text-align:center">—</td><td>Todas via MuleSoft · status a confirmar (só JUCESP em QA).</td></tr>
+      </tbody>
+    </table>
+    <p class="cap">Datas = início de cada pilar no cronograma (slide 4) − 1 semana; início do projeto 24/08. P1/P2 arrancam junto do build, então suas APIs devem estar prontas no kickoff. Aproximadas, não compromisso.</p>
+    <span class="slide-num"></span>
+  </section>
+
+  <!-- Slide 10 · Referência · Gantt detalhado (prep + build) -->
+  <section class="slide">
+    <div class="slide-eyebrow">Material de referência · Cronograma detalhado</div>
+    <h2 class="slide-title">Cronograma detalhado — do protótipo à entrega, por pilar</h2>
+    <p style="font-size:10px; color:var(--sf-text-weak); margin-bottom:8px">Cada pilar: <strong>protótipo + US (funcional/técnica) + aprovação</strong> (prep) e depois o <strong>build</strong>. Insumos Sinqia/DSP prontos 1 semana antes. Escala em semanas a partir de 24/08.</p>
+
+    <div class="fill" style="display:flex; flex-direction:column; gap:7px; position:relative; padding:6px 0">
+      <style>
+        .gt-row{display:flex; align-items:center; gap:10px; position:relative; z-index:1}
+        .gt-lbl{width:150px; text-align:right; font-size:9.5px; font-weight:700; flex:none}
+        .gt-track{flex:1; position:relative; height:20px}
+        .gt-bar{position:absolute; height:100%; border-radius:3px; display:flex; align-items:center; padding-left:5px; color:#fff; font-size:8px; font-weight:700; white-space:nowrap; overflow:hidden}
+        .gt-prep{position:absolute; height:100%; border-radius:3px; border:1px dashed #9ca3af; background:repeating-linear-gradient(45deg,#e5e7eb,#e5e7eb 3px,#f3f4f6 3px,#f3f4f6 6px)}
+      </style>
+
+      <!-- gridlines de semana (0,2,4,6,8,10,12,14 → cada 2 sem = 14.28%) -->
+      <div style="position:absolute; left:160px; right:0; top:0; bottom:18px; z-index:0; pointer-events:none">
+        <span style="position:absolute; top:0; bottom:0; left:14.3%; border-left:1px dotted var(--sf-cloud-80); opacity:.5"></span><span style="position:absolute; top:0; bottom:0; left:28.6%; border-left:1px dotted var(--sf-cloud-80); opacity:.5"></span><span style="position:absolute; top:0; bottom:0; left:42.9%; border-left:1px dotted var(--sf-cloud-80); opacity:.5"></span><span style="position:absolute; top:0; bottom:0; left:57.1%; border-left:1px dotted var(--sf-cloud-80); opacity:.5"></span><span style="position:absolute; top:0; bottom:0; left:71.4%; border-left:1px dotted var(--sf-cloud-80); opacity:.5"></span><span style="position:absolute; top:0; bottom:0; left:85.7%; border-left:1px dotted var(--sf-cloud-80); opacity:.5"></span>
+      </div>
+
+      <!-- Fase 0 -->
+      <div class="gt-row"><div class="gt-lbl" style="color:var(--sf-text-weak)">Fase 0 · Discovery</div><div class="gt-track"><div class="gt-bar" style="left:0%; width:10.7%; background:#6b7280">Refinamento · protótipos</div></div></div>
+      <!-- P1 (S1) -->
+      <div class="gt-row"><div class="gt-lbl" style="color:var(--sf-navy)">P1 · Captação</div><div class="gt-track"><div class="gt-prep" style="left:3.6%; width:7.1%"></div><div class="gt-bar" style="left:10.7%; width:16.1%; background:var(--sf-navy)">Build (01–05)</div></div></div>
+      <!-- P2 (S2) -->
+      <div class="gt-row"><div class="gt-lbl" style="color:var(--ext-teal)">P2 · Pré-qualificação</div><div class="gt-track"><div class="gt-prep" style="left:3.6%; width:7.1%"></div><div class="gt-bar" style="left:10.7%; width:32.2%; background:var(--ext-teal)">Build (06–10)</div></div></div>
+      <!-- P3 (S1) -->
+      <div class="gt-row"><div class="gt-lbl" style="color:var(--sf-navy)">P3 · Proposta</div><div class="gt-track"><div class="gt-prep" style="left:19.7%; width:7.1%"></div><div class="gt-bar" style="left:26.8%; width:16.1%; background:var(--sf-navy)">Build (11–12)</div></div></div>
+      <!-- P5 (S2) -->
+      <div class="gt-row"><div class="gt-lbl" style="color:var(--ext-teal)">P5 · Aprovação</div><div class="gt-track"><div class="gt-prep" style="left:35.8%; width:7.1%"></div><div class="gt-bar" style="left:42.9%; width:21.4%; background:var(--ext-teal)">Build (13, 20)</div></div></div>
+      <!-- P4 (S1) -->
+      <div class="gt-row"><div class="gt-lbl" style="color:var(--sf-navy)">P4 · Estruturação</div><div class="gt-track"><div class="gt-prep" style="left:35.8%; width:7.1%"></div><div class="gt-bar" style="left:42.9%; width:32.1%; background:var(--sf-navy)">Build (14–19)</div></div></div>
+      <!-- P6 (S2) -->
+      <div class="gt-row"><div class="gt-lbl" style="color:var(--ext-teal)">P6 · Formalização</div><div class="gt-track"><div class="gt-prep" style="left:57.2%; width:7.1%"></div><div class="gt-bar" style="left:64.3%; width:21.4%; background:var(--ext-teal)">Build (21–24)</div></div></div>
+      <!-- SIT/UAT -->
+      <div class="gt-row"><div class="gt-lbl" style="color:var(--ext-pink-40)">SIT / UAT</div><div class="gt-track"><div class="gt-bar" style="left:85.7%; width:14.3%; background:var(--ext-pink-40)">2 sem 🏁</div></div></div>
+
+      <!-- eixo semanas -->
+      <div class="gt-row"><div class="gt-lbl" style="font-weight:400; color:var(--sf-text-weak)">Semana</div><div class="gt-track" style="height:14px; font-size:9px; color:var(--sf-text-weak)"><span style="position:absolute; left:0%">0</span><span style="position:absolute; left:14.3%">2</span><span style="position:absolute; left:28.6%">4</span><span style="position:absolute; left:42.9%">6</span><span style="position:absolute; left:57.1%">8</span><span style="position:absolute; left:71.4%">10</span><span style="position:absolute; left:85.7%">12</span><span style="position:absolute; left:99%">14</span></div></div>
+    </div>
+
+    <div style="display:flex; gap:18px; font-size:9.5px; color:var(--sf-text-weak); padding-left:160px; margin-top:2px">
+      <span style="display:flex; align-items:center; gap:5px"><span style="width:16px; height:11px; border:1px dashed #9ca3af; background:repeating-linear-gradient(45deg,#e5e7eb,#e5e7eb 3px,#f3f4f6 3px,#f3f4f6 6px); display:inline-block"></span> Prep: protótipo + US + aprovação (24h)</span>
+      <span style="display:flex; align-items:center; gap:5px"><span style="width:14px; height:11px; background:var(--sf-navy); border-radius:2px; display:inline-block"></span> Squad 1</span>
+      <span style="display:flex; align-items:center; gap:5px"><span style="width:14px; height:11px; background:var(--ext-teal); border-radius:2px; display:inline-block"></span> Squad 2</span>
+      <span>Insumos Sinqia/DSP prontos 1 sem antes de cada build</span>
+    </div>
+    <p class="cap">Prep (protótipo, US funcional/técnica, aprovação em 24h) precede o build de cada pilar. Escala em semanas desde 24/08; build fecha na Sem 12, SIT/UAT na Sem 14. Indicativo, não compromisso.</p>
+    <span class="slide-num"></span>
+  </section>
+
+<div class="nav">
+  <button onclick="go(-1)">← Anterior</button>
+  <span id="count"></span>
+  <button onclick="go(1)">Próximo →</button>
+</div>
+
+<!-- Capa · Material complementar -->
+<section class="slide cover">
+    <div class="slide-eyebrow">Anexo</div>
+    <h1 class="slide-title">Material complementar</h1>
+    <div class="cover-sub">Aprofundamento por pilar · arquitetura de integração · lista das 30 APIs · RACI · composição das squads · justificativa dos prazos.<br><br>Slides marcados como <strong style="color:#ff8a8a">Histórico</strong> refletem a análise anterior a 19/08 (meta 30/09) e foram preservados apenas como contexto.</div>
+</section>
+<!-- Slide 13 · Mapa de pilares e funcionalidades -->
+  <section class="slide">
+    <div class="slide-eyebrow">Material de referência · Mapa da jornada</div>
+    <h2 class="slide-title">Os 6 pilares e as 24 funcionalidades da jornada única</h2>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px" class="fill">
+
+      <div class="sz-card" style="padding:10px 12px; border-left:4px solid var(--ext-teal)">
+        <div class="card-h" style="font-size:13px">1 · Captação</div>
+        <ul class="tight" style="font-size:10.5px; margin:0">
+          <li><strong>F01</strong> Enriquecimento cadastral via JUCESP</li>
+          <li><strong>F02</strong> Cadastro manual de conta <span style="color:var(--sf-text-weak)">(Julg./Agro)</span></li>
+          <li><strong>F03</strong> Simulador de crédito unificado</li>
+          <li><strong>F04</strong> Sessão "Minhas Contas"</li>
+          <li><strong>F05</strong> Visibilidade e hierarquia de cooperativas <span style="color:var(--sf-text-weak)">(Agro)</span></li>
+        </ul>
+      </div>
+
+      <div class="sz-card" style="padding:10px 12px; border-left:4px solid var(--sf-blue)">
+        <div class="card-h" style="font-size:13px">2 · Pré-qualificação</div>
+        <ul class="tight" style="font-size:10.5px; margin:0">
+          <li><strong>F06</strong> Formulário de pedido adaptativo</li>
+          <li><strong>F07</strong> Validação facial <span style="color:var(--sf-text-weak)">(Digital)</span></li>
+          <li><strong>F08</strong> Exclusão socioambiental / QRSA</li>
+          <li><strong>F09</strong> Autorização de faturamento (Serpro e-CAC)</li>
+          <li><strong>F10</strong> Envio síncrono ao core</li>
+        </ul>
+      </div>
+
+      <div class="sz-card" style="padding:10px 12px; border-left:4px solid var(--sf-container)">
+        <div class="card-h" style="font-size:13px">3 · Proposta</div>
+        <ul class="tight" style="font-size:10.5px; margin:0">
+          <li><strong>F11</strong> Lista de solicitações do tomador</li>
+          <li><strong>F12</strong> Detalhamento das solicitações (status)</li>
+        </ul>
+      </div>
+
+      <div class="sz-card" style="padding:10px 12px; border-left:4px solid var(--ext-yellow-70)">
+        <div class="card-h" style="font-size:13px">4 · Estruturação</div>
+        <ul class="tight" style="font-size:10.5px; margin:0">
+          <li><strong>F14</strong> Ficha Cadastral PJ (reaproveitamento)</li>
+          <li><strong>F15</strong> Ficha Cadastral PF (sócios, garantidores)</li>
+          <li><strong>F16</strong> Geração de PDF da ficha</li>
+          <li><strong>F17</strong> Bloqueio de edição em análise</li>
+          <li><strong>F18</strong> Upload assíncrono de arquivos</li>
+          <li><strong>F19</strong> Orquestração de status</li>
+          <li><strong>F20</strong> Central de Pendências</li>
+        </ul>
+      </div>
+
+      <div class="sz-card" style="padding:10px 12px; border-left:4px solid var(--sf-navy)">
+        <div class="card-h" style="font-size:13px">5 · Aprovação <span style="font-weight:400; font-size:10px; color:var(--sf-text-weak)">(decisão do cliente)</span></div>
+        <ul class="tight" style="font-size:10.5px; margin:0">
+          <li><strong>F13</strong> Aceite/recusa da proposta — tela + efetivação síncrona no core</li>
+          <li><strong>F21</strong> Orquestração via ocorrências <span style="color:var(--sf-text-weak)">(mecanismo)</span></li>
+        </ul>
+      </div>
+
+      <div class="sz-card" style="padding:10px 12px; border-left:4px solid var(--ext-pink-40)">
+        <div class="card-h" style="font-size:13px">6 · Formalização</div>
+        <ul class="tight" style="font-size:10.5px; margin:0">
+          <li><strong>F22</strong> Download da Ficha CCB</li>
+          <li><strong>F23</strong> Upload da CCB assinada</li>
+          <li><strong>F24</strong> Sessão "Meus Contratos"</li>
+        </ul>
+      </div>
+
+    </div>
+    <span class="slide-num"></span>
+  </section>
+
+  
+<!-- Slide 14 · Pilar 1 Captação (o que já existe) -->
+  <section class="slide">
+    <div class="slide-eyebrow">Material de referência · Ponto de partida</div>
+    <h2 class="slide-title">Pilar 1 · Captação — desenvolvido e em QA</h2>
+    <div class="sz-stats" style="grid-template-columns:repeat(3,1fr); margin-bottom:12px">
+      <div class="sz-stat"><div class="sz-stat-num" style="font-size:38px">5</div><div class="sz-stat-lbl">funcionalidades entregues</div></div>
+      <div class="sz-stat"><div class="sz-stat-num" style="font-size:38px">17</div><div class="sz-stat-lbl">user stories concluídas</div></div>
+      <div class="sz-stat"><div class="sz-stat-num" style="font-size:38px">12</div><div class="sz-stat-lbl">user stories de integração</div></div>
+    </div>
+    <div class="two-col fill" style="align-items:stretch">
+      <div class="sz-card">
+        <div class="card-h">Funcionalidades desenvolvidas</div>
+        <ul class="tight">
+          <li>Simulador de crédito público (área guest, sem login)</li>
+          <li>Login + MFA, redefinição/alteração de senha, logout</li>
+          <li>Conversão Lead → Person Account (OTP)</li>
+          <li>Home logada e inicio de Nova Solicitação</li>
+          <li>Lista de Solicitações</li>
+        </ul>
+      </div>
+      <div class="sz-card">
+        <div class="card-h">Integrações e regras já operando</div>
+        <ul class="tight">
+          <li><strong>JUCESP</strong> — vínculo societário CNPJ×CPF (em QA)</li>
+          <li><strong>Serasa R6</strong> — antifraude com classificação de risco</li>
+          <li>Matriz de decisão (<strong>BRE</strong>) — roteamento por risco/produto</li>
+          <li>Auditoria imutável das análises (AnalisysResult)</li>
+        </ul>
+        <div style="margin-top:10px; font-size:12px; color:var(--sf-text-weak)"><strong>Status de qualidade:</strong> em SIT/UAT (10–21/08).</div>
+        <div class="sz-tldr" style="margin-top:10px"><p style="font-size:12px"><strong>Observação de escopo:</strong> a integração da API Serasa exigirá refatoração — este esforço entra neste escopo.</p></div>
+      </div>
+    </div>
+    <div class="sz-tldr" style="margin-top:12px; border-left-color:var(--ext-yellow-70); background:var(--ext-yellow-95)"><p style="font-size:14px"><strong>Nota:</strong> parte da solução já entregue exigirá refatoração parcial para integrar-se à jornada completa (a integração da API Serasa é o caso já identificado) — esse esforço está previsto neste escopo.</p></div>
+    <span class="slide-num"></span>
+  </section>
+
+  
+<!-- Slide 15 · De onde vêm os prazos (complexidade) -->
+  <section class="slide">
+    <div class="slide-eyebrow">Material de referência · Formas de entregar</div>
+    <h2 class="slide-title">De onde vêm os prazos: a complexidade dos 6 pilares define a faixa</h2>
+    <div class="two-col fill" style="grid-template-columns:0.95fr 1.05fr">
+      <div>
+        <div class="card-h" style="font-size:14px">A base — mix de complexidade dos épicos</div>
+        <table class="sz-table" style="font-size:12px">
+          <thead><tr><th>Pilar</th><th style="width:20%">Tam.</th><th style="width:30%">Func·Integr·Comp</th></tr></thead>
+          <tbody>
+            <tr><td>1 · Captação</td><td><span class="sz-tag sz-tag--sz-s">S</span></td><td>5·2·9</td></tr>
+            <tr><td>2 · Pré-qualificação</td><td><span class="sz-tag sz-tag--sz-l">L</span></td><td>5·11·6</td></tr>
+            <tr><td>3 · Proposta</td><td><span class="sz-tag sz-tag--sz-m">M</span></td><td>2·4·—</td></tr>
+            <tr><td>4 · Estruturação</td><td><span class="sz-tag sz-tag--sz-l">L</span></td><td>6·8·14</td></tr>
+            <tr><td>5 · Aprovação</td><td><span class="sz-tag sz-tag--sz-m">M</span></td><td>2·1·1</td></tr>
+            <tr><td>6 · Formalização</td><td><span class="sz-tag sz-tag--sz-m">M</span></td><td>4·4·3</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="card-h" style="font-size:14px">As vias comprimem a MESMA base — em tempo de calendário</div>
+        <table class="sz-table" style="font-size:12px">
+          <thead><tr><th>Via</th><th style="width:26%">Duração (2 times)</th><th>Compressão do tempo</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Tradicional</strong> (âncora)</td><td>~14–26 sem</td><td>base sem compressão</td></tr>
+            <tr><td><strong>Aumentada</strong></td><td>~12–22 sem</td><td>−10 a 25% do tempo (ferramentas IA)</td></tr>
+          </tbody>
+        </table>
+        <p class="cap" style="margin-top:6px"><strong>Prazos com 2 times em paralelo</strong> — as duas frentes pesadas (P2 e P4) correm ao mesmo tempo, derrubando o piso; com 1 time as faixas seriam ~18–28 (Tradicional) e ~14–26 (Aumentada). A compressão reduz o <strong>tempo de calendário</strong>, não o escopo.</p>
+      </div>
+    </div>
+    <div class="sz-tldr" style="margin-top:12px; border-left-color:var(--ext-yellow-70); background:var(--ext-yellow-95)"><p style="font-size:13px"><strong>⚠ Atenção:</strong> os prazos estão associados aos <strong>riscos e premissas apresentados adiante</strong>. As datas consideram do <strong>refinamento até QA</strong> e <strong>não incluem</strong> o período de <strong>homologação por parte do cliente</strong>.</p></div>
+    <span class="slide-num"></span>
+  </section>
+
+  
+<!-- Slide 16 · Parecer final -->
+  <section class="slide">
+    <div style="position:absolute; top:14px; right:16px; z-index:9; background:#b91c1c; color:#fff; font-size:9px; font-weight:800; letter-spacing:.4px; padding:3px 9px; border-radius:10px; text-transform:uppercase">Histórico · anterior a 19/08</div>
+    <div class="slide-eyebrow">Material de referência · Parecer de viabilidade</div>
+    <h2 class="slide-title">Parecer: Análise Técnica da Solução Salesforce</h2>
+
+    <p style="font-size:14px; color:var(--sf-text-weak); margin-bottom:14px; max-width:1050px">A solução alternativa — portal fim-a-fim no Salesforce com a lógica de crédito na Sinqia — é <strong>tecnicamente viável</strong> para o escopo integral (3 esteiras · 24 funcionalidades · 30 integrações · 33 componentes). A restrição é de <strong>prazo</strong>.</p>
+
+    <div class="two-col fill" style="grid-template-columns:1fr 1fr; align-items:stretch; gap:24px">
+      <div style="display:flex; flex-direction:column">
+        <div class="card-h" style="font-size:14px">Estimativas por via de entrega — escopo integral (cronograma paralelo)</div>
+        <table class="sz-table" style="font-size:12px">
+          <thead><tr><th>Via</th><th style="width:20%">1 time</th><th style="width:24%">2 times (paralelo)</th><th style="width:22%">vs. ~7 sem</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Tradicional</strong> (âncora)</td><td>~18–28 sem</td><td><strong>~14–26 sem</strong></td><td><span class="sz-tag sz-tag--critical">2,0× a 3,7×</span></td></tr>
+            <tr><td><strong>Aumentada</strong></td><td>~14–26 sem</td><td><strong>~12–22 sem</strong></td><td><span class="sz-tag sz-tag--critical">1,7× a 3,1×</span></td></tr>
+          </tbody>
+        </table>
+        <p class="cap" style="margin-top:8px">Duas frentes em paralelo (P2 e P4 concorrentes) derrubam o piso; a via Aumentada comprime cada faixa mais −10 a 25% (ferramentas de IA). Faixas benchmark top-down, tempo de calendário (refinamento até QA, sem homologação do cliente) — não compromisso. Mesmo o melhor piso (~12 sem) supera a meta de ~7 sem.</p>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:12px">
+        <div class="card-h" style="font-size:14px">Recomendação</div>
+        <div class="sz-card" style="flex:1; padding:14px 16px; border-left:4px solid var(--ext-teal); display:flex; flex-direction:column">
+          <div class="card-h" style="font-size:13px; color:var(--ext-teal)">Seguir com o escopo integral no Salesforce</div>
+          <p style="font-size:12px; margin:0">A arquitetura fecha: núcleo passivo event-first, MuleSoft orquestrando a Sinqia, Captação já em QA. O risco é de <strong>cronograma</strong>, não de viabilidade. A decisão honesta é <strong>ajustar a data de go-live</strong> à faixa realista de entrega.</p>
+        </div>
+        <div class="sz-card" style="flex:1; padding:14px 16px; display:flex; flex-direction:column; border-left:4px solid var(--sf-cloud-80)">
+          <div class="card-h" style="font-size:13px">Antes de fixar prazo — abrir a Fase 0</div>
+          <p style="font-size:12px; margin:0">Definir o <strong>fornecedor de build</strong> e a <strong>data de início</strong>, fechar os <strong>contratos das APIs</strong> e dimensionar o <strong>time</strong>. Cada premissa resolvida encolhe a faixa e converte a estimativa benchmark em compromisso defensável.</p>
+        </div>
+      </div>
+    </div>
+
+    <span class="slide-num"></span>
+  </section>
+
+  
+<!-- Slide 17 · System Landscape -->
+  <section class="slide">
+    <div class="slide-eyebrow">Material de referência · Arquitetura</div>
+    <h2 class="slide-title">System Landscape — Salesforce, MuleSoft e o ecossistema Desenvolve SP</h2>
+
+    <div class="fill" style="display:flex; flex-direction:column; gap:8px; font-size:11px; justify-content:center">
+
+      <!-- CAMADA 1: Usuários / Canais -->
+      <div style="display:flex; align-items:stretch; gap:8px">
+        <div style="width:130px; display:flex; align-items:center; font-family:var(--font-heading); font-size:11px; color:var(--sf-text-weak)">USUÁRIOS &amp; CANAIS</div>
+        <div style="flex:1; display:flex; gap:8px">
+          <div style="flex:1; background:var(--sf-light-bg); border:1px solid var(--sf-cloud-80); border-radius:6px; padding:8px; text-align:center">Visitante <span style="color:var(--sf-text-weak)">(guest)</span></div>
+          <div style="flex:1; background:var(--sf-light-bg); border:1px solid var(--sf-cloud-80); border-radius:6px; padding:8px; text-align:center">Tomador PF/PJ</div>
+          <div style="flex:1; background:var(--sf-light-bg); border:1px solid var(--sf-cloud-80); border-radius:6px; padding:8px; text-align:center">Cooperativa</div>
+          <div style="flex:1; background:var(--sf-light-bg); border:1px solid var(--sf-cloud-80); border-radius:6px; padding:8px; text-align:center">Analista / Comitê</div>
+        </div>
+      </div>
+
+      <div style="text-align:center; color:var(--sf-blue); font-size:12px; line-height:.7">▼ HTTPS / SSO (MFA)</div>
+
+      <!-- CAMADA 2: Salesforce -->
+      <div style="display:flex; align-items:stretch; gap:8px">
+        <div style="width:130px; display:flex; align-items:center; font-family:var(--font-heading); font-size:11px; color:var(--sf-container)">SALESFORCE</div>
+        <div style="flex:1; border:2px solid var(--sf-cloud-80); border-radius:8px; padding:8px; background:#fff">
+          <div style="display:flex; gap:8px; margin-bottom:6px">
+            <div style="flex:1; background:var(--sf-cloud); color:var(--sf-navy); border-radius:6px; padding:6px 8px; text-align:center; font-weight:700">Experience Cloud (LWR) — Portal do Cliente<br><span style="font-weight:400; font-size:10px">simulador guest · wizard · fichas · acompanhamento · formalização</span></div>
+          </div>
+          <div style="background:var(--sf-container); border-radius:6px; padding:6px 8px">
+            <div style="color:#fff; text-align:center; font-weight:700; margin-bottom:6px">Salesforce Platform — Backoffice leve<br><span style="font-weight:400; font-size:10px; opacity:.85">Analista · Comitê · triagem · pendências</span></div>
+            <div style="display:flex; gap:8px">
+              <div style="flex:1; background:var(--sf-light-bg); border-radius:6px; padding:6px; text-align:center">Dados: Lead · Person Account · Opportunity/OLI · Product2 (EPC) · Case</div>
+              <div style="flex:1; background:var(--sf-light-bg); border-radius:6px; padding:6px; text-align:center">Serviços headless (Apex) · <strong>BRE</strong> (matriz de decisão)</div>
+              <div style="flex:1; background:var(--sf-light-bg); border-radius:6px; padding:6px; text-align:center"><strong>Platform Event</strong> OpportunityInfo · ocorrências · auditoria imutável</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:8px"><div style="width:130px"></div><div style="flex:1; text-align:center; color:var(--sf-blue); font-size:11px; line-height:.9">▲▼ &nbsp; evento Pub/Sub (avanço + birôs) &nbsp;·&nbsp; write-back via API padrão</div></div>
+
+      <!-- CAMADA 3: MuleSoft -->
+      <div style="display:flex; align-items:stretch; gap:8px">
+        <div style="width:130px; display:flex; align-items:center; font-family:var(--font-heading); font-size:11px; color:var(--sf-container)">INTEGRAÇÃO</div>
+        <div style="flex:1; background:var(--sf-navy); color:#fff; border-radius:8px; padding:8px; text-align:center; font-weight:700">MuleSoft Anypoint — orquestração · transformação · retry/DLQ · seleção de birôs</div>
+      </div>
+
+      <div style="display:flex; gap:8px"><div style="width:130px"></div><div style="flex:1; text-align:center; color:var(--sf-blue); font-size:12px; line-height:.7">▼</div></div>
+
+      <!-- CAMADA 4: Sistemas externos -->
+      <div style="display:flex; align-items:stretch; gap:8px">
+        <div style="width:130px; display:flex; align-items:center; font-family:var(--font-heading); font-size:11px; color:var(--sf-text-weak)">SISTEMAS EXTERNOS</div>
+        <div style="flex:1; display:flex; gap:8px">
+          <div style="flex:1.4; background:#fff; border:2px solid var(--sf-navy); border-radius:6px; padding:8px; text-align:center"><strong style="color:var(--sf-navy)">Sinqia / Officer</strong><br><span style="font-size:10px; color:var(--sf-text-weak)">sistema de registro — esteira, regras, cálculo, aprovação, CCB</span></div>
+          <div style="flex:1; background:#fff; border:1px solid var(--sf-cloud-80); border-radius:6px; padding:8px; text-align:center"><strong>JUCESP</strong><br><span style="font-size:10px; color:var(--sf-text-weak)">vínculo societário</span></div>
+          <div style="flex:1; background:#fff; border:1px solid var(--sf-cloud-80); border-radius:6px; padding:8px; text-align:center"><strong>Serasa R6</strong><br><span style="font-size:10px; color:var(--sf-text-weak)">antifraude</span></div>
+          <div style="flex:1; background:#fff; border:1px solid var(--sf-cloud-80); border-radius:6px; padding:8px; text-align:center"><strong>Serpro</strong><br><span style="font-size:10px; color:var(--sf-text-weak)">faturamento e-CAC</span></div>
+          <div style="flex:1; background:#fff; border:1px solid var(--sf-cloud-80); border-radius:6px; padding:8px; text-align:center"><strong>BioValid</strong><br><span style="font-size:10px; color:var(--sf-text-weak)">facial · SENATRAN/CNH</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sz-tldr" style="margin-top:8px"><p style="font-size:12px"><strong>Núcleo passivo, event-first:</strong> o Salesforce publica no barramento e o MuleSoft orquestra Sinqia + birôs, gravando o retorno via API padrão.</p></div>
+    <span class="slide-num"></span>
+  </section>
+
+  
+<!-- Slide 18 · Arquitetura de integração (API-Led) -->
+  <section class="slide">
+    <div class="slide-eyebrow">Material de referência · Perspectiva de integração</div>
+    <h2 class="slide-title">Arquitetura de integração — API-Led Connectivity em 3 camadas via MuleSoft</h2>
+
+    <div class="fill" style="display:flex; flex-direction:column; gap:10px; font-size:11px; justify-content:flex-start">
+
+      <!-- ===== BLOCO PRIORITÁRIO: números que importam ===== -->
+      <div style="display:flex; gap:10px; align-items:stretch">
+        <div class="sz-stat" style="flex:1; border:2px solid var(--sf-navy); display:flex; flex-direction:column; justify-content:center; padding:10px 14px"><div class="sz-stat-num" style="font-size:44px; color:var(--sf-navy); line-height:1">34</div><div class="sz-stat-lbl" style="font-size:11px; margin-top:4px"><strong>pontos de integração</strong> no build<br>28 System · 5 Process · 1 Experience</div></div>
+        <div class="sz-stat" style="flex:1.1; display:flex; flex-direction:column; justify-content:center; padding:10px 14px"><div class="sz-stat-num" style="font-size:30px; color:var(--sf-container); line-height:1.05">10k–100k</div><div class="sz-stat-lbl" style="font-size:11px; margin-top:4px"><strong>requisições/dia</strong><br>operação síncrona REST · sem batch/bulk</div></div>
+        <div class="sz-card" style="flex:1.6; padding:10px 14px; display:flex; flex-direction:column; justify-content:center"><div class="card-h" style="font-size:12px">Por que API-Led</div><div style="font-size:11px">O gateway <strong>agrega</strong> Cliente + Crédito + Contratos em uma chamada, com <strong>caching</strong> e <strong>rate-limiting</strong> — desempenho sob o volume acima. Salesforce nunca chama Sinqia diretamente.</div></div>
+      </div>
+
+      <div style="border-top:1px solid var(--sf-cloud-80); margin:2px 0"></div>
+      <div style="font-family:var(--font-heading); color:var(--sf-text-weak); font-size:11px; letter-spacing:.04em; text-transform:uppercase">Arquitetura — API-Led Connectivity em 3 camadas</div>
+
+      <!-- consumidor -->
+      <div style="background:var(--sf-cloud); color:var(--sf-navy); border-radius:8px; padding:7px; text-align:center; font-weight:700; font-size:12px">Salesforce · Portal de Crédito <span style="font-weight:400; font-size:10px">— consome uma única porta de entrada, nunca chama os sistemas externos diretamente</span></div>
+      <div style="text-align:center; color:var(--sf-blue); font-size:13px; line-height:.6">▼</div>
+
+      <!-- 3 camadas API-Led -->
+      <div style="display:flex; flex-direction:column; gap:8px">
+
+        <!-- Experience -->
+        <div style="background:#fff; border:2px solid var(--sf-navy); border-radius:8px; padding:9px 12px; display:flex; align-items:center; gap:14px">
+          <div style="min-width:150px; font-family:var(--font-heading); color:var(--sf-navy); font-size:13px">Experience Layer <span style="font-weight:400; font-size:10px; color:var(--sf-text-weak)">· gateway</span></div>
+          <div style="flex:1; font-size:11px"><strong>1 Experience API</strong> — porta única para o Salesforce: <strong>agrega</strong> Cliente + Crédito + Contratos em uma chamada, faz <strong>caching</strong> e <strong>rate-limiting</strong>, com versionamento e compatibilidade. Extensível a canais futuros (mobile, parceiros).</div>
+        </div>
+        <div style="text-align:center; color:var(--sf-blue); font-size:12px; line-height:.5">↕</div>
+
+        <!-- Process -->
+        <div style="background:#fff; border:1px solid var(--sf-cloud-80); border-radius:8px; padding:9px 12px; display:flex; align-items:center; gap:14px">
+          <div style="min-width:150px; font-family:var(--font-heading); color:var(--sf-container); font-size:13px">Process Layer <span style="font-weight:400; font-size:10px; color:var(--sf-text-weak)">· orquestração</span></div>
+          <div style="flex:1; font-size:11px"><strong>5 Process APIs</strong> — orquestram a lógica de negócio: geração de CCB, workflow de aceite/recusa, validação facial (BioValid), impressão de documentos e compliance (QRSA).</div>
+        </div>
+        <div style="text-align:center; color:var(--sf-blue); font-size:12px; line-height:.5">↕</div>
+
+        <!-- System -->
+        <div style="background:#fff; border:1px solid var(--sf-cloud-80); border-radius:8px; padding:9px 12px; display:flex; align-items:center; gap:14px">
+          <div style="min-width:150px; font-family:var(--font-heading); color:var(--sf-container); font-size:13px">System Layer <span style="font-weight:400; font-size:10px; color:var(--sf-text-weak)">· backend</span></div>
+          <div style="flex:1; font-size:11px"><strong>28 System APIs</strong> — integram o legado <strong>SINQIA</strong> (mainframe BJ21M05 / BJ04M06 / BJ33M10) e os sistemas externos: <strong>JUCESP</strong> (em QA) e <strong>Serpro</strong>.</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="sz-tldr" style="margin-top:8px; border-left-color:var(--ext-yellow-70); background:var(--ext-yellow-95)"><p style="font-size:11.5px"><strong>⚠ A confirmar:</strong> refinamento dos pontos de integração enviados (a confirmar; só JUCESP em QA) · SLAs por API, DR/HA e estratégia de erro/DLQ. <strong>30 → 34:</strong> as 30 APIs do slide anterior são o grão da planilha do cliente; o build MuleSoft acrescenta a <strong>Experience API</strong> (gateway, não estava na planilha) e conta <strong>sub-serviços</strong> como APIs distintas.</p></div>
+    <span class="slide-num"></span>
+  </section>
+
+  
+<!-- Slide 19 · Referência · Lista das 30 APIs -->
+  <section class="slide">
+    <div class="slide-eyebrow">Material de referência · Lista de integrações</div>
+    <h2 class="slide-title">As 30 APIs da jornada — planilha Discovery v3.1</h2>
+    <style>.apis-30 table.sz-table td, .apis-30 table.sz-table th { padding:2px 8px; font-size:9.5px; line-height:1.25; }</style>
+    <div class="two-col fill apis-30" style="align-items:flex-start; gap:18px">
+      <table class="sz-table" style="font-size:9.5px; table-layout:fixed">
+        <thead><tr><th style="width:15%">ID</th><th style="width:24%">Pilar</th><th>API / Serviço</th></tr></thead>
+        <tbody>
+          <tr><td><strong>API-01</strong></td><td>Captação/Solic.</td><td>Consulta de Solicitações do Cliente</td></tr>
+          <tr><td><strong>API-02</strong></td><td>Pré-qualificação</td><td>Detalhamento de Solicitação</td></tr>
+          <tr><td><strong>API-03</strong></td><td>Formalização</td><td>Lista de Contratos</td></tr>
+          <tr><td><strong>API-04</strong></td><td>Formalização</td><td>Arquivo de Contrato (dados + arquivo)</td></tr>
+          <tr><td><strong>API-05</strong></td><td>Pré-qualificação</td><td>Consulta de Declarações</td></tr>
+          <tr><td><strong>API-06</strong></td><td>Pré-qualificação</td><td>Criação de Declarações</td></tr>
+          <tr><td><strong>API-07</strong></td><td>Captação</td><td>Integração JUCESP (vínculos + cadastro) <span class="sz-tag sz-tag--high" style="padding:0 5px">QA</span></td></tr>
+          <tr><td><strong>API-08</strong></td><td>Pré-qualificação</td><td>Imprimir Solicitação</td></tr>
+          <tr><td><strong>API-09</strong></td><td>Aprovação</td><td>Comando de Aceite / Recusa (Workflow)</td></tr>
+          <tr><td><strong>API-10</strong></td><td>Estruturação</td><td>Categorização de Tipo de Arquivo</td></tr>
+          <tr><td><strong>API-11</strong></td><td>Estruturação</td><td>Leitura de Conta e Contato</td></tr>
+          <tr><td><strong>API-12</strong></td><td>Estruturação</td><td>Criação de Conta e Contato</td></tr>
+          <tr><td><strong>API-13</strong></td><td>Estruturação</td><td>Edição de Conta e Contato</td></tr>
+          <tr><td><strong>API-14</strong></td><td>Estruturação</td><td>Imprimir Ficha Cadastral</td></tr>
+          <tr><td><strong>API-15</strong></td><td>Estruturação</td><td>Sincronização de Contas</td></tr>
+        </tbody>
+      </table>
+      <table class="sz-table" style="font-size:9px; table-layout:fixed">
+        <thead><tr><th style="width:15%">ID</th><th style="width:24%">Pilar</th><th>API / Serviço</th></tr></thead>
+        <tbody>
+          <tr><td><strong>API-16</strong></td><td>Pré-qualificação</td><td>Fim de Solicitação Sinqia "Conta-Proposta"</td></tr>
+          <tr><td><strong>API-17</strong></td><td>Pré-qualificação</td><td>Endpoints de Listas de Valor (múltiplas)</td></tr>
+          <tr><td><strong>API-18</strong></td><td>Captação</td><td>Dados de Simulação (empréstimo pretendido)</td></tr>
+          <tr><td><strong>API-19</strong></td><td>Estruturação</td><td>Armazenamento de Anexos</td></tr>
+          <tr><td><strong>API-20</strong></td><td>Pré-qualificação</td><td>Lista "Parceiro que indicou"</td></tr>
+          <tr><td><strong>API-21</strong></td><td>Captação</td><td>Sensibilização ao Sinqia no Login</td></tr>
+          <tr><td><strong>API-22</strong></td><td>Proposta</td><td>Declaração (QRSA) — leitura</td></tr>
+          <tr><td><strong>API-23</strong></td><td>Proposta</td><td>Declaração (QRSA) — gravação</td></tr>
+          <tr><td><strong>API-24</strong></td><td>Proposta</td><td>Declaração (QRSA) — comando</td></tr>
+          <tr><td><strong>API-25</strong></td><td>Proposta</td><td>Declaração (QRSA) — cálculo/rating</td></tr>
+          <tr><td><strong>API-26</strong></td><td>Estruturação</td><td>Ficha Cadastral PJ</td></tr>
+          <tr><td><strong>API-27</strong></td><td>Pré-qualificação</td><td>Validação Facial (BioValid, 3 steps)</td></tr>
+          <tr><td><strong>API-28</strong></td><td>Pré-qualificação</td><td>Entidade Empresarial</td></tr>
+          <tr><td><strong>API-29</strong></td><td>Formalização</td><td>Assinatura da CCB (a prever)</td></tr>
+          <tr><td><strong>API-30</strong></td><td>Formalização</td><td>Geração da CCB</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="cap">Fonte: Lista de APIs Discovery da Jornada Digital + Julgamental v3.1 · 30 APIs distintas (41 endpoints com sub-serviços) · todas via MuleSoft · status a confirmar (só JUCESP em QA). O build MuleSoft acrescenta a Experience API (gateway) → 34.</p>
+    <span class="slide-num"></span>
+  </section>
+
+  
+<!-- Slide 20 · Referência · Pilar 1 Captação -->
+  <section class="slide">
+    <div class="slide-eyebrow">Material de referência · Pilar 1</div>
+    <h2 class="slide-title">Pilar 1 · Captação — 2 APIs · 9 componentes</h2>
+    <div class="two-col fill" style="align-items:stretch; gap:20px">
+      <div class="sz-card" style="padding:12px 14px; border-left:4px solid var(--sf-blue)">
+        <div class="card-h" style="font-size:13px">APIs a desenvolver (2)</div>
+        <ul class="tight" style="font-size:10.5px">
+          <li><strong>API-07</strong> — Integração JUCESP (vínculos + cadastro) <span class="sz-tag sz-tag--high" style="padding:0 6px">em QA</span></li>
+          <li><strong>API-21</strong> — Sensibilização ao Sinqia no login</li>
+        </ul>
+        <div style="font-size:10px; color:var(--sf-text-weak); margin-top:8px">Antifraude Serasa R6 já opera (via BRE). Simulador reaproveitado da Captação (QA).</div>
+      </div>
+      <div class="sz-card" style="padding:12px 14px; border-left:4px solid var(--ext-teal)">
+        <div class="card-h" style="font-size:13px">Componentes a desenvolver (9)</div>
+        <ul class="tight" style="font-size:10.5px">
+          <li><strong>CMP-01/02</strong> — Header + carousel por onboarding</li>
+          <li><strong>CMP-03/04</strong> — Navegação (remover "Escolher Conta")</li>
+          <li><strong>CMP-05/06</strong> — Lista de solicitações + filtros</li>
+          <li><strong>CMP-07</strong> — Painel de pendências</li>
+          <li><strong>CMP-08</strong> — Lista de contratos (download CCB)</li>
+          <li><strong>CMP-09</strong> — Lista de contas vinculadas</li>
+        </ul>
+      </div>
+    </div>
+    <p class="cap">Fonte: user-stories.json · Apresentação Final p.6 · Lista de APIs Discovery · Lista de Componentes Discovery (Tela Home). APIs = endpoints da planilha Discovery (grão distinto das 30 integrações da jornada).</p>
+    <span class="slide-num"></span>
+  </section>
+
+  
+<!-- Slide 21 · Referência · Pilar 2 Pré-qualificação -->
+  <section class="slide">
+    <div class="slide-eyebrow">Material de referência · Pilar 2</div>
+    <h2 class="slide-title">Pilar 2 · Pré-qualificação — 8 APIs · 6 componentes</h2>
+    <div class="two-col fill" style="align-items:stretch; gap:20px">
+      <div class="sz-card" style="padding:12px 14px; border-left:4px solid var(--sf-blue)">
+        <div class="card-h" style="font-size:13px">APIs a desenvolver (8)</div>
+        <ul class="tight" style="font-size:10.5px">
+          <li><strong>API-05/06</strong> — Declarações (consulta / criação)</li>
+          <li><strong>API-22/23/25</strong> — QRSA (perguntas, respostas, cálculo)</li>
+          <li><strong>API-18</strong> — Dados de simulação</li>
+          <li><strong>API-16</strong> — Conta-Proposta (submissão síncrona)</li>
+          <li><strong>API-27</strong> — Validação facial BioValid <span class="sz-tag sz-tag--high" style="padding:0 6px">opcional</span></li>
+        </ul>
+        <div style="font-size:10px; color:var(--sf-text-weak); margin-top:8px">Faturamento Serpro sem endpoint na planilha — a confirmar.</div>
+      </div>
+      <div class="sz-card" style="padding:12px 14px; border-left:4px solid var(--ext-teal)">
+        <div class="card-h" style="font-size:13px">Componentes a desenvolver (6)</div>
+        <ul class="tight" style="font-size:10.5px">
+          <li><strong>CMP-10</strong> — Orquestrador do wizard (multi-step)</li>
+          <li><strong>CMP-11</strong> — Dados gerais (parceiro, canal, operação)</li>
+          <li><strong>CMP-12</strong> — Dados da solicitação (simulação)</li>
+          <li><strong>CMP-13</strong> — Declarações (QRSA parametrizável)</li>
+          <li><strong>CMP-14</strong> — Anexos (upload categorizado)</li>
+          <li><strong>CMP-15</strong> — Tela de confirmação e envio</li>
+        </ul>
+      </div>
+    </div>
+    <p class="cap">Fonte: user-stories.json · Apresentação Final p.7 · Lista de APIs Discovery · Lista de Componentes Discovery (Tela de Solicitação de Crédito). APIs = endpoints da planilha (grão distinto das 30 integrações).</p>
+    <span class="slide-num"></span>
+  </section>
+
+  
+<!-- Slide 22 · Referência · Pilar 3 Proposta -->
+  <section class="slide">
+    <div class="slide-eyebrow">Material de referência · Pilar 3</div>
+    <h2 class="slide-title">Pilar 3 · Proposta — 4 APIs · 1 componente</h2>
+    <div class="two-col fill" style="align-items:stretch; gap:20px">
+      <div class="sz-card" style="padding:12px 14px; border-left:4px solid var(--sf-blue)">
+        <div class="card-h" style="font-size:13px">APIs a desenvolver (4)</div>
+        <ul class="tight" style="font-size:11.5px">
+          <li><strong>API-01</strong> — Consulta de solicitações do cliente</li>
+          <li><strong>API-02</strong> — Detalhamento de solicitação</li>
+          <li><strong>API-08</strong> — Imprimir solicitação</li>
+          <li><strong>API-09</strong> — Comando de aceite / recusa (workflow)</li>
+        </ul>
+      </div>
+      <div class="sz-card" style="padding:12px 14px; border-left:4px solid var(--ext-teal)">
+        <div class="card-h" style="font-size:13px">Componentes a desenvolver (1)</div>
+        <ul class="tight" style="font-size:11.5px">
+          <li><strong>CMP-30</strong> — Acompanhamento de pedido (timeline de status + histórico)</li>
+        </ul>
+        <div style="font-size:10px; color:var(--sf-text-weak); margin-top:8px">Lista e detalhamento reaproveitam os componentes da Home (Pilar 1).</div>
+      </div>
+    </div>
+    <p class="cap">Fonte: user-stories.json · Apresentação Final p.8 · Lista de APIs Discovery · Lista de Componentes Discovery (Tela de Acompanhamento). APIs = endpoints da planilha (grão distinto das 30 integrações).</p>
+    <span class="slide-num"></span>
+  </section>
+
+  
+<!-- Slide 23 · Referência · Pilar 4 Estruturação -->
+  <section class="slide">
+    <div class="slide-eyebrow">Material de referência · Pilar 4</div>
+    <h2 class="slide-title">Pilar 4 · Estruturação — 9 APIs · 14 componentes</h2>
+    <div class="two-col fill" style="align-items:stretch; gap:20px">
+      <div class="sz-card" style="padding:12px 14px; border-left:4px solid var(--sf-blue)">
+        <div class="card-h" style="font-size:13px">APIs a desenvolver (9)</div>
+        <ul class="tight" style="font-size:11px">
+          <li><strong>API-11</strong> — Leitura de conta e contato</li>
+          <li><strong>API-12/13</strong> — Criação / edição de conta e contato <span class="sz-tag sz-tag--high" style="padding:0 6px">write a confirmar</span></li>
+          <li><strong>API-15</strong> — Sincronização de contas</li>
+          <li><strong>API-17</strong> — Endpoints de listas de valor</li>
+          <li><strong>API-26/28</strong> — Ficha PJ / entidade empresarial</li>
+          <li><strong>API-14</strong> — Imprimir ficha cadastral</li>
+          <li><strong>API-10 / API-19</strong> — Categorização e anexos</li>
+        </ul>
+      </div>
+      <div class="sz-card" style="padding:12px 14px; border-left:4px solid var(--ext-teal)">
+        <div class="card-h" style="font-size:13px">Componentes a desenvolver (14)</div>
+        <ul class="tight" style="font-size:11px">
+          <li><strong>CMP-16→23</strong> — Ficha PF: orquestrador, identificação, cônjuge, endereço, dados profissionais, participações, PEP, anexos</li>
+          <li><strong>CMP-24→29</strong> — Ficha PJ: orquestrador, identificação, dados complementares, sócios, participações, anexos</li>
+        </ul>
+      </div>
+    </div>
+    <p class="cap">Fonte: user-stories.json · Apresentação Final p.9 · Lista de APIs Discovery · Lista de Componentes Discovery (Fichas Cadastrais PF/PJ). APIs = endpoints da planilha (grão distinto das 30 integrações).</p>
+    <span class="slide-num"></span>
+  </section>
+
+  
+<!-- Slide 24 · Referência · Reanálise do Pilar 5 -->
+  <section class="slide">
+    <div class="slide-eyebrow">Material de referência · Reanálise do Pilar 5</div>
+    <h2 class="slide-title">Reanálise · Pilar 5 · Aprovação — é a decisão do cliente sobre a proposta</h2>
+    <p style="font-size:13px; color:var(--sf-text-weak); margin-bottom:12px">O pilar vinha mapeado como orquestração de ocorrências (sincronização de status, sem tela). Revisando a esteira com o cliente, o <strong>propósito do Pilar 5 é a etapa em que o tomador aprova ou recusa a proposta enviada pela Desenvolve SP</strong> — o aceite/recusa comercial, com tela e decisão do usuário. A orquestração de ocorrências continua, mas como <strong>mecanismo</strong>, não como o propósito do pilar.</p>
+    <div class="two-col fill" style="align-items:stretch; gap:20px">
+      <div class="sz-card" style="border-left:4px solid var(--ext-yellow-70)">
+        <div class="card-h" style="font-size:14px; color:var(--ext-yellow-70)">Como estava mapeado (a corrigir)</div>
+        <ul class="tight" style="font-size:12.5px">
+          <li><strong>"Sincronização de status finais de crédito"</strong> — F21, orquestração de ocorrências customizadas do Sinqia</li>
+          <li>Tratado como <strong>backbone sem tela</strong> — mecanismo técnico, sem componente de decisão do cliente</li>
+          <li>O aceite/recusa da proposta ficava em <strong>F13 · Aceite Síncrono</strong>, dentro do Pilar 3 · Proposta</li>
+        </ul>
+      </div>
+      <div class="sz-card" style="border-left:4px solid var(--ext-teal)">
+        <div class="card-h" style="font-size:14px; color:var(--ext-teal)">O que o Pilar 5 realmente é</div>
+        <ul class="tight" style="font-size:12.5px">
+          <li>Etapa em que o <strong>cliente aprova ou recusa</strong> a proposta que a DSP enviou</li>
+          <li><strong>Tela de proposta</strong> com detalhes financeiros (parcelas, taxas) + comando aceitar/recusar</li>
+          <li>O aceite <strong>grava, liquida e consolida</strong> a decisão no core (Sinqia) e libera a esteira → Estruturação</li>
+          <li><strong>Absorve o aceite</strong> antes mapeado como F13 no Pilar 3</li>
+        </ul>
+      </div>
+    </div>
+    <div class="sz-card" style="margin-top:14px; padding:10px 14px; border-left:4px solid var(--sf-navy)">
+      <div class="card-h" style="font-size:12.5px; color:var(--sf-navy)">Impacto a propagar</div>
+      <p style="font-size:11.5px; margin:0"><strong>Pilar 3 · Proposta</strong> perde o aceite (F13) — passa a lista, detalhe e acompanhamento de status. · <strong>Pilar 5</strong> deixa de ser "sem tela": ganha componente de decisão → <strong>o sizing sobe</strong> (M pode virar L). · A <strong>orquestração de ocorrências</strong> permanece como o mecanismo que sinaliza "proposta pronta" e grava a resposta no legado.</p>
+    </div>
+    <p class="cap">Fonte: correção do scoper (participante das sessões de entendimento) · Apresentação Final p.7,10 · transcrições 07/08 e 10/08 (aceite/recusa da proposta). <strong>Confiança: Assumed</strong> — contradiz o mapa v21 (F21) e Cenários de Entrega; a propagar via <em>revise</em> para P3/P5, estimates e roadmap.</p>
+    <span class="slide-num"></span>
+  </section>
+
+  
+<!-- Slide 25 · Referência · Pilar 5 Aprovação -->
+  <section class="slide">
+    <div class="slide-eyebrow">Material de referência · Pilar 5</div>
+    <h2 class="slide-title">Pilar 5 · Aprovação — a decisão do cliente sobre a proposta</h2>
+    <div class="two-col fill" style="align-items:stretch; gap:20px">
+      <div class="sz-card" style="padding:12px 14px; border-left:4px solid var(--sf-blue)">
+        <div class="card-h" style="font-size:13px">Componente de decisão (1 tela)</div>
+        <ul class="tight" style="font-size:11.5px">
+          <li><strong>Tela de proposta</strong> com detalhes financeiros — parcelas (line items), taxas, condições</li>
+          <li>Comando <strong>aprovar / recusar</strong> — o aceite grava, liquida e consolida a operação síncronamente no core (Sinqia)</li>
+          <li>Absorve o antigo <strong>F13 · Aceite Síncrono</strong> (antes mapeado no Pilar 3)</li>
+        </ul>
+        <div style="font-size:10px; color:var(--sf-text-weak); margin-top:8px">Consistência transacional do aceite (rollback/idempotência em falha) é o ponto de maior cuidado.</div>
+      </div>
+      <div class="sz-card" style="padding:12px 14px; border-left:4px solid var(--ext-teal)">
+        <div class="card-h" style="font-size:13px">Mecanismo — orquestração via ocorrências (1 integração)</div>
+        <ul class="tight" style="font-size:11.5px">
+          <li>Ocorrências do Sinqia via MuleSoft (Pub/Sub) sinalizam <strong>"proposta pronta"</strong> e gravam a resposta do cliente no legado</li>
+          <li>Platform Event <strong>OpportunityInfo</strong> + consumidor Apex; matriz <strong>BRE</strong> versionável</li>
+          <li>Máquina de estados para etapas bloqueantes</li>
+        </ul>
+        <div style="font-size:10px; color:var(--sf-text-weak); margin-top:8px">A orquestração é o mecanismo que serve a decisão — não o propósito do pilar. Estratégia de erro/retry (DLQ) a definir.</div>
+      </div>
+    </div>
+    <p class="cap">Fonte: Apresentação Final p.7,10 · transcrições 07/08 e 10/08 · ADR-011/015/016. <strong>Confiança: Assumed</strong> — reanálise do scoper (participante das sessões) que realoca o aceite do Pilar 3 para cá; contradiz o mapa v21 (F21).</p>
+    <span class="slide-num"></span>
+  </section>
+
+  
+<!-- Slide 26 · Referência · Sizing do Pilar 5 -->
+  <section class="slide">
+    <div class="slide-eyebrow">Material de referência · Sizing do Pilar 5</div>
+    <h2 class="slide-title">Por que o Pilar 5 · Aprovação é tamanho <span class="sz-tag sz-tag--sz-l" style="font-size:18px; vertical-align:middle">L</span></h2>
+    <p style="font-size:13px; color:var(--sf-text-weak); margin-bottom:12px">Reclassificado de M para <strong>L</strong> com a reanálise: o pilar deixou de ser "backbone sem tela" e passou a conter a <strong>decisão do cliente sobre a proposta</strong> — ganhou uma tela de proposta e, sobretudo, a <strong>efetivação síncrona no core</strong> que grava/liquida/consolida a operação (antes em F13/Pilar 3). O driver dominante é a integração de efetivação, não mais a orquestração.</p>
+    <div class="two-col fill" style="align-items:stretch; gap:20px">
+      <div class="sz-card" style="border-left:4px solid var(--sf-navy)">
+        <div class="card-h" style="font-size:14px; color:var(--sf-navy)">O que puxa para L</div>
+        <ul class="tight" style="font-size:12.5px">
+          <li><strong>Efetivação síncrona no core</strong> (integration = L) — o aceite grava/liquida/consolida a operação no Sinqia; consistência transacional (rollback/idempotência) é o maior cuidado da jornada</li>
+          <li><strong>Tela de proposta</strong> (UI = M) — detalhes financeiros (parcelas como line items, taxas) + comando aprovar/recusar em LWC com controlador Apex; o pilar antes não tinha tela</li>
+          <li><strong>Orquestração via ocorrências</strong> (automation = M) — agora o mecanismo que sinaliza "proposta pronta" e grava a decisão no legado; Platform Event + matriz BRE</li>
+          <li><strong>Absorve o esforço</strong> que sustentava o M do antigo Pilar 3</li>
+        </ul>
+      </div>
+      <div class="sz-card" style="border-left:4px solid var(--ext-teal)">
+        <div class="card-h" style="font-size:14px; color:var(--ext-teal)">O que segura em L (não é XL)</div>
+        <ul class="tight" style="font-size:12.5px">
+          <li>Uma única tela de decisão + uma integração de efetivação — escopo focado, não uma suíte</li>
+          <li>Modelo de ocorrências <strong>confirmado 13/08</strong> — o mecanismo de sinalização já está definido e mais simples</li>
+          <li>Cancelamento só por status — sem ocorrência/pendência dedicada</li>
+        </ul>
+        <div style="margin-top:12px; padding:10px 12px; background:var(--ext-yellow-95); border-radius:6px; border-left:3px solid var(--ext-yellow-70); font-size:11.5px; color:var(--sf-text-weak)"><strong>Sobe para XL se</strong> a efetivação síncrona exigir orquestração transacional ampla (compensação/rollback) ou a estratégia de erro/DLQ do write-back (PUT/PATCH) se mostrar extensa na refinação (gap G0704).</div>
+      </div>
+    </div>
+    <p class="cap">Fonte: estimates.json (E05) · reanálise do scoper · ADR-011/015. Tamanho = complexidade relativa, não esforço nem preço. Confiança: <strong>Assumed</strong> — reanálise que realoca o aceite (F13) do Pilar 3 para cá; contradiz o mapa v21 (F21).</p>
+    <span class="slide-num"></span>
+  </section>
+
+  
+<!-- Slide 27 · Referência · Pilar 6 Formalização -->
+  <section class="slide">
+    <div class="slide-eyebrow">Material de referência · Pilar 6</div>
+    <h2 class="slide-title">Pilar 6 · Formalização — 5 APIs · 3 componentes</h2>
+    <div class="two-col fill" style="align-items:stretch; gap:20px">
+      <div class="sz-card" style="padding:12px 14px; border-left:4px solid var(--sf-blue)">
+        <div class="card-h" style="font-size:13px">APIs a desenvolver (5)</div>
+        <ul class="tight" style="font-size:11.5px">
+          <li><strong>API-30</strong> — Geração da CCB (BBP a avaliar)</li>
+          <li><strong>API-04</strong> — Arquivo de contrato (CCB)</li>
+          <li><strong>API-29</strong> — Assinatura da CCB (provedor a definir)</li>
+          <li><strong>API-24</strong> — Declaração QRSA / assinatura</li>
+          <li><strong>API-03</strong> — Lista de contratos</li>
+        </ul>
+        <div style="font-size:10px; color:var(--sf-text-weak); margin-top:8px">Assinatura manual no MVP (sem provedor digital nativo).</div>
+      </div>
+      <div class="sz-card" style="padding:12px 14px; border-left:4px solid var(--ext-teal)">
+        <div class="card-h" style="font-size:13px">Componentes a desenvolver (3)</div>
+        <ul class="tight" style="font-size:11.5px">
+          <li><strong>CMP-31</strong> — Orquestrador de contratação</li>
+          <li><strong>CMP-32</strong> — Declaração / aceite final</li>
+          <li><strong>CMP-33</strong> — Anexos finais (garantias)</li>
+        </ul>
+        <div style="font-size:10px; color:var(--sf-text-weak); margin-top:8px">"Meus Contratos" reaproveita o componente de contratos da Home (Pilar 1).</div>
+      </div>
+    </div>
+    <p class="cap">Fonte: user-stories.json · Apresentação Final p.11 · Lista de APIs Discovery · Lista de Componentes Discovery (Tela de Contratação). APIs = endpoints da planilha (grão distinto das 30 integrações).</p>
+    <span class="slide-num"></span>
+  </section>
+
+  
+<!-- Slide 28 · Referência · Insumos Agro (11/08) -->
+  <section class="slide">
+    <div class="slide-eyebrow">Material de referência · Esteira Agro</div>
+    <h2 class="slide-title">Esteira Agro — insumos da sessão de 11/08</h2>
+    <div class="three-col fill" style="align-items:stretch; gap:16px">
+      <div class="sz-card" style="padding:12px 14px">
+        <div class="card-h" style="font-size:13px">Como o Agro difere da esteira PJ</div>
+        <ul class="tight" style="font-size:11px">
+          <li>Toda a esteira da DSP foi desenhada para <strong>PJ</strong>; o Agro é a exceção (novo na DSP desde 2025, antes era Banco do Brasil)</li>
+          <li>Maioria dos tomadores é <strong>pessoa física</strong>; produtor rural PF <strong>não está na JUCESP</strong> (PJ rural está)</li>
+          <li>Eric: <strong>não é preciso replicar</strong> a validação JUCESP para o PF rural</li>
+          <li>No formulário, muda essencialmente <strong>CPF ↔ CNPJ</strong></li>
+          <li>Ficha Cadastral PF e PJ é <strong>a mesma</strong></li>
+          <li><strong>Sem QRSA</strong> no Agro · apenas <strong>2 produtos</strong></li>
+          <li>Motor de crédito Agro é <strong>externo</strong> e de <strong>volume muito baixo</strong></li>
+        </ul>
+      </div>
+      <div class="sz-card" style="padding:12px 14px; border-left:4px solid var(--sf-blue)">
+        <div class="card-h" style="font-size:13px">Cooperativa — entrada e acesso</div>
+        <ul class="tight" style="font-size:11px">
+          <li>Duas formas de entrada de pedidos: via <strong>parceiro/cooperativa</strong> (login do consultor) ou <strong>direto pelo cliente</strong></li>
+          <li>Cooperativa <strong>não passa</strong> pela verificação JUCESP; hoje conta como usuário comum da DSP</li>
+          <li>Precisa <strong>criar as contas da Cooperativa no Salesforce</strong> e um tipo de usuário distinto (permissões como funcionário)</li>
+          <li>Acessa: <strong>visualiza pedidos</strong> · simulador opcional · Fichas PF/PJ · JUCESP opcional</li>
+          <li>Acompanhamento do CNPJ/solicitante é feito pela Cooperativa · exige <strong>Hierarquia de Contas</strong></li>
+          <li>Ideal: poder <strong>enviar todos os dados de uma vez</strong>; a cooperativa já tem o motor de crédito</li>
+        </ul>
+      </div>
+      <div class="sz-card" style="padding:12px 14px; border-left:4px solid var(--ext-yellow-70)">
+        <div class="card-h" style="font-size:13px; color:var(--ext-yellow-70)">Decisões em aberto</div>
+        <ul class="tight" style="font-size:11px">
+          <li><strong>Modelo de portal:</strong> foram pedidos 2 portais (Cooperativa / Cliente); a linha vinha indo para o <strong>unificado</strong> — decisão pode ser revista</li>
+          <li><strong>Enquadramento manual:</strong> avaliar se continua sendo feito no Sinqia</li>
+          <li><strong>Conta corrente</strong> é pedida para PJ; para o Agro precisa ser repensada</li>
+          <li>Cadastro de produto duplicado (Core Bancário + Officer): avaliar se o SF precisa cadastrar tudo ou só produtos padrão</li>
+          <li>Nada específico de Agro foi fechado — <strong>retomar na sessão de quinta (13/08)</strong></li>
+        </ul>
+      </div>
+    </div>
+    <p class="cap">Fonte: discovery-notes/ultimasessao11-08.md (notas da sessão com o cliente, 11/08). Insumos de descoberta — pontos de trabalho e decisões em aberto, não escopo confirmado.</p>
+    <span class="slide-num"></span>
+  </section>
+
+  
+<!-- Slide 29 · Referência · MVP Funcional escopo completo -->
+  <section class="slide">
+    <div style="position:absolute; top:14px; right:16px; z-index:9; background:#b91c1c; color:#fff; font-size:9px; font-weight:800; letter-spacing:.4px; padding:3px 9px; border-radius:10px; text-transform:uppercase">Histórico · anterior a 19/08</div>
+    <div class="slide-eyebrow">Material de referência · MVP Funcional</div>
+    <h2 class="slide-title">MVP Funcional — escopo completo por pilar (Cenário 2)</h2>
+    <table class="sz-table" style="font-size:11px; table-layout:fixed">
+      <thead><tr>
+        <th style="width:15%">Pilar</th>
+        <th style="width:33%">Incluídas no MVP</th>
+        <th style="width:34%">Cortadas / simplificadas → Fase 2</th>
+        <th style="width:9%; text-align:center">Comp.</th>
+        <th style="width:9%; text-align:center">Integr.</th>
+      </tr></thead>
+      <tbody>
+        <tr><td><strong>1 · Captação</strong></td><td>Login/JUCESP, simulador, contas, lista de solicitações</td><td>Cadastro manual sem-JUCESP e Cooperativas cortadas · Central de Pendências e Meus Contratos diferidos</td><td style="text-align:center">7</td><td style="text-align:center">2</td></tr>
+        <tr><td><strong>2 · Pré-qualificação</strong></td><td>Formulário adaptativo, SERPRO, envio síncrono · <strong>QRSA completo</strong> · biometria em contingência</td><td>BioValid API</td><td style="text-align:center">6</td><td style="text-align:center">7</td></tr>
+        <tr><td><strong>3 · Proposta</strong></td><td>Lista e detalhes das solicitações com status (leitura via backbone do P5)</td><td>—</td><td style="text-align:center">—</td><td style="text-align:center">—</td></tr>
+        <tr><td><strong>4 · Estruturação</strong></td><td>Fichas PF e PJ, upload via Salesforce Files, status em leitura</td><td>PDF estático e reabertura de campos cortadas · retorno síncrono e repositório externo diferidos</td><td style="text-align:center">14</td><td style="text-align:center">3</td></tr>
+        <tr><td><strong>5 · Aprovação</strong></td><td>Tela de proposta + aceite/recusa (efetivação síncrona no core) · orquestração via ocorrências como mecanismo</td><td>Retorno síncrono ao Sinqia → Fase 2 (contrato de ocorrências)</td><td style="text-align:center">1</td><td style="text-align:center">1</td></tr>
+        <tr><td><strong>6 · Formalização</strong></td><td>Download da CCB + upload da CCB assinada por fora</td><td>Meus Contratos cortado · assinatura digital da CCB diferida</td><td style="text-align:center">3</td><td style="text-align:center">2</td></tr>
+        <tr style="font-weight:700; background:var(--sf-light-bg)"><td>Total</td><td>19 de 24 funcionalidades</td><td>5 não entram</td><td style="text-align:center">31</td><td style="text-align:center">15</td></tr>
+      </tbody>
+    </table>
+    <div class="two-col" style="gap:12px; margin-top:10px">
+      <div class="sz-card" style="padding:8px 12px; border-left:4px solid var(--ext-teal)">
+        <div class="card-h" style="font-size:12px; color:var(--ext-teal)">15 integrações incluídas</div>
+        <div style="font-size:10.5px; color:var(--sf-text-weak)">Consulta de solicitações · parceiro indicador · leitura/criação de conta e contato · declarações · Lista de Valores dos Formulários · SERPRO e-CAC · Conta-Proposta · detalhamento · QRSA perguntas · QRSA respostas · QRSA cálculo de rating · categorização de arquivo · anexos (SF Files) · status (leitura) · download da CCB</div>
+      </div>
+      <div class="sz-card" style="padding:8px 12px; border-left:4px solid var(--ext-yellow-70)">
+        <div class="card-h" style="font-size:12px; color:var(--ext-yellow-70)">4 integrações não entram</div>
+        <div style="font-size:10.5px; color:var(--sf-text-weak)">BioValid · QRSA assinatura · assinatura da CCB · lista/arquivo de contratos (Meus Contratos)</div>
+      </div>
+    </div>
+    <p class="cap">Fonte: Cenários de Entrega (Cenário 2 · MVP Funcional). Corte por complexidade — mantém as 3 esteiras no baseline. Escopo indicativo pela complexidade relativa, não compromisso.</p>
+    <span class="slide-num"></span>
+  </section>
+
+  
+<!-- Slide 30 · Referência · Cortado do MVP → Fase 2 -->
+  <section class="slide">
+    <div style="position:absolute; top:14px; right:16px; z-index:9; background:#b91c1c; color:#fff; font-size:9px; font-weight:800; letter-spacing:.4px; padding:3px 9px; border-radius:10px; text-transform:uppercase">Histórico · anterior a 19/08</div>
+    <div class="slide-eyebrow">Material de referência · Cortado do MVP</div>
+    <h2 class="slide-title">O que sai do MVP — itens diferidos para a Fase 2</h2>
+    <p style="font-size:12px; color:var(--sf-text-weak); margin-bottom:10px">Cada item tem alternativa operacional hoje ou depende de algo ainda em aberto. A maioria está travada por <strong>contratos de API não fechados</strong> — diferir alinha o escopo às dependências reais, sem restringir jornada.</p>
+    <table class="sz-table" style="font-size:11.5px; table-layout:fixed">
+      <thead><tr>
+        <th style="width:34%">Item</th>
+        <th style="width:14%; text-align:center">Complexidade</th>
+        <th>Dependência para a Fase 2</th>
+      </tr></thead>
+      <tbody>
+        <tr><td><strong>Central de Pendências</strong> (CMP-07)</td><td style="text-align:center"><span class="sz-tag sz-tag--critical">Muito Alta</span></td><td>Contrato de ocorrências customizadas do Sinqia</td></tr>
+        <tr><td><strong>Retorno síncrono ao Sinqia</strong> (status bidirecional)</td><td style="text-align:center"><span class="sz-tag sz-tag--high">Alta</span></td><td>Contrato de ocorrências customizadas do Sinqia</td></tr>
+        <tr><td><strong>Meus Contratos</strong> (CMP-08)</td><td style="text-align:center"><span class="sz-tag sz-tag--high">Alta</span></td><td>Definir cache + APIs de lista/arquivo de contratos</td></tr>
+        <tr><td><strong>Biometria BioValid</strong> (integração plena)</td><td style="text-align:center"><span class="sz-tag sz-tag--high">Alta</span></td><td>Certificação com o BioValid</td></tr>
+        <tr><td><strong>Assinatura digital da CCB</strong> (CMP-32)</td><td style="text-align:center"><span class="sz-tag sz-tag--high">Alta</span></td><td>Contratação de provedor de assinatura</td></tr>
+        <tr><td><strong>Repositório externo de anexos</strong> (>12 MB)</td><td style="text-align:center"><span class="sz-tag sz-tag--info">Média</span></td><td>Definição de arquitetura (S3 vs alternativa)</td></tr>
+        <tr><td><strong>Cadastro manual sem-JUCESP</strong> (produtor rural PF)</td><td style="text-align:center"><span class="sz-tag sz-tag--info">Média</span></td><td>Desenho do fluxo Julgamental/Agro</td></tr>
+        <tr><td><strong>Cooperativas Agro</strong> (hierarquia de contas)</td><td style="text-align:center"><span class="sz-tag sz-tag--info">Média</span></td><td>Decisão arquitetural de hierarquia + modelo de portal</td></tr>
+        <tr><td><strong>PDF estático da ficha</strong> · <strong>Reabertura de campos</strong></td><td style="text-align:center"><span class="sz-tag sz-tag--low">Baixa</span></td><td>Nenhuma — menor esforço e menor criticidade</td></tr>
+      </tbody>
+    </table>
+    <div class="sz-tldr" style="margin-top:10px; border-left-color:var(--ext-yellow-70); background:var(--ext-yellow-95)"><p style="font-size:12px"><strong>Riscos residuais a aceitar:</strong> sem a Central de Pendências, o backoffice Julgamental fica pior que hoje · Salesforce Files (12 MB) é insuficiente para documentos Agro (penhor de safra, escrituras).</p></div>
+    <p class="cap">Fonte: Cenários de Entrega (Cenário 2 · o que vai para a Fase 2). Complexidade relativa, não esforço/preço.</p>
+    <span class="slide-num"></span>
+  </section>
+
+  
+<!-- Slide 31 · Referência · Esforço e paralelismo (2 times) -->
+  <section class="slide">
+    <div style="position:absolute; top:14px; right:16px; z-index:9; background:#b91c1c; color:#fff; font-size:9px; font-weight:800; letter-spacing:.4px; padding:3px 9px; border-radius:10px; text-transform:uppercase">Histórico · anterior a 19/08</div>
+    <div class="slide-eyebrow">Material de referência · Esforço e paralelismo</div>
+    <h2 class="slide-title">Dois times em paralelo — efeito nos dois cenários</h2>
+    <div class="two-col fill" style="grid-template-columns:1.05fr 0.95fr; gap:20px">
+
+      <div>
+        <div class="card-h" style="font-size:14px">Como o trabalho se divide em duas frentes</div>
+        <table class="sz-table" style="font-size:11.5px">
+          <thead><tr><th style="width:30%">Frente</th><th>Pilares</th><th style="width:24%; text-align:center">Carga (tam.)</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Time A</strong><div style="font-size:10px; color:var(--sf-text-weak)">Transacional / wizard</div></td>
+              <td>1 · Captação · 2 · Pré-qualificação · 3 · Proposta · 5 · Aprovação</td>
+              <td style="text-align:center"><span class="sz-tag sz-tag--sz-s">S</span> <span class="sz-tag sz-tag--sz-l">L</span> <span class="sz-tag sz-tag--sz-m">M</span> <span class="sz-tag sz-tag--sz-l">L</span></td>
+            </tr>
+            <tr>
+              <td><strong>Time B</strong><div style="font-size:10px; color:var(--sf-text-weak)">Cadastro profundo / contrato</div></td>
+              <td>4 · Estruturação · 6 · Formalização</td>
+              <td style="text-align:center"><span class="sz-tag sz-tag--sz-l">L</span> <span class="sz-tag sz-tag--sz-m">M</span></td>
+            </tr>
+            <tr style="background:var(--sf-light-bg)">
+              <td><strong>Espinha compartilhada</strong><div style="font-size:10px; color:var(--sf-text-weak)">Não paraleliza</div></td>
+              <td>Backbone de ocorrências (plumbing) · infra · contratos das APIs · SIT/UAT</td>
+              <td style="text-align:center"><span class="sz-tag sz-tag--sz-m">M</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="cap" style="margin-top:6px">As duas frentes pesadas — <strong>P2 e P4 (ambas L)</strong> — que hoje correm em sequência passam a correr <strong>ao mesmo tempo</strong>. O backbone de ocorrências (plumbing) gate o status de todos os pilares e é o piso compartilhado das duas frentes.</p>
+      </div>
+
+      <div>
+        <div class="card-h" style="font-size:14px">Efeito no prazo (via Tradicional, âncora)</div>
+        <table class="sz-table" style="font-size:12px">
+          <thead><tr><th>Cenário</th><th style="width:28%; text-align:center">1 time</th><th style="width:28%; text-align:center">2 times</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Escopo completo</strong><div style="font-size:10px; color:var(--sf-text-weak)">24 func · 30 integr · 33 comp</div></td><td style="text-align:center">~18–28 sem</td><td style="text-align:center"><strong>~14–26 sem</strong></td></tr>
+            <tr><td><strong>MVP Funcional</strong><div style="font-size:10px; color:var(--sf-text-weak)">19 func · 15 integr · 31 comp</div></td><td style="text-align:center">~15–24 sem</td><td style="text-align:center"><strong>~12–22 sem</strong></td></tr>
+          </tbody>
+        </table>
+        <p class="cap" style="margin-top:6px">A via <strong>Aumentada</strong> comprime cada faixa acima em mais <strong>−10 a 25%</strong> (ferramentas de IA), sobre a mesma divisão de frentes.</p>
+        <div class="sz-tldr" style="margin-top:10px; border-left-color:var(--ext-yellow-70); background:var(--ext-yellow-95)"><p style="font-size:11.5px"><strong>⚠ Dois times compram o melhor caso, não o pior.</strong> A frente concorrente derruba o piso (mínimo); o teto (máximo) segue travado pelos <strong>contratos das 30 APIs</strong> e pelo <strong>backbone de ocorrências</strong> — que não paralelizam. Exige a <strong>interface entre as frentes definida cedo</strong> e adiciona custo de coordenação.</p></div>
+      </div>
+
+    </div>
+    <p class="cap">Prazos derivados top-down pela forma do engajamento, comprimidos pela concorrência das frentes P2/P4; tempo de calendário. Faixas baseadas em referências, não compromisso. Não convertíveis em horas nem em preço.</p>
+    <span class="slide-num"></span>
+  </section>
+
+  
+<!-- Slide 32 · Referência · Plano de implementação (Aumentada) -->
+  <section class="slide">
+    <div style="position:absolute; top:14px; right:16px; z-index:9; background:#b91c1c; color:#fff; font-size:9px; font-weight:800; letter-spacing:.4px; padding:3px 9px; border-radius:10px; text-transform:uppercase">Histórico · anterior a 19/08</div>
+    <div class="slide-eyebrow">Material de referência · Plano de implementação</div>
+    <h2 class="slide-title">Plano de implementação — do discovery ao QA (via Aumentada)</h2>
+    <p style="font-size:13px; color:var(--sf-text-weak); margin-bottom:10px">Fases da via <strong>Aumentada</strong> (time humano acelerado por ferramentas de IA), do <strong>refinamento até QA</strong>, com <strong>início em 24/08/2026</strong>. Envelope total <strong>~14–26 semanas</strong> — conclusão do QA entre <strong>30/11/2026</strong> (melhor caso) e <strong>22/02/2027</strong> (pior caso), sem incluir a homologação do cliente. Datas indicativas, não compromisso.</p>
+
+    <!-- timeline proporcional · datas de conclusão de cada fase (início 24/08/26) -->
+    <div class="sz-timeline" style="margin-bottom:14px">
+      <div class="sz-phase" style="flex:1.4; background:var(--sf-text-weak)"><div class="sz-phase-name">Fase 0</div><div class="sz-phase-dur">07/09–14/09/26</div></div>
+      <div class="sz-phase" style="flex:2; background:var(--sf-navy)"><div class="sz-phase-name">Fase 1</div><div class="sz-phase-dur">28/09–19/10/26</div></div>
+      <div class="sz-phase" style="flex:2.6; background:var(--sf-container)"><div class="sz-phase-name">Fase 2</div><div class="sz-phase-dur">26/10–07/12/26</div></div>
+      <div class="sz-phase" style="flex:2.2; background:var(--sf-blue)"><div class="sz-phase-name">Fase 3</div><div class="sz-phase-dur">16/11/26–18/01/27</div></div>
+      <div class="sz-phase" style="flex:1.6; background:var(--sf-cloud); color:var(--sf-navy)"><div class="sz-phase-name">Fase 4</div><div class="sz-phase-dur">30/11/26–22/02/27</div></div>
+    </div>
+
+    <table class="sz-table" style="font-size:11px; table-layout:fixed">
+      <thead><tr>
+        <th style="width:19%">Fase</th>
+        <th style="width:36%">Foco</th>
+        <th style="width:27%">Saída / gate</th>
+        <th style="width:18%">Conclusão<div style="font-weight:400; font-size:9px; opacity:.85">melhor · pior</div></th>
+      </tr></thead>
+      <tbody>
+        <tr><td><strong>0 · Discovery & Foundation</strong><div style="font-size:10px; color:var(--sf-text-weak)">refinamento</div></td><td>Trava as decisões que gatilham o build: write-back Sinqia (PUT/PATCH), sync do catálogo SF↔Officer, contrato BioValid, cálculo QRSA no Sinqia, e — trava nº 1 — fornecedor de build + data de início.</td><td>Premissas confirmadas ou assumidas com donos; fornecedor e início nomeados. É o gate de viabilidade.</td><td><span class="sz-tag sz-tag--low" style="white-space:nowrap">07/09/26</span> <span class="sz-tag sz-tag--high" style="white-space:nowrap">14/09/26</span></td></tr>
+        <tr><td><strong>1 · Backbone + Captação</strong><div style="font-size:10px; color:var(--sf-text-weak)">Pilares 5 &amp; 1</div></td><td>Sobe a orquestração event-first (ocorrências, matriz BRE, mapa ocorrências↔pendências) e endurece a Captação já em QA (JUCESP, simulador, contas/cooperativas).</td><td>Orquestração operacional via MuleSoft; Captação com defeitos de SIT/UAT triados.</td><td><span class="sz-tag sz-tag--low" style="white-space:nowrap">28/09/26</span> <span class="sz-tag sz-tag--high" style="white-space:nowrap">19/10/26</span></td></tr>
+        <tr><td><strong>2 · Pré-qualificação + Proposta</strong><div style="font-size:10px; color:var(--sf-text-weak)">Pilares 2 &amp; 3 · mais pesada</div></td><td>Formulário de crédito adaptativo, QRSA, Serpro, entrada síncrona no core; lista, detalhamento e aceite síncrono da proposta digital.</td><td>Cliente completa um pedido fim-a-fim e aceita a proposta com efetivação síncrona no Sinqia.</td><td><span class="sz-tag sz-tag--low" style="white-space:nowrap">26/10/26</span> <span class="sz-tag sz-tag--high" style="white-space:nowrap">07/12/26</span></td></tr>
+        <tr><td><strong>3 · Estruturação + Formalização</strong><div style="font-size:10px; color:var(--sf-text-weak)">Pilares 4 &amp; 6</div></td><td>Fichas PF/PJ com reaproveitamento, upload assíncrono, pendências de documentação; download/upload da CCB e sessão de contratos (assinatura manual).</td><td>Fichas sincronizadas; documentação e garantias tramitam no portal; CCB assinada por fora e re-anexada.</td><td><span class="sz-tag sz-tag--low" style="white-space:nowrap">16/11/26</span> <span class="sz-tag sz-tag--high" style="white-space:nowrap">18/01/27</span></td></tr>
+        <tr><td><strong>4 · SIT / UAT / QA</strong><div style="font-size:10px; color:var(--sf-text-weak)">estabilização</div></td><td>Teste de integração, UAT com dados representativos e endurecimento full-journey nas 3 esteiras (Digital, Julgamental, Agro).</td><td>Regressão full-journey verde; pronto para o sign-off de UAT do cliente (homologação fora deste envelope).</td><td><span class="sz-tag sz-tag--low" style="white-space:nowrap">30/11/26</span> <span class="sz-tag sz-tag--high" style="white-space:nowrap">22/02/27</span></td></tr>
+      </tbody>
+    </table>
+    <p class="cap">Fonte: roadmap.json (Fases 0–4) · faixa Aumentada de estimate-comparison.json (~14–26 sem, comprimida da âncora Tradicional pela banda de eficiência). Datas contadas a partir de 24/08/2026, alocadas por complexidade — cada fase mostra a conclusão no melhor e no pior caso; tempo de calendário, refinamento até QA, sem homologação do cliente. Indicativas, não compromisso; não convertíveis em horas nem preço.</p>
+    <span class="slide-num"></span>
+  </section>
+
+  
+<!-- Slide 33 · Comparativo das vias vs meta ~7 sem -->
+  <section class="slide">
+    <div style="position:absolute; top:14px; right:16px; z-index:9; background:#b91c1c; color:#fff; font-size:9px; font-weight:800; letter-spacing:.4px; padding:3px 9px; border-radius:10px; text-transform:uppercase">Histórico · anterior a 19/08</div>
+    <div class="slide-eyebrow">Sugestão de cronograma</div>
+    <h2 class="slide-title">Comparativo das vias de entrega frente à meta de ~7 semanas</h2>
+
+    <!-- Gráfico de barras: escala 0–36 semanas. Meta de 7 = 19.4%. Faixas proporcionais. -->
+    <div class="fill" style="display:flex; flex-direction:column; justify-content:center; gap:18px; position:relative; padding:8px 0">
+
+      <div style="position:relative; display:flex; flex-direction:column; gap:18px">
+
+        <!-- gridlines pontilhadas, contidas na área das barras, alinhadas às marcações de meses -->
+        <div style="position:absolute; left:182px; right:0; top:0; bottom:0; display:flex; justify-content:space-between; z-index:0; pointer-events:none"><span style="border-left:1px dotted var(--sf-cloud-80); opacity:.6"></span><span style="border-left:1px dotted var(--sf-cloud-80); opacity:.6"></span><span style="border-left:1px dotted var(--sf-cloud-80); opacity:.6"></span><span style="border-left:1px dotted var(--sf-cloud-80); opacity:.6"></span><span style="border-left:1px dotted var(--sf-cloud-80); opacity:.6"></span><span style="border-left:1px dotted var(--sf-cloud-80); opacity:.6"></span><span style="border-left:1px dotted var(--sf-cloud-80); opacity:.6"></span><span style="border-left:1px dotted var(--sf-cloud-80); opacity:.6"></span><span style="border-left:1px dotted var(--sf-cloud-80); opacity:.6"></span><span style="border-left:1px dotted var(--sf-cloud-80); opacity:.6"></span></div>
+
+        <div style="display:flex; align-items:center; gap:12px; position:relative; z-index:1">
+          <div style="width:170px; text-align:right; font-size:13px; font-weight:700; color:var(--ext-pink-40)">Meta Proposta DSP 30.09</div>
+          <div style="flex:1; position:relative; height:34px">
+            <div style="position:absolute; left:0; width:19.4%; height:100%; background:var(--ext-pink-40); border-radius:4px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:12px; font-weight:700">~7 sem</div>
+          </div>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:12px; position:relative; z-index:1">
+          <div style="width:170px; text-align:right; font-size:13px; font-weight:700; color:var(--sf-navy)">Tradicional<div style="font-weight:400; font-size:10px; color:var(--sf-text-weak); line-height:1.2; margin-top:2px">Entrega manual, sem IA — 2 times em paralelo</div></div>
+          <div style="flex:1; position:relative; height:34px">
+            <div style="position:absolute; left:0; width:38.9%; height:100%; background:var(--sf-navy); opacity:.4; border-radius:4px 0 0 4px"></div>
+            <div style="position:absolute; left:0; width:38.9%; height:100%; display:flex; align-items:center; justify-content:center; color:var(--sf-navy); font-size:12px; font-weight:700">14 sem</div>
+            <div style="position:absolute; left:38.9%; width:33.3%; height:100%; background:var(--sf-navy); border-radius:0 4px 4px 0"></div>
+            <div style="position:absolute; left:72.2%; height:100%; display:flex; align-items:center; padding-left:6px; color:var(--sf-navy); font-size:12px; font-weight:700">26 sem</div>
+          </div>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:12px; position:relative; z-index:1">
+          <div style="width:170px; text-align:right; font-size:13px; font-weight:700; color:var(--sf-container)">Aumentada<div style="font-weight:400; font-size:10px; color:var(--sf-text-weak); line-height:1.2; margin-top:2px">IA + 2 times em paralelo</div></div>
+          <div style="flex:1; position:relative; height:34px">
+            <div style="position:absolute; left:0; width:33.3%; height:100%; background:var(--sf-container); opacity:.4; border-radius:4px 0 0 4px"></div>
+            <div style="position:absolute; left:0; width:33.3%; height:100%; display:flex; align-items:center; justify-content:center; color:var(--sf-container); font-size:12px; font-weight:700">12 sem</div>
+            <div style="position:absolute; left:33.3%; width:27.8%; height:100%; background:var(--sf-container); border-radius:0 4px 4px 0"></div>
+            <div style="position:absolute; left:61.1%; height:100%; display:flex; align-items:center; padding-left:6px; color:var(--sf-container); font-size:12px; font-weight:700">22 sem</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- eixo -->
+      <div style="display:flex; align-items:center; gap:12px; margin-top:2px; position:relative; z-index:1">
+        <div style="width:170px"></div>
+        <div style="flex:1; display:flex; justify-content:space-between; font-size:10px; color:var(--sf-text-weak)"><span>Agosto/2026</span><span>Setembro/2026</span><span>Outubro/2026</span><span>Novembro/2026</span><span>Dezembro/2026</span><span>Janeiro/2027</span><span>Fevereiro/2027</span><span>Março/2027</span><span>Abril/2027</span><span>Maio/2027</span></div>
+      </div>
+
+      <!-- legenda tom -->
+      <div style="display:flex; align-items:center; gap:16px; margin-top:2px; padding-left:182px; font-size:11px; color:var(--sf-text-weak)">
+        <span style="display:flex; align-items:center; gap:6px"><span style="width:14px; height:12px; background:var(--sf-navy); opacity:.4; border-radius:2px; display:inline-block"></span> melhor caso (mín.)</span>
+        <span style="display:flex; align-items:center; gap:6px"><span style="width:14px; height:12px; background:var(--sf-navy); border-radius:2px; display:inline-block"></span> pior caso (máx.)</span>
+      </div>
+    </div>
+
+    <div class="sz-tldr" style="margin-top:8px; border-left-color:var(--ext-yellow-70); background:var(--ext-yellow-95)"><p style="font-size:12px"><strong>⚠ Atenção:</strong> faixas com <strong>2 times em paralelo</strong> (frentes P2 e P4 concorrentes). Os prazos estão associados aos <strong>riscos e premissas apresentados adiante</strong>. As datas consideram do <strong>refinamento até QA</strong> e <strong>não incluem</strong> o período de <strong>homologação por parte do cliente</strong>.</p></div>
+    <span class="slide-num"></span>
+  </section>
+
+
+  
+<!-- Slide 34 · Referência · Faseamento por squad até 30/11 -->
+  <section class="slide">
+    <div class="slide-eyebrow">Material de referência · Plano de entrega até 30/11</div>
+    <h2 class="slide-title">Faseamento por squad — plano completo até <span style="color:var(--ext-pink-40)">30/11</span></h2>
+    <p style="font-size:11.5px; color:var(--sf-text-weak); margin-bottom:12px">Após a Fase 0 (compartilhada), as duas squads fluem em paralelo em ondas encadeadas — cada onda emenda a seguinte, sem ociosidade. Até <strong style="color:var(--ext-pink-40)">30/11</strong>: <strong>5 dos 6 pilares</strong>.</p>
+
+    <div class="fill" style="display:flex; flex-direction:column; gap:14px; justify-content:center">
+
+      <!-- estilos locais do fluxo -->
+      <style>
+        .flow-lane{display:flex; align-items:stretch; gap:8px}
+        .flow-tag{flex:none; width:120px; display:flex; flex-direction:column; justify-content:center; border-radius:8px; padding:8px 10px; color:#fff}
+        .flow-step{flex:1; position:relative; border-radius:8px; padding:8px 12px 8px 14px; background:#fff; border:1px solid var(--sf-cloud-80)}
+        .flow-step .pill{display:inline-block; font-size:8.5px; font-weight:700; color:#fff; border-radius:20px; padding:1px 8px; margin-bottom:3px}
+        .flow-step .ttl{font-size:11.5px; font-weight:700; line-height:1.1}
+        .flow-step .desc{font-size:9px; color:var(--sf-text-weak); margin-top:3px; line-height:1.25}
+        .flow-arrow{flex:none; align-self:center; font-size:18px; font-weight:700}
+      </style>
+
+      <!-- Fase 0 compartilhada (barra full-width) -->
+      <div style="display:flex; align-items:center; gap:10px; background:linear-gradient(90deg, #6b7280 0%, #9ca3af 100%); color:#fff; border-radius:8px; padding:9px 14px">
+        <span style="font-size:12px; font-weight:700; white-space:nowrap">🔍 Fase 0 · Discovery</span>
+        <span style="font-size:10px; opacity:.95">compartilhada — refinamento, contratos de API, write-back Sinqia, cálculo QRSA, fornecedor + data de início</span>
+      </div>
+      <div style="text-align:center; color:var(--sf-blue); font-size:14px; line-height:.4">▼ &nbsp;&nbsp;&nbsp;&nbsp; ▼</div>
+
+      <!-- Squad 1 lane -->
+      <div class="flow-lane">
+        <div class="flow-tag" style="background:var(--sf-navy)"><span style="font-size:12.5px; font-weight:700">Squad 1</span><span style="font-size:9px; opacity:.9">transacional / decisão</span></div>
+        <div class="flow-step" style="border-left:4px solid var(--sf-navy)"><span class="pill" style="background:var(--sf-navy)">ONDA 1</span><div class="ttl" style="color:var(--sf-navy)">P1 · Captação</div><div class="desc">JUCESP · cadastro manual · simulador · contas · cooperativas</div></div>
+        <div class="flow-arrow" style="color:var(--sf-navy)">→</div>
+        <div class="flow-step" style="border-left:4px solid var(--sf-navy)"><span class="pill" style="background:var(--sf-navy)">ONDA 2</span><div class="ttl" style="color:var(--sf-navy)">P3 · Proposta</div><div class="desc">Lista · detalhamento com status · orquestração via ocorrências</div></div>
+        <div class="flow-arrow" style="color:var(--sf-navy)">→</div>
+        <div class="flow-step" style="border-left:4px solid var(--sf-navy)"><span class="pill" style="background:var(--sf-navy)">ONDA 3</span><div class="ttl" style="color:var(--sf-navy)">P4 · Estruturação</div><div class="desc">Fichas PF/PJ · PDF · bloqueio de edição · upload · pendências</div></div>
+      </div>
+
+      <!-- Squad 2 lane -->
+      <div class="flow-lane">
+        <div class="flow-tag" style="background:var(--ext-teal)"><span style="font-size:12.5px; font-weight:700">Squad 2</span><span style="font-size:9px; opacity:.9">cadastro / contrato</span></div>
+        <div class="flow-step" style="border-left:4px solid var(--ext-teal)"><span class="pill" style="background:var(--ext-teal)">ONDA 1</span><div class="ttl" style="color:var(--ext-teal)">P2 · Pré-qualificação</div><div class="desc">Formulário adaptativo · BioValid · QRSA · Serpro · envio ao core</div></div>
+        <div class="flow-arrow" style="color:var(--ext-teal)">→</div>
+        <div class="flow-step" style="border-left:4px solid var(--ext-teal)"><span class="pill" style="background:var(--ext-teal)">ONDA 2</span><div class="ttl" style="color:var(--ext-teal)">P5 · Aprovação</div><div class="desc">Tela de proposta + aceite/recusa · efetivação síncrona no core</div></div>
+        <div class="flow-arrow" style="color:var(--sf-cloud-80)">⇢</div>
+        <div class="flow-step" style="border-left:4px dashed var(--ext-yellow-70); background:var(--ext-yellow-95)"><span class="pill" style="background:var(--ext-yellow-70)">APÓS 30/11</span><div class="ttl" style="color:var(--ext-yellow-70)">P6 · Formalização</div><div class="desc">CCB (download/upload) · garantias · contratos — até o fim do QA</div></div>
+      </div>
+
+      <!-- marco final -->
+      <div style="display:flex; justify-content:flex-end; margin-top:2px"><span style="background:var(--ext-pink-40); color:#fff; font-size:12px; font-weight:700; border-radius:20px; padding:4px 16px">🏁 Marco 30/11 — Pilares 1 a 5 concluídos</span></div>
+    </div>
+    <p class="cap">Ondas derivadas do cronograma (melhor caso, início 24/08). Faseamento indicativo, não compromisso.</p>
+    <span class="slide-num"></span>
+  </section>
+
+  
+<!-- Slide 35 · Referência · Matriz RACI -->
+  <section class="slide">
+    <div class="slide-eyebrow">Material de referência · Responsabilidades</div>
+    <h2 class="slide-title">Matriz RACI — responsabilidades por atividade</h2>
+    <p style="font-size:12px; color:var(--sf-text-weak); margin-bottom:12px">Três partes: <strong>Prodesp</strong> (infraestrutura e gestão técnica) · <strong>Orange</strong> (implementação Salesforce) · <strong>DSP</strong> (negócio, validação e decisão).</p>
+    <table class="sz-table" style="font-size:12.5px; table-layout:fixed">
+      <thead><tr>
+        <th style="width:34%">Atividade</th>
+        <th style="width:22%; text-align:center">Prodesp<div style="font-weight:400; font-size:9px">infra &amp; gestão técnica</div></th>
+        <th style="width:22%; text-align:center">Orange<div style="font-weight:400; font-size:9px">implementação Salesforce</div></th>
+        <th style="width:22%; text-align:center">DSP<div style="font-weight:400; font-size:9px">negócio &amp; decisão</div></th>
+      </tr></thead>
+      <tbody>
+        <tr><td><strong>Refinamento funcional</strong></td><td style="text-align:center">I</td><td style="text-align:center">R</td><td style="text-align:center"><strong>A</strong></td></tr>
+        <tr><td><strong>Refinamento técnico</strong></td><td style="text-align:center">C</td><td style="text-align:center"><strong>A</strong> · R</td><td style="text-align:center">I</td></tr>
+        <tr><td><strong>Construção</strong></td><td style="text-align:center">C</td><td style="text-align:center"><strong>A</strong> · R</td><td style="text-align:center">I</td></tr>
+        <tr><td><strong>Homologação / UAT</strong></td><td style="text-align:center">I</td><td style="text-align:center">R</td><td style="text-align:center"><strong>A</strong></td></tr>
+        <tr><td><strong>Deploy e go-live</strong></td><td style="text-align:center"><strong>A</strong> · R</td><td style="text-align:center">R</td><td style="text-align:center">C</td></tr>
+        <tr><td><strong>Gestão de mudança</strong></td><td style="text-align:center">I</td><td style="text-align:center">C</td><td style="text-align:center"><strong>A</strong> · R</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:10.5px; color:var(--sf-text-weak); margin-top:10px"><strong>R</strong> Responsible (executa) · <strong>A</strong> Accountable (responde/aprova) · <strong>C</strong> Consulted (consultado) · <strong>I</strong> Informed (informado).</p>
+    <p class="cap">Atribuições propostas a partir dos papéis das três partes — a validar com os patrocinadores antes de assinatura. Não substitui o contrato/SOW.</p>
+    <span class="slide-num"></span>
+  </section>
+
+  
+<!-- Slide 36 · Referência · Visão de 12 semanas (melhor caso) -->
+  <section class="slide">
+    <div class="slide-eyebrow">Material de referência · Visão de 12 semanas</div>
+    <h2 class="slide-title">Visão de 12 semanas — entregas por bloco (melhor caso)</h2>
+    <p style="font-size:11.5px; color:var(--sf-text-weak); margin-bottom:10px">Blocos de semanas alinhados às janelas do cronograma (melhor caso, início 24/08). As duas squads correm em paralelo; cada bloco lista as entregas concretas por pilar.</p>
+    <table class="sz-table" style="font-size:10.5px; table-layout:fixed">
+      <thead><tr>
+        <th style="width:12%">Semanas</th>
+        <th style="width:44%">Squad 1 · transacional / decisão</th>
+        <th style="width:44%">Squad 2 · cadastro / contrato</th>
+      </tr></thead>
+      <tbody>
+        <tr><td><strong>S1–2</strong><div style="font-size:9px; color:var(--sf-text-weak)">Discovery</div></td><td colspan="2"><strong>Fase 0 (compartilhada):</strong> refinamento funcional e técnico, contratos das APIs, write-back Sinqia, cálculo QRSA, provedor de assinatura (P6) e ambiente confirmados.</td></tr>
+        <tr><td><strong>S3–4</strong></td><td><strong>P1 · Captação</strong> — JUCESP, cadastro manual, simulador, sessão de contas, cooperativas (endurecimento/finalização).</td><td><strong>P2 · Pré-qualificação (início)</strong> — formulário adaptativo, exclusão/isenção QRSA.</td></tr>
+        <tr><td><strong>S5–6</strong></td><td><strong>P3 · Proposta</strong> — lista de solicitações, detalhamento com status, orquestração via ocorrências (mecanismo).</td><td><strong>P2 · Pré-qualificação (conclui)</strong> — BioValid, Serpro/e-CAC, envio síncrono ao core.</td></tr>
+        <tr><td><strong>S7–9</strong></td><td><strong>P4 · Estruturação</strong> — fichas PF/PJ, geração de PDF, bloqueio de edição, upload assíncrono, pendências de documentação.</td><td><strong>P5 · Aprovação</strong> — tela de proposta (detalhes financeiros) + aceite/recusa, efetivação síncrona no core.</td></tr>
+        <tr><td><strong>S10–12</strong><div style="font-size:9px; color:var(--sf-text-weak)">→ 30/11</div></td><td><strong>P6 · Formalização</strong> — download/upload da CCB, pendências de garantias, sessão de contratos.</td><td><strong>SIT / UAT / estabilização</strong> — regressão full-journey e hardening nas 3 jornadas.</td></tr>
+      </tbody>
+    </table>
+    <div class="sz-card" style="margin-top:10px; padding:9px 14px; border-left:4px solid var(--ext-yellow-70)">
+      <div class="card-h" style="font-size:11.5px; color:var(--ext-yellow-70)">Premissas que sustentam as 12 semanas</div>
+      <ul class="tight" style="font-size:10px; margin:4px 0 0">
+        <li><strong>Ambiente Salesforce provisionado</strong> (org, sandboxes, acessos) <strong>antes do início</strong> (S1).</li>
+        <li><strong>APIs Sinqia com escopo confirmado</strong> (Swagger/contratos, write-back PUT/PATCH, erro/DLQ) <strong>até a S2</strong>, no fim da Fase 0.</li>
+        <li><strong>Disponibilidade da área de crédito da DSP</strong> para refinamento e <strong>UAT nas S10–12</strong>.</li>
+        <li><strong>P1 · Captação entregue ou em finalização</strong> no início do período (reaproveitamento do que já está em QA).</li>
+        <li><strong>Provedor de assinatura digital (P6) definido antes da S10</strong>, quando a Formalização entra em construção.</li>
+        <li><strong>Início em 24/08</strong> e as duas squads dedicadas em paralelo, sem realocação.</li>
+      </ul>
+    </div>
+    <p class="cap">Blocos e janelas derivados do cronograma (melhor caso). Indicativo, não compromisso; se uma premissa não valer, a faixa desloca em direção ao teto (22 semanas).</p>
+    <span class="slide-num"></span>
+  </section>
+
+  
+<!-- Slide 37 · Referência · Escopo entregue até 30/09 -->
+  <section class="slide">
+    <div style="position:absolute; top:14px; right:16px; z-index:9; background:#b91c1c; color:#fff; font-size:9px; font-weight:800; letter-spacing:.4px; padding:3px 9px; border-radius:10px; text-transform:uppercase">Histórico · anterior a 19/08</div>
+    <div class="slide-eyebrow">Material de referência · Escopo por marco</div>
+    <h2 class="slide-title">O que é entregue até <span style="color:#e57373">30/09</span> — Pilar 1 (Captação)</h2>
+    <p style="font-size:12px; color:var(--sf-text-weak); margin-bottom:12px">No melhor caso, o marco de <strong>30/09</strong> (≈5 semanas após o arranque) conclui a <strong>Fase 0 + o Pilar 1 (Captação)</strong>. Os demais pilares ainda estão em desenvolvimento nesta data.</p>
+    <div class="two-col fill" style="align-items:flex-start; gap:20px">
+      <div class="sz-card" style="border-left:4px solid var(--ext-teal)">
+        <div class="card-h" style="font-size:13px; color:var(--ext-teal)">Concluído até 30/09</div>
+        <div style="font-size:11px; color:var(--sf-text-weak); margin-bottom:4px"><strong>Fase 0 · Discovery / Foundation</strong> — refinamento e trava das premissas.</div>
+        <div class="card-h" style="font-size:12.5px; margin-top:6px">Pilar 1 · Captação</div>
+        <ul class="tight" style="font-size:11.5px">
+          <li>Enriquecimento cadastral automático via JUCESP</li>
+          <li>Cadastro manual de conta e proteção de dados</li>
+          <li>Simulador de crédito unificado</li>
+          <li>Sessão de contas e visualização de detalhes</li>
+          <li>Regras de visibilidade e hierarquia para cooperativas</li>
+        </ul>
+      </div>
+      <div class="sz-card" style="border-left:4px solid var(--ext-yellow-70)">
+        <div class="card-h" style="font-size:13px; color:var(--ext-yellow-70)">Ainda em desenvolvimento em 30/09</div>
+        <ul class="tight" style="font-size:11.5px">
+          <li><strong>Pilar 2 · Pré-qualificação</strong> — em andamento (a mais pesada)</li>
+          <li><strong>Pilar 3 · Proposta</strong> — não iniciado</li>
+          <li><strong>Pilar 4 · Estruturação</strong> — não iniciado</li>
+          <li><strong>Pilar 5 · Aprovação</strong> — não iniciado</li>
+          <li><strong>Pilar 6 · Formalização</strong> — não iniciado</li>
+        </ul>
+        <div style="margin-top:10px; font-size:11px; color:var(--sf-text-weak)">A meta de 30/09 entrega apenas a Captação — muito aquém da jornada completa. Ver o marco 30/11 (5 pilares) para o contraste.</div>
+      </div>
+    </div>
+    <span class="slide-num"></span>
+  </section>
+
+  
+<!-- Slide 38 · Referência · Composição das squads -->
+  <section class="slide">
+    <div class="slide-eyebrow">Material de referência · Composição das squads</div>
+    <h2 class="slide-title">Composição das squads — funções por frente</h2>
+    <p style="font-size:13px; color:var(--sf-text-weak); margin-bottom:12px">As duas squads correm em paralelo por fase (slide anterior). Abaixo, as <strong>funções</strong> que cada uma exige, derivadas do escopo dos pilares que entrega. <strong>Funções, não quantitativo</strong> — o número de pessoas é dimensionado com o Solution Lead e não é apresentado aqui.</p>
+    <div class="two-col fill" style="align-items:stretch; gap:20px">
+      <div class="sz-card" style="border-left:4px solid var(--sf-navy)">
+        <div class="card-h" style="font-size:14px; color:var(--sf-navy)">Squad 1 · Transacional / wizard</div>
+        <div style="font-size:11px; color:var(--sf-text-weak); margin-bottom:8px">Captação · Pré-qualificação · Proposta (Pilares 1, 2, 3)</div>
+        <ul class="tight" style="font-size:12px">
+          <li><strong>Desenvolvedor Salesforce</strong> (LWC + Apex) — formulários adaptativos, wizard, telas de proposta</li>
+          <li><strong>Especialista em integração</strong> — entrada síncrona no core, Serpro, status</li>
+          <li><strong>Business Analyst</strong> — jornada única, regras por linha de crédito</li>
+          <li><strong>SME de risco</strong> — QRSA (perguntas, rating, isenção)</li>
+          <li><strong>QA</strong> — regressão da esteira transacional</li>
+        </ul>
+      </div>
+      <div class="sz-card" style="border-left:4px solid var(--ext-teal)">
+        <div class="card-h" style="font-size:14px; color:var(--ext-teal)">Squad 2 · Cadastro / contrato + backbone</div>
+        <div style="font-size:11px; color:var(--sf-text-weak); margin-bottom:8px">Estruturação · Formalização · Aprovação + backbone de ocorrências (Pilares 4, 6, 5)</div>
+        <ul class="tight" style="font-size:12px">
+          <li><strong>Desenvolvedor Salesforce</strong> (LWC + Apex) — fichas PF/PJ, CCB, contratos</li>
+          <li><strong>Arquiteto de integração</strong> — backbone event-first, orquestração de ocorrências</li>
+          <li><strong>Desenvolvedor de Platform Events</strong> — publicação/consumo do barramento</li>
+          <li><strong>Modelador de dados</strong> — sócios/garantidores/participações</li>
+          <li><strong>Business Analyst</strong> — mapa ocorrências↔pendências↔fases</li>
+          <li><strong>QA</strong> — regressão de cadastro/contrato</li>
+        </ul>
+      </div>
+    </div>
+    <div class="sz-card" style="margin-top:14px; padding:10px 14px; border-left:4px solid var(--sf-cloud-80)">
+      <div class="card-h" style="font-size:12.5px">Compartilhado entre as squads</div>
+      <p style="font-size:11.5px; margin:0"><strong>Solution Architect</strong> (governança técnica e coerência entre frentes) · <strong>coordenação/gestão de entrega</strong> (interface entre squads, definida cedo) · a <strong>lane de integração MuleSoft</strong> (API-Led) é conduzida pelo parceiro/Evertec, fora das squads Salesforce.</p>
+    </div>
+    <p class="cap">Funções derivadas de estimates.json (skills_needed por pilar) e da divisão de frentes do slide "Dois times em paralelo". Sem quantitativo de pessoas — a contagem é dimensionada e validada com o Solution Lead.</p>
+    <span class="slide-num"></span>
+  </section>
+
+  
+<!-- Slide 39 · Referência · Justificativa da faixa de prazo -->
+  <section class="slide">
+    <div class="slide-eyebrow">Material de referência · Justificativa dos prazos</div>
+    <h2 class="slide-title">Por que a faixa é 12–22 semanas no melhor cenário</h2>
+    <p style="font-size:11px; color:var(--sf-text-weak); margin-bottom:8px">Melhor cenário = via <strong>Aumentada</strong> (IA) com <strong>2 squads em paralelo</strong>. O <strong>piso (12 sem)</strong> assume as premissas resolvidas e as frentes correndo juntas; o <strong>teto (22 sem)</strong> reflete os riscos ainda em aberto. A amplitude de <strong>10 semanas</strong> é o custo da incerteza — cada premissa fechada na Fase 0 encolhe a faixa.</p>
+    <div class="two-col fill" style="grid-template-columns:0.72fr 1.28fr; align-items:stretch; gap:16px">
+      <div class="sz-card" style="border-left:4px solid var(--ext-teal); padding:10px 12px">
+        <div class="card-h" style="font-size:11.5px; color:var(--ext-teal)">O que fixa o piso (~12 sem)</div>
+        <ul class="tight" style="font-size:9.5px; line-height:1.35">
+          <li><strong>2 squads concorrentes</strong> — as frentes pesadas (transacional e cadastro/contrato) correm ao mesmo tempo, derrubando o mínimo</li>
+          <li><strong>Aceleração por IA</strong> (via Aumentada) — compressão de −10 a 25% do tempo de calendário sobre a âncora Tradicional</li>
+          <li><strong>Captação reaproveitada</strong> (já em QA) e <strong>backbone de ocorrências</strong> como plumbing comum</li>
+          <li>Escopo integral fixo e crédito permanecendo no Sinqia (Salesforce só front-end)</li>
+        </ul>
+      </div>
+      <div class="sz-card" style="border-left:4px solid var(--ext-yellow-70); padding:10px 12px">
+        <div class="card-h" style="font-size:11.5px; color:var(--ext-yellow-70)">O que empurra ao teto (~22 sem) — os fatores em detalhe</div>
+        <div style="font-size:9.5px; line-height:1.4">
+          <p style="margin:0 0 6px"><strong>① Prontidão das APIs e o tempo de DSP/Sinqia</strong> — incerteza sobre se as integrações estão <strong>totalmente prontas</strong> (30 de 30 a confirmar, só JUCESP em QA; Swagger/documentação e write-back PUT/PATCH pendentes) <em>e</em> sobre o <strong>tempo que DSP/Sinqia levará para desenvolvê-las/disponibilizá-las</strong>. É uma dependência externa fora do nosso controle: se as APIs atrasam, o build espera ou corre sobre mocks e refaz — o maior risco de deslocamento do teto.</p>
+          <p style="margin:0 0 6px"><strong>② Aprovação das 3 frentes antes de iniciar cada item</strong> — cada novo pilar/funcionalidade exige <strong>alinhamento e aprovação das três frentes</strong> (Salesforce, DSP e Sinqia/Evertec) antes de começar. Esse gate de entrada, somado à coordenação multi-fornecedor, pode <strong>atrasar o início</strong> de cada frente de trabalho e reduzir o ganho do paralelismo entre as squads.</p>
+          <p style="margin:0"><strong>③ Requisitos ainda em nível macro</strong> — o trabalho até aqui foi de <strong>escopo macro</strong>, sem refinamento detalhado por funcionalidade. Requisitos que só se detalham na refinação podem <strong>revelar complexidade não prevista</strong> (regras, exceções, telas) — quanto menor o detalhamento hoje, mais larga a faixa. Fechar o refinamento na Fase 0 é o que mais a estreita.</p>
+        </div>
+      </div>
+    </div>
+    <div class="sz-tldr" style="margin-top:10px; border-left-color:var(--ext-yellow-70); background:var(--ext-yellow-95)"><p style="font-size:9.5px"><strong>⚠ Faixa benchmark, não compromisso</strong> · tempo de calendário (refinamento até QA, sem homologação do cliente). Derivada top-down pela forma do engajamento e comprimida pela via Aumentada + paralelismo. Fechar as premissas da Fase 0 é o que mais estreita a faixa.</p></div>
+    <span class="slide-num"></span>
+  </section>
+
+  
+<!-- Slide 40 · Referência · Justificativa por fase -->
+  <section class="slide">
+    <div style="position:absolute; top:14px; right:16px; z-index:9; background:#b91c1c; color:#fff; font-size:9px; font-weight:800; letter-spacing:.4px; padding:3px 9px; border-radius:10px; text-transform:uppercase">Histórico · anterior a 19/08</div>
+    <div class="slide-eyebrow">Material de referência · Justificativa dos prazos</div>
+    <h2 class="slide-title">Justificativa da faixa por fase — o que ancora cada janela</h2>
+    <table class="sz-table" style="font-size:11px; table-layout:fixed">
+      <thead><tr>
+        <th style="width:20%">Fase</th>
+        <th style="width:16%">Janela (melhor · pior)</th>
+        <th>O que sustenta o prazo — e o que alarga</th>
+      </tr></thead>
+      <tbody>
+        <tr><td><strong>0 · Discovery / Foundation</strong></td><td>07/09 · 14/09</td><td>Curta e fixa: refinamento e trava das premissas. É o gate de viabilidade — fechar contratos de API, write-back Sinqia, cálculo QRSA e fornecedor/início <strong>encolhe todas as fases seguintes</strong>.</td></tr>
+        <tr><td><strong>1 · Captação + Backbone</strong></td><td>28/09 · 19/10</td><td>Piso apoiado no <strong>reaproveitamento</strong> da Captação (QA). Alarga se o backbone de ocorrências (event-first) exigir mais orquestração/BA ou se a estratégia de erro/DLQ crescer.</td></tr>
+        <tr><td><strong>2 · Pré-qual + Proposta + Aprovação</strong></td><td>26/10 · 07/12</td><td><strong>A fase mais pesada</strong> (52% do peso): jornada adaptativa, QRSA completo, Serpro, entrada síncrona no core e a efetivação síncrona da aprovação. Maior amplitude — puxada por <strong>QRSA (local de cálculo)</strong> e pelos contratos de API.</td></tr>
+        <tr><td><strong>3 · Estruturação + Formalização</strong></td><td>16/11 · 18/01</td><td>Fichas PF/PJ profundas, upload assíncrono, CCB. Alarga com a <strong>escrita (PUT/PATCH) ao Sinqia</strong> não confirmada e o reuso da geração de CCB.</td></tr>
+        <tr><td><strong>4 · SIT / UAT / QA</strong></td><td>30/11 · 22/02</td><td>Estabilização full-journey nas 3 jornadas. O pior caso reflete o <strong>cutover da dupla operação</strong> Salesforce+Sinqia e a regressão sobre brownfield + trabalho novo. Homologação do cliente fica fora do envelope.</td></tr>
+      </tbody>
+    </table>
+    <p class="cap">Datas: via Aumentada, início 24/08/2026, refinamento até QA (slide "Plano de implementação"). Fases 2–4 se sobrepõem pelas 2 squads em paralelo. Faixas benchmark, não compromisso; tempo de calendário, sem homologação do cliente.</p>
+    <span class="slide-num"></span>
+  </section>
+
+  
+<!-- Slide 41 · Referência · Incertezas e impacto na base -->
+  <section class="slide">
+    <div class="slide-eyebrow">Material de referência · Incertezas e impacto</div>
+    <h2 class="slide-title">Do piso ao teto — as incertezas que alargam a faixa (12 → 22 semanas)</h2>
+    <!-- barra empilhada: base 12 + incrementos até 22 (escala 0-22 sem = 100%) -->
+    <div style="display:flex; height:88px; border-radius:6px; overflow:hidden; margin-top:8px; margin-bottom:6px; font-size:13px; font-weight:700; color:#fff">
+      <div style="width:54.5%; background:var(--ext-teal); display:flex; flex-direction:column; align-items:center; justify-content:center">Base · 12 sem<span style="font-weight:400; font-size:10px">piso (melhor cenário)</span></div>
+      <div style="width:22.7%; background:var(--sf-navy); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center">① +5 sem<span style="font-weight:400; font-size:10px">+42%</span></div>
+      <div style="width:9.1%; background:var(--sf-container); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center">② +2<span style="font-weight:400; font-size:10px">+17%</span></div>
+      <div style="width:13.6%; background:var(--sf-blue); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center">③ +3 sem<span style="font-weight:400; font-size:10px">+25%</span></div>
+    </div>
+    <div style="display:flex; justify-content:space-between; font-size:10px; color:var(--sf-text-weak); margin-bottom:16px"><span>0</span><span>12 sem (base)</span><span>22 sem (teto)</span></div>
+
+    <table class="sz-table" style="font-size:11.5px; table-layout:fixed">
+      <thead><tr><th style="width:34%">Incerteza</th><th style="width:14%; text-align:center">Impacto s/ base</th><th>Por que alarga</th></tr></thead>
+      <tbody>
+        <tr><td><strong>① Prontidão das APIs + tempo DSP/Sinqia</strong></td><td style="text-align:center"><span class="sz-tag sz-tag--critical">+42%</span><div style="font-size:9px; color:var(--sf-text-weak)">~+5 sem</div></td><td>Dependência externa fora do nosso controle: se as 30 APIs (só JUCESP em QA) não estiverem prontas, o build espera ou corre sobre mocks e refaz. <strong>Incerteza adicional: a complexidade real de cada API</strong> — sem Swagger/contrato, o esforço verdadeiro (transformação, write-back PUT/PATCH, erro/retry/DLQ) só se revela na integração e pode ser maior que o assumido. O maior fator.</td></tr>
+        <tr><td><strong>② Aprovação das 3 frentes antes de iniciar</strong></td><td style="text-align:center"><span class="sz-tag sz-tag--high">+17%</span><div style="font-size:9px; color:var(--sf-text-weak)">~+2 sem</div></td><td>Cada pilar/funcionalidade exige alinhamento das três frentes (Salesforce · DSP · Sinqia/Evertec) antes de começar — o gate de entrada atrasa o início e reduz o ganho do paralelismo.</td></tr>
+        <tr><td><strong>③ Requisitos ainda em nível macro</strong></td><td style="text-align:center"><span class="sz-tag sz-tag--high">+25%</span><div style="font-size:9px; color:var(--sf-text-weak)">~+3 sem</div></td><td>Escopo macro, sem refinamento por funcionalidade — a refinação pode revelar complexidade não prevista (regras, exceções, telas).</td></tr>
+        <tr style="font-weight:700; background:var(--sf-light-bg)"><td>Total das incertezas</td><td style="text-align:center">~+83%</td><td>+10 semanas sobre a base → teto de 22 semanas. Fechar cada incerteza na Fase 0 encolhe a faixa.</td></tr>
+      </tbody>
+    </table>
+    <p class="cap"><strong>Alocação indicativa</strong> dos percentuais por incerteza — o total (+83% / +10 sem) é a amplitude derivada da faixa; a repartição entre as três é uma leitura para validação, não uma medição fina. Faixas benchmark, não compromisso; tempo de calendário.</p>
+    <span class="slide-num"></span>
+  </section>
+
+<div class="nav">
+  <button onclick="go(-1)">← Anterior</button>
+  <span id="count"></span>
+  <button onclick="go(1)">Próximo →</button>
+</div>
+<script>
+  const slides = [...document.querySelectorAll('.slide')];
+  let i = 0;
+  function fit(){ document.documentElement.style.setProperty('--scale', Math.min(innerWidth/1280, innerHeight/720)); }
+  addEventListener('resize', fit); fit();
+  const nav = document.querySelector('.nav'); let idleTimer;
+  function wake(){ nav.classList.remove('idle'); clearTimeout(idleTimer); idleTimer = setTimeout(()=>nav.classList.add('idle'), 2500); }
+  ['mousemove','keydown','touchstart'].forEach(ev=>addEventListener(ev, wake)); wake();
+  function show(n){ i = Math.max(0, Math.min(slides.length-1, n));
+    slides.forEach((s,k)=>s.classList.toggle('active', k===i));
+    document.getElementById('count').textContent = (i+1)+' / '+slides.length;
+    slides.forEach((s,k)=>{const el=s.querySelector('.slide-num'); if(el) el.textContent=k+1;});
+  }
+  function go(d){ show(i+d); }
+  addEventListener('keydown', e=>{
+    if(['ArrowRight','ArrowDown',' '].includes(e.key)){e.preventDefault(); go(1);}
+    if(['ArrowLeft','ArrowUp'].includes(e.key)){e.preventDefault(); go(-1);}
+  });
+  addEventListener('beforeprint', ()=>slides.forEach(s=>s.classList.add('active')));
+  addEventListener('afterprint', ()=>show(i));
+  show(0);
+</script>
+</body>
+</html>
+

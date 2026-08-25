@@ -1,0 +1,183 @@
+digraph ArquiteturaVisaoSalesforce {
+  rankdir=TB;
+  bgcolor="white";
+  fontname="Helvetica";
+  labelloc="t";
+  fontsize=27;
+  label=<<b>Visão de Arquitetura — Marketplace PAT · mapeada a capacidades Salesforce</b><br/><font point-size="14" color="#555555">Consolidada dos 4 documentos técnicos · com fluxos · épicas E01–E10 · ADRs 0001–0005</font><br/><font point-size="14" color="#8B1A17"><b>⊘ fora do escopo da proposta atual</b></font><font point-size="14" color="#555555">   ·   </font><font point-size="14" color="#7A5B00"><b>◐ atendido parcialmente</b></font><br/> >;
+  node [fontname="Helvetica", shape=box, style="rounded,filled", fontsize=12.5, margin="0.18,0.10", color="#032D60", fontcolor="#032D60"];
+  nodesep=0.34;
+  ranksep=0.70;
+  newrank=true;
+  splines=spline;
+  concentrate=false;
+
+  edge [color="#6B7A8D", penwidth=1.3, arrowsize=0.7, fontname="Helvetica", fontsize=10, fontcolor="#4A5666"];
+
+  /* ===== espinha invisível ===== */
+  s1 [shape=point, width=0.01, style=invis];
+  s2 [shape=point, width=0.01, style=invis];
+  s3 [shape=point, width=0.01, style=invis];
+  s4 [shape=point, width=0.01, style=invis];
+  s5 [shape=point, width=0.01, style=invis];
+  s6 [shape=point, width=0.01, style=invis];
+  s7 [shape=point, width=0.01, style=invis];
+  s8 [shape=point, width=0.01, style=invis];
+  s1 -> s2 -> s3 -> s4 -> s5 -> s6 -> s7 -> s8 [style=invis];
+
+  /* ===== 1 · CANAIS / ATORES ===== */
+  subgraph cluster_atores {
+    label=<<b>1 · Canais &amp; Atores  (identidade)</b>>;
+    fontsize=15; color="#B0B0B0"; style="rounded"; bgcolor="#F5F7FA"; margin=16;
+    node [fillcolor="#E8EDF3", color="#9AA7B4", fontcolor="#032D60"];
+    a_benef  [label="Empresa Beneficiária\n(PAT / não-PAT)\ngov.br (OpenID Connect)"];
+    a_estab  [label="Estabelecimento\nComercial\ngov.br Prata/Ouro"];
+    a_facil  [label="Facilitadora\nCertificado digital (mTLS)"];
+    a_adq    [label="⊘ FORA DO ESCOPO\nAdquirente / Rede\nCertificado digital (mTLS)", fillcolor="#EAEAEA", color="#B03A2E", fontcolor="#8A8A8A", style="rounded,filled,dashed", penwidth=2];
+    a_mte    [label="Gestor / Fiscal MTE\nGERID (IdP)"];
+    a_trab   [label="⊘ FORA DO ESCOPO\nTrabalhador\nCTPS Digital", fillcolor="#EAEAEA", color="#B03A2E", fontcolor="#8A8A8A", style="rounded,filled,dashed", penwidth=2];
+    { rank=same; s1; a_benef; a_estab; a_facil; a_adq; a_mte; a_trab; }
+  }
+
+  /* ===== 2 · EXPERIÊNCIA SALESFORCE ===== */
+  subgraph cluster_exp {
+    label=<<b>2 · Experiência &amp; APIs — Salesforce</b>>;
+    fontsize=15; color="#B0B0B0"; style="rounded"; bgcolor="#E7F0FB"; margin=16;
+    node [fillcolor="#0176D3", color="#0176D3", fontcolor="white"];
+    e_portal_b [label="E01 · Experience Cloud\nPortal Beneficiária"];
+    e_portal_e [label="E01 · Experience Cloud\nPortal Estabelecimento"];
+    e_gestao   [label="E10 · Tableau + UI nativa\nPainéis de Gestão MTE"];
+    e_api      [label="APIs Públicas (OpenAPI)\nFacilitadoras / Adquirentes\nexpostas via MuleSoft"];
+    { rank=same; s2; e_portal_b; e_portal_e; e_gestao; e_api; }
+  }
+
+  /* ===== 3 · CAPACIDADES → PRODUTOS SALESFORCE ===== */
+  subgraph cluster_cap {
+    label=<<b>3 · Capacidades de Negócio → Salesforce  (fluxos BPMN)</b>>;
+    fontsize=15; color="#B0B0B0"; style="rounded"; bgcolor="#EAF6EE"; margin=16;
+    node [fillcolor="#2E844A", color="#2E844A", fontcolor="white"];
+    c_cot  [label="E02 · Sales Cloud (nativo)\nCotação = Opportunity\nProposta = Quote (ADR 0004)"];
+    c_con  [label="E02 · Gestão de Contratos\n(documental · PDF imutável\n· vínculo NOVO PAT)"];
+    c_fin  [label="E03 · Motor Financeiro (custom)\nFolha (layout único) · split · boleto\nrepasse · NF · pagamento FORA"];
+    c_cred [label="E04 · Credenciamento\nExperience + automação + IA\n+ descredenciamento (blacklist)\nlicença sanitária = autodeclaração + IA"];
+    c_gest [label="E08 / E10 · Governança MTE\n(views nativas + Tableau)"];
+    c_not  [label="⊘ FORA DO ESCOPO\nNotificação de crédito\n→ CTPS Digital (E03+E05)", fillcolor="#EAEAEA", color="#B03A2E", fontcolor="#8A8A8A", style="rounded,filled,dashed", penwidth=2];
+    { rank=same; s3; c_cot; c_con; c_fin; c_cred; c_gest; c_not; }
+  }
+
+  /* ===== 4 · DADOS SALESFORCE ===== */
+  subgraph cluster_dados {
+    label=<<b>4 · Dados — Instância Salesforce Dedicada (ADR 0002)</b>>;
+    fontsize=15; color="#B0B0B0"; style="rounded"; bgcolor="#EDE9F5"; margin=16;
+    node [fillcolor="#5867E8", color="#5867E8", fontcolor="white"];
+    d_neg  [label="Objetos nativos\nOpportunity · Quote · Contract"];
+    d_fin  [label="Objetos custom\nFolha · Transações · split"];
+    d_est  [label="Estabelecimentos\nCredenciados / blacklist"];
+    d_ven  [label="⊘ FORA DO ESCOPO\nTransações de Vendas\n(monitoramento · até 30M/dia)", fillcolor="#EAEAEA", color="#B03A2E", fontcolor="#8A8A8A", style="rounded,filled,dashed", penwidth=2];
+    d_res  [label="Residência híbrida\nCPF tokenizado (ADR 0001)"];
+    { rank=same; s4; d_neg; d_fin; d_est; d_ven; d_res; }
+  }
+
+  /* ===== 5 · DISPONIBILIZAÇÃO À DATAPREV (ANEXO III) — majoritariamente FORA DO ESCOPO ===== */
+  subgraph cluster_egress {
+    label=<<b>5 · Disponibilização de Dados à Dataprev — Anexo III  ·  majoritariamente FORA DO ESCOPO da proposta atual</b>>;
+    fontsize=15; color="#C23934"; style="rounded,bold"; bgcolor="#FBEAE9"; margin=16;
+    g_cdc [label="◐ PARCIAL — mecanismo existe, mas SEM o repositório analytics\nChange Data Capture / Platform Events → MuleSoft\nincremental imediato + carga inicial", fillcolor="#FDF3D0", color="#D68910", fontcolor="#7A5B00", style="rounded,filled,dashed", penwidth=2];
+    g_sla [label="⊘ FORA DO ESCOPO\nSLA de latência por conjunto\ncadastros ≤1h · cotações/contratos ≤2h · folhas ≤4h\ntransações ≤2h · split ≤4h · boletos ≤2h · logs ≤2h", fillcolor="#EAEAEA", color="#B03A2E", fontcolor="#8A8A8A", style="rounded,filled,dashed", penwidth=2];
+    g_gov [label="⊘ FORA DO ESCOPO\nContratos de Dados · Catálogo · Dicionário\nreconciliação · idempotência · DLQ", fillcolor="#EAEAEA", color="#B03A2E", fontcolor="#8A8A8A", style="rounded,filled,dashed", penwidth=2];
+    g_dst [label="⊘ FORA DO ESCOPO\nInfra Analítica indicada pela Dataprev\n(object storage · filas · streaming · SFTP)\nretenção ≥ 5 anos · nada exclusivo da contratada", fillcolor="#EAEAEA", color="#B03A2E", fontcolor="#8A8A8A", style="rounded,filled,dashed", penwidth=2];
+    { rank=same; s5; g_cdc; g_sla; g_gov; g_dst; }
+  }
+
+  /* ===== 6 · INTEGRAÇÃO MULESOFT ===== */
+  subgraph cluster_int {
+    label=<<b>6 · Integração — MuleSoft on-premise (E05 · ADR 0005)</b>>;
+    fontsize=15; color="#B0B0B0"; style="rounded"; bgcolor="#FDF0E6"; margin=16;
+    node [fillcolor="#F28C00", color="#F28C00", fontcolor="white"];
+    i_bus [label="MuleSoft API-led (greenfield · infra Dataprev · modular)\nAPIs de polling p/ facilitadoras · throttling + filas · retry+backoff · DLQ · auto-scale\nmock-first · W3C Trace Context · RFC 9110 · conformidade governança de APIs Dataprev", width=11.5];
+    { rank=same; s6; i_bus; }
+  }
+
+  /* ===== 7 · SISTEMAS EXTERNOS ===== */
+  subgraph cluster_ext {
+    label=<<b>7 · Sistemas Externos (governo &amp; terceiros)</b>>;
+    fontsize=15; color="#B0B0B0"; style="rounded"; bgcolor="#F2F2F2"; margin=16;
+    node [fillcolor="#E0E0E0", color="#A0A0A0", fontcolor="#333333"];
+    x_pat  [label="NOVO PAT\n(adesão / vínculo — DTI/MTE)\n⚠ hoje sem API"];
+    x_gov  [label="gov.br\n(identidade)"];
+    x_ger  [label="⊘ FORA DO ESCOPO\nGERID\n(IdP MTE)", fillcolor="#EAEAEA", color="#B03A2E", fontcolor="#8A8A8A", style="rounded,filled,dashed", penwidth=2];
+    x_ctps [label="⊘ FORA DO ESCOPO\nCTPS Digital", fillcolor="#EAEAEA", color="#B03A2E", fontcolor="#8A8A8A", style="rounded,filled,dashed", penwidth=2];
+    x_gw   [label="Gateway /\nInstituição Financeira\n(custódia — ADR 0003)"];
+    x_rf   [label="Receita Federal\n(CNPJ / CNAE)"];
+    x_vs   [label="⊘ FORA DO ESCOPO\nVigilância Sanitária\n(autodeclaração · sem base nacional)", fillcolor="#EAEAEA", color="#B03A2E", fontcolor="#8A8A8A", style="rounded,filled,dashed", penwidth=2];
+    { rank=same; s7; x_pat; x_gov; x_ger; x_ctps; x_gw; x_rf; x_vs; }
+  }
+
+  /* ===== FAIXA · SEGURANÇA/CONFORMIDADE + TENSÃO ARQUITETURAL (rodapé) ===== */
+  subgraph cluster_cross {
+    label=<<b>Segurança &amp; Conformidade (Shield / Hyperforce) · Tensão Recomendações Arquiteturais · Marcos Anexo III</b>>;
+    fontsize=14; color="#C05A2E"; style="rounded,dashed"; bgcolor="#FBEDE6"; margin=14;
+    node [fillcolor="#F6D9CB", color="#C97B54", fontcolor="#8B3A17", fontsize=11.5];
+    nf_shield [label="Shield · Event Monitoring\n(auditoria imutável · IP · porta)"];
+    nf_res    [label="Instância dedicada (ADR 0002)\nLGPD · CPF tokenizado (ADR 0001)"];
+    nf_disp   [label="Disponibilidade\n99% / 99,5% · ≤ 3s p95"];
+    nf_acc    [label="Acessibilidade\ne-MAG 3.1 / WCAG 2.1 AA"];
+    nf_tens   [label="⚠ Tensão a resolver (Recomendações):\nprivate-cloud / containers / stack Dataprev\n(desejável) × Salesforce SaaS", fillcolor="#FBD9D5", color="#C23934", fontcolor="#8B1A17"];
+    nf_mrc    [label="Marcos Anexo III (majoritar. fora do escopo)\n01/09 schemas → 30/09 cadastros prod\n18/10 transações+carga → 15/11 lançamento", fillcolor="#FBD9D5", color="#C23934", fontcolor="#8B1A17"];
+    { rank=same; s8; nf_shield; nf_res; nf_disp; nf_acc; nf_tens; nf_mrc; }
+  }
+
+  /* ================= SETAS SEMÂNTICAS ================= */
+  edge [constraint=false];
+
+  /* 1 → 2 */
+  a_benef -> e_portal_b;
+  a_estab -> e_portal_e;
+  a_facil -> e_api [label="polling", style=dashed];
+  a_adq   -> e_api [label="fora do escopo", style=dotted, color="#9AA0A6", fontcolor="#9AA0A6"];
+  a_mte   -> e_gestao;
+
+  /* 2 → 3 */
+  e_portal_b -> c_cot;
+  e_portal_b -> c_fin;
+  e_portal_e -> c_cred;
+  e_gestao   -> c_gest;
+  e_api      -> c_cot [label="consulta cotações"];
+  e_api      -> c_fin [label="folha + boleto"];
+
+  /* 3 → 4 */
+  c_cot  -> d_neg;
+  c_con  -> d_neg;
+  c_fin  -> d_fin;
+  c_cred -> d_est;
+  c_not  -> d_ven [style=dotted, color="#9AA0A6", fontcolor="#9AA0A6"];
+
+  /* 4 → 5 · replicação Anexo III — parcial no CDC, resto fora do escopo */
+  edge [color="#9AA0A6", penwidth=1.1, style=dotted, fontcolor="#9AA0A6"];
+  d_neg -> g_cdc [color="#D68910", penwidth=1.4, style=dashed, fontcolor="#7A5B00"];
+  d_fin -> g_cdc [color="#D68910", penwidth=1.4, style=dashed, fontcolor="#7A5B00"];
+  d_est -> g_cdc [color="#D68910", penwidth=1.4, style=dashed, fontcolor="#7A5B00"];
+  d_ven -> g_cdc;
+  g_cdc -> g_dst [label="fora do escopo (sem repositório analytics)"];
+
+  /* 3 → 6 · chamadas externas via MuleSoft — setas laranja (Vigilância Sanitária = autodeclaração) */
+  edge [color="#C07A2B", penwidth=1.3, style=solid, fontcolor="#8A5418"];
+  c_con  -> i_bus [label="vínculo"];
+  c_cred -> i_bus [label="CNPJ/CNAE"];
+  c_fin  -> i_bus [label="boleto/repasse"];
+
+  /* 6 → 7 · integrações em escopo (sólidas) e fora de escopo (pontilhadas) */
+  i_bus -> x_pat;
+  i_bus -> x_gov;
+  i_bus -> x_gw;
+  i_bus -> x_rf;
+  i_bus -> x_ger  [style=dotted, color="#9AA0A6", fontcolor="#9AA0A6"];
+  i_bus -> x_ctps [style=dotted, color="#9AA0A6", fontcolor="#9AA0A6"];
+  i_bus -> x_vs   [label="autodeclaração", style=dotted, color="#9AA0A6", fontcolor="#9AA0A6"];
+
+  /* egress MuleSoft → Infra Dataprev — fora do escopo */
+  i_bus -> g_dst [label="egress Anexo III (fora do escopo)", style=dotted, color="#9AA0A6", fontcolor="#9AA0A6"];
+
+  /* notificação → trabalhador — fora do escopo */
+  x_ctps -> a_trab [label="crédito programado (fora do escopo)", style=dotted, color="#9AA0A6", fontcolor="#9AA0A6"];
+}

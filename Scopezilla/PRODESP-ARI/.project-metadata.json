@@ -1,0 +1,41 @@
+{
+  "project_name": "ARI PRODESP",
+  "created_at": "2026-08-24",
+  "depth_mode": "epic-level",
+  "vertical": "pace",
+  "rfp_tier": null,
+  "engagement_type": "standard",
+  "benchmark_source": "model-training-data",
+  "completion_status": {
+    "setup": "not-started",
+    "tutorial": "not-started",
+    "discover": "complete",
+    "strategy": "not-started",
+    "requirements": "complete",
+    "design": "not-started",
+    "roadmap": "not-started",
+    "efficiency": "not-started",
+    "estimate": "not-started",
+    "commercials": "not-started",
+    "validate": "not-started",
+    "narratives": "not-started",
+    "export": "not-started",
+    "backlog": "not-started",
+    "quantum-leap": "not-started",
+    "slides": "not-started",
+    "rfp": "not-started",
+    "illuminate": "not-started",
+    "cleanup": "not-started",
+    "wrapup": "not-started",
+    "help": "not-started",
+    "contribute": "not-started"
+  },
+  "timeline": {
+    "client_target": {
+      "value": "30/11/2026 go-live (5 pilares; Pilar 6 em dezembro)",
+      "source": "Parecer de Viabilidade Desenvolve SP (19/08/2026)",
+      "note": "Mudou de 30/09; restrição é prazo, não viabilidade. Faixa realista 12-22 semanas."
+    },
+    "user_commitment": null
+  }
+}
