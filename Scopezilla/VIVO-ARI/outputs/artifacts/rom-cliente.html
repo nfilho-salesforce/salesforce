@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- DECK-VERSION: 1.3 | GENERATED: 2026-08-26T11:07:00-03:00 -->
+<!-- DECK-VERSION: 1.4 | GENERATED: 2026-08-26T11:40:00-03:00 -->
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -167,6 +167,15 @@
   .cmp-box.hi .n{color:var(--purple);}
   .cmp-box .l{font-size:11px;color:var(--muted);margin-top:6px;letter-spacing:.3px;text-transform:uppercase;font-weight:700;}
   .cmp-box .s{font-size:11.5px;color:var(--muted);margin-top:4px;}
+  .vin{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:10px;white-space:nowrap;}
+  .vin-ded{background:#efe7fb;color:#660099;} .vin-shr{background:#fff3e0;color:#b7791f;}
+  .fte{display:inline-block;font-size:11px;font-weight:900;padding:2px 8px;border-radius:10px;white-space:nowrap;}
+  .fte-1{background:#e8f5ec;color:#1e7e4f;border:1px solid #bfe3cc;} .fte-half{background:#eef4ff;color:#2b5c9e;border:1px solid #cfe0f7;}
+  .sq-block{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0;background:var(--card);}
+  .sq-block h4{margin:0 0 8px;font-size:14.5px;color:var(--navy);}
+  .sq-block h4 .sq-num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--purple);color:#fff;font-size:12px;font-weight:800;margin-right:7px;}
+  .qa-math{background:#faf8fd;border:1px dashed var(--purple);border-radius:12px;padding:12px 16px;margin:6px 0;font-size:13.5px;color:var(--ink);}
+  .qa-math b{color:var(--purple);}
 
   /* milestone roadmap */
   .rm{position:relative;margin:14px 0 6px;padding-left:8px;}
@@ -238,6 +247,7 @@
     <div class="nav-group-title">Plano de Trabalho</div>
     <a class="nav-item" onclick="showSection('s13',this)"><span class="ico">🗓️</span> Exerc. 1 · Squads × Fase <span class="nav-badge open">exercício</span></a>
     <a class="nav-item" onclick="showSection('s14',this)"><span class="ico">👥</span> Exerc. 2 · Perfis &amp; Cross-Squad <span class="nav-badge open">exercício</span></a>
+    <a class="nav-item" onclick="showSection('s15',this)"><span class="ico">🧩</span> Exerc. 3 · Merge &amp; FTE por Squad <span class="nav-badge open">exercício</span></a>
 
     <div class="nav-group-title">Comparação &amp; Riscos</div>
     <a class="nav-item" onclick="showSection('s9',this)"><span class="ico">⚖️</span> Trilha Tradicional</a>
@@ -256,7 +266,7 @@
         <h1>🟣 ARI Vivo · ROM &amp; Estimativa de Projeto — Salesforce PS</h1>
       </div>
       <div class="topbar-right">
-        <span class="ver-badge">Versão 1.3</span>
+        <span class="ver-badge">Versão 1.4</span>
         <span class="inst-badge">🔒 Preço diferido · sem valores financeiros</span>
         <span class="date-badge">📅 Gerado 25 ago 2026</span>
       </div>
@@ -1198,13 +1208,233 @@
       </div>
     </div>
 
+    <div id="s15" class="section">
+      <h2 class="sec-h">Exercício 3 — merge (Ex.1 + Ex.2) com pares por squad &amp; FTE</h2>
+      <p class="sec-sub">Funde a <b>representação por squad na linha do tempo</b> (Ex.1) com a <b>proposta de perfis e partilha cross-squad</b> (Ex.2), aplicando quatro ajustes: (1) cada squad de build ganha um <b>Technical Consultant sênior</b> par do <b>Developer pleno</b>; (2) <b>Quality Assurance recalculado</b> na regra 1 QA para cada 2 entre {Technical Consultant, Solution Consultant, Developer}; (3) <b>Experience Designer full-time até o fim do Deploy</b>; (4) cada linha do tempo por squad marca os recursos <b>compartilhados</b> e o <b>FTE (1 ou ½)</b>. Cenário Central. Todos os papéis a <b>0 rate</b>.</p>
+
+      <div class="alert amber"><span class="ai">🧪</span><div><b>Exercício de composição consolidada — não altera os racionais do projeto.</b> Merge de staffing dos Exercícios 1 e 2 com os ajustes solicitados. Horas, fases, épicos e disclaimers das demais seções permanecem inalterados. Sem rates e sem valores financeiros (todos os papéis a <b>0</b>). Legenda de vínculo: <span class="vin vin-ded">dedicado</span> atua em um único squad · <span class="vin vin-shr">compartilhado</span> cruza squads. FTE: <span class="fte fte-1">1</span> full-time no squad · <span class="fte fte-half">½</span> meio período (dividido entre squads/fases).</div></div>
+
+      <div class="card">
+        <h3>Composição consolidada — 30 pessoas PS</h3>
+        <p class="sec-sub" style="margin-top:2px;">Squads de build: 2·FND+OPS · 3·CIM+CPM · 4·CRM+COPM · 5·SDP · 6·INT. Overlay: 1·Governança e 7·HCC.</p>
+        <table class="uc-table">
+          <thead><tr><th>Perfil</th><th>Sen.</th><th>Qtd</th><th>Vínculo</th><th>FTE típico</th><th>Squads / atuação</th></tr></thead>
+          <tbody>
+            <tr><td colspan="6" style="background:#faf8fd;font-weight:800;color:var(--purple);">Governança &amp; arquitetura de programa (overlay) — 4</td></tr>
+            <tr><td>Principal Program Manager</td><td>Principal</td><td>1</td><td><span class="vin vin-shr">overlay</span></td><td><span class="fte fte-1">1</span></td><td>Todos · Prep → HC</td></tr>
+            <tr><td>Project Manager / PMO</td><td>Sênior</td><td>1</td><td><span class="vin vin-shr">overlay</span></td><td><span class="fte fte-1">1</span></td><td>Todos · Design → Deploy</td></tr>
+            <tr><td>Principal Solution Architect</td><td>Principal</td><td>1</td><td><span class="vin vin-shr">overlay</span></td><td><span class="fte fte-1">1</span></td><td>Todos · Prep → Deploy</td></tr>
+            <tr><td>Principal Technical Architect</td><td>Principal</td><td>1</td><td><span class="vin vin-shr">overlay</span></td><td><span class="fte fte-1">1</span></td><td>Todos (INT foco) · Prep → Deploy</td></tr>
+            <tr><td colspan="6" style="background:#faf8fd;font-weight:800;color:var(--purple);">Camada de solução compartilhada — 5</td></tr>
+            <tr><td>Solution Architect (SA-A)</td><td>Sênior</td><td>1</td><td><span class="vin vin-shr">compartilhado</span></td><td><span class="fte fte-half">½</span>+<span class="fte fte-half">½</span></td><td>2·FND + 4·CRM+COPM</td></tr>
+            <tr><td>Solution Architect (SA-B)</td><td>Sênior</td><td>1</td><td><span class="vin vin-shr">compartilhado</span></td><td><span class="fte fte-half">½</span>+<span class="fte fte-half">½</span></td><td>3·CIM+CPM + 5·SDP</td></tr>
+            <tr><td>Solution Consultant (SC-1)</td><td>Sênior</td><td>1</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span></td><td>3·CIM+CPM (caminho crítico · CPM-04)</td></tr>
+            <tr><td>Solution Consultant (SC-2)</td><td>Regular</td><td>1</td><td><span class="vin vin-shr">compartilhado</span></td><td><span class="fte fte-half">½</span>+<span class="fte fte-half">½</span></td><td>2·FND + 4·CRM+COPM</td></tr>
+            <tr><td>Solution Consultant (SC-3)</td><td>Regular</td><td>1</td><td><span class="vin vin-shr">compartilhado</span></td><td><span class="fte fte-half">½</span>+<span class="fte fte-half">½</span></td><td>5·SDP + 6·INT</td></tr>
+            <tr><td colspan="6" style="background:#faf8fd;font-weight:800;color:var(--purple);">Pares por squad de build — Technical Consultant + Developer (10)</td></tr>
+            <tr><td>Technical Consultant ×5</td><td>Sênior</td><td>5</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span> cada</td><td>1 por squad (2,3,4,5,6) · Design → Build</td></tr>
+            <tr><td>Developer ×5</td><td>Pleno</td><td>5</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span> cada</td><td>1 por squad (2,3,4,5,6) · Build</td></tr>
+            <tr><td colspan="6" style="background:#faf8fd;font-weight:800;color:var(--purple);">Quality Assurance (regra 1:2) — 7</td></tr>
+            <tr><td>QA Consultant ×7</td><td>Sênior/Regular</td><td>7</td><td><span class="vin vin-shr">pool cross-squad</span></td><td><span class="fte fte-1">1</span>/<span class="fte fte-half">½</span></td><td>Todos os squads de build · Build + surge em UAT</td></tr>
+            <tr><td colspan="6" style="background:#faf8fd;font-weight:800;color:var(--purple);">Experience &amp; adoção (7·HCC) — 4</td></tr>
+            <tr><td>Experience Designer</td><td>Sênior</td><td>1</td><td><span class="vin vin-shr">compartilhado</span></td><td><span class="fte fte-1">1</span></td><td><b>Full-time Prep → fim do Deploy</b> (ajuste solicitado)</td></tr>
+            <tr><td>Experience Architect</td><td>Sênior</td><td>1</td><td><span class="vin vin-shr">compartilhado</span></td><td><span class="fte fte-half">½</span></td><td>Superfícies-chave · P&amp;D / Design</td></tr>
+            <tr><td>HCC — Principal (Adoption/Change)</td><td>Principal</td><td>1</td><td><span class="vin vin-shr">overlay</span></td><td><span class="fte fte-half">½</span></td><td>P&amp;D, UAT, Scale</td></tr>
+            <tr><td>HCC — Consultant (Baseline TMA/FCR)</td><td>Regular</td><td>1</td><td><span class="vin vin-shr">overlay</span></td><td><span class="fte fte-half">½</span></td><td>P&amp;D, Scale</td></tr>
+          </tbody>
+        </table>
+        <p class="sec-sub" style="margin-top:8px;"><b>Total: 30 pessoas PS</b> — 4 governança/arq. programa · 2 SA · 3 SC · 5 Technical Consultant · 5 Developer · 7 QA · 4 experience/adoção.</p>
+      </div>
+
+      <div class="card">
+        <h3>Correção da composição de Quality Assurance — regra 1 QA : 2</h3>
+        <div class="qa-math">
+          Base de cálculo = <b>Technical Consultant + Solution Consultant + Developer</b><br>
+          = 5 Technical Consultant + 3 Solution Consultant + 5 Developer = <b>13 profissionais</b><br>
+          QA necessário = ⌈ 13 ÷ 2 ⌉ = <b>7 Quality Assurance Consultants</b> &nbsp;<span style="color:var(--muted);font-size:12px;">(1 para cada 2, arredondado para cima)</span>
+        </div>
+        <p class="sec-sub" style="margin-top:6px;">No Exercício 2 o QA era um pool de 2 (AI-amplificado). A regra 1:2 sobe a cobertura para <b>7</b> — aproximadamente 1 QA por squad de build (5) + 2 cobrindo a camada de Solution Consultants compartilhada e o surge de UAT. Arquitetos (SA/TA), governança e experience/adoção <b>não</b> entram na base de cálculo — a regra nomeia apenas Technical Consultant, Solution Consultant e Developer.</p>
+      </div>
+
+      <!-- LINHAS DO TEMPO POR SQUAD -->
+      <div class="card">
+        <h3>Linhas do tempo por squad — recursos, vínculo e FTE</h3>
+        <p class="sec-sub" style="margin-top:2px;">Cada squad de build mostra sua janela (barra por fase PS) e o time alocado, com <span class="vin vin-ded">dedicado</span>/<span class="vin vin-shr">compartilhado</span> e FTE <span class="fte fte-1">1</span>/<span class="fte fte-half">½</span>. O par obrigatório Technical Consultant sênior + Developer pleno é dedicado (1 FTE) em todos.</p>
+
+        <div class="sq-block">
+          <h4><span class="sq-num">2</span>FND + OPS — fundação · front-loaded (sai cedo)</h4>
+          <div class="tl">
+            <div class="tl-weeks"><span>Fase</span><div class="wk"><span>Sem 1</span><span>Sem 10</span><span>Sem 20</span><span>Sem 30</span><span>Sem 40</span></div></div>
+            <div class="tl-row"><div class="lab">FND</div><div class="tl-track">
+              <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+              <div class="tl-bar b-build" style="left:17.5%;width:40%;">Build (base) — sai cedo</div>
+            </div></div>
+          </div>
+          <table class="uc-table" style="margin-top:8px;">
+            <thead><tr><th>Recurso</th><th>Vínculo</th><th>FTE</th></tr></thead>
+            <tbody>
+              <tr><td>Technical Consultant (sênior)</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span></td></tr>
+              <tr><td>Developer (pleno)</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span></td></tr>
+              <tr><td>Solution Consultant SC-2</td><td><span class="vin vin-shr">compart. c/ 4·CRM</span></td><td><span class="fte fte-half">½</span></td></tr>
+              <tr><td>Solution Architect SA-A</td><td><span class="vin vin-shr">compart. c/ 4·CRM</span></td><td><span class="fte fte-half">½</span></td></tr>
+              <tr><td>QA Consultant (pool)</td><td><span class="vin vin-shr">compartilhado</span></td><td><span class="fte fte-half">½</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="sq-block">
+          <h4><span class="sq-num">3</span>CIM + CPM — caminho crítico (dimensiona a janela)</h4>
+          <div class="tl">
+            <div class="tl-weeks"><span>Fase</span><div class="wk"><span>Sem 1</span><span>Sem 10</span><span>Sem 20</span><span>Sem 30</span><span>Sem 40</span></div></div>
+            <div class="tl-row"><div class="lab">CIM+CPM</div><div class="tl-track">
+              <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+              <div class="tl-bar b-build" style="left:17.5%;width:57.5%;">Build (caminho crítico)</div>
+              <div class="tl-bar b-test" style="left:65%;width:20%;">Test</div>
+            </div></div>
+          </div>
+          <table class="uc-table" style="margin-top:8px;">
+            <thead><tr><th>Recurso</th><th>Vínculo</th><th>FTE</th></tr></thead>
+            <tbody>
+              <tr><td>Technical Consultant (sênior)</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span></td></tr>
+              <tr><td>Developer (pleno)</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span></td></tr>
+              <tr><td>Solution Consultant SC-1</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span></td></tr>
+              <tr><td>Solution Architect SA-B</td><td><span class="vin vin-shr">compart. c/ 5·SDP</span></td><td><span class="fte fte-half">½</span></td></tr>
+              <tr><td>QA Consultant (pool)</td><td><span class="vin vin-shr">compartilhado · surge UAT</span></td><td><span class="fte fte-1">1</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="sq-block">
+          <h4><span class="sq-num">4</span>CRM + COPM — paralelo pleno com CIM</h4>
+          <div class="tl">
+            <div class="tl-weeks"><span>Fase</span><div class="wk"><span>Sem 1</span><span>Sem 10</span><span>Sem 20</span><span>Sem 30</span><span>Sem 40</span></div></div>
+            <div class="tl-row"><div class="lab">CRM+COPM</div><div class="tl-track">
+              <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+              <div class="tl-bar b-build" style="left:17.5%;width:47.5%;">Build</div>
+              <div class="tl-bar b-test" style="left:65%;width:20%;">Test</div>
+            </div></div>
+          </div>
+          <table class="uc-table" style="margin-top:8px;">
+            <thead><tr><th>Recurso</th><th>Vínculo</th><th>FTE</th></tr></thead>
+            <tbody>
+              <tr><td>Technical Consultant (sênior)</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span></td></tr>
+              <tr><td>Developer (pleno)</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span></td></tr>
+              <tr><td>Solution Consultant SC-2</td><td><span class="vin vin-shr">compart. c/ 2·FND</span></td><td><span class="fte fte-half">½</span></td></tr>
+              <tr><td>Solution Architect SA-A</td><td><span class="vin vin-shr">compart. c/ 2·FND</span></td><td><span class="fte fte-half">½</span></td></tr>
+              <tr><td>QA Consultant (pool)</td><td><span class="vin vin-shr">compartilhado</span></td><td><span class="fte fte-half">½</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="sq-block">
+          <h4><span class="sq-num">5</span>SDP — canais &amp; voz · paralelo parcial (espera modelo + infra)</h4>
+          <div class="tl">
+            <div class="tl-weeks"><span>Fase</span><div class="wk"><span>Sem 1</span><span>Sem 10</span><span>Sem 20</span><span>Sem 30</span><span>Sem 40</span></div></div>
+            <div class="tl-row"><div class="lab">SDP</div><div class="tl-track">
+              <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+              <div class="tl-bar b-build" style="left:25%;width:40%;">Build (canais · voz)</div>
+              <div class="tl-bar b-test" style="left:65%;width:20%;">Test</div>
+              <div class="tl-bar b-dep" style="left:82.5%;width:10%;">Dep</div>
+            </div></div>
+          </div>
+          <table class="uc-table" style="margin-top:8px;">
+            <thead><tr><th>Recurso</th><th>Vínculo</th><th>FTE</th></tr></thead>
+            <tbody>
+              <tr><td>Technical Consultant (sênior)</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span></td></tr>
+              <tr><td>Developer (pleno)</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span></td></tr>
+              <tr><td>Solution Consultant SC-3</td><td><span class="vin vin-shr">compart. c/ 6·INT</span></td><td><span class="fte fte-half">½</span></td></tr>
+              <tr><td>Solution Architect SA-B</td><td><span class="vin vin-shr">compart. c/ 3·CIM</span></td><td><span class="fte fte-half">½</span></td></tr>
+              <tr><td>QA Consultant (pool)</td><td><span class="vin vin-shr">compartilhado</span></td><td><span class="fte fte-half">½</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="sq-block">
+          <h4><span class="sq-num">6</span>INT — integração · destrava os demais (condicional G1004)</h4>
+          <div class="tl">
+            <div class="tl-weeks"><span>Fase</span><div class="wk"><span>Sem 1</span><span>Sem 10</span><span>Sem 20</span><span>Sem 30</span><span>Sem 40</span></div></div>
+            <div class="tl-row"><div class="lab">INT</div><div class="tl-track">
+              <div class="tl-bar b-prep" style="left:0%;width:7.5%;">Prep</div>
+              <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+              <div class="tl-bar b-build" style="left:17.5%;width:57.5%;">Build (facades · contratos)</div>
+              <div class="tl-bar b-dep" style="left:82.5%;width:10%;">Dep</div>
+            </div></div>
+          </div>
+          <table class="uc-table" style="margin-top:8px;">
+            <thead><tr><th>Recurso</th><th>Vínculo</th><th>FTE</th></tr></thead>
+            <tbody>
+              <tr><td>Technical Consultant (sênior)</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span></td></tr>
+              <tr><td>Developer (pleno)</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span></td></tr>
+              <tr><td>Solution Consultant SC-3</td><td><span class="vin vin-shr">compart. c/ 5·SDP</span></td><td><span class="fte fte-half">½</span></td></tr>
+              <tr><td>Principal Technical Architect</td><td><span class="vin vin-shr">overlay · foco INT</span></td><td><span class="fte fte-half">½</span></td></tr>
+              <tr><td>QA Consultant (pool)</td><td><span class="vin vin-shr">compartilhado</span></td><td><span class="fte fte-half">½</span></td></tr>
+            </tbody>
+          </table>
+          <p class="sec-sub" style="margin-top:6px;">INT mantém o par dedicado, mas a arquitetura técnica vem do <b>Principal Technical Architect</b> (overlay, foco INT) em vez de arquitetos dedicados — o seam de facades é condicional (G1004) e concentra risco; não compartilha profissionais <i>para dentro</i>.</p>
+        </div>
+      </div>
+
+      <!-- RECURSOS COMPARTILHADOS & FTE -->
+      <div class="card">
+        <h3>Recursos compartilhados &amp; FTE — quem é full vs. meio período</h3>
+        <table class="uc-table">
+          <thead><tr><th>Recurso</th><th>Compartilhado entre</th><th>FTE por squad</th><th>FTE total</th></tr></thead>
+          <tbody>
+            <tr><td>Solution Architect SA-A</td><td>2·FND + 4·CRM+COPM</td><td><span class="fte fte-half">½</span> + <span class="fte fte-half">½</span></td><td><span class="fte fte-1">1</span></td></tr>
+            <tr><td>Solution Architect SA-B</td><td>3·CIM+CPM + 5·SDP</td><td><span class="fte fte-half">½</span> + <span class="fte fte-half">½</span></td><td><span class="fte fte-1">1</span></td></tr>
+            <tr><td>Solution Consultant SC-2</td><td>2·FND + 4·CRM+COPM</td><td><span class="fte fte-half">½</span> + <span class="fte fte-half">½</span></td><td><span class="fte fte-1">1</span></td></tr>
+            <tr><td>Solution Consultant SC-3</td><td>5·SDP + 6·INT</td><td><span class="fte fte-half">½</span> + <span class="fte fte-half">½</span></td><td><span class="fte fte-1">1</span></td></tr>
+            <tr><td>QA Consultant (pool de 7)</td><td>Todos os 5 squads de build + surge UAT</td><td><span class="fte fte-1">1</span> no crítico · <span class="fte fte-half">½</span> nos demais</td><td>7</td></tr>
+            <tr><td>Principal Technical Architect</td><td>Overlay · foco 6·INT</td><td><span class="fte fte-half">½</span> em INT</td><td><span class="fte fte-1">1</span></td></tr>
+            <tr><td>Experience Designer</td><td>Superfícies de todos os squads</td><td>—</td><td><span class="fte fte-1">1</span> <b>Prep → Deploy</b></td></tr>
+          </tbody>
+        </table>
+        <ul class="bul" style="margin-top:10px;">
+          <li><b>Dedicados a 1 squad (1 FTE):</b> os 5 pares Technical Consultant (sênior) + Developer (pleno) e o Solution Consultant SC-1 (caminho crítico, CIM+CPM).</li>
+          <li><b>Compartilhados a ½ FTE por squad:</b> SA-A, SA-B, SC-2, SC-3 — cada um soma 1 FTE dividido em duas metades. É onde a partilha cross-squad reduz assentos sem furar cobertura.</li>
+          <li><b>Experience Designer full-time até o fim do Deploy (ajuste solicitado):</b> deixou de ser fracional de P&amp;D — agora <span class="fte fte-1">1</span> FTE contínuo de Prep ao encerramento do Deploy, sustentando as superfícies durante Build, Test e cutover.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Comparativo dos três exercícios</h3>
+        <div class="cmp-grid">
+          <div class="cmp-box"><div class="n">33</div><div class="l">Ex.1 nominal</div><div class="s">1 time dedicado por squad</div></div>
+          <div class="cmp-box"><div class="n">23</div><div class="l">Ex.2 proposto</div><div class="s">perfis + cross-squad enxuto</div></div>
+          <div class="cmp-box hi"><div class="n">30</div><div class="l">Ex.3 merge</div><div class="s">pares + QA 1:2 + Exp. Designer full</div></div>
+        </div>
+        <table class="uc-table" style="margin-top:12px;">
+          <thead><tr><th>Perfil</th><th>Ex.1</th><th>Ex.2</th><th>Ex.3</th><th>O que muda no Ex.3</th></tr></thead>
+          <tbody>
+            <tr><td>Governança &amp; arq. programa</td><td>4</td><td>4</td><td>4</td><td>Inalterado (overlay).</td></tr>
+            <tr><td>Solution Architect</td><td>5</td><td>2</td><td>2</td><td>Mantém a partilha do Ex.2 (½+½ FTE).</td></tr>
+            <tr><td>Technical Architect / Consultant</td><td>6</td><td>3</td><td>5</td><td>Vira <b>Technical Consultant sênior dedicado por squad</b> (par do Developer); TA de programa fica no overlay.</td></tr>
+            <tr><td>Solution Consultant</td><td>4</td><td>3</td><td>3</td><td>Mantém 3 (SC-1 dedicado; SC-2/SC-3 a ½ FTE).</td></tr>
+            <tr><td>Developer</td><td>5</td><td>5</td><td>5</td><td>1 pleno dedicado por squad, par do Technical Consultant.</td></tr>
+            <tr><td>Quality Assurance</td><td>5</td><td>2</td><td>7</td><td><b>Recalculado pela regra 1:2</b> sobre TC+SC+Dev (13 → 7).</td></tr>
+            <tr><td>Experience &amp; adoção (HCC)</td><td>4</td><td>4</td><td>4</td><td>Experience Designer passa a <b>full-time até o Deploy</b>.</td></tr>
+            <tr><td style="font-weight:800;">Total PS</td><td style="font-weight:800;">33</td><td style="font-weight:800;">23</td><td style="font-weight:800;color:var(--purple);">30</td><td>Sobe vs. Ex.2 por QA (+5) e Technical Consultant dedicado (+2); segue abaixo do nominal graças à partilha.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="disc">
+        <b>Disclaimer — exercício de composição consolidada (Benchmark).</b> Merge dos Exercícios 1 e 2 com os ajustes solicitados (par Technical Consultant sênior + Developer pleno por squad; QA na regra 1:2; Experience Designer full-time até o Deploy; FTE marcado por squad). Derivado top-down da forma do engajamento (cenário Central, ~40 semanas) e das práticas de staffing da Salesforce PS; carrega o Benchmark Disclaimer. Distinto (e paralelo) da base de dimensionamento do ROM (5 squads de Build) — <b>sem alterar horas, fases, épicos ou premissas das demais seções</b>. Sem rates e sem valores financeiros (todos os papéis a 0). As contagens e FTEs são indicativos para planejamento de recursos, não um compromisso contratual de composição de time.
+      </div>
+
+      <div class="sec-nav">
+        <button class="sec-link" onclick="showSection('s14',null,'nav')">← Exerc. 2 · Perfis &amp; Cross-Squad</button>
+        <button class="sec-link" onclick="showSection('s1',null,'nav')">Voltar ao início ↑</button>
+      </div>
+    </div>
+
     <!-- SECTIONS-END -->
   </div><!-- /content -->
 </div><!-- /main -->
 
 <div class="doc-footer">
   <span><b>ARI Vivo · ROM &amp; Estimativa de Projeto</b> — Salesforce Professional Services LATAM · documento controlado por versão</span>
-  <span>Versão <b>1.3</b> · gerado <b>26 ago 2026, 11:07 BRT</b></span>
+  <span>Versão <b>1.4</b> · gerado <b>26 ago 2026, 11:40 BRT</b></span>
 </div>
 
 <script>
