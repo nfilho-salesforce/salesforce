@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- DECK-VERSION: 1.1 | GENERATED: 2026-08-25T19:55:00-03:00 -->
+<!-- DECK-VERSION: 1.2 | GENERATED: 2026-08-26T08:52:00-03:00 -->
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -146,6 +146,20 @@
   .legend-row .sw{width:14px;height:10px;border-radius:3px;display:inline-block;}
   ul.bul{margin:6px 0 4px;padding-left:20px;}
   ul.bul li{font-size:13.5px;color:var(--ink);line-height:1.65;margin-bottom:7px;}
+  .dt{font-size:10px;font-weight:800;letter-spacing:.3px;padding:2px 8px;border-radius:20px;text-transform:uppercase;white-space:nowrap;display:inline-block;}
+  .dt-block{background:#fde8e8;color:#c0392b;}
+  .dt-part{background:#fef3e0;color:#b7791f;}
+  .dt-ext{background:#e8eefb;color:#2563a8;}
+  .dt-feed{background:#e8f5ec;color:#1e7e4f;}
+  .dt-overlay{background:#f2e8fb;color:var(--purple);}
+  .cons-lab{font-weight:800;font-size:12.5px;}
+  .cons-lab small{display:block;font-weight:600;font-size:10.5px;color:var(--muted);letter-spacing:.2px;}
+  .wave-card{border-left:3px solid var(--purple);background:#faf8fd;border-radius:0 10px 10px 0;padding:11px 15px;margin-bottom:9px;}
+  .wave-card .wt{font-weight:800;font-size:13px;color:var(--ink);margin-bottom:3px;}
+  .wave-card .wt .wk{font-weight:600;color:var(--muted);font-size:11px;}
+  .wave-card .wd{font-size:12.5px;color:var(--muted);line-height:1.55;}
+  .par-tag{font-size:10px;font-weight:800;padding:1px 7px;border-radius:20px;margin-left:6px;text-transform:uppercase;letter-spacing:.3px;}
+  .par-full{background:#e8f5ec;color:#1e7e4f;} .par-part{background:#fef3e0;color:#b7791f;} .par-seq{background:#fde8e8;color:#c0392b;}
 
   /* milestone roadmap */
   .rm{position:relative;margin:14px 0 6px;padding-left:8px;}
@@ -234,7 +248,7 @@
         <h1>🟣 ARI Vivo · ROM &amp; Estimativa de Projeto — Salesforce PS</h1>
       </div>
       <div class="topbar-right">
-        <span class="ver-badge">Versão 1.1</span>
+        <span class="ver-badge">Versão 1.2</span>
         <span class="inst-badge">🔒 Preço diferido · sem valores financeiros</span>
         <span class="date-badge">📅 Gerado 25 ago 2026</span>
       </div>
@@ -743,6 +757,111 @@
         </div>
       </div>
 
+      <!-- LINHA DE TEMPO CONSOLIDADA -->
+      <div class="card">
+        <h3>Linha de tempo consolidada — sequenciamento dos 7 squads</h3>
+        <p class="sec-sub" style="margin-top:2px;">Todos os squads em uma única linha de tempo, ordenados por dependência (de cima para baixo: quem destrava primeiro). A barra mostra a janela real de cada squad; a cor segue a fase PS.</p>
+        <div class="tl">
+          <div class="tl-weeks"><span>Squad</span><div class="wk"><span>Sem 1</span><span>Sem 10</span><span>Sem 20</span><span>Sem 30</span><span>Sem 40</span></div></div>
+
+          <div class="tl-row"><div class="lab"><span class="cons-lab">1 · Governance <small>overlay · não bloqueia</small></span></div><div class="tl-track">
+            <div class="tl-bar b-gov" style="left:0%;width:100%;">Prepare → Hypercare</div>
+          </div></div>
+
+          <div class="tl-row"><div class="lab"><span class="cons-lab">6 · INT <small>destrava integração</small></span></div><div class="tl-track">
+            <div class="tl-bar b-prep" style="left:0%;width:7.5%;">Prep</div>
+            <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+            <div class="tl-bar b-build" style="left:17.5%;width:57.5%;">Build (facades · contratos)</div>
+            <div class="tl-bar b-dep" style="left:82.5%;width:10%;">Dep</div>
+          </div></div>
+
+          <div class="tl-row"><div class="lab"><span class="cons-lab">2 · FND + OPS <small>fundação · front-loaded</small></span></div><div class="tl-track">
+            <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+            <div class="tl-bar b-build" style="left:17.5%;width:40%;">Build (base) — sai cedo</div>
+          </div></div>
+
+          <div class="tl-row"><div class="lab"><span class="cons-lab">3 · CIM + CPM <small>caminho crítico</small></span></div><div class="tl-track">
+            <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+            <div class="tl-bar b-build" style="left:17.5%;width:57.5%;">Build (dimensiona a janela)</div>
+            <div class="tl-bar b-test" style="left:65%;width:20%;">Test</div>
+          </div></div>
+
+          <div class="tl-row"><div class="lab"><span class="cons-lab">4 · CRM + COPM <small>paralelo pleno com CIM</small></span></div><div class="tl-track">
+            <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+            <div class="tl-bar b-build" style="left:17.5%;width:47.5%;">Build</div>
+            <div class="tl-bar b-test" style="left:65%;width:20%;">Test</div>
+          </div></div>
+
+          <div class="tl-row"><div class="lab"><span class="cons-lab">5 · SDP <small>paralelo parcial · espera modelo + infra</small></span></div><div class="tl-track">
+            <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+            <div class="tl-bar b-build" style="left:25%;width:40%;">Build (canais · voz)</div>
+            <div class="tl-bar b-test" style="left:65%;width:20%;">Test</div>
+            <div class="tl-bar b-dep" style="left:82.5%;width:10%;">Dep</div>
+          </div></div>
+
+          <div class="tl-row"><div class="lab"><span class="cons-lab">7 · HCC <small>contínuo · design + adoção</small></span></div><div class="tl-track">
+            <div class="tl-bar b-prep" style="left:0%;width:7.5%;">Prep</div>
+            <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design (exp.)</div>
+            <div class="tl-bar b-test" style="left:65%;width:20%;">UAT/Adoção</div>
+            <div class="tl-bar b-scale" style="left:92.5%;width:7.5%;">HC</div>
+          </div></div>
+        </div>
+        <div class="legend-row">
+          <span class="lg"><span class="sw b-prep"></span> Prepare</span>
+          <span class="lg"><span class="sw b-design"></span> Design</span>
+          <span class="lg"><span class="sw b-build"></span> Build</span>
+          <span class="lg"><span class="sw b-test"></span> Test/UAT</span>
+          <span class="lg"><span class="sw b-dep"></span> Deploy</span>
+          <span class="lg"><span class="sw b-scale"></span> Hypercare</span>
+        </div>
+      </div>
+
+      <!-- MAPA DE DEPENDÊNCIAS -->
+      <div class="card">
+        <h3>Mapa de dependências — o que precede o quê</h3>
+        <table class="uc-table">
+          <thead><tr><th>Predecessor</th><th>Sucessor</th><th>Tipo</th><th>Racional</th></tr></thead>
+          <tbody>
+            <tr><td>INT — contratos de facades (G1004)</td><td>FND, CIM+CPM, CRM+COPM, SDP</td><td><span class="dt dt-part">Bloqueio parcial</span></td><td>Os contratos de integração precisam existir antes do build que os consome. Por isso INT entra já no Prepare — fixar o inventário dos 17 facades é o deliverable #1.</td></tr>
+            <tr><td>FND + OPS — base (modelo de dados, sharing, org)</td><td>CIM+CPM, CRM+COPM, SDP</td><td><span class="dt dt-block">Bloqueio</span></td><td>A fundação precede o build funcional pesado. Squads não constroem sobre uma base inexistente; FND é front-loaded para destravar.</td></tr>
+            <tr><td>CIM + CPM — modelo de caso/interação</td><td>SDP (canais)</td><td><span class="dt dt-part">Bloqueio parcial</span></td><td>Canais (Omni, voz, Aliado) roteiam para casos. SDP inicia o build pesado quando o modelo de interação está estável — daí o paralelismo parcial, não pleno.</td></tr>
+            <tr><td>CIM + CPM — dados de interação</td><td>CRM + COPM</td><td><span class="dt dt-part">Bloqueio parcial</span></td><td>Relacionamento e captura se apoiam nos dados de interação; design em paralelo, mas há acoplamento no build.</td></tr>
+            <tr><td>Infra cliente — SCV / Amazon Connect (G0802)</td><td>SDP (voz OMNI)</td><td><span class="dt dt-ext">Bloqueio externo</span></td><td>Voz depende de tenant Connect provisionado e da migração Genesys→Connect (EOL Dez-2027). Prerequisito fora do build Salesforce; bloqueia ~40% das histórias OMNI se não pronto.</td></tr>
+            <tr><td>HCC — Experience (console, fluxos, CPM-04)</td><td>CIM+CPM, CRM+COPM, SDP</td><td><span class="dt dt-feed">Alimenta</span></td><td>O design de experiência precede a construção das telas de alto impacto. Não bloqueia formalmente, mas o build refaz trabalho se a experiência não vier antes.</td></tr>
+            <tr><td>Governance</td><td>Todos os squads</td><td><span class="dt dt-overlay">Overlay</span></td><td>Coordena, decide e faz sign-off ao longo do programa. Não é predecessor de build — atravessa todas as ondas.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ONDAS DE PARALELISMO -->
+      <div class="card">
+        <h3>Ondas de sequenciamento — o que roda em paralelo</h3>
+        <div class="wave-card">
+          <div class="wt">Onda 0 · Prepare <span class="wk">sem 1–3</span> <span class="par-tag par-seq">crítico-sequencial</span></div>
+          <div class="wd">INT fixa o inventário de facades (G1004) · Governance abre o programa · HCC/Experience faz discovery. Destrava tudo o que vem depois — pouco paralelismo, alto valor de antecipação.</div>
+        </div>
+        <div class="wave-card">
+          <div class="wt">Onda 1 · Design + Fundação <span class="wk">sem 3–8</span> <span class="par-tag par-full">paralelismo pleno</span></div>
+          <div class="wd">FND+OPS constrói a base enquanto CIM+CPM, CRM+COPM, SDP e HCC fazem design em paralelo. O design roda junto; o build funcional ainda está bloqueado pela fundação.</div>
+        </div>
+        <div class="wave-card">
+          <div class="wt">Onda 2 · Build núcleo <span class="wk">sem 7–26</span> <span class="par-tag par-full">paralelismo pleno</span></div>
+          <div class="wd">CIM+CPM (caminho crítico) e CRM+COPM constroem em paralelo pleno — domínios distintos, baixo acoplamento no dia a dia. FND+OPS conclui a base e sai cedo.</div>
+        </div>
+        <div class="wave-card">
+          <div class="wt">Onda 3 · Canais / Agentforce <span class="wk">sem 14–30</span> <span class="par-tag par-part">paralelismo parcial</span></div>
+          <div class="wd">SDP entra em paralelo parcial: inicia o build pesado quando o modelo de interação (CIM+CPM) estabiliza e a infra (SCV/Connect) está pronta. Duas dependências governam seu início.</div>
+        </div>
+        <div class="wave-card">
+          <div class="wt">Onda 4 · Test / UAT <span class="wk">sem 26–34</span> <span class="par-tag par-part">convergência</span></div>
+          <div class="wd">Todos os squads convergem para SIT e depois UAT. HCC conduz a adoção e a aceitação de negócio. Paralelismo dá lugar à integração fim-a-fim.</div>
+        </div>
+        <div class="wave-card">
+          <div class="wt">Onda 5 · Deploy + Hypercare <span class="wk">sem 33–40</span> <span class="par-tag par-seq">cutover coordenado</span></div>
+          <div class="wd">Cutover coordenado (INT + Release/DevOps) com as dependências de infra, seguido de estabilização e adoção (HCC). Sequência controlada, sem paralelismo de build.</div>
+        </div>
+      </div>
+
       <!-- SQUAD 1 GOVERNANCE -->
       <div class="card">
         <div class="wp-squad-h"><span class="sq-num">1</span> Governance <span class="wp-tag">overlay · programa inteiro</span></div>
@@ -962,7 +1081,7 @@
 
 <div class="doc-footer">
   <span><b>ARI Vivo · ROM &amp; Estimativa de Projeto</b> — Salesforce Professional Services LATAM · documento controlado por versão</span>
-  <span>Versão <b>1.1</b> · gerado <b>25 ago 2026, 19:55 BRT</b></span>
+  <span>Versão <b>1.2</b> · gerado <b>26 ago 2026, 08:52 BRT</b></span>
 </div>
 
 <script>
