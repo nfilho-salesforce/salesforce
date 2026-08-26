@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- DECK-VERSION: 1.4 | GENERATED: 2026-08-26T11:40:00-03:00 -->
+<!-- DECK-VERSION: 1.5 | GENERATED: 2026-08-26T11:52:00-03:00 -->
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -176,6 +176,15 @@
   .sq-block h4 .sq-num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--purple);color:#fff;font-size:12px;font-weight:800;margin-right:7px;}
   .qa-math{background:#faf8fd;border:1px dashed var(--purple);border-radius:12px;padding:12px 16px;margin:6px 0;font-size:13.5px;color:var(--ink);}
   .qa-math b{color:var(--purple);}
+  .sq-details{margin-top:8px;border:1px solid var(--line);border-radius:8px;overflow:hidden;}
+  .sq-details summary{cursor:pointer;list-style:none;padding:8px 12px;font-size:12.5px;font-weight:700;color:var(--purple);background:#faf8fd;user-select:none;display:flex;align-items:center;gap:7px;}
+  .sq-details summary::-webkit-details-marker{display:none;}
+  .sq-details summary::before{content:"▸";font-size:11px;}
+  .sq-details[open] summary::before{content:"▾";}
+  .sq-details summary:hover{background:#f2ecfa;}
+  .sq-details .uc-table{margin-top:0;border-top:1px solid var(--line);}
+  .sq-block.gov{border-color:var(--purple);background:#faf8fd;}
+  .sq-block.gov h4 .sq-num{background:var(--navy);}
 
   /* milestone roadmap */
   .rm{position:relative;margin:14px 0 6px;padding-left:8px;}
@@ -266,7 +275,7 @@
         <h1>🟣 ARI Vivo · ROM &amp; Estimativa de Projeto — Salesforce PS</h1>
       </div>
       <div class="topbar-right">
-        <span class="ver-badge">Versão 1.4</span>
+        <span class="ver-badge">Versão 1.5</span>
         <span class="inst-badge">🔒 Preço diferido · sem valores financeiros</span>
         <span class="date-badge">📅 Gerado 25 ago 2026</span>
       </div>
@@ -1259,7 +1268,30 @@
       <!-- LINHAS DO TEMPO POR SQUAD -->
       <div class="card">
         <h3>Linhas do tempo por squad — recursos, vínculo e FTE</h3>
-        <p class="sec-sub" style="margin-top:2px;">Cada squad de build mostra sua janela (barra por fase PS) e o time alocado, com <span class="vin vin-ded">dedicado</span>/<span class="vin vin-shr">compartilhado</span> e FTE <span class="fte fte-1">1</span>/<span class="fte fte-half">½</span>. O par obrigatório Technical Consultant sênior + Developer pleno é dedicado (1 FTE) em todos.</p>
+        <p class="sec-sub" style="margin-top:2px;">Começa pela <b>1·Governança</b> (overlay que cobre todo o programa) e segue com os 5 squads de build, cada um com sua janela (barra por fase PS). O time alocado fica em uma tabela <b>recolhível</b> (clique em <b>“Ver time alocado”</b>) — recolhida por padrão para leitura das linhas do tempo. Vínculo: <span class="vin vin-ded">dedicado</span>/<span class="vin vin-shr">compartilhado</span>; FTE <span class="fte fte-1">1</span>/<span class="fte fte-half">½</span>. O par obrigatório Technical Consultant sênior + Developer pleno é dedicado (1 FTE) em todos os squads de build.</p>
+
+        <div class="sq-block gov">
+          <h4><span class="sq-num">1</span>Governança &amp; arquitetura de programa — overlay (cobre todo o programa)</h4>
+          <div class="tl">
+            <div class="tl-weeks"><span>Fase</span><div class="wk"><span>Sem 1</span><span>Sem 10</span><span>Sem 20</span><span>Sem 30</span><span>Sem 40</span></div></div>
+            <div class="tl-row"><div class="lab">Governança</div><div class="tl-track">
+              <div class="tl-bar b-gov" style="left:0%;width:100%;">Overlay de programa — Prep → Hypercare</div>
+            </div></div>
+          </div>
+          <details class="sq-details">
+            <summary>Ver time alocado</summary>
+          <table class="uc-table">
+            <thead><tr><th>Recurso</th><th>Vínculo</th><th>FTE</th></tr></thead>
+            <tbody>
+              <tr><td>Principal Program Manager</td><td><span class="vin vin-shr">overlay · todos os squads</span></td><td><span class="fte fte-1">1</span></td></tr>
+              <tr><td>Project Manager / PMO</td><td><span class="vin vin-shr">overlay · todos os squads</span></td><td><span class="fte fte-1">1</span></td></tr>
+              <tr><td>Principal Solution Architect</td><td><span class="vin vin-shr">overlay · todos os squads</span></td><td><span class="fte fte-1">1</span></td></tr>
+              <tr><td>Principal Technical Architect</td><td><span class="vin vin-shr">overlay · foco 6·INT</span></td><td><span class="fte fte-1">1</span></td></tr>
+            </tbody>
+          </table>
+          </details>
+          <p class="sec-sub" style="margin-top:6px;">A squad de governança não constrói funcionalidade — é o overlay que coordena os 5 squads de build, sustenta a coerência de solução/arquitetura e responde pela entrega ponta-a-ponta. Por isso a barra cobre todo o programa (Prep → Hypercare), enquanto os squads de build ocupam janelas menores dentro dela.</p>
+        </div>
 
         <div class="sq-block">
           <h4><span class="sq-num">2</span>FND + OPS — fundação · front-loaded (sai cedo)</h4>
@@ -1270,7 +1302,9 @@
               <div class="tl-bar b-build" style="left:17.5%;width:40%;">Build (base) — sai cedo</div>
             </div></div>
           </div>
-          <table class="uc-table" style="margin-top:8px;">
+          <details class="sq-details">
+            <summary>Ver time alocado</summary>
+          <table class="uc-table">
             <thead><tr><th>Recurso</th><th>Vínculo</th><th>FTE</th></tr></thead>
             <tbody>
               <tr><td>Technical Consultant (sênior)</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span></td></tr>
@@ -1280,6 +1314,7 @@
               <tr><td>QA Consultant (pool)</td><td><span class="vin vin-shr">compartilhado</span></td><td><span class="fte fte-half">½</span></td></tr>
             </tbody>
           </table>
+          </details>
         </div>
 
         <div class="sq-block">
@@ -1292,7 +1327,9 @@
               <div class="tl-bar b-test" style="left:65%;width:20%;">Test</div>
             </div></div>
           </div>
-          <table class="uc-table" style="margin-top:8px;">
+          <details class="sq-details">
+            <summary>Ver time alocado</summary>
+          <table class="uc-table">
             <thead><tr><th>Recurso</th><th>Vínculo</th><th>FTE</th></tr></thead>
             <tbody>
               <tr><td>Technical Consultant (sênior)</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span></td></tr>
@@ -1302,6 +1339,7 @@
               <tr><td>QA Consultant (pool)</td><td><span class="vin vin-shr">compartilhado · surge UAT</span></td><td><span class="fte fte-1">1</span></td></tr>
             </tbody>
           </table>
+          </details>
         </div>
 
         <div class="sq-block">
@@ -1314,7 +1352,9 @@
               <div class="tl-bar b-test" style="left:65%;width:20%;">Test</div>
             </div></div>
           </div>
-          <table class="uc-table" style="margin-top:8px;">
+          <details class="sq-details">
+            <summary>Ver time alocado</summary>
+          <table class="uc-table">
             <thead><tr><th>Recurso</th><th>Vínculo</th><th>FTE</th></tr></thead>
             <tbody>
               <tr><td>Technical Consultant (sênior)</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span></td></tr>
@@ -1324,6 +1364,7 @@
               <tr><td>QA Consultant (pool)</td><td><span class="vin vin-shr">compartilhado</span></td><td><span class="fte fte-half">½</span></td></tr>
             </tbody>
           </table>
+          </details>
         </div>
 
         <div class="sq-block">
@@ -1337,7 +1378,9 @@
               <div class="tl-bar b-dep" style="left:82.5%;width:10%;">Dep</div>
             </div></div>
           </div>
-          <table class="uc-table" style="margin-top:8px;">
+          <details class="sq-details">
+            <summary>Ver time alocado</summary>
+          <table class="uc-table">
             <thead><tr><th>Recurso</th><th>Vínculo</th><th>FTE</th></tr></thead>
             <tbody>
               <tr><td>Technical Consultant (sênior)</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span></td></tr>
@@ -1347,6 +1390,7 @@
               <tr><td>QA Consultant (pool)</td><td><span class="vin vin-shr">compartilhado</span></td><td><span class="fte fte-half">½</span></td></tr>
             </tbody>
           </table>
+          </details>
         </div>
 
         <div class="sq-block">
@@ -1360,7 +1404,9 @@
               <div class="tl-bar b-dep" style="left:82.5%;width:10%;">Dep</div>
             </div></div>
           </div>
-          <table class="uc-table" style="margin-top:8px;">
+          <details class="sq-details">
+            <summary>Ver time alocado</summary>
+          <table class="uc-table">
             <thead><tr><th>Recurso</th><th>Vínculo</th><th>FTE</th></tr></thead>
             <tbody>
               <tr><td>Technical Consultant (sênior)</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span></td></tr>
@@ -1370,6 +1416,7 @@
               <tr><td>QA Consultant (pool)</td><td><span class="vin vin-shr">compartilhado</span></td><td><span class="fte fte-half">½</span></td></tr>
             </tbody>
           </table>
+          </details>
           <p class="sec-sub" style="margin-top:6px;">INT mantém o par dedicado, mas a arquitetura técnica vem do <b>Principal Technical Architect</b> (overlay, foco INT) em vez de arquitetos dedicados — o seam de facades é condicional (G1004) e concentra risco; não compartilha profissionais <i>para dentro</i>.</p>
         </div>
       </div>
@@ -1434,7 +1481,7 @@
 
 <div class="doc-footer">
   <span><b>ARI Vivo · ROM &amp; Estimativa de Projeto</b> — Salesforce Professional Services LATAM · documento controlado por versão</span>
-  <span>Versão <b>1.4</b> · gerado <b>26 ago 2026, 11:40 BRT</b></span>
+  <span>Versão <b>1.5</b> · gerado <b>26 ago 2026, 11:52 BRT</b></span>
 </div>
 
 <script>
