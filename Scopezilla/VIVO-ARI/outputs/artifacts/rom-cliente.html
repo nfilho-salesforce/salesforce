@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- DECK-VERSION: 1.2 | GENERATED: 2026-08-26T08:52:00-03:00 -->
+<!-- DECK-VERSION: 1.3 | GENERATED: 2026-08-26T11:07:00-03:00 -->
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -160,6 +160,13 @@
   .wave-card .wd{font-size:12.5px;color:var(--muted);line-height:1.55;}
   .par-tag{font-size:10px;font-weight:800;padding:1px 7px;border-radius:20px;margin-left:6px;text-transform:uppercase;letter-spacing:.3px;}
   .par-full{background:#e8f5ec;color:#1e7e4f;} .par-part{background:#fef3e0;color:#b7791f;} .par-seq{background:#fde8e8;color:#c0392b;}
+  .cmp-grid{display:flex;gap:14px;flex-wrap:wrap;margin:6px 0 4px;}
+  .cmp-box{flex:1;min-width:150px;border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-align:center;background:var(--card);}
+  .cmp-box.hi{border-color:var(--purple);background:#faf8fd;}
+  .cmp-box .n{font-size:30px;font-weight:900;color:var(--ink);line-height:1;}
+  .cmp-box.hi .n{color:var(--purple);}
+  .cmp-box .l{font-size:11px;color:var(--muted);margin-top:6px;letter-spacing:.3px;text-transform:uppercase;font-weight:700;}
+  .cmp-box .s{font-size:11.5px;color:var(--muted);margin-top:4px;}
 
   /* milestone roadmap */
   .rm{position:relative;margin:14px 0 6px;padding-left:8px;}
@@ -229,7 +236,8 @@
     <a class="nav-item" onclick="showSection('s8',this)"><span class="ico">🚩</span> Timeline · Marcos</a>
 
     <div class="nav-group-title">Plano de Trabalho</div>
-    <a class="nav-item" onclick="showSection('s13',this)"><span class="ico">🗓️</span> Alocação · 7 Squads × Fase <span class="nav-badge open">exercício</span></a>
+    <a class="nav-item" onclick="showSection('s13',this)"><span class="ico">🗓️</span> Exerc. 1 · Squads × Fase <span class="nav-badge open">exercício</span></a>
+    <a class="nav-item" onclick="showSection('s14',this)"><span class="ico">👥</span> Exerc. 2 · Perfis &amp; Cross-Squad <span class="nav-badge open">exercício</span></a>
 
     <div class="nav-group-title">Comparação &amp; Riscos</div>
     <a class="nav-item" onclick="showSection('s9',this)"><span class="ico">⚖️</span> Trilha Tradicional</a>
@@ -248,7 +256,7 @@
         <h1>🟣 ARI Vivo · ROM &amp; Estimativa de Projeto — Salesforce PS</h1>
       </div>
       <div class="topbar-right">
-        <span class="ver-badge">Versão 1.2</span>
+        <span class="ver-badge">Versão 1.3</span>
         <span class="inst-badge">🔒 Preço diferido · sem valores financeiros</span>
         <span class="date-badge">📅 Gerado 25 ago 2026</span>
       </div>
@@ -1075,13 +1083,128 @@
       </div>
     </div>
 
+    <div id="s14" class="section">
+      <h2 class="sec-h">Exercício 2 — perfis propostos &amp; reaproveitamento cross-squad</h2>
+      <p class="sec-sub">Diferente do Exercício 1 (squads e composição fornecidas), aqui <b>proponho os perfis, as quantidades e como reaproveitar recursos entre squads</b> (cross-squad). O objetivo é um time enxuto AI-native que cobre os 7 squads dobrando papéis, cronometrando por fase e fracionando a cauda — sem perder nenhuma accountability. Cenário Central (produtivas) como base. Todos os papéis a <b>0 rate</b>.</p>
+
+      <div class="alert amber"><span class="ai">🧪</span><div><b>Exercício de proposta de perfis — não altera os racionais do projeto.</b> É um <b>desenho alternativo de staffing</b> (perfis + quantidades + partilha cross-squad), paralelo ao ROM. As horas, fases, épicos e disclaimers das demais seções permanecem inalterados. Sem rates e sem valores financeiros (todos os papéis a <b>0</b>). Objetivo: mostrar quanto do time pode ser compartilhado entre os 7 squads sem furar cobertura nem caminho crítico.</div></div>
+
+      <div class="card">
+        <h3>Roster proposto por perfil — 23 pessoas PS (núcleo AI-native)</h3>
+        <p class="sec-sub" style="margin-top:2px;">Cada linha é <b>uma pessoa/perfil</b>, não uma disciplina. A coluna "squads atendidos" mostra onde o perfil atua; a partilha cross-squad é o que enxuga a contagem. Referência dos 7 squads: 1·Governança · 2·FND+OPS · 3·CIM+CPM · 4·CRM+COPM · 5·SDP · 6·INT · 7·HCC.</p>
+        <table class="uc-table">
+          <thead><tr><th>Perfil</th><th>Sen.</th><th>Qtd</th><th>Squads atendidos</th><th>Fases ativas</th><th>Justificativa (por que este perfil, esta qtd, cross-squad)</th></tr></thead>
+          <tbody>
+            <tr><td colspan="6" style="background:#faf8fd;font-weight:800;color:var(--purple);">Governança &amp; arquitetura de programa (overlay — não bloqueia squads)</td></tr>
+            <tr><td>Principal Program Manager</td><td>Principal</td><td>1</td><td>1 (todos, overlay)</td><td>Prep → HC</td><td>Accountability de entrega ponta-a-ponta do programa multi-domínio (10 épicos, ~40 sem). Overlay sobre os 7 squads; não é dedicado a nenhum.</td></tr>
+            <tr><td>Project Manager / PMO</td><td>Sênior</td><td>1</td><td>1 (todos, overlay)</td><td>Design → Deploy</td><td>Coordenação ágil dos squads, dependências e release. Absorve os Scrum Masters do ROM na modelagem enxuta (1 PMO forte + cadência AI-assistida).</td></tr>
+            <tr><td>Principal Solution Architect</td><td>Principal</td><td>1</td><td>1 (todos, overlay)</td><td>Prep → Deploy</td><td>Coerência de solução cross-squad (FSC + Service + Data + Experience) acima dos SAs de squad. Guarda os racionais de arquitetura de negócio.</td></tr>
+            <tr><td>Principal Technical Architect</td><td>Principal</td><td>1</td><td>1 (todos, overlay)</td><td>Prep → Deploy</td><td>Governança técnica de callouts em escala e do seam de facades MuleSoft (G1004/G1005); orquestração de agentes. Autoridade técnica do programa.</td></tr>
+            <tr><td colspan="6" style="background:#faf8fd;font-weight:800;color:var(--purple);">Camada de solução &amp; construção (compartilhada entre squads)</td></tr>
+            <tr><td>Solution Architect (SA-A)</td><td>Sênior</td><td>1</td><td>2·FND · 4·CRM+COPM</td><td>Design, UAT</td><td>1 SA cobre a trilha "fundação + relacionamento/captura". Sequencia domínios afins um a um dirigindo agentes → cobre mais escopo que no tradicional.</td></tr>
+            <tr><td>Solution Architect (SA-B)</td><td>Sênior</td><td>1</td><td>3·CIM+CPM · 5·SDP</td><td>Design, UAT</td><td>1 SA cobre "interação/problema + canais". SA-A e SA-B substituem os 5 SAs de squad do baseline por 2 arquitetos que rodam domínios afins.</td></tr>
+            <tr><td>Technical Architect (compartilhado)</td><td>Sênior</td><td>1</td><td>2·FND · 3·CIM · 4·CRM · 5·SDP</td><td>Design → Build</td><td>1 TA transversal para os domínios Salesforce-nativos (config/automação). Padrões comuns → 1 pessoa cobre 4 squads sem gargalo.</td></tr>
+            <tr><td>Technical Architect — INT (contratos)</td><td>Sênior</td><td>1</td><td>6·INT</td><td>Design → Build, Deploy</td><td>Dedicado a INT: contratos dos 17 facades MuleSoft (G1008). Onshore por acoplamento de timezone. INT não compartilha por ser condicional (G1004) e caminho de risco.</td></tr>
+            <tr><td>Technical Architect — INT (orquestração)</td><td>Sênior</td><td>1</td><td>6·INT</td><td>Build, Deploy, Scale</td><td>Orquestração de agentes/integração e callouts em escala (~2,3M/dia). Par dedicado ao INT dado o piso condicional e o volume; não realocável enquanto o seam não fecha.</td></tr>
+            <tr><td>Solution Consultant (SC-1)</td><td>Sênior</td><td>1</td><td>3·CIM · 3·CPM</td><td>Design, Build, UAT</td><td>Dedicado ao caminho crítico (inclui entrevista CPM-04 de 300 passos). Onde o risco funcional é maior, sem partilha.</td></tr>
+            <tr><td>Solution Consultant (SC-2)</td><td>Regular</td><td>1</td><td>2·FND · 4·CRM+COPM</td><td>Build, UAT</td><td>Compartilhado entre fundação e relacionamento — domínios de menor volatilidade funcional toleram 1 consultor cruzando.</td></tr>
+            <tr><td>Solution Consultant (SC-3)</td><td>Regular</td><td>1</td><td>5·SDP · 6·INT</td><td>Build, UAT</td><td>Compartilhado canais+integração: as histórias de SDP dependem do contrato de INT, então 1 consultor cobrindo os dois reduz atrito de handoff.</td></tr>
+            <tr><td>Developer (Dev-1)</td><td>Sênior</td><td>1</td><td>2·FND → flex 4·CRM</td><td>Build</td><td>Front-loaded na fundação (sai cedo, como no Ex.1) e reflui para CRM. AI-amplificado: absorve volume que exigiria 2ª pessoa no tradicional.</td></tr>
+            <tr><td>Developer (Dev-2)</td><td>Regular</td><td>1</td><td>3·CIM · 3·CPM</td><td>Build</td><td>Par do caminho crítico com Dev-3. Volume de CIM+CPM dimensiona a janela de Build.</td></tr>
+            <tr><td>Developer (Dev-3)</td><td>Regular</td><td>1</td><td>3·CIM · 3·CPM → flex 4·CRM</td><td>Build</td><td>Reforça o caminho crítico e reflui a CRM quando CIM/CPM estabilizam. Flex cross-squad evita ociosidade na cauda.</td></tr>
+            <tr><td>Developer (Dev-4)</td><td>Regular</td><td>1</td><td>5·SDP</td><td>Build</td><td>Canais + voz (SCV/Connect) + Aliado (~18k, OMNI-28). Dedicado por dependência de infra (G0802) que sequencia o ritmo do squad.</td></tr>
+            <tr><td>Developer (Dev-5)</td><td>Sênior</td><td>1</td><td>6·INT</td><td>Build</td><td>Build de integração/contratos. Sênior por acoplamento e testes de contrato; par dos TAs de INT no seam de facades.</td></tr>
+            <tr><td>QA / Test Automation</td><td>Sênior</td><td>2</td><td>Pool transversal (todos)</td><td>Build, UAT (surge)</td><td>QA AI-amplificado, não substituído (check independente). Pool cross-squad que cobre todos os squads e faz surge na janela de UAT (go-live regulado/financeiro).</td></tr>
+            <tr><td colspan="6" style="background:#faf8fd;font-weight:800;color:var(--purple);">Hypercare &amp; adoção (7·HCC — especialistas fracionais)</td></tr>
+            <tr><td>HCC — Principal (Adoption/Change)</td><td>Principal</td><td>1</td><td>7·HCC</td><td>P&amp;D, UAT, Scale</td><td>Superfície nova para grande população de agentes + ~18k Aliado; adoção falha mata ROI. Fracional: toque leve em P&amp;D/UAT, foco em Scale.</td></tr>
+            <tr><td>HCC — Consultant (Baseline TMA/FCR)</td><td>Regular</td><td>1</td><td>7·HCC</td><td>P&amp;D, Scale</td><td>Baseline TMA/FCR e plano de medição que torna o resultado ARI auditável (G0507/G0903). Fracional em P&amp;D + estabilização.</td></tr>
+            <tr><td>HCC — Experience Architect</td><td>Sênior</td><td>1</td><td>7·HCC (superfícies-chave)</td><td>P&amp;D</td><td>Trilha right-sized de design (console, fluxos conversacionais, CPM-04). Especialista fracional consumido em P&amp;D — não é UX greenfield.</td></tr>
+            <tr><td>HCC — Experience Designer</td><td>Regular</td><td>1</td><td>7·HCC (superfícies-chave)</td><td>P&amp;D</td><td>Detalha as superfícies de alto impacto desenhadas pelo Experience Architect. Fracional, encerra ao fim do design.</td></tr>
+          </tbody>
+        </table>
+        <p class="sec-sub" style="margin-top:8px;"><b>Total proposto: 23 pessoas PS</b> (4 governança/arquitetura de programa · 2 SA · 3 TA · 3 SC · 5 Dev · 2 QA · 4 HCC). Papéis <span class="phase-dot pd-full">●</span> dedicados a um squad e <span class="phase-dot pd-part">◐</span> compartilhados entre squads — detalhe na matriz abaixo.</p>
+      </div>
+
+      <!-- MATRIZ CROSS-SQUAD -->
+      <div class="card">
+        <h3>Matriz de partilha cross-squad — perfil × 7 squads</h3>
+        <p class="sec-sub" style="margin-top:2px;"><span class="phase-dot pd-full">●</span> dedicado ao squad · <span class="phase-dot pd-part">◐</span> compartilhado (atua neste e em outro) · <span class="phase-dot pd-off">○</span> não atua. Ler na horizontal: quantos squads cada pessoa cobre. Ler na vertical: quantas pessoas sustentam cada squad.</p>
+        <table class="uc-table">
+          <thead><tr><th>Perfil (qtd)</th><th>1·Gov</th><th>2·FND</th><th>3·CIM+CPM</th><th>4·CRM+COPM</th><th>5·SDP</th><th>6·INT</th><th>7·HCC</th></tr></thead>
+          <tbody>
+            <tr><td>Governança &amp; arq. programa (4)</td><td><span class="phase-dot pd-full">●</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-part">◐</span></td></tr>
+            <tr><td>Solution Architect A (1)</td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td></tr>
+            <tr><td>Solution Architect B (1)</td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td></tr>
+            <tr><td>Technical Architect compart. (1)</td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td></tr>
+            <tr><td>Technical Architect INT (2)</td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-full">●</span></td><td><span class="phase-dot pd-off">○</span></td></tr>
+            <tr><td>Solution Consultant SC-1 (1)</td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-full">●</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td></tr>
+            <tr><td>Solution Consultant SC-2 (1)</td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td></tr>
+            <tr><td>Solution Consultant SC-3 (1)</td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-off">○</span></td></tr>
+            <tr><td>Developer Dev-1 (1)</td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td></tr>
+            <tr><td>Developer Dev-2 (1)</td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-full">●</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td></tr>
+            <tr><td>Developer Dev-3 (1)</td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td></tr>
+            <tr><td>Developer Dev-4 (1)</td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-full">●</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td></tr>
+            <tr><td>Developer Dev-5 (1)</td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-full">●</span></td><td><span class="phase-dot pd-off">○</span></td></tr>
+            <tr><td>QA pool (2)</td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-part">◐</span></td><td><span class="phase-dot pd-off">○</span></td></tr>
+            <tr><td>HCC — especialistas (4)</td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-off">○</span></td><td><span class="phase-dot pd-full">●</span></td></tr>
+          </tbody>
+        </table>
+        <p class="sec-sub" style="margin-top:8px;">Onde há <span class="phase-dot pd-part">◐</span> em mais de uma coluna na mesma linha, é reaproveitamento cross-squad. <b>INT (6) e HCC (7) não compartilham para dentro</b>: INT é condicional (facades, G1004) e caminho de risco; HCC é uma célula de especialistas fracionais em fase distinta (design/adoção). Governança é overlay — compartilha com todos por definição.</p>
+      </div>
+
+      <!-- COMPARATIVO NOMINAL vs PROPOSTO -->
+      <div class="card">
+        <h3>Comparativo — nominal (Ex.1) vs. proposto (Ex.2)</h3>
+        <p class="sec-sub" style="margin-top:2px;">O baseline nominal supõe um time dedicado por squad (Ex.1). O proposto dobra papéis e compartilha entre squads. Ambos cobrem o mesmo escopo e as mesmas fases PS.</p>
+        <div class="cmp-grid">
+          <div class="cmp-box"><div class="n">33</div><div class="l">Nominal (Ex.1)</div><div class="s">1 time dedicado por squad</div></div>
+          <div class="cmp-box hi"><div class="n">23</div><div class="l">Proposto (Ex.2)</div><div class="s">papéis dobrados + cross-squad</div></div>
+          <div class="cmp-box"><div class="n">−10</div><div class="l">Redução</div><div class="s">~30% menos assentos</div></div>
+        </div>
+        <table class="uc-table" style="margin-top:12px;">
+          <thead><tr><th>Perfil</th><th>Nominal (Ex.1)</th><th>Proposto (Ex.2)</th><th>Δ</th><th>De onde vem a economia</th></tr></thead>
+          <tbody>
+            <tr><td>Governança &amp; arq. programa</td><td>4</td><td>4</td><td>0</td><td>Overlay inalterado — accountability não se dobra.</td></tr>
+            <tr><td>Solution Architect</td><td>5</td><td>2</td><td>−3</td><td>2 arquitetos rodam domínios afins um a um dirigindo agentes, em vez de 1 por squad.</td></tr>
+            <tr><td>Technical Architect</td><td>6</td><td>3</td><td>−3</td><td>1 TA transversal cobre 4 squads Salesforce-nativos; INT mantém 2 dedicados (risco/volume).</td></tr>
+            <tr><td>Solution Consultant</td><td>4</td><td>3</td><td>−1</td><td>SC-1 dedicado ao caminho crítico; SC-2 e SC-3 cruzam 2 squads cada.</td></tr>
+            <tr><td>Developer</td><td>5</td><td>5</td><td>0</td><td>Mantidos, porém AI-amplificados e com flex cross-squad (Dev-1/Dev-3 refluem a CRM) — cada um cobre mais.</td></tr>
+            <tr><td>QA</td><td>5</td><td>2</td><td>−3</td><td>Pool transversal AI-amplificado com surge em UAT, em vez de 1 QA por squad.</td></tr>
+            <tr><td>HCC</td><td>4</td><td>4</td><td>0</td><td>Especialistas fracionais em fase própria — não há o que compartilhar para dentro dos squads.</td></tr>
+            <tr><td style="font-weight:800;">Total PS</td><td style="font-weight:800;">33</td><td style="font-weight:800;color:var(--purple);">23</td><td style="font-weight:800;">−10</td><td>Economia concentrada em SA, TA e QA — papéis cuja partilha não cria gargalo de caminho crítico.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- COMO FUNCIONA -->
+      <div class="card">
+        <h3>Como o reaproveitamento funciona — 4 alavancas</h3>
+        <ul class="bul">
+          <li><b>Dobrar papéis (fold).</b> Uma pessoa cobre mais de uma função afim: 2 SAs no lugar de 5, 1 TA transversal para os 4 domínios Salesforce-nativos. Uma linha por pessoa, não por disciplina.</li>
+          <li><b>Cronometrar por fase (time-box).</b> Perfis full-time apenas na janela em que atuam (Dev na Build, HCC em P&amp;D/Scale). Reduz FTE médio pelo <i>tamanho da janela</i>, não por fracionar.</li>
+          <li><b>Fracionar a cauda.</b> Especialistas consumidos em fatia — HCC (Experience Architect/Designer, Baseline, Adoption) tocam de leve em fases pontuais; o núcleo permanece full-time.</li>
+          <li><b>Compartilhar cross-squad.</b> Domínios de menor volatilidade cruzam (SC-2 em FND+CRM; QA como pool). O caminho crítico (CIM+CPM) e o risco condicional (INT) ficam <b>dedicados</b> — partilha só onde não vira gargalo.</li>
+        </ul>
+        <p class="sec-sub" style="margin-top:6px;">Núcleo AI-native: menos assentos porque cada sênior sequencia domínios afins dirigindo agentes (mais cobertura por pessoa) e QA é amplificado, não replicado. As accountabilities de programa (governança) e a célula de adoção (HCC) não se dobram — a economia vem de arquitetura e QA, não de cortar cobertura.</p>
+      </div>
+
+      <div class="disc">
+        <b>Disclaimer — exercício de proposta de perfis (Benchmark).</b> Os perfis, quantidades e a partilha cross-squad são um <b>desenho alternativo de staffing</b> derivado top-down da forma do engajamento (cenário Central, ~40 semanas) e das práticas de staffing AI-native da Salesforce PS; carregam o Benchmark Disclaimer. Distinto (e paralelo) da base de dimensionamento do ROM (5 squads de Build) e do Exercício 1 (7 squads com time dedicado) — <b>sem alterar horas, fases, épicos ou premissas das demais seções</b>. Sem rates e sem valores financeiros (todos os papéis a 0). As contagens são indicativas para planejamento de recursos, não um compromisso contratual de composição de time.
+      </div>
+
+      <div class="sec-nav">
+        <button class="sec-link" onclick="showSection('s13',null,'nav')">← Exerc. 1 · Squads × Fase</button>
+        <button class="sec-link" onclick="showSection('s1',null,'nav')">Voltar ao início ↑</button>
+      </div>
+    </div>
+
     <!-- SECTIONS-END -->
   </div><!-- /content -->
 </div><!-- /main -->
 
 <div class="doc-footer">
   <span><b>ARI Vivo · ROM &amp; Estimativa de Projeto</b> — Salesforce Professional Services LATAM · documento controlado por versão</span>
-  <span>Versão <b>1.2</b> · gerado <b>26 ago 2026, 08:52 BRT</b></span>
+  <span>Versão <b>1.3</b> · gerado <b>26 ago 2026, 11:07 BRT</b></span>
 </div>
 
 <script>
