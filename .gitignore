@@ -1,0 +1,5 @@
+
+# large artifacts — never track (added 2026-08-27)
+**/.quantum-leap-staging/venv-export/
+*.mp4
+**/chrome_profile_notebooklm/
