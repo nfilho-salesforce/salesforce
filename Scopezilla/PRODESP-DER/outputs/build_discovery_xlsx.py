@@ -100,13 +100,18 @@ intro = [
     "rodovia, inspeções programadas, gestão de frota/equipes terceirizadas).",
     "3. Discovery — Agentforce & WhatsApp: perguntas específicas do canal conversacional — provisionamento, "
     "handoff humano, guardrails, consentimento, continuidade de sessão.",
-    "4. Discovery — Setor Público (padrão): bloco de perguntas que aplicamos em todo projeto de setor público "
+    "4. Discovery — Service Cloud / CTI: fato novo — o DER também quer um atendimento geral com gestão de "
+    "chamados (Service Cloud), incluindo agentes humanos, agente de IA coworker, canais no Omni-Channel, "
+    "níveis de atendimento, turnos, regras de roteamento, volumetria, SLA e a integração de CTI com a URA do "
+    "DER (URA ainda não identificada — a aba já traz o alinhamento necessário sobre a descontinuação da Open "
+    "CTI pela Salesforce).",
+    "5. Discovery — Setor Público (padrão): bloco de perguntas que aplicamos em todo projeto de setor público "
     "(governança, LGPD, licitação, acessibilidade, integração com outros órgãos, continuidade de serviço "
     "essencial).",
-    "5. Riscos: matriz de risco potencial com pergunta de validação para cada risco — cobre os riscos já "
+    "6. Riscos: matriz de risco potencial com pergunta de validação para cada risco — cobre os riscos já "
     "citados na POC (matriz de risco por cenário, alarme de 5 min) e riscos adicionais de escala, dados e "
     "governança.",
-    "6. Roadmap — Catálogo DER: mapeamento indicativo de TODOS os serviços listados na Carta de Serviços do "
+    "7. Roadmap — Catálogo DER: mapeamento indicativo de TODOS os serviços listados na Carta de Serviços do "
     "DER-SP, agrupados em ondas de discussão a partir do MVP (atendimento emergencial). É um mapa de discussão "
     "para orientar o roadmap, não um cronograma comprometido — sequenciamento, prazos e equipe são definidos "
     "depois, com as skills de roadmap/estimate.",
@@ -277,6 +282,76 @@ write_question_sheet(
      "Resposta do DER (sessão)", "Observações"],
     [30, 46, 42, 34, 28, 26],
     blocks_agf,
+)
+
+# =========================================================================
+# SHEET 3.5 — SERVICE CLOUD: ATENDIMENTO GERAL, GESTÃO DE CHAMADOS E CTI
+# =========================================================================
+blocks_svc = [
+("A. Escopo do Atendimento Geral e Gestão de Chamados", [
+    ["Esse novo atendimento (fato novo, distinto do atendimento emergencial em rodovia) é para o público externo (cidadão), interno (servidores do DER), ou ambos?", "Define se é Service Cloud voltado a Customer Service, Employee Service, ou os dois — com filas, canais e SLA potencialmente distintos para cada público.", "", "", ""],
+    ["Quais tipos de solicitação esse atendimento deve cobrir — dúvidas sobre os serviços do catálogo do DER (multas, autorizações), reclamações de infraestrutura viária, pedidos de informação (LAI/SIC), ou é um canal único que hoje está fragmentado entre Ouvidoria, SIC e atendimento telefônico?", "A Carta de Serviços do DER já lista Ouvidoria e SIC como canais formais existentes — se este projeto cobre o mesmo escopo, é preciso decidir se substitui, integra ou complementa esses canais institucionais, para não criar canal duplicado.", "", "", ""],
+    ["Existe hoje algum sistema de gestão de chamados (ticket, planilha, e-mail, ou mesmo processo manual) que será substituído, e há necessidade de migrar histórico de chamados abertos?", "Determina o escopo de migração de dados e o período de transição/paralelo entre o sistema atual e o novo atendimento.", "", "", ""],
+    ["Um chamado deste atendimento geral pode se relacionar com uma ocorrência do atendimento emergencial de rodovia (ex: um sinistro que gera depois uma reclamação formal)? Se sim, precisa haver vínculo/rastreabilidade entre os dois?", "Afeta o modelo de dados — se o Case deste atendimento e a Ocorrência do Field Service (POC emergencial) compartilham o mesmo Contato/Conta e precisam de link cruzado para visão única do cidadão.", "", "", ""],
+]),
+("B. Agentes Humanos de Atendimento", [
+    ["Quantos agentes humanos estão previstos para esse atendimento, e eles são servidores do próprio DER, terceirizados, ou a mesma central que hoje atende o C2C do atendimento emergencial?", "Determina licenciamento de usuários e se a força de trabalho é compartilhada com o C2C (visto na POC) ou é equipe nova e separada — mudam o desenho de filas e de capacidade.", "", "", ""],
+    ["Os agentes atuam de forma generalista (qualquer chamado) ou especializados por assunto (ex: multas, autorizações, infraestrutura)? Essa estrutura de equipe já existe hoje, mesmo informalmente?", "A estrutura de equipe real de hoje é o insumo para decidir entre roteamento por fila única ou por habilidades (skills-based) — não é uma escolha a ser feita no vácuo.", "[KA-4393] Omni-Channel: Skills-Based vs Queue-Based Routing", "", ""],
+    ["Qual o nível de familiaridade da equipe com ferramentas de atendimento digital (console de CRM, sistemas de chamado)? É a primeira vez usando uma ferramenta desse tipo?", "Afeta diretamente o esforço de capacitação/change management e o quão guiada a interface do console precisa ser desenhada.", "", "", ""],
+    ["Existe hoje alguma meta de produtividade por agente (chamados/dia, tempo médio de atendimento) usada para dimensionar a equipe atual?", "Insumo real de capacidade operacional para o desenho de Presence Configuration do Omni-Channel — não serve para estimar headcount aqui (isso é do skill `estimate`), serve para entender a realidade da operação.", "", "", ""],
+]),
+("C. Agente de IA Coworker (Agentforce)", [
+    ["O 'agente de IA coworker' deve assistir o agente humano (sugerir resposta, resumir o caso, buscar na base de conhecimento) ou atuar de forma autônoma atendendo diretamente o cidadão/servidor antes de escalar para humano?", "São dois produtos/casos de uso distintos dentro da marca Agentforce: o Coworker é posicionado como ponto de entrada em linguagem natural dentro do CRM (busca e síntese); um agente autônomo de atendimento direto ao usuário externo é outro desenho (Agentforce Service Agent). A resposta muda a arquitetura inteira.", "[KA-18840] Agentforce Coworker — Benefits and Core Use Cases", "", ""],
+    ["Se for um agente autônomo atendendo diretamente o cidadão: em quais canais ele atua primeiro (o mesmo WhatsApp do atendimento emergencial, um chat no site, outro), e qual o critério de handoff para um agente humano?", "Reaproveita o mesmo desenho de guardrails de escopo já necessário no Agentforce do MVP emergencial, mas aqui o domínio é diferente (chamados administrativos, não emergência viária) — o agente precisa de outro conjunto de tópicos/ações.", "", "", ""],
+    ["Se for um 'coworker' assistindo o agente humano: quais fontes de conhecimento ele deve consultar — Knowledge do Salesforce, base de conhecimento do DER hoje em outro sistema, dados de CRM/Data Cloud?", "Sem fonte de conhecimento indexada, o coworker não tem o que sintetizar — a Busca Empresarial Agêntica exige Knowledge configurado e Search Manager antes de funcionar.", "[KA-12172] Agentic Enterprise Search for Agentforce Service Agent", "", ""],
+    ["Existe hoje uma base de conhecimento/FAQ estruturada (mesmo informal) sobre os serviços do DER que possa alimentar esse agente, ou isso também precisa ser construído do zero?", "Base de conhecimento é pré-requisito técnico da Busca Empresarial Agêntica, não só uma questão de UX — sem isso não há o que o coworker buscar e sintetizar.", "[KA-12172]", "", ""],
+]),
+("D. Canais Habilitados no Omni-Channel", [
+    ["Quais canais o DER quer habilitar no Omni-Channel para este atendimento geral — voz/telefone, WhatsApp, chat no site, e-mail, redes sociais? É a mesma lista de canais do atendimento emergencial ou um conjunto diferente?", "Cada canal tem pré-requisito de licenciamento e configuração próprio (voz depende diretamente da decisão de CTI no bloco J) — sem essa lista fechada não se desenha o roteamento nem a capacidade dos agentes.", "", "", ""],
+    ["Cada canal terá o mesmo grupo de agentes atendendo em fila compartilhada, ou equipes dedicadas por canal (ex: equipe de voz separada da equipe de chat/WhatsApp)?", "Define se a capacidade (Presence Configuration) é única e compartilhada entre canais ou segmentada — impacta diretamente a regra de roteamento do bloco G.", "", "", ""],
+    ["Há alguma restrição de licenciamento ou integração legada que force o uso do Omni-Channel Standard, ou o DER está aberto à recomendação padrão da Salesforce de usar o Enhanced Omni-Channel?", "O Enhanced Omni-Channel é a recomendação padrão da Salesforce e suporta capacidades (como reatribuição de trabalho) que o Standard não tem — vale confirmar cedo, pois muda a experiência do agente.", "[KA-4401] Choose Enhanced Omni-Channel over Standard", "", ""],
+]),
+("E. Níveis de Atendimento (Tiers) e Escalonamento", [
+    ["Quantos níveis de atendimento o DER quer operar (ex: 1ª linha / especialista / backoffice, ou N1/N2/N3), e o que caracteriza a passagem de um chamado de um nível para o outro?", "Estrutura de tiers direciona diretamente o desenho de filas/habilidades e das regras de escalonamento — é o núcleo do que foi pedido explicitamente para este discovery.", "", "", ""],
+    ["Hoje, mesmo fora de sistema, existe alguma prática de escalonamento por tipo de assunto ou por tempo sem resposta?", "As Regras de Escalonamento do Service Cloud automatizam esse comportamento (idade do caso, reatribuição automática, notificação) — mas a regra de negócio real precisa vir do processo já praticado pelo DER, nunca ser inventada.", "[KA-4453] Configure Case Escalation Actions · [KA-4455] Configure Case Escalation Rules", "", ""],
+    ["Para assuntos que exigem múltiplos especialistas simultâneos (ex: um chamado que envolve jurídico e engenharia ao mesmo tempo), o modelo esperado é hierárquico (sobe de nível) ou colaborativo (várias áreas trabalham juntas no mesmo caso)?", "Se colaborativo, um modelo de colaboração sem tiers rígidos, orientado a especialistas, pode ser mais aderente do que uma escada tradicional de níveis — vale perguntar antes de assumir hierarquia como padrão.", "[KA-4549] Service Swarming Overview and Collaboration Modes", "", ""],
+]),
+("F. Turnos e Horário de Atendimento", [
+    ["Qual o horário de atendimento previsto (comercial, estendido, 24x7), e ele é igual para todos os canais e tipos de chamado, ou varia (ex: voz só em horário comercial, WhatsApp mais estendido)?", "O horário de atendimento configurado no Service Cloud alimenta diretamente o cálculo de SLA/Marcos e as regras de escalonamento — precisa ser definido por canal/fila, não assumido como valor único.", "[KA-3976] Configure and Apply Business Hours for Cases, Escalations, Entitlements, and Milestones", "", ""],
+    ["Existem turnos de trabalho definidos hoje para a equipe (ex: manhã/tarde, plantão), e como a troca de turno afeta um chamado em andamento (transferência de responsabilidade)?", "Turno não é um conceito único nativo do Service Cloud — normalmente é refletido combinando Presence Configuration e Horário de Atendimento; a regra de handoff entre turnos é do negócio do DER e precisa ser levantada, não assumida.", "", "", ""],
+    ["Feriados e pontos facultativos do calendário público estadual afetam o horário de atendimento (ex: SLA pausa nesses dias)?", "O recurso de Horário de Atendimento do Salesforce suporta calendário de feriados vinculado — pergunta prática para não gerar cálculo de SLA incorreto em dia sem expediente.", "[KA-3976]", "", ""],
+]),
+("G. Regras de Roteamento", [
+    ["O roteamento de um chamado para o agente certo deve ser por fila simples (qualquer agente da fila atende) ou por habilidades específicas (ex: só quem sabe de 'autorização especial de transporte' recebe esse chamado)?", "É a decisão central de arquitetura de roteamento do Omni-Channel: fila é mais simples de manter; habilidades é mais preciso, mas exige mapear e manter o cadastro de skills por agente.", "[KA-4393] Omni-Channel: Skills-Based vs Queue-Based Routing", "", ""],
+    ["Dentro de uma mesma fila/habilidade, quando dois chamados chegam ao mesmo tempo e há um agente livre, o critério de prioridade deve ser 'quem está livre há mais tempo' ou 'quem está menos ocupado no momento'?", "O Omni-Channel oferece os modelos 'Least Active' e 'Most Available' — decisão de negócio que muda a distribuição de carga entre agentes; não tem resposta única certa, precisa ser escolhida pelo DER.", "[KA-4539] Omni-Channel routing model selection: Least Active vs Most Available", "", ""],
+    ["Há previsão de usar classificação automática por IA para direcionar o chamado à fila certa, ou a classificação inicial será sempre manual/definida pelo próprio canal de abertura?", "O Einstein Case Routing conecta a classificação automática de caso à lógica de roteamento já configurada — só é viável se já existir roteamento por fila/habilidade configurado por trás; não substitui essa decisão, depende dela.", "[KA-4339] Einstein Case Routing: Built-in vs. Custom/External Routing", "", ""],
+]),
+("H. Volumetria", [
+    ["Qual o volume estimado de chamados/contatos por mês (ou por dia) para esse atendimento geral — mesmo que seja uma estimativa aproximada baseada no volume atual de Ouvidoria, SIC ou telefone?", "Volumetria real é o insumo que dimensiona capacidade de fila, número de agentes e viabilidade de metas de SLA — sem isso, todo o resto do desenho de atendimento fica no vácuo.", "", "", ""],
+    ["Esse volume tem sazonalidade ou pico conhecido (ex: período de vencimento de multas, época de chuva, campanha de comunicação do DER)?", "Pico sazonal pressiona diretamente a capacidade do Omni-Channel e o cumprimento de SLA — mesmo racional já levantado para o Field Service, aqui aplicado ao atendimento geral.", "", "", ""],
+    ["Qual a proporção esperada entre canais (ex: hoje X% por telefone, Y% por e-mail)? Isso já é medido em algum relatório de Ouvidoria/SIC hoje?", "Sem essa distribuição por canal, a capacidade de cada canal (voz exige presença dedicada; chat permite atendimento simultâneo) fica sem base real para dimensionamento.", "", "", ""],
+]),
+("I. SLA / Entitlements / Milestones", [
+    ["Existe hoje algum SLA formal (mesmo que apenas normativo, fora de sistema) de prazo de resposta e de resolução por tipo de chamado ou por nível de atendimento?", "As políticas de SLA do Service Cloud são estruturadas como marcos dentro de um prazo — sem meta real definida pelo DER, a configuração fica arbitrária e sem valor de negócio.", "[KA-4033] SLA Policies for Entitlements · [KA-4590] SLA Policies (Entitlement Process) Overview", "", ""],
+    ["O SLA de resposta/resolução precisa ser diferenciado por tipo de solicitante (cidadão comum vs. outro órgão público vs. imprensa) ou é uniforme para todos?", "A Gestão de Direitos (Entitlement Management) do Service Cloud foi desenhada justamente para dar 'o nível de suporte prometido' por perfil — pergunta chave para saber se um único SLA Policy basta ou se são necessários vários.", "", "", ""],
+    ["Quem será o responsável por tratar os marcos de SLA que não se fecham automaticamente quando a condição de negócio é cumprida?", "Marcos (Milestones) não se completam automaticamente sem automação (Flow/Apex) — é um gap frequente em desenhos de entitlement; vale sinalizar desde já que alguém vai precisar ser o dono desse processo.", "[KA-0463] Do not expect entitlement Milestones to auto-complete without automation", "", ""],
+    ["Há diferenciação de SLA por gravidade/prioridade do assunto (semelhante à matriz de risco usada no atendimento emergencial), ou o SLA aqui é só por prazo corrido/tipo de assunto?", "Conecta com o racional já usado na POC de emergência — mas aqui é atendimento administrativo, então a variável de 'gravidade' muda de sentido (ex: reclamação grave de segurança viária x dúvida simples de documentação).", "", "", ""],
+]),
+("J. CTI / Telefonia / URA", [
+    ["Qual é hoje o sistema de URA/telefonia do DER (fornecedor, se é PABX próprio, solução em nuvem, ou terceirizado)? Mesmo sem saber o nome exato agora, quem no DER saberia informar (TI, fornecedor de telefonia, área de atendimento)?", "É a pergunta mais crítica deste bloco — sem saber qual sistema é, não é possível avaliar se a integração é tecnicamente viável nem por qual caminho.", "", "", ""],
+    ["Alinhamento importante antes de prosseguir: a Salesforce está descontinuando a Open CTI (a API clássica de integração com URA/PABX de terceiros) — retirada prevista para fevereiro de 2028 e já indisponível para novos orgs Agentforce Service; o caminho recomendado pela própria Salesforce é migrar para o Salesforce Voice (voz nativa da plataforma). Dado isso, o DER prefere manter a URA/PABX atual integrada via CTI de terceiro (se ainda viável), ou está aberto a avaliar o Salesforce Voice como solução de voz nativa?", "Essa é uma decisão arquitetural que muda o projeto inteiro de voz — precisa ser surfaceada agora, antes que 'vamos integrar com a URA deles' seja tratado como premissa fechada de escopo.", "[KA-5474] Open CTI vs Salesforce Voice vs Sales Dialer · [KA-5475]/[KA-5427] Avoid new implementations on Open CTI (retiring Feb 2028)", "", ""],
+    ["Se a URA atual precisar ser mantida (ex: contrato vigente com fornecedor de telefonia, integração com outros sistemas do DER), já existe confirmação de que o fornecedor da URA oferece uma API de CTI compatível?", "Mesmo dentro da Open CTI existem APIs diferentes e não intercambiáveis entre Salesforce Classic e Lightning — a viabilidade técnica depende de o fornecedor de telefonia suportar a API certa; isso não é dado adquirido, precisa ser confirmado com o fornecedor.", "[KA-5435] Select the correct Open CTI API (Classic vs Lightning) · [KA-5429]", "", ""],
+    ["Existe contrato vigente com o fornecedor de telefonia/URA com prazo de vigência relevante para a decisão entre manter a integração via CTI de terceiro ou migrar para o Salesforce Voice?", "A decisão de arquitetura de voz tem também uma dimensão contratual/comercial que pode pesar mais que a técnica — vale levantar já no discovery para não travar o projeto depois.", "", "", ""],
+    ["O atendimento por voz (seja qual for a solução escolhida) precisa gravar chamadas, transcrever automaticamente, ou gerar algum registro/auditoria específica por exigência de órgão público?", "Gravação/transcrição pode ser requisito de compliance de setor público — mas aqui especificamente também muda a escolha entre Open CTI (tipicamente sem gravação nativa, depende do fornecedor terceiro) e Salesforce Voice (com transcrição/gravação nativas).", "[KA-9528] Public Sector — Security Setup Overview", "", ""],
+]),
+]
+
+write_question_sheet(
+    wb, "Discovery - Service Cloud CTI",
+    ["Bloco", "Pergunta de Discovery", "Por que perguntamos", "Referência / Caso de uso padrão",
+     "Resposta do DER (sessão)", "Observações"],
+    [30, 46, 42, 40, 28, 26],
+    blocks_svc,
 )
 
 # =========================================================================

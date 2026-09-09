@@ -3,14 +3,16 @@
     {
       "date": "2026-09-09",
       "skills_used": ["discover (partial — ad hoc facilitation artifact, not full brief)"],
-      "summary": "Ingerido o documento de POC (Sistema de Gestão de Atendimento de Ocorrências em Rodovia, v01 20/08/2026) via discover. Buscado e persistido o catálogo completo de serviços do DER-SP (Carta de Serviços) em discovery-notes/der-carta-de-servicos.md. Gerado outputs/scoping-deliverables.xlsx com guia de discovery profundo (MVP emergencial, Field Service indústria, Agentforce/WhatsApp, Setor Público padrão, matriz de riscos) e aba de roadmap indicativo mapeando todo o catálogo DER contra o escopo do MVP.",
+      "summary": "Ingerido o documento de POC (Sistema de Gestão de Atendimento de Ocorrências em Rodovia, v01 20/08/2026) via discover. Buscado e persistido o catálogo completo de serviços do DER-SP (Carta de Serviços) em discovery-notes/der-carta-de-servicos.md. Gerado outputs/scoping-deliverables.xlsx com guia de discovery profundo (MVP emergencial, Field Service indústria, Agentforce/WhatsApp, Service Cloud/CTI, Setor Público padrão, matriz de riscos) e aba de roadmap indicativo mapeando todo o catálogo DER contra o escopo do MVP. Adicionada, na mesma sessão, aba dedicada a Service Cloud/gestão de chamados/CTI a partir de fato novo trazido pelo usuário (DER quer também atendimento geral com CTI/URA, agentes humanos, agente de IA coworker, Omni-Channel, tiers, turnos, roteamento, volumetria, SLA) — grounded em 10 atomos [KA-XXXX] da KB central (Open CTI vs Salesforce Voice, skills vs queue routing, Agentforce Coworker, entitlements/SLA/milestones, escalation, swarming).",
       "friction": ["WebFetch retornou 403 na Carta de Serviços; Playwright/Chrome bloqueado por política do sistema (DevTools remote debugging disallowed) — contornado com curl + User-Agent de navegador"],
       "decisions": [],
       "open_threads": [
         "Parâmetro N (regra de despacho N/N-10) não definido pela POC — pendente de decisão do DER",
         "Matriz de risco fornecida na POC é declaradamente incompleta (não cobre todos os tipos de ocorrência)",
         "Licenciamento Salesforce da fase de produção (versão full com todos os canais) ainda não confirmado",
-        "Roadmap do catálogo DER é indicativo/para discussão — não substitui as skills roadmap/estimate quando o projeto avançar"
+        "Roadmap do catálogo DER é indicativo/para discussão — não substitui as skills roadmap/estimate quando o projeto avançar",
+        "URA/telefonia do DER ainda não identificada (fornecedor, se PABX próprio ou terceirizado) — bloqueador para decidir entre CTI de terceiro (Open CTI, em descontinuação, retirada fev/2028) ou migrar para Salesforce Voice",
+        "Não está definido se o 'agente de IA coworker' pedido é um assistente do agente humano (Agentforce Coworker) ou um agente autônomo atendendo o cidadão (Agentforce Service Agent) — são arquiteturas diferentes"
       ],
       "next_steps": [
         "Rodar as sessões de discovery profundo desta semana usando o guia gerado",
