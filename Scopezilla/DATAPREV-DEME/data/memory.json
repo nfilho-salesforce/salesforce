@@ -1,5 +1,31 @@
 {
-  "sessions": [],
-  "preferences": {},
+  "sessions": [
+    {
+      "date": "2026-09-09",
+      "skill": "discover",
+      "summary": "Rodada parcial de discovery (usuário sinalizou conteúdo incompleto). Ingeridos: DV_Marketplace.pdf v1.1 (33p, 16 NEs), Visao_Solucao_Salesforce_Marketplace_Dataprev.html (hipótese de arquitetura de Luis Gabriel Fernandes/Rogério Meira), 00-loja-dtp-celebracao-contratual-bsa.md (análise interna BSA — duas visões, 5 decisões abertas), ata interna de alinhamento Commerce (01-...), e brief estruturado (via briefer agent) da transcrição da reunião com o cliente de 31/08. Produzido outputs/00-discovery-brief.md. Nenhuma posição tomada nas 5 decisões abertas — escolha explícita do usuário.",
+      "open_threads": [
+        "Volumetria (produtos, transações, clientes, contratos, usuários) pendente — comprometida por Hildegard Paulino Barbosa (DEME), ainda não recebida.",
+        "5 decisões abertas sem posição do BSA: (1) SoR pós-assinatura Salesforce vs. ERP; (2) loja cobre só prateleira, exclusivo, ou os dois; (3) onda de PF/chatbot; (4) assinatura ICP-Brasil/A3 vs. registro simples; (5) volumetria + Org (mesmo Org do programa de previdência/agentes ou Org próprio do DEME).",
+        "knowledge/ tem só 1 doc (nota de pesquisa própria) — item 🔴 não confirmado: Experience Cloud embutir componentes nativos de Revenue Cloud/CPQ sem Digital Commerce/LWR. KB central Scopezilla não consultada (MCP search@aisuite com falha ENDPOINT_NOT_FOUND na última tentativa registrada).",
+        "Nome/dono da ferramenta de pós-vigência (vizinha do handoff FN10.01) ainda não identificado.",
+        "Personas do lado cliente ainda rasas: só Hildegard confirmada por fala na reunião de 31/08; Thiago/Fábio/Rodrigo/Liliane (DV v1.1) não confirmados nessa reunião.",
+        "Product overlay 'Agentforce Operations' descartado como falso positivo (match em keywords genéricas 'capa'/'clm', sem relação de domínio com este deal)."
+      ],
+      "next_steps": [
+        "Retomar discover (ou seguir para strategy) quando a volumetria e/ou respostas às 5 decisões chegarem do cliente.",
+        "Considerar diligência com Luis Gabriel Fernandes (SE, autor da hipótese de arquitetura) para confirmar item 🔴 de Experience Cloud + Revenue Cloud sem Digital Commerce.",
+        "Reconciliar MCP search@aisuite (ENDPOINT_NOT_FOUND) para reabilitar grounding via KB central Scopezilla."
+      ]
+    }
+  ],
+  "preferences": {
+    "terminology": {
+      "Loja DTP": "nome interno do deal (não confundir com 'PAT Marketplace', outro deal/sponsor)",
+      "DEME": "área de negócio Dataprev responsável por este deal — não a área de previdência/agentes",
+      "SoR": "System of Record — quem é dono do contrato após a assinatura (Salesforce CLM vs. ERP), Decisão 1",
+      "fábrica 1 / fábrica 2": "fábrica 1 = produto de prateleira (catálogo/carrinho); fábrica 2 = contrato exclusivo por cliente (sem catálogo)"
+    }
+  },
   "decision_log": []
 }

@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Visão de Solução Salesforce — Marketplace Dataprev</title>
+<style>
+:root {
+  color-scheme: light;
+  --bg: #f7f8fb;
+  --surface: #ffffff;
+  --surface-alt: #f0f3f9;
+  --ink: #0b1726;
+  --ink-soft: #3b4a5c;
+  --ink-mute: #6b7a8c;
+  --border: #e3e8ef;
+  --brand: #0d4f8b;       /* Dataprev/Gov azul institucional */
+  --brand-soft: #e7f0fa;
+  --sf: #00a1e0;          /* Salesforce azul */
+  --sf-deep: #032e61;
+  --accent: #16a34a;
+  --warn: #b45309;
+  --danger: #b91c1c;
+  --radius: 14px;
+  --shadow: 0 1px 2px rgba(11,23,38,.04), 0 8px 24px rgba(11,23,38,.06);
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--brand); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Navbar */
+.navbar {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: saturate(140%) blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+.navbar-inner {
+  max-width: 1180px; margin: 0 auto;
+  display: flex; align-items: center; gap: 18px;
+  padding: 12px 24px;
+}
+.brand {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 700; letter-spacing: -.01em;
+}
+.brand-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--brand), var(--sf));
+}
+.nav-links { display: flex; gap: 4px; flex: 1; overflow-x: auto; }
+.nav-links a {
+  padding: 8px 12px; border-radius: 8px;
+  color: var(--ink-soft); font-size: 13.5px; font-weight: 500; white-space: nowrap;
+}
+.nav-links a:hover { background: var(--surface-alt); text-decoration: none; color: var(--ink); }
+.nav-cta {
+  padding: 7px 14px; border-radius: 999px;
+  background: var(--ink); color: #fff; font-size: 12.5px; font-weight: 600;
+}
+.nav-cta:hover { background: var(--sf-deep); text-decoration: none; }
+
+/* Hero */
+.hero { max-width: 1180px; margin: 0 auto; padding: 56px 24px 28px; }
+.eyebrow {
+  font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--brand);
+}
+.hero h1 {
+  font-size: 40px; line-height: 1.1; letter-spacing: -.02em;
+  margin: 10px 0 14px; max-width: 940px;
+}
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(120deg, var(--brand), var(--sf));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.hero p.lede { font-size: 17px; color: var(--ink-soft); max-width: 820px; margin: 0; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 10px; border-radius: 999px;
+  background: var(--surface); border: 1px solid var(--border);
+  font-size: 12px; color: var(--ink-soft); font-weight: 500;
+}
+.chip strong { color: var(--ink); font-weight: 700; }
+
+/* Stat grid */
+.stats {
+  max-width: 1180px; margin: 0 auto; padding: 18px 24px 8px;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+}
+@media (max-width: 820px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+.stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; }
+.stat-num { font-size: 26px; font-weight: 700; letter-spacing: -.02em; color: var(--ink); }
+.stat-num .unit { font-size: 14px; color: var(--ink-mute); font-weight: 600; }
+.stat-label { font-size: 12.5px; color: var(--ink-mute); margin-top: 4px; }
+
+/* Section */
+section.block { max-width: 1180px; margin: 0 auto; padding: 40px 24px; scroll-margin-top: 70px; }
+.sec-head { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; margin-bottom: 22px; }
+.sec-tag {
+  font-family: var(--mono); font-size: 11px; color: var(--ink-mute);
+  border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px; background: var(--surface);
+}
+.sec-head h2 { font-size: 26px; letter-spacing: -.02em; margin: 0; }
+.sec-head .sub { font-size: 14px; color: var(--ink-mute); }
+
+/* Briefing card */
+.briefing {
+  background: linear-gradient(180deg, #fff 0%, #f5f9fe 100%);
+  border: 1px solid var(--border); border-radius: 18px; padding: 28px; box-shadow: var(--shadow);
+}
+.briefing h3 { margin: 0 0 6px; font-size: 18px; letter-spacing: -.01em; }
+.briefing-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 28px; }
+@media (max-width: 880px) { .briefing-grid { grid-template-columns: 1fr; } }
+.briefing p { margin: 0 0 10px; color: var(--ink-soft); }
+.briefing .callout {
+  background: var(--brand-soft); border-left: 3px solid var(--brand);
+  padding: 12px 14px; border-radius: 8px; font-size: 14px; color: var(--ink);
+}
+.briefing ul { margin: 6px 0 0; padding-left: 18px; color: var(--ink-soft); }
+.briefing ul li { margin-bottom: 4px; }
+
+/* Cards grid */
+.cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+@media (max-width: 820px) { .cards { grid-template-columns: 1fr; } }
+.cards.c3 { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 820px) { .cards.c3 { grid-template-columns: 1fr; } }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; }
+.card h4 { margin: 0 0 6px; font-size: 15.5px; letter-spacing: -.01em; display: flex; align-items: center; gap: 8px; }
+.card .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--brand); flex-shrink:0; }
+.card p, .card ul { margin: 0; color: var(--ink-soft); font-size: 14px; }
+.card ul { padding-left: 18px; margin-top: 6px; }
+.card ul li { margin-bottom: 3px; }
+
+/* Two-col block */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media (max-width: 820px) { .two-col { grid-template-columns: 1fr; } }
+.panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 22px; }
+.panel h4 { margin: 0 0 10px; font-size: 16px; }
+.panel p { color: var(--ink-soft); margin: 0 0 10px; }
+.kv { display: flex; gap: 10px; margin: 6px 0; font-size: 13.5px; }
+.kv .k { color: var(--ink-mute); min-width: 150px; }
+.kv .v { color: var(--ink); }
+
+/* Pain/Opp table-like */
+.painopp {
+  display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 0;
+  border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--surface);
+}
+.painopp .row { display: contents; }
+.painopp .cell { padding: 12px 14px; border-bottom: 1px solid var(--border); font-size: 13.5px; }
+.painopp .head { background: var(--surface-alt); font-weight: 700; color: var(--ink); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
+.painopp .row:last-child .cell { border-bottom: none; }
+.painopp .cell.pain { color: var(--ink-soft); }
+.painopp .cell.cap { color: var(--ink); }
+.painopp .cell.prod { color: var(--sf-deep); font-weight: 600; }
+@media (max-width: 720px) {
+  .painopp { grid-template-columns: 1fr; }
+  .painopp .head { display: none; }
+  .painopp .cell { border-bottom: 1px solid var(--border); }
+  .painopp .cell.pain::before { content: "Dor atual: "; color: var(--warn); font-weight: 700; }
+  .painopp .cell.cap::before { content: "Como resolvemos: "; color: var(--brand); font-weight: 700; }
+  .painopp .cell.prod::before { content: "Produto: "; font-weight: 700; }
+}
+
+/* Architecture diagram */
+.arch { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
+.arch-rows { display: flex; flex-direction: column; gap: 10px; }
+.arch-row { display: grid; grid-template-columns: 170px 1fr; gap: 14px; align-items: stretch; }
+@media (max-width: 720px){ .arch-row { grid-template-columns: 1fr; } }
+.arch-row .layer {
+  display: flex; align-items: center; justify-content: center; text-align: center; padding: 12px;
+  background: var(--surface-alt); border-radius: 10px; font-size: 12px; font-weight: 700;
+  color: var(--ink-soft); letter-spacing: .06em; text-transform: uppercase;
+}
+.arch-row .blocks { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+.block-pill { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; font-size: 13px; }
+.block-pill b { display: block; color: var(--sf-deep); font-size: 13px; }
+.block-pill span { color: var(--ink-mute); font-size: 11.5px; }
+.layer-viz { background: #eaf6ff !important; color: var(--sf-deep) !important; }
+.layer-experience { background: #dbeafe !important; color: #1e40af !important; }
+.layer-ai { background: #e8fff1 !important; color: #166534 !important; }
+.layer-core { background: #eef2ff !important; color: #3730a3 !important; }
+.layer-automation { background: #fff7e6 !important; color: #92400e !important; }
+.layer-data { background: #f3e8ff !important; color: #6b21a8 !important; }
+.layer-integration { background: #fee2e2 !important; color: #991b1b !important; }
+.layer-sources { background: #e5e7eb !important; color: #374151 !important; }
+.block-pill.pill-issue { border-left: 3px solid var(--danger); }
+.block-pill.pill-warn { border-left: 3px solid var(--warn); }
+.block-pill.pill-ok { border-left: 3px solid var(--accent); }
+.block-pill .pill-flag { display: inline-block; font-size: 10px; text-transform: uppercase; letter-spacing: .08em; padding: 1px 6px; border-radius: 4px; margin-left: 4px; font-weight: 700; }
+.block-pill .pill-flag.danger { background: #fee2e2; color: var(--danger); }
+.block-pill .pill-flag.warn { background: #fef3c7; color: var(--warn); }
+.block-pill .pill-flag.ok { background: #dcfce7; color: #166534; }
+
+/* Options compare */
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 820px) { .compare { grid-template-columns: 1fr; } }
+.opt { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.opt-head { padding: 16px 20px; background: linear-gradient(180deg, #fff 0%, #f5f9fe 100%); border-bottom: 1px solid var(--border); }
+.opt-head .tag { font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--brand); letter-spacing: .12em; }
+.opt-head h4 { margin: 4px 0 4px; font-size: 18px; letter-spacing: -.01em; }
+.opt-head .sub { font-size: 13px; color: var(--ink-mute); }
+.opt-body { padding: 16px 20px; }
+.opt-body .prcon { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.pro, .con { border-radius: 8px; padding: 10px 12px; font-size: 13.5px; }
+.pro { background: #dcfce7; color: #166534; }
+.con { background: #fee2e2; color: #991b1b; }
+.pro b, .con b { display: block; margin-bottom: 3px; }
+
+
+/* Flow (fluxo numerado) */
+.flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.flow-step { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; position: relative; }
+.flow-num { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; background: var(--brand); color: #fff; font-size: 12px; font-weight: 700; }
+.flow-step h4 { margin: 4px 0 0; font-size: 14px; letter-spacing: -.01em; }
+.flow-step p { margin: 0; color: var(--ink-soft); font-size: 12.5px; }
+
+/* Tables */
+.pend-table { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.pend-table th, .pend-table td { padding: 10px 12px; text-align: left; font-size: 13.5px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.pend-table th { background: var(--surface-alt); font-size: 11.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink); }
+.pend-table tr:last-child td { border-bottom: none; }
+.badge { display:inline-block; font-size: 10.5px; font-weight: 700; padding: 2px 7px; border-radius: 999px; text-transform: uppercase; letter-spacing:.04em; white-space: nowrap; }
+.badge.crit { background:#fee2e2; color: var(--danger); }
+.badge.mi { background:#fef3c7; color: var(--warn); }
+.badge.des { background:#dcfce7; color:#166534; }
+.badge.nat { background:#e0f2fe; color: var(--sf-deep); }
+.badge.ext { background:#ede9fe; color:#6b21a8; }
+.badge.evo { background:#dcfce7; color:#166534; }
+
+/* Riscos */
+.risk-list { display: grid; gap: 8px; }
+.risk { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; display: grid; grid-template-columns: 90px 1fr 1fr; gap: 12px; font-size: 13.5px; align-items: start; }
+@media (max-width: 720px) { .risk { grid-template-columns: 1fr; } }
+.risk .sev { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; padding: 3px 8px; border-radius: 6px; align-self: start; background: #fef3c7; color: var(--warn); }
+.risk.sev-high .sev { background: #fee2e2; color: var(--danger); }
+.risk.sev-low .sev { background: #dcfce7; color: #166534; }
+.risk .what b { color: var(--ink); }
+.risk .mit { color: var(--ink-soft); }
+.risk .mit b { color: var(--ink); }
+
+/* Footer */
+footer { max-width: 1180px; margin: 0 auto; padding: 30px 24px 60px; color: var(--ink-mute); font-size: 12.5px; }
+footer .sources { display: flex; flex-wrap: wrap; gap: 8px; }
+footer .src { border: 1px solid var(--border); border-radius: 999px; background: var(--surface); padding: 4px 10px; }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <span>Marketplace Dataprev × Salesforce</span>
+    </div>
+    <div class="nav-links">
+      <a href="#briefing">Briefing</a>
+      <a href="#dores">Dores atuais</a>
+      <a href="#solucao">Solução alvo</a>
+      <a href="#jornada">Jornada</a>
+      <a href="#mapa">Mapa requisitos</a>
+      <a href="#agentes">Agentes de IA</a>
+      <a href="#arquitetura">Arquitetura</a>
+      <a href="#diferenciais">Diferenciais</a>
+      <a href="#escopo">Escopo</a>
+      <a href="#riscos">Riscos</a>
+      <a href="#roadmap">Roadmap</a>
+    </div>
+    <a class="nav-cta" href="#briefing">Resumo executivo</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="eyebrow">Visão de Solução · Pré-venda Salesforce · Setembro 2026</div>
+  <h1>Marketplace governamental de contratação da <em>Dataprev</em> sobre a plataforma <em>Salesforce</em> — nativo, escalável e pronto para <em>IA</em>.</h1>
+  <p class="lede">Visão de solução técnica-comercial para migrar o Marketplace de produtos "de prateleira" da Dataprev — hoje em plataforma concorrente altamente customizada — para uma arquitetura Salesforce que atende aos requisitos do Documento de Visão, endereça a dor central de sustentabilidade (customização que quebra a cada atualização) e adiciona evoluções nativas como Agentforce, validação documental por IA e assinatura eletrônica.</p>
+  <div class="hero-meta">
+    <span class="chip">Cliente: <strong>Dataprev</strong> (Empresa Pública Federal)</span>
+    <span class="chip">Modelo: <strong>B2B · produtos de prateleira</strong></span>
+    <span class="chip">Requisitos: <strong>16 necessidades · ~50 funcionalidades</strong></span>
+    <span class="chip">Foco: <strong>celebração contratual</strong></span>
+    <span class="chip">Diretriz: <strong>nativo &gt; customização</strong></span>
+    <span class="chip">Escala futura: <strong>+2.100 RPPS · Pessoa Física</strong></span>
+  </div>
+</header>
+
+<section class="stats">
+  <div class="stat">
+    <div class="stat-num">16 <span class="unit">necessidades</span></div>
+    <div class="stat-label">NE1–NE16 do Documento de Visão endereçadas</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">~85<span class="unit">% nativo</span></div>
+    <div class="stat-label">Meta de cobertura por configuração, não código</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">2.100<span class="unit">+ RPPS</span></div>
+    <div class="stat-label">Universo COMPREV com contratação obrigatória</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">~6 <span class="unit">meses</span></div>
+    <div class="stat-label">Ciclo de quebra por customização na solução atual</div>
+  </div>
+</section>
+
+<!-- BRIEFING EXECUTIVO -->
+<section class="block" id="briefing">
+  <div class="sec-head">
+    <span class="sec-tag">01 · 1 página</span>
+    <h2>Briefing executivo</h2>
+    <span class="sub">Para o time de pré-venda Salesforce.</span>
+  </div>
+
+  <div class="briefing">
+    <div class="briefing-grid">
+      <div>
+        <h3>Situação</h3>
+        <p>A <strong>Dataprev</strong> (empresa pública federal de TI) migrou de contratos sob medida para <strong>produtos "de prateleira" (multimercado)</strong> — o mesmo produto vendido a muitos clientes ajustando apenas configurações. Esse movimento se intensificou com o <strong>COMPREV</strong>, cujo público-alvo é o INSS e <strong>mais de 2.100 Regimes Próprios de Previdência Social</strong>, com contratação obrigatória (Decreto 10.188/2019). Some-se a isso a intenção de ofertar serviços a <strong>Pessoas Físicas</strong>, o que criará contratos "em volume jamais visto". O processo de contratação, antes manual, precisa se tornar <strong>autosserviço ponta a ponta em padrão e-commerce</strong>.</p>
+        <p>Já existe uma solução em produção na <strong>plataforma concorrente (ServiceNow)</strong>, mas o cliente busca alternativa por uma dor estrutural clara, verbalizada na reunião de 31/08: <strong>excesso de customização</strong> que compromete a sustentabilidade — "quando troca a versão, o produto para de funcionar", num ciclo de risco a cada ~6 meses. O Documento de Visão detalha <strong>16 necessidades e ~50 funcionalidades</strong>, focadas na <strong>celebração contratual</strong> (a gestão contratual contínua fica fora de escopo — já é tratada por outra ferramenta/ERP).</p>
+
+        <h3 style="margin-top:14px;">Recomendação</h3>
+        <p>Posicionar uma solução <strong>Salesforce-first, "clicks not code"</strong>: <strong>Experience Cloud</strong> (vitrine/portal externo), <strong>Salesforce CPQ / Revenue Cloud</strong> (catálogo de produtos, carrinho, precificação e templates de contrato), <strong>Flow + Approvals</strong> (rito de autorização e assinatura) com telas em <strong>Screen Flow / LWC</strong>, <strong>Digital Signature / assinatura eletrônica</strong>, <strong>MuleSoft</strong> (Gov.br, PNCP, ERP, CNIS-PJ/PF, CSM), <strong>Agentforce</strong> (chatbot e triagem) e <strong>Data 360 Document AI</strong> (validação documental). A tese comercial não é "custo isolado", e sim <strong>natividade que sobrevive às atualizações</strong> (a dor #1 do cliente), somada a evoluções que o concorrente não entrega no mesmo plano de controle: agentes de IA, extração documental por IA e um data layer pronto para analytics de contratação.</p>
+      </div>
+
+      <div>
+        <div class="callout">
+          <strong>Objetivo da visão.</strong><br>
+          Oferecer ao cliente uma arquitetura que <strong>atende e supera</strong> os requisitos do Documento de Visão, elimina a dependência de customização pesada (causa-raiz da dor atual) e habilita ganhos nativos — Agentforce, validação documental por IA, assinatura eletrônica avançada/qualificada e governança pronta para LGPD/TCU.
+        </div>
+
+        <h3 style="margin-top:14px;">Por que Salesforce vence aqui</h3>
+        <ul>
+          <li><strong>Sustentabilidade nativa</strong> — 3 releases/ano com atualização automática e retrocompatibilidade; configuração declarativa em vez de código quebra o ciclo de "atualizou, quebrou".</li>
+          <li><strong>Rito contratual como processo, não código</strong> — catálogo, carrinho, precificação, minuta, aprovação e assinatura são capacidades de plataforma (Revenue Cloud + Flow/Screen Flow + LWC).</li>
+          <li><strong>IA no mesmo plano</strong> — Agentforce e Data 360 Document AI rodam sobre os mesmos dados, sem integração externa frágil.</li>
+          <li><strong>Órgão público federal</strong> — Shield, trilhas de auditoria, LGPD e integração Gov.br/PNCP com governança nativa.</li>
+        </ul>
+
+        <div class="callout" style="margin-top:14px; background:#fef3c7; border-left-color:var(--warn);">
+          <strong>⚠ Ponto de atenção — escopo.</strong><br>
+          A funcionalidade <strong>FN10.02 (Gestão Contratual e Portal do Cliente)</strong> aparece <strong>tachada no Documento de Visão</strong> e foi confirmada como <strong>fora de escopo</strong> na reunião. O Marketplace foca na <strong>celebração</strong>; a gestão contínua roda em outra frente/ERP. Não posicionar esforço de venda sobre gestão contratual contínua neste momento.
+        </div>
+
+        <h3 style="margin-top:14px;">Tamanho da oportunidade</h3>
+        <p>Conta estratégica de governo federal, com efeito de referência: um padrão de <strong>marketplace de contratação pública sobre Salesforce</strong> replicável em outros órgãos e empresas estatais que enfrentam o mesmo problema de escala e conformidade.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DORES ATUAIS -->
+<section class="block" id="dores">
+  <div class="sec-head">
+    <span class="sec-tag">02</span>
+    <h2>Dores da solução atual — e como a plataforma as resolve</h2>
+    <span class="sub">Levantadas no Documento de Visão e na reunião de 31/08/2026. A causa-raiz é uma só: customização excessiva.</span>
+  </div>
+
+  <div class="painopp">
+    <div class="row">
+      <div class="cell head">Dor da solução atual (ServiceNow)</div>
+      <div class="cell head">Como a Salesforce resolve — de forma nativa</div>
+      <div class="cell head">Produto / Capacidade</div>
+    </div>
+    <div class="row">
+      <div class="cell pain"><b>Customização excessiva.</b> "Verificamos muita customização; isso compromete a sustentabilidade a longo prazo." A cada troca de versão da plataforma o produto para de funcionar.</div>
+      <div class="cell cap">Modelo declarativo (clicks-not-code): catálogo, carrinho, regras de preço, templates de contrato, aprovações e jornadas configurados por metadados — não por código customizado.</div>
+      <div class="cell prod">Platform · Flow · Revenue Cloud</div>
+    </div>
+    <div class="row">
+      <div class="cell pain"><b>Quebra a cada atualização (~6 meses).</b> Versões trocam rotineiramente; a customização não acompanha e a operação para até novo ajuste.</div>
+      <div class="cell cap">3 releases/ano automáticos com retrocompatibilidade garantida e testes de regressão nativos. Configuração sobrevive aos upgrades; código isolado em pacotes desacoplados.</div>
+      <div class="cell prod">Salesforce Release Model</div>
+    </div>
+    <div class="row">
+      <div class="cell pain"><b>Manutenção cara e arriscada.</b> Equipe com receio de mexer; conhecimento concentrado; cada evolução é um projeto.</div>
+      <div class="cell cap">Admins configuram sem depender de desenvolvedores; sandbox + change sets + DevOps Center para deploy seguro e versionado.</div>
+      <div class="cell prod">Setup declarativo · DevOps Center</div>
+    </div>
+    <div class="row">
+      <div class="cell pain"><b>Processo de contratação lento e manual.</b> Equipe comercial atuava caso a caso; não escala para 2.100+ RPPS nem para Pessoa Física.</div>
+      <div class="cell cap">Autosserviço ponta a ponta no portal externo; automação na regra, humano só na exceção (tarefas geradas apenas em casos de falha).</div>
+      <div class="cell prod">Experience Cloud · Flow Orchestration</div>
+    </div>
+    <div class="row">
+      <div class="cell pain"><b>Validação documental manual e repetitiva.</b> Conferir se a PF que assina representa a PJ, a cada contratação.</div>
+      <div class="cell cap">Extração e leitura de documentos por IA (OCR + campos estruturados) e validação de consistência; só cai para humano após 3 tentativas sem sucesso (exatamente como pede FN4.03/FN8.09).</div>
+      <div class="cell prod">Data 360 Document AI</div>
+    </div>
+    <div class="row">
+      <div class="cell pain"><b>Atendimento reativo.</b> Dúvidas de contratação sobrecarregam a equipe; sem canal inteligente de triagem.</div>
+      <div class="cell cap">Agente de IA treinado com a base documental, responde sem alucinação, abre chamado no CSM e mede satisfação (NE16).</div>
+      <div class="cell prod">Agentforce · Service Cloud</div>
+    </div>
+    <div class="row">
+      <div class="cell pain"><b>Conformidade sob pressão.</b> Gov.br, PNCP (Lei 14.133), LGPD e auditoria TCU exigem trilhas e governança robustas.</div>
+      <div class="cell cap">Integrações governadas por API management + trilhas de auditoria, criptografia e políticas de retenção nativas (Shield).</div>
+      <div class="cell prod">MuleSoft · Salesforce Shield</div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUÇÃO ALVO -->
+<section class="block" id="solucao">
+  <div class="sec-head">
+    <span class="sec-tag">03</span>
+    <h2>Solução alvo — o Marketplace sobre Salesforce</h2>
+    <span class="sub">Camadas de plataforma que compõem o autosserviço de celebração contratual.</span>
+  </div>
+
+  <div class="cards c3">
+    <div class="card">
+      <h4><span class="dot"></span>Experience Cloud — o portal externo</h4>
+      <p>Vitrine pública de produtos (logados e não logados), área autenticada do cliente, carrinho e acompanhamento do dossiê de contratação. Identidade visual Dataprev, responsivo, com login Gov.br.</p>
+    </div>
+    <div class="card">
+      <h4><span class="dot"></span>Revenue Cloud / CPQ — catálogo e contrato</h4>
+      <p>Catálogo de produtos com modelos de negócio flexíveis (componentes obrigatórios/opcionais, faixas de capacidade, recorrência + valores únicos), simulação de preço em tempo real, templates de minuta e cláusulas condicionais por natureza do cliente.</p>
+    </div>
+    <div class="card">
+      <h4><span class="dot"></span>Flow, LWC &amp; Approvals — o rito e as telas</h4>
+      <p>Orquestração do processo: cadastro de papéis/entidade, grupos autorizadores externos, tabela de competência de assinatura da Dataprev, prazos (30 dias, notificação a cada 5), controle do anexo PNCP e liberação de acesso. As telas guiadas (wizards) são construídas em <strong>Screen Flow</strong> e os componentes de UI reutilizáveis em <strong>LWC</strong>; regras de negócio e orquestração server-side ficam em <strong>Flow autolaunched / Apex</strong>.</p>
+    </div>
+    <div class="card">
+      <h4><span class="dot"></span>Agentforce &amp; Data 360 Document AI — a IA</h4>
+      <p>Chatbot de atendimento treinado na base documental (Agentforce), validação documental por IA com extração de campos e leitura de documentos (Data 360 Document AI), triagem e abertura de chamados no CSM, pesquisa de satisfação e apoio à equipe de gestão na exceção.</p>
+    </div>
+    <div class="card">
+      <h4><span class="dot"></span>MuleSoft — as integrações</h4>
+      <p>Camada de API para Gov.br, PNCP, ERP, CNIS-PJ/PF, CRM e CSM — governada, monitorada e reutilizável, isolando o core das mudanças dos sistemas externos.</p>
+    </div>
+    <div class="card">
+      <h4><span class="dot"></span>Shield &amp; Data — governança</h4>
+      <p>Trilhas de auditoria, criptografia, políticas de retenção (LGPD/TCU) e um data layer pronto para analytics de funil de contratação e volumetria.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:16px; background:#e7f0fa; border-left:3px solid var(--brand); padding:12px 14px; border-radius:8px; font-size:14px;">
+    <strong>Por que Revenue Cloud e não Commerce Cloud como motor central?</strong> Apesar do enquadramento de "marketplace / e-commerce" e do "carrinho", o núcleo de valor e de complexidade deste sistema não é o checkout transacional — é a <strong>celebração contratual</strong>: configurar modelos de negócio complexos (componentes obrigatórios/opcionais, faixas de capacidade, recorrência + valores únicos), gerar minuta idêntica à de assinatura, aplicar cláusulas/anexos condicionais por natureza do cliente e conduzir aditivos e distratos. Isso é o domínio nativo do <strong>Revenue Cloud (quote-to-contract, price rules, document generation, amendments)</strong>. Soma-se a isso um contexto <strong>B2B sem pagamento online</strong> ("a Dataprev não vende B2C"; o faturamento/bilhetagem ocorre depois, no ERP) — um carrinho de Commerce sem transação financeira agregaria pouco. Por isso o Revenue Cloud é a espinha dorsal, com o <strong>Experience Cloud</strong> entregando a vitrine e a experiência de autosserviço. Commerce Cloud permanece como opção de camada de storefront caso, no futuro (ex.: abertura massiva para Pessoa Física), a ênfase migre para uma experiência de descoberta/compra em larga escala.
+  </div>
+
+  <div class="callout" style="margin-top:12px; background:#fef3c7; border-left:3px solid var(--warn); padding:12px 14px; border-radius:8px; font-size:14px;">
+    <strong>Camada de UI — Screen Flow + LWC no lugar do OmniStudio.</strong> As telas guiadas e componentes de interface são construídos com recursos base da plataforma — <strong>Screen Flow</strong> (wizards), <strong>LWC</strong> (componentes reutilizáveis), <strong>Flow autolaunched / Apex</strong> (orquestração e regras server-side) e <strong>Apex + Flow</strong> (extração/transformação de dados) — em vez de OmniStudio (OmniScript, FlexCards, DataRaptor, Integration Procedures, Expression Sets). <em>Trade-off a discutir com o cliente:</em> OmniStudio oferece parte dessas telas em low-code, enquanto os equivalentes base envolvem mais desenvolvimento em LWC/Apex. Em contrapartida, mantêm a stack sobre <strong>recursos nativos de plataforma, sem dependência do pacote OmniStudio</strong> — o que reduz superfície de licenciamento e alinha com a diretriz de minimizar componentes que possam quebrar entre releases. A recomendação é encapsular esses componentes de forma desacoplada e versionada (DevOps Center) para preservar a sustentabilidade.
+  </div>
+</section>
+
+<!-- JORNADA -->
+<section class="block" id="jornada">
+  <div class="sec-head">
+    <span class="sec-tag">04</span>
+    <h2>Jornada de contratação em autosserviço</h2>
+    <span class="sub">Do descobrimento do produto à liberação de acesso — automação na regra, humano só na exceção.</span>
+  </div>
+
+  <div class="flow">
+    <div class="flow-step"><span class="flow-num">1</span><h4>Vitrine &amp; login</h4><p>Cliente navega produtos e Modelo de Negócio; autentica via Gov.br (níveis Prata/Ouro para assinar). NE1, NE2.</p></div>
+    <div class="flow-step"><span class="flow-num">2</span><h4>Carrinho &amp; simulação</h4><p>Seleciona produtos, configura capacidade e vê o valor total atualizado em tempo real. NE3.</p></div>
+    <div class="flow-step"><span class="flow-num">3</span><h4>Papéis &amp; entidade</h4><p>Cadastra signatários e fiscais e a PJ/PF (autopreenchida via CNIS-PJ/PF). Documentos validados por IA. NE4, NE5, NE15.</p></div>
+    <div class="flow-step"><span class="flow-num">4</span><h4>Minuta</h4><p>Resumo da contratação e geração da minuta idêntica à de assinatura, com cláusulas/anexos por natureza do cliente. NE6.</p></div>
+    <div class="flow-step"><span class="flow-num">5</span><h4>Autorização externa</h4><p>Quando aplicável, grupo autorizador do órgão aprova/rejeita; 1 aprovação basta, 1 rejeição impede. NE7.</p></div>
+    <div class="flow-step"><span class="flow-num">6</span><h4>Assinatura</h4><p>Cliente assina (senha/A3) e a Dataprev assina conforme a tabela de competência. Prazos e lembretes automáticos. NE8.</p></div>
+    <div class="flow-step"><span class="flow-num">7</span><h4>PNCP &amp; ERP</h4><p>Anexo do comprovante PNCP validado; contrato enviado ao ERP como fonte oficial. NE8, NE10 (FN10.01).</p></div>
+    <div class="flow-step"><span class="flow-num">8</span><h4>Liberação de acesso</h4><p>Provisionamento automático do produto ao cliente; erro gera tarefa de exceção. Status "Produção". NE11.</p></div>
+  </div>
+
+  <div class="callout" style="margin-top:16px; background:#e7f0fa; border-left:3px solid var(--brand); padding:12px 14px; border-radius:8px; font-size:14px;">
+    <strong>Ritos posteriores</strong> — Cancelamento/Distrato (NE12), Aditivação (NE13) e Reenquadramento COMPREV (NE14) são tratados como eventos contratuais discretos dentro do mesmo motor de orquestração e assinatura, reaproveitando as mesmas capacidades nativas.
+  </div>
+</section>
+
+<!-- MAPA REQUISITOS -->
+<section class="block" id="mapa">
+  <div class="sec-head">
+    <span class="sec-tag">05</span>
+    <h2>Mapa requisito → recurso Salesforce</h2>
+    <span class="sub">Rastreabilidade das 16 necessidades do Documento de Visão para capacidades da plataforma. <span class="badge nat">Nativo</span> = configuração · <span class="badge evo">Evolução</span> = diferencial vs. atual · <span class="badge ext">Integração</span> = via MuleSoft.</span>
+  </div>
+
+  <table class="pend-table">
+    <thead>
+      <tr>
+        <th style="width:52px;">NE</th>
+        <th>Necessidade</th>
+        <th>Como a Salesforce atende (nativo)</th>
+        <th style="width:150px;">Produto / Capacidade</th>
+        <th style="width:110px;">Natureza</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>NE1</strong></td>
+        <td>Gestão do cadastro de produtos e exibição a clientes (inclusão, alteração, desativação; modelos de negócio flexíveis).</td>
+        <td>Product Catalog do Revenue Cloud com atributos configuráveis; vitrine no Experience Cloud para logados/não logados.</td>
+        <td>Revenue Cloud · Experience Cloud</td>
+        <td><span class="badge nat">Nativo</span></td>
+      </tr>
+      <tr>
+        <td><strong>NE2</strong></td>
+        <td>Autenticação de usuários (Gov.br níveis Prata/Ouro; validação de e-mail).</td>
+        <td>Identity com federação/SSO Gov.br (OIDC); verificação de e-mail e MFA nativos.</td>
+        <td>Salesforce Identity · MuleSoft</td>
+        <td><span class="badge ext">Integração</span></td>
+      </tr>
+      <tr>
+        <td><strong>NE3</strong></td>
+        <td>Seleção de produtos ("carrinho") e simulação do valor total em tempo real.</td>
+        <td>Cart + Pricing Engine do Revenue Cloud recalcula o total a cada mudança de configuração.</td>
+        <td>Revenue Cloud (CPQ)</td>
+        <td><span class="badge nat">Nativo</span></td>
+      </tr>
+      <tr>
+        <td><strong>NE4</strong></td>
+        <td>Cadastro de pessoas e papéis (signatários, fiscais); documentos e comprovação de poderes.</td>
+        <td>Objetos Contact/Contract Role + upload de documentos; extração e validação por IA (Data 360 Document AI) com fallback humano após 3 tentativas.</td>
+        <td>Platform · Data 360 Document AI</td>
+        <td><span class="badge evo">Evolução</span></td>
+      </tr>
+      <tr>
+        <td><strong>NE5</strong></td>
+        <td>Cadastro da entidade PJ contratante, com autopreenchimento e classificação de natureza.</td>
+        <td>Account com preenchimento via API CNIS-PJ; campos de classificação (público/estatal dependente/privado).</td>
+        <td>Platform · MuleSoft (CNIS-PJ)</td>
+        <td><span class="badge ext">Integração</span></td>
+      </tr>
+      <tr>
+        <td><strong>NE6</strong></td>
+        <td>Geração de minuta do contrato; templates, cláusulas e anexos condicionais por natureza do cliente.</td>
+        <td>Document Generation + templates configuráveis com lógica condicional; minuta idêntica à de assinatura.</td>
+        <td>Revenue Cloud · Doc Gen</td>
+        <td><span class="badge nat">Nativo</span></td>
+      </tr>
+      <tr>
+        <td><strong>NE7</strong></td>
+        <td>Cadastro de Grupos Autorizadores Externos e rito de autorização (1 aprova / 1 rejeita).</td>
+        <td>Approval Process com grupos dinâmicos, notificação por e-mail e PDF comprobatório gerado na aprovação.</td>
+        <td>Flow · Approvals</td>
+        <td><span class="badge nat">Nativo</span></td>
+      </tr>
+      <tr>
+        <td><strong>NE8</strong></td>
+        <td>Assinatura de contrato (senha/A3), tabela de competência Dataprev, prazos, anexo e validação PNCP.</td>
+        <td>Assinatura eletrônica avançada (senha) e qualificada (A3); Flow controla prazos (30d / lembrete 5d), tabela de competência e o anexo/validação PNCP.</td>
+        <td>Digital Signature · Flow</td>
+        <td><span class="badge evo">Evolução</span></td>
+      </tr>
+      <tr>
+        <td><strong>NE9</strong></td>
+        <td>Integração com o CRM: prospecção, oportunidade ganha (assinado) / perdida (encerrado).</td>
+        <td>É o próprio CRM Salesforce — Opportunity nativa, sem integração externa. Elimina a ponte que a solução atual precisa manter.</td>
+        <td>Sales Cloud</td>
+        <td><span class="badge evo">Evolução</span></td>
+      </tr>
+      <tr>
+        <td><strong>NE10</strong></td>
+        <td>Integração com o ERP — envio do contrato assinado como fonte oficial (FN10.01).</td>
+        <td>Publicação do contrato no ERP via API governada ao efetivar a assinatura. <em>FN10.02 (portal de gestão contínua) fora de escopo.</em></td>
+        <td>MuleSoft (ERP)</td>
+        <td><span class="badge ext">Integração</span></td>
+      </tr>
+      <tr>
+        <td><strong>NE11</strong></td>
+        <td>Automação de entrega e liberação de acesso ao produto após assinatura.</td>
+        <td>Flow dispara evento de provisionamento ao produto (lista de usuários) e trata o retorno sucesso/erro com notificação.</td>
+        <td>Flow · Platform Events</td>
+        <td><span class="badge nat">Nativo</span></td>
+      </tr>
+      <tr>
+        <td><strong>NE12</strong></td>
+        <td>Cancelamento / Distrato (avaliação interna, suspensão, termo de distrato, assinatura, encerramento).</td>
+        <td>Flow de aprovação interna + geração do Termo de Distrato + assinatura eletrônica + evento de encerramento de acesso.</td>
+        <td>Flow · Digital Signature</td>
+        <td><span class="badge nat">Nativo</span></td>
+      </tr>
+      <tr>
+        <td><strong>NE13</strong></td>
+        <td>Aditivação contratual (renovação, reajuste, mudança de razão social; outras razões via equipe).</td>
+        <td>Amendment nativo do Revenue Cloud + templates de termo aditivo com cláusulas chanceladas; roteamento à equipe para exceções.</td>
+        <td>Revenue Cloud · Flow</td>
+        <td><span class="badge nat">Nativo</span></td>
+      </tr>
+      <tr>
+        <td><strong>NE14</strong></td>
+        <td>Reenquadramento anual dos +2.100 clientes COMPREV conforme faixa de compensações.</td>
+        <td>Ingestão em lote dos dados de faixa + reprocessamento e integração automática ao ERP para faturamento correto.</td>
+        <td>Data / Batch · MuleSoft (ERP)</td>
+        <td><span class="badge ext">Integração</span></td>
+      </tr>
+      <tr>
+        <td><strong>NE15</strong></td>
+        <td>Cadastro de clientes Pessoa Física (futuro volume massivo), autopreenchimento via CNIS-PF.</td>
+        <td>Person Account com preenchimento via API CNIS-PF; mesma jornada de contratação, pronta para escala.</td>
+        <td>Platform · MuleSoft (CNIS-PF)</td>
+        <td><span class="badge ext">Integração</span></td>
+      </tr>
+      <tr>
+        <td><strong>NE16</strong></td>
+        <td>Atendimento via chatbot com IA (treino documental, sem alucinação, chamado no CSM, pesquisa de satisfação).</td>
+        <td>Agentforce ancorado na base de conhecimento (RAG/grounding) para evitar alucinação; abre e consulta chamados no CSM; dispara pesquisa de satisfação.</td>
+        <td>Agentforce · Service Cloud</td>
+        <td><span class="badge evo">Evolução</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout" style="margin-top:14px; background:#e7f0fa; border-left:3px solid var(--brand); padding:12px 14px; border-radius:8px; font-size:14px;">
+    <strong>Leitura de escopo.</strong> Das 16 necessidades, a maioria é atendida por <strong>configuração nativa</strong> (Revenue Cloud, Flow, Experience Cloud). As <strong>evoluções</strong> (NE4, NE8, NE9, NE16) são onde a Salesforce claramente supera a solução atual: CRM nativo (sem ponte), IA para validação documental e atendimento, e assinatura eletrônica de plataforma. As <strong>integrações</strong> (Gov.br, PNCP, ERP, CNIS-PJ/PF, CSM) ficam encapsuladas no MuleSoft, protegendo o core das mudanças externas.
+  </div>
+</section>
+
+<!-- AGENTES DE IA -->
+<section class="block" id="agentes">
+  <div class="sec-head">
+    <span class="sec-tag">06</span>
+    <h2>Agentes de IA — a evolução que o concorrente não entrega no mesmo plano</h2>
+    <span class="sub">Agentforce e Data 360 Document AI operam sobre os mesmos dados da contratação, sem integração externa frágil.</span>
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <h4><span class="dot"></span>Agente de Atendimento (NE16)</h4>
+      <p>Chatbot ancorado na base documental do Marketplace (grounding/RAG) para responder dúvidas de contratação <strong>sem alucinar</strong>. Quando não resolve, abre chamado no CSM e devolve o número; permite consultar chamados anteriores. Dispara a pesquisa de satisfação ao final. Responde dentro dos <strong>30s</strong> exigidos no RNF.</p>
+    </div>
+    <div class="card">
+      <h4><span class="dot"></span>Validação Documental por IA — Data 360 Document AI (FN4.03, FN8.09)</h4>
+      <p>Leitura e <strong>extração de campos</strong> de documentos (RG/CIN/CNH, carteiras de conselho, comprovantes de poderes) via OCR + IA, com validação de consistência do representante legal — o trabalho hoje feito manualmente a cada contrato. Meta de <strong>≥80% de acurácia</strong> e resposta em <strong>≤5 min</strong> (RNF). Após 3 tentativas sem sucesso, gera tarefa para a equipe atuar <strong>na exceção</strong>. Os dados extraídos permanecem no Data Cloud, no mesmo plano dos demais dados da contratação.</p>
+    </div>
+    <div class="card">
+      <h4><span class="dot"></span>Agente de Apoio à Gestão (interno)</h4>
+      <p>Copiloto para os Analistas da Gestão do Marketplace: resume dossiês parados, sugere próximos passos em pendências (autorização, PNCP, assinatura) e redige comunicações. Acelera o tratamento das exceções que o autosserviço não fecha sozinho.</p>
+    </div>
+    <div class="card">
+      <h4><span class="dot"></span>Analytics &amp; previsão de funil (evolução)</h4>
+      <p>Sobre o data layer da contratação: painéis de conversão por status (Prospecção → Produção), gargalos (ex.: contratos parados aguardando PNCP), e previsão de volume — insumo direto para a volumetria pedida pelo cliente.</p>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:16px; background:#e8fff1; border-left:3px solid var(--accent); padding:12px 14px; border-radius:8px; font-size:14px;">
+    <strong>Por que isso importa comercialmente.</strong> Os agentes rodam <strong>no mesmo plano de dados</strong> da contratação — sem exportar dados nem manter pipelines externos. Isso reduz risco de LGPD, simplifica a auditoria TCU e cria um caminho de expansão de valor (mais agentes, mais automação) que acompanha o crescimento do portfólio e a abertura para Pessoa Física.
+  </div>
+</section>
+
+<!-- ARQUITETURA -->
+<section class="block" id="arquitetura">
+  <div class="sec-head">
+    <span class="sec-tag">07</span>
+    <h2>Arquitetura alvo (TO-BE) em camadas</h2>
+    <span class="sub">Tudo dentro da plataforma Salesforce; integrações externas encapsuladas no MuleSoft.</span>
+  </div>
+
+  <div class="arch">
+    <div class="arch-rows">
+      <div class="arch-row">
+        <div class="layer layer-experience">Experiência</div>
+        <div class="blocks">
+          <div class="block-pill"><b>Experience Cloud</b><span>Portal externo: vitrine, área do cliente, carrinho, acompanhamento do dossiê</span></div>
+          <div class="block-pill"><b>Identity / Gov.br</b><span>SSO federado, níveis Prata/Ouro, validação de e-mail, MFA</span></div>
+        </div>
+      </div>
+      <div class="arch-row">
+        <div class="layer layer-ai">Agentes &amp; IA</div>
+        <div class="blocks">
+          <div class="block-pill pill-ok"><b>Agentforce<span class="pill-flag ok">Evolução</span></b><span>Chatbot de atendimento, triagem, apoio à gestão</span></div>
+          <div class="block-pill pill-ok"><b>Data 360 Document AI<span class="pill-flag ok">Evolução</span></b><span>Extração e validação documental e de poderes por IA</span></div>
+          <div class="block-pill"><b>Analytics</b><span>Funil de contratação, gargalos, volumetria</span></div>
+        </div>
+      </div>
+      <div class="arch-row">
+        <div class="layer layer-core">Motor de contratação</div>
+        <div class="blocks">
+          <div class="block-pill"><b>Revenue Cloud (CPQ)</b><span>Catálogo, carrinho, preços, minuta, aditivos</span></div>
+          <div class="block-pill"><b>Sales Cloud (CRM)</b><span>Prospecção → Oportunidade (nativo, sem ponte)</span></div>
+          <div class="block-pill"><b>Digital Signature</b><span>Assinatura avançada (senha) e qualificada (A3)</span></div>
+        </div>
+      </div>
+      <div class="arch-row">
+        <div class="layer layer-automation">Orquestração</div>
+        <div class="blocks">
+          <div class="block-pill"><b>Flow &amp; Approvals</b><span>Rito, autorizadores externos, tabela de competência, prazos</span></div>
+          <div class="block-pill"><b>Screen Flow + LWC</b><span>Guias/wizards de cadastro (Screen Flow) e componentes de UI reutilizáveis (LWC)</span></div>
+          <div class="block-pill"><b>Platform Events</b><span>Provisionamento e encerramento de acesso</span></div>
+        </div>
+      </div>
+      <div class="arch-row">
+        <div class="layer layer-data">Dados &amp; Governança</div>
+        <div class="blocks">
+          <div class="block-pill"><b>Salesforce Shield</b><span>Trilha de auditoria, criptografia, retenção (LGPD/TCU)</span></div>
+          <div class="block-pill"><b>Modelo de dados</b><span>Dossiê, contrato, papéis, status do Marketplace</span></div>
+        </div>
+      </div>
+      <div class="arch-row">
+        <div class="layer layer-integration">Integração</div>
+        <div class="blocks">
+          <div class="block-pill"><b>MuleSoft — API layer</b><span>Governa e reutiliza as conexões externas, isolando o core</span></div>
+        </div>
+      </div>
+      <div class="arch-row">
+        <div class="layer layer-sources">Sistemas externos</div>
+        <div class="blocks">
+          <div class="block-pill"><b>Gov.br</b><span>Autenticação</span></div>
+          <div class="block-pill"><b>PNCP</b><span>Publicação legal (Lei 14.133)</span></div>
+          <div class="block-pill"><b>ERP</b><span>Fonte oficial do contrato</span></div>
+          <div class="block-pill"><b>CNIS-PJ / CNIS-PF</b><span>Autopreenchimento cadastral</span></div>
+          <div class="block-pill"><b>CSM</b><span>Chamados de atendimento</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIAIS -->
+<section class="block" id="diferenciais">
+  <div class="sec-head">
+    <span class="sec-tag">08</span>
+    <h2>Salesforce vs. solução atual — o argumento de posicionamento</h2>
+    <span class="sub">O que muda para o cliente ao trocar a plataforma altamente customizada por uma abordagem nativa.</span>
+  </div>
+
+  <div class="compare">
+    <div class="opt" style="border-top:3px solid var(--danger);">
+      <div class="opt-head">
+        <div class="tag" style="color:var(--danger);">SOLUÇÃO ATUAL</div>
+        <h4>Plataforma concorrente (ServiceNow) altamente customizada</h4>
+        <div class="sub">Em produção, mas com dor estrutural de sustentabilidade.</div>
+      </div>
+      <div class="opt-body">
+        <div class="prcon">
+          <div class="pro"><b>+ Já em produção</b>Processo mapeado e time familiarizado com a operação atual.</div>
+          <div class="con"><b>− Customização excessiva</b>Causa-raiz da dor; cada evolução é um projeto de desenvolvimento.</div>
+          <div class="con"><b>− Quebra a cada atualização (~6 meses)</b>Versão nova para a operação até o retrabalho de ajuste.</div>
+          <div class="con"><b>− IA e assinatura não nativas</b>Dependem de add-ons/integrações externas, ampliando a superfície de manutenção.</div>
+          <div class="con"><b>− CRM como sistema separado</b>Exige ponte de integração para prospecção/oportunidade.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="opt" style="border-top:3px solid var(--accent);">
+      <div class="opt-head">
+        <div class="tag" style="color:var(--accent);">SOLUÇÃO PROPOSTA</div>
+        <h4>Salesforce-first, nativa e pronta para IA</h4>
+        <div class="sub">Rito de contratação como capacidade de plataforma.</div>
+      </div>
+      <div class="opt-body">
+        <div class="prcon">
+          <div class="pro"><b>+ Sustentável por design</b>~85% por configuração; upgrades automáticos e retrocompatíveis 3×/ano.</div>
+          <div class="pro"><b>+ Sobrevive às atualizações</b>Fim do ciclo "atualizou, quebrou"; TCO real menor ao longo do tempo.</div>
+          <div class="pro"><b>+ IA no mesmo plano de dados</b>Agentforce e Data 360 Document AI sobre os dados da contratação, sem pipelines externos.</div>
+          <div class="pro"><b>+ CRM nativo</b>Prospecção e oportunidade sem ponte; NE9 resolvida sem integração.</div>
+          <div class="pro"><b>+ Conformidade nativa</b>Gov.br, PNCP, LGPD e auditoria TCU com governança de plataforma (Shield + MuleSoft).</div>
+          <div class="con"><b>− Nova plataforma / migração</b>Curva de adoção e reconstrução do processo (mitigável por coexistência — ver Roadmap).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:16px; background:#e7f0fa; border-left:3px solid var(--brand); padding:12px 14px; border-radius:8px; font-size:14px;">
+    <strong>Como conduzir a conversa com o cliente.</strong> Não competir por preço com a customização barata do concorrente. O argumento vencedor é o <strong>TCO ao longo dos upgrades</strong> + a <strong>evolução por IA</strong>: a Dataprev já verbalizou que quer "o mais nativo possível, com mínimo de customização". A visão entrega exatamente isso e ainda adiciona capacidades que a solução atual não tem no mesmo plano de controle.
+  </div>
+</section>
+
+<!-- ESCOPO -->
+<section class="block" id="escopo">
+  <div class="sec-head">
+    <span class="sec-tag">09</span>
+    <h2>Escopo — dentro e fora</h2>
+    <span class="sub">Alinhado ao Documento de Visão e à decisão da reunião de 31/08/2026.</span>
+  </div>
+
+  <div class="two-col">
+    <div class="panel">
+      <h4>✓ Dentro do escopo — Celebração contratual</h4>
+      <div class="kv"><span class="k">Vitrine &amp; produtos</span><span class="v">NE1 · exibição e gestão de catálogo</span></div>
+      <div class="kv"><span class="k">Autenticação</span><span class="v">NE2 · Gov.br + validação de e-mail</span></div>
+      <div class="kv"><span class="k">Carrinho &amp; preço</span><span class="v">NE3 · seleção e simulação</span></div>
+      <div class="kv"><span class="k">Papéis &amp; entidade</span><span class="v">NE4, NE5, NE15 · PJ e PF</span></div>
+      <div class="kv"><span class="k">Minuta &amp; autorização</span><span class="v">NE6, NE7</span></div>
+      <div class="kv"><span class="k">Assinatura &amp; PNCP</span><span class="v">NE8 · avançada/qualificada + anexo legal</span></div>
+      <div class="kv"><span class="k">ERP (envio) &amp; acesso</span><span class="v">NE10 (FN10.01), NE11</span></div>
+      <div class="kv"><span class="k">Ritos posteriores</span><span class="v">NE12 distrato · NE13 aditivo · NE14 COMPREV</span></div>
+      <div class="kv"><span class="k">Atendimento</span><span class="v">NE16 · chatbot IA + CSM</span></div>
+    </div>
+    <div class="panel">
+      <h4>✗ Fora do escopo — Gestão contratual contínua</h4>
+      <p>Confirmado tanto no Documento de Visão (a funcionalidade <strong>FN10.02</strong> aparece <strong>tachada</strong> no original) quanto na reunião: <em>"a parte de gestão contratual eu não queria que ficasse aqui... já está em curso um projeto que vai incluir essa parte"</em>.</p>
+      <div class="kv"><span class="k">FN10.02 (tachada)</span><span class="v">Portal de gestão contratual contínua</span></div>
+      <div class="kv"><span class="k">Baixar NF / Fatura</span><span class="v">Fora — trata-se no ERP/outra ferramenta</span></div>
+      <div class="kv"><span class="k">Aceite/rejeição de RAS</span><span class="v">Fora</span></div>
+      <div class="kv"><span class="k">Troca de fiscais em vigência</span><span class="v">Fora</span></div>
+      <div class="kv"><span class="k">Acompanhamento de consumo</span><span class="v">Fora</span></div>
+      <div class="callout" style="margin-top:12px; background:#fef3c7; border-left-color:var(--warn);">
+        <strong>Nota de coerência.</strong> Se FN10.02 sai, o parágrafo da Seção 3 do DV (que descreve gestão contratual como parte da solução) fica inconsistente com o restante — vale confirmar com o cliente na próxima interação. A <strong>fonte oficial dos contratos é o ERP</strong> (NE10), o que sustenta essa delimitação.
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:16px;">
+    <h4>Requisitos não-funcionais a atender</h4>
+    <div class="two-col">
+      <div>
+        <div class="kv"><span class="k">Exibição de página</span><span class="v">≤ 5 s</span></div>
+        <div class="kv"><span class="k">Interações do usuário</span><span class="v">≤ 5 s</span></div>
+        <div class="kv"><span class="k">Envio de e-mails</span><span class="v">≤ 30 s</span></div>
+        <div class="kv"><span class="k">Intercâmbio entre produtos</span><span class="v">≤ 5 s</span></div>
+      </div>
+      <div>
+        <div class="kv"><span class="k">Validação documental</span><span class="v">≤ 5 min · acurácia ≥ 80%</span></div>
+        <div class="kv"><span class="k">Resposta do chatbot</span><span class="v">≤ 30 s</span></div>
+        <div class="kv"><span class="k">Acessos simultâneos (gestão)</span><span class="v">até 10 analistas</span></div>
+        <div class="kv"><span class="k">Volumetria</span><span class="v">≥ 50 contratações/mês</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RISCOS -->
+<section class="block" id="riscos">
+  <div class="sec-head">
+    <span class="sec-tag">10</span>
+    <h2>Riscos e mitigações</h2>
+    <span class="sub">O que pode fazer a proposta ou a adoção falharem.</span>
+  </div>
+
+  <div class="risk-list">
+    <div class="risk sev-high">
+      <span class="sev">Alto</span>
+      <div class="what"><b>Recriar a customização na nova plataforma.</b> Se o rito for reconstruído com código customizado, a dor do cliente se repete — desta vez em Salesforce.</div>
+      <div class="mit"><b>Mitigação:</b> disciplina de "clicks-not-code"; governança de configuração; isolar exceções em pacotes desacoplados; meta explícita de ~85% nativo com revisão de arquitetura.</div>
+    </div>
+    <div class="risk sev-high">
+      <span class="sev">Alto</span>
+      <div class="what"><b>Concorrência com o incumbente já em produção.</b> Trocar uma solução que "já funciona" exige justificar a migração.</div>
+      <div class="mit"><b>Mitigação:</b> ancorar no TCO ao longo dos upgrades e nas evoluções por IA; propor coexistência/piloto por produto para reduzir o risco percebido.</div>
+    </div>
+    <div class="risk">
+      <span class="sev">Médio</span>
+      <div class="what"><b>Integrações externas (Gov.br, PNCP, CNIS, ERP).</b> Dependências de terceiros governamentais com contratos e SLAs próprios.</div>
+      <div class="mit"><b>Mitigação:</b> encapsular no MuleSoft (isola o core); levantar cedo as especificações de API; validar níveis Gov.br (Prata/Ouro) e o fluxo de comprovação PNCP com o cliente.</div>
+    </div>
+    <div class="risk">
+      <span class="sev">Médio</span>
+      <div class="what"><b>Volumetria ainda não fornecida.</b> O cliente confirmou que a volumetria virá à parte do Documento de Visão — dimensionamento pende desse dado.</div>
+      <div class="mit"><b>Mitigação:</b> obter os números (clientes, transações, produtos, usuários) para dimensionar licenças, storage e a arquitetura de escala PF/COMPREV.</div>
+    </div>
+    <div class="risk sev-low">
+      <span class="sev">Baixo</span>
+      <div class="what"><b>Acurácia da IA de validação documental (≥80%).</b> Meta contratual de acurácia e latência a comprovar.</div>
+      <div class="mit"><b>Mitigação:</b> desenhar o fallback humano após 3 tentativas (já previsto no DV); medir acurácia em piloto antes de generalizar.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section class="block" id="roadmap">
+  <div class="sec-head">
+    <span class="sec-tag">11</span>
+    <h2>Roadmap sugerido de pré-venda &amp; adoção</h2>
+    <span class="sub">Do alinhamento à prova de valor, reduzindo o risco de migração.</span>
+  </div>
+
+  <div class="flow">
+    <div class="flow-step"><span class="flow-num">1</span><h4>Descoberta &amp; volumetria</h4><p>Obter os números que o cliente enviará à parte; validar níveis Gov.br e fluxo PNCP; fechar escopo (confirmar FN10.02 fora).</p></div>
+    <div class="flow-step"><span class="flow-num">2</span><h4>Avaliação nativa</h4><p>Sessão com especialista de marketplace da Salesforce para confirmar o que é nativo e o mínimo de customização necessário.</p></div>
+    <div class="flow-step"><span class="flow-num">3</span><h4>Demo dirigida</h4><p>Demonstração à luz das particularidades do DV (catálogo, carrinho, minuta, assinatura, agente de IA).</p></div>
+    <div class="flow-step"><span class="flow-num">4</span><h4>Piloto por produto</h4><p>Um produto do portfólio (ex.: COMPREV) ponta a ponta, em coexistência com a solução atual, para provar o TCO nativo.</p></div>
+    <div class="flow-step"><span class="flow-num">5</span><h4>Escala &amp; IA</h4><p>Ampliar para o portfólio, abrir para Pessoa Física e expandir os agentes de IA e o analytics de funil.</p></div>
+  </div>
+
+  <div class="callout" style="margin-top:16px; background:#e7f0fa; border-left:3px solid var(--brand); padding:12px 14px; border-radius:8px; font-size:14px;">
+    <strong>Próximas etapas imediatas (da reunião de 31/08).</strong> Hildegard compartilha o Documento de Visão e a volumetria; o time avalia internamente com especialista de marketplace; Rogério Meira envia a transcrição; o time avalia uma demo. Esta visão de solução serve de base técnica para essas conversas.
+  </div>
+</section>
+
+<footer>
+  <strong>Fontes:</strong>
+  <div class="sources" style="margin-top: 8px;">
+    <span class="src">Documento de Visão — Marketplace Dataprev (DEME) · v1.1 · 20/05/2026 · 33 pgs</span>
+    <span class="src">Reunião "Loja DTP - salesforce" · 31/08/2026 · Anotações do Gemini · 23 pgs</span>
+    <span class="src">Decreto 10.188/2019 (COMPREV) · Lei 14.133 (PNCP)</span>
+    <span class="src">Padrão de saída do projeto · template_output.html</span>
+  </div>
+  <p style="margin-top: 14px;">Visão de solução consolidada por Rogério Meira · Arquiteto de Soluções Salesforce · set/2026. Documento de trabalho para pré-venda — atualização conforme volumetria e alinhamentos com o cliente. <strong>Nota:</strong> nomes de produtos Salesforce (Revenue Cloud/CPQ, Agentforce, Data 360 Document AI, MuleSoft etc.) refletem o portfólio de plataforma; a camada de UI usa recursos base (Screen Flow, LWC, Apex) no lugar do OmniStudio. O mapeamento fino de SKUs/licenças — inclusive a disponibilidade e o enquadramento do <strong>Data 360 Document AI</strong> para este caso de validação documental — deve ser validado com os specialists na fase de proposta.</p>
+</footer>
+
+</body>
+</html>
