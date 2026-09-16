@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>ANATEL TFF/TFI — Arquitetura de Dados</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #0f1623;
+    color: #e2e8f0;
+    padding: 32px;
+    min-height: 100vh;
+  }
+  h1 {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+  }
+  .subtitle {
+    text-align: center;
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 36px;
+  }
+  .diagram {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ── Colunas ── */
+  .col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 14px;
+  }
+  .col-label {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #1e293b;
+    margin-bottom: 4px;
+  }
+  .col-sources { width: 200px; }
+  .col-sources .col-label { color: #94a3b8; }
+
+  .col-mulesoft { width: 180px; align-items: center; }
+  .col-mulesoft .col-label { color: #fb923c; }
+
+  .col-sf { width: 220px; }
+  .col-sf .col-label { color: #38bdf8; }
+
+  .col-outputs { width: 220px; }
+  .col-outputs .col-label { color: #a78bfa; }
+
+  /* ── Conectores (SVG) ── */
+  .connector {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .connector svg { width: 100%; height: 100%; min-height: 320px; }
+
+  /* ── Cards ── */
+  .card {
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 13px;
+    position: relative;
+    border: 1px solid transparent;
+  }
+  .card-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 3px;
+  }
+  .card-desc {
+    font-size: 11px;
+    opacity: 0.7;
+    line-height: 1.4;
+  }
+  .card-tag {
+    display: inline-block;
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 20px;
+    margin-top: 5px;
+    font-weight: 600;
+  }
+
+  /* Source cards */
+  .card-source {
+    background: #1a2535;
+    border-color: #2d3f55;
+  }
+  .card-source .card-title { color: #e2e8f0; }
+  .tag-sql { background: #1d3d5f; color: #60a5fa; }
+  .tag-nosql { background: #1f3a2e; color: #4ade80; }
+  .tag-legacy { background: #2d2720; color: #fb923c; }
+
+  /* MuleSoft card */
+  .card-mulesoft {
+    background: #1f1508;
+    border: 2px solid #f97316;
+    border-radius: 14px;
+    padding: 18px 20px;
+    text-align: center;
+    width: 150px;
+  }
+  .card-mulesoft .card-title { color: #fb923c; font-size: 15px; }
+  .card-mulesoft .card-desc { color: #d97706; font-size: 11px; margin-top: 4px; }
+  .mulesoft-icon {
+    font-size: 32px;
+    margin-bottom: 8px;
+  }
+  .mulesoft-badge {
+    display: inline-block;
+    background: #7c2d12;
+    color: #fed7aa;
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    margin-top: 8px;
+    font-weight: 600;
+  }
+  .mulesoft-features {
+    margin-top: 10px;
+    text-align: left;
+    font-size: 10px;
+    color: #92400e;
+    line-height: 1.7;
+  }
+  .mulesoft-features li { list-style: none; padding-left: 0; }
+  .mulesoft-features li::before { content: "▸ "; color: #f97316; }
+
+  /* SF Platform cards */
+  .card-sf {
+    background: #051b2e;
+    border-color: #1e4a6e;
+  }
+  .card-sf .card-title { color: #38bdf8; }
+  .tag-dc { background: #0c3b5e; color: #38bdf8; }
+  .tag-agent { background: #1a2e4a; color: #7dd3fc; }
+  .tag-flow { background: #0f3050; color: #93c5fd; }
+  .tag-bigobj { background: #0f2a45; color: #60a5fa; }
+  .tag-exp { background: #12375a; color: #38bdf8; }
+
+  /* Output cards */
+  .card-output {
+    background: #16102b;
+    border-color: #3b2e6e;
+  }
+  .card-output .card-title { color: #c4b5fd; }
+  .tag-portal { background: #2d1b69; color: #a78bfa; }
+  .tag-wp { background: #1a2e1a; color: #4ade80; }
+  .tag-boleto { background: #261b3a; color: #c084fc; }
+  .tag-bi { background: #2a1a3e; color: #d8b4fe; }
+
+  /* Alert card */
+  .card-alert {
+    background: #1f1008;
+    border: 1px solid #92400e;
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-top: 8px;
+    font-size: 11px;
+    color: #fbbf24;
+  }
+  .card-alert strong { color: #f59e0b; }
+
+  /* Legend */
+  .legend {
+    max-width: 1100px;
+    margin: 28px auto 0;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11px;
+    color: #64748b;
+  }
+  .legend-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+  }
+</style>
+</head>
+<body>
+
+<h1>ANATEL — TFF/TFI Arrecadação Inteligente</h1>
+<p class="subtitle">Fase 2 · Arquitetura de Dados · MuleSoft como Orquestrador</p>
+
+<div class="diagram">
+
+  <!-- COLUNA 1: FONTES -->
+  <div class="col col-sources">
+    <div class="col-label">Fontes de Dados</div>
+
+    <div class="card card-source">
+      <div class="card-title">SITARWEB</div>
+      <div class="card-desc">Sistema legado de fiscalização de estações de rádio</div>
+      <span class="card-tag tag-legacy">Legacy</span>
+    </div>
+
+    <div class="card card-source">
+      <div class="card-title">DB_TELECOM</div>
+      <div class="card-desc">Base principal TFF — obrigações e contribuintes</div>
+      <span class="card-tag tag-sql">SQL Server</span>
+    </div>
+
+    <div class="card card-source">
+      <div class="card-title">SMS / FISTEL</div>
+      <div class="card-desc">Registros e histórico de arrecadação</div>
+      <span class="card-tag tag-nosql">MongoDB</span>
+    </div>
+
+    <div class="card-alert">
+      <strong>⚠ ~10M registros</strong><br>
+      Identidade fragmentada entre as 3 fontes — resolução via Data Cloud
+    </div>
+  </div>
+
+  <!-- CONECTOR 1 -->
+  <div class="connector">
+    <svg viewBox="0 0 80 360" xmlns="http://www.w3.org/2000/svg">
+      <!-- 3 setas entrando no MuleSoft -->
+      <!-- Fonte 1 → centro -->
+      <line x1="4" y1="82" x2="74" y2="162" stroke="#f97316" stroke-width="1.5" stroke-dasharray="5,3"/>
+      <polygon points="74,162 62,158 66,170" fill="#f97316"/>
+      <!-- Fonte 2 → centro -->
+      <line x1="4" y1="182" x2="74" y2="182" stroke="#f97316" stroke-width="2"/>
+      <polygon points="74,182 62,177 62,187" fill="#f97316"/>
+      <!-- Fonte 3 → centro -->
+      <line x1="4" y1="272" x2="74" y2="202" stroke="#f97316" stroke-width="1.5" stroke-dasharray="5,3"/>
+      <polygon points="74,202 62,195 66,207" fill="#f97316"/>
+      <!-- Labels -->
+      <text x="10" y="130" fill="#7c3aed" font-size="9" font-family="monospace">API REST</text>
+      <text x="10" y="172" fill="#7c3aed" font-size="9" font-family="monospace">JDBC</text>
+      <text x="10" y="247" fill="#7c3aed" font-size="9" font-family="monospace">Mongo Conn.</text>
+    </svg>
+  </div>
+
+  <!-- COLUNA 2: MULESOFT -->
+  <div class="col col-mulesoft">
+    <div class="col-label">Orquestrador</div>
+    <div class="card-mulesoft">
+      <div class="mulesoft-icon">⚙️</div>
+      <div class="card-title">MuleSoft</div>
+      <div class="card-desc">Anypoint Platform</div>
+      <div class="mulesoft-badge">ORQUESTRADOR</div>
+      <ul class="mulesoft-features">
+        <li>Normalização</li>
+        <li>Transformação</li>
+        <li>Deduplicação</li>
+        <li>Roteamento</li>
+        <li>Error handling</li>
+        <li>Auditoria</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- CONECTOR 2 -->
+  <div class="connector">
+    <svg viewBox="0 0 80 360" xmlns="http://www.w3.org/2000/svg">
+      <!-- MuleSoft → SF Platform (múltiplas saídas) -->
+      <line x1="6" y1="182" x2="30" y2="182" stroke="#38bdf8" stroke-width="2"/>
+      <!-- Fan out -->
+      <line x1="30" y1="182" x2="30" y2="72"  stroke="#38bdf8" stroke-width="1.5"/>
+      <line x1="30" y1="182" x2="30" y2="132" stroke="#38bdf8" stroke-width="1.5"/>
+      <line x1="30" y1="182" x2="30" y2="182" stroke="#38bdf8" stroke-width="1.5"/>
+      <line x1="30" y1="182" x2="30" y2="232" stroke="#38bdf8" stroke-width="1.5"/>
+      <line x1="30" y1="182" x2="30" y2="292" stroke="#38bdf8" stroke-width="1.5"/>
+      <!-- Horizontal lines to each SF card -->
+      <line x1="30" y1="72"  x2="74" y2="72"  stroke="#38bdf8" stroke-width="1.5"/>
+      <polygon points="74,72 62,67 62,77" fill="#38bdf8"/>
+      <line x1="30" y1="132" x2="74" y2="132" stroke="#38bdf8" stroke-width="1.5"/>
+      <polygon points="74,132 62,127 62,137" fill="#38bdf8"/>
+      <line x1="30" y1="182" x2="74" y2="182" stroke="#38bdf8" stroke-width="1.5"/>
+      <polygon points="74,182 62,177 62,187" fill="#38bdf8"/>
+      <line x1="30" y1="232" x2="74" y2="232" stroke="#38bdf8" stroke-width="1.5"/>
+      <polygon points="74,232 62,227 62,237" fill="#38bdf8"/>
+      <line x1="30" y1="292" x2="74" y2="292" stroke="#38bdf8" stroke-width="1.5"/>
+      <polygon points="74,292 62,287 62,297" fill="#38bdf8"/>
+    </svg>
+  </div>
+
+  <!-- COLUNA 3: SALESFORCE PLATFORM -->
+  <div class="col col-sf">
+    <div class="col-label">Salesforce Platform</div>
+
+    <div class="card card-sf">
+      <div class="card-title">Data Cloud</div>
+      <div class="card-desc">Resolução de identidade entre as 3 fontes. Unified Profile do contribuinte.</div>
+      <span class="card-tag tag-dc">~10M registros</span>
+    </div>
+
+    <div class="card card-sf">
+      <div class="card-title">Agentforce v2</div>
+      <div class="card-desc">Agente autônomo para reemissão de boleto e consulta de status TFF.</div>
+      <span class="card-tag tag-agent">AI Autônomo</span>
+    </div>
+
+    <div class="card card-sf">
+      <div class="card-title">Flow Builder</div>
+      <div class="card-desc">Jornada anti-inadimplência D-30 / D-15 / D-7 / D+1 / D+15.</div>
+      <span class="card-tag tag-flow">Automação</span>
+    </div>
+
+    <div class="card card-sf">
+      <div class="card-title">Big Objects</div>
+      <div class="card-desc">Histórico imutável de arrecadação com retenção de 7 anos auditável.</div>
+      <span class="card-tag tag-bigobj">Compliance</span>
+    </div>
+
+    <div class="card card-sf">
+      <div class="card-title">Experience Cloud</div>
+      <div class="card-desc">Portal do contribuinte — consulta e pagamento de obrigações TFF/TFI.</div>
+      <span class="card-tag tag-exp">Portal</span>
+    </div>
+  </div>
+
+  <!-- CONECTOR 3 -->
+  <div class="connector">
+    <svg viewBox="0 0 80 360" xmlns="http://www.w3.org/2000/svg">
+      <!-- SF → Outputs -->
+      <line x1="6" y1="72"  x2="74" y2="82"  stroke="#a78bfa" stroke-width="1.5"/>
+      <polygon points="74,82 62,75 64,87" fill="#a78bfa"/>
+
+      <line x1="6" y1="132" x2="74" y2="132" stroke="#a78bfa" stroke-width="1.5"/>
+      <polygon points="74,132 62,127 62,137" fill="#a78bfa"/>
+
+      <line x1="6" y1="182" x2="74" y2="192" stroke="#a78bfa" stroke-width="1.5"/>
+      <polygon points="74,192 62,185 64,197" fill="#a78bfa"/>
+
+      <line x1="6" y1="232" x2="74" y2="252" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <polygon points="74,252 62,245 64,257" fill="#a78bfa"/>
+
+      <line x1="6" y1="292" x2="74" y2="292" stroke="#a78bfa" stroke-width="1.5"/>
+      <polygon points="74,292 62,287 62,297" fill="#a78bfa"/>
+    </svg>
+  </div>
+
+  <!-- COLUNA 4: OUTPUTS -->
+  <div class="col col-outputs">
+    <div class="col-label">Saídas / Usuário</div>
+
+    <div class="card card-output">
+      <div class="card-title">Portal do Contribuinte</div>
+      <div class="card-desc">Consulta de obrigações, histórico de pagamento e status TFF/TFI.</div>
+      <span class="card-tag tag-portal">Experience Cloud</span>
+    </div>
+
+    <div class="card card-output">
+      <div class="card-title">WhatsApp + E-mail</div>
+      <div class="card-desc">Notificações automáticas da jornada anti-inadimplência com link de pagamento.</div>
+      <span class="card-tag tag-wp">Omnichannel</span>
+    </div>
+
+    <div class="card card-output">
+      <div class="card-title">Reemissão de Boleto</div>
+      <div class="card-desc">Agentforce emite 2ª via automaticamente sem intervenção humana.</div>
+      <span class="card-tag tag-boleto">Agentforce v2</span>
+    </div>
+
+    <div class="card card-output">
+      <div class="card-title">Trilha de Auditoria</div>
+      <div class="card-desc">7 anos de histórico imutável para conformidade fiscal e TCU.</div>
+      <span class="card-tag tag-bi">Big Objects</span>
+    </div>
+
+    <div class="card card-output">
+      <div class="card-title">Dashboard Gestão</div>
+      <div class="card-desc">Indicadores de inadimplência, arrecadação e performance por região/serviço.</div>
+      <span class="card-tag tag-bi">CRM Analytics</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- LEGENDA -->
+<div class="legend">
+  <div class="legend-item">
+    <svg width="30" height="12"><line x1="0" y1="6" x2="24" y2="6" stroke="#f97316" stroke-width="2"/><polygon points="24,6 16,3 16,9" fill="#f97316"/></svg>
+    Ingestão (MuleSoft Connectors)
+  </div>
+  <div class="legend-item">
+    <svg width="30" height="12"><line x1="0" y1="6" x2="24" y2="6" stroke="#38bdf8" stroke-width="2"/><polygon points="24,6 16,3 16,9" fill="#38bdf8"/></svg>
+    Distribuição (APIs Salesforce)
+  </div>
+  <div class="legend-item">
+    <svg width="30" height="12"><line x1="0" y1="6" x2="24" y2="6" stroke="#a78bfa" stroke-width="2"/><polygon points="24,6 16,3 16,9" fill="#a78bfa"/></svg>
+    Entrega ao usuário
+  </div>
+  <div class="legend-item">
+    <svg width="30" height="12"><line x1="0" y1="6" x2="24" y2="6" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="4,3"/><polygon points="24,6 16,3 16,9" fill="#a78bfa"/></svg>
+    Retenção / Compliance
+  </div>
+  <div class="legend-item" style="color:#f59e0b; margin-left: 16px;">
+    ⚠ Prazo crítico: Go-live início de março/2027 (margem de 4 semanas antes do prazo regulatório 31/03/2027)
+  </div>
+</div>
+
+</body>
+</html>

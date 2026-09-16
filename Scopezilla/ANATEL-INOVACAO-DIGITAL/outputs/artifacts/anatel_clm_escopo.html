@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANATEL — CLM Escopo Detalhado</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/design-system/2.22.3/styles/salesforce-lightning-design-system.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Salesforce Sans', Arial, sans-serif;
+            background-color: #f3f2f2;
+        }
+
+        .app-container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px;
+            background-color: #16325c;
+            color: white;
+            overflow-y: auto;
+            padding: 1rem 0;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header {
+            padding: 0 1.5rem 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 1rem;
+        }
+
+        .sidebar-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0 0 0.5rem;
+            color: #ffffff;
+        }
+
+        .sidebar-subtitle {
+            font-size: 0.875rem;
+            color: #a8b7c7;
+            margin: 0;
+        }
+
+        .nav-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-section-title {
+            padding: 0.5rem 1.5rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #a8b7c7;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-item {
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            color: #ffffff;
+            font-size: 0.875rem;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+
+        .nav-item.active {
+            background-color: #1b5297;
+            border-left-color: #00a1e0;
+            font-weight: 600;
+        }
+
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .content-section {
+            display: none;
+            background: white;
+            border-radius: 0.25rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, #1b5297 0%, #00a1e0 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 0.25rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .page-header h1 {
+            margin: 0 0 0.5rem;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            margin: 0;
+            font-size: 1rem;
+            opacity: 0.95;
+        }
+
+        h2 {
+            color: #16325c;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin: 0 0 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 3px solid #00a1e0;
+        }
+
+        h3 {
+            color: #16325c;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 1.5rem 0 1rem;
+        }
+
+        h4 {
+            color: #16325c;
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .slds-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-right: 0.5rem;
+        }
+
+        .badge-xl { background: #c23934; color: white; }
+        .badge-l { background: #f59331; color: white; }
+        .badge-critico { background: #c23934; color: white; }
+        .badge-alto { background: #f59331; color: white; }
+        .badge-medio { background: #ffb75d; color: #333; }
+        .badge-success { background: #04844b; color: white; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+            border: 1px solid #dddbda;
+        }
+
+        thead {
+            background-color: #f3f2f2;
+        }
+
+        th {
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 700;
+            color: #16325c;
+            border-bottom: 2px solid #dddbda;
+            font-size: 0.875rem;
+        }
+
+        td {
+            padding: 0.75rem;
+            border-bottom: 1px solid #dddbda;
+            font-size: 0.875rem;
+        }
+
+        tbody tr:hover {
+            background-color: #fafaf9;
+        }
+
+        .phase-box {
+            background: linear-gradient(135deg, #fafaf9 0%, #f3f2f2 100%);
+            border-left: 4px solid #00a1e0;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0.25rem;
+        }
+
+        .phase-box h4 {
+            margin-top: 0;
+            color: #00a1e0;
+        }
+
+        .alert-box {
+            padding: 1rem;
+            border-radius: 0.25rem;
+            margin: 1rem 0;
+            border-left: 4px solid;
+        }
+
+        .alert-critical {
+            background-color: #feded8;
+            border-left-color: #c23934;
+        }
+
+        .alert-warning {
+            background-color: #fef8e7;
+            border-left-color: #f59331;
+        }
+
+        .alert-info {
+            background-color: #e3f3ff;
+            border-left-color: #0176d3;
+        }
+
+        .alert-success {
+            background-color: #d7f3e3;
+            border-left-color: #04844b;
+        }
+
+        ul, ol {
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin: 0.5rem 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #16325c 0%, #1b5297 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 0.25rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0.5rem 0;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        code {
+            background: #f3f2f2;
+            padding: 0.125rem 0.375rem;
+            border-radius: 0.25rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            color: #c23934;
+        }
+
+        .api-box {
+            background: #fafaf9;
+            border: 1px solid #dddbda;
+            border-radius: 0.25rem;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .api-box h5 {
+            margin: 0 0 0.5rem;
+            color: #16325c;
+            font-size: 0.875rem;
+            font-weight: 700;
+        }
+
+        .api-box p {
+            margin: 0.25rem 0;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="sidebar-title">ANATEL CLM</h1>
+                <p class="sidebar-subtitle">Escopo Detalhado</p>
+            </div>
+
+            <nav>
+                <div class="nav-section">
+                    <div class="nav-section-title">Visão Geral</div>
+                    <div class="nav-item active" onclick="showSection('contexto')">1. Contexto e Objetivo</div>
+                    <div class="nav-item" onclick="showSection('fluxo')">2. Fluxo de 5 Etapas</div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Detalhamento</div>
+                    <div class="nav-item" onclick="showSection('templates')">3. Templates Dinâmicos</div>
+                    <div class="nav-item" onclick="showSection('aprovacao')">4. Aprovação Multi-Nível</div>
+                    <div class="nav-item" onclick="showSection('integracao')">5. Integração MuleSoft</div>
+                    <div class="nav-item" onclick="showSection('shield')">6. Salesforce Shield</div>
+                    <div class="nav-item" onclick="showSection('relatorios')">7. Relatórios OOTB</div>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Gestão</div>
+                    <div class="nav-item" onclick="showSection('exclusoes')">8. Limites e Exclusões</div>
+                    <div class="nav-item" onclick="showSection('estimativa')">9. Estimativa de Esforço</div>
+                    <div class="nav-item" onclick="showSection('riscos')">10. Riscos Específicos</div>
+                    <div class="nav-item" onclick="showSection('dependencias')">11. Dependências Críticas</div>
+                    <div class="nav-item" onclick="showSection('premissas')">12. Premissas Confirmadas</div>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="page-header">
+                <h1>Salesforce CLM — Gestão de Contratos e Outorgas MMAR</h1>
+                <p>Escopo Técnico Completo | ANATEL Inovação Digital</p>
+            </div>
+
+            <!-- Seção 1: Contexto -->
+            <div id="contexto" class="content-section active">
+                <h2>1. Contexto e Objetivo</h2>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Sizing</div>
+                        <div class="stat-value">L</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Duração</div>
+                        <div class="stat-value">15 sem</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Horas Totais</div>
+                        <div class="stat-value">2.630h</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Investimento</div>
+                        <div class="stat-value">R$ 2,1M</div>
+                    </div>
+                </div>
+
+                <h3>Função</h3>
+                <p>Automatizar a gestão do ciclo de vida de contratos e outorgas de licenciamento marítimo/aeronáutico (MMAR), substituindo o processo manual/fragmentado do sistema Mosaico por workflows digitais integrados.</p>
+
+                <h3>Produto Salesforce</h3>
+                <p><strong>Contracts - Unlimited Edition</strong> (14 editores)</p>
+
+                <h3>Integração Crítica</h3>
+                <p><strong>MOSAICO</strong> via MuleSoft (2 APIs)</p>
+
+                <div class="alert-box alert-info">
+                    <strong>Objetivo Estratégico:</strong> Eliminar formulários manuais via SEI, centralizar contratos em plataforma digital única, garantir conformidade RGL (Res. 719/2020) e rastreabilidade total via Shield (7 anos).
+                </div>
+            </div>
+
+            <!-- Seção 2: Fluxo -->
+            <div id="fluxo" class="content-section">
+                <h2>2. Fluxo de 5 Etapas</h2>
+
+                <div class="phase-box">
+                    <h4>Fase 1: Solicitação e Triagem</h4>
+                    <p><strong>O que acontece:</strong></p>
+                    <ul>
+                        <li>Agente MMAR (Agentforce) captura dados da outorga via conversação</li>
+                        <li>CLM cria rascunho de contrato automaticamente usando template pré-definido</li>
+                        <li>Validação automática de elegibilidade técnica e jurídica</li>
+                    </ul>
+
+                    <p><strong>Campos capturados:</strong></p>
+                    <ul>
+                        <li>Tipo de estação: Embarcação, Embarcação em Teste, Radiobaliza (Física/Virtual), Costeira, Portuária, Móvel</li>
+                        <li>Dados técnicos: MMSI, faixas de frequência, DSC, coordenadas geográficas, ganho de antenas</li>
+                        <li>Documentação: PDF ≤150MB (Certificado de Homologação)</li>
+                        <li>Dados do requerente: CPF/CNPJ, e-mail, validação via Gov.br</li>
+                    </ul>
+
+                    <p><strong>Validações automáticas:</strong></p>
+                    <ul>
+                        <li>Equipamento homologado (integração com base de Certificação Res. 715/2019)</li>
+                        <li>Regularidade fiscal do requerente</li>
+                        <li>Elegibilidade para tipo de estação solicitado</li>
+                    </ul>
+                </div>
+
+                <div class="phase-box">
+                    <h4>Fase 2: Análise Jurídica</h4>
+                    <p><strong>O que acontece:</strong></p>
+                    <ul>
+                        <li>Workflow para equipe jurídica ANATEL</li>
+                        <li>Revisão de cláusulas contratuais específicas</li>
+                        <li>Comentários e controle de versões (versionamento nativo Salesforce)</li>
+                        <li>Validação de conformidade com RGL (Res. 719/2020)</li>
+                    </ul>
+
+                    <p><strong>Papéis envolvidos:</strong></p>
+                    <ul>
+                        <li>Analista técnico ORLE (Outorgas e Licenciamento)</li>
+                        <li>Jurídico corporativo ANATEL</li>
+                        <li>Gerente de área</li>
+                    </ul>
+
+                    <p><strong>Funcionalidades:</strong></p>
+                    <ul>
+                        <li>Comentários inline em cláusulas</li>
+                        <li>Histórico de versões automático</li>
+                        <li>Trilha de auditoria completa (quem, quando, o quê)</li>
+                        <li>Notificações automáticas de pendências</li>
+                    </ul>
+
+                    <div class="alert-box alert-warning">
+                        <strong>❌ FORA DO ESCOPO:</strong> Track changes / redline com participação da contraparte (negociação externa). Sugestões de cláusulas por IA (Einstein não configurado para isto).
+                    </div>
+                </div>
+
+                <div class="phase-box">
+                    <h4>Fase 3: Negociação e Aprovação</h4>
+                    <p><strong>O que acontece:</strong></p>
+                    <ul>
+                        <li>Redlines via CLM (apenas versionamento nativo Salesforce, sem track changes de documento Word)</li>
+                        <li>Aprovação eletrônica <strong>sem assinatura digital</strong> (ICP-Brasil e DocuSign estão fora do escopo)</li>
+                        <li>Trilha de auditoria completa de todas as aprovações</li>
+                    </ul>
+
+                    <p><strong>Fluxos de Aprovação (2 confirmados):</strong></p>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Fluxo</th>
+                                <th>Etapas</th>
+                                <th>Aplicação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Fluxo 1</strong><br>Outorga Padrão</td>
+                                <td>
+                                    1. Gerente ORLE<br>
+                                    2. Jurídico<br>
+                                    3. Diretoria
+                                </td>
+                                <td>Sem onerosidade excepcional</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Fluxo 2</strong><br>Outorga Complexa</td>
+                                <td>
+                                    1. Gerente ORLE<br>
+                                    2. Analista técnico especializado<br>
+                                    3. Jurídico<br>
+                                    4. Diretoria
+                                </td>
+                                <td>Com onerosidade ou complexidade técnica</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p><strong>Regras de Aprovação:</strong></p>
+                    <ul>
+                        <li>Aprovação multi-nível obrigatória</li>
+                        <li><strong>Sem regras de escalonamento por valor</strong> (premissa confirmada)</li>
+                        <li>Notificações automáticas por e-mail a cada transição</li>
+                        <li>Alertas de SLA (prazos internos de análise)</li>
+                    </ul>
+
+                    <div class="alert-box alert-critical">
+                        <strong>❌ FORA DO ESCOPO:</strong> Assinatura digital ICP-Brasil, integração com DocuSign, negociação de cláusulas com contraparte externa, mais de 2 fluxos de aprovação.
+                    </div>
+                </div>
+
+                <div class="phase-box">
+                    <h4>Fase 4: Execução e Vigência</h4>
+                    <p><strong>O que acontece:</strong></p>
+                    <ul>
+                        <li>Contrato/outorga ativado com datas de início, vigência e vencimento</li>
+                        <li>Alertas automáticos de vencimento (D-90, D-60, D-30)</li>
+                        <li>Vinculação ao MOSAICO via MuleSoft para sincronização de status</li>
+                        <li>Gestão de obrigações contratuais (TFI, PPDUR, renovações)</li>
+                    </ul>
+
+                    <p><strong>Funcionalidades:</strong></p>
+                    <ul>
+                        <li>Dashboard de contratos ativos por tipo de estação</li>
+                        <li>Relatórios OOTB (status, vencimentos, volume por tipo/região)</li>
+                        <li>Vinculação automática ao registro financeiro (TFI/PPDUR)</li>
+                    </ul>
+
+                    <div class="alert-box alert-warning">
+                        <strong>❌ FORA DO ESCOPO:</strong> Relatórios customizados com KPIs específicos (apenas OOTB), integração com SEI para processos administrativos, integração com SIAFI para gestão financeira federal.
+                    </div>
+                </div>
+
+                <div class="phase-box">
+                    <h4>Fase 5: Renovação e Encerramento</h4>
+                    <p><strong>O que acontece:</strong></p>
+                    <ul>
+                        <li>Alertas automáticos D-90, D-60, D-30 antes do vencimento</li>
+                        <li>Fluxo de renovação automática (re-usa template, pré-preenche dados)</li>
+                        <li>Fluxo de encerramento (baixa de licença, arquivamento)</li>
+                        <li>Histórico retido por 7 anos via Salesforce Shield</li>
+                    </ul>
+
+                    <p><strong>Renovação Automática:</strong></p>
+                    <ol>
+                        <li>Sistema detecta vencimento iminente</li>
+                        <li>Cria rascunho de renovação com dados atualizados</li>
+                        <li>Envia notificação ao requerente via e-mail/WhatsApp (Marketing Cloud)</li>
+                        <li>Se requerente aceita, gera novo PPDUR automaticamente</li>
+                        <li>Se requerente não responde em D-30, envia alerta crítico</li>
+                    </ol>
+
+                    <p><strong>Encerramento:</strong></p>
+                    <ul>
+                        <li><strong>Manual:</strong> Requerente solicita baixa da licença (sem onerosidade)</li>
+                        <li><strong>Automático:</strong> Vencimento sem renovação (licença inativa)</li>
+                        <li><strong>Arquivamento:</strong> Dados movidos para Big Objects (retenção 7 anos)</li>
+                    </ul>
+
+                    <div class="alert-box alert-success">
+                        <strong>Regra Especial — Embarcação em Teste:</strong> Licença com prazo determinado (não indeterminado). Direito a uma renovação única por igual período. Sistema muda automaticamente para status inativo (MMAR-LIC-00) após vencimento se não renovada.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção 3: Templates -->
+            <div id="templates" class="content-section">
+                <h2>3. Templates Dinâmicos (5 Modelos Confirmados)</h2>
+
+                <div class="alert-box alert-info">
+                    <strong>Premissa:</strong> 5 templates dinâmicos com cláusulas variáveis (complexidade média). Discovery não entregou confirmação formal completa — usar como premissa de ROM.
+                </div>
+
+                <h3>Template 1: Inclusão de Embarcação (Outorga Nova)</h3>
+                <p><strong>Cláusulas fixas:</strong></p>
+                <ul>
+                    <li>Identificação do requerente (CPF/CNPJ, endereço, e-mail)</li>
+                    <li>Identificação da embarcação (nome, matrícula, Capitania)</li>
+                    <li>Prazo de validade da outorga (indeterminado)</li>
+                    <li>Obrigações do outorgado (manutenção de equipamento homologado, pagamento TFI/PPDUR)</li>
+                </ul>
+
+                <p><strong>Cláusulas variáveis:</strong></p>
+                <ul>
+                    <li>Radiofrequência concedida (se aplicável) → gera PPDUR</li>
+                    <li>Condições técnicas específicas (potência, antena, localização)</li>
+                    <li>Município de operação → define TFI</li>
+                </ul>
+
+                <p><strong>Documentos anexos obrigatórios:</strong></p>
+                <ul>
+                    <li>Certificado de Homologação (PDF ≤150MB)</li>
+                    <li>Comprovante de inscrição na Capitania dos Portos</li>
+                </ul>
+
+                <hr style="margin: 2rem 0; border: none; border-top: 1px solid #dddbda;">
+
+                <h3>Template 2: Inclusão de Radiobaliza (Física ou Virtual)</h3>
+                <p><strong>Cláusulas fixas:</strong></p>
+                <ul>
+                    <li>Identificação do requerente</li>
+                    <li>Tipo de radiobaliza (Fixa ou Móvel)</li>
+                    <li>Prazo de validade da outorga (indeterminado)</li>
+                </ul>
+
+                <p><strong>Cláusulas variáveis (UI dinâmica):</strong></p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Radiobaliza Física</th>
+                            <th>Radiobaliza Virtual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                • Coordenadas geográficas (Lat/Long decimais)<br>
+                                • Dimensões físicas da boia (altura, diâmetro)<br>
+                                • Cor e sinais luminosos<br>
+                                • Código MMSI (gerado manualmente ou importado)
+                            </td>
+                            <td>
+                                • Coordenadas geográficas (Lat/Long decimais)<br>
+                                • Código MMSI <strong>gerado automaticamente</strong> pelo motor de regras<br>
+                                • Sem validação de equipamento físico homologado<br>
+                                • Integração com padrões GMDSS/UIT
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="alert-box alert-warning">
+                    <strong>Complexidade Técnica (GAP G04):</strong> UI dinâmica para alternar campos conforme tipo de boia — esforço de desenvolvimento não trivial. Prototipação necessária em S4, validação com usuários ORLE.
+                </div>
+
+                <hr style="margin: 2rem 0; border: none; border-top: 1px solid #dddbda;">
+
+                <h3>Template 3: Transferência de Estação (Eletrônica)</h3>
+                <p><strong>Cláusulas fixas:</strong></p>
+                <ul>
+                    <li>Identificação do cedente (requerente atual)</li>
+                    <li>Identificação do cessionário (novo requerente)</li>
+                    <li>Dados da estação a ser transferida (tipo, MMSI, licença atual)</li>
+                </ul>
+
+                <p><strong>Cláusulas variáveis (CRÍTICO — GAP G02):</strong></p>
+
+                <div class="alert-box alert-critical">
+                    <strong>⚠️ GAP G02 — Regra de Onerosidade NÃO DOCUMENTADA</strong><br>
+                    <strong>Validação de RF ativa do cessionário:</strong>
+                    <ul>
+                        <li>Se cessionário <strong>tem</strong> Autorização de RF ativa → Transferência sem PPDUR (apenas taxas administrativas)</li>
+                        <li>Se cessionário <strong>não tem</strong> RF ativa → <strong>PPDUR obrigatório</strong> (Manual MMAR p.13)</li>
+                    </ul>
+
+                    <strong>Cálculo proporcional de PPDUR (PENDENTE):</strong><br>
+                    Lógica não definida: PPDUR considera validade remanescente da RF do cedente ou exige cálculo integral?<br>
+                    <strong>Risco de litígio regulatório</strong> se implementado incorretamente.<br><br>
+
+                    <strong>Mitigação:</strong> Workshop com jurídico ANATEL antes de S5.
+                </div>
+
+                <p><strong>Aceite via sistema:</strong></p>
+                <ul>
+                    <li>Cedente assina eletronicamente (sem ICP-Brasil, apenas confirmação na plataforma)</li>
+                    <li>Cessionário assina eletronicamente</li>
+                    <li>Sistema só processa após ambas as assinaturas</li>
+                </ul>
+
+                <hr style="margin: 2rem 0; border: none; border-top: 1px solid #dddbda;">
+
+                <h3>Template 4: Renovação de Outorga (RF Vencendo)</h3>
+                <p><strong>Cláusulas fixas:</strong></p>
+                <ul>
+                    <li>Identificação do outorgado atual</li>
+                    <li>Dados da outorga original (número, data de emissão, prazo atual)</li>
+                    <li>Novo prazo de validade escolhido pelo requerente</li>
+                </ul>
+
+                <p><strong>Cláusulas variáveis:</strong></p>
+                <ul>
+                    <li><strong>PPDUR calculado dinamicamente</strong> com base no prazo escolhido</li>
+                    <li>Certidões de regularidade RF (anexo obrigatório)</li>
+                </ul>
+
+                <p><strong>Integração financeira:</strong></p>
+                <ul>
+                    <li>CLM gera PPDUR automaticamente via Revenue Cloud</li>
+                    <li>Emite boleto (ou orquestra geração externa — GAP Q-ANA-AUT-04)</li>
+                    <li>Só libera renovação após confirmação de pagamento</li>
+                </ul>
+
+                <hr style="margin: 2rem 0; border: none; border-top: 1px solid #dddbda;">
+
+                <h3>Template 5: Alteração de Estação (Mudança de Município)</h3>
+                <p><strong>Cláusulas fixas:</strong></p>
+                <ul>
+                    <li>Identificação do outorgado</li>
+                    <li>Dados da estação atual</li>
+                </ul>
+
+                <p><strong>Cláusulas variáveis:</strong></p>
+                <ul>
+                    <li><strong>Município de origem vs. município de destino</strong></li>
+                </ul>
+
+                <p><strong>Regra geo-financeira automática:</strong></p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Condição</th>
+                            <th>Onerosidade</th>
+                            <th>Taxa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Município mudou</td>
+                            <td>Alteração <strong>onerosa</strong></td>
+                            <td>Gera nova TFI</td>
+                        </tr>
+                        <tr>
+                            <td>Município permanece igual</td>
+                            <td>Alteração <strong>não onerosa</strong></td>
+                            <td>Apenas taxas administrativas</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p><strong>Justificativa técnica (obrigatória):</strong></p>
+                <ul>
+                    <li>Anexo PDF ≤150MB explicando motivo da alteração</li>
+                </ul>
+            </div>
+
+            <!-- Seção 4: Aprovação -->
+            <div id="aprovacao" class="content-section">
+                <h2>4. Aprovação Multi-Nível (Sem Escalonamento por Valor)</h2>
+
+                <div class="alert-box alert-info">
+                    <strong>Premissa confirmada:</strong> Sistema <strong>não</strong> tem regras de aprovação por valor (ex: "outorgas >R$10k sobem para diretoria"). Aprovação é sempre multi-nível independente do valor.
+                </div>
+
+                <h3>Níveis de Aprovação</h3>
+                <ol>
+                    <li><strong>Gerente ORLE</strong> (Outorgas e Licenciamento)</li>
+                    <li><strong>Jurídico</strong> (validação de conformidade legal)</li>
+                    <li><strong>Diretoria</strong> (aprovação final estratégica)</li>
+                    <li><strong>Opcional (Fluxo 2):</strong> Analista técnico especializado (para casos de alta complexidade técnica ou onerosidade excepcional)</li>
+                </ol>
+
+                <h3>Fluxos de Aprovação Configurados</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 30%;">Fluxo</th>
+                            <th style="width: 40%;">Etapas Sequenciais</th>
+                            <th style="width: 30%;">Aplicação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="slds-badge" style="background: #0176d3; color: white;">FLUXO 1</span><br>Outorga Padrão</td>
+                            <td>
+                                1️⃣ Gerente ORLE → Aprova/Rejeita<br>
+                                2️⃣ Jurídico → Aprova/Rejeita<br>
+                                3️⃣ Diretoria → Aprovação final
+                            </td>
+                            <td>Licenciamento sem onerosidade excepcional</td>
+                        </tr>
+                        <tr>
+                            <td><span class="slds-badge badge-alto">FLUXO 2</span><br>Outorga Complexa</td>
+                            <td>
+                                1️⃣ Gerente ORLE → Aprova/Rejeita<br>
+                                2️⃣ Analista técnico especializado → Aprovação técnica<br>
+                                3️⃣ Jurídico → Aprova/Rejeita<br>
+                                4️⃣ Diretoria → Aprovação final
+                            </td>
+                            <td>Com onerosidade ou alta complexidade técnica (ex: Transferência com PPDUR, Radiobaliza Virtual)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Alertas e Notificações</h3>
+                <ul>
+                    <li><strong>E-mail automático</strong> a cada transição de status</li>
+                    <li><strong>Alerta de SLA</strong> (prazos internos de análise) configurável por tipo de outorga</li>
+                    <li><strong>Dashboard de aprovações pendentes</strong> para cada papel</li>
+                    <li><strong>Notificações em tempo real</strong> via Salesforce App (mobile)</li>
+                </ul>
+
+                <h3>Regras de Negócio</h3>
+                <ul>
+                    <li>Aprovação sempre <strong>sequencial</strong> (não paralela)</li>
+                    <li>Rejeição em qualquer nível retorna para o solicitante com comentários obrigatórios</li>
+                    <li>Solicitante pode reenviar após correções (cria nova versão do contrato)</li>
+                    <li>Trilha de auditoria completa de todas as decisões (quem, quando, o quê, por quê)</li>
+                </ul>
+
+                <div class="alert-box alert-warning">
+                    <strong>❌ FORA DO ESCOPO:</strong>
+                    <ul style="margin-bottom: 0;">
+                        <li>Mais de 2 fluxos de aprovação</li>
+                        <li>Regras de escalonamento por valor</li>
+                        <li>Aprovação paralela (aprovadores simultâneos)</li>
+                        <li>Delegação de aprovação (substitutos automáticos)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Seção 5: Integração -->
+            <div id="integracao" class="content-section">
+                <h2>5. Integração MuleSoft (2 APIs)</h2>
+
+                <h3>Infraestrutura MuleSoft</h3>
+                <ul>
+                    <li><strong>CloudHub 2.0</strong> (greenfield, nova instância)</li>
+                    <li><strong>Cores dedicados:</strong> 4 Pre-Prod + 4 Production</li>
+                    <li><strong>Protocolo:</strong> REST API (JSON)</li>
+                    <li><strong>Autenticação:</strong> OAuth 2.0 (via Gov.br ou IdP ANATEL — GAP Q-ANA-TEC-04)</li>
+                </ul>
+
+                <div class="alert-box alert-critical">
+                    <strong>⚠️ RISCO CRÍTICO:</strong> Documentação parcial de APIs (🔴 ALTO). Discovery técnico obrigatório antes do kick-off nas semanas S1-S2.
+                </div>
+
+                <hr style="margin: 2rem 0;">
+
+                <h3>API 1: Sincronização de Status de Licença</h3>
+                <div class="api-box">
+                    <h5>Direção: Bidirecional (CLM ↔ MOSAICO)</h5>
+                    <p><strong>Frequência:</strong> Síncrona (tempo real)</p>
+
+                    <p><strong>Fluxo CLM → MOSAICO:</strong></p>
+                    <ul>
+                        <li><strong>Quando:</strong> Contrato é aprovado (Fase 3 completa)</li>
+                        <li><strong>Payload:</strong> Número do contrato, tipo de estação, dados técnicos, CPF/CNPJ outorgado</li>
+                        <li><strong>Retorno MOSAICO:</strong> Número da licença emitida, status</li>
+                    </ul>
+
+                    <p><strong>Fluxo MOSAICO → CLM:</strong></p>
+                    <ul>
+                        <li><strong>Quando:</strong> Licença é baixada manualmente no MOSAICO</li>
+                        <li><strong>Payload:</strong> Número da licença, status (ativo/inativo), data de baixa</li>
+                        <li><strong>Ação CLM:</strong> Atualiza status do contrato para "Encerrado"</li>
+                    </ul>
+                </div>
+
+                <hr style="margin: 2rem 0;">
+
+                <h3>API 2: Validação de Certificado de Homologação</h3>
+                <div class="api-box">
+                    <h5>Direção: Consulta (CLM → MOSAICO)</h5>
+                    <p><strong>Frequência:</strong> Sob demanda (apenas no momento da solicitação)</p>
+
+                    <p><strong>Quando é chamada:</strong></p>
+                    <ul>
+                        <li>Na Fase 1 (Solicitação e Triagem), durante validação de elegibilidade</li>
+                        <li>Requerente informa número do Certificado de Homologação</li>
+                    </ul>
+
+                    <p><strong>Fluxo:</strong></p>
+                    <ul>
+                        <li><strong>CLM → MOSAICO:</strong> "Este equipamento tem certificado válido?"</li>
+                        <li><strong>MOSAICO retorna:</strong>
+                            <ul>
+                                <li>✅ Certificado válido: Número, data de emissão, validade, fabricante, modelo</li>
+                                <li>❌ Certificado inválido/expirado: Rejeição automática da solicitação</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <h3>Esforço de Integração</h3>
+                <p><strong>MuleSoft Technical Consultant:</strong> 160 horas (Frente 2 — CLM)</p>
+                <ul>
+                    <li>Desenvolvimento das 2 APIs (conexão CLM ↔ MOSAICO)</li>
+                    <li>Configuração de OAuth 2.0</li>
+                    <li>Mapeamento de payloads JSON</li>
+                    <li>Error handling e retry logic</li>
+                    <li>Testes de integração end-to-end</li>
+                </ul>
+            </div>
+
+            <!-- Seção 6: Shield -->
+            <div id="shield" class="content-section">
+                <h2>6. Salesforce Shield (Conformidade e Auditoria)</h2>
+
+                <div class="alert-box alert-success">
+                    <strong>Obrigatório:</strong> Salesforce Shield Core Deployment ativado para CLM conforme conformidade com UIT e órgãos de controle.
+                </div>
+
+                <h3>Retenção Histórica: 7 Anos</h3>
+                <p><strong>Regulamentação:</strong> Manual MMAR (conformidade com UIT e órgãos de controle)</p>
+
+                <p><strong>Dados retidos:</strong></p>
+                <ul>
+                    <li>Histórico completo de contratos/outorgas (ativos e encerrados)</li>
+                    <li>Todas as versões de documentos anexados</li>
+                    <li>Logs de alterações de campos críticos (status, datas, valores)</li>
+                    <li>Trilha de aprovações (quem aprovou, quando, observações)</li>
+                </ul>
+
+                <div class="alert-box alert-warning">
+                    <strong>GAP Q-ANA-TEC-02:</strong> Estratégia de armazenamento não definida completamente.
+                    <ul style="margin-bottom: 0;">
+                        <li><strong>Online (primeiros 2 anos):</strong> Dados no Salesforce padrão, acesso imediato</li>
+                        <li><strong>Cold Storage (anos 3-7):</strong> Migração para Big Objects ou Data Cloud Data Spaces</li>
+                        <li><strong>Pendente definição:</strong> Se dados precisam estar online para relatórios operacionais ou podem ir para cold storage</li>
+                    </ul>
+                </div>
+
+                <hr style="margin: 2rem 0;">
+
+                <h3>Field Audit Trail (Obrigatório)</h3>
+                <p><strong>Campos auditados:</strong></p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Categoria</th>
+                            <th>Campos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Status</strong></td>
+                            <td>Status do contrato (todas as transições)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Datas</strong></td>
+                            <td>Criação, aprovação, vigência, vencimento, renovação, encerramento</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Valores Financeiros</strong></td>
+                            <td>TFI, PPDUR</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Aprovadores</strong></td>
+                            <td>Quem aprovou em cada nível</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dados Técnicos</strong></td>
+                            <td>MMSI, frequência, coordenadas</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <hr style="margin: 2rem 0;">
+
+                <h3>Platform Encryption (Obrigatório)</h3>
+                <div class="alert-box alert-warning">
+                    <strong>GAP Q-ARQ-05:</strong> Campos específicos que exigem criptografia não mapeados completamente. Candidatos prováveis listados abaixo.
+                </div>
+
+                <p><strong>Campos candidatos a criptografia:</strong></p>
+                <ul>
+                    <li>CPF/CNPJ do outorgado</li>
+                    <li>Dados fiscais (valores de TFI/PPDUR)</li>
+                    <li>E-mail e telefone do requerente</li>
+                    <li>Coordenadas geográficas (dados estratégicos)</li>
+                </ul>
+
+                <p><strong>Tipo de criptografia:</strong> AES 256-bit (nativo Salesforce Shield)</p>
+
+                <hr style="margin: 2rem 0;">
+
+                <h3>Event Monitoring (Obrigatório)</h3>
+                <p><strong>Eventos auditados:</strong></p>
+                <ul>
+                    <li>Exportação de relatórios de contratos</li>
+                    <li>Acesso a dados sensíveis (CPF/CNPJ, valores fiscais)</li>
+                    <li>Alterações de permissões de usuários</li>
+                    <li>Login de usuários externos (via Gov.br)</li>
+                </ul>
+
+                <p><strong>Retenção de logs:</strong> 10 anos (conformidade com sigilo fiscal)</p>
+            </div>
+
+            <!-- Seção 7: Relatórios -->
+            <div id="relatorios" class="content-section">
+                <h2>7. Relatórios OOTB (Out-Of-The-Box)</h2>
+
+                <div class="alert-box alert-info">
+                    <strong>Premissa confirmada:</strong> Apenas relatórios básicos OOTB, sem KPIs customizados.
+                </div>
+
+                <h3>Relatório 1: Contratos por Status</h3>
+                <p><strong>Métricas:</strong></p>
+                <ul>
+                    <li>Ativo / Em Análise / Aguardando Aprovação / Aguardando Pagamento / Encerrado</li>
+                    <li>Total de contratos por status</li>
+                    <li>Percentual de cada status no total</li>
+                </ul>
+                <p><strong>Filtros disponíveis:</strong></p>
+                <ul>
+                    <li>Tipo de estação</li>
+                    <li>Gerência responsável</li>
+                    <li>Período (data de criação, data de aprovação)</li>
+                </ul>
+
+                <hr style="margin: 2rem 0;">
+
+                <h3>Relatório 2: Vencimentos nos Próximos 90 Dias</h3>
+                <p><strong>Métricas:</strong></p>
+                <ul>
+                    <li>Lista de contratos com vencimento iminente</li>
+                    <li>Alertas de renovação não iniciada</li>
+                    <li>Status de renovação (pendente, em andamento, concluída)</li>
+                </ul>
+                <p><strong>Filtros disponíveis:</strong></p>
+                <ul>
+                    <li>Tipo de estação</li>
+                    <li>Região (Estado/Município)</li>
+                    <li>Faixa de vencimento (D-90 a D-60, D-60 a D-30, D-30 a D-0)</li>
+                </ul>
+
+                <hr style="margin: 2rem 0;">
+
+                <h3>Relatório 3: Volume de Outorgas por Tipo/Região</h3>
+                <p><strong>Métricas:</strong></p>
+                <ul>
+                    <li>Total de outorgas ativas por tipo de estação</li>
+                    <li>Distribuição geográfica (Estado/Município)</li>
+                    <li>Comparativo mensal/anual</li>
+                </ul>
+                <p><strong>Filtros disponíveis:</strong></p>
+                <ul>
+                    <li>Tipo de estação</li>
+                    <li>Estado</li>
+                    <li>Município</li>
+                    <li>Período (mês/ano)</li>
+                </ul>
+
+                <hr style="margin: 2rem 0;">
+
+                <div class="alert-box alert-critical">
+                    <strong>❌ FORA DO ESCOPO:</strong>
+                    <ul style="margin-bottom: 0;">
+                        <li>KPIs customizados (ex: "Taxa de renovação automática", "Tempo médio de aprovação por gerência")</li>
+                        <li>Dashboards Tableau integrados (Tableau está em outra frente — Frente 5)</li>
+                        <li>Alertas customizados além dos padrões (D-90, D-60, D-30)</li>
+                        <li>Relatórios com cálculos complexos (ex: "Valor total de PPDUR arrecadado por região")</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Seção 8: Exclusões -->
+            <div id="exclusoes" class="content-section">
+                <h2>8. Limites e Exclusões de Escopo CLM</h2>
+
+                <h3>❌ Assinaturas Digitais</h3>
+                <ul>
+                    <li>ICP-Brasil (infraestrutura de chaves públicas brasileira)</li>
+                    <li>DocuSign</li>
+                    <li>Qualquer integração com provedores externos de assinatura eletrônica qualificada</li>
+                </ul>
+
+                <h3>❌ Negociação Externa</h3>
+                <ul>
+                    <li>Track changes / redline com participação da contraparte (empresas reguladas)</li>
+                    <li>Sugestões de cláusulas por contraparte</li>
+                    <li>Co-edição de documentos em tempo real</li>
+                </ul>
+
+                <h3>❌ Escalabilidade de Fluxos</h3>
+                <ul>
+                    <li>Mais de 2 fluxos de aprovação</li>
+                    <li>Regras de escalonamento por valor</li>
+                    <li>Aprovação paralela (aprovadores simultâneos em vez de sequenciais)</li>
+                </ul>
+
+                <h3>❌ Templates Adicionais</h3>
+                <ul>
+                    <li>Mais de 5 templates</li>
+                    <li>Templates para outros módulos (TFF, Atendimento, Ouvidoria)</li>
+                </ul>
+
+                <h3>❌ Relatórios Avançados</h3>
+                <ul>
+                    <li>Relatórios customizados com KPIs específicos</li>
+                    <li>Dashboards executivos integrados com Tableau (está na Frente 5)</li>
+                    <li>Alertas customizados além dos padrões OOTB</li>
+                </ul>
+
+                <h3>❌ Integrações Adicionais</h3>
+                <ul>
+                    <li>SEI (Sistema Eletrônico de Informações) — apenas peticionamento via outro módulo</li>
+                    <li>SIAFI (Sistema Integrado de Administração Financeira) — gestão financeira federal</li>
+                    <li>Outros sistemas além de MOSAICO</li>
+                </ul>
+
+                <h3>❌ Migração de Contratos Históricos</h3>
+                <ul>
+                    <li>Apenas contratos <strong>ativos</strong> serão migrados</li>
+                    <li>Contratos encerrados antes da implementação: <strong>não migrados</strong></li>
+                </ul>
+            </div>
+
+            <!-- Seção 9: Estimativa -->
+            <div id="estimativa" class="content-section">
+                <h2>9. Estimativa de Esforço CLM (Frente 2)</h2>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Horas Totais</div>
+                        <div class="stat-value">2.630h</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Custo (s/ impostos)</div>
+                        <div class="stat-value">R$ 2,0M</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Custo (c/ impostos)</div>
+                        <div class="stat-value">R$ 2,1M</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">% do Programa</div>
+                        <div class="stat-value">27,3%</div>
+                    </div>
+                </div>
+
+                <h3>Perfis e Horas</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Papel</th>
+                            <th style="text-align: right;">Horas</th>
+                            <th>Função</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Senior Project Manager</strong></td>
+                            <td style="text-align: right;">600h</td>
+                            <td>Gestão cross-project (CLM + outros módulos)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Solution Architect</strong></td>
+                            <td style="text-align: right;">350h</td>
+                            <td>Desenho da arquitetura de integração CLM-MOSAICO</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Technical Architect</strong></td>
+                            <td style="text-align: right;">320h</td>
+                            <td>Implementação de lógica de negócio e motor de regras</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Experience Architect</strong></td>
+                            <td style="text-align: right;">240h</td>
+                            <td>Design de UI dinâmica (boias, tipos de estação)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Solution Consultant</strong></td>
+                            <td style="text-align: right;">400h</td>
+                            <td>Configuração de regras conforme RGL e Manual MMAR</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Technical Consultant</strong></td>
+                            <td style="text-align: right;">440h</td>
+                            <td>Configuração de workflows, aprovações, templates</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Quality Assurance Consultant</strong></td>
+                            <td style="text-align: right;">120h</td>
+                            <td>Testes de integração, validação de regras</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MuleSoft Technical Consultant</strong></td>
+                            <td style="text-align: right;">160h</td>
+                            <td>Desenvolvimento das 2 APIs MOSAICO</td>
+                        </tr>
+                        <tr style="background: #f3f2f2; font-weight: 700;">
+                            <td><strong>TOTAL</strong></td>
+                            <td style="text-align: right;"><strong>2.630h</strong></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <hr style="margin: 2rem 0;">
+
+                <h3>Timeline e Marcos</h3>
+                <p><strong>Duração Total:</strong> 15 semanas (S1-S15)</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Semana</th>
+                            <th>Fase</th>
+                            <th>Entregável</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>S1-S4</strong></td>
+                            <td>Discovery, Define, Design</td>
+                            <td>Setup, modelagem de dados, permissões, sandbox</td>
+                        </tr>
+                        <tr>
+                            <td><strong>S5-S6</strong></td>
+                            <td>Deliver</td>
+                            <td>Templates dinâmicos (5 modelos) + fluxo de 5 etapas + Integração MuleSoft/MOSAICO (2 APIs) + Shield</td>
+                        </tr>
+                        <tr>
+                            <td><strong>S7-S10</strong></td>
+                            <td>Deliver</td>
+                            <td>Aprovação multi-nível + alertas/notificações + versionamento + suporte migração de Contratos legados ATIVOS</td>
+                        </tr>
+                        <tr>
+                            <td><strong>S11-S12</strong></td>
+                            <td>Deploy</td>
+                            <td>QA, UAT, ajustes, relatórios OOTB</td>
+                        </tr>
+                        <tr>
+                            <td><strong>S13-S15</strong></td>
+                            <td>Scale</td>
+                            <td>Go-live support, handover</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Seção 10: Riscos -->
+            <div id="riscos" class="content-section">
+                <h2>10. Riscos Específicos CLM</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Risco</th>
+                            <th>Probabilidade</th>
+                            <th>Impacto</th>
+                            <th>Mitigação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Documentação parcial das APIs MOSAICO</strong></td>
+                            <td><span class="slds-badge badge-critico">🔴 Alta</span></td>
+                            <td><span class="slds-badge badge-critico">🔴 Crítico</span></td>
+                            <td>Discovery técnico obrigatório semanas S1-S2</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Regras de onerosidade não documentadas (GAP G02)</strong></td>
+                            <td><span class="slds-badge badge-medio">🟡 Média</span></td>
+                            <td><span class="slds-badge badge-critico">🔴 Alto</span></td>
+                            <td>Workshop com jurídico ANATEL antes de S5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>UI dinâmica para boias (GAP G04)</strong></td>
+                            <td><span class="slds-badge badge-medio">🟡 Média</span></td>
+                            <td><span class="slds-badge badge-medio">🟡 Médio</span></td>
+                            <td>Prototipação em S4, validação com usuários ORLE</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Migração de contratos ativos sem qualidade de dados</strong></td>
+                            <td><span class="slds-badge badge-medio">🟡 Média</span></td>
+                            <td><span class="slds-badge badge-medio">🟡 Médio</span></td>
+                            <td>Data profiling em S3, limpeza pré-migração</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Aprovação Meta WhatsApp (para alertas de renovação)</strong></td>
+                            <td><span class="slds-badge badge-medio">🟡 Média</span></td>
+                            <td><span class="slds-badge badge-medio">🟡 Médio</span></td>
+                            <td>Processo iniciado na Fase 0 (paralelo ao CLM)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Seção 11: Dependências -->
+            <div id="dependencias" class="content-section">
+                <h2>11. Dependências Críticas</h2>
+
+                <h3>✅ Antes do Kick-off</h3>
+                <ul>
+                    <li>Licenciamento Salesforce Contracts - Unlimited Edition (14 editores)</li>
+                    <li>Licenciamento Salesforce Shield (Platform Encryption + Audit Trail)</li>
+                    <li>Licenciamento MuleSoft CloudHub 2.0 (4 cores Pre-Prod + 4 Prod)</li>
+                </ul>
+
+                <h3>✅ Semana S1-S2 (Discovery Técnico)</h3>
+                <ul>
+                    <li>Documentação completa das 2 APIs MOSAICO (contratos atuais, schemas, autenticação)</li>
+                    <li>Acesso a ambiente de homologação MOSAICO</li>
+                    <li>Definição formal das regras de onerosidade (GAP G02)</li>
+                    <li>Mapeamento dos 5 templates com jurídico ANATEL</li>
+                </ul>
+
+                <h3>✅ Semana S3 (Data Profiling)</h3>
+                <ul>
+                    <li>Extração de contratos ativos do MOSAICO</li>
+                    <li>Análise de qualidade de dados (campos vazios, inconsistências)</li>
+                    <li>Definição de chave de migração (número de contrato MOSAICO → ID CLM)</li>
+                </ul>
+
+                <h3>✅ Semana S6 (Integração)</h3>
+                <ul>
+                    <li>Ambiente MuleSoft configurado</li>
+                    <li>Credenciais OAuth 2.0 para MOSAICO</li>
+                    <li>Testes de conectividade CLM ↔ MuleSoft ↔ MOSAICO</li>
+                </ul>
+            </div>
+
+            <!-- Seção 12: Premissas -->
+            <div id="premissas" class="content-section">
+                <h2>12. Premissas Confirmadas CLM</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 30%;">Premissa</th>
+                            <th style="width: 50%;">Descrição</th>
+                            <th style="width: 20%;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>5 templates dinâmicos</strong></td>
+                            <td>Complexidade média — alguns campos variáveis por tipo de estação</td>
+                            <td><span class="slds-badge badge-success">✅ Confirmado</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Aprovação multi-nível</strong></td>
+                            <td>Gerente + Jurídico + Diretoria (+ Analista técnico se complexo)</td>
+                            <td><span class="slds-badge badge-success">✅ Confirmado</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>2 APIs MOSAICO</strong></td>
+                            <td>Sincronização de status + Validação de certificado</td>
+                            <td><span class="slds-badge badge-success">✅ Confirmado</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Shield obrigatório</strong></td>
+                            <td>Retenção 7 anos + criptografia + auditoria</td>
+                            <td><span class="slds-badge badge-success">✅ Confirmado</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Apenas contratos ATIVOS migrados</strong></td>
+                            <td>Contratos encerrados ficam no MOSAICO legado</td>
+                            <td><span class="slds-badge badge-success">✅ Confirmado</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Relatórios OOTB</strong></td>
+                            <td>Sem KPIs customizados — apenas relatórios básicos nativos</td>
+                            <td><span class="slds-badge badge-success">✅ Confirmado</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Estimativa 2.630h</strong></td>
+                            <td>Cenário médio (510–760h originalmente, expandido para contemplar todas as fases)</td>
+                            <td><span class="slds-badge badge-success">✅ Confirmado</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <hr style="margin: 2rem 0;">
+
+                <div class="alert-box alert-info">
+                    <strong>Documento baseado em:</strong>
+                    <ul style="margin-bottom: 0;">
+                        <li>Relatório Consolidado: Discovery ANATEL – Respostas e Gaps de Projeto</li>
+                        <li>Memória de Projeto: Transformação Digital ANATEL</li>
+                        <li>USD - Documento de Escopo Unificado</li>
+                        <li>Discovery Mapping ANATEL v1 (Google Sheets — Estimate v2)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => section.classList.remove('active'));
+
+            // Remove active class from all nav items
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+
+            // Show selected section
+            const selectedSection = document.getElementById(sectionId);
+            if (selectedSection) {
+                selectedSection.classList.add('active');
+            }
+
+            // Add active class to clicked nav item
+            event.target.classList.add('active');
+
+            // Scroll to top of main content
+            document.querySelector('.main-content').scrollTop = 0;
+        }
+    </script>
+</body>
+</html>
