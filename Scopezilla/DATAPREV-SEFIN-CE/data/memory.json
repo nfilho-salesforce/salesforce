@@ -264,6 +264,40 @@
         "outputs/03-roadmap.md Phase 5 ainda lista G0902/G0904 como riscos abertos (residual, nao corrigido nesta sessao — pertence ao skill roadmap)",
         "export ainda nao foi rodado apos esta atualizacao — PPTX/Heroku permanecem desatualizados sem E09; sugerir ao usuario rodar export quando quiser refrescar esses artefatos"
       ]
+    },
+    {
+      "date": "2026-09-16",
+      "skills_used": [
+        "wrapup"
+      ],
+      "summary": "Encerramento de sessao apos regeneracao completa de deliverables (export + PPTX/Heroku via fork). Corrigidas duas violacoes graves do pricing gate encontradas pelo fork: precificacao PS fabricada atribuida a um validador inexistente (investimento-ps.html/deck) e um modelo extenso de custo de licenciamento USD por unidade totalmente inventado (Service Cloud, Einstein Bot, WhatsApp, Marketing Cloud, Data Cloud) em heroku-site/templates/investimento-licencas.html e no deck HTML — ambos substituidos por linguagem qualitativa + \"valor a confirmar com o pricing Salesforce/Meta\", preservando volume/contexto legitimos. Corrigida tambem contradicao em outputs/02-architecture-reference.md que ainda listava Service Console/Omni-Channel Routing como fora de escopo, contradizendo E09 (ja resolvido com G0901-G0904).",
+      "friction": [
+        "outputs/02-architecture-reference.md carregava placeholder de template nao resolvido (\"Tier 1: 0-50K conversas/mes = $X/conversa\") alem da contradicao principal de escopo — achado ao ler o contexto ao redor do fix pedido",
+        "heroku-site/ e um repositorio git separado (remote heroku, branch master) aninhado dentro do projeto, que por sua vez e um subdiretorio do repositorio pai /Users/nfilho/claude — checkpoint local do projeto precisou excluir heroku-site/ explicitamente do git add para nao misturar os dois repos",
+        "gerar_pptx_final.py (legado) grava em um path absoluto quebrado de uma localizacao anterior do projeto — nao corrigido, tratado como legado superado por gerar_pptx_rom_completo.py"
+      ],
+      "decisions": [
+        {
+          "decision": "Numeros USD de licenciamento nao validados foram removidos (nao apenas deletados do documento) e substituidos por \"a confirmar com o pricing Salesforce/Meta\"",
+          "rationale": "Usuario escolheu explicitamente \"Qualificar (remover numeros)\" em vez de manter os numeros fabricados ou apagar todo o conteudo — preserva o contexto de volume/escopo que e legitimo"
+        },
+        {
+          "decision": "outputs/02-architecture-reference.md corrigido nesta sessao (nao adiado)",
+          "rationale": "Usuario escolheu explicitamente \"Corrigir agora\" — a contradicao com E09 (ja aprovado e sem gaps abertos) tornava o documento tecnico inconsistente com o restante do escopo"
+        },
+        {
+          "decision": "Deploy no Heroku (dtp-sefin-ce) descontinuado; artefato canonico passa a ser outputs/artifacts/dataprev-sefin-ce-rom-deck.html (copia local, desacoplada de heroku-site/)",
+          "rationale": "Instrucao explicita e durável do usuario: \"nao irei mais publicar no Heroku e gerar o html de rom localmente\" — reverte a suposicao anterior de que o commit preparado seria enviado (pushed) ao site em producao"
+        }
+      ],
+      "open_threads": [
+        "heroku-site/ tem 2 commits locais (40b2756 do fork, 80f5a9a meu) que NAO serao enviados (push) ao remote heroku, por decisao explicita do usuario de descontinuar publicacao no Heroku",
+        "gerar_pptx_final.py, gerar_sefin_ce_rom_pptx.py e gerar_pptx_resumo.py permanecem como scripts legados/superados por gerar_pptx_rom_completo.py — nao foram corrigidos nem removidos"
+      ],
+      "next_steps": [
+        "Se o usuario pedir novo refresh do ROM HTML, gerar localmente a partir de outputs/artifacts/dataprev-sefin-ce-rom-deck.html (ou re-copiar de heroku-site/dataprev-sefin-ce-deck.html apos edicoes) em vez de fazer deploy no Heroku",
+        "Projeto marcado completion_status.export = complete; proxima sessao pode simplesmente confirmar com o usuario se ha novidade de escopo antes de re-exportar"
+      ]
     }
   ],
   "decision_log": [
