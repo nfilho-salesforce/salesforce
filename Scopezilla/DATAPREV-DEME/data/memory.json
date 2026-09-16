@@ -13,6 +13,7 @@
         "Product overlay 'Agentforce Operations' descartado como falso positivo (match em keywords genéricas 'capa'/'clm', sem relação de domínio com este deal)."
       ],
       "next_steps": [
+        "Ao reabrir este projeto: refazer primeiro a pergunta do approval gate ('Discovery Brief pronto... Como quer seguir?' — opções: aprovar e encerrar / ajustar o brief / seguir para strategy) antes de assumir que 'aprovar e encerrar' desta sessão (2026-09-09) ainda vale. Pedido explícito do usuário ao sair da sessão.",
         "Retomar discover (ou seguir para strategy) quando a volumetria e/ou respostas às 5 decisões chegarem do cliente.",
         "Considerar diligência com Luis Gabriel Fernandes (SE, autor da hipótese de arquitetura) para confirmar item 🔴 de Experience Cloud + Revenue Cloud sem Digital Commerce.",
         "Reconciliar MCP search@aisuite (ENDPOINT_NOT_FOUND) para reabilitar grounding via KB central Scopezilla."
