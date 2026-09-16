@@ -1,0 +1,137 @@
+digraph SEFIN_CE_BOT {
+    rankdir=TB;
+    bgcolor="#f3f3f3";
+    node [fontname="Helvetica", fontsize=10, style=filled];
+    edge [fontname="Helvetica", fontsize=9];
+
+    // Title
+    label="DATAPREV-SEFIN-CE — Árvore de Conversação Einstein Bot\n4 Fluxos | WhatsApp Channel | NLU 5 Intents";
+    labelloc=t;
+    fontsize=14;
+    fontname="Helvetica-Bold";
+
+    // Entry Point
+    inicio [label="Cidadão inicia\nconversa via\nWhatsApp", shape=ellipse, fillcolor="#25D366", fontcolor=white];
+
+    // Menu Inicial
+    menu [label="Menu Inicial\nBem-vindo!\nEscolha o serviço:\n1️⃣ IPTU\n2️⃣ TMRSU (Taxa Lixo)\n3️⃣ ISS (Nota Fiscal)\n4️⃣ Alteração Cadastral\n5️⃣ Outros/Ajuda", shape=box, fillcolor="#6495ED", fontcolor=white, style="filled,rounded"];
+
+    // Identificação
+    cpf_cnpj [label="Identificação\nPor favor, informe:\n📱 CPF (PF) ou\n🏢 CNPJ (PJ)\n\nValidação:\nRegex + Apex checksum", shape=box, fillcolor="#87CEEB"];
+
+    // IPTU Flow
+    subgraph cluster_iptu {
+        label="Fluxo IPTU";
+        style=filled;
+        color="#4169E1";
+        fontcolor=white;
+
+        iptu_consulta [label="Consultar Inscrições\nAPI: ConsultaImovel\nby CPF/CNPJ", shape=box, fillcolor="#B0C4DE"];
+        iptu_lista [label="Suas inscrições:\n1. Endereço A - Insc XXXXX\n2. Endereço B - Insc YYYYY\n...\n\nEscolha (loop)", shape=box, fillcolor="#B0C4DE"];
+        iptu_tipo [label="Tipo de Débito?\n1️⃣ IPTU Total\n2️⃣ Cota única\n3️⃣ Parcela específica", shape=diamond, fillcolor="#B0C4DE"];
+        iptu_emitir [label="Emitir DAM\nAPI: EmitirDamUnico\ntipoDebito", shape=box, fillcolor="#4682B4"];
+        iptu_enviar [label="Enviar PDF via\nWhatsApp\n✅ DAM emitido!", shape=box, fillcolor="#32CD32"];
+    }
+
+    // TMRSU Flow
+    subgraph cluster_tmrsu {
+        label="Fluxo TMRSU (Taxa de Lixo)";
+        style=filled;
+        color="#FF8C00";
+        fontcolor=white;
+
+        tmrsu_consulta [label="Consultar Inscrições\nAPI: ConsultaImovel\nby CPF/CNPJ", shape=box, fillcolor="#FFD700"];
+        tmrsu_lista [label="Suas inscrições:\n1. Endereço A - Insc XXXXX\n2. Endereço B - Insc YYYYY\n...\n\nEscolha (loop)", shape=box, fillcolor="#FFD700"];
+        tmrsu_emitir [label="Emitir DAM TMRSU\nAPI: EmitirDamUnico\ntipoDebito=980", shape=box, fillcolor="#FFA500"];
+        tmrsu_enviar [label="Enviar PDF via\nWhatsApp\n✅ DAM emitido!", shape=box, fillcolor="#32CD32"];
+    }
+
+    // ISS Flow
+    subgraph cluster_iss {
+        label="Fluxo ISS (Nota Fiscal)";
+        style=filled;
+        color="#9370DB";
+        fontcolor=white;
+
+        iss_link [label="Enviar link\nPortal SEFIN\nNota Fiscal\n\n(Q-04: upgrade\npara DAM?)", shape=box, fillcolor="#DDA0DD"];
+        iss_msg [label="Acesse o portal:\n🔗 [link]\n\nPara emissão de\nNota Fiscal", shape=box, fillcolor="#DDA0DD"];
+    }
+
+    // Cadastral Flow
+    subgraph cluster_cadastral {
+        label="Fluxo Alteração Cadastral";
+        style=filled;
+        color="#20B2AA";
+        fontcolor=white;
+
+        cad_consulta [label="Consultar Dados\nAPI: Dados Cadastrais\n(Q-02 BLOCKER)", shape=box, fillcolor="#5F9EA0"];
+        cad_dados [label="Dados atuais:\n👤 Nome: ...\n📧 Email: ...\n📱 Telefone: ...\n📍 Endereço: ...\n\n9 campos editáveis", shape=box, fillcolor="#5F9EA0"];
+        cad_editar [label="Escolha campo\npara editar\n\nLoop 9 campos", shape=diamond, fillcolor="#5F9EA0"];
+        cad_validar [label="Validar entrada\n(formato, regex)", shape=box, fillcolor="#5F9EA0"];
+        cad_salvar [label="Salvar alterações\nAPI: Dados Cadastrais\nPUT/PATCH", shape=box, fillcolor="#4682B4"];
+        cad_confirmar [label="✅ Dados atualizados\ncom sucesso!", shape=box, fillcolor="#32CD32"];
+    }
+
+    // Fallback / Outros
+    fallback [label="Fallback / Outros\nDesculpe, não entendi.\n\nOpções:\n🔄 Voltar ao menu\n👤 Falar com atendente\n📞 Contatos SEFIN", shape=box, fillcolor="#D3D3D3"];
+
+    // Pesquisa de Satisfação
+    satisfacao [label="Pesquisa de Satisfação\n⭐ Avalie o atendimento\n(1 a 5 estrelas)\n\nObrigatória", shape=box, fillcolor="#FFD700"];
+    justificativa [label="Nota ≤3?\n📝 Por favor, justifique\npara melhorarmos", shape=diamond, fillcolor="#FFA500"];
+    log_crm [label="Log Satisfação\nAPI: CRM SEFIN\n(Q-01 BLOCKER)\nFire-and-Forget", shape=box, fillcolor="#FF6347"];
+
+    // Despedida
+    despedida [label="Despedida\nObrigado!\n🔗 Portal SEFIN: [link]\n(Q-06)\n\nAté logo! 👋", shape=ellipse, fillcolor="#90EE90"];
+
+    // Main Flow
+    inicio -> menu;
+    menu -> cpf_cnpj [label="1️⃣ IPTU"];
+    menu -> cpf_cnpj [label="2️⃣ TMRSU"];
+    menu -> cpf_cnpj [label="3️⃣ ISS"];
+    menu -> cpf_cnpj [label="4️⃣ Cadastral"];
+    menu -> fallback [label="5️⃣ Outros"];
+
+    // IPTU Flow
+    cpf_cnpj -> iptu_consulta [label="Intent:\nIPTU", color="#4169E1", penwidth=2];
+    iptu_consulta -> iptu_lista;
+    iptu_lista -> iptu_tipo;
+    iptu_tipo -> iptu_emitir [label="Tipo\nescolhido"];
+    iptu_emitir -> iptu_enviar;
+    iptu_enviar -> satisfacao;
+    iptu_lista -> iptu_tipo [label="Próxima\ninscrição\n(P-29 loop)", style=dashed];
+
+    // TMRSU Flow
+    cpf_cnpj -> tmrsu_consulta [label="Intent:\nTMRSU", color="#FF8C00", penwidth=2];
+    tmrsu_consulta -> tmrsu_lista;
+    tmrsu_lista -> tmrsu_emitir;
+    tmrsu_emitir -> tmrsu_enviar;
+    tmrsu_enviar -> satisfacao;
+    tmrsu_lista -> tmrsu_emitir [label="Próxima\ninscrição\n(P-29 loop)", style=dashed];
+
+    // ISS Flow
+    cpf_cnpj -> iss_link [label="Intent:\nISS", color="#9370DB", penwidth=2];
+    iss_link -> iss_msg;
+    iss_msg -> satisfacao;
+
+    // Cadastral Flow
+    cpf_cnpj -> cad_consulta [label="Intent:\nCadastral", color="#20B2AA", penwidth=2];
+    cad_consulta -> cad_dados;
+    cad_dados -> cad_editar;
+    cad_editar -> cad_validar [label="Campo\nescolhido"];
+    cad_validar -> cad_editar [label="Próximo\ncampo", style=dashed];
+    cad_validar -> cad_salvar [label="Concluir"];
+    cad_salvar -> cad_confirmar;
+    cad_confirmar -> satisfacao;
+
+    // Fallback
+    fallback -> menu [label="Voltar", style=dashed];
+
+    // Satisfação
+    satisfacao -> justificativa;
+    justificativa -> log_crm [label="Nota ≤3"];
+    justificativa -> log_crm [label="Nota >3", style=dashed];
+    log_crm -> despedida;
+
+    // Volta ao menu
+    despedida -> menu [label="Nova\nconsulta?", style=dotted, color=gray];
+}

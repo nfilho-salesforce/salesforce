@@ -1,0 +1,317 @@
+{
+  "sessions": [
+    {
+      "date": "2026-07-02",
+      "skills_used": [
+        "setup",
+        "discover"
+      ],
+      "outputs": [
+        "00-project-summary.md"
+      ],
+      "decisions": [
+        "ADD-ON 1 (Setup ORG): Cliente ainda não decidiu cenário A (nova) vs B (existente) — estimar ambos",
+        "ADD-ON 2 (Marketing Cloud): 4,86M msgs/ano opcional — cliente decide",
+        "ADD-ON 3 (KB externa): Volume e fonte a confirmar com cliente (Q-N)",
+        "Migração de dados: Greenfield confirmado (sem migração)",
+        "Sustentação: DATAPREV assume AMS pós-implantação"
+      ],
+      "open_threads": [
+        "14 perguntas ao cliente (Q-A a Q-N) — aguardando respostas",
+        "Deadline go-live desconhecido (Q-M)",
+        "Número processo licitatório desconhecido (Q-L)",
+        "Mecanismo transbordo humano indefinido (Q-B)"
+      ]
+    },
+    {
+      "date": "2026-07-03",
+      "skills_used": [
+        "discover (re-run v2.0)"
+      ],
+      "outputs": [
+        "00-project-summary.md (v2.0)"
+      ],
+      "decisions": [
+        "v2.0: Agentforce → Service Cloud + Einstein Bot (CORE)",
+        "v2.0: Nova ORG Setup agora CORE (era ADD-ON v1.0)",
+        "v2.0: UX Research incluída no escopo PS (personas, usabilidade, WCAG)",
+        "v2.0: DATAPREV assume treinamento; PS entrega documentação apenas",
+        "v2.0: ISS mantém link site (Q-04/Q-05 validação cliente)",
+        "v2.0: Perfil Bot Maintainer apenas Einstein Bot + revisão conversas (Q-15 validação cliente)",
+        "v2.0: Budget < R$ 1,7M/ano MUTANTE; previsão licenças R$ 1,2–1,5M/ano",
+        "v2.0: Stakeholders: Alex Siqueira (AP PS), Oswaldo Melo (SE); demais Q-17"
+      ],
+      "open_threads": [
+        "17 perguntas ao cliente (Q-01 a Q-17) — incluindo v2.0 additions",
+        "Deadline go-live desconhecido (Q-11/Q-12/Q-14)",
+        "APIs CRM SEFIN e Dados Cadastrais spec pendente (Q-01/Q-02)"
+      ]
+    },
+    {
+      "date": "2026-07-03",
+      "skills_used": [
+        "design"
+      ],
+      "outputs": [
+        "02-solution-brief.md",
+        "02-architecture-reference.md",
+        "data/estimates.json (7 épicas)"
+      ],
+      "decisions": [
+        "Arquitetura Service Cloud + Einstein Bot (NOT Agentforce per v2.0 scope adjustment) + WhatsApp Channel + 4 SEFIN APIs (REST + API Key auth)",
+        "CPF/CNPJ como External ID, encrypted TDE (LGPD Art. 11)",
+        "Hyperforce Brazil ORG (São Paulo data center) para data residency LGPD",
+        "Flow Orchestration + Apex @future/@queueable para REST callouts",
+        "NLU 5 intents (IPTU, TMRSU, ISS, Alteração Cadastral, Fallback), 6 entities (CPF/CNPJ regex + checksum Apex, Data Nascimento/Abertura, Inscrições, Nome, Telefone, Email, Endereço)",
+        "Loop DAM emission pattern (multi-inscription support P-29)",
+        "Custom profiles: System Admin clone (3 users), Bot Maintainer (7 users, scoped Einstein Bot + conversation review Q-15 validation)",
+        "Marketing Cloud ADD-ON E08: SFTP batch ingestion (SEM Data Cloud zero-copy), Journey Builder 1 jornada proativa IPTU vencido, HSM templates Meta approval 1-3 weeks",
+        "T-shirt distribution: 2L (E02 Einstein Bot, E08 ADD-ON Marketing Cloud) + 4M (E01 ORG Foundation, E03 API Integration, E05 UX Research, E06 Security) + 1S (E04 Feedback) = 6 CORE + 1 ADD-ON",
+        "Complexity drivers: Einstein Bot NLU training 50-100 utterances/intent, 4 APIs integration Flow Orchestration + Apex, LGPD compliance TDE + audit trail + data retention, UX research 12 interviews + 15 usability sessions WCAG adapted, Marketing Cloud SFTP batch + Journey Builder + HSM templates"
+      ],
+      "open_threads": [
+        "Próxima fase: roadmap skill (5 fases sequenciais + 6 roles identificados)"
+      ]
+    },
+    {
+      "date": "2026-07-03",
+      "skills_used": [
+        "roadmap"
+      ],
+      "outputs": [
+        "03-roadmap.md",
+        "04-roles.md",
+        "data/roadmap.json (5 phases)",
+        "data/resource-plan.json (6 roles)"
+      ],
+      "decisions": [
+        "Timeline: No commitment — user chose 'no commitment' option, phases sequence-only without week numbers",
+        "5 phases: Phase 0 (Discovery Resolution & API Specs MANDATORY), Phase 1 (Foundation & ORG Setup), Phase 2 (Einstein Bot + API Integration), Phase 3 (UX Research & Refinement), Phase 4 ADD-ON (Marketing Cloud Proactive Journey)",
+        "6 roles: R01 Technical Architect, R02 Technical Consultant, R03 Technical Consultant (Security + Profiles), R04 Experience Architect, R05 Technical Architect (Phase 0), R06 Project Manager",
+        "Phase 0 duration target: <3 semanas (per risk mitigation); success criteria: 2 API specs bloqueadoras (CRM SEFIN + Dados Cadastrais endpoint/payload/auth), ISS flow decisão (link ou DAM emission), Bot Maintainer profile scope (Q-15), Meta approval timeline (G0103), Hyperforce Brazil validation (P-22), 17 Qs cliente respondidas",
+        "Benchmark-based duration (top-down): 16-26 weeks (Service Cloud Medium 12-18w base + 35-45% risk adders: new client greenfield ORG, LGPD regulated CPF/CNPJ Art. 11, Meta approval critical path 2-8w). Benchmark-based, not a commitment."
+      ],
+      "open_threads": [
+        "Próxima fase: commercials skill (ROM indicativo BRL com taxas validadas usuário)"
+      ]
+    },
+    {
+      "date": "2026-07-03",
+      "skills_used": [
+        "commercials"
+      ],
+      "outputs": [
+        "01-commercials.md",
+        "data/commercials.json"
+      ],
+      "decisions": [
+        "Lane: traditional (Service Cloud + Einstein Bot + WhatsApp + APIs)",
+        "Rate basis: per-class-daily (3-class model: onshore-architect, onshore-developer, offshore)",
+        "Validated rates (COM IMPOSTO): Architect R$ 7.032,56/dia, Developer R$ 5.725,28/dia, Offshore R$ 0/dia (offshore não usado nesta lane)",
+        "Effort basis (top-down): 16-26 weeks × capacity 2-3 architects + 1-2 developers (engagement-level, não hours sum)",
+        "ROM indicativo: R$ 1.583.232 – R$ 4.231.269 BRL (16-26 semanas × capacidade 2-3 arquitetos + 1-2 desenvolvedores)",
+        "Disclaimer class: input-derived — rates supplied and validated by user 2026-07-03",
+        "Confidence: Assumed (duration top-down benchmark-based, capacity per engagement shape)"
+      ],
+      "open_threads": [
+        "Próxima fase: efficiency skill (AI delivery efficiency analysis ~12-22% realized band at Mid readiness)"
+      ]
+    },
+    {
+      "date": "2026-07-03",
+      "skills_used": [
+        "efficiency"
+      ],
+      "outputs": [
+        "08-efficiency-analysis.md",
+        "data/efficiency.json"
+      ],
+      "decisions": [
+        "Fidelity: category-and-role (resource-plan.json present)",
+        "Task-level blend: ~32-48% (integration-heavy E02 Bot + E03 APIs + E08 MC, documentation-heavy E05 UX Research WCAG adapted, LGPD compliance E06 TDE + audit trail + data retention)",
+        "Realization factor: 0.35-0.45 (regulated industry LGPD Art. 11, government client SEFIN-CE + DATAPREV CTID slow approval cycles, mixed config+dev Einstein Bot + Apex + Flow Orchestration)",
+        "Project-level realized band: ~11-22% (mid ~16%) — task-level × realization factor",
+        "Client readiness: Mid readiness (score 3/8) — AI tooling posture 0/2 (no approved AI-in-IDE), Delivery velocity 1/2 (government slow but MUTANTE urgency), Data hygiene 1/2 (greenfield ORG but 133 gaps + 4 BLOCKERS), Legal/compliance 1/2 (LGPD mandatory review but policy in-draft)",
+        "Readiness scenarios: Low ~9-11% (gains stay modest until tooling + policy), Mid ~12-19% (current state — greenfield favors gains but AI tooling policy + slow approval cycles cap upside), High ~22-26% (approve AI-in-IDE, publish LGPD AI policy, faster approval cycles)",
+        "By category: Documentation & Knowledge highest (~18-28% E05 UX Research highest reliability), PM & Ops lowest (~6-12% Phase 0 gap resolution + Meta approval + stakeholder alignment stay human-bound)",
+        "By role: Experience Architect highest (~18-28% UX reports drafting), PM lowest (~6-12% coordination core stays human)",
+        "Human barriers: Phase 0 gap resolution (133 gaps + 17 Qs), Meta approval (2-8w), LGPD legal interpretation (SEFIN-CE DPO decides TDE vs Shield G0611, proactive consent G0809), Stakeholder alignment (SEFIN-CE + DATAPREV CTID approval cycles)"
+      ],
+      "open_threads": [
+        "Próxima fase: narratives skill (executive briefing, pitch, technical summary)"
+      ]
+    },
+    {
+      "date": "2026-07-03",
+      "skills_used": [
+        "narratives"
+      ],
+      "outputs": [
+        "05-executive-summary.md (technical audience)"
+      ],
+      "decisions": [
+        "Audience: Técnica (arquitetos, delivery leads) — focus on architecture, complexity drivers, integration patterns, technical risks",
+        "Executive summary drafted with comprehensive technical detail: At a Glance (5 bullets), scope summary (7 epics), solution highlights (architecture skeleton + key decisions), 5-phase implementation approach, effort summary (T-shirt distribution 2L+4M+1S + 1L ADD-ON, 6 roles), risks & mitigations, assumptions & confidence (53% Confirmed, 40% Assumed, 7% Unknown), next steps & recommendations"
+      ],
+      "open_threads": [
+        "EXPORT skill pending — generate PPT, PDF, Heroku site with SLDS (CRITICAL: consider additional dynos/add-ons as specified by user)"
+      ]
+    },
+    {
+      "date": "2026-09-14",
+      "skills_used": [
+        "design (scope expansion — pesquisa)"
+      ],
+      "outputs": [
+        "02-solution-brief.md (E09 section added)",
+        "data/epics.json (E09 added)",
+        "data/estimates.json (E09 added, size M)",
+        "data/gaps.json (G0901-G0904 added; G0901/G0903 resolved same session)"
+      ],
+      "decisions": [
+        "Nova epic E09 formalizada: Transbordo Humano via Omni-Channel/Service Console — expande escopo bot-only atual (P-02) para incluir escalonamento humano",
+        "KB grounding: Messaging requires Digital Engagement license [KB: service_cloud_3-27-2026.md:1257-1259]; Standard Omni-Channel EOL Summer 26, recomendado Enhanced Omni-Channel [KB: service_cloud_3-27-2026.md:13560-13591]",
+        "Cliente confirmou: Digital Engagement license já disponível (G0901 resolvido, não é bloqueadora) e headcount de 3 PAs em turno único (G0903 resolvido, não 10 como no briefing original de 2026-07-01)",
+        "T-shirt size E09 revisado de L para M após as duas confirmações acima removerem o driver dominante Risco & Incerteza=L; usuário questionou diretamente o rationale do L e a revisão foi feita com o usuário no loop",
+        "Deltas registrados em E01 (Digital Engagement provisioning), E02 (ponto de transferência nos 4 fluxos), E03 (Case consome contexto de ConsultaImovel/EmitirDamUnico), E04 (pesquisa de satisfação no fechamento humano), E06 (novo profile Agente Humano SEFIN)"
+      ],
+      "open_threads": [
+        "Rodar roadmap/commercials para medir impacto de E09 (M) no range atual de 16-26 semanas e R$ 1.583.232-4.231.269 BRL — próximo passo explicitamente pedido pelo usuário (sim rodar)",
+        "G0902 (confirmar Enhanced vs Standard Omni-Channel) e G0904 (horário exato do DHA) permanecem como perguntas abertas ao cliente"
+      ]
+    },
+    {
+      "date": "2026-09-14",
+      "skills_used": [
+        "roadmap (impacto incremental)",
+        "commercials (recalculo aritmetico)"
+      ],
+      "outputs": [
+        "data/roadmap.json (Phase 5 ADD-ON 3 adicionada)",
+        "outputs/03-roadmap.md (Phase 5 documentada)",
+        "outputs/01-commercials.md (range atualizado)",
+        ".project-metadata.json (timeline.derived atualizado 18-30 semanas)",
+        "data/epics.json (E09 depends_on E01,E02)"
+      ],
+      "decisions": [
+        "Timeline benchmark-derivada atualizada de 16-26 para 18-30 semanas, incorporando incremento de 2-4 semanas do E09 (ADD-ON 3, tamanho M, majoritariamente configuracao)",
+        "Range comercial indicativo atualizado de R.583.232-4.231.269 para R.781.136-4.882.236 BRL, mesma composicao de equipe (2-3 arquitetos + 1-2 developers) pois E09 nao introduz papel novo",
+        "Phase 5 (E09) depende de Phase 1 (E01) e Phase 2 (E02), mas pode correr em paralelo aos Phases 3/4 (disciplinas diferentes)"
+      ],
+      "open_threads": [
+        "G0902 (confirmar Enhanced vs Standard Omni-Channel) e G0904 (horario exato do DHA) permanecem como perguntas abertas ao cliente",
+        "Numeros ainda nao passaram por narratives/export — se o cliente aprovar formalmente a expansao de escopo, considerar rodar narratives+export novamente para atualizar PPTX/Heroku com E09 incluida"
+      ]
+    },
+    {
+      "date": "2026-09-16",
+      "skills_used": [
+        "export (regeneracao)"
+      ],
+      "outputs": [
+        "outputs/scoping-deliverables.xlsx (regenerado — sheets Epics, Gap Analysis, Estimates, Roadmap Phases, Roles & Skills, Efficiency, Commercials)",
+        "data/csv/*.csv (ressincronizados: 9 epics, 137 gaps, 8 estimates, 6 phases, 6 roles, 23 efficiency rows, 3 commercials rows)"
+      ],
+      "decisions": [
+        "validate-data.py rodado antes do export (hard-stop gate) — FAIL na primeira passagem por Pricing/Rate Leak Check: 7 figuras de preco inventadas encontradas em outputs/05-executive-summary.md (custos de licenca ilustrativos que eu mesmo introduzi na regeneracao de narratives) + 1 ocorrencia duplicada em outputs/02-solution-brief.md (G0604 Event Monitoring). Todas corrigidas substituindo o valor numerico por linguagem qualitativa + 'valor a confirmar com o pricing Salesforce/Meta'.",
+        "Apos as correcoes, revalidado: os flags remanescentes em 00-project-summary.md, 02-architecture-reference.md, 02-solution-brief.md, 05-executive-summary.md e 08-efficiency-analysis.md sao todos legitimos (contrato MUTANTE R$1,7M/ano, previsao de licenciamento R$1,2-1,5M/ano vindos do discovery, e o range comercial validado de commercials.json com seu disclaimer) — nenhum novo leak de precificacao PS inventada.",
+        "Cross-reference check apontou E07 sem estimate/fase — esperado, E07 e a epica KB Vectorization deliberadamente fora de escopo; nao tratado como erro.",
+        "Excel workbook gerado (openpyxl presente) — formato padrao, sem necessidade de fallback zip."
+      ],
+      "open_threads": [
+        "outputs/01-commercials.md ainda cita 16-26 semanas na secao de Assumptions e outputs/03-roadmap.md Phase 5 ainda lista G0902/G0904 como riscos abertos apesar de ambos resolvidos — residuais de sessoes anteriores, nao corrigidos neste export"
+      ]
+    },
+    {
+      "date": "2026-09-16",
+      "skills_used": [
+        "export (regeneracao PPTX + Heroku, ad-hoc pos-export)"
+      ],
+      "outputs": [
+        "outputs/artifacts/DATAPREV_SEFIN_CE_ROM_Completo_v2.pptx (regenerado via gerar_pptx_rom_completo.py — script canonico, unico que le data/commercials.json e roadmap.json em runtime; 11 slides, 6 fases, 18-30 semanas, R$1.781.136-4.882.236 confirmados)",
+        "heroku-site/*.md (8 arquivos ressincronizados com outputs/ corrigidos), heroku-site/templates/*.html (8 de 11 templates atualizados para E09/18-30 semanas/6 fases)",
+        "outputs/02-architecture-reference.md corrigido — removida contradicao que listava Service Console/Omni-Channel Routing como fora de escopo (agora reflete E09 in-scope, G0901-G0903 resolvidos); nota de atualizacao adicionada no cabecalho",
+        "outputs/artifacts/dataprev-sefin-ce-rom-deck.html (copia local do deck HTML corrigido, fora do heroku-site/ — deliverable local, nao publicado)"
+      ],
+      "decisions": [
+        "Usuario decidiu NAO publicar mais no Heroku (dtp-sefin-ce) — daqui em diante o ROM em HTML e gerado/mantido localmente (outputs/artifacts/dataprev-sefin-ce-rom-deck.html), sem redeploy do site em producao",
+        "Achado critico durante a regeneracao: investimento-ps.html e dataprev-sefin-ce-deck.html continham um modelo de precificacao totalmente inventado (horas x rate, R$588.294,06/8 semanas, atribuido a uma validacao inexistente de 'Rodolpho Ribeiro') — corrigido para o range validado de commercials.json com disclaimer",
+        "Achado adicional (mesma categoria, mais extenso): heroku-site/templates/investimento-licencas.html e a secao de licencas do dataprev-sefin-ce-deck.html (slides 13-14) tinham preco de licenciamento USD totalmente inventado por unidade (Service Cloud USD150/user/mes, Einstein Bot USD0,40/conversa, WhatsApp USD0,07-0,12/msg, Marketing Cloud USD1.250/mes, Data Cloud USD12.000/org/mes) com totais calculados (USD 318K-977K) sem nenhuma base em commercials.json — usuario optou por qualificar (remover os numeros), substituidos por 'valor a confirmar com o pricing Salesforce/Meta' preservando os drivers de volume/escopo",
+        "3 dos 4 scripts geradores de PPTX (gerar_sefin_ce_rom_pptx.py, gerar_pptx_resumo.py, heroku-site/gerar_pptx_final.py) tratados como legado/superados — nao regenerados; gerar_pptx_final.py tem path de output absoluto quebrado (projeto raiz mudou de local)"
+      ],
+      "open_threads": [
+        "Commit local feito em heroku-site/ (dois commits: sync E09 + fix pricing leaks) mas NAO enviado ao remoto heroku — por decisao explicita do usuario de descontinuar o deploy Heroku",
+        "gerar_pptx_final.py (heroku-site/) tem path de output hardcoded quebrado — nao corrigido, script tratado como legado"
+      ]
+    },
+    {
+      "date": "2026-09-16",
+      "skills_used": [
+        "narratives (regeneracao)"
+      ],
+      "outputs": [
+        "outputs/05-executive-summary.md (regenerado — E09 incorporado, audiencia Tecnica)",
+        "data/commercials.json (corrigido — estava com valores pre-E09 apesar do memory.json indicar atualizacao)"
+      ],
+      "decisions": [
+        "Executive summary regenerado para refletir E09 como 8a epica em escopo (9 epic_ids totais, E07 fora de escopo), 6 fases (0-5), timeline 18-30 semanas e range comercial R$ 1.781.136 - R$ 4.882.236 BRL",
+        "Confianca geral recalculada: 62,5% Confirmed (5/8), 37,5% Assumed (3/8), 0% Unknown entre as 8 epicas em escopo — melhora em relacao aos 53%/40%/7% anteriores, pois E09 entra como Confirmed (todos os 4 gaps G0901-G0904 resolvidos)",
+        "Corrigida inconsistencia: data/commercials.json ainda tinha duration_weeks_range 16-26 e indicative_range pre-E09 apesar de outputs/01-commercials.md e memory.json ja refletirem os valores atualizados — alinhado ao estado correto",
+        "Audiencia Tecnica (arquitetos, delivery leads) mantida sem re-pergunta, conforme decisao de 2026-07-03 registrada em decision_log"
+      ],
+      "open_threads": [
+        "outputs/01-commercials.md ainda cita 16-26 semanas na secao de Assumptions (residual, nao corrigido nesta sessao — pertence ao skill commercials)",
+        "outputs/03-roadmap.md Phase 5 ainda lista G0902/G0904 como riscos abertos (residual, nao corrigido nesta sessao — pertence ao skill roadmap)",
+        "export ainda nao foi rodado apos esta atualizacao — PPTX/Heroku permanecem desatualizados sem E09; sugerir ao usuario rodar export quando quiser refrescar esses artefatos"
+      ]
+    }
+  ],
+  "decision_log": [
+    {
+      "date": "2026-07-03",
+      "phase": "requirements",
+      "decision": "8 épicas aprovadas: E01-ORG Foundation, E02-Bot Flows, E03-API Integration, E04-Feedback, E05-UX Research, E06-Security, E07-KB Vectorization (ADD-ON), E08-MC Journey (ADD-ON)",
+      "rationale": "Consolidar fluxos bot (IPTU/TMRSU/ISS/Cadastral) em 1 épica conversacional; separar APIs, UX, Security. ADD-ONs mantidos separados.",
+      "alternatives_rejected": []
+    },
+    {
+      "date": "2026-07-03",
+      "phase": "requirements",
+      "decision": "E07 KB Vectorization descartada (OUT-OF-SCOPE) — cliente confirmou sem Data Cloud e sem Agentforce → KB externa inviável",
+      "rationale": "Scope v2.0: Agentforce → Service Cloud + Einstein Bot; Data Cloud não incluída; KB externa sem vector store Salesforce não recomendada",
+      "alternatives_rejected": [
+        "E07 KB Vectorization (L) — requires Data Cloud + Agentforce or external vector DB (Pinecone/Weaviate out-of-scope)"
+      ]
+    },
+    {
+      "date": "2026-07-03",
+      "phase": "requirements",
+      "decision": "E08 Marketing Cloud ADD-ON modificada: Journey Builder + SFTP batch ingestion (SEM Data Cloud zero-copy)",
+      "rationale": "4,86M msgs/ano (400k base + 12x IPTU vencido régua D-15, D-5, D+1) → SFTP batch cidadãos IPTU vencido diário/semanal → Data Extension 1 fonte → Journey Builder 1 jornada → WhatsApp Business API. SEM Data Cloud zero-copy integration (Data Cloud não incluída scope v2.0).",
+      "alternatives_rejected": [
+        "Marketing Cloud + Data Cloud zero-copy ingestion (requires Data Cloud license — descartada scope v2.0)"
+      ]
+    },
+    {
+      "date": "2026-07-03",
+      "phase": "narratives",
+      "decision": "Audience: Técnica (arquitetos, delivery leads) — focus on architecture, complexity drivers, integration patterns, technical risks",
+      "rationale": "User selected 'Técnica (arquitetos, delivery leads)' via AskUserQuestion; executive summary adapted for technical audience with architecture decisions, technical design rationale, complexity drivers, integration patterns (Flow Orchestration + Apex + 4 SEFIN APIs), technical risks (API specs pending G0301/G0302 BLOCKER, Meta approval 2-8w critical path G0103, NLU training data ownership G0202, connectivity validation pre-prod)",
+      "alternatives_rejected": [
+        "Executive (CTO, steering committee, sponsors) — business value, timeline, investment level, risk summary",
+        "Delivery (sprint teams, implementation leads) — stories, sprint plan, team ramp, detailed dependencies"
+      ]
+    },
+    {
+      "date": "2026-09-14",
+      "decision": "E09 (Transbordo Humano via Omni-Channel/Service Console) aceita como epic formal de expansão de escopo, tamanho M — Digital Engagement license e headcount de 3 PAs/turno único confirmados pelo cliente durante a sessão, removendo os dois maiores riscos que inicialmente sugeriam tamanho L."
+    },
+    {
+      "date": "2026-09-16",
+      "area": "narratives",
+      "decision": "Executive summary atualizado para incluir E09 (Transbordo Humano via Omni-Channel/Service Console) como epica confirmada e resolvida, sem bloqueadoras remanescentes",
+      "rationale": "Cliente aprovou formalmente a expansao de escopo no slide de validacao; todos os 4 gaps ligados a E09 (G0901-G0904) foram resolvidos entre 2026-09-14 e 2026-09-16",
+      "rejected": []
+    }
+  ]
+}

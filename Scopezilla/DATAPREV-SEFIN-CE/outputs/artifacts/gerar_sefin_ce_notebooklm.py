@@ -7,8 +7,8 @@ from reportlab.platypus import (SimpleDocTemplate, Paragraph, Spacer, Table,
 from reportlab.lib.enums import TA_LEFT, TA_CENTER, TA_JUSTIFY
 import os
 
-OUTPUT = "/Users/nfilho/claude/DTP_SEFIN_CE_NotebookLM.pdf"
-FLUXO_IMG = "/Users/nfilho/claude/SEFIN_CE_Fluxo_v1_FINAL.png"
+OUTPUT = "/Users/nfilho/claude/Scopezilla/DATAPREV-SEFIN-CE/outputs/artifacts/DTP_SEFIN_CE_NotebookLM.pdf"
+FLUXO_IMG = "/Users/nfilho/claude/Scopezilla/DATAPREV-SEFIN-CE/outputs/artifacts/SEFIN_CE_Fluxo_v1_FINAL.png"
 
 doc = SimpleDocTemplate(
     OUTPUT, pagesize=A4,

@@ -1,0 +1,253 @@
+digraph SEFIN_CE_FINAL {
+    graph [
+        rankdir=TB
+        fontname="Helvetica Neue"
+        fontsize=12
+        bgcolor="#F4F6F9"
+        splines=polyline
+        nodesep=0.55
+        ranksep=0.7
+        pad=0.8
+        label="Agente Agentforce — SEFIN-CE / DATAPREV\nFluxo de Atendimento v1.0 Validado  ·  2026-07-02"
+        labelloc=t
+        labeljust=c
+        fontsize=16
+    ]
+    node [fontname="Helvetica Neue" fontsize=10 style=filled margin="0.2,0.12"]
+    edge [fontname="Helvetica Neue" fontsize=9 color="#555555"]
+
+    // ─── SUBGRAPHS / RAIAS ────────────────────────────────────────────────
+
+    subgraph cluster_entrada {
+        label="ENTRADA"
+        style=filled fillcolor="#E3F2FD" color="#0096FF" fontcolor="#032D60" fontsize=12 fontname="Helvetica Neue Bold"
+        START SAUDACAO HSM_Q HSM_INFO MENU
+    }
+
+    subgraph cluster_ident {
+        label="IDENTIFICAÇÃO"
+        style=filled fillcolor="#EDE7F6" color="#6A1B9A" fontcolor="#032D60" fontsize=12 fontname="Helvetica Neue Bold"
+        JA_IDENT MESMO_CPF PEDE_CPF VAL_CPF CPF_11_14
+        TENT_CPF1 TENT_CPF2 ERR_CPF
+        PEDE_NOME PEDE_DATA VAL_DATA TENT_DAT1 TENT_DAT2 ERR_DAT
+    }
+
+    subgraph cluster_consulta {
+        label="CONSULTA IMÓVEL (API)"
+        style=filled fillcolor="#F3E5F5" color="#6A1B9A" fontcolor="#032D60" fontsize=12 fontname="Helvetica Neue Bold"
+        API_CONS CONS_OK CONS_RET CONS_OK2 POSSUI_INS POSSUI_ABT
+    }
+
+    subgraph cluster_dam {
+        label="EMISSÃO DAM — IPTU / TAXA DO LIXO"
+        style=filled fillcolor="#E8F5E9" color="#2E7D32" fontcolor="#032D60" fontsize=12 fontname="Helvetica Neue Bold"
+        APRES_INS SEL_INS INS_ANO COTA_PARC SEL_PARC SEL_ANO ANO_VIG TODOS_ANOS
+        CONF_DAM API_DAM DAM_OK DAM_RET DAM_OK2 ENVIA_PDF OUTRA_INS QUER_OUTRA
+    }
+
+    subgraph cluster_iss {
+        label="ISS"
+        style=filled fillcolor="#FFF8E1" color="#F9A825" fontcolor="#032D60" fontsize=12 fontname="Helvetica Neue Bold"
+        ISS_INFO
+    }
+
+    subgraph cluster_ajuda {
+        label="PRECISO DE AJUDA"
+        style=filled fillcolor="#FBE9E7" color="#E64A19" fontcolor="#032D60" fontsize=12 fontname="Helvetica Neue Bold"
+        AJD_CPF AJD_NOME KB_CONS KB_OK KB_RESP
+    }
+
+    subgraph cluster_encerramento {
+        label="ENCERRAMENTO"
+        style=filled fillcolor="#ECEFF1" color="#455A64" fontcolor="#032D60" fontsize=12 fontname="Helvetica Neue Bold"
+        ALGO_MAIS DHA DHA_FORA NOME_TRANS TRANSBORDO FALHA_REG
+        PESQ PESQ_BAIXA PESQ_DESC API_LOG FIM
+    }
+
+    // ─── NÓS ──────────────────────────────────────────────────────────────
+
+    // ENTRADA
+    START       [shape=oval   fillcolor="#032D60" fontcolor=white label="INÍCIO\nCidadão envia mensagem"]
+    SAUDACAO    [shape=box    fillcolor="#0096FF" fontcolor=white style="filled,rounded" label="SAUDAÇÃO\nBoas-vindas ao canal SEFIN-CE"]
+    HSM_Q       [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Veio de\nHSM proativo?"]
+    HSM_INFO    [shape=box    fillcolor="#0096FF" fontcolor=white style="filled,rounded" label="Apresenta contexto do HSM\n[Q-A: parâmetros a confirmar]"]
+    MENU        [shape=box    fillcolor="#032D60" fontcolor=white style="filled,rounded" label="MENU DE SERVIÇOS\n1. Boleto IPTU\n2. Boleto Taxa do Lixo (TMRSU)\n3. ISS\n4. Preciso de ajuda / Outros"]
+
+    // IDENTIFICAÇÃO
+    JA_IDENT    [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Já identificado\nnesta sessão?"]
+    MESMO_CPF   [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Mesmo\nCPF/CNPJ?"]
+    PEDE_CPF    [shape=box    fillcolor="#0096FF" fontcolor=white style="filled,rounded" label="Solicita CPF ou CNPJ"]
+    VAL_CPF     [shape=diamond fillcolor="#2E7D32" fontcolor=white label="CPF/CNPJ\nválido?"]
+    CPF_11_14   [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Digitou 11 ou\n14 numerais?"]
+    TENT_CPF1   [shape=diamond fillcolor="#2E7D32" fontcolor=white label="1ª tentativa\ninválida?"]
+    TENT_CPF2   [shape=diamond fillcolor="#2E7D32" fontcolor=white label="2ª tentativa\ninválida?"]
+    ERR_CPF     [shape=box    fillcolor="#0096FF" fontcolor=white style="filled,rounded" label="Informa erro\nSolicita novamente"]
+    PEDE_NOME   [shape=box    fillcolor="#0096FF" fontcolor=white style="filled,rounded" label="Solicita NOME\ndo cidadão"]
+    PEDE_DATA   [shape=box    fillcolor="#0096FF" fontcolor=white style="filled,rounded" label="Solicita DATA DE NASCIMENTO\nou DATA DE ABERTURA (PJ)"]
+    VAL_DATA    [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Data\nválida?"]
+    TENT_DAT1   [shape=diamond fillcolor="#2E7D32" fontcolor=white label="1ª tentativa\ndata inválida?"]
+    TENT_DAT2   [shape=diamond fillcolor="#2E7D32" fontcolor=white label="2ª tentativa\ndata inválida?"]
+    ERR_DAT     [shape=box    fillcolor="#0096FF" fontcolor=white style="filled,rounded" label="Informa erro\nSolicita novamente"]
+
+    // CONSULTA IMÓVEL
+    API_CONS    [shape=box    fillcolor="#6A1B9A" fontcolor=white style="filled,rounded" label="🔌 API ConsultaImovel\npor-documento\n(CPF/CNPJ + nome + data)"]
+    CONS_OK     [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Serviço\nOK?"]
+    CONS_RET    [shape=box    fillcolor="#E65100" fontcolor=white style="filled,rounded" label="⟳ Retentativa\n(1ª falha)"]
+    CONS_OK2    [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Serviço OK\nna retentativa?"]
+    POSSUI_INS  [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Possui\ninscrições?"]
+    POSSUI_ABT  [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Possui inscrições\nem aberto?"]
+
+    // EMISSÃO DAM
+    APRES_INS   [shape=box    fillcolor="#0096FF" fontcolor=white style="filled,rounded" label="Apresenta TODAS as inscrições\nem aberto (sem limite — P-13)"]
+    SEL_INS     [shape=box    fillcolor="#0096FF" fontcolor=white style="filled,rounded" label="Cidadão seleciona\numa inscrição"]
+    INS_ANO     [shape=diamond fillcolor="#2E7D32" fontcolor=white label="DAM em aberto\nsó no ano vigente?"]
+    COTA_PARC   [shape=box    fillcolor="#0096FF" fontcolor=white style="filled,rounded" label="Cidadão escolhe:\nCOTA ÚNICA ou PARCELAMENTO"]
+    SEL_PARC    [shape=box    fillcolor="#0096FF" fontcolor=white style="filled,rounded" label="Cidadão seleciona\nparcela(s)"]
+    SEL_ANO     [shape=box    fillcolor="#0096FF" fontcolor=white style="filled,rounded" label="Cidadão escolhe\nANO do DAM"]
+    ANO_VIG     [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Escolheu\nano vigente?"]
+    TODOS_ANOS  [shape=box    fillcolor="#0096FF" fontcolor=white style="filled,rounded" label="Cidadão pode selecionar\ntodos os anos disponíveis"]
+    CONF_DAM    [shape=diamond fillcolor="#2E7D32" fontcolor=white label="CONFIRMA\nEMISSÃO DO DAM?"]
+    API_DAM     [shape=box    fillcolor="#6A1B9A" fontcolor=white style="filled,rounded" label="🔌 API EmitirDamUnico\n(CPF/CNPJ + tipoDebito\n+ tipoPagamento + ano/parcelas)"]
+    DAM_OK      [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Serviço\nOK?"]
+    DAM_RET     [shape=box    fillcolor="#E65100" fontcolor=white style="filled,rounded" label="⟳ Retentativa\n(1ª falha)"]
+    DAM_OK2     [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Serviço OK\nna retentativa?"]
+    ENVIA_PDF   [shape=box    fillcolor="#6A1B9A" fontcolor=white style="filled,rounded" label="📄 Envia link PDF do DAM\nao cidadão via WhatsApp"]
+    OUTRA_INS   [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Possui outra inscrição\nsem DAM emitido?"]
+    QUER_OUTRA  [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Quer emitir DAM\nde outra inscrição?"]
+
+    // ISS
+    ISS_INFO    [shape=box    fillcolor="#F9A825" fontcolor=white style="filled,rounded" label="ISS: informa link do site SEFIN-CE\nOriente acesso para resolver ISS\n[Q-E: URL a confirmar]"]
+
+    // PRECISO DE AJUDA
+    AJD_CPF     [shape=box    fillcolor="#0096FF" fontcolor=white style="filled,rounded" label="Solicita CPF/CNPJ\npara identificação"]
+    AJD_NOME    [shape=box    fillcolor="#0096FF" fontcolor=white style="filled,rounded" label="Solicita NOME\ndo cidadão"]
+    KB_CONS     [shape=box    fillcolor="#6A1B9A" fontcolor=white style="filled,rounded" label="🔌 Consulta Knowledge Base\n[Q-F: KB a definir com cliente]"]
+    KB_OK       [shape=diamond fillcolor="#2E7D32" fontcolor=white label="KB respondeu\na dúvida?"]
+    KB_RESP     [shape=box    fillcolor="#0096FF" fontcolor=white style="filled,rounded" label="Agente entrega resposta\nbaseada no KB"]
+
+    // ENCERRAMENTO
+    ALGO_MAIS   [shape=diamond fillcolor="#00695C" fontcolor=white label="AJUDO COM\nALGO MAIS?"]
+    DHA         [shape=diamond fillcolor="#2E7D32" fontcolor=white label="DHA — Dentro do\nHorário de Atendimento?"]
+    DHA_FORA    [shape=box    fillcolor="#0096FF" fontcolor=white style="filled,rounded" label="Informa: atendimento humano\ndisponível apenas em horário\ncomercial [Q-J: horário a confirmar]"]
+    NOME_TRANS  [shape=box    fillcolor="#0096FF" fontcolor=white style="filled,rounded" label="Coleta NOME\n(se ainda não coletado)"]
+    TRANSBORDO  [shape=box    fillcolor="#E65100" fontcolor=white style="filled,rounded" label="⚠ [TRANSBORDO — A DEFINIR]\nMecanismo não confirmado\n[Q-B: esclarecer com cliente]"]
+    FALHA_REG   [shape=box    fillcolor="#E65100" fontcolor=white style="filled,rounded" label="Informa falha no serviço\nContato registrado\nAlguém entrará em contato"]
+    PESQ        [shape=box    fillcolor="#00695C" fontcolor=white style="filled,rounded" label="PESQUISA DE SATISFAÇÃO\n⭐ Muito ruim   ⭐⭐ Ruim\n⭐⭐⭐ Razoável   ⭐⭐⭐⭐ Bom\n⭐⭐⭐⭐⭐ Muito bom"]
+    PESQ_BAIXA  [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Nota ≤ 3\nestrelas?"]
+    PESQ_DESC   [shape=box    fillcolor="#0096FF" fontcolor=white style="filled,rounded" label="Solicita descrição\nda insatisfação"]
+    API_LOG     [shape=box    fillcolor="#6A1B9A" fontcolor=white style="filled,rounded" label="🔌 API Registro de Contato\n[Q-C / Q-D: a definir]\nCPF/CNPJ · nome · serviço\nresultado · nota · justificativa"]
+    FIM         [shape=oval   fillcolor="#7B1A1A" fontcolor=white label="DESPEDIDA\nEncerramento da conversa"]
+
+    // ─── ARESTAS ──────────────────────────────────────────────────────────
+
+    // ENTRADA
+    START -> SAUDACAO
+    SAUDACAO -> HSM_Q
+    HSM_Q -> HSM_INFO    [label="SIM" color="#2E7D32" fontcolor="#2E7D32"]
+    HSM_Q -> MENU        [label="NÃO" color="#C62828" fontcolor="#C62828"]
+    HSM_INFO -> MENU
+
+    // MENU → SERVIÇOS
+    MENU -> JA_IDENT     [label="IPTU ou\nTaxa Lixo" color="#0096FF" fontcolor="#0096FF"]
+    MENU -> ISS_INFO     [label="ISS" color="#F9A825" fontcolor="#F9A825"]
+    MENU -> AJD_CPF      [label="Ajuda /\nOutros" color="#E64A19" fontcolor="#E64A19"]
+
+    // IDENTIFICAÇÃO
+    JA_IDENT -> MESMO_CPF [label="SIM" color="#2E7D32" fontcolor="#2E7D32"]
+    JA_IDENT -> PEDE_CPF  [label="NÃO" color="#C62828" fontcolor="#C62828"]
+    MESMO_CPF -> API_CONS [label="SIM" color="#2E7D32" fontcolor="#2E7D32"]
+    MESMO_CPF -> PEDE_CPF [label="NÃO" color="#C62828" fontcolor="#C62828"]
+
+    PEDE_CPF -> VAL_CPF
+    VAL_CPF -> PEDE_NOME  [label="SIM" color="#2E7D32" fontcolor="#2E7D32"]
+    VAL_CPF -> CPF_11_14  [label="NÃO" color="#C62828" fontcolor="#C62828"]
+    CPF_11_14 -> TENT_CPF1 [label="NÃO/SIM\n(formato inválido)" color="#C62828" fontcolor="#C62828"]
+    TENT_CPF1 -> ERR_CPF  [label="1ª vez" color="#F9A825" fontcolor="#F9A825"]
+    ERR_CPF -> VAL_CPF
+    TENT_CPF1 -> TENT_CPF2 [label="2ª vez" color="#C62828" fontcolor="#C62828"]
+    TENT_CPF2 -> ERR_CPF  [label="SIM" color="#F9A825" fontcolor="#F9A825"]
+    TENT_CPF2 -> PESQ     [label="NÃO\n(esgotou)" color="#C62828" fontcolor="#C62828"]
+
+    PEDE_NOME -> PEDE_DATA
+    PEDE_DATA -> VAL_DATA
+    VAL_DATA -> API_CONS  [label="SIM" color="#2E7D32" fontcolor="#2E7D32"]
+    VAL_DATA -> TENT_DAT1 [label="NÃO" color="#C62828" fontcolor="#C62828"]
+    TENT_DAT1 -> ERR_DAT  [label="1ª vez" color="#F9A825" fontcolor="#F9A825"]
+    ERR_DAT -> VAL_DATA
+    TENT_DAT1 -> TENT_DAT2 [label="2ª vez" color="#C62828" fontcolor="#C62828"]
+    TENT_DAT2 -> ERR_DAT  [label="SIM" color="#F9A825" fontcolor="#F9A825"]
+    TENT_DAT2 -> PESQ     [label="NÃO\n(esgotou)" color="#C62828" fontcolor="#C62828"]
+
+    // CONSULTA IMÓVEL
+    API_CONS -> CONS_OK
+    CONS_OK -> POSSUI_INS [label="SIM" color="#2E7D32" fontcolor="#2E7D32"]
+    CONS_OK -> CONS_RET   [label="NÃO" color="#C62828" fontcolor="#C62828"]
+    CONS_RET -> CONS_OK2
+    CONS_OK2 -> POSSUI_INS [label="SIM" color="#2E7D32" fontcolor="#2E7D32"]
+    CONS_OK2 -> FALHA_REG  [label="NÃO\n(falha persistente)" color="#C62828" fontcolor="#C62828"]
+    POSSUI_INS -> POSSUI_ABT [label="SIM" color="#2E7D32" fontcolor="#2E7D32"]
+    POSSUI_INS -> ALGO_MAIS  [label="NÃO\n(sem inscrições)" color="#C62828" fontcolor="#C62828"]
+    POSSUI_ABT -> APRES_INS  [label="SIM" color="#2E7D32" fontcolor="#2E7D32"]
+    POSSUI_ABT -> ALGO_MAIS  [label="NÃO\n(sem débitos)" color="#C62828" fontcolor="#C62828"]
+
+    // EMISSÃO DAM
+    APRES_INS -> SEL_INS
+    SEL_INS -> INS_ANO
+    INS_ANO -> CONF_DAM   [label="SIM\n(só ano vigente)" color="#2E7D32" fontcolor="#2E7D32"]
+    INS_ANO -> COTA_PARC  [label="NÃO\n(múltiplos anos/parcelas)" color="#C62828" fontcolor="#C62828"]
+    COTA_PARC -> CONF_DAM [label="COTA\nÚNICA" color="#2E7D32" fontcolor="#2E7D32"]
+    COTA_PARC -> SEL_PARC [label="PARCELADO" color="#0096FF" fontcolor="#0096FF"]
+    SEL_PARC -> CONF_DAM
+    COTA_PARC -> SEL_ANO  [label="escolhe\nano" color="#0096FF" fontcolor="#0096FF"]
+    SEL_ANO -> ANO_VIG
+    ANO_VIG -> CONF_DAM   [label="SIM" color="#2E7D32" fontcolor="#2E7D32"]
+    ANO_VIG -> TODOS_ANOS [label="NÃO" color="#C62828" fontcolor="#C62828"]
+    TODOS_ANOS -> CONF_DAM
+
+    CONF_DAM -> API_DAM   [label="SIM" color="#2E7D32" fontcolor="#2E7D32"]
+    CONF_DAM -> ALGO_MAIS [label="NÃO" color="#C62828" fontcolor="#C62828"]
+
+    API_DAM -> DAM_OK
+    DAM_OK -> ENVIA_PDF   [label="SIM" color="#2E7D32" fontcolor="#2E7D32"]
+    DAM_OK -> DAM_RET     [label="NÃO" color="#C62828" fontcolor="#C62828"]
+    DAM_RET -> DAM_OK2
+    DAM_OK2 -> ENVIA_PDF  [label="SIM" color="#2E7D32" fontcolor="#2E7D32"]
+    DAM_OK2 -> FALHA_REG  [label="NÃO\n(falha persistente)" color="#C62828" fontcolor="#C62828"]
+
+    ENVIA_PDF -> OUTRA_INS
+    OUTRA_INS -> QUER_OUTRA [label="SIM\n(há inscrições pendentes)" color="#2E7D32" fontcolor="#2E7D32"]
+    OUTRA_INS -> ALGO_MAIS  [label="NÃO" color="#C62828" fontcolor="#C62828"]
+    QUER_OUTRA -> SEL_INS   [label="SIM\n(loop)" color="#2E7D32" fontcolor="#2E7D32"]
+    QUER_OUTRA -> ALGO_MAIS [label="NÃO" color="#C62828" fontcolor="#C62828"]
+
+    // ISS
+    ISS_INFO -> ALGO_MAIS
+
+    // PRECISO DE AJUDA
+    AJD_CPF -> VAL_CPF
+    PEDE_NOME -> AJD_NOME
+    AJD_NOME -> KB_CONS
+    KB_CONS -> KB_OK
+    KB_OK -> KB_RESP     [label="SIM" color="#2E7D32" fontcolor="#2E7D32"]
+    KB_OK -> DHA         [label="NÃO\n(KB sem resposta)" color="#C62828" fontcolor="#C62828"]
+    KB_RESP -> ALGO_MAIS
+
+    // ENCERRAMENTO
+    ALGO_MAIS -> MENU    [label="SIM" color="#2E7D32" fontcolor="#2E7D32"]
+    ALGO_MAIS -> PESQ    [label="NÃO" color="#C62828" fontcolor="#C62828"]
+
+    DHA -> DHA_FORA      [label="FORA do\nhorário" color="#C62828" fontcolor="#C62828"]
+    DHA -> NOME_TRANS    [label="DENTRO do\nhorário" color="#2E7D32" fontcolor="#2E7D32"]
+    DHA_FORA -> ALGO_MAIS
+    NOME_TRANS -> TRANSBORDO
+    TRANSBORDO -> PESQ
+
+    FALHA_REG -> ALGO_MAIS
+
+    // PESQUISA + LOG + FIM
+    PESQ -> PESQ_BAIXA
+    PESQ_BAIXA -> PESQ_DESC [label="SIM\n(≤ 3 ⭐)" color="#C62828" fontcolor="#C62828"]
+    PESQ_BAIXA -> API_LOG   [label="NÃO\n(≥ 4 ⭐)" color="#2E7D32" fontcolor="#2E7D32"]
+    PESQ_DESC -> API_LOG
+    API_LOG -> FIM
+}

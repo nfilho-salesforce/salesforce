@@ -1,0 +1,48 @@
+digraph SEFIN_CE_SLIDE {
+    graph [
+        layout=neato
+        fontname="Helvetica Neue"
+        bgcolor="white"
+        splines=curved
+        pad=0.25
+        size="13.33,7.2"
+        ratio=compress
+        dpi=200
+        label="Fluxo de Atendimento SEFIN-CE — Autoatendimento + Transbordo Humano (E09)"
+        labelloc=t
+        labeljust=c
+        fontsize=22
+        fontcolor="#032D60"
+    ]
+    node [fontname="Helvetica Neue Bold" fontsize=14 style=filled margin="0.22,0.14" fixedsize=false]
+    edge [fontname="Helvetica Neue" fontsize=12 color="#546E7A" penwidth=1.4]
+
+    START     [shape=oval   fillcolor="#032D60" fontcolor=white label="Cidadão inicia\nconversa no WhatsApp"       pos="100,560!"]
+    MENU      [shape=box    fillcolor="#0096FF" fontcolor=white style="filled,rounded" label="Menu de Serviços\nIPTU · Taxa do Lixo · ISS · Ajuda" pos="320,560!"]
+    IDENT     [shape=box    fillcolor="#6A1B9A" fontcolor=white style="filled,rounded" label="Identificação\nCPF/CNPJ + Nome + Data" pos="540,560!"]
+    SERVICO   [shape=box    fillcolor="#2E7D32" fontcolor=white style="filled,rounded" label="Bot resolve via API\nConsulta Imóvel · Emissão DAM · ISS · KB" pos="800,560!"]
+    ALGOMAIS  [shape=diamond fillcolor="#00695C" fontcolor=white label="Resolveu?" pos="1060,560!"]
+
+    DHA       [shape=diamond fillcolor="#2E7D32" fontcolor=white label="Dentro do\nhorário de atendimento?" pos="1060,330!"]
+    FORA      [shape=box    fillcolor="#0096FF" fontcolor=white style="filled,rounded" label="Informa horário\ncomercial de atendimento" pos="790,100!"]
+
+    E09TAG    [shape=plaintext fontcolor="#00695C" fontsize=15 fontname="Helvetica Neue Bold" style="" label="NOVO — Transbordo Humano (E09)" pos="1175,220!"]
+    TRANSB    [shape=box    fillcolor="#6A1B9A" fontcolor=white style="filled,rounded" label="Cria Case no Service Console\nRoteia via Omni-Channel" pos="1060,100!"]
+    AGENTE    [shape=box    fillcolor="#00695C" fontcolor=white style="filled,rounded" label="Agente humano assume\n(3 PAs · mesma conversa)" pos="1290,100!"]
+    TRANSB -> AGENTE
+
+    PESQ      [shape=box    fillcolor="#00695C" fontcolor=white style="filled,rounded" label="Pesquisa de Satisfação\n⭐ a ⭐⭐⭐⭐⭐" pos="1520,100!"]
+    FIM       [shape=oval   fillcolor="#7B1A1A" fontcolor=white label="Encerramento" pos="1730,100!"]
+
+    LOOPPT    [shape=point width=0.01 style=invis pos="690,430!"]
+
+    START -> MENU -> IDENT -> SERVICO -> ALGOMAIS
+    ALGOMAIS -> LOOPPT   [arrowhead=none color="#2E7D32" label="quer mais" fontcolor="#2E7D32"]
+    LOOPPT -> MENU       [color="#2E7D32"]
+    ALGOMAIS -> DHA      [label="precisa de um humano" color="#C62828" fontcolor="#C62828"]
+    DHA -> FORA          [label="fora" color="#C62828" fontcolor="#C62828"]
+    DHA -> TRANSB        [label="dentro" color="#2E7D32" fontcolor="#2E7D32"]
+    FORA -> PESQ
+    AGENTE -> PESQ
+    PESQ -> FIM
+}

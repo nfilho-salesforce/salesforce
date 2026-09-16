@@ -19,6 +19,25 @@
         "Após as sessões, considerar rodar o discover formal completo (extraction audit + discovery brief) para consolidar o que for confirmado",
         "Avaliar se cabe iniciar roadmap/estimate formais após a POC, uma vez definido o escopo pós-MVP"
       ]
+    },
+    {
+      "date": "2026-09-16",
+      "skills_used": [],
+      "summary": "Sessão encerrada a pedido do usuário sem trabalho adicional — só checkpoint. Usuário pediu explicitamente para, na reabertura do projeto, retomar perguntando o item ainda aberto abaixo.",
+      "friction": [],
+      "decisions": [],
+      "open_threads": [
+        "Parâmetro N (regra de despacho N/N-10) não definido pela POC — pendente de decisão do DER",
+        "Matriz de risco fornecida na POC é declaradamente incompleta (não cobre todos os tipos de ocorrência)",
+        "Licenciamento Salesforce da fase de produção (versão full com todos os canais) ainda não confirmado",
+        "Roadmap do catálogo DER é indicativo/para discussão — não substitui as skills roadmap/estimate quando o projeto avançar",
+        "URA/telefonia do DER ainda não identificada — bloqueador para decidir entre CTI de terceiro (Open CTI, em descontinuação) ou Salesforce Voice",
+        "Não está definido se o agente de IA coworker é assistente do agente humano (Agentforce Coworker) ou agente autônomo atendendo o cidadão (Agentforce Service Agent)"
+      ],
+      "next_steps": [
+        "PERGUNTA A REFAZER NA REABERTURA (pedido explícito do usuário 2026-09-16): já conseguiu identificar qual sistema de URA/telefonia o DER usa hoje (fornecedor, se é PABX próprio, solução em nuvem, ou terceirizado)? Essa resposta decide se mantemos a integração via CTI de terceiro (Open CTI, em descontinuação pela Salesforce, retirada prevista fev/2028) ou migramos para o Salesforce Voice — é a pergunta mais crítica do bloco J (CTI/Telefonia/URA) da aba Discovery - Service Cloud CTI.",
+        "Depois de resolvida essa pergunta, seguir com as demais perguntas pendentes do bloco J e com as sessões de discovery"
+      ]
     }
   ],
   "preferences": {},

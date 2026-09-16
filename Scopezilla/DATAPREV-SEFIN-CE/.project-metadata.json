@@ -1,0 +1,66 @@
+{
+  "project_name": "DATAPREV-SEFIN-CE",
+  "created_at": "2026-07-02",
+  "depth_mode": "epic-level",
+  "vertical": "government",
+  "rfp_tier": "standard",
+  "benchmark_source": "model-training-data",
+  "completion_status": {
+    "setup": "complete",
+    "tutorial": "not-started",
+    "discover": "complete",
+    "strategy": "not-started",
+    "requirements": "complete",
+    "design": "complete",
+    "roadmap": "complete",
+    "efficiency": "complete",
+    "commercials": "complete",
+    "validate": "not-started",
+    "narratives": "complete",
+    "export": "complete",
+    "backlog": "not-started",
+    "quantum-leap": "not-started",
+    "slides": "not-started",
+    "rfp": "not-started",
+    "cleanup": "not-started",
+    "wrapup": "not-started",
+    "next": "not-started",
+    "help": "not-started",
+    "contribute": "not-started"
+  },
+  "timeline": {
+    "client_target": null,
+    "user_commitment": null,
+    "derived": {
+      "derived_low_weeks": 18,
+      "derived_high_weeks": 30,
+      "derivation_source": "top-down-shape",
+      "basis": "Service Cloud Medium complexity (12-18w base) + 35-45% risk adders (new client, LGPD regulated, Meta approval critical path) + incremento de 2-4 semanas para E09 (ADD-ON 3, tamanho M, majoritariamente configuração — Enhanced Omni-Channel, Service Console 3 PAs, handoff nos 4 fluxos do bot)",
+      "ai_native_compressed": false,
+      "range_drivers": [
+        {
+          "epic_id": "E02",
+          "driver": "NLU training + loop DAM multi-inscription + ISS flow ambiguity (Q-04/Q-05)",
+          "tighten_with": "Confirmar decisão ISS (link vs DAM emission) e ownership do NLU training data (G0202)"
+        },
+        {
+          "epic_id": "E08",
+          "driver": "Marketing Cloud edition undefined + HSM Meta approval timeline",
+          "tighten_with": "Confirmar edição Marketing Cloud (G0801) e validar timeline real de aprovação Meta"
+        },
+        {
+          "epic_id": "E09",
+          "driver": "Confirmar edição Omni-Channel (G0902) e horário do DHA (G0904)",
+          "tighten_with": "Cliente confirmar Enhanced Omni-Channel e horário exato de atendimento"
+        }
+      ]
+    }
+  },
+  "products_in_scope": [
+    "service-cloud",
+    "einstein-bot",
+    "whatsapp-channel",
+    "flow-apex"
+  ],
+  "products_with_overlay": []
+}

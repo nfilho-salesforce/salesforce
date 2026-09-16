@@ -1,0 +1,824 @@
+[
+  {
+    "gap_id": "G0101",
+    "category": "Missing Requirement",
+    "gap_or_question": "SSO setup: When is SSO necessary? No SSO provider specified (Okta, Azure AD, Google, SAML 2.0). Discovery mentions 'SSO setup (se necessário)' but lacks decision criteria and provider details.",
+    "impact_or_notes": "Blocks go-live if SSO is required. Add 2-4 weeks if not pre-scoped. Requires client approval for identity provider, SAML configuration, and user provisioning method."
+  },
+  {
+    "gap_id": "G0102",
+    "category": "Missing Requirement",
+    "gap_or_question": "Custom domain: No domain name specified for the new ORG. Discovery mentions 'domínio personalizado' but does not provide the FQDN (e.g., sefin.dataprev.my.salesforce.com or custom).",
+    "impact_or_notes": "Blocks WhatsApp Channel approval with Meta if domain is not finalized. Domain must be registered, DNS configured, and SSL certificate issued before WhatsApp Business API approval."
+  },
+  {
+    "gap_id": "G0103",
+    "category": "Missing Requirement",
+    "gap_or_question": "Meta WhatsApp Business approval timeline: No timeline provided for Meta approval process. Discovery mentions 'aprovação Meta WhatsApp Business' but does not specify whether SEFIN-CE or DATAPREV already has a WhatsApp Business Account, is approved by Meta, or needs to apply from scratch.",
+    "impact_or_notes": "Meta approval can take 2-8 weeks depending on business verification status. If SEFIN-CE is a new applicant, add significant lead time. This is a critical path blocker for go-live."
+  },
+  {
+    "gap_id": "G0104",
+    "category": "Ambiguity",
+    "gap_or_question": "Data residency compliance: Discovery states 'data residency Brasil (LGPD)' but does not specify which Salesforce instance region is contractually approved by DATAPREV. Is it Hyperforce Brazil (São Paulo), US-East with LGPD controls, or another?",
+    "impact_or_notes": "LGPD Art. 11 applies (CPF/CNPJ are sensitive). Wrong region choice = regulatory breach + re-provisioning delay. Must confirm DATAPREV's approved Salesforce geography before ORG provisioning."
+  },
+  {
+    "gap_id": "G0105",
+    "category": "Missing Requirement",
+    "gap_or_question": "WhatsApp Channel licensing: Discovery specifies 'WhatsApp Channel (sem Digital Engagement)' but does not confirm which Salesforce SKU is in scope. Service Cloud includes Messaging for Web and standard channels; WhatsApp typically requires Digital Engagement Add-On or Service Cloud with Messaging add-on. Clarify licensing model.",
+    "impact_or_notes": "If Digital Engagement is truly excluded, WhatsApp may not be natively supported in Service Cloud AS-IS. May require third-party connector (Twilio, 360Dialog) or licensing gap. Blocks setup until resolved."
+  },
+  {
+    "gap_id": "G0106",
+    "category": "Potential Risk",
+    "gap_or_question": "Einstein Bot vs. Agentforce licensing: Discovery context v1 mentions 'Einstein Bot' (P-18, Service Cloud AS-IS), but context v2 mentions 'Agentforce' (Epic E01 narrative). Einstein Bot is legacy; Agentforce is the new bot platform. Which is the licensed product?",
+    "impact_or_notes": "Einstein Bot may be sunset or feature-limited. Agentforce requires separate SKU. Mismatch = rework or licensing gap. Confirm exact bot platform before ORG setup."
+  },
+  {
+    "gap_id": "G0107",
+    "category": "Missing Requirement",
+    "gap_or_question": "ORG provisioning approval: Who approves the new ORG creation within DATAPREV? Discovery mentions 'CTID DATAPREV' and 'ANPD se dados sensíveis' but does not specify the approval workflow, timeline, or required documentation.",
+    "impact_or_notes": "CTID approval may require security assessment, data classification memo, or LGPD DPO sign-off. If not pre-approved, add 1-3 weeks to critical path."
+  },
+  {
+    "gap_id": "G0108",
+    "category": "Missing Requirement",
+    "gap_or_question": "User profiles and permissions: Discovery specifies '10 usuários (3 SysAdmin + 7 Bot Maintainer)' but does not define 'Bot Maintainer' profile scope. What permissions beyond Einstein Bot/Agentforce maintenance? (e.g., Flow Builder, Apex debug, API access, report builder?)",
+    "impact_or_notes": "Under-scoped profile = post-go-live permission requests and rework. Over-scoped = LGPD/security audit findings. Must define profile permissions matrix before ORG setup."
+  },
+  {
+    "gap_id": "G0109",
+    "category": "Missing Requirement",
+    "gap_or_question": "Sandbox strategy: No sandbox strategy specified. How many sandboxes (Developer, Developer Pro, Partial Copy, Full Sandbox)? Discovery is silent on UAT, training, and hotfix environments.",
+    "impact_or_notes": "No sandbox = no safe testing environment = production bugs. Must define sandbox tier and refresh cadence before ORG provisioning."
+  },
+  {
+    "gap_id": "G0110",
+    "category": "Missing Requirement",
+    "gap_or_question": "IP whitelisting for API integrations: Discovery mentions 'Cliente possui conectividade IP entre Service Cloud e APIs SEFIN' (P-17) but does not specify IP whitelisting requirements. Will SEFIN-CE APIs require Salesforce IP ranges to be whitelisted?",
+    "impact_or_notes": "If SEFIN-CE firewall requires IP whitelisting and DATAPREV has not pre-approved Salesforce IP ranges, integration testing is blocked. Must confirm IP whitelisting requirements and approval process."
+  },
+  {
+    "gap_id": "G0111",
+    "category": "Potential Risk",
+    "gap_or_question": "Named Credentials and Authentication: Discovery mentions 'API EmitirDamUnico e ConsultaImovel já existem' (P-12) but does not specify authentication method (API Key, OAuth 2.0, Basic Auth, mTLS). Are Named Credentials required? Who provides credentials?",
+    "impact_or_notes": "Wrong auth model = integration rework. If mTLS is required and DATAPREV has not provisioned certificates, add 2-4 weeks. Must confirm auth method and credential provisioning owner."
+  },
+  {
+    "gap_id": "G0112",
+    "category": "Missing Requirement",
+    "gap_or_question": "Change Management / CoE: No mention of Salesforce Center of Excellence (CoE), change management process, or adoption plan in discovery. Is there a DATAPREV Salesforce CoE? Who owns post-go-live governance?",
+    "impact_or_notes": "Greenfield ORG without CoE = no governance, no release management, no ongoing training. Risk of technical debt and bot degradation post-launch. Should DATAPREV establish CoE as part of this engagement, or is it out of scope?"
+  },
+  {
+    "gap_id": "G0201",
+    "category": "Ambiguity",
+    "gap_or_question": "ISS flow ambiguity: Discovery states 'ISS: informa link site SEFIN' (P-15, Q-04/Q-05) but does not specify the link URL, the presentation format (text/button/link preview in WhatsApp), or whether this fallback is interim or permanent. If the decision is to upgrade to DAM emission via API, which `tipoDebito` integer does ISS use in EmitirDamUnico?",
+    "impact_or_notes": "If client pivots ISS from link-only to DAM emission mid-project, E02 scope expands (integration + NLU training) and timeline extends. Must confirm ISS strategy and lock it in requirements gate."
+  },
+  {
+    "gap_id": "G0202",
+    "category": "Missing Requirement",
+    "gap_or_question": "Einstein Bot NLU training data: Discovery describes conversational flows but does not specify WHO provides training utterances for the initial NLU model. Does SEFIN-CE provide sample citizen questions/intents, or does Salesforce PS infer from the spec?",
+    "impact_or_notes": "Insufficient training data = poor NLU accuracy = high fallback rate. If client has no training corpus, add 1-2 weeks for utterance collection and annotation. Confirm training data ownership and format."
+  },
+  {
+    "gap_id": "G0203",
+    "category": "Missing Requirement",
+    "gap_or_question": "Field validation: Discovery mentions 'Máximo 2 tentativas de digitação inválida' (P-05) but does not specify validation rules for CPF/CNPJ format, data nascimento/abertura format, or other input fields. Does the bot validate CPF checksum (Dígitos Verificadores)? Date format (DD/MM/YYYY vs. DD/MM/YY)? Email regex for Alteração Cadastral?",
+    "impact_or_notes": "Under-specified validation = bot accepts malformed input and API callouts fail, or bot rejects valid input and citizen frustration spikes. Must define validation logic per field before bot config."
+  },
+  {
+    "gap_id": "G0204",
+    "category": "Missing Requirement",
+    "gap_or_question": "API EmitirDamUnico: Discovery specifies `periodoParcelas` (Date) is 'Obrigatório se PARCELADO' but does not specify how the citizen selects payment mode (cota única vs. parcelado) or how many installments are allowed. Does the bot present a menu? Does the API return installment options dynamically?",
+    "impact_or_notes": "Missing payment-mode UX = bot cannot collect required param. If client expects installment selection and PS assumes cota única only, the DAM emission flow is incomplete. Confirm payment-mode interaction."
+  },
+  {
+    "gap_id": "G0205",
+    "category": "Missing Requirement",
+    "gap_or_question": "API ConsultaImovel retorna múltiplas inscrições: P-30 states 'Sem limite de inscrições — bot apresenta todas retornadas pela API' but does not specify presentation format. WhatsApp message length limit is 4096 chars; a citizen with 50+ properties could overflow. Does the bot paginate? Use carousel? Truncate + link to Portal SEFIN?",
+    "impact_or_notes": "No pagination design = UX breaks for edge-case citizens (e.g., real estate companies with hundreds of properties). Must define multi-inscription presentation strategy."
+  },
+  {
+    "gap_id": "G0206",
+    "category": "Ambiguity",
+    "gap_or_question": "Loop emissão DAM (P-29): Discovery states loop repeats for all selected inscriptions, but does not specify session timeout between inscriptions. If a citizen selects 10 properties and takes 5 minutes to confirm each DAM, does the WhatsApp session expire mid-loop?",
+    "impact_or_notes": "Session timeout = citizen loses progress mid-loop and must restart. Must confirm Einstein Bot session timeout config and whether each DAM confirmation resets the timer."
+  },
+  {
+    "gap_id": "G0207",
+    "category": "Potential Risk",
+    "gap_or_question": "NLU accuracy threshold: Discovery does not specify expected Einstein Bot NLU accuracy (intent classification F1 score). What is the acceptable fallback rate (user utterance → 'Não entendi' → link Portal SEFIN)?",
+    "impact_or_notes": "If PS delivers 60% NLU accuracy and client expected 90%, go-live fails acceptance. Must align on NLU accuracy SLA before training."
+  },
+  {
+    "gap_id": "G0208",
+    "category": "Missing Requirement",
+    "gap_or_question": "WhatsApp session timeout (P-07 conflicts): P-07 states 'Sem horário de atendimento — bot disponível 24/7' but WhatsApp Business has a 24-hour messaging window per Meta policy. If a citizen starts ISS flow and abandons for 25 hours, can the bot resume? Does the bot send HSM (template message) to reactivate?",
+    "impact_or_notes": "Meta 24h window + no HSM strategy = bot cannot re-engage abandoned sessions. If client expects session persistence >24h, must design HSM templates and approval flow with Meta."
+  },
+  {
+    "gap_id": "G0209",
+    "category": "Missing Requirement",
+    "gap_or_question": "WhatsApp rate limits: Discovery does not specify expected message volume per second or per citizen. Meta enforces rate limits (Tier 1: 1k msgs/day; Tier 4: unlimited). Is SEFIN-CE WhatsApp Business Account already approved by Meta? What tier?",
+    "impact_or_notes": "If account is Tier 1 and launch hits 400k conversations/year (~1,100/day), rate limit blocks citizens. Must confirm Meta tier and approval status before go-live."
+  },
+  {
+    "gap_id": "G0210",
+    "category": "Ambiguity",
+    "gap_or_question": "Multi-titular logic: API ConsultaImovel 'Por-documento' returns inscriptions where the citizen is Sujeito Passivo (taxpayer). What if an inscription has multiple co-owners (e.g., married couple)? Does the bot emit DAM for all co-owners when one requests? Does the API return shared inscriptions?",
+    "impact_or_notes": "If co-ownership is not handled, either (a) one co-owner can emit DAM for shared property (potential fraud) or (b) API blocks request and citizen cannot pay (UX failure). Confirm API co-ownership logic."
+  },
+  {
+    "gap_id": "G0211",
+    "category": "Missing Requirement",
+    "gap_or_question": "Satisfaction survey UI: P-04 specifies '1-5 estrelas' rating but does not specify WhatsApp presentation format. Einstein Bot supports emoji reactions or text input. Which format? If emoji, does '⭐️⭐️⭐️' count as 3 stars, or does bot present a button menu?",
+    "impact_or_notes": "Mismatch between spec (stars) and WhatsApp capability (emojis/buttons) = UX confusion or config rework. Must define satisfaction widget format before bot build."
+  },
+  {
+    "gap_id": "G0212",
+    "category": "Missing Requirement",
+    "gap_or_question": "LGPD consent (P-19): LGPD Art. 11 requires explicit consent for processing sensitive data (CPF/CNPJ). Does the bot collect opt-in consent before first interaction? Is consent logged in Salesforce or via API CRM SEFIN? What is the consent text?",
+    "impact_or_notes": "No consent collection = LGPD violation + ANPD penalty risk. Must design consent flow (initial message + opt-in button) and log mechanism before go-live."
+  },
+  {
+    "gap_id": "G0213",
+    "category": "Missing Requirement",
+    "gap_or_question": "CPF/CNPJ + data nascimento/abertura storage: Discovery does not specify whether Einstein Bot stores citizen PII (CPF, data nascimento) in Salesforce objects or only passes it transiently to APIs. If stored, in which object (Contact, Lead, custom object)? What is data retention policy?",
+    "impact_or_notes": "Storing PII without data retention = LGPD Art. 15-16 violation. If not stored, how does P-06 'Usuário já identificado na sessão → pula identificação' work across sessions? Must define PII storage + retention."
+  },
+  {
+    "gap_id": "G0214",
+    "category": "Missing Requirement",
+    "gap_or_question": "Einstein Bot fallback to Portal SEFIN (P-02): Discovery states 'bot encerra automaticamente apresentando link Portal SEFIN' on max retries but does not specify the link URL (same as Q-06 despedida link). Are these the same? If different, what are both URLs?",
+    "impact_or_notes": "Missing fallback link = bot dead-ends with no next action for citizen. Must confirm Portal SEFIN URL(s) before bot config."
+  },
+  {
+    "gap_id": "G0215",
+    "category": "Potential Risk",
+    "gap_or_question": "API retry logic (P-16): '1 retentativa → se falhar informa 'tente novamente mais tarde' → encerra' but does not specify retry delay. Immediate retry on transient network failure may succeed; immediate retry on API rate limit may fail again. What is retry delay (0s, 1s, 5s)?",
+    "impact_or_notes": "No retry delay = wasted retry on rate-limited APIs. Retry delay >5s = perceived bot latency. Must define retry strategy per API failure mode."
+  },
+  {
+    "gap_id": "G0216",
+    "category": "Missing Requirement",
+    "gap_or_question": "Einstein Bot logging and monitoring: Discovery does not specify logging requirements. Does DATAPREV need Salesforce Event Monitoring license for bot conversation logs? Who monitors bot errors (failed API calls, NLU fallback rate)? Is there a Slack/email alert on >10% fallback rate?",
+    "impact_or_notes": "No monitoring = silent degradation (e.g., API down for 2 days, nobody notices). Must define monitoring dashboard and alert thresholds before go-live."
+  },
+  {
+    "gap_id": "G0217",
+    "category": "Potential Risk",
+    "gap_or_question": "WhatsApp message format for DAM PDF: Discovery states 'envia PDF via WhatsApp' but does not specify how. Einstein Bot can send PDF as inline image preview, as downloadable file, or as link to Salesforce Files. Which? Meta limits file uploads to 16MB; is DAM PDF <16MB?",
+    "impact_or_notes": "If DAM PDF >16MB or wrong format, WhatsApp upload fails. Must confirm PDF size + delivery format (inline vs. download link)."
+  },
+  {
+    "gap_id": "G0218",
+    "category": "Missing Requirement",
+    "gap_or_question": "HSM (High-Structure Message) template approval: If ADD-ON 2 (Marketing Cloud proactive outreach) is in scope, WhatsApp requires pre-approved HSM templates for proactive messaging. Discovery mentions 'opt-out cidadão' (Q-08) but does not specify HSM template content, approval timeline, or opt-out mechanism.",
+    "impact_or_notes": "Meta HSM approval takes 1-4 weeks. If ADD-ON 2 is in scope and templates are not submitted pre-launch, proactive outreach is blocked. Must confirm HSM strategy if ADD-ON 2 proceeds."
+  },
+  {
+    "gap_id": "G0301",
+    "category": "Missing Requirement",
+    "gap_or_question": "API CRM SEFIN spec pendente (Q-01): Discovery mentions API exists for satisfaction logging but provides no endpoint URL, payload schema, headers, or response format. Spec needed before Flow/Apex build.",
+    "impact_or_notes": "Blocks E04 (Feedback & Satisfaction Tracking) integration. If API is not ready by implementation start, satisfaction logging cannot be tested. Must obtain spec or design mock/stub endpoint."
+  },
+  {
+    "gap_id": "G0302",
+    "category": "Missing Requirement",
+    "gap_or_question": "API Dados Cadastrais spec pendente (Q-02): Discovery mentions API exists for cadastral update but provides no endpoint URL, payload schema, field validation rules, or response format. Spec needed before Flow/Apex build.",
+    "impact_or_notes": "Blocks E02 (Alteração Cadastral flow). If API is not ready, cadastral update cannot be implemented. Must obtain spec or design mock/stub endpoint."
+  },
+  {
+    "gap_id": "G0303",
+    "category": "Potential Risk",
+    "gap_or_question": "Conectividade IP validation (P-17): Discovery assumes 'Cliente possui conectividade IP entre Service Cloud e APIs SEFIN' but does not confirm this has been tested. Has a ping/curl test been run from Salesforce production IP range to SEFIN-CE API endpoints?",
+    "impact_or_notes": "If connectivity assumption is wrong (firewall blocks Salesforce IPs), all API integrations fail in production. Must validate connectivity in pre-prod environment before UAT."
+  },
+  {
+    "gap_id": "G0304",
+    "category": "Missing Requirement",
+    "gap_or_question": "Retry logic per API (P-16): Discovery states '1 retentativa → se falhar informa 'tente novamente mais tarde' → encerra' but does not specify retry logic per API. Should all 4 APIs use same retry strategy? Should EmitirDamUnico (high-value DAM emission) retry 2x while ConsultaImovel (read-only) retries 0x?",
+    "impact_or_notes": "Uniform retry = sub-optimal. High-value operations (DAM emission) deserve more retries; low-latency operations (lookup) should fail fast. Must define retry policy per API criticality."
+  },
+  {
+    "gap_id": "G0305",
+    "category": "Missing Requirement",
+    "gap_or_question": "API rate limiting: Discovery does not specify whether SEFIN-CE APIs have rate limits (requests/sec, requests/min). If 1,100 concurrent citizens hit ConsultaImovel at 9am Monday (payday), does the API throttle?",
+    "impact_or_notes": "No rate limit spec = potential API 429 errors under load. Must confirm API rate limits and design Flow/Apex retry + backoff strategy."
+  },
+  {
+    "gap_id": "G0306",
+    "category": "Missing Requirement",
+    "gap_or_question": "API error logging and monitoring: Discovery does not specify where API errors (4xx, 5xx, timeouts) are logged. Salesforce Event Log Files? Custom object? Splunk? Who monitors failed callouts?",
+    "impact_or_notes": "No error logging = silent API failures (e.g., EmitirDamUnico down for 2 days, nobody notices). Must define logging + alerting strategy before go-live."
+  },
+  {
+    "gap_id": "G0307",
+    "category": "Potential Risk",
+    "gap_or_question": "API SSL/TLS version: Discovery mentions REST + API Key but does not specify TLS version requirement. Salesforce requires TLS 1.2+ for outbound HTTPS. Do SEFIN-CE APIs support TLS 1.2+?",
+    "impact_or_notes": "If SEFIN-CE APIs only support TLS 1.0/1.1, Salesforce callouts fail. Must confirm TLS version before integration build."
+  },
+  {
+    "gap_id": "G0308",
+    "category": "Missing Requirement",
+    "gap_or_question": "API versioning strategy: Discovery does not specify whether SEFIN-CE APIs use versioning (v1, v2). If APIs change after go-live (e.g., new mandatory field in EmitirDamUnico payload), does Salesforce integration break?",
+    "impact_or_notes": "No versioning = breaking changes post-go-live. Must confirm API versioning policy and whether backward compatibility is guaranteed."
+  },
+  {
+    "gap_id": "G0309",
+    "category": "Ambiguity",
+    "gap_or_question": "Flow Orchestration vs. Apex callouts: Discovery states 'Flow Orchestration + Apex (sem MuleSoft)' but does not specify division of labor. Are all API calls in Flow (HTTP Callout action) or Apex (@future/@queueable)? What is the criteria for choosing one over the other?",
+    "impact_or_notes": "Unclear ownership = inconsistent implementation. If some APIs are Flow and others are Apex, debugging and maintenance are harder. Must define integration pattern (e.g., 'All REST callouts via Apex; Flow orchestrates business logic')."
+  },
+  {
+    "gap_id": "G0310",
+    "category": "Missing Requirement",
+    "gap_or_question": "API timeout configuration: Discovery does not specify timeout thresholds for API callouts. Salesforce default HTTP timeout is 120 seconds. Should EmitirDamUnico (PDF generation, potentially slow) have 120s timeout while ConsultaImovel (lookup) has 10s?",
+    "impact_or_notes": "Too-short timeout = false negatives (API succeeds but Salesforce times out). Too-long timeout = poor UX (citizen waits 2min for error message). Must define timeout per API."
+  },
+  {
+    "gap_id": "G0401",
+    "category": "Missing Requirement",
+    "gap_or_question": "API CRM SEFIN endpoint specification: Q-01 states API spec is pending. No endpoint URL, authentication headers, payload schema, required fields, response format, or error codes documented.",
+    "impact_or_notes": "Blocks satisfaction logging implementation. Cannot build Flow/Apex callout without spec. If API is not ready by Sprint 2, satisfaction tracking cannot be tested in UAT. Must obtain full API specification before implementation start."
+  },
+  {
+    "gap_id": "G0402",
+    "category": "Missing Requirement",
+    "gap_or_question": "Portal SEFIN URL (Q-06): Despedida message requires link to Portal SEFIN, but URL is not specified. Is this the same URL as ISS fallback (Q-E) or different?",
+    "impact_or_notes": "Blocks bot configuration. Cannot complete despedida message template without URL. If URL changes post-go-live, all bot flows require reconfiguration."
+  },
+  {
+    "gap_id": "G0403",
+    "category": "Ambiguity",
+    "gap_or_question": "Satisfaction survey presentation format: Discovery specifies '1-5 estrelas' but does not define WhatsApp UI implementation. Options: (a) emoji stars sent by citizen (⭐⭐⭐), (b) number input (1-5), (c) quick reply buttons, (d) list picker. Which format?",
+    "impact_or_notes": "WhatsApp does not natively support star ratings. Emoji parsing is fragile (citizen may send '***' or 'três estrelas'). Button menus are clearer but require explicit click. Must define UX before bot build to avoid post-launch rework."
+  },
+  {
+    "gap_id": "G0404",
+    "category": "Missing Requirement",
+    "gap_or_question": "Justificativa field validation: For ratings ≤3, bot collects free-text justification. No validation rules specified: max length? allowed characters? profanity filter? does API CRM SEFIN accept special chars/emojis?",
+    "impact_or_notes": "Unbounded free text = risk of buffer overflow if API has char limit, or LGPD exposure if citizens paste sensitive data (CPF of third parties). Must define max length (suggest 500 chars) and sanitization rules."
+  },
+  {
+    "gap_id": "G0405",
+    "category": "Missing Requirement",
+    "gap_or_question": "Satisfaction data retention policy: LGPD Art. 15-16 requires defined retention period for personal data (CPF/CNPJ + satisfaction feedback). How long is satisfaction data retained in API CRM SEFIN? Is there automatic purge after N months?",
+    "impact_or_notes": "No retention policy = LGPD violation risk. ANPD can audit and penalize indefinite storage of personal data. Must define retention (suggest 12-24 months) and confirm API CRM SEFIN supports purge."
+  },
+  {
+    "gap_id": "G0406",
+    "category": "Logical Gap",
+    "gap_or_question": "Satisfaction survey on API failure path: P-01/P-10 state that if API fails twice, bot skips satisfaction survey and goes to 'AJUDO COM ALGO MAIS?'. This creates blind spot: citizens who experience API failures cannot rate the experience.",
+    "impact_or_notes": "Skipping survey on failures = selection bias (only successful flows get rated). Client loses feedback on worst-case UX. Consider collecting satisfaction even on API failures (separate question: 'How was your experience even though the service failed?')."
+  },
+  {
+    "gap_id": "G0407",
+    "category": "Potential Risk",
+    "gap_or_question": "API CRM SEFIN availability SLA: Discovery does not specify API uptime SLA. If API CRM SEFIN is down for 2 hours during peak time (9-11am Monday), satisfaction data for ~200 conversations is lost. Is there retry queue or data loss acceptable?",
+    "impact_or_notes": "No retry queue = data loss on API downtime. If client requires 100% satisfaction data capture, must design Salesforce-side buffer (custom object) + async retry job. Confirm acceptable data loss threshold."
+  },
+  {
+    "gap_id": "G0408",
+    "category": "Missing Requirement",
+    "gap_or_question": "Satisfaction survey triggering logic: P-03 states survey is mandatory 'ao final de todos fluxos', but does not define 'final'. Is survey triggered on: (a) explicit 'NÃO' to AJUDO COM ALGO MAIS?, (b) session timeout, (c) citizen abandonment (stops replying)?",
+    "impact_or_notes": "Ambiguous trigger = inconsistent survey execution. If citizen abandons mid-conversation (stops replying), does survey fire after timeout or never? Must define exact survey trigger conditions."
+  },
+  {
+    "gap_id": "G0409",
+    "category": "Ambiguity",
+    "gap_or_question": "Satisfaction survey for multi-service sessions: If citizen completes IPTU → AJUDO COM ALGO MAIS? → SIM → Alteração Cadastral → AJUDO COM ALGO MAIS? → NÃO, does bot collect satisfaction once (for entire session) or twice (per service)?",
+    "impact_or_notes": "Collecting satisfaction per service = better granularity but may annoy citizens ('Why am I being surveyed twice?'). Collecting once per session = cannot isolate which service had poor UX. Must define satisfaction scope (per-service vs. per-session)."
+  },
+  {
+    "gap_id": "G0410",
+    "category": "Missing Requirement",
+    "gap_or_question": "LGPD consent for satisfaction data: LGPD Art. 7 requires explicit consent for data processing. Does bot inform citizen that satisfaction data (nota + justificativa + CPF/CNPJ) will be sent to API CRM SEFIN? Is consent implied or explicit opt-in?",
+    "impact_or_notes": "No consent collection = LGPD Art. 7 violation. Must add consent disclosure before satisfaction survey (e.g., 'Sua avaliação e justificativa serão registradas junto ao seu CPF para melhoria do serviço. Concorda?')."
+  },
+  {
+    "gap_id": "G0411",
+    "category": "Missing Requirement",
+    "gap_or_question": "Despedida message template: Discovery mentions 'Despedida com link Portal SEFIN' but does not provide message text. What is the farewell text? Is it generic ('Obrigado por usar o atendimento SEFIN') or contextual (different for IPTU success vs. API failure)?",
+    "impact_or_notes": "Generic despedida = missed opportunity for contextual messaging (e.g., 'Seu DAM foi enviado. Obrigado!' vs. 'Lamentamos a falha. Tente novamente em alguns minutos.'). Must define despedida message variants per outcome."
+  },
+  {
+    "gap_id": "G0412",
+    "category": "Potential Risk",
+    "gap_or_question": "Survey fatigue risk: If ADD-ON 2 (Marketing Cloud proactive outreach) is enabled, citizens may receive 4-5 proactive WhatsApp messages/year + inbound bot conversations. Collecting satisfaction on every interaction = survey fatigue → lower response rate or negative bias.",
+    "impact_or_notes": "Survey fatigue = data quality degradation. Consider sampling strategy (e.g., survey 20% of interactions randomly) or suppress survey if citizen was surveyed <7 days ago. Confirm client expectation: 100% survey coverage or sampling acceptable?"
+  },
+  {
+    "gap_id": "G0413",
+    "category": "Missing Requirement",
+    "gap_or_question": "API payload for multi-service sessions: If citizen uses IPTU + Alteração Cadastral in one session, does API CRM SEFIN receive one record (with multiple 'serviço executado' entries) or two separate API calls? How is 'serviço executado' structured (single string vs. array)?",
+    "impact_or_notes": "Mismatch between bot implementation and API expectation = data loss or API error. Must clarify API payload structure for multi-service sessions before Flow/Apex build."
+  },
+  {
+    "gap_id": "G0414",
+    "category": "Capability Gap",
+    "gap_or_question": "Einstein Bot satisfaction survey widget: Discovery assumes Einstein Bot natively supports star-rating widget in WhatsApp. Einstein Bot (legacy) does not have star-rating component; Agentforce may have limited WhatsApp widget support. Has widget capability been validated?",
+    "impact_or_notes": "If Einstein Bot/Agentforce lacks native star-rating, must build custom Flow with quick-reply buttons or fallback to number input. Add 1-2 days dev time. Validate bot widget capability before committing to '1-5 estrelas' UX."
+  },
+  {
+    "gap_id": "G0415",
+    "category": "Missing Requirement",
+    "gap_or_question": "Satisfaction dashboard and reporting: Discovery does not specify who consumes satisfaction data post-collection. Does SEFIN-CE need Salesforce dashboards/reports, or is all reporting done in external CRM? If Salesforce reporting is needed, who designs dashboards?",
+    "impact_or_notes": "If SEFIN-CE expects real-time satisfaction dashboard in Salesforce (e.g., 'NPS por serviço, média diária de notas'), this is out of E04 scope (no custom object to store data). Must clarify reporting ownership and tool before scoping dashboards."
+  },
+  {
+    "gap_id": "G0416",
+    "category": "Source Conflict",
+    "gap_or_question": "P-01 vs. P-10 inconsistency: P-01 states 'Todo encerramento = Pesquisa → API Registro → Despedida. EXCEÇÃO: falha de API após retentativa encerra SEM pesquisa'. P-10 states 'Falha de API = informa + registra + AJUDO COM ALGO MAIS? (sem pesquisa)'. This implies API failure path skips satisfaction but still calls 'registra' (which API? CRM SEFIN for logging contact, or skipped entirely?).",
+    "impact_or_notes": "Conflicting premissas = implementation ambiguity. If API CRM SEFIN is the failed API, how is contact registered? Via fallback API or not at all? Must clarify P-01/P-10 exception handling logic."
+  },
+  {
+    "gap_id": "G0417",
+    "category": "Potential Risk",
+    "gap_or_question": "WhatsApp message ordering guarantee: If bot sends satisfaction survey → citizen replies '2 estrelas' → bot requests justification → citizen replies 'Lento' → bot calls API CRM SEFIN, is message ordering guaranteed? WhatsApp can deliver messages out-of-order under poor network conditions.",
+    "impact_or_notes": "Out-of-order messages = bot may log justification before rating, or miss justification entirely. Einstein Bot should use message sequencing/session state, but must validate this edge case in testing."
+  },
+  {
+    "gap_id": "G0418",
+    "category": "Missing Requirement",
+    "gap_or_question": "Localization and language: Discovery is in Portuguese but does not specify whether bot messages are PT-BR only or support multiple languages (e.g., Spanish for border regions, English for expats). Satisfaction survey question text: 'Como você avalia o atendimento?' or other phrasing?",
+    "impact_or_notes": "Fortaleza is PT-BR only, but DATAPREV may expand to other municipalities. Hardcoding PT-BR messages = rework for multi-language. Confirm language scope and satisfaction survey message text before bot config."
+  },
+  {
+    "gap_id": "G0501",
+    "category": "Ambiguity",
+    "gap_or_question": "Who owns UX research execution? Epic states 'UX Research incluída no escopo PS' but does not clarify if PS team conducts research or if DATAPREV/SEFIN staff conduct it with PS guidance/templates.",
+    "impact_or_notes": "Ownership impacts effort sizing (active research vs. advisory), deliverable quality control, and timeline dependencies. If DATAPREV conducts, PS provides templates/scripts only; if PS conducts, need budget for research time + tools."
+  },
+  {
+    "gap_id": "G0502",
+    "category": "Missing Requirement",
+    "gap_or_question": "Persona research: How many citizens should be interviewed? Epic mentions 'Personas cidadãos contribuintes PF/PJ Fortaleza' but no sample size (n=5? n=20? n=50?).",
+    "impact_or_notes": "Sample size drives effort estimate. Typical UX: n=5-8 per segment (PF vs. PJ). Recommend confirming target: e.g., n=6 PF + n=6 PJ = 12 interviews total. Without this, effort could be under/over-estimated by 50%+."
+  },
+  {
+    "gap_id": "G0503",
+    "category": "Logical Gap",
+    "gap_or_question": "Persona research logistics: Who recruits participants? Who schedules interviews? Where are interviews conducted (remote/in-person)? Are incentives required (common in Brazilian public sector research)?",
+    "impact_or_notes": "If PS recruits: adds 20-30h overhead per persona. If DATAPREV/SEFIN recruits: PS provides screener only. Remote vs. in-person impacts travel budget. Incentives (e.g., R$ 50-100/participant) may be blocked by public sector rules (Lei 14.133/2021)."
+  },
+  {
+    "gap_id": "G0504",
+    "category": "Missing Requirement",
+    "gap_or_question": "Usability testing sample size: How many users per flow (IPTU/TMRSU/Cadastral)? Industry standard: n=5 per flow, but client may expect more for municipal government context.",
+    "impact_or_notes": "3 flows × 5 users = 15 sessions minimum. If client expects n=10/flow = 30 sessions (2x effort). Confirm target to avoid scope creep."
+  },
+  {
+    "gap_id": "G0505",
+    "category": "Ambiguity",
+    "gap_or_question": "Usability testing timing: 'Testes usabilidade bot WhatsApp' implies testing after bot is built. Is this pre-production testing (requires working bot) or prototype testing (requires mockup/clickable prototype only)?",
+    "impact_or_notes": "Pre-production testing = Phase 3 activity (after Build). Prototype testing = Phase 1/2 (during Design). Timing impacts critical path: if pre-production, blocks UAT; if prototype, can run in parallel with Build."
+  },
+  {
+    "gap_id": "G0506",
+    "category": "Potential Risk",
+    "gap_or_question": "Usability testing environment: Testing WhatsApp bot requires live WhatsApp Business API connection. Is test phone number available? Is Meta approval complete? (P-20: contratação via Meta/Facebook).",
+    "impact_or_notes": "Meta approval can take 2-4 weeks. If approval delayed, usability testing blocks. Mitigation: test with prototype (non-WhatsApp mockup) or use personal WhatsApp number (not recommended for LGPD compliance)."
+  },
+  {
+    "gap_id": "G0507",
+    "category": "Capability Gap",
+    "gap_or_question": "WCAG 2.1 AA applicability to conversational UI: WCAG is designed for visual web interfaces (contrast ratios, focus indicators, ARIA labels). WhatsApp bot is text-only conversational interface. How to interpret WCAG for this context?",
+    "impact_or_notes": "Standard WCAG Success Criteria (e.g., 1.4.3 Contrast, 2.4.7 Focus Visible) don't apply to text-only chat. Need adapted framework (e.g., W3C's Conversational Accessibility Guidelines, still draft). Risk: deliverable misaligned with client expectations if 'WCAG 2.1 AA' is taken literally."
+  },
+  {
+    "gap_id": "G0508",
+    "category": "Missing Requirement",
+    "gap_or_question": "Accessibility scope: Which disabilities are in scope? WCAG covers visual, auditory, motor, cognitive. For WhatsApp bot, auditory (screen reader) and cognitive (plain language) are most relevant. Are visual/motor disabilities in scope?",
+    "impact_or_notes": "WhatsApp supports screen readers (iOS VoiceOver, Android TalkBack). Testing with blind users is feasible. Motor disabilities (e.g., voice input) depend on WhatsApp's accessibility features, not Salesforce. Clarify scope to avoid testing client-side app accessibility (out of Salesforce control)."
+  },
+  {
+    "gap_id": "G0509",
+    "category": "Ambiguity",
+    "gap_or_question": "Accessibility testing method: 'Análise acessibilidade WCAG 2.1 AA' — is this expert review (heuristic evaluation) or testing with users with disabilities? Expert review = 8-16h; user testing = 30-50h (recruitment, facilitation, analysis).",
+    "impact_or_notes": "Expert review is faster but less comprehensive. User testing is gold standard but requires recruiting citizens with disabilities in Fortaleza (challenging in 8-12 week timeline). Recommend expert review for Phase 1, user testing as optional ADD-ON."
+  },
+  {
+    "gap_id": "G0510",
+    "category": "Missing Requirement",
+    "gap_or_question": "Deliverable format for personas: 'persona docs' — what format? PDF? Slides? Miro board? How many pages/slides per persona? Are photos/illustrations required (common in persona templates)?",
+    "impact_or_notes": "Format impacts effort. PDF with stock photos = 4-6h/persona. Interactive Miro board with custom illustrations = 12-16h/persona. Recommend confirming format to avoid rework."
+  },
+  {
+    "gap_id": "G0511",
+    "category": "Missing Requirement",
+    "gap_or_question": "Deliverable format for test scripts: 'test scripts' — are these moderator scripts (for PS team) or self-guided test instructions (for DATAPREV to execute)? Portuguese or English?",
+    "impact_or_notes": "If DATAPREV executes testing (P-28: DATAPREV assume treinamento e sustentação), scripts must be self-guided in Portuguese. If PS executes, can be moderator scripts in English (translated during sessions). Language and format impact usability."
+  },
+  {
+    "gap_id": "G0512",
+    "category": "Missing Requirement",
+    "gap_or_question": "Deliverable format for accessibility report: 'accessibility report' — what level of detail? Executive summary only (5 pages)? Detailed findings with remediation steps (20-30 pages)? VPAT (Voluntary Product Accessibility Template) format?",
+    "impact_or_notes": "VPAT is industry standard for WCAG compliance documentation (required for US government contracts, optional in Brazil). Client may expect VPAT-style report. Clarify to avoid under-delivering."
+  },
+  {
+    "gap_id": "G0513",
+    "category": "Source Conflict",
+    "gap_or_question": "Training ownership conflict: P-27 states 'DATAPREV assume treinamento dos 10 usuários — PS entrega documentação apenas (sem sessões ao vivo)'. But UX deliverables (personas, test scripts) are research artifacts, not training materials. Are personas/scripts for Bot Maintainers or for UX research only?",
+    "impact_or_notes": "If personas are for Bot Maintainers (to guide future bot evolution), they are training-adjacent and may conflict with P-27 (no live training). If for research documentation only, no conflict. Clarify audience and usage to align with P-27."
+  },
+  {
+    "gap_id": "G0514",
+    "category": "Potential Risk",
+    "gap_or_question": "LGPD compliance for research: Persona interviews and usability testing collect personal data (CPF, name, voice recordings). Is LGPD consent form required? Who is data controller (PS, DATAPREV, SEFIN)?",
+    "impact_or_notes": "LGPD Art. 7 requires informed consent for research. PS needs LGPD-compliant consent form template (Portuguese). Data controller = SEFIN (public sector entity). PS is data processor. Recommend legal review before recruiting participants."
+  },
+  {
+    "gap_id": "G0515",
+    "category": "Ambiguity",
+    "gap_or_question": "Persona validation: After persona docs are delivered, who validates them (SEFIN? DATAPREV? Citizens?)? Is validation included in PS scope or client responsibility?",
+    "impact_or_notes": "Persona validation (showing docs to real citizens for feedback) is UX best practice but adds 10-15h. If client validates, PS delivers draft only. If PS validates, need 2nd round of interviews. Clarify to avoid assumption mismatch."
+  },
+  {
+    "gap_id": "G0516",
+    "category": "Missing Requirement",
+    "gap_or_question": "Accessibility remediation: If accessibility report identifies gaps (e.g., bot language too complex, no screen reader optimization), is remediation in PS scope? Or report-only with client implementing fixes?",
+    "impact_or_notes": "Epic states 'análise acessibilidade' (analysis) but not 'correção' (remediation). If remediation is out of scope, report becomes informational only (client may be dissatisfied if expecting fixes). Clarify to align expectations."
+  },
+  {
+    "gap_id": "G0517",
+    "category": "Logical Gap",
+    "gap_or_question": "Research tools: UX research typically requires tools (e.g., Zoom for remote interviews, Miro for persona workshops, UserTesting.com for usability testing). Who provides licenses? Are costs in PS budget?",
+    "impact_or_notes": "If PS provides tools, add R$ 2.000-5.000 to budget (Zoom Pro, Miro Team, etc.). If DATAPREV provides, may delay research if procurement takes weeks. Recommend confirming tool ownership upfront."
+  },
+  {
+    "gap_id": "G0518",
+    "category": "Potential Risk",
+    "gap_or_question": "Research timeline vs. Build timeline: UX research (personas, testing) typically takes 4-6 weeks. If Build starts before research completes, design may not incorporate research findings. Is sequential delivery acceptable (longer timeline) or parallel (risk of rework)?",
+    "impact_or_notes": "Sequential = safer but adds 4-6 weeks to critical path. Parallel = faster but Einstein Bot design may ignore persona insights (defeats purpose of research). Recommend phased approach: personas → design → build → usability testing."
+  },
+  {
+    "gap_id": "G0519",
+    "category": "Ambiguity",
+    "gap_or_question": "PF vs. PJ persona distinction: Epic mentions 'Personas cidadãos contribuintes PF/PJ'. Are these 2 separate personas (1 for PF, 1 for PJ) or 2+ personas per segment (e.g., young PF, elderly PF, small business PJ, large business PJ)?",
+    "impact_or_notes": "Minimum = 2 personas (1 PF + 1 PJ). Typical = 4-6 personas (2-3 per segment). More personas = better coverage but higher effort. Clarify target number to scope effort accurately."
+  },
+  {
+    "gap_id": "G0520",
+    "category": "Missing Requirement",
+    "gap_or_question": "Fortaleza-specific research: Epic specifies 'Fortaleza' geography. Does research require in-person presence in Fortaleza (travel costs for PS team) or can be conducted remotely (Zoom interviews with Fortaleza citizens)?",
+    "impact_or_notes": "In-person research in Fortaleza adds R$ 10.000-15.000 (flights, hotel, meals for 2 researchers × 1 week). Remote research = no travel cost but may reduce participant engagement. Clarify client preference."
+  },
+  {
+    "gap_id": "G0601",
+    "category": "Missing Requirement",
+    "gap_or_question": "LGPD Art. 11 compliance mechanism not specified: does the project require Shield Platform Encryption for CPF/CNPJ at rest, or is standard encryption sufficient?",
+    "impact_or_notes": "Shield adds ~30% license cost per user; if LGPD Art. 11 interpretation requires field-level encryption for CPF/CNPJ, standard encryption may not satisfy compliance. Client/legal needs to confirm encryption level required."
+  },
+  {
+    "gap_id": "G0602",
+    "category": "Ambiguity",
+    "gap_or_question": "Q-15 pending: Bot Maintainer profile scope undefined beyond 'Einstein Bot + conversation review'. Does this include: Flow Builder read-only? API Integration logs? Setup Audit Trail? Service Console customization?",
+    "impact_or_notes": "Affects security model design, custom profile configuration effort (~8-16h variance), and potential privilege escalation risk if scope too broad."
+  },
+  {
+    "gap_id": "G0603",
+    "category": "Source Conflict",
+    "gap_or_question": "P-22 states 'data residency Salesforce região geograficamente aprovada conforme contrato DATAPREV' but does not specify if this is Hyperforce Brazil or US-East with contractual LGPD controls. Brazil residency mandatory?",
+    "impact_or_notes": "Hyperforce Brazil guarantees data residency but may have feature lag vs. US instances; US-East with contractual controls may suffice for LGPD but requires legal validation. Impacts ORG provisioning timeline and feature availability."
+  },
+  {
+    "gap_id": "G0604",
+    "category": "Missing Requirement",
+    "gap_or_question": "Audit trail requirement states 'ativo' but does not specify: (1) Event Monitoring license needed? (2) Transaction Security policies required? (3) Field Audit Trail for CPF/CNPJ history (24mo vs. 10yr retention)?",
+    "impact_or_notes": "Event Monitoring adds ~$2,500/user/yr; Transaction Security requires custom Apex policies (~16-24h dev); Field Audit Trail 10yr retention requires Shield (~30% license uplift). Budget and compliance requirements must align."
+  },
+  {
+    "gap_id": "G0605",
+    "category": "Potential Risk",
+    "gap_or_question": "No mention of Named Credentials or External Credentials for API authentication to SEFIN APIs. Bot Maintainer profile may inadvertently expose API keys if stored in Custom Settings or Custom Metadata without proper FLS.",
+    "impact_or_notes": "Security risk: if API keys accessible to Bot Maintainer users, they could extract credentials. Recommend Named Credentials (hidden from users) + restrict FLS on auth Custom Metadata. Add ~4-8h security hardening."
+  },
+  {
+    "gap_id": "G0606",
+    "category": "Logical Gap",
+    "gap_or_question": "Epic describes 'encryption at rest/in transit' but P-17 states 'conectividade IP entre Service Cloud e APIs SEFIN'. Does client network support TLS 1.2+ for APIs? Is mTLS (mutual TLS) required for LGPD compliance on PII transmission?",
+    "impact_or_notes": "If SEFIN APIs lack TLS 1.2+ or client requires mTLS, integration may fail security audit. Validation needed pre-kick-off; mTLS setup adds ~8-16h (certificates, Apex callout config)."
+  },
+  {
+    "gap_id": "G0607",
+    "category": "Ambiguity",
+    "gap_or_question": "System Administrator profile: are all 3 users DATAPREV personnel or SEFIN personnel? If SEFIN, are they subject to different security policies (e.g., IP restrictions, MFA enforcement, session timeout)?",
+    "impact_or_notes": "Affects Login Hours, IP Ranges, Session Settings configuration. If mixed DATAPREV/SEFIN users, may need 2 System Admin profiles (DATAPREV relaxed, SEFIN hardened). Add ~4-8h security model complexity."
+  },
+  {
+    "gap_id": "G0608",
+    "category": "Missing Requirement",
+    "gap_or_question": "No mention of MFA (Multi-Factor Authentication) requirement. LGPD Art. 46 recommends MFA for systems handling sensitive personal data. Is MFA mandatory for all 10 users or only System Administrators?",
+    "impact_or_notes": "Salesforce MFA native (no extra license); if client requires MFA, affects user onboarding docs and training (~4h). If not required, document waiver justification for LGPD audit trail."
+  },
+  {
+    "gap_id": "G0609",
+    "category": "Capability Gap",
+    "gap_or_question": "Bot Maintainer profile 'revisão conversas' — how are conversations stored and accessed? Enhanced Bot does not persist full chat history by default. Does client expect: (1) Chat Transcript object custom? (2) External logging to SEFIN CRM via API? (3) Service Cloud Voice transcript feature (not applicable)?",
+    "impact_or_notes": "If custom Chat Transcript object required, add ~16-24h (object design, Flow logging, profile FLS). If external logging only, Bot Maintainer may not need Salesforce access to transcripts (contradiction with 'revisão conversas' requirement)."
+  },
+  {
+    "gap_id": "G0610",
+    "category": "Potential Risk",
+    "gap_or_question": "Data retention policy not specified: how long should CPF/CNPJ data, conversation logs, and satisfaction survey responses be retained? LGPD Art. 15 requires retention only as long as necessary for purpose.",
+    "impact_or_notes": "Without retention policy, data accumulates indefinitely (compliance risk). Recommend: (1) 90-day retention for bot logs, (2) 12-month retention for satisfaction data, (3) deletion automation via batch Apex (~8-16h). Client must define policy."
+  },
+  {
+    "gap_id": "G0611",
+    "category": "Logical Gap",
+    "gap_or_question": "Epic states 'encryption at rest' but standard Salesforce encryption (TDE) encrypts at disk level, not field level. For LGPD Art. 11, does client interpret 'sensitive data' as requiring Shield Platform Encryption (field-level) or is TDE sufficient?",
+    "impact_or_notes": "TDE (included) encrypts DB files; Shield (~30% uplift) encrypts fields + enables Bring Your Own Key (BYOK). Legal interpretation of LGPD Art. 11 drives requirement. If Shield required, impacts budget significantly."
+  },
+  {
+    "gap_id": "G0612",
+    "category": "Missing Requirement",
+    "gap_or_question": "No session timeout or login hour restrictions specified for Bot Maintainer profile. Should Bot Maintainer users have restricted access hours (e.g., business hours only) or match System Admin (24/7)?",
+    "impact_or_notes": "Best practice: restrict Bot Maintainer to business hours (8am-6pm Brasília) to minimize risk window. Add ~2h configuration. If 24/7 required, document justification for security audit."
+  },
+  {
+    "gap_id": "G0613",
+    "category": "Ambiguity",
+    "gap_or_question": "Q-15 pending: does 'manutenção/evolução Einstein Bot' mean Bot Maintainer can edit Bot Dialogs, or only view/test? If edit, does profile need access to Flow Builder (bot actions often use Flows)?",
+    "impact_or_notes": "If edit required: Bot Maintainer needs 'Customize Application' + 'View Setup' permissions (broad). If view-only: restrict to 'Run Flow' + 'View Einstein Bot Metrics'. Edit scenario adds privilege escalation risk; recommend separate 'Bot Developer' profile for DATAPREV AMS team."
+  },
+  {
+    "gap_id": "G0614",
+    "category": "Potential Risk",
+    "gap_or_question": "No IP restriction requirement specified. Should System Administrator and Bot Maintainer profiles be IP-restricted to DATAPREV/SEFIN office ranges to prevent unauthorized access from public IPs?",
+    "impact_or_notes": "IP restrictions add defense-in-depth for LGPD compliance. Recommend: (1) System Admin restricted to DATAPREV VPN/office IPs, (2) Bot Maintainer restricted to SEFIN office IPs. Add ~2-4h configuration + client provides IP ranges."
+  },
+  {
+    "gap_id": "G0615",
+    "category": "Missing Requirement",
+    "gap_or_question": "Audit trail requirement does not specify which objects/fields must be tracked. Should Field History Tracking be enabled for: Contact (CPF/CNPJ fields), Case (if used for logging), Custom Objects (chat transcript)?",
+    "impact_or_notes": "Field History Tracking (standard, no extra cost) limited to 20 fields per object. If >20 fields need tracking, requires Field Audit Trail (Shield). Define critical fields pre-config (~2h discovery)."
+  },
+  {
+    "gap_id": "G0616",
+    "category": "Source Conflict",
+    "gap_or_question": "P-27 states 'DATAPREV assume treinamento dos 10 usuários — PS entrega documentação apenas' but Bot Maintainer profile scope undefined (Q-15). How can DATAPREV train users without finalized profile permissions?",
+    "impact_or_notes": "Training materials depend on profile capabilities. Recommend: (1) Resolve Q-15 before documentation phase, OR (2) PS delivers 2 training doc versions (view-only vs. edit). Add ~4h contingency."
+  },
+  {
+    "gap_id": "G0617",
+    "category": "Capability Gap",
+    "gap_or_question": "Bot Maintainer 'revisão conversas' requirement: does client expect real-time monitoring dashboard or historical report? Enhanced Bot Analytics requires Tableau CRM/CRM Analytics license (not in scope).",
+    "impact_or_notes": "Standard Service Cloud includes basic bot reports (conversation count, containment rate). Advanced analytics (sentiment, topic clustering) requires CRM Analytics (~$75/user/mo). If advanced needed, add to licensing or descope 'revisão conversas' to basic metrics."
+  },
+  {
+    "gap_id": "G0618",
+    "category": "Ambiguity",
+    "gap_or_question": "Data residency 'Brasil' — does this include backup/disaster recovery data? Salesforce backups may replicate to US-based secondary regions even for Hyperforce Brazil instances.",
+    "impact_or_notes": "LGPD Art. 33 allows international transfer if adequate safeguards exist (e.g., Standard Contractual Clauses). Validate if client accepts US-based DR or requires Brazil-only DR (may limit Hyperforce region options)."
+  },
+  {
+    "gap_id": "G0619",
+    "category": "Potential Risk",
+    "gap_or_question": "No mention of Platform Encryption for attachments (PDF DAM files sent via WhatsApp). If DAM PDFs stored in Files/Attachments, are they encrypted at rest? Shield required for file encryption.",
+    "impact_or_notes": "Standard TDE does not encrypt Files/Attachments; Shield required (~30% uplift). If client requires encrypted DAM storage, budget impact. Alternative: do not store DAM PDFs in Salesforce (send via API, no persistence) — validate with client."
+  },
+  {
+    "gap_id": "G0620",
+    "category": "Logical Gap",
+    "gap_or_question": "Epic describes 'audit trail ativo' but P-16 states 'Falha de API = 1 retentativa → se falhar informa erro → encerra'. Should API call failures (including auth failures) be logged to Setup Audit Trail or Event Monitoring for security audit?",
+    "impact_or_notes": "API auth failures could indicate credential theft or brute-force attempts. Recommend: (1) Log all API callouts via Event Monitoring (EventLogFile), OR (2) Custom Apex logger to Audit Trail object. Add ~8h if custom logging required."
+  },
+  {
+    "gap_id": "G0701",
+    "category": "Missing Requirement",
+    "gap_or_question": "KB source format and structure undefined: Is the KB in PDF, HTML, FAQ structured data, or another format? Single document or multiple documents?",
+    "impact_or_notes": "Impacts ingestion strategy, parsing complexity, and effort. PDF requires OCR/text extraction; HTML may need scraping; structured data is simplest."
+  },
+  {
+    "gap_id": "G0702",
+    "category": "Missing Requirement",
+    "gap_or_question": "KB volume undefined: How many pages/documents? Estimated token count? Update frequency?",
+    "impact_or_notes": "Impacts Data Cloud storage sizing, vectorization compute time, and initial ingestion effort. No sizing means no accurate license estimate."
+  },
+  {
+    "gap_id": "G0703",
+    "category": "Missing Requirement",
+    "gap_or_question": "KB source location: Where does the KB currently live? SEFIN portal, SharePoint, file server, CMS, or hardcopy documents?",
+    "impact_or_notes": "Impacts ingestion automation (API pull vs. manual upload) and initial data extraction effort."
+  },
+  {
+    "gap_id": "G0704",
+    "category": "Capability Gap",
+    "gap_or_question": "Einstein Bot legacy (Service Cloud) does NOT natively support Data Cloud vector search. This ADD-ON may require Einstein Search for Service or custom Apex/Flow to query Data Cloud.",
+    "impact_or_notes": "CRITICAL: Einstein Bot (pre-Agentforce) has NO out-of-box Data Cloud vector KB integration. Alternative: (1) Upgrade to Agentforce (different licensing), (2) Custom Apex query Data Cloud vector API + inject into bot dialog, or (3) Use Einstein Search for Service (separate license)."
+  },
+  {
+    "gap_id": "G0705",
+    "category": "Missing Requirement",
+    "gap_or_question": "Data Cloud licensing scope undefined: Does client have Data Cloud? Which edition (Zero Copy, Unified Profile, Identity Resolution)? Vector embedding requires Data Cloud for Marketing/Service.",
+    "impact_or_notes": "BLOCKER: No Data Cloud license = ADD-ON cannot be delivered. Need confirmation of Data Cloud edition and availability of vector embedding capability."
+  },
+  {
+    "gap_id": "G0706",
+    "category": "Ambiguity",
+    "gap_or_question": "KB maintenance ownership post-go-live: Who updates the KB when SEFIN publishes new tax rules? SEFIN team, DATAPREV AMS, or Salesforce admin?",
+    "impact_or_notes": "Impacts training scope, documentation requirements, and long-term AMS support model. If SEFIN owns, need UI for KB upload/refresh; if DATAPREV AMS, need admin runbook."
+  },
+  {
+    "gap_id": "G0707",
+    "category": "Missing Requirement",
+    "gap_or_question": "KB update frequency and re-vectorization trigger: How often does the KB change? Daily, monthly, annually? Should re-vectorization be manual or automated (scheduled batch)?",
+    "impact_or_notes": "Impacts design of ingestion pipeline (one-time script vs. scheduled Flow/batch job) and ongoing compute costs."
+  },
+  {
+    "gap_id": "G0708",
+    "category": "Ambiguity",
+    "gap_or_question": "KB fallback behavior: If vector search returns no match or low-confidence answer, should bot escalate to 'link to Portal SEFIN' (current ISS behavior) or present top N results anyway?",
+    "impact_or_notes": "Impacts bot dialog design and user experience. Low-confidence answers may frustrate users; strict threshold may reduce KB utility."
+  },
+  {
+    "gap_id": "G0709",
+    "category": "Logical Gap",
+    "gap_or_question": "KB scope conflict: Project summary states 'Preciso de ajuda (KB externa — ADD-ON 1)' as menu option #5, but bot only has 4 core options (IPTU, TMRSU, ISS, Alteração Cadastral). Is KB help a 5th option or integrated into existing flows?",
+    "impact_or_notes": "Menu structure inconsistency. Need clarification if KB is standalone help option or fallback within existing flows when user asks unrecognized question."
+  },
+  {
+    "gap_id": "G0710",
+    "category": "Potential Risk",
+    "gap_or_question": "LGPD compliance for KB content: Does the KB contain personal data (CPF/CNPJ examples, case studies with real taxpayer data)? If yes, requires anonymization before ingestion.",
+    "impact_or_notes": "P-19 states LGPD mandatory; if KB examples include real taxpayer data, violates Art. 6 (purpose limitation). Need KB content audit pre-ingestion."
+  },
+  {
+    "gap_id": "G0711",
+    "category": "Missing Requirement",
+    "gap_or_question": "KB language and semantic chunking strategy: Is KB in Portuguese (PT-BR)? Does it use technical tax jargon requiring domain-specific embeddings? How should documents be chunked (paragraph, section, page)?",
+    "impact_or_notes": "Impacts vector model selection (multilingual vs. Portuguese-specific) and retrieval accuracy. Poor chunking = poor answers."
+  },
+  {
+    "gap_id": "G0712",
+    "category": "Source Conflict",
+    "gap_or_question": "ADD-ON 1 described as 'Einstein Bot responde dúvidas via KB (substitui redirecionamento site)' but P-02 states 'Sem transbordo humano — bot encerra automaticamente apresentando link Portal SEFIN'. Are these contradictory or complementary?",
+    "impact_or_notes": "Clarify: Does KB replace ALL 'link to Portal SEFIN' fallbacks, or only certain fallbacks? Current ISS flow and despedida still reference Portal link."
+  },
+  {
+    "gap_id": "G0713",
+    "category": "Potential Risk",
+    "gap_or_question": "No mention of Q-F v1.0 (discovery doc referenced in epic description). Where is this document? Does it contain KB volume/format specs?",
+    "impact_or_notes": "Epic references 'Q-F v1.0 / discovery anterior' but this doc is not linked in project summary. May contain critical KB requirements."
+  },
+  {
+    "gap_id": "G0714",
+    "category": "Missing Requirement",
+    "gap_or_question": "KB answer citation/sourcing: Should bot responses include reference to KB source (e.g., 'According to SEFIN Tax Guide 2026, page 15...'? Builds trust but adds complexity.",
+    "impact_or_notes": "Impacts bot dialog design and Data Cloud query response formatting. Citation improves transparency but requires metadata tracking."
+  },
+  {
+    "gap_id": "G0715",
+    "category": "Missing Requirement",
+    "gap_or_question": "KB versioning and audit trail: If SEFIN updates tax rules, should bot track which KB version answered which user query (for compliance/audit)?",
+    "impact_or_notes": "Impacts Data Cloud metadata schema and audit requirements. May be required for public sector accountability."
+  },
+  {
+    "gap_id": "G0801",
+    "category": "Missing Requirement",
+    "gap_or_question": "Marketing Cloud edition not specified. Which edition is required: Marketing Cloud Engagement (formerly Core/Pro/Premium), Marketing Cloud Growth, or Account Engagement? Journey Builder availability depends on edition.",
+    "impact_or_notes": "Critical for licensing and feature availability. Journey Builder is only available in Marketing Cloud Engagement editions (Core and above). This impacts ROM accuracy and delivery feasibility."
+  },
+  {
+    "gap_id": "G0802",
+    "category": "Missing Requirement",
+    "gap_or_question": "Q-G from discovery v1.0 remains unanswered: Is there a predefined proactive communication journey/régua? If not, does the client accept the suggested Marketing Cloud Journey Builder cadence (e.g., D-15, D-5, D+1, D+15)?",
+    "impact_or_notes": "Blocks journey design and message template creation. Without journey triggers defined, PS cannot estimate configuration effort or validate with Meta WhatsApp Business approval process."
+  },
+  {
+    "gap_id": "G0803",
+    "category": "Missing Requirement",
+    "gap_or_question": "Q-H from discovery v1.0 remains unanswered: What is the data source that feeds journey triggers? How does Marketing Cloud access data about citizens in debt and payment due dates (API ARREC, SFTP batch, Data Cloud Direct Connect, other)?",
+    "impact_or_notes": "Critical blocker. Zero-copy integration requires Data Cloud Direct Connect or streaming connector. If source is SFTP batch, zero-copy is not possible. Integration pattern impacts effort estimate and data freshness."
+  },
+  {
+    "gap_id": "G0804",
+    "category": "Missing Requirement",
+    "gap_or_question": "Q-08 remains unanswered: Can citizens opt-out of proactive messages? If yes, what is the opt-out mechanism (reply STOP, web form, API call to SEFIN systems)?",
+    "impact_or_notes": "LGPD compliance requirement. Opt-out mechanism impacts Journey Builder exit criteria, Data Cloud data extension schema, and possibly requires API integration back to SEFIN source system."
+  },
+  {
+    "gap_id": "G0805",
+    "category": "Capability Gap",
+    "gap_or_question": "Data Cloud zero-copy integration capability not validated. Zero-copy requires Data Cloud Direct Connect or streaming connector to source system. If SEFIN source is batch-only (SFTP), zero-copy is technically infeasible.",
+    "impact_or_notes": "Major technical risk. Zero-copy promise in epic description may be impossible if source system only supports batch extract. Would require full Data Cloud ingestion with batch refresh instead."
+  },
+  {
+    "gap_id": "G0806",
+    "category": "Missing Requirement",
+    "gap_or_question": "Q-10 remains unanswered: Does SEFIN contributor database have valid and updated CPF/CNPJ for all target citizens? What is data quality level (% records with valid phone number)?",
+    "impact_or_notes": "Directly impacts 4.86M msgs/yr volume assumption. If data quality is poor (<80% valid phones), actual deliverable volume will be lower, affecting licensing sizing and ROI."
+  },
+  {
+    "gap_id": "G0807",
+    "category": "Missing Requirement",
+    "gap_or_question": "WhatsApp HSM (High-Structure Message) templates for proactive outreach not defined. How many message templates? What is approval process and timeline with Meta?",
+    "impact_or_notes": "Meta requires pre-approval of all proactive message templates. Approval can take 1-3 weeks. Delays Meta approval = delays go-live. PS effort should include template design and submission support."
+  },
+  {
+    "gap_id": "G0808",
+    "category": "Missing Requirement",
+    "gap_or_question": "Meta WhatsApp Business Account tier not confirmed. Current tier for SEFIN WhatsApp number? Tier 1 (1K msgs/day) vs Tier 2 (10K/day) vs Tier 3+ (100K/day)?",
+    "impact_or_notes": "Volume is ~13.5K msgs/day. If current tier is Tier 1, Meta upgrade to Tier 2+ is required before go-live. Upgrade requires messaging quality score >80% and can take weeks."
+  },
+  {
+    "gap_id": "G0809",
+    "category": "Potential Risk",
+    "gap_or_question": "LGPD compliance for proactive marketing not validated. Art. 7, IX LGPD requires legitimate interest or explicit consent for marketing communications. Has SEFIN legal team confirmed that tax payment reminders qualify as legitimate public interest (not requiring consent)?",
+    "impact_or_notes": "Legal blocker risk. If LGPD requires explicit consent, journey must include consent gate. This adds complexity (consent collection flow, Data Cloud consent attribute, journey decision split) and may reduce reachable audience."
+  },
+  {
+    "gap_id": "G0810",
+    "category": "Ambiguity",
+    "gap_or_question": "Segmentation rule not defined. Epic says '1 segmentação (sem Identity Resolution)' but does not specify segmentation logic. Is it all contributors with debt? Debt > X amount? Specific tax types only (IPTU vs TMRSU vs ISS)?",
+    "impact_or_notes": "Impacts Data Cloud data model and Journey Builder entry criteria. Without clear segmentation logic, PS cannot design data extension schema or validate 4.86M msgs/yr volume assumption."
+  },
+  {
+    "gap_id": "G0811",
+    "category": "Missing Requirement",
+    "gap_or_question": "Data Cloud licensing edition not specified. Data Cloud Zero-Copy requires Data Cloud (formerly Customer Data Platform) license. Which tier: Starter, Growth, Advanced?",
+    "impact_or_notes": "Critical for licensing ROM. Zero-copy feature availability and data volume limits vary by tier. Starter supports up to 250K unified profiles; volume assumption may exceed this."
+  },
+  {
+    "gap_id": "G0812",
+    "category": "Ambiguity",
+    "gap_or_question": "Epic description says 'sem Identity Resolution' but doesn't clarify if this means no identity graph at all or simply no multi-source identity resolution. Is CPF/CNPJ used as primary key for citizen identity?",
+    "impact_or_notes": "Impacts Data Cloud data model design. If no identity resolution at all, each record is standalone (no unified profile). If CPF/CNPJ is primary key, minimal identity resolution is still needed."
+  },
+  {
+    "gap_id": "G0813",
+    "category": "Missing Requirement",
+    "gap_or_question": "Message content and personalization level not defined. Are messages simple text (e.g., 'Your IPTU is overdue') or personalized with contributor name, debt amount, due date, and payment link?",
+    "impact_or_notes": "Impacts Data Cloud data extension schema (which fields to include) and WhatsApp HSM template design complexity. Personalized messages require more data fields and more complex template approval with Meta."
+  },
+  {
+    "gap_id": "G0814",
+    "category": "Potential Risk",
+    "gap_or_question": "No journey monitoring or reporting requirements defined. Does SEFIN need dashboards for journey performance (sent, delivered, read, clicked, opted-out)? Is Marketing Cloud Analytics included in scope?",
+    "impact_or_notes": "Impacts effort estimate. If reporting/dashboards are expected, PS must include effort for Marketing Cloud Analytics setup, Einstein Analytics for Marketing (DATORAMA), or custom reporting."
+  },
+  {
+    "gap_id": "G0815",
+    "category": "Missing Requirement",
+    "gap_or_question": "Journey cadence/timing not confirmed. Are messages sent in batches (e.g., daily at 9am) or event-triggered (real-time as debts occur)? What timezone (Brasília UTC-3)?",
+    "impact_or_notes": "Impacts Journey Builder design and data refresh frequency requirements. Batch sending is simpler but less timely; real-time requires streaming data connector."
+  },
+  {
+    "gap_id": "G0816",
+    "category": "Source Conflict",
+    "gap_or_question": "Epic says 'ADD-ON 2' but discovery doc lists it as standalone optional ADD-ON. Is this a second-phase deliverable dependent on CORE go-live, or can it be delivered in parallel?",
+    "impact_or_notes": "Impacts project timeline and resourcing. If dependent on CORE, Marketing Cloud cannot start until Einstein Bot is live. If parallel, requires separate Marketing Cloud developer."
+  },
+  {
+    "gap_id": "G0817",
+    "category": "Logical Gap",
+    "gap_or_question": "No user access requirements defined for Marketing Cloud. Who manages journeys post-go-live (3 System Admins? Separate Marketing Cloud users at SEFIN/DATAPREV)? Are Marketing Cloud licenses (e.g., Marketing Cloud Administrator) included in scope?",
+    "impact_or_notes": "Impacts licensing and training scope. If DATAPREV AMS team manages journeys, they need Marketing Cloud user licenses and training (not mentioned in P-27 which covers only Service Cloud users)."
+  },
+  {
+    "gap_id": "G0818",
+    "category": "Missing Requirement",
+    "gap_or_question": "No success criteria or KPIs defined for proactive journey. How will SEFIN measure success (delivery rate >X%? Opt-out rate <Y%? Payment conversion rate >Z%)?",
+    "impact_or_notes": "Impacts testing acceptance criteria and post-launch support. Without KPIs, impossible to validate journey effectiveness or troubleshoot underperformance."
+  },
+  {
+    "gap_id": "G0819",
+    "category": "Potential Risk",
+    "gap_or_question": "No fallback/retry logic defined for failed message sends. If WhatsApp message fails (user number invalid, user blocked bot, Meta rate limit hit), does journey retry? Send via alternate channel (SMS/email)?",
+    "impact_or_notes": "Impacts Data Cloud activity tracking and journey design complexity. Retry logic adds Journey Builder decision splits and wait activities."
+  },
+  {
+    "gap_id": "G0820",
+    "category": "Missing Requirement",
+    "gap_or_question": "No data retention/archival policy defined. How long does Data Cloud store proactive outreach history? Is LGPD data minimization (Art. 16) considered?",
+    "impact_or_notes": "LGPD compliance requirement. Data Cloud may need scheduled data deletion for messages older than retention period (e.g., 12 months). Impacts Data Cloud data model and automation."
+  },
+  {
+    "gap_id": "G0901",
+    "category": "Missing Requirement",
+    "gap_or_question": "Digital Engagement license — CONFIRMADO disponível/aprovado (2026-09-14), não é mais bloqueadora. Messaging (canal WhatsApp) exige Digital Engagement para ser roteável a um agente humano via Omni-Channel — Case routing por si só funciona com Service Cloud puro, mas a mensageria não. Registrar formalmente essa licença no ORG Foundation (E01) quando E09 entrar em desenho detalhado.",
+    "impact_or_notes": "Não bloqueadora — apenas item de configuração/provisionamento em E01. [KB: service_cloud_3-27-2026.md:1257-1259]"
+  },
+  {
+    "gap_id": "G0902",
+    "category": "Missing Requirement",
+    "gap_or_question": "Edição de Omni-Channel — CONFIRMADO (2026-09-14): Enhanced Omni-Channel (não Standard, que atinge End of Life no release Summer '26).",
+    "impact_or_notes": "Resolvido — desenho de filas/routing do E09 assume Enhanced Omni-Channel. [KB: service_cloud_3-27-2026.md:13560-13591]"
+  },
+  {
+    "gap_id": "G0903",
+    "category": "Missing Requirement",
+    "gap_or_question": "Headcount de PAs (Posições de Atendimento) humanas para E09 — CONFIRMADO (2026-09-14): 3 PAs em turno único (não 10 como no briefing original de 2026-07-01, que foi descartado pela premissa P-02 de escopo CORE bot-only).",
+    "impact_or_notes": "Resolvido — dimensionamento de licenças Digital Engagement/Omni-Channel e desenho de filas/routing configuration usa 3 agentes, turno único."
+  },
+  {
+    "gap_id": "G0904",
+    "category": "Missing Requirement",
+    "gap_or_question": "Horário do DHA (Dentro do Horário de Atendimento) — CONFIRMADO (2026-09-16): 08h às 17h, segunda a sexta.",
+    "impact_or_notes": "Resolvido — Business Hours real do E09 configurado com 08h-17h, seg-sex. Sem bloqueio remanescente para o roteamento do E09."
+  }
+]

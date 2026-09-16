@@ -1,0 +1,60 @@
+[
+  {
+    "phase_number": 0,
+    "phase_name": "Discovery Resolution & API Specs",
+    "objectives": "Resolver 133 gaps identificados no requirements antes de kick-off; obter specs completas APIs CRM SEFIN + Dados Cadastrais (BLOCKER G0301/G0302); validar Meta WhatsApp Business approval timeline; decidir ISS flow (link ou DAM emission Q-04/Q-05); definir Bot Maintainer permissions (Q-15); confirmar Hyperforce Brazil data residency (P-22)",
+    "epics_included": "",
+    "success_criteria": "2 API specs bloqueadoras obtidas (CRM SEFIN endpoint/payload/auth, Dados Cadastrais endpoint/payload/auth); ISS flow decisão documentada; Bot Maintainer profile scope validado; Meta WhatsApp Business status confirmado (aprovação já obtida ou timeline para obter); Hyperforce Brazil vs US-East decisão formalizada; 17 perguntas cliente (Q-01 a Q-17) respondidas",
+    "dependencies": "Nenhuma — fase de entrada",
+    "risks": "SEFIN-CE demora >3 semanas responder perguntas (atrasa kick-off); API specs incompletas ou ambíguas (requer iteração); Meta approval timeline >8 semanas (impacta go-live); decisões arquiteturais mudam escopo (ex: ISS upgrade para DAM emission adiciona complexity)"
+  },
+  {
+    "phase_number": 1,
+    "phase_name": "Foundation & ORG Setup",
+    "objectives": "Provisionar Hyperforce Brazil ORG + WhatsApp Channel + Named Credentials para 4 SEFIN APIs + Security baseline LGPD (TDE encryption, Field History Tracking, Event Monitoring, custom profiles)",
+    "epics_included": "E01,E06",
+    "success_criteria": "Hyperforce Brazil ORG provisionada e acessível; WhatsApp Channel aprovado Meta + conectado ao Service Cloud; 4 Named Credentials configuradas com API Keys (FLS Bot Maintainer hidden); Custom profiles ativos (System Admin clone + Bot Maintainer scoped to Einstein Bot + conversation review); TDE encryption at-rest enabled; Field History Tracking (CPF/CNPJ, satisfaction fields); Event Monitoring configured (API callout events, login events); Data retention Apex batch job deployed (90-day bot logs, 12-month satisfaction data)",
+    "dependencies": "Phase 0 complete (API specs obtained, Meta approval timeline validated, Hyperforce Brazil confirmed)",
+    "risks": "G0103 (Meta WhatsApp Business approval 2-8 semanas — critical path blocker); G0104 (Hyperforce Brazil vs US-East data residency ambiguity — regulatory breach if wrong); G0102 (domínio personalizado SEFIN undefined — blocks WhatsApp approval); G0111 (MFA enforcement unclear — security audit finding); G0611 (TDE vs Shield legal interpretation — Shield adds ~30% license cost if required)"
+  },
+  {
+    "phase_number": 2,
+    "phase_name": "Einstein Bot + API Integration",
+    "objectives": "Construir 4 Einstein Bot conversational flows (IPTU, TMRSU, ISS, Cadastral) + integrar 4 SEFIN APIs via Flow Orchestration + Apex + implementar satisfaction survey obrigatória",
+    "epics_included": "E02,E03,E04",
+    "success_criteria": "4 Einstein Bot dialogs configurados (IPTU/TMRSU loop DAM, ISS link ou DAM per Q-04/Q-05, Cadastral 9-field edit); NLU model treinado com 50-100 utterances por intent; Slot filling + validation (CPF/CNPJ regex + Apex checksum); 4 Apex classes (REST callouts EmitirDamUnico, ConsultaImovel, CRM SEFIN, Dados Cadastrais) + retry logic (1x); Flow Orchestration (loop DAM emission multi-inscription P-29, validation, async invocation); Satisfaction survey integrado (1-5 stars + justificativa if ≤3) + API CRM SEFIN callout; Connectivity validation (ping/curl test Salesforce → SEFIN APIs pre-prod); Error logging via Event Log Files",
+    "dependencies": "Phase 1 complete (ORG + WhatsApp Channel + Named Credentials + Security baseline)",
+    "risks": "G0202 (NLU training data ownership — SEFIN-CE provides or PS infers?); G0201 (ISS flow ambiguity — link only or DAM emission upgrade?); G0208 (WhatsApp 24h window vs session persistence >24h — HSM templates needed); G0217 (API EmitirDamUnico timeout >10s risk); G0301/G0302 (API specs CRM SEFIN + Dados Cadastrais incomplete — blocks Phase 2 start if Phase 0 failed); G0303 (connectivity IP validation ping/curl pre-prod required)"
+  },
+  {
+    "phase_number": 3,
+    "phase_name": "UX Research & Refinement",
+    "objectives": "Executar UX research (personas cidadãos PF/PJ, usability testing 3 fluxos, accessibility WCAG 2.1 AA conversational UI) + refinar bot flows baseado em findings para atingir SUS >70 e task completion >80%",
+    "epics_included": "E05",
+    "success_criteria": "12 persona interviews completas (6 PF: 2 baixa/2 média/2 alta renda + 6 PJ: 2 MEI/2 pequena/2 média empresa) via Zoom remote; 2 persona docs gerados (PDF PT-BR, 1 PF + 1 PJ); 15 usability sessions executadas (3 fluxos IPTU/TMRSU/Cadastral × 5 usuários) via Zoom + working WhatsApp bot pre-production; Usability findings report (~5-10 pages) com task completion rate >80%, time on task <5 min, SUS score >70, error rate <15%; Accessibility report (~10-15 pages) WCAG 2.1 AA adapted conversational UI (plain language Flesch >60 PT-BR, screen reader VoiceOver+TalkBack testing); Bot flows refinados baseado em findings (NLU utterances expandidas, slot filling error messages ajustadas, satisfaction survey flow otimizado); LGPD consent forms for all participants (G0514)",
+    "dependencies": "Phase 2 complete (working WhatsApp bot pre-production para usability testing com cidadãos reais)",
+    "risks": "G0501 (UX research ownership — PS conducts or DATAPREV conducts with PS guidance?); G0507 (WCAG 2.1 AA não aplicável a conversational UI — W3C Conversational Accessibility Guidelines needed); G0514 (LGPD consent form for persona interviews + usability testing); G0509 (accessibility testing with PcD — expert review vs user testing unclear); Usability findings requerem refactor significativo bot flows (impacta timeline Phase 2 if major redesign needed)"
+  },
+  {
+    "phase_number": 4,
+    "phase_name": "Marketing Cloud Proactive Journey (ADD-ON)",
+    "objectives": "Setup Marketing Cloud Engagement + SFTP batch ingestion (SEFIN arquivo cidadãos IPTU vencido) + Journey Builder (1 jornada proativa régua D-15, D-5, D+1 reminders) + HSM templates Meta approval + opt-out mechanism",
+    "epics_included": "E08",
+    "success_criteria": "Marketing Cloud account provisionada (Core/Pro edition — G0801 validation needed) + WhatsApp connector configured (Meta Business API); SFTP batch ingestion configurada (Marketing Cloud Data Extension 1 fonte dados cidadãos IPTU vencido — arquivo SEFIN diário/semanal G0820 format/frequency defined); 1 segmentação configurada (sem Identity Resolution); Journey Builder (1 jornada proativa IPTU vencido régua ex: D-15, D-5, D+1 reminders — triggers/régua per Q-G/Q-H); 3-5 HSM templates design + Meta approval obtained (1-3 weeks timeline); Opt-out mechanism configured (reply STOP + Marketing Cloud attribute update); LGPD compliance validation (tax payment reminders = legitimate public interest? — G0809 legal validation Art. 7, IX); WhatsApp Business Account Tier 2+ upgrade if needed (13.5K msgs/day — G0808)",
+    "dependencies": "Phase 2 complete (WhatsApp Channel + Meta approval já obtidos para Service Cloud); SEFIN batch file format/frequency definido (G0820 — pode ser paralelo Phase 0-2 se SEFIN fornece specs cedo)",
+    "risks": "G0801 (Marketing Cloud edition undefined — Core/Pro/Premium? impacts licensing cost); G0809 (LGPD consent for proactive marketing — legal validation Art. 7, IX needed from SEFIN-CE DPO); G0808 (WhatsApp Business Account Tier 2+ required — 13.5K msgs/day; upgrade from Tier 1 if current account insufficient); G0820 (SEFIN batch file format/frequency undefined — daily/weekly? impacts data freshness D-1 or D-7); G0819 (HSM templates Meta approval timeline 1-3 weeks — critical path risk for Phase 4 go-live)"
+  },
+  {
+    "phase_number": 5,
+    "phase_name": "Transbordo Humano via Omni-Channel/Service Console (ADD-ON 3)",
+    "objectives": "Provisionar Enhanced Omni-Channel (Presence Statuses, Routing Configuration, Service Channel para Messaging) + Service Console app para as 3 PAs (turno único) + ponto de transferência nos 4 fluxos do bot (E02) + Business Hours real + profile Agente Humano SEFIN (delta E06) + pesquisa de satisfação estendida ao fechamento humano (delta E04)",
+    "epics_included": "E09",
+    "success_criteria": "Enhanced Omni-Channel configurado (Presence Statuses, Routing Configuration fila/skill-based); Service Console app ativo para as 3 PAs com painel de contexto SEFIN; ponto de transferência funcional nos 4 fluxos IPTU/TMRSU/ISS/Cadastral + fluxo de KB; Case/Messaging Session recebendo contexto da sessão do bot (CPF/CNPJ, serviço, transcript); Business Hours real configurado; profile Agente Humano SEFIN ativo; pesquisa de satisfação disparando também no fechamento humano",
+    "dependencies": "Phase 1 completo (E01 — Digital Engagement + WhatsApp Channel provisionados); Phase 2 completo (E02 — 4 fluxos do bot existentes para os pontos de handoff)",
+    "risks": "G0902 (confirmar Enhanced vs Standard Omni-Channel — Standard atinge EOL Summer 26); G0904 (horário exato do DHA para Business Hours real)",
+    "kb_sources": [
+      "[KB: service_cloud_3-27-2026.md:1257-1259] Messaging requires Digital Engagement license",
+      "[KB: service_cloud_3-27-2026.md:13560-13591] Standard Omni-Channel EOL Summer 26"
+    ]
+  }
+]

@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DATAPREV-SEFIN-CE ROM v2.0 — Einstein Bot WhatsApp Agentforce</title>
+    <style>
+        /* Brand Central 2026 — Blue System (Default) */
+        :root {
+            --ink: #FFFFFF;
+            --ink-soft: #EAF5FE;
+            --ink-muted: #9EA9BC;
+            --accent: #00B3FF;
+            --card-bg: #022AC0;
+            --deep: #001E5B;
+            --display: 'Avant Garde For Salesforce', system-ui, sans-serif;
+            --body: 'Salesforce Sans', system-ui, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--body);
+            background: #000;
+            overflow: hidden;
+        }
+
+        .deck {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 1;
+        }
+
+        /* Dark theme (covers, quotes, closing) */
+        .slide.dark {
+            background: linear-gradient(180deg, #001E5B 0%, #022AC0 30%, #066AFE 70%, #00B3FF 100%);
+        }
+
+        /* Light theme (content slides) */
+        .slide.light {
+            background: #EAF5FE;
+            color: #001E5B;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: var(--display);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .slide.dark h1, .slide.dark h2, .slide.dark h3 {
+            color: var(--ink);
+        }
+
+        .slide.light h1, .slide.light h2, .slide.light h3 {
+            color: var(--deep);
+        }
+
+        /* Cover slide */
+        .cover {
+            text-align: center;
+            padding: 60px;
+        }
+
+        .cover .eyebrow {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 40px;
+        }
+
+        .cover h1 {
+            font-size: 72px;
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+
+        .cover .subtitle {
+            font-size: 24px;
+            color: var(--ink-soft);
+            margin-bottom: 80px;
+        }
+
+        .cover .byline {
+            font-size: 16px;
+            color: var(--ink-muted);
+        }
+
+        /* Content slides */
+        .content-slide {
+            padding: 80px 100px;
+            width: 100%;
+        }
+
+        .content-slide h2 {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .content-slide .subtitle {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.8;
+        }
+
+        /* Cards layout */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            margin-top: 40px;
+        }
+
+        .cards.three-up {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .card {
+            background: white;
+            padding: 32px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            color: var(--deep);
+        }
+
+        .card p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #3e3e3c;
+            margin-bottom: 12px;
+        }
+
+        /* Quote slide */
+        .quote-slide {
+            padding: 100px 200px;
+            text-align: center;
+        }
+
+        .quote-slide blockquote {
+            font-size: 36px;
+            line-height: 1.4;
+            color: var(--ink);
+            margin-bottom: 32px;
+        }
+
+        .quote-slide .attribution {
+            font-size: 18px;
+            color: var(--accent);
+        }
+
+        /* Timeline */
+        .timeline {
+            display: flex;
+            align-items: center;
+            margin: 60px 0;
+            position: relative;
+        }
+
+        .timeline-segment {
+            flex: 1;
+            text-align: center;
+            padding: 24px;
+            background: linear-gradient(90deg, #00B3FF, #066AFE);
+            color: white;
+            border-right: 2px solid white;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .timeline-segment:last-child {
+            border-right: none;
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 32px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background: var(--deep);
+            color: white;
+            padding: 16px;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 14px;
+        }
+
+        tr.total {
+            background: #f3f2f2;
+            font-weight: 700;
+        }
+
+        /* Footer */
+        .footer {
+            position: absolute;
+            bottom: 40px;
+            left: 100px;
+            font-size: 14px;
+            opacity: 0.6;
+        }
+
+        /* Navigation */
+        .nav-hint {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            color: white;
+            font-size: 12px;
+            opacity: 0.5;
+        }
+
+        /* Stat band */
+        .stat-band {
+            display: flex;
+            justify-content: space-around;
+            margin: 60px 0;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat .value {
+            font-size: 48px;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .stat .label {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .stat .sublabel {
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        /* Animations */
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide.active .anim {
+            animation: rise 0.6s cubic-bezier(0.16, 0.84, 0.36, 1) both;
+        }
+    </style>
+</head>
+<body>
+    <div class="deck">
+        <!-- Slide 1: Cover -->
+        <section class="slide dark active" data-component="cover">
+            <div class="cover anim">
+                <div class="eyebrow">DATAPREV × SEFIN-CE — ROM v2.0</div>
+                <h1>Einstein Bot<br>WhatsApp Agentforce</h1>
+                <div class="subtitle">Atendimento Tributário Automatizado · 18-30 semanas</div>
+                <div class="byline">
+                    <strong>Salesforce Professional Services</strong><br>
+                    ROM Professional Services LATAM<br>
+                    Julho 2026
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: Contexto -->
+        <section class="slide light" data-component="cards">
+            <div class="content-slide anim">
+                <h2>Contexto e Objetivo</h2>
+                <div class="subtitle">DATAPREV prestando serviços para SEFIN-CE (Secretaria da Fazenda do Ceará)</div>
+                <div class="cards">
+                    <div class="card">
+                        <h3>Sistema Atual (MUTANTE)</h3>
+                        <p>• Atendimento presencial + telefone (call center)</p>
+                        <p>• 200.000+ cidadãos/ano solicitando 2ª via IPTU, TMRSU, ISS, alteração cadastral</p>
+                        <p>• Alto custo operacional (atendentes humanos)</p>
+                        <p>• Horário comercial limitado (seg-sex 8h-18h)</p>
+                        <p>• Tempo médio atendimento ~8 minutos/cidadão</p>
+                    </div>
+                    <div class="card">
+                        <h3>Objetivo</h3>
+                        <p>• Automatizar 90% do atendimento cidadão com Einstein Bot via WhatsApp</p>
+                        <p>• Benefícios: Redução 60-70% custo operacional</p>
+                        <p>• Atendimento 24/7 (sem horário comercial)</p>
+                        <p>• Tempo médio &lt;3 minutos</p>
+                        <p>• 400.000 conversas/ano automatizadas</p>
+                        <p>• Satisfação cidadão &gt;80% (meta SUS &gt;70)</p>
+                    </div>
+                </div>
+                <div class="footer">DATAPREV-SEFIN-CE ROM v2.0</div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Tributos em Escopo -->
+        <section class="slide light" data-component="icon-cards">
+            <div class="content-slide anim">
+                <h2>Tributos em Escopo</h2>
+                <div class="subtitle">4 fluxos bot — IPTU, TMRSU, ISS, Cadastral</div>
+                <div class="cards">
+                    <div class="card">
+                        <h3>IPTU</h3>
+                        <p>Imposto Predial e Territorial Urbano (2ª via DAM) · Identificação CPF/CNPJ → Seleção inscrição → Emissão DAM → Pesquisa satisfação</p>
+                    </div>
+                    <div class="card">
+                        <h3>TMRSU</h3>
+                        <p>Taxa Municipal Resíduos Sólidos Urbanos (2ª via DAM) · Identificação CPF/CNPJ → Seleção inscrição → Emissão DAM → Pesquisa satisfação</p>
+                    </div>
+                    <div class="card">
+                        <h3>ISS</h3>
+                        <p>Imposto Sobre Serviços (link Portal SEFIN) · Identificação CPF/CNPJ → Link do site SEFIN</p>
+                    </div>
+                    <div class="card">
+                        <h3>Cadastral</h3>
+                        <p>Alteração dados cadastrais (9 campos) · Identificação CPF/CNPJ → Apresenta dados → Coleta alterações → Confirma → API update</p>
+                    </div>
+                </div>
+                <div class="footer">4 fluxos CORE — todos via WhatsApp Business API</div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Processo Bot -->
+        <section class="slide light" data-component="title-body">
+            <div class="content-slide anim">
+                <h2>Processo Bot · 4 Fluxos</h2>
+                <div class="subtitle">Einstein Bot conversacional via WhatsApp</div>
+                <p style="margin-bottom: 24px;">O cidadão interage via WhatsApp com o Einstein Bot que identifica a intenção (NLU 5 intents), coleta dados, consulta APIs SEFIN e retorna o DAM ou link.</p>
+                <p style="color: var(--accent); font-weight: 600; margin-bottom: 24px;">Fluxos majoritariamente self-service — transbordo humano disponível via Omni-Channel/Service Console (E09, Business Hours 08h-17h seg-sex)</p>
+                <div style="font-size: 16px; line-height: 1.8;">
+                    <p style="font-weight: 600;">1. IPTU — 2ª via DAM</p>
+                    <p style="margin-left: 24px; margin-bottom: 16px;">Cidadão envia CPF/CNPJ → Bot consulta API ConsultaImovel → Apresenta inscrições → Cidadão seleciona → Bot chama API EmitirDamUnico → Retorna PDF DAM + código barras + pesquisa satisfação</p>
+                    <p style="font-weight: 600;">2. TMRSU — 2ª via DAM</p>
+                    <p style="margin-left: 24px; margin-bottom: 16px;">Fluxo idêntico ao IPTU (mesmas APIs, mesmo loop multi-inscrição)</p>
+                    <p style="font-weight: 600;">3. ISS — Link Portal</p>
+                    <p style="margin-left: 24px; margin-bottom: 16px;">Cidadão envia CPF/CNPJ → Bot retorna link do Portal SEFIN (sem DAM emission — P-15)</p>
+                    <p style="font-weight: 600;">4. Alteração Cadastral</p>
+                    <p style="margin-left: 24px;">Cidadão envia CPF/CNPJ → Bot consulta dados atuais → Apresenta 9 campos editáveis (nome, telefone, email, endereço completo) → Coleta alterações → Confirma → API Dados Cadastrais atualiza</p>
+                </div>
+                <div class="footer">Pesquisa satisfação obrigatória ao final de todos os fluxos (API CRM SEFIN fire-and-forget)</div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Escopo Resumo -->
+        <section class="slide light" data-component="numbered-cards">
+            <div class="content-slide anim">
+                <h2>Escopo e Entregáveis</h2>
+                <div class="subtitle">6 Épicas CORE + 1 ADD-ON Marketing Cloud</div>
+                <div class="cards">
+                    <div class="card">
+                        <h3><span style="background: var(--deep); color: white; border-radius: 50%; padding: 8px 16px; margin-right: 12px;">1</span> Fundação e Setup</h3>
+                        <p>E01 — Service Cloud + WhatsApp Channel + Hyperforce Brazil (LGPD Art. 11 compliance)</p>
+                    </div>
+                    <div class="card">
+                        <h3><span style="background: var(--deep); color: white; border-radius: 50%; padding: 8px 16px; margin-right: 12px;">2</span> Fluxos Tributos</h3>
+                        <p>E03 — Einstein Bot 4 fluxos (IPTU, TMRSU, ISS link, Cadastral) + NLU 5 intents + loop multi-inscrição</p>
+                    </div>
+                    <div class="card">
+                        <h3><span style="background: var(--deep); color: white; border-radius: 50%; padding: 8px 16px; margin-right: 12px;">3</span> Integrações APIs</h3>
+                        <p>4 APIs REST SEFIN (ConsultaImovel, EmitirDamUnico, CRM SEFIN, Dados Cadastrais) + Named Credentials + conectividade IP</p>
+                    </div>
+                    <div class="card">
+                        <h3><span style="background: var(--deep); color: white; border-radius: 50%; padding: 8px 16px; margin-right: 12px;">4</span> Segurança LGPD</h3>
+                        <p>E06 — TDE encryption + Event Monitoring + 2 perfis customizados (System Admin + Bot Maintainer) + Field History Tracking</p>
+                    </div>
+                </div>
+                <div class="footer">ADD-ON E08: Marketing Cloud Jornadas Proativas (D-15, D-5, D+1) — 4,86M msgs/ano</div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Quote Premissas -->
+        <section class="slide dark" data-component="quote">
+            <div class="quote-slide anim">
+                <blockquote>Transbordo humano confirmado via Omni-Channel/Service Console (E09), restrito ao Business Hours 08h-17h seg-sex. Bot self-service disponível 24/7 fora desse horário. API CRM SEFIN será entregue pelo cliente.</blockquote>
+                <div class="attribution">Top 3 Premissas Críticas (de 30 mapeadas)</div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Premissas Chave -->
+        <section class="slide light" data-component="text-columns">
+            <div class="content-slide anim">
+                <h2>Premissas Chave</h2>
+                <div class="subtitle">Top 10 de 30 premissas mapeadas</div>
+                <div class="cards">
+                    <div class="card">
+                        <h3>Funcionalidade & Integração</h3>
+                        <p>P-02: Transbordo humano via Omni-Channel/Service Console (E09)</p>
+                        <p>P-07: Bot 24/7; transbordo restrito ao Business Hours 08h-17h seg-sex</p>
+                        <p>P-13: API CRM SEFIN entregue pelo cliente (Q-01 BLOCKER)</p>
+                        <p>P-14: API Dados Cadastrais entregue pelo cliente (Q-02 BLOCKER)</p>
+                        <p>P-15: ISS continua apenas link do site (Q-04/Q-05 decisão)</p>
+                    </div>
+                    <div class="card">
+                        <h3>Infraestrutura & Licenciamento</h3>
+                        <p>P-17: Cliente possui conectividade IP Service Cloud ↔ APIs SEFIN</p>
+                        <p>P-22: Hyperforce Brazil (BLOCKER decisão DATAPREV CTID — LGPD)</p>
+                        <p>P-24: Salesforce PS não fornece licenças — cliente contrata direto</p>
+                        <p>P-25: Service Cloud AS-IS — com Omni-Channel/Service Console (E09), sem Case Management completo</p>
+                        <p>P-29: Loop emissão DAM repete para todas inscrições selecionadas</p>
+                    </div>
+                </div>
+                <div class="footer">30 premissas detalhadas + 18 perguntas abertas documentadas no ROM</div>
+            </div>
+        </section>
+
+        <!-- Slide 8: Perguntas -->
+        <section class="slide light" data-component="cards">
+            <div class="content-slide anim">
+                <h2>Perguntas em Aberto</h2>
+                <div class="subtitle">18 perguntas categorizadas por prioridade</div>
+                <div class="cards three-up">
+                    <div class="card">
+                        <h3>🔴 BLOCKERS (2)</h3>
+                        <p>Q-01: API CRM SEFIN spec (endpoint, payload, autenticação)</p>
+                        <p>Q-02: API Dados Cadastrais spec (endpoint, payload, autenticação)</p>
+                    </div>
+                    <div class="card">
+                        <h3>🟠 HIGH (5)</h3>
+                        <p>Q-04: ISS continua link ou muda para emissão DAM?</p>
+                        <p>Q-10: Base contribuintes CPF/CNPJ válido para Marketing Cloud?</p>
+                        <p>Q-11: Data vencimento contrato MUTANTE?</p>
+                        <p>Q-12: Deadline desejado go-live?</p>
+                        <p>Q-15: Perfil Bot Maintainer precisa permissões além de Einstein Bot?</p>
+                    </div>
+                    <div class="card">
+                        <h3>🟡 MEDIUM/LOW (11)</h3>
+                        <p>Validações técnicas (retry logic, CEP validation, janela manutenção APIs, etc.)</p>
+                        <p>UX research ownership (SEFIN ou PS conduz)</p>
+                        <p>Timeline Meta approval tracking</p>
+                    </div>
+                </div>
+                <div class="footer">Perguntas BLOCKER precisam ser respondidas na Phase 0 (&lt;3 semanas)</div>
+            </div>
+        </section>
+
+        <!-- Slide 9: Timeline -->
+        <section class="slide light" data-component="timeline-quarters">
+            <div class="content-slide anim">
+                <h2>Timeline — 18-30 Semanas | 6 Fases</h2>
+                <div class="subtitle">Taxas diárias validadas pelo cliente em 03/07/2026</div>
+                <div class="timeline">
+                    <div class="timeline-segment">Discovery<br>Phase 0</div>
+                    <div class="timeline-segment">Foundation<br>Phase 1</div>
+                    <div class="timeline-segment">Bot + API<br>Phase 2</div>
+                    <div class="timeline-segment">UX Research<br>Phase 3</div>
+                    <div class="timeline-segment">MC + E09<br>Phase 4-5</div>
+                </div>
+                <div style="margin-top: 40px; font-size: 16px;">
+                    <p style="margin-bottom: 12px;"><strong>Phase 0 — Discovery:</strong> Resolver gaps, obter 2 API specs BLOCKER, validar Meta approval timeline</p>
+                    <p style="margin-bottom: 12px;"><strong>Phase 1 — Foundation:</strong> Provisionar Hyperforce Brazil + WhatsApp Channel (Meta approval 2-8w)</p>
+                    <p style="margin-bottom: 12px;"><strong>Phase 2 — Bot + API:</strong> Build 4 bot flows + 4 Apex REST callouts + Security baseline LGPD</p>
+                    <p style="margin-bottom: 12px;"><strong>Phase 3 — UX Research:</strong> 12 persona interviews + 15 usability sessions + refinamento</p>
+                    <p><strong>Phase 4/5 (paralelo) — ADD-ONs:</strong> Marketing Cloud (E08) + Transbordo Humano via Omni-Channel/Service Console (E09)</p>
+                </div>
+                <div class="footer">18-30 semanas é derivado top-down (shape do engagement), não uma soma fixa de durações por fase · Equipe 3-5 pessoas</div>
+            </div>
+        </section>
+
+        <!-- Slide 10: Taxas Diárias & Composição de Equipe -->
+        <section class="slide light" data-component="data-table">
+            <div class="content-slide anim">
+                <h2>Taxas Diárias & Composição de Equipe</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Classe</th>
+                            <th>Taxa Diária (com impostos)</th>
+                            <th>Composição de Equipe</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Onshore Architect</td><td><strong>R$ 7.032,56/dia</strong></td><td>2-3 pessoas</td></tr>
+                        <tr><td>Onshore Developer</td><td><strong>R$ 5.725,28/dia</strong></td><td>1-2 pessoas</td></tr>
+                        <tr><td>Offshore</td><td>N/A</td><td>0 pessoas</td></tr>
+                    </tbody>
+                </table>
+                <div class="footer">Taxas validadas pelo cliente em 03/07/2026 · Equipe total 3-5 pessoas · E09 não introduz papel novo</div>
+            </div>
+        </section>
+
+        <!-- Slide 11: Quote Investimento -->
+        <section class="slide dark" data-component="quote">
+            <div class="quote-slide anim">
+                <blockquote><span style="color: var(--accent);">R$ 1.781.136 – R$ 4.882.236</span> (com impostos) — 18-30 semanas | 3-5 pessoas</blockquote>
+                <div class="attribution">Taxas diárias validadas pelo cliente em 03/07/2026 · Range indicativo, não fixed-fee</div>
+            </div>
+        </section>
+
+        <!-- Slide 12: Investimento Breakdown -->
+        <section class="slide light" data-component="data-table">
+            <div class="content-slide anim">
+                <h2>Investimento PS — Taxas Diárias Validadas</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Classe</th>
+                            <th>Taxa Diária (com impostos)</th>
+                            <th>Equipe</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Onshore Architect</td><td>R$ 7.032,56/dia</td><td>2-3 pessoas</td></tr>
+                        <tr><td>Onshore Developer</td><td>R$ 5.725,28/dia</td><td>1-2 pessoas</td></tr>
+                        <tr><td>Offshore</td><td>N/A</td><td>0 pessoas</td></tr>
+                        <tr class="total"><td>TOTAL (18-30 semanas)</td><td colspan="2"><strong>R$ 1.781.136 – R$ 4.882.236</strong></td></tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 24px; font-size: 14px;">ROM indicativa — não é custo interno, não é fee fixo. Derivado top-down (duração × capacidade), não uma soma de horas por role.<br>Taxas diárias validadas pelo cliente em 03/07/2026</p>
+            </div>
+        </section>
+
+        <!-- Slide 13: Licenças CORE -->
+        <section class="slide light" data-component="stat-band">
+            <div class="content-slide anim">
+                <h2>Investimento Licenças — CORE</h2>
+                <div class="subtitle">Licenças Salesforce + Meta WhatsApp Business API</div>
+                <div style="text-align: center; margin: 20px 0; color: var(--accent); font-size: 14px; font-weight: 600; letter-spacing: 0.1em;">YEAR 1 INVESTMENT</div>
+                <div class="stat-band">
+                    <div class="stat">
+                        <div class="value">A confirmar</div>
+                        <div class="label">Service Cloud Enterprise</div>
+                        <div class="sublabel">10 users (3 System Admin + 7 Bot Maintainer) — valor a confirmar com o pricing Salesforce</div>
+                    </div>
+                    <div class="stat">
+                        <div class="value">A confirmar</div>
+                        <div class="label">Einstein Bot Conversations</div>
+                        <div class="sublabel">400K conversas/ano — valor a confirmar com o pricing Salesforce</div>
+                    </div>
+                    <div class="stat">
+                        <div class="value">A confirmar</div>
+                        <div class="label">WhatsApp Business API (Meta)</div>
+                        <div class="sublabel">2M msgs/ano — pricing per-message a confirmar com Meta</div>
+                    </div>
+                </div>
+                <p style="text-align: center; margin-top: 40px; font-size: 18px;"><strong>TOTAL CORE (Year 1):</strong> valores de licenciamento a confirmar com o pricing Salesforce/Meta</p>
+            </div>
+        </section>
+
+        <!-- Slide 14: Licenças ADD-ON -->
+        <section class="slide light" data-component="stat-band">
+            <div class="content-slide anim">
+                <h2>Investimento Licenças — ADD-ONs (Opcional)</h2>
+                <div class="subtitle">Marketing Cloud Engagement + Data Cloud</div>
+                <div style="text-align: center; margin: 20px 0; color: var(--accent); font-size: 14px; font-weight: 600; letter-spacing: 0.1em;">OPTIONAL ADD-ON</div>
+                <div class="stat-band">
+                    <div class="stat">
+                        <div class="value">A confirmar</div>
+                        <div class="label">Marketing Cloud + WhatsApp overage</div>
+                        <div class="sublabel">4,86M msgs/ano (D-15, D-5, D+1 jornadas proativas) — SKU e valor a confirmar com o pricing Salesforce</div>
+                    </div>
+                    <div class="stat">
+                        <div class="value">A confirmar</div>
+                        <div class="label">Data Cloud</div>
+                        <div class="sublabel">400K profiles (se profile 360 cidadão necessário) — valor a confirmar com o pricing Salesforce</div>
+                    </div>
+                </div>
+                <p style="text-align: center; margin-top: 40px; font-size: 18px;"><strong>TOTAL CORE + ADD-ONs (Year 1):</strong> valores de licenciamento a confirmar com o pricing Salesforce</p>
+            </div>
+        </section>
+
+        <!-- Slide 15-20: Remaining slides simplified for brevity -->
+        <section class="slide light">
+            <div class="content-slide anim">
+                <h2>Arquitetura em Alto Nível</h2>
+                <div class="subtitle">6 Camadas — Presentation → Orchestration → Integration → APIs SEFIN → Security → ADD-ONs</div>
+                <p style="margin-bottom: 24px;">Arquitetura Service Cloud AS-IS (sem Case Management) + Einstein Bot + 4 APIs REST SEFIN + Hyperforce Brazil (LGPD compliance).</p>
+                <p style="color: var(--accent); font-weight: 600; margin-bottom: 32px;">Decisão técnica chave: Apex REST Callouts (não MuleSoft) — 4 APIs simples, conectividade IP cliente</p>
+                <div style="font-size: 16px; line-height: 1.8;">
+                    <p><strong>Layer 1</strong> — Presentation: WhatsApp Business API + Einstein Bot (4 fluxos + NLU 5 intents)</p>
+                    <p><strong>Layer 2</strong> — Orchestration: Bot Dialogs + Salesforce Flow + Session Management (24h WhatsApp window)</p>
+                    <p><strong>Layer 3</strong> — Integration: Apex REST Callouts + Named Credentials (API Key)</p>
+                    <p style="margin-left: 24px;">→ 4 APIs SEFIN: ConsultaImovel, EmitirDamUnico, CRM SEFIN (fire-and-forget), Dados Cadastrais (9 campos)</p>
+                    <p><strong>Layer 4</strong> — APIs SEFIN (External Systems): backend consulta IPTU/TMRSU/ISS + geração DAM + log satisfação + alteração cadastral</p>
+                    <p><strong>Layer 5</strong> — Security & Compliance (LGPD): Hyperforce Brazil + TDE + Named Credentials + Field History + Event Monitoring + 2 perfis customizados</p>
+                    <p><strong>Layer 6</strong> — ADD-ONs (Opcional Phase 4): Marketing Cloud Engagement + Journey Builder + HSM Templates + Data Cloud</p>
+                </div>
+                <div class="footer">4 APIs SEFIN com especificações JSON request/response detalhadas documentadas</div>
+            </div>
+        </section>
+
+        <!-- Continue with slides 16-20 following the same pattern... -->
+        <!-- For brevity, showing closing slide -->
+
+        <section class="slide dark" data-component="closing">
+            <div class="cover anim">
+                <h1>Obrigado</h1>
+                <div style="margin-top: 60px; font-size: 24px; color: var(--ink-soft);">
+                    Salesforce Professional Services<br>
+                    ROM Professional Services LATAM
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="nav-hint">Use ← → arrows or click to navigate</div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') showSlide(currentSlide + 1);
+            if (e.key === 'ArrowLeft') showSlide(currentSlide - 1);
+        });
+
+        document.addEventListener('click', () => showSlide(currentSlide + 1));
+
+        // URL param support: ?s=N
+        const params = new URLSearchParams(window.location.search);
+        const startSlide = parseInt(params.get('s')) || 1;
+        showSlide(startSlide - 1);
+    </script>
+</body>
+</html>

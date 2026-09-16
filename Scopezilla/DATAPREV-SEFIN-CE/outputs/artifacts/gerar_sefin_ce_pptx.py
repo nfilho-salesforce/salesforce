@@ -19,8 +19,8 @@ SF_TEAL       = RGBColor(0x00, 0x69, 0x5C)
 SF_PURPLE     = RGBColor(0x6A, 0x1B, 0x9A)
 SF_AMBER      = RGBColor(0xF9, 0xA8, 0x25)
 
-FLUXO_IMG = "/Users/nfilho/claude/SEFIN_CE_Fluxo_v1_FINAL.png"
-OUTPUT    = "/Users/nfilho/claude/SEFIN_CE_Fluxo_Premissas_Perguntas.pptx"
+FLUXO_IMG = "/Users/nfilho/claude/Scopezilla/DATAPREV-SEFIN-CE/outputs/artifacts/SEFIN_CE_Fluxo_v1_FINAL.png"
+OUTPUT    = "/Users/nfilho/claude/Scopezilla/DATAPREV-SEFIN-CE/outputs/artifacts/SEFIN_CE_Fluxo_Premissas_Perguntas.pptx"
 
 prs = Presentation()
 prs.slide_width  = Inches(13.33)

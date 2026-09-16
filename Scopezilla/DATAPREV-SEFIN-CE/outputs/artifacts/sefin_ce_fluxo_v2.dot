@@ -1,0 +1,186 @@
+digraph SEFIN_CE_v2 {
+    rankdir=TB;
+    bgcolor="#f3f3f3";
+    node [fontname="Helvetica", fontsize=10, style=filled];
+    edge [fontname="Helvetica", fontsize=9];
+
+    // Title
+    label="DATAPREV-SEFIN-CE v2.0\nService Cloud + Einstein Bot + WhatsApp Channel\n7 Épicas | 5 Fases | ROM R$ 1.583.232 – R$ 4.231.269";
+    labelloc=t;
+    fontsize=14;
+    fontname="Helvetica-Bold";
+
+    // Subgraph: WhatsApp Entry Point
+    subgraph cluster_entry {
+        label="Canal de Entrada";
+        style=filled;
+        color="#0176D3";
+        fontcolor=white;
+
+        whatsapp [label="WhatsApp\nChannel\n(Meta Business API)", shape=box, fillcolor="#25D366", fontcolor=white];
+        meta_approval [label="Meta WhatsApp\nBusiness Approval\n(2-8 semanas)\nG0103 BLOCKER", shape=note, fillcolor="#FF9E2C"];
+    }
+
+    // Subgraph: Einstein Bot Core
+    subgraph cluster_bot {
+        label="Einstein Bot — 4 Fluxos Conversacionais (E02)";
+        style=filled;
+        color="#0176D3";
+        fontcolor=white;
+
+        menu [label="Menu Inicial\nNLU 5 Intents\n(IPTU, TMRSU,\nISS, Cadastral,\nFallback)", shape=ellipse, fillcolor="#6495ED"];
+
+        cpf_cnpj [label="Identificação\nCPF/CNPJ\nRegex + Apex\nChecksum", shape=box, fillcolor="#87CEEB"];
+
+        iptu [label="IPTU\nLoop DAM\nMulti-Inscrição\nP-29", shape=box, fillcolor="#4682B4"];
+        tmrsu [label="TMRSU\nLoop DAM\ntipoDebito=980", shape=box, fillcolor="#4682B4"];
+        iss [label="ISS\nLink Site SEFIN\n(Q-04/Q-05:\nDAM upgrade?)", shape=box, fillcolor="#4682B4"];
+        cadastral [label="Alteração\nCadastral\n9 campos edit", shape=box, fillcolor="#4682B4"];
+
+        satisfaction [label="Pesquisa\nSatisfação\n1-5 estrelas\n+ justificativa\nif ≤3 (E04)", shape=box, fillcolor="#32CD32"];
+        farewell [label="Despedida\nLink Portal\nSEFIN (Q-06)", shape=ellipse, fillcolor="#90EE90"];
+    }
+
+    // Subgraph: API Integration Layer
+    subgraph cluster_apis {
+        label="API Integration Layer (E03) — Flow Orchestration + Apex";
+        style=filled;
+        color="#FF9E2C";
+        fontcolor=white;
+
+        flow_orch [label="Flow\nOrchestration\nBusiness Logic", shape=component, fillcolor="#FFD700"];
+
+        apex_callouts [label="Apex\n@future\n@queueable\nREST Callouts\n+ Retry 1x", shape=component, fillcolor="#FFA500"];
+
+        api1 [label="EmitirDamUnico\nPDF Generation\nIPTU/TMRSU\ntipoDebito", shape=folder, fillcolor="#FFDAB9"];
+        api2 [label="ConsultaImovel\nBusca Inscrições\nBy CPF/CNPJ", shape=folder, fillcolor="#FFDAB9"];
+        api3 [label="API CRM SEFIN\nLog Satisfação\n(Q-01 BLOCKER)", shape=folder, fillcolor="#fed3d1"];
+        api4 [label="API Dados\nCadastrais\n9 campos update\n(Q-02 BLOCKER)", shape=folder, fillcolor="#fed3d1"];
+
+        named_creds [label="Named\nCredentials\nAPI Keys\n(FLS hidden\nBot Maintainer)", shape=cylinder, fillcolor="#D2691E"];
+    }
+
+    // Subgraph: SEFIN Backend
+    subgraph cluster_sefin {
+        label="SEFIN-CE Backend";
+        style=filled;
+        color="#708090";
+        fontcolor=white;
+
+        sefin_backend [label="SEFIN\nBackend\nSystems\n(REST + API Key)", shape=box3d, fillcolor="#A9A9A9"];
+
+        connectivity [label="Connectivity\nValidation\nping/curl\nIP whitelist\nG0303", shape=note, fillcolor="#fff0ca"];
+    }
+
+    // Subgraph: Salesforce ORG Foundation
+    subgraph cluster_org {
+        label="Salesforce ORG Foundation (E01) + Security (E06)";
+        style=filled;
+        color="#04844B";
+        fontcolor=white;
+
+        org [label="Hyperforce\nBrazil ORG\nService Cloud\n(P-22 validation)", shape=box, fillcolor="#90EE90"];
+
+        profiles [label="2 Profiles:\n3 System Admin\n7 Bot Maintainer\n(Q-15 scope)", shape=folder, fillcolor="#90EE90"];
+
+        security [label="LGPD Art. 11:\nTDE Encryption\nField History\nEvent Monitoring\nData Retention\n90d/12m", shape=shield, fillcolor="#32CD32"];
+    }
+
+    // Subgraph: UX Research
+    subgraph cluster_ux {
+        label="UX Research & Accessibility (E05)";
+        style=filled;
+        color="#9370DB";
+        fontcolor=white;
+
+        ux_research [label="12 Persona\nInterviews\n(6 PF + 6 PJ)\nZoom Remote", shape=box, fillcolor="#DDA0DD"];
+
+        usability [label="15 Usability\nSessions\n3 fluxos ×\n5 usuários\nSUS >70", shape=box, fillcolor="#DDA0DD"];
+
+        accessibility [label="Accessibility\nReport\nWCAG 2.1 AA\nConversational UI\nG0507", shape=box, fillcolor="#DDA0DD"];
+    }
+
+    // Subgraph: Marketing Cloud ADD-ON
+    subgraph cluster_mc {
+        label="Marketing Cloud Proactive Journey (E08 ADD-ON)";
+        style=filled;
+        color="#FF1493";
+        fontcolor=white;
+
+        mc [label="Marketing Cloud\nEngagement\n(Core/Pro?\nG0801)", shape=box, fillcolor="#FF69B4"];
+
+        sftp [label="SFTP Batch\nIngestion\nSEFIN arquivo\nIPTU vencido\ndiário/semanal\nG0820", shape=cylinder, fillcolor="#FFB6C1"];
+
+        journey [label="Journey\nBuilder\n1 jornada\nrégua D-15,\nD-5, D+1\n(Q-07/Q-08)", shape=component, fillcolor="#FF1493"];
+
+        hsm [label="3-5 HSM\nTemplates\nMeta Approval\n1-3 weeks\nG0819", shape=note, fillcolor="#FFC0CB"];
+
+        opt_out [label="Opt-out\nMechanism\nReply STOP\nLGPD G0809", shape=box, fillcolor="#FFB6C1"];
+    }
+
+    // Phase 0: Discovery Resolution
+    phase0 [label="Phase 0\nDiscovery Resolution\n133 gaps\n17 Qs (Q-01 to Q-17)\n2 API specs BLOCKER\nTarget <3 semanas", shape=folder, fillcolor="#fed3d1", style="filled,dashed"];
+
+    // Main Flow
+    whatsapp -> menu [label="Cidadão\ninicia\nconversa", color="#25D366", penwidth=2];
+
+    menu -> cpf_cnpj [label="NLU\nIntent\nClassification"];
+
+    cpf_cnpj -> iptu [label="Intent:\nIPTU"];
+    cpf_cnpj -> tmrsu [label="Intent:\nTMRSU"];
+    cpf_cnpj -> iss [label="Intent:\nISS"];
+    cpf_cnpj -> cadastral [label="Intent:\nCadastral"];
+
+    iptu -> flow_orch [label="Consulta\nInscrições"];
+    tmrsu -> flow_orch [label="Consulta\nInscrições"];
+    iss -> api2 [label="Consulta\nInscrições\n(se DAM\nupgrade)", style=dashed];
+    cadastral -> flow_orch [label="9 campos\nedit"];
+
+    flow_orch -> apex_callouts;
+
+    apex_callouts -> api1 [label="EmitirDamUnico\nLoop multi-\ninscrição\nP-29", color="#FF9E2C", penwidth=2];
+    apex_callouts -> api2 [label="ConsultaImovel"];
+    apex_callouts -> api3 [label="Log\nSatisfação\nFire-and-Forget", style=dashed];
+    apex_callouts -> api4 [label="Update\nCadastral", style=dashed];
+
+    api1 -> sefin_backend;
+    api2 -> sefin_backend;
+    api3 -> sefin_backend;
+    api4 -> sefin_backend;
+
+    named_creds -> apex_callouts [label="API Key\nAuth", style=dotted];
+
+    iptu -> satisfaction [label="DAM\nemitido"];
+    tmrsu -> satisfaction [label="DAM\nemitido"];
+    iss -> satisfaction [label="Link\nenviado"];
+    cadastral -> satisfaction [label="Dados\natualizados"];
+
+    satisfaction -> farewell;
+
+    // UX Research feedback loop
+    ux_research -> menu [label="Refinar\nfluxos", style=dashed, color="#9370DB"];
+    usability -> menu [label="SUS >70\nTask\nCompletion\n>80%", style=dashed, color="#9370DB"];
+    accessibility -> menu [label="WCAG 2.1\nAA adapted", style=dashed, color="#9370DB"];
+
+    // Marketing Cloud ADD-ON
+    sftp -> mc [label="Data\nExtension\n1 fonte"];
+    mc -> journey;
+    journey -> hsm;
+    hsm -> whatsapp [label="Proactive\nOutreach\n4.86M msgs/yr", color="#FF1493", penwidth=2, style=dashed];
+    journey -> opt_out [label="Cidadão\nopta-out", style=dashed];
+
+    // ORG & Security
+    org -> whatsapp [label="WhatsApp\nChannel\nsetup", style=dotted];
+    profiles -> menu [label="Bot\nMaintainer\naccess", style=dotted];
+    security -> org [label="LGPD\nArt. 11\nCompliance", style=dotted];
+
+    // Phase 0 dependencies
+    phase0 -> api3 [label="Resolve\nQ-01\nBLOCKER", color="red", penwidth=2, style="dashed"];
+    phase0 -> api4 [label="Resolve\nQ-02\nBLOCKER", color="red", penwidth=2, style="dashed"];
+    phase0 -> meta_approval [label="Resolve\nG0103\nMeta\napproval", color="red", penwidth=2, style="dashed"];
+    phase0 -> org [label="Resolve\nP-22\nHyperforce\nBrazil", color="red", penwidth=2, style="dashed"];
+
+    // Critical Path
+    meta_approval -> whatsapp [label="Critical\nPath\n2-8w", color="red", penwidth=3];
+    connectivity -> sefin_backend [label="IP\nWhitelist\npre-prod", style=dashed];
+}

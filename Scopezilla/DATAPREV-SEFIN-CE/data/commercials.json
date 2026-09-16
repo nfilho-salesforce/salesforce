@@ -1,0 +1,47 @@
+{
+  "rate_basis": "per-class-daily",
+  "lane": "traditional",
+  "currency": "BRL",
+  "rates": [
+    {
+      "role": "onshore-architect",
+      "rate": 7032.56,
+      "currency": "BRL",
+      "validated_by": "user",
+      "validated_at": "2026-07-03"
+    },
+    {
+      "role": "onshore-developer",
+      "rate": 5725.28,
+      "currency": "BRL",
+      "validated_by": "user",
+      "validated_at": "2026-07-03"
+    },
+    {
+      "role": "offshore",
+      "rate": 0,
+      "currency": "BRL",
+      "validated_by": "user",
+      "validated_at": "2026-07-03"
+    }
+  ],
+  "effort_basis": {
+    "source": "top-down-shape",
+    "duration_weeks_range": "18-30",
+    "team_size_range": "3-5",
+    "capacity_by_class": {
+      "onshore-architect": "2-3",
+      "onshore-developer": "1-2",
+      "offshore": "0"
+    },
+    "derivation_note": "Duration: Service Cloud Medium complexity (12-18w base) + 35-45% risk adders (new client, LGPD regulated, Meta approval critical path) + 2-4 semanas incrementais para E09 (ADD-ON 3, tamanho M, majoritariamente configuração). Capacity: peak Phase 1+2 (2 architects + 2 developers) → engagement-level range 2-3 architects + 1-2 developers accounting for ramp/release; E09 não introduz papel novo."
+  },
+  "indicative_range": {
+    "low": 1781136,
+    "high": 4882236,
+    "currency": "BRL",
+    "confidence": "Assumed"
+  },
+  "disclaimer_class": "input-derived",
+  "approved_commercials": true
+}

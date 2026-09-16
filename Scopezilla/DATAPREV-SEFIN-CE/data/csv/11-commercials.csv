@@ -1,0 +1,4 @@
+Lane,Rate Basis,Role,Rate,Currency,Validated By,Validated At,Indicative Low,Indicative High,Duration Weeks Range,Effort Basis,Disclaimer Class,Approved
+traditional,per-class-daily,onshore-architect,7032.56,BRL,user,2026-07-03,1781136,4882236,18-30,onshore-architect: 2-3; onshore-developer: 1-2; offshore: 0,input-derived,yes
+traditional,per-class-daily,onshore-developer,5725.28,BRL,user,2026-07-03,1781136,4882236,18-30,onshore-architect: 2-3; onshore-developer: 1-2; offshore: 0,input-derived,yes
+traditional,per-class-daily,offshore,0,BRL,user,2026-07-03,1781136,4882236,18-30,onshore-architect: 2-3; onshore-developer: 1-2; offshore: 0,input-derived,yes

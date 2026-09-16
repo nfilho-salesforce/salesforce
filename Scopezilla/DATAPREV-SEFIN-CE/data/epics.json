@@ -1,0 +1,90 @@
+[
+  {
+    "epic_id": "E01",
+    "epic_name": "Salesforce ORG Foundation & WhatsApp Channel",
+    "description": "Setup completo nova ORG Service Cloud from scratch + Einstein Bot licensing + WhatsApp Channel (sem Digital Engagement). Inclui domínio personalizado, SSO setup (se necessário), data residency Brasil (LGPD), aprovação Meta WhatsApp Business.",
+    "confidence": "Confirmed",
+    "kb_sources": [
+      "[assumption: Service Cloud ORG setup standard — validado por Service Cloud Implementation Guide]"
+    ]
+  },
+  {
+    "epic_id": "E02",
+    "epic_name": "Einstein Bot Conversational Flows",
+    "description": "Configuração Einstein Bot com 4 fluxos conversacionais via linguagem natural (sem botões): (1) IPTU — coleta CPF/CNPJ, consulta inscrições, loop emissão DAM; (2) TMRSU — mesmo fluxo, tipoDebito=980; (3) ISS — informa link site SEFIN (Q-04/Q-05: pode mudar para emissão DAM); (4) Alteração Cadastral — apresenta 9 campos editáveis, salva via API. Menu inicial NLU, máx 2 tentativas digitação inválida, sessão persistente.",
+    "confidence": "Confirmed",
+    "kb_sources": [
+      "[assumption: Einstein Bot NLU + slot filling — validado por Einstein Bot Admin Guide]"
+    ]
+  },
+  {
+    "epic_id": "E03",
+    "epic_name": "API Integration Layer",
+    "description": "Integração 4 APIs SEFIN via Flow Orchestration + Apex (sem MuleSoft): (1) EmitirDamUnico (emissão DAM PDF), (2) ConsultaImovel (busca inscrições por CPF/CNPJ), (3) API CRM SEFIN (log satisfação — Q-01 spec pendente), (4) API Dados Cadastrais (atualização cadastral — Q-02 spec pendente). Protocolo REST + API Key, retentativa 1x em caso falha, conectividade IP direta Service Cloud → SEFIN.",
+    "confidence": "Assumed",
+    "kb_sources": [
+      "[assumption: Flow Orchestration + Apex callouts — validado por Flow Builder Guide + Apex Developer Guide]"
+    ]
+  },
+  {
+    "epic_id": "E04",
+    "epic_name": "Feedback & Satisfaction Tracking",
+    "description": "Pesquisa satisfação obrigatória ao final de todos fluxos bot (IPTU, TMRSU, ISS, Cadastral). Coleta nota 1-5 estrelas + justificativa se ≤3. Log via API CRM SEFIN (Q-01). Despedida com link Portal SEFIN (Q-06 URL pendente).",
+    "confidence": "Confirmed",
+    "kb_sources": [
+      "[assumption: Einstein Bot survey widgets + Flow callout — validado por Einstein Bot Admin Guide]"
+    ]
+  },
+  {
+    "epic_id": "E05",
+    "epic_name": "UX Research & Accessibility",
+    "description": "UX Research incluída no escopo PS (P-31): (1) Personas cidadãos contribuintes PF/PJ Fortaleza, (2) Testes usabilidade bot WhatsApp (fluxos IPTU/TMRSU/Cadastral), (3) Análise acessibilidade WCAG 2.1 AA para interface conversacional. Entrega: persona docs, test scripts, accessibility report.",
+    "confidence": "Confirmed",
+    "kb_sources": [
+      "[assumption: WCAG 2.1 AA aplicável a interfaces conversacionais]"
+    ]
+  },
+  {
+    "epic_id": "E06",
+    "epic_name": "Security Model & User Profiles",
+    "description": "Configuração segurança LGPD Art. 11 (dados CPF/CNPJ sensíveis) + 2 perfis usuários: (1) 3 System Administrator (gestão completa ORG), (2) 7 Bot Maintainer customizado (apenas Einstein Bot + revisão conversas — Q-15 validação permissões). Data residency Brasil, audit trail ativo, encryption at rest/in transit.",
+    "confidence": "Assumed",
+    "kb_sources": [
+      "[assumption: Service Cloud security model + LGPD compliance — validado por Security Implementation Guide]"
+    ]
+  },
+  {
+    "epic_id": "E07",
+    "epic_name": "Knowledge Base Vectorization (ADD-ON 1)",
+    "description": "Ingestão base conhecimento externa Salesforce → vetorização Data Cloud → Einstein Bot responde dúvidas via KB (substitui redirecionamento site). Volume KB, formato e fonte a confirmar com cliente (Q-F v1.0 / discovery anterior).",
+    "confidence": "Unknown",
+    "kb_sources": [
+      "[assumption: Data Cloud vector embedding + Einstein Bot KB integration — validado por Data Cloud Guide]"
+    ]
+  },
+  {
+    "epic_id": "E08",
+    "epic_name": "Proactive Outreach Journey (ADD-ON 2)",
+    "description": "Setup Marketing Cloud + 1 jornada comunicação proativa WhatsApp (ex: cidadãos IPTU vencido). 1 fonte dados zero-copy Data Cloud, 1 segmentação (sem Identity Resolution), 4,86M msgs/ano (~13.500/dia). Opt-out cidadão (Q-08). Gatilhos régua a definir (Q-G/Q-H discovery anterior).",
+    "confidence": "Assumed",
+    "kb_sources": [
+      "[assumption: Marketing Cloud Journey Builder + Data Cloud zero-copy — validado por Marketing Cloud Implementation Guide]"
+    ]
+  },
+  {
+    "epic_id": "E09",
+    "epic_name": "Transbordo Humano via Omni-Channel/Service Console (ADD-ON 3 — pesquisa/expansão de escopo)",
+    "description": "Adiciona escalonamento humano ao bot WhatsApp hoje bot-only (P-02). Digital Engagement license CONFIRMADA disponível (G0901 resolvido). 3 PAs humanas em turno único (G0903 confirmado). Requer Enhanced Omni-Channel (G0902 confirmado) + Service Console app para as 3 PAs + Case/Messaging Session como objeto de trabalho roteado + ponto de transferência nos 4 fluxos do E02 + Business Hours real (G0904 confirmado: 08h-17h, seg-sex) + profile 'Agente Humano SEFIN' (delta E06) + pesquisa de satisfação no fechamento humano (delta E04).",
+    "confidence": "Confirmed",
+    "kb_sources": [
+      "[KB: service_cloud_3-27-2026.md:1257-1259] Case routing requires Service Cloud OR Digital Engagement; Messaging requires Digital Engagement",
+      "[KB: service_cloud_3-27-2026.md:13560-13591] Standard Omni-Channel EOL Summer '26 — recomendação Enhanced Omni-Channel",
+      "[extends: padrão KB de case routing + messaging, aplicado ao handoff originado pelo bot]",
+      "[assumption: padrão-base de Service Console e profile de agente Omni-Channel; validar com operação SEFIN]"
+    ],
+    "depends_on": [
+      "E01",
+      "E02"
+    ]
+  }
+]

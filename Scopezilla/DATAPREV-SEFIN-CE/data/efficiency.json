@@ -1,0 +1,190 @@
+{
+  "fidelity": "category-and-role",
+  "generated_from": {
+    "epics_count": 7,
+    "estimates_count": 7,
+    "has_roadmap": true,
+    "has_resource_plan": true
+  },
+  "task_level": {
+    "blended_band": "~32-48%",
+    "basis": "Integration-heavy (4 SEFIN APIs) + L/XL-weighted (2L + 4M + 1S + 1L ADD-ON) leans Technical Engineering & QA (biggest task-level gains but also biggest AI tax per [1][5][8]); LGPD compliance + government approval overhead raises review burden; Documentation-heavy E05 UX Research (~15% epic weight, highest reliability [7][11]) pulls floor up; Config + custom dev mix typical Service Cloud + Einstein Bot + Flow Orchestration + Apex pattern.",
+    "sources": ["[1]", "[2]", "[3]", "[4]", "[7]", "[8]", "[11]"]
+  },
+  "realization_factor": {
+    "value_range": "0.35-0.45",
+    "rationale": "Regulated industry (LGPD Art. 11 CPF/CNPJ sensitive data), legacy-ish integration pattern (Flow Orchestration + Apex, not greenfield), standard enterprise client (government DATAPREV delivery, SEFIN-CE stakeholders), NOT senior-only team (TA + TC + EA + PM mix) → mid-range realization factor 0.40 from benchmarks.md table row 'Regulated industry, heavy legacy integration, senior-only team' adjusted down (not ALL senior, not HEAVY legacy).",
+    "drivers": ["Regulated industry (LGPD Art. 11)", "Mixed config + custom dev", "Standard enterprise government client", "Government approval overhead (SEFIN-CE, DATAPREV CTID, Meta)"]
+  },
+  "project_level": {
+    "realized_band": "~11-22%",
+    "basis": "Task-level 32-48% × realization factor 0.35-0.45 = ~11-22% (mid ~16%) before readiness modulation. Amdahl's law (coding ~30% of project effort, coding gains 20% → blended project gain ~6 percentage points from coding alone), AI tax (code review burden, NLU training ownership ambiguity G0202, API specs pending G0301/G0302, LGPD compliance audit trail overhead), and human-barrier work (Phase 0 gap resolution 133 gaps + 17 Qs, Meta approval 2-8w, SEFIN-CE stakeholder alignment) reduce task-level gains to project-level realized band.",
+    "confidence": "Assumed"
+  },
+  "readiness": {
+    "signals": [
+      {
+        "signal": "AI tooling posture",
+        "score": 0,
+        "evidence": "Discovery shows no mention of approved AI tools for Salesforce PS team or SEFIN-CE stakeholders; government client (slower procurement for AI tooling); DATAPREV as intermediary may have policy barriers; no IDE AI (Copilot/Claude) confirmed."
+      },
+      {
+        "signal": "Delivery velocity / speed bias",
+        "score": 1,
+        "evidence": "Government project (SEFIN municipal + DATAPREV federal intermediary) → quarterly/slow-moving procurement typical; BUT: urgency to replace incumbent MUTANTE (R$ 1.7M/yr dissatisfaction) + greenfield ORG (no legacy migration burden) → mid-range velocity; Phase 0 'target <3 semanas' shows some urgency."
+      },
+      {
+        "signal": "Data & environment hygiene",
+        "score": 1,
+        "evidence": "Greenfield ORG (clean start, no legacy tech debt) + Hyperforce Brazil (modern DevOps) → positive signals; BUT: 133 gaps (missing req, API specs pending, ambiguities) + 17 open questions + 4 BLOCKERS (G0301/G0302 API specs, Meta approval timeline, ISS flow undefined) → data/requirements hygiene moderate, not excellent."
+      },
+      {
+        "signal": "Legal / security / compliance posture",
+        "score": 1,
+        "evidence": "LGPD Art. 11 (CPF/CNPJ sensitive data) + government regulatory environment → mandatory security review; Hyperforce Brazil data residency validation pending (P-22) + TDE vs Shield legal interpretation unclear (G0611) + LGPD consent for proactive marketing undefined (G0809) → policy in-draft, not published; NOT comfortable with AI-in-IDE / proprietary code in prompts (no evidence of approval)."
+      }
+    ],
+    "total_score": 3,
+    "scenarios": [
+      {
+        "scenario": "Low readiness",
+        "score_range": "0-2",
+        "realized_band": "~9-11%",
+        "narrative": "Gains stay modest until AI tooling approved and LGPD policy published. No IDE AI tools, government approval cycles slow.",
+        "unlock_to_move_up": ["Approve Copilot/Claude for in-IDE use (Salesforce PS team + DATAPREV)", "Publish AI data-handling policy (LGPD-compliant for CPF/CNPJ sensitive data in prompts)"]
+      },
+      {
+        "scenario": "Mid readiness",
+        "score_range": "3-5",
+        "realized_band": "~12-19%",
+        "narrative": "Standard government project readiness — greenfield ORG favors gains, but AI tooling policy and slow approval cycles cap upside. Gains cluster in documentation (UX reports, security baseline) and Einstein Bot NLU drafting; coding and API integration carry the AI tax (review burden on LGPD compliance + connectivity validation).",
+        "unlock_to_move_up": ["Approve AI-in-IDE for PS team (Copilot/Claude)", "Publish LGPD AI data-handling policy (CPF/CNPJ prompts permitted)", "Faster approval cycles (SEFIN-CE stakeholders responsive <2 weeks for gap resolution)"]
+      },
+      {
+        "scenario": "High readiness",
+        "score_range": "6-8",
+        "realized_band": "~22-26%",
+        "narrative": "Conditions favor the upper end — AI tooling approved, LGPD policy clear, fast client. A faster government client with approved AI-in-IDE captures more. Not expected given current signals, but achievable if DATAPREV/SEFIN-CE accelerate policy.",
+        "unlock_to_move_up": []
+      }
+    ],
+    "current_scenario": "Mid readiness"
+  },
+  "by_category": [
+    {
+      "category": "Technical Engineering & QA",
+      "task_level_band": "~20-45%",
+      "realized_band": "~8-18%",
+      "driving_tasks": ["Create Code (realistic enterprise / legacy)", "Analyze Code & Fix Defects", "Generate Test Data", "Write Test Classes"],
+      "driving_epics": ["E02", "E03", "E06"],
+      "sources": ["[1]", "[3]", "[4]", "[8]"],
+      "narrative": "Einstein Bot Apex validators (CPF checksum, slot filling regex) and 4 API REST callouts (EmitirDamUnico, ConsultaImovel, CRM SEFIN, Dados Cadastrais) benefit from code drafting (~20% task-level per [1][4] realistic enterprise row), but LGPD compliance review burden (CPF/CNPJ sensitive data Art. 11) + connectivity validation (ping/curl test G0303) + API specs pending (G0301/G0302 BLOCKER) raise the AI tax — code cloning rose 8.3% → 12.3%, refactoring fell 25% → <10% per [8]. Test data generation (NLU training utterances 50-100/intent, mock API responses) gains ~35% task-level per [3][11], but NLU training ownership undefined (G0202) caps realized gain to ~15% after review cycles."
+    },
+    {
+      "category": "Analysis & Design",
+      "task_level_band": "~30-60%",
+      "realized_band": "~12-24%",
+      "driving_tasks": ["Write User Stories & Epics (drafting only)", "Generation of Analysis Models"],
+      "driving_epics": ["E02", "E04", "E06", "E08"],
+      "sources": ["[2]", "[11]"],
+      "narrative": "Einstein Bot dialog drafting (4 flows IPTU/TMRSU/ISS/Cadastral) and Journey Builder (1 jornada proativa IPTU vencido régua D-15, D-5, D+1) benefit from drafting compression ~40% task-level per [2][11]. BUT: stakeholder refinement (SEFIN-CE, DATAPREV CTID approval cycles) stays human-bound and often dominates total time — 17 client questions (Q-01 to Q-17), ISS flow ambiguity (Q-04/Q-05 decision), Bot Maintainer permissions (Q-15 validation). Drafting yes, decision no."
+    },
+    {
+      "category": "Documentation & Knowledge Management",
+      "task_level_band": "~45-70%",
+      "realized_band": "~18-28%",
+      "driving_tasks": ["Generate Documents", "Knowledge Transfer"],
+      "driving_epics": ["E01", "E04", "E05", "E06", "E08"],
+      "sources": ["[2]", "[7]", "[11]"],
+      "narrative": "UX Research E05 is the highest-reliability win — persona docs (12 interviews → 2 PDF PT-BR), usability findings report (~5-10 pages), accessibility report (~10-15 pages WCAG adapted) all leverage drafting compression ~35% task-level per [2][7][11]. LGPD compliance docs (security baseline, consent disclosures, data retention policy) and HSM templates (3-5 templates Meta approval) also benefit from document generation. Meeting operations (Generate Meeting Notes ~65% task-level [7][11]) not applicable this engagement — no dedicated meeting-recording/summarization role in resource-plan.json."
+    },
+    {
+      "category": "Project Management & Operations",
+      "task_level_band": "~15-30%",
+      "realized_band": "~6-12%",
+      "driving_tasks": ["Project Status Reports", "Coordination Meeting Time", "Search & Info Retrieval"],
+      "driving_epics": ["E01", "E02", "E03", "E04", "E05", "E06", "E08"],
+      "sources": ["[1]", "[5]", "[7]", "[11]"],
+      "narrative": "Lowest-performing category — Project Status Reports drafting ~30% task-level, but the coordination core (Phase 0 gap resolution 133 gaps + 17 client questions, Meta approval 2-8w critical path G0103, stakeholder alignment Alex Siqueira + Oswaldo Melo + SEFIN-CE + DATAPREV CTID) remains human per [1][5]. Government approval cycles (SEFIN-CE slow responsiveness, DATAPREV CTID sign-off) are not AI-compressible — stakeholder alignment, conflict resolution, approval gates stay ~0% per benchmarks."
+    }
+  ],
+  "by_role_type": [
+    {
+      "role_type": "Technical Architect",
+      "task_level_band": "~35-58%",
+      "realized_band": "~14-23%",
+      "amplified_activities": ["Generation of Analysis Models", "Analyze Code", "Visual Design Brainstorm (adaptado conversational UI)"],
+      "human_barrier_activities": ["Phase 0 gap resolution orchestration (133 gaps, 17 Qs, 2 API specs BLOCKER)", "Hyperforce Brazil vs US-East decisão (P-22 legal validation)", "TDE vs Shield legal interpretation (G0611 SEFIN-CE DPO)", "Stakeholder alignment (SEFIN-CE + DATAPREV CTID + Meta)"],
+      "sources": ["[2]", "[4]"],
+      "narrative": "Architect drafts solution design docs (LGPD compliance baseline, integration pattern Flow Orchestration + Apex + 4 APIs, Einstein Bot NLU architecture) ~30% faster task-level per [2], but government client decision gates (SEFIN-CE gap responses, DATAPREV CTID sign-off, Meta approval 2-8w) stay human-bound — realized gain ~18% after review cycles and stakeholder coordination overhead."
+    },
+    {
+      "role_type": "Technical Consultant",
+      "task_level_band": "~20-45%",
+      "realized_band": "~8-18%",
+      "amplified_activities": ["Create Code (realistic enterprise)", "Analyze Code & Fix Defects", "Generate Test Data", "Write Test Classes"],
+      "human_barrier_activities": ["API specs pending (G0301/G0302 BLOCKER)", "NLU training data ownership (G0202)", "Stakeholder alignment (LGPD compliance review SEFIN-CE DPO)"],
+      "sources": ["[1]", "[3]", "[4]", "[8]"],
+      "narrative": "Developer drafts Apex REST callouts (~20% task-level realistic enterprise per [1][4]) and Einstein Bot validators (~25% task-level), but LGPD compliance review burden (CPF/CNPJ sensitive data Art. 11) + API specs pending (G0301/G0302) + connectivity validation (ping/curl test) raise the AI tax — code cloning 8.3% → 12.3% per [8], more review cycles pre-prod. Test data generation (NLU utterances, mock APIs) gains ~35% task-level per [3][11], but NLU ownership undefined (G0202) requires human coordination with SEFIN-CE. Realized gain ~13% after review + coordination overhead."
+    },
+    {
+      "role_type": "Experience Architect",
+      "task_level_band": "~45-70%",
+      "realized_band": "~18-28%",
+      "amplified_activities": ["Generate Documents", "Visual Design Brainstorm (adaptado conversational UI flow refinement)"],
+      "human_barrier_activities": ["UX research execution ownership ambiguity (G0501)", "LGPD consent forms (G0514)", "Accessibility testing with PcD (G0509)"],
+      "sources": ["[2]", "[7]", "[11]"],
+      "narrative": "Highest reliability role on this engagement — UX Researcher drafts persona docs, usability findings, accessibility reports ~35% faster task-level per [2][7][11] (documentation category most reliable). BUT: conducting interviews (12 remote Zoom sessions), facilitating usability testing (15 sessions 3 fluxos × 5 usuários), and expert accessibility review (WCAG heuristic evaluation) stay human — AI drafts the artifacts, human conducts the research. Realized gain ~23% after research execution stays human-bound."
+    },
+    {
+      "role_type": "Project Manager",
+      "task_level_band": "~15-30%",
+      "realized_band": "~6-12%",
+      "amplified_activities": ["Project Status Reports", "Search & Info Retrieval"],
+      "human_barrier_activities": ["Phase 0 gap resolution coordination (133 gaps, 17 Qs, 2 API specs BLOCKER)", "Phase 1 Meta approval critical path orchestration (G0103 2-8w)", "Stakeholder alignment (Alex Siqueira + Oswaldo Melo + SEFIN-CE + DATAPREV CTID)", "Conflict resolution (ISS flow Q-04/Q-05, Bot Maintainer Q-15, TDE vs Shield G0611)", "Coordination Meeting Time (SEFIN-CE slow government response cycles)"],
+      "sources": ["[1]", "[5]", "[7]", "[11]"],
+      "narrative": "PM drafts status reports ~30% faster task-level per [7][11], but coordination core stays human — Phase 0 gap resolution (133 gaps, 17 Qs), Meta approval negotiation (2-8w), SEFIN-CE stakeholder alignment (slow government response cycles), DATAPREV CTID sign-off gates are not AI-compressible per [1][5]. Realized gain ~9% after coordination overhead dominates."
+    }
+  ],
+  "human_barriers": [
+    {
+      "activity": "Project Pulse Reports",
+      "why_no_gain": "Trust-building work that AI can summarize but not facilitate."
+    },
+    {
+      "activity": "Stakeholder Alignment",
+      "why_no_gain": "Human-to-human negotiation; AI drafts positions, people decide. Phase 0 gap resolution (17 client questions Q-01 to Q-17), ISS flow decisão (Q-04/Q-05), Bot Maintainer permissions (Q-15), Hyperforce Brazil vs US-East (P-22), TDE vs Shield (G0611) — SEFIN-CE + DATAPREV CTID + Meta approval cycles stay human-bound."
+    },
+    {
+      "activity": "Conflict Resolution",
+      "why_no_gain": "Human judgment. ISS flow ambiguity (Q-04/Q-05 — link only or upgrade to DAM emission?), Bot Maintainer profile scope (Q-15 — Einstein Bot + conversation review or broader access?), TDE vs Shield legal interpretation (G0611 — SEFIN-CE DPO decides), LGPD consent for proactive marketing (G0809 — legitimate public interest or opt-in required?) — AI provides compliance analysis, legal/stakeholders decide."
+    },
+    {
+      "activity": "Phase 0 Gap Resolution",
+      "why_no_gain": "AI drafts the 133 gaps + 17 client questions list (Q-01 to Q-17), but SEFIN-CE stakeholders provide the answers — human negotiation on API specs (G0301/G0302 BLOCKER), ISS flow decisão (Q-04/Q-05), Bot Maintainer permissions (Q-15), Hyperforce Brazil (P-22), TDE vs Shield (G0611). SEFIN-CE response time (target <3 semanas) is human-bound, not AI-compressible."
+    },
+    {
+      "activity": "Meta WhatsApp Business Approval",
+      "why_no_gain": "Phase 1 critical path (G0103 2-8 weeks timeline) — human approval from Meta WhatsApp Business team, not automated. AI drafts the approval request docs (domínio personalizado, business verification, use case description), Meta human reviewers decide. Timeline variability (2-8w) is external approval cycle, not PS delivery."
+    },
+    {
+      "activity": "LGPD Legal Interpretation",
+      "why_no_gain": "TDE vs Shield for Art. 11 CPF/CNPJ sensitive data (G0611), LGPD consent for proactive marketing (G0809 — tax payment reminders = legitimate public interest Art. 7, IX?), data retention policy 90-day vs 12-month (G0610 Art. 15 minimization) — SEFIN-CE DPO + DATAPREV legal decide, AI provides compliance analysis only. Legal interpretation is human judgment, not AI-replaceable."
+    }
+  ],
+  "assumptions": [
+    "Benchmarks drawn from published 2022–2026 data (Peng et al./GitHub 2022, Paradis et al./Google 2024, METR 2025, BCG×Harvard, DORA 2024–2025, McKinsey 2025, GitClear 2025, Stanford HAI AI Index 2026) plus internal observations.",
+    "Task-level bands converted to project-level via a realization factor 0.35-0.45 that accounts for Amdahl's law + review/AI-tax overhead (LGPD compliance audit trail, API specs pending G0301/G0302, NLU training ownership G0202, government approval cycles) + unmoved human-barrier work (Phase 0 gap resolution 133 gaps + 17 Qs, Meta approval 2-8w, SEFIN-CE stakeholder alignment, DATAPREV CTID sign-off).",
+    "Client readiness scored from discovery context: AI tooling posture (0/2 — no approved AI-in-IDE for PS team or SEFIN-CE), Delivery velocity (1/2 — government slow procurement but MUTANTE replacement urgency + greenfield ORG), Data & environment hygiene (1/2 — greenfield ORG clean but 133 gaps + 4 BLOCKERS), Legal/security/compliance posture (1/2 — LGPD mandatory review but policy in-draft, not published) → Total 3/8 → Mid readiness (3-5 points) → realized band ~12-19% (mid ~16%)."
+  ],
+  "caveats": [
+    "Bands are qualitative and project-specific, not guarantees.",
+    "No hours, FTE, or cost implications are computed or implied.",
+    "Perception gap is real — teams often feel faster than measured gains confirm (per METR 2025 [1]: devs felt ~20% faster but measured ~19% slower with AI).",
+    "Honest range for coding: RCT evidence spans −19% (METR 2025 [1], mature OSS) to +21% (Paradis/Google 2024 [4], complex enterprise) to +55% (Peng/GitHub 2022 [3], greenfield lab). The realistic-enterprise row (~20%, −5% to +35%) is the defensible starting point for Salesforce integration and custom Apex work on this engagement.",
+    "Individual gains ≠ team gains: DORA 2024 [5] measured individual productivity rising while delivery stability and throughput fell. Ground claims in project-level outcomes, not developer self-report.",
+    "Model capability is racing ahead of realized workflow gains (Stanford HAI 2026 [9]: SWE-bench Verified rose 60% → near 100% of human baseline in a single year, 88% organizational adoption, yet measured workflow gains remain single-digit to ~20%, sometimes negative); that gap is why project-level bands stay in ~10–25%.",
+    "LGPD compliance (CPF/CNPJ Art. 11 sensitive data) + government approval cycles (SEFIN-CE slow responsiveness, DATAPREV CTID sign-off, Meta approval 2-8w) materially reduce realized gain — compliance adds mandatory review burden (audit trail, TDE encryption validation, data retention Apex batch job testing, connectivity validation ping/curl G0303) that is not AI-compressible. Regulatory projects typically land at the floor of the realized band per [5][8].",
+    "NLU training data ownership ambiguity (G0202 — SEFIN-CE provides or PS infers?) and API specs pending (G0301/G0302 BLOCKER — CRM SEFIN + Dados Cadastrais endpoint/payload/auth undefined) are critical-path gates that AI cannot resolve — these are stakeholder coordination tasks (human-to-human negotiation Phase 0) that dominate the timeline regardless of coding/drafting speed gains."
+  ]
+}

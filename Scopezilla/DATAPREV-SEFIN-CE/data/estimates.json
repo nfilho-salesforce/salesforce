@@ -1,0 +1,299 @@
+[
+  {
+    "item_id": "E01",
+    "item_type": "epic",
+    "t_shirt_size": "M",
+    "size_drivers": {
+      "Technical Complexity": {
+        "tier": "S",
+        "signal": "Standard ORG provisioning + WhatsApp Channel config via Salesforce Messaging; Meta approval coordination adds time but not technical complexity"
+      },
+      "Integration Complexity": {
+        "tier": "M",
+        "signal": "4 Named Credentials (API Key auth); IP direto Service Cloud → SEFIN APIs; connectivity validation pre-prod required (G0303)"
+      },
+      "User Experience": {
+        "tier": "S",
+        "signal": "10 users (3 Admin + 7 Bot Maintainer); custom profile scoped to Einstein Bot + conversation review (Q-15 validation pending)"
+      },
+      "Change Management": {
+        "tier": "M",
+        "signal": "Greenfield ORG; no legacy org migration; DATAPREV assumes training (P-27); government stakeholder coordination (SEFIN + DATAPREV CTID approval)"
+      },
+      "Risk & Uncertainty": {
+        "tier": "M",
+        "signal": "Meta WhatsApp Business approval 2-8 weeks (critical path blocker G0103); Hyperforce Brazil data residency validation (P-22); domínio DNS propagation 24-48h"
+      }
+    },
+    "size_rationale": "Moderate: standard ORG setup + WhatsApp Channel, elevated by Meta approval timeline risk and government stakeholder coordination",
+    "complexity_drivers": "Meta WhatsApp Business approval (2-8 weeks), Hyperforce Brazil data residency validation, Named Credentials FLS configuration, government approval coordination (SEFIN + DATAPREV CTID)",
+    "skills_needed": "Technical Architect, Senior Technical Consultant (Salesforce Admin), Program Manager",
+    "risks": "G0103 (Meta approval delays go-live), P-22 (Hyperforce Brazil vs US-East contractual unclear), G0102 (domínio personalizado SEFIN undefined), G0111 (MFA enforcement unclear)",
+    "solution_approach": "Hyperforce Brazil ORG provisioning → Named Credentials for 4 SEFIN APIs (API Key hidden from Bot Maintainer via FLS) → WhatsApp Channel via Salesforce Messaging (NOT Digital Engagement) → Meta WhatsApp Business account Tier 2+ (10K msgs/day minimum) → Custom Bot Maintainer profile (Einstein Bot + conversation review only) → TDE encryption at-rest (Shield optional per G0611 legal interpretation)",
+    "confidence": "Confirmed"
+  },
+  {
+    "item_id": "E02",
+    "item_type": "epic",
+    "t_shirt_size": "L",
+    "size_drivers": {
+      "Technical Complexity": {
+        "tier": "M",
+        "signal": "4 Einstein Bot dialogs (IPTU/TMRSU share logic; ISS simplified; Cadastral distinct) + NLU intent classification (5 intents) + slot filling (6 entities w/ regex+Apex validation)"
+      },
+      "Data Complexity": {
+        "tier": "M",
+        "signal": "CPF/CNPJ checksum validation (Dígitos Verificadores Apex); multi-inscription loop (P-29 loop DAM emission for each selected inscription); Contact as primary citizen entity (PF/PJ via Tipo_Pessoa__c)"
+      },
+      "Integration Complexity": {
+        "tier": "M",
+        "signal": "2 APIs per bot session: ConsultaImovel (lookup inscriptions) + EmitirDamUnico (generate PDF DAM); Loop callout pattern for multi-inscription; retry 1x on failure (P-16); fallback to Portal SEFIN link"
+      },
+      "Scale & Performance": {
+        "tier": "S",
+        "signal": "400K conversas/ano = ~1.1K/day avg; API rate limit validation needed (10K/day Salesforce limit vs ~1.1K/day avg — acceptable margin)"
+      },
+      "User Experience": {
+        "tier": "L",
+        "signal": "Conversational UI (no buttons) requires robust NLU training (50-100 utterances per intent — G0202 ownership unclear); 2 retry max (P-05); WhatsApp 24h window + HSM templates for session resume (G0208); satisfaction survey mandatory (1-5 stars + justificativa)"
+      },
+      "Change Management": {
+        "tier": "M",
+        "signal": "Citizens (PF/PJ) are end users; UX Research in-scope (P-31 personas, usability, WCAG); NLU training data ownership undefined (G0202 — SEFIN-CE provides or PS infers?)"
+      },
+      "Risk & Uncertainty": {
+        "tier": "L",
+        "signal": "G0201 (ISS flow ambiguity — link only or DAM emission?); G0202 (NLU training data ownership); G0208 (WhatsApp 24h window vs session persistence >24h); G0206 (CPF/CNPJ as External ID uniqueness assumption)"
+      },
+      "Configuration vs Code": {
+        "tier": "M",
+        "signal": "Einstein Bot configuration (NLU + dialogs + slot filling) + Flow Orchestration (loop logic, validation, retry) + Apex (CPF validator, API callouts)"
+      }
+    },
+    "size_rationale": "Large: 4 conversational flows sharing NLU + slot-filling platform, elevated by conversational UX complexity (NLU training, session management, loop DAM logic) and ISS ambiguity risk",
+    "complexity_drivers": "4 conversational flows (IPTU/TMRSU loop DAM emission, ISS link-only or upgrade, Cadastral 9-field edit), NLU intent classification + slot filling (CPF/CNPJ regex + Apex checksum validation), Loop callout pattern for multi-inscription DAM, WhatsApp 24h messaging window + HSM templates for session resume, Satisfaction survey mandatory (1-5 stars + justificativa conditional)",
+    "skills_needed": "Technical Architect, Senior Technical Consultant (Einstein Bot + Flow), Technical Consultant (Apex), UX Researcher (P-31 personas + usability + WCAG), Change Manager (NLU training coordination)",
+    "risks": "G0201 (ISS flow ambiguity — Q-04/Q-05 validation), G0202 (NLU training data ownership — SEFIN-CE or PS?), G0208 (WhatsApp 24h window vs session persistence >24h), G0206 (CPF/CNPJ uniqueness assumption), G0217 (API EmitirDamUnico timeout >10s risk)",
+    "solution_approach": "Enhanced Bot (Service Cloud legacy Einstein Bot, NOT Agentforce) → NLU intent classification (5 intents: IPTU, TMRSU, ISS, Alteração Cadastral, Fallback) → Slot filling (CPF/CNPJ regex + Apex CPFValidator checksum) → Flow Orchestration for business logic (loop DAM emission for each selected inscription, validation, retry 1x) → Apex @future callouts for 4 SEFIN APIs (EmitirDamUnico, ConsultaImovel, CRM SEFIN, Dados Cadastrais) → Satisfaction survey widget (1-5 stars + justificativa if ≤3) → HSM templates for session resume if WhatsApp 24h window exceeded",
+    "confidence": "Confirmed"
+  },
+  {
+    "item_id": "E03",
+    "item_type": "epic",
+    "t_shirt_size": "M",
+    "size_drivers": {
+      "Technical Complexity": {
+        "tier": "S",
+        "signal": "Standard Salesforce integration pattern: Flow Orchestration (business logic) + Apex (REST callouts); Named Credentials for secure API Key storage; no MuleSoft"
+      },
+      "Integration Complexity": {
+        "tier": "M",
+        "signal": "4 REST APIs (EmitirDamUnico, ConsultaImovel, CRM SEFIN, Dados Cadastrais); 2 API specs pending (Q-01/Q-02 BLOCKER); IP direto Service Cloud → SEFIN (P-17); retry 1x on failure (P-16)"
+      },
+      "Scale & Performance": {
+        "tier": "S",
+        "signal": "~1.1K API callouts/day (400K conversas/ano ÷ 365); Salesforce 10K API callout/day limit = comfortable margin; API response time <2s target for conversational UX"
+      },
+      "Risk & Uncertainty": {
+        "tier": "M",
+        "signal": "G0301/G0302 BLOCKER (API CRM SEFIN + Dados Cadastrais specs pending — obtain before kick-off); G0303 (connectivity IP validation ping/curl test pre-prod); G0306 (API error logging strategy — Event Monitoring add-on required?)"
+      },
+      "Configuration vs Code": {
+        "tier": "M",
+        "signal": "Named Credentials config (4 APIs) + Apex classes (REST callouts + error handling + retry logic) + Flow Orchestration (loop, validation, async invocation)"
+      }
+    },
+    "size_rationale": "Moderate: 4 REST API integrations via standard Salesforce pattern (Flow + Apex), elevated by 2 pending API specs (BLOCKER) and connectivity validation requirement",
+    "complexity_drivers": "4 REST API integrations (EmitirDamUnico, ConsultaImovel, CRM SEFIN, Dados Cadastrais) via Flow Orchestration + Apex, Named Credentials for API Key secure storage, Retry logic (1x retry → fallback message), API specs pending (Q-01 CRM SEFIN, Q-02 Dados Cadastrais), Connectivity validation (ping/curl test Salesforce → SEFIN APIs pre-prod), Error logging + monitoring (Event Log Files)",
+    "skills_needed": "Technical Architect, Senior Technical Consultant (Apex + Flow), Technical Consultant (integration testing)",
+    "risks": "G0301/G0302 BLOCKER (API CRM SEFIN + Dados Cadastrais specs pending — obtain before kick-off or design mock/stub APIs for parallel dev), G0303 (connectivity IP validation required pre-prod), G0306 (API error logging strategy — Event Monitoring license cost unclear), G0309 (API EmitirDamUnico PDF size >16MB WhatsApp limit risk)",
+    "solution_approach": "Flow Orchestration for business logic (loop DAM emission, validation, retry) + Apex @future/@queueable for async REST callouts (4 APIs) → Named Credentials (API Key hidden from Bot Maintainer via FLS) → Connectivity IP direto Service Cloud → SEFIN APIs (TLS 1.2+) → Retry logic (1x retry after 1-2s delay, then fallback message 'tente novamente mais tarde') → Error logging via Event Log Files (G0306 Event Monitoring add-on required?) → API response time <2s target for conversational UX (G0304 timeout handling if >10s)",
+    "confidence": "Assumed"
+  },
+  {
+    "item_id": "E04",
+    "item_type": "epic",
+    "t_shirt_size": "S",
+    "size_drivers": {
+      "Technical Complexity": {
+        "tier": "XS",
+        "signal": "Einstein Bot survey component (1-5 stars) OR custom Flow with quick-reply buttons if widget unavailable; justificativa free-text (max 500 chars); API callout to CRM SEFIN (Fire-and-Forget async)"
+      },
+      "Integration Complexity": {
+        "tier": "S",
+        "signal": "1 API (CRM SEFIN) for satisfaction logging; Fire-and-Forget pattern (no retry if fails); API spec pending (Q-01 BLOCKER)"
+      },
+      "User Experience": {
+        "tier": "S",
+        "signal": "Satisfaction survey mandatory at end of all flows (IPTU, TMRSU, ISS, Cadastral); 1-5 stars + justificativa conditional (if ≤3); LGPD consent disclosure before survey (opt-in required)"
+      },
+      "Risk & Uncertainty": {
+        "tier": "M",
+        "signal": "G0401 BLOCKER (API CRM SEFIN spec pending — Q-01 endpoint, payload, auth); G0403 (satisfaction UI format ambiguity — stars vs emoji vs buttons); G0410 (LGPD consent for satisfaction data — explicit opt-in before survey)"
+      }
+    },
+    "size_rationale": "Small: satisfaction survey + single API callout (Fire-and-Forget), elevated by pending API spec (BLOCKER) and LGPD consent requirement",
+    "complexity_drivers": "Satisfaction survey Flow (1-5 stars + justificativa condicional), API CRM SEFIN callout (Fire-and-Forget async), LGPD consent disclosure (opt-in before survey), Despedida message templates (success, failure, timeout scenarios), API spec pending (Q-01 endpoint, payload, auth)",
+    "skills_needed": "Senior Technical Consultant (Flow + Einstein Bot), Technical Consultant (Apex callout)",
+    "risks": "G0401 BLOCKER (API CRM SEFIN spec pending — Q-01 obtain endpoint, payload, auth), G0403 (satisfaction UI format ambiguity — stars vs emoji vs buttons), G0410 (LGPD consent for satisfaction data — explicit opt-in required Art. 7), G0418 (API CRM SEFIN error logging if Fire-and-Forget fails — monitoring strategy unclear)",
+    "solution_approach": "Einstein Bot survey widget (1-5 stars) OR custom Flow with quick-reply buttons if widget unavailable → Justificativa free-text (max 500 chars, sanitização profanity filter + special chars) → LGPD consent disclosure before survey ('Sua avaliação será registrada junto ao CPF para melhoria do serviço. Concorda?') → API CRM SEFIN callout (Apex @future Fire-and-Forget async — log satisfação + justificativa + CPF/CNPJ + serviço executado) → Despedida message template with link Portal SEFIN (Q-06 URL pending)",
+    "confidence": "Confirmed"
+  },
+  {
+    "item_id": "E05",
+    "item_type": "epic",
+    "t_shirt_size": "M",
+    "size_drivers": {
+      "Technical Complexity": {
+        "tier": "XS",
+        "signal": "UX Research artifacts: persona docs (PDF), usability test scripts (PT-BR), accessibility report (WCAG 2.1 AA adapted for conversational UI)"
+      },
+      "User Experience": {
+        "tier": "L",
+        "signal": "Personas: n=6 PF + n=6 PJ interviews = 12 total (remote via Zoom); Usability testing: 3 fluxos × 5 usuários = 15 sessões; Accessibility: expert review (heuristic evaluation) WCAG 2.1 AA adapted for conversational UI"
+      },
+      "Change Management": {
+        "tier": "M",
+        "signal": "UX Research incluída no escopo PS (P-31); DATAPREV executes testing with PS scripts (assumption G0501); LGPD consent form for persona interviews + usability testing (G0514)"
+      },
+      "Risk & Uncertainty": {
+        "tier": "M",
+        "signal": "G0501 (UX research ownership — PS conducts or DATAPREV conducts with PS guidance?); G0507 (WCAG 2.1 AA não aplicável a conversational UI — W3C Conversational Accessibility Guidelines needed); G0514 (LGPD consent form for persona interviews + usability testing)"
+      }
+    },
+    "size_rationale": "Moderate: UX research scope (personas + usability + accessibility) elevated by execution ownership ambiguity (G0501) and conversational UI accessibility adaptation complexity (G0507)",
+    "complexity_drivers": "Personas: 12 remote interviews (6 PF + 6 PJ) via Zoom; Usability testing: 15 sessões (3 fluxos × 5 usuários); Accessibility analysis: WCAG 2.1 AA expert review adapted for conversational UI; Deliverables: 2 persona docs (PDF), usability test scripts (PT-BR self-guided), usability findings report (~5-10 pages), accessibility report (~10-15 pages); UX research ownership ambiguity (G0501 — PS conducts or DATAPREV conducts with PS guidance?)",
+    "skills_needed": "UX Researcher (personas + usability + accessibility), Change Manager (LGPD consent coordination)",
+    "risks": "G0501 (UX research ownership — PS conducts vs DATAPREV conducts with PS guidance?), G0507 (WCAG 2.1 AA não aplicável a conversational UI — W3C Conversational Accessibility Guidelines needed), G0514 (LGPD consent form for persona interviews + usability testing), G0509 (accessibility testing with PcD — expert review vs user testing unclear)",
+    "solution_approach": "Personas: n=6 PF (2 baixa/2 média/2 alta renda) + n=6 PJ (2 MEI/2 pequena/2 média empresa) remote interviews via Zoom (~45 min each) → 2 persona docs (PDF, PT-BR, 1 PF + 1 PJ) → Usability testing: 3 fluxos (IPTU, TMRSU, Cadastral) × 5 usuários = 15 sessões remote via Zoom + working WhatsApp bot pre-production → Task completion rate >80%, Time on task <5 min, SUS score >70, Error rate <15% → Usability findings report (~5-10 pages) → Accessibility: expert review (heuristic evaluation) WCAG 2.1 AA adapted for conversational UI (plain language Flesch Reading Ease >60 PT-BR, screen reader testing VoiceOver + TalkBack, minimal cognitive load 1 question at a time) → Accessibility report (~10-15 pages) → LGPD consent form for all participants (G0514)",
+    "confidence": "Confirmed"
+  },
+  {
+    "item_id": "E06",
+    "item_type": "epic",
+    "t_shirt_size": "M",
+    "size_drivers": {
+      "Technical Complexity": {
+        "tier": "M",
+        "signal": "Custom Bot Maintainer profile (Einstein Bot + conversation review only — Q-15 validation pending); Field History Tracking (CPF/CNPJ fields); Event Monitoring (API callouts, login events); Data retention Apex batch job (90-day deletion scheduled weekly)"
+      },
+      "Data Complexity": {
+        "tier": "M",
+        "signal": "LGPD Art. 11 (CPF/CNPJ as sensitive data); TDE encryption at-rest (Shield optional per G0611 legal interpretation); Data residency Hyperforce Brazil (P-22 validation pending)"
+      },
+      "User Experience": {
+        "tier": "S",
+        "signal": "2 custom profiles: System Admin (3 users) + Bot Maintainer (7 users); Bot Maintainer scope restricted to Einstein Bot Setup + Conversation Review (sem Flow Builder, sem API logs — Q-15 validation pending)"
+      },
+      "Change Management": {
+        "tier": "S",
+        "signal": "10 users total; greenfield ORG (no legacy profile migration); DATAPREV assumes training (P-27)"
+      },
+      "Risk & Uncertainty": {
+        "tier": "M",
+        "signal": "G0602 (Bot Maintainer profile scope undefined — Q-15 validation pending); G0611 (TDE vs Shield for LGPD Art. 11 — legal interpretation needed); G0604 (Event Monitoring license cost ~$2,500/user/yr); G0608 (MFA optional or mandatory — LGPD Art. 46 unclear)"
+      },
+      "Configuration vs Code": {
+        "tier": "M",
+        "signal": "2 custom profiles configured + Field History Tracking enabled + Event Monitoring configured + Data retention Apex batch job (scheduled weekly deletion)"
+      }
+    },
+    "size_rationale": "Moderate: LGPD compliance (TDE encryption, data residency, audit trail) + custom profile scoped to Einstein Bot, elevated by Bot Maintainer permissions ambiguity (Q-15) and TDE vs Shield legal interpretation (G0611)",
+    "complexity_drivers": "LGPD Art. 11 compliance (CPF/CNPJ as sensitive data), Data residency Hyperforce Brazil (or US-East contractual with LGPD controls — P-22 validation pending), Standard TDE encryption at-rest (Shield optional ~30% license uplift if legal requires field-level encryption — G0611), Custom Bot Maintainer profile (Einstein Bot Setup + Conversation Review only — Q-15 validation pending), Field History Tracking (CPF/CNPJ, satisfaction fields — 24-month retention), Event Monitoring (API callout events, login events — G0604 add-on license cost), Data retention Apex batch job (90-day bot logs, 12-month satisfaction data — LGPD Art. 15 minimization)",
+    "skills_needed": "Technical Architect (LGPD compliance design), Senior Technical Consultant (Salesforce Admin + Security), Technical Consultant (Apex data retention batch job)",
+    "risks": "G0602 (Bot Maintainer profile scope undefined — Q-15 validation pending), G0611 (TDE vs Shield for LGPD Art. 11 — legal interpretation needed from SEFIN-CE DPO), G0604 (Event Monitoring license cost ~$2,500/user/yr), G0608 (MFA optional or mandatory — LGPD Art. 46 unclear), G0610 (data retention policy 90-day vs 12-month — LGPD Art. 15 minimization validation)",
+    "solution_approach": "Hyperforce Brazil ORG for LGPD Art. 11 compliance (data stored in São Paulo data center — P-22 validation pending) → Standard TDE (Transparent Data Encryption) at-rest (Shield optional per G0611 legal interpretation) → TLS 1.2+ encryption in transit for all API callouts → Custom Bot Maintainer profile (Einstein Bot Setup + Conversation Review only — sem Flow Builder, sem API logs — Q-15 validation pending) → Field History Tracking enabled (CPF/CNPJ, Email, Phone, MailingStreet — 24-month retention) → Event Monitoring configured (API callout events, login events — G0604 add-on license cost) → Data retention Apex batch job (90-day bot logs, 12-month satisfaction data — scheduled weekly deletion via Apex Scheduler) → IP Ranges for Bot Maintainer (SEFIN-CE office IPs — to be provided) → MFA recommended (not mandatory — G0608 LGPD Art. 46 unclear)",
+    "confidence": "Assumed"
+  },
+  {
+    "item_id": "E08",
+    "item_type": "epic",
+    "t_shirt_size": "L",
+    "size_drivers": {
+      "Technical Complexity": {
+        "tier": "M",
+        "signal": "Marketing Cloud Engagement (Core/Pro edition — G0801 validation needed) + Journey Builder (1 jornada proativa) + WhatsApp connector configured + HSM templates (3-5 templates Meta approval 1-3 weeks)"
+      },
+      "Data Complexity": {
+        "tier": "M",
+        "signal": "SFTP batch ingestion (Marketing Cloud consome arquivo SEFIN diário/semanal); 1 segmentação (sem Identity Resolution); opt-out handling (STOP keyword + Marketing Cloud attribute update)"
+      },
+      "Integration Complexity": {
+        "tier": "M",
+        "signal": "SFTP batch file from SEFIN → Marketing Cloud Data Extension (1 fonte dados cidadãos IPTU vencido); Marketing Cloud WhatsApp connector to Meta Business API"
+      },
+      "Scale & Performance": {
+        "tier": "M",
+        "signal": "4.86M msgs/ano = ~13.5K msgs/day (requires WhatsApp Business Account Tier 2+ — G0808); SFTP batch ingestion latency (D-1 data freshness)"
+      },
+      "User Experience": {
+        "tier": "M",
+        "signal": "1 jornada proativa (ex: IPTU vencido D-15, D-5, D+1 reminders); HSM templates design + Meta approval 1-3 weeks; opt-out mechanism (reply STOP + Marketing Cloud attribute update)"
+      },
+      "Change Management": {
+        "tier": "S",
+        "signal": "Proactive messaging to citizens; LGPD compliance (tax payment reminders = legitimate public interest? — G0809 legal validation needed)"
+      },
+      "Risk & Uncertainty": {
+        "tier": "M",
+        "signal": "G0801 (Marketing Cloud edition undefined — Core/Pro/Premium?); G0809 (LGPD consent for proactive marketing — legal validation Art. 7, IX); G0808 (WhatsApp Business Account Tier 2+ required — 13.5K msgs/day); G0820 (SEFIN batch file format/frequency undefined)"
+      },
+      "Configuration vs Code": {
+        "tier": "M",
+        "signal": "Marketing Cloud account provisioned + WhatsApp connector configured + SFTP batch ingestion (Marketing Cloud Data Extension 1 fonte dados) + Journey Builder (1 jornada design) + HSM templates (3-5 templates design + Meta approval) + Opt-out handling (STOP keyword + Marketing Cloud attribute update)"
+      }
+    },
+    "size_rationale": "Large: Marketing Cloud + SFTP batch ingestion (sem Data Cloud) + Journey Builder (1 jornada proativa), elevated by HSM templates Meta approval (1-3 weeks) and LGPD consent ambiguity (G0809)",
+    "complexity_drivers": "Marketing Cloud Engagement setup (Core/Pro edition — G0801 validation needed), SFTP batch ingestion from SEFIN (arquivo diário/semanal cidadãos IPTU vencido → Marketing Cloud Data Extension — G0820 format/frequency undefined), Journey Builder (1 jornada proativa ex: IPTU vencido régua D-15, D-5, D+1 reminders), HSM templates design (3-5 templates Meta approval 1-3 weeks), Opt-out mechanism (reply STOP + Marketing Cloud attribute update), LGPD compliance (tax payment reminders = legitimate public interest? — G0809 legal validation Art. 7, IX), WhatsApp Business Account Tier 2+ required (13.5K msgs/day — G0808)",
+    "skills_needed": "Technical Architect (Marketing Cloud), Senior Technical Consultant (Marketing Cloud + Journey Builder), Technical Consultant (SFTP ingestion), Change Manager (LGPD consent + opt-out coordination)",
+    "risks": "G0801 (Marketing Cloud edition undefined — Core/Pro/Premium?), G0809 (LGPD consent for proactive marketing — legal validation Art. 7, IX), G0808 (WhatsApp Business Account Tier 2+ required — 13.5K msgs/day), G0820 (SEFIN batch file format/frequency undefined — daily/weekly?), G0819 (HSM templates Meta approval timeline 1-3 weeks — critical path risk)",
+    "solution_approach": "SEM Data Cloud: Marketing Cloud Engagement (Core/Pro edition — G0801 validation needed) + WhatsApp connector configured (Meta Business API) → SFTP batch ingestion from SEFIN (arquivo diário/semanal cidadãos IPTU vencido → Marketing Cloud Data Extension — G0820 format/frequency validation needed) → 1 segmentação (sem Identity Resolution) → Journey Builder (1 jornada proativa ex: IPTU vencido régua D-15, D-5, D+1 reminders — triggers/régua pending Q-G/Q-H) → HSM templates design (3-5 templates Meta approval 1-3 weeks) → Opt-out mechanism (reply STOP + Marketing Cloud attribute update) → LGPD compliance (tax payment reminders = legitimate public interest? — G0809 legal validation Art. 7, IX) → WhatsApp Business Account Tier 2+ required (13.5K msgs/day — G0808 upgrade from Tier 1 if needed)",
+    "confidence": "Assumed"
+  },
+  {
+    "item_id": "E09",
+    "item_type": "epic",
+    "t_shirt_size": "M",
+    "size_drivers": {
+      "Technical Complexity": {
+        "tier": "M",
+        "signal": "Configuração Omni-Channel (Enhanced recomendado) + Presence Statuses + Routing Configuration (fila/skill-based) + Service Console app para 3 PAs — majoritariamente declarativo [KB: service_cloud_3-27-2026.md:13560-13591]"
+      },
+      "Integration Complexity": {
+        "tier": "M",
+        "signal": "Handoff precisa levar contexto da sessão do bot (CPF/CNPJ, serviço solicitado, transcript) para o Case/Messaging Session — automação Flow adicional nos 4 fluxos do E02 [extends: pontos de decisão já existentes no E02, agora roteando para humano]"
+      },
+      "Data Complexity": {
+        "tier": "S",
+        "signal": "Reaproveita modelo de dados existente (Contact/Case); não introduz objeto de dados novo além de eventual Messaging Session"
+      },
+      "Scale & Performance": {
+        "tier": "S",
+        "signal": "Confirmado: 3 PAs humanas, turno único — volume de roteamento pequeno e previsível (G0903 resolvido)"
+      },
+      "User Experience": {
+        "tier": "M",
+        "signal": "Novo app Service Console para apenas 3 agentes + continuidade de thread WhatsApp do bot para o humano [assumption: comportamento padrão do Digital Engagement Messaging já disponível/aprovado]"
+      },
+      "Change Management": {
+        "tier": "M",
+        "signal": "Novo papel operacional para as PAs (hoje sem atendimento humano no fluxo, per P-02) — treinamento e novo workflow, porém para equipe pequena (3 pessoas)"
+      },
+      "Risk & Uncertainty": {
+        "tier": "M",
+        "signal": "Licenciamento Digital Engagement confirmado disponível (G0901 não é mais bloqueadora); restam apenas confirmações de configuração: G0902 (edição Omni-Channel) e G0904 (horário exato do DHA)"
+      },
+      "Configuration vs Code": {
+        "tier": "S",
+        "signal": "Predominantemente configuração declarativa (Omni-Channel setup, Business Hours, profile) + pequenas automações Flow para handoff de contexto"
+      }
+    },
+    "size_rationale": "Medium: nenhuma dimensão em L após confirmação de que Digital Engagement já está disponível (G0901 resolvido) e que o headcount é pequeno (3 PAs/turno único, G0903 resolvido); driver dominante M distribuído entre Technical/Integration/UX/Change Management, sem breadth-bump suficiente para subir a L dado que o trabalho em cada epic tocado (E01/E02/E03/E06) é pontual",
+    "complexity_drivers": "Configuração Enhanced Omni-Channel (G0902 a confirmar); handoff de contexto do bot para o Case/Messaging Session nos 4 fluxos do E02; novo profile 'Agente Humano SEFIN' com acesso LGPD-aware a CPF/CNPJ (delta E06); extensão da pesquisa de satisfação para fechamento humano (delta E04); Business Hours real para DHA (G0904)",
+    "skills_needed": "Technical Architect (Omni-Channel setup), Technical Consultant (Flow handoff automation + Service Console config), Technical Consultant Security+Profiles (novo profile Agente Humano, LGPD scoping), Project Manager (coordenação)",
+    "risks": "G0902 (confirmar Enhanced Omni-Channel — Standard atinge EOL Summer '26), G0904 (Business Hours/DHA sem horário exato definido)",
+    "solution_approach": "Enhanced Omni-Channel (Presence Statuses, Routing Configuration, Service Channel para Messaging) → Case/Messaging Session como objeto de trabalho roteado → ponto de transferência adicionado aos 4 fluxos do bot (E02) via Flow, carregando contexto da sessão (CPF/CNPJ, serviço, transcript) → Service Console app para as 3 PAs com painel de contexto SEFIN → Business Hours real ligado à disponibilidade de roteamento → novo profile 'Agente Humano SEFIN' (delta E06) → pesquisa de satisfação estendida ao fechamento humano (delta E04)",
+    "confidence": "Confirmed",
+    "size_if_assumption_breaks": "M; pode subir para L se surgir necessidade de suporte multi-turno (mais de 1 turno de atendimento) ou se o volume de escalonamento (fração de 400K conversas/ano que vira transbordo) for maior do que 3 PAs/turno único conseguem absorver"
+  }
+]
