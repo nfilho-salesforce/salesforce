@@ -147,6 +147,20 @@
         "narratives/slides",
         "Fase 0 (facade inventory)"
       ]
+    },
+    {
+      "date": "2026-09-16",
+      "skills_used": [],
+      "summary": "Extraí o Exercício 3 do rom-cliente.html (v1.5) para arquivo standalone outputs/artifacts/exercicio-plano-projeto.html (v1.0): removido o texto de contexto inicial (sec-sub + box 'não altera os racionais'), retitulado 'Exercício de construção de plano de projeto', inicia direto na Composição consolidada (30 pessoas PS). Legenda compacta mantida; Benchmark Disclaimer preservado; sem valores financeiros. Respondida ad-hoc a pergunta sobre objetivo do ARI.",
+      "friction": [],
+      "open_threads": [
+        "AO REABRIR: re-responder a pergunta 'qual o objetivo do projeto com o ARI' (diretriz do scoper nesta sessão)"
+      ],
+      "next_steps": [
+        "Re-responder objetivo do ARI ao reabrir",
+        "commercials (faixa indicativa, taxa validada)",
+        "narratives/slides"
+      ]
     }
   ],
   "preferences": {

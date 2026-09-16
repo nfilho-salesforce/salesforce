@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<!-- DECK-VERSION: 1.0 | GENERATED: 2026-08-27T16:04:00-03:00 | Exercício 3 extraído de rom-cliente v1.5 -->
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARI Vivo · Exercício de construção de plano de projeto</title>
+<style>
+  :root{
+    --navy:#2b0b4a; --navy-2:#3a1063; --purple:#660099; --purple-2:#7c3aed;
+    --violet:#8b5cf6; --ink:#1a1330; --body:#332b47; --muted:#6b6480;
+    --line:#e6e1ef; --line-2:#d8d0e6; --bg:#f6f4fb; --card:#ffffff;
+    --red:#c0392b; --red-bg:#fdecea; --amber:#b7791f; --amber-bg:#fff8ec;
+    --green:#1e7e57; --green-bg:#e8f6ee; --blue:#2563a8; --blue-bg:#eaf1fb;
+    --radius:16px; --shadow:0 2px 10px rgba(43,11,74,.06),0 8px 28px rgba(43,11,74,.05);
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{font-family:var(--sans);color:var(--body);background:var(--bg);line-height:1.55;font-size:15px;-webkit-font-smoothing:antialiased;}
+
+  /* ═══ SIDEBAR ═══ */
+  #sidebar{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;
+    background:linear-gradient(170deg,var(--navy),var(--navy-2) 60%,#1c0733);color:#e9e3f5;z-index:100;}
+  #sidebar-header{padding:26px 22px 18px;border-bottom:1px solid rgba(255,255,255,.09);}
+  .logo-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+  .logo-tag{font-size:10px;font-weight:800;letter-spacing:.5px;padding:4px 9px;border-radius:20px;text-transform:uppercase;}
+  .logo-tag.vivo{background:#660099;color:#fff;}
+  .logo-tag.sf{background:#00a1e0;color:#fff;}
+  .logo-tag.ps{background:rgba(255,255,255,.14);color:#e9e3f5;}
+  #sidebar-header h2{font-size:17px;line-height:1.25;margin:0 0 6px;color:#fff;font-weight:800;}
+  #sidebar-header p{font-size:11.5px;line-height:1.4;margin:0;color:#b8abd6;}
+  .owner-line{margin-top:12px;font-size:11px;color:#cbbfe6;}
+  nav{padding:14px 12px 40px;}
+  .nav-group-title{font-size:10.5px;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+    color:#8f7fc0;padding:16px 10px 7px;}
+  .nav-item{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:10px;font-size:13px;
+    color:#ddd4f0;cursor:pointer;transition:background .12s,color .12s;margin-bottom:2px;text-decoration:none;}
+  .nav-item:hover{background:rgba(255,255,255,.07);color:#fff;}
+  .nav-item.active{background:linear-gradient(90deg,var(--purple),var(--purple-2));color:#fff;font-weight:700;box-shadow:0 3px 12px rgba(124,58,237,.35);}
+  .nav-item .ico{font-size:15px;width:20px;text-align:center;flex:none;}
+  .nav-badge{margin-left:auto;font-size:9px;font-weight:800;padding:2px 7px;border-radius:20px;background:rgba(255,255,255,.13);color:#e9e3f5;letter-spacing:.4px;}
+
+  /* ═══ MAIN ═══ */
+  #main{margin-left:280px;min-height:100vh;}
+  #topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);}
+  .topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 40px;flex-wrap:wrap;}
+  .topbar-inner h1{font-size:16px;margin:0;color:var(--ink);font-weight:800;}
+  .topbar-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  .inst-badge,.date-badge,.ver-badge{font-size:11px;font-weight:700;padding:5px 11px;border-radius:20px;}
+  .inst-badge{background:var(--blue-bg);color:var(--blue);}
+  .date-badge{background:var(--bg);color:var(--muted);border:1px solid var(--line);}
+  .ver-badge{background:var(--purple);color:#fff;}
+  #content{padding:34px 40px 90px;max-width:1120px;}
+
+  /* ═══ SECTIONS ═══ */
+  .section{display:none;animation:fade .25s ease;}
+  .section.active{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+  /* ═══ HERO ═══ */
+  .hero{background:linear-gradient(150deg,var(--navy),var(--purple) 120%);color:#fff;border-radius:var(--radius);
+    padding:38px 36px;margin-bottom:26px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+  .hero .eyebrow{font-size:11.5px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:#d9c7f5;margin-bottom:12px;}
+  .hero h1{font-size:30px;line-height:1.15;margin:0 0 12px;font-weight:800;}
+  .hero .sub{font-size:15px;color:#e6dcf7;max-width:760px;margin:0;line-height:1.6;}
+  .hero-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:26px;}
+  .hkpi{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:16px 16px;}
+  .hkpi .n{font-size:24px;font-weight:800;color:#fff;line-height:1;}
+  .hkpi .l{font-size:11px;color:#d6c9ef;margin-top:7px;line-height:1.4;}
+
+  /* ═══ CARDS / TYPO ═══ */
+  h2.sec-h{font-size:22px;color:var(--ink);font-weight:800;margin:6px 0 4px;}
+  .sec-sub{font-size:14px;color:var(--muted);margin:0 0 22px;max-width:760px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px 26px;margin-bottom:20px;box-shadow:var(--shadow);}
+  .card h3{font-size:16px;color:var(--ink);font-weight:800;margin:0 0 12px;}
+  .lead{font-size:14px;color:var(--body);}
+  .eyebrow-dark{font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--purple);margin-bottom:6px;}
+
+  /* KPI row */
+  .kpi-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:4px 0 22px;}
+  .kpi{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--purple);border-radius:12px;padding:16px 18px;box-shadow:var(--shadow);}
+  .kpi .n{font-size:23px;font-weight:800;color:var(--ink);line-height:1;}
+  .kpi .l{font-size:11.5px;color:var(--muted);margin-top:7px;line-height:1.4;}
+  .kpi.alt{border-left-color:var(--blue);}
+  .kpi.green{border-left-color:var(--green);}
+  .kpi.amber{border-left-color:var(--amber);}
+
+  /* chips */
+  .chip{display:inline-block;font-size:10.5px;font-weight:800;padding:3px 9px;border-radius:20px;letter-spacing:.3px;vertical-align:middle;}
+  .chip.red{background:var(--red-bg);color:var(--red);}
+  .chip.amber{background:var(--amber-bg);color:var(--amber);}
+  .chip.green{background:var(--green-bg);color:var(--green);}
+  .chip.blue{background:var(--blue-bg);color:var(--blue);}
+  .chip.purple{background:#f2e8fb;color:var(--purple);}
+  .chip.dark{background:var(--ink);color:#fff;}
+
+  /* tables */
+  .uc-table{width:100%;border-collapse:collapse;font-size:13px;margin:6px 0 4px;overflow:hidden;border-radius:12px;}
+  .uc-table thead th{background:var(--navy);color:#fff;text-align:left;padding:11px 13px;font-weight:700;font-size:12px;}
+  .uc-table thead th.r{text-align:right;}
+  .uc-table tbody td{padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top;}
+  .uc-table tbody td.r{text-align:right;font-variant-numeric:tabular-nums;}
+  .uc-table tbody tr:nth-child(even){background:#faf8fd;}
+  .uc-table tbody tr.total-row{background:#f2e8fb;font-weight:800;color:var(--ink);}
+  .uc-table tbody tr.total-row td{border-bottom:none;}
+  .table-scroll{overflow-x:auto;}
+  .num{font-variant-numeric:tabular-nums;}
+
+  /* alerts */
+  .alert{border-radius:12px;padding:14px 16px;margin-bottom:14px;font-size:13px;border:1px solid;display:flex;gap:11px;align-items:flex-start;}
+  .alert .ai{font-size:16px;flex:none;line-height:1.3;}
+  .alert.red{background:var(--red-bg);border-color:#f3c6c0;color:#8a2a1f;}
+  .alert.amber{background:var(--amber-bg);border-color:#f0dcae;color:#7a5410;}
+  .alert.green{background:var(--green-bg);border-color:#bfe6cf;color:#155f40;}
+  .alert.blue{background:var(--blue-bg);border-color:#c3d8f2;color:#1c4a7a;}
+  .alert b{font-weight:800;}
+
+  /* timeline — phases */
+  .tl{margin:8px 0 6px;}
+  .tl-weeks{display:grid;grid-template-columns:180px 1fr;gap:0;align-items:center;font-size:10.5px;color:var(--muted);padding:0 0 6px;border-bottom:1px solid var(--line);margin-bottom:8px;}
+  .tl-weeks .wk{display:flex;justify-content:space-between;font-weight:700;}
+  .tl-row{display:grid;grid-template-columns:180px 1fr;gap:0;align-items:center;padding:5px 0;}
+  .tl-row .lab{font-size:12px;color:var(--ink);font-weight:600;padding-right:12px;}
+  .tl-row .lab small{display:block;color:var(--muted);font-weight:500;font-size:10.5px;}
+  .tl-track{position:relative;height:26px;background:linear-gradient(90deg,#f3eefb,#f3eefb);border-radius:7px;}
+  .tl-bar{position:absolute;top:3px;height:20px;border-radius:6px;display:flex;align-items:center;padding:0 8px;
+    font-size:10.5px;font-weight:800;color:#fff;white-space:nowrap;overflow:hidden;box-shadow:0 1px 4px rgba(43,11,74,.2);}
+  .b-pd{background:linear-gradient(90deg,#2563a8,#3b82c4);}
+  .b-build{background:linear-gradient(90deg,#660099,#7c3aed);}
+  .b-uat{background:linear-gradient(90deg,#b7791f,#d69e2e);}
+  .b-dep{background:linear-gradient(90deg,#1e7e57,#2fa072);}
+  .b-scale{background:linear-gradient(90deg,#0f766e,#14b8a6);}
+  .b-gov{background:linear-gradient(90deg,#4b5563,#6b7280);}
+  .b-prep{background:linear-gradient(90deg,#0e7490,#0891b2);}
+  .b-design{background:linear-gradient(90deg,#2563a8,#3b82c4);}
+  .b-test{background:linear-gradient(90deg,#b7791f,#d69e2e);}
+  .wp-squad-h{display:flex;align-items:center;gap:10px;margin:0 0 10px;font-size:16px;font-weight:800;color:var(--ink);}
+  .wp-squad-h .sq-num{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--purple),var(--purple-2));color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;flex:none;}
+  .wp-tag{font-size:10px;font-weight:800;letter-spacing:.4px;padding:2px 8px;border-radius:20px;background:#f2e8fb;color:var(--purple);text-transform:uppercase;}
+  .phase-dot{display:inline-flex;align-items:center;justify-content:center;font-size:12px;}
+  .pd-full{color:var(--purple);} .pd-part{color:var(--amber);} .pd-off{color:var(--line-2);}
+  .legend-row{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 2px;font-size:11px;}
+  .legend-row .lg{display:inline-flex;align-items:center;gap:5px;color:var(--muted);}
+  .legend-row .sw{width:14px;height:10px;border-radius:3px;display:inline-block;}
+  ul.bul{margin:6px 0 4px;padding-left:20px;}
+  ul.bul li{font-size:13.5px;color:var(--ink);line-height:1.65;margin-bottom:7px;}
+  .dt{font-size:10px;font-weight:800;letter-spacing:.3px;padding:2px 8px;border-radius:20px;text-transform:uppercase;white-space:nowrap;display:inline-block;}
+  .dt-block{background:#fde8e8;color:#c0392b;}
+  .dt-part{background:#fef3e0;color:#b7791f;}
+  .dt-ext{background:#e8eefb;color:#2563a8;}
+  .dt-feed{background:#e8f5ec;color:#1e7e4f;}
+  .dt-overlay{background:#f2e8fb;color:var(--purple);}
+  .cons-lab{font-weight:800;font-size:12.5px;}
+  .cons-lab small{display:block;font-weight:600;font-size:10.5px;color:var(--muted);letter-spacing:.2px;}
+  .wave-card{border-left:3px solid var(--purple);background:#faf8fd;border-radius:0 10px 10px 0;padding:11px 15px;margin-bottom:9px;}
+  .wave-card .wt{font-weight:800;font-size:13px;color:var(--ink);margin-bottom:3px;}
+  .wave-card .wt .wk{font-weight:600;color:var(--muted);font-size:11px;}
+  .wave-card .wd{font-size:12.5px;color:var(--muted);line-height:1.55;}
+  .par-tag{font-size:10px;font-weight:800;padding:1px 7px;border-radius:20px;margin-left:6px;text-transform:uppercase;letter-spacing:.3px;}
+  .par-full{background:#e8f5ec;color:#1e7e4f;} .par-part{background:#fef3e0;color:#b7791f;} .par-seq{background:#fde8e8;color:#c0392b;}
+  .cmp-grid{display:flex;gap:14px;flex-wrap:wrap;margin:6px 0 4px;}
+  .cmp-box{flex:1;min-width:150px;border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-align:center;background:var(--card);}
+  .cmp-box.hi{border-color:var(--purple);background:#faf8fd;}
+  .cmp-box .n{font-size:30px;font-weight:900;color:var(--ink);line-height:1;}
+  .cmp-box.hi .n{color:var(--purple);}
+  .cmp-box .l{font-size:11px;color:var(--muted);margin-top:6px;letter-spacing:.3px;text-transform:uppercase;font-weight:700;}
+  .cmp-box .s{font-size:11.5px;color:var(--muted);margin-top:4px;}
+  .vin{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:10px;white-space:nowrap;}
+  .vin-ded{background:#efe7fb;color:#660099;} .vin-shr{background:#fff3e0;color:#b7791f;}
+  .fte{display:inline-block;font-size:11px;font-weight:900;padding:2px 8px;border-radius:10px;white-space:nowrap;}
+  .fte-1{background:#e8f5ec;color:#1e7e4f;border:1px solid #bfe3cc;} .fte-half{background:#eef4ff;color:#2b5c9e;border:1px solid #cfe0f7;}
+  .sq-block{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0;background:var(--card);}
+  .sq-block h4{margin:0 0 8px;font-size:14.5px;color:var(--navy);}
+  .sq-block h4 .sq-num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--purple);color:#fff;font-size:12px;font-weight:800;margin-right:7px;}
+  .qa-math{background:#faf8fd;border:1px dashed var(--purple);border-radius:12px;padding:12px 16px;margin:6px 0;font-size:13.5px;color:var(--ink);}
+  .qa-math b{color:var(--purple);}
+  .sq-details{margin-top:8px;border:1px solid var(--line);border-radius:8px;overflow:hidden;}
+  .sq-details summary{cursor:pointer;list-style:none;padding:8px 12px;font-size:12.5px;font-weight:700;color:var(--purple);background:#faf8fd;user-select:none;display:flex;align-items:center;gap:7px;}
+  .sq-details summary::-webkit-details-marker{display:none;}
+  .sq-details summary::before{content:"▸";font-size:11px;}
+  .sq-details[open] summary::before{content:"▾";}
+  .sq-details summary:hover{background:#f2ecfa;}
+  .sq-details .uc-table{margin-top:0;border-top:1px solid var(--line);}
+  .sq-block.gov{border-color:var(--purple);background:#faf8fd;}
+  .sq-block.gov h4 .sq-num{background:var(--navy);}
+
+  /* milestone roadmap */
+  .rm{position:relative;margin:14px 0 6px;padding-left:8px;}
+  .rm::before{content:"";position:absolute;left:20px;top:8px;bottom:8px;width:3px;background:linear-gradient(180deg,var(--purple),var(--purple-2));border-radius:3px;}
+  .rm-item{position:relative;padding:0 0 22px 54px;}
+  .rm-dot{position:absolute;left:11px;top:2px;width:22px;height:22px;border-radius:50%;background:#fff;border:3px solid var(--purple);
+    display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:var(--purple);z-index:2;}
+  .rm-dot.done{background:var(--purple);color:#fff;}
+  .rm-item h4{font-size:14.5px;margin:0 0 3px;color:var(--ink);font-weight:800;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .rm-when{font-size:11px;font-weight:700;color:var(--purple);}
+  .rm-item p{margin:4px 0 0;font-size:12.5px;color:var(--body);line-height:1.5;}
+
+  /* footer nav */
+  .sec-nav{display:flex;justify-content:space-between;gap:10px;margin-top:26px;padding-top:18px;border-top:1px solid var(--line);flex-wrap:wrap;}
+  .sec-link{background:var(--card);border:1px solid var(--line-2);color:var(--purple);font-size:12.5px;font-weight:700;
+    padding:9px 15px;border-radius:9px;cursor:pointer;transition:all .12s;}
+  .sec-link:hover{background:var(--purple);color:#fff;border-color:var(--purple);}
+
+  /* page footer */
+  .doc-footer{margin-top:30px;padding:18px 40px;border-top:1px solid var(--line);font-size:11px;color:var(--muted);
+    display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-left:280px;}
+  .doc-footer b{color:var(--body);}
+
+  .disc{font-size:12px;color:var(--muted);font-style:italic;line-height:1.6;background:#faf8fd;border-left:3px solid var(--line-2);padding:12px 16px;border-radius:0 8px 8px 0;margin-bottom:12px;}
+
+  @media(max-width:1024px){
+    #sidebar{transform:translateX(-100%);transition:transform .2s;}
+    #sidebar.open{transform:none;}
+    #main,.doc-footer{margin-left:0;}
+    #content{padding:24px 18px 70px;}
+    .topbar-inner{padding:12px 18px;}
+    .menu-btn{display:inline-flex !important;}
+  }
+  .menu-btn{display:none;align-items:center;justify-content:center;width:38px;height:38px;border-radius:9px;
+    background:var(--purple);color:#fff;border:none;font-size:18px;cursor:pointer;}
+</style>
+</head>
+<body>
+<div id="main" style="margin-left:0;">
+  <div id="content" style="max-width:1120px;margin:0 auto;">
+    <div id="s15" class="section active">
+      <h2 class="sec-h">Exercício de construção de plano de projeto</h2>
+      <div class="alert amber"><span class="ai">🧪</span><div>Legenda — <b>vínculo:</b> <span class="vin vin-ded">dedicado</span> atua em um único squad · <span class="vin vin-shr">compartilhado</span> cruza squads. <b>FTE:</b> <span class="fte fte-1">1</span> full-time no squad · <span class="fte fte-half">½</span> meio período (dividido entre squads/fases). Cenário Central (produtivas) como base. Todos os papéis a <b>0 rate</b> (sem valores financeiros).</div></div>
+
+      <div class="card">
+        <h3>Composição consolidada — 30 pessoas PS</h3>
+        <p class="sec-sub" style="margin-top:2px;">Squads de build: 2·FND+OPS · 3·CIM+CPM · 4·CRM+COPM · 5·SDP · 6·INT. Overlay: 1·Governança e 7·HCC.</p>
+        <table class="uc-table">
+          <thead><tr><th>Perfil</th><th>Sen.</th><th>Qtd</th><th>Vínculo</th><th>FTE típico</th><th>Squads / atuação</th></tr></thead>
+          <tbody>
+            <tr><td colspan="6" style="background:#faf8fd;font-weight:800;color:var(--purple);">Governança &amp; arquitetura de programa (overlay) — 4</td></tr>
+            <tr><td>Principal Program Manager</td><td>Principal</td><td>1</td><td><span class="vin vin-shr">overlay</span></td><td><span class="fte fte-1">1</span></td><td>Todos · Prep → HC</td></tr>
+            <tr><td>Project Manager / PMO</td><td>Sênior</td><td>1</td><td><span class="vin vin-shr">overlay</span></td><td><span class="fte fte-1">1</span></td><td>Todos · Design → Deploy</td></tr>
+            <tr><td>Principal Solution Architect</td><td>Principal</td><td>1</td><td><span class="vin vin-shr">overlay</span></td><td><span class="fte fte-1">1</span></td><td>Todos · Prep → Deploy</td></tr>
+            <tr><td>Principal Technical Architect</td><td>Principal</td><td>1</td><td><span class="vin vin-shr">overlay</span></td><td><span class="fte fte-1">1</span></td><td>Todos (INT foco) · Prep → Deploy</td></tr>
+            <tr><td colspan="6" style="background:#faf8fd;font-weight:800;color:var(--purple);">Camada de solução compartilhada — 5</td></tr>
+            <tr><td>Solution Architect (SA-A)</td><td>Sênior</td><td>1</td><td><span class="vin vin-shr">compartilhado</span></td><td><span class="fte fte-half">½</span>+<span class="fte fte-half">½</span></td><td>2·FND + 4·CRM+COPM</td></tr>
+            <tr><td>Solution Architect (SA-B)</td><td>Sênior</td><td>1</td><td><span class="vin vin-shr">compartilhado</span></td><td><span class="fte fte-half">½</span>+<span class="fte fte-half">½</span></td><td>3·CIM+CPM + 5·SDP</td></tr>
+            <tr><td>Solution Consultant (SC-1)</td><td>Sênior</td><td>1</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span></td><td>3·CIM+CPM (caminho crítico · CPM-04)</td></tr>
+            <tr><td>Solution Consultant (SC-2)</td><td>Regular</td><td>1</td><td><span class="vin vin-shr">compartilhado</span></td><td><span class="fte fte-half">½</span>+<span class="fte fte-half">½</span></td><td>2·FND + 4·CRM+COPM</td></tr>
+            <tr><td>Solution Consultant (SC-3)</td><td>Regular</td><td>1</td><td><span class="vin vin-shr">compartilhado</span></td><td><span class="fte fte-half">½</span>+<span class="fte fte-half">½</span></td><td>5·SDP + 6·INT</td></tr>
+            <tr><td colspan="6" style="background:#faf8fd;font-weight:800;color:var(--purple);">Pares por squad de build — Technical Consultant + Developer (10)</td></tr>
+            <tr><td>Technical Consultant ×5</td><td>Sênior</td><td>5</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span> cada</td><td>1 por squad (2,3,4,5,6) · Design → Build</td></tr>
+            <tr><td>Developer ×5</td><td>Pleno</td><td>5</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span> cada</td><td>1 por squad (2,3,4,5,6) · Build</td></tr>
+            <tr><td colspan="6" style="background:#faf8fd;font-weight:800;color:var(--purple);">Quality Assurance (regra 1:2) — 7</td></tr>
+            <tr><td>QA Consultant ×7</td><td>Sênior/Regular</td><td>7</td><td><span class="vin vin-shr">pool cross-squad</span></td><td><span class="fte fte-1">1</span>/<span class="fte fte-half">½</span></td><td>Todos os squads de build · Build + surge em UAT</td></tr>
+            <tr><td colspan="6" style="background:#faf8fd;font-weight:800;color:var(--purple);">Experience &amp; adoção (7·HCC) — 4</td></tr>
+            <tr><td>Experience Designer</td><td>Sênior</td><td>1</td><td><span class="vin vin-shr">compartilhado</span></td><td><span class="fte fte-1">1</span></td><td><b>Full-time Prep → fim do Deploy</b> (ajuste solicitado)</td></tr>
+            <tr><td>Experience Architect</td><td>Sênior</td><td>1</td><td><span class="vin vin-shr">compartilhado</span></td><td><span class="fte fte-half">½</span></td><td>Superfícies-chave · P&amp;D / Design</td></tr>
+            <tr><td>HCC — Principal (Adoption/Change)</td><td>Principal</td><td>1</td><td><span class="vin vin-shr">overlay</span></td><td><span class="fte fte-half">½</span></td><td>P&amp;D, UAT, Scale</td></tr>
+            <tr><td>HCC — Consultant (Baseline TMA/FCR)</td><td>Regular</td><td>1</td><td><span class="vin vin-shr">overlay</span></td><td><span class="fte fte-half">½</span></td><td>P&amp;D, Scale</td></tr>
+          </tbody>
+        </table>
+        <p class="sec-sub" style="margin-top:8px;"><b>Total: 30 pessoas PS</b> — 4 governança/arq. programa · 2 SA · 3 SC · 5 Technical Consultant · 5 Developer · 7 QA · 4 experience/adoção.</p>
+      </div>
+
+      <div class="card">
+        <h3>Correção da composição de Quality Assurance — regra 1 QA : 2</h3>
+        <div class="qa-math">
+          Base de cálculo = <b>Technical Consultant + Solution Consultant + Developer</b><br>
+          = 5 Technical Consultant + 3 Solution Consultant + 5 Developer = <b>13 profissionais</b><br>
+          QA necessário = ⌈ 13 ÷ 2 ⌉ = <b>7 Quality Assurance Consultants</b> &nbsp;<span style="color:var(--muted);font-size:12px;">(1 para cada 2, arredondado para cima)</span>
+        </div>
+        <p class="sec-sub" style="margin-top:6px;">No Exercício 2 o QA era um pool de 2 (AI-amplificado). A regra 1:2 sobe a cobertura para <b>7</b> — aproximadamente 1 QA por squad de build (5) + 2 cobrindo a camada de Solution Consultants compartilhada e o surge de UAT. Arquitetos (SA/TA), governança e experience/adoção <b>não</b> entram na base de cálculo — a regra nomeia apenas Technical Consultant, Solution Consultant e Developer.</p>
+      </div>
+
+      <!-- LINHAS DO TEMPO POR SQUAD -->
+      <div class="card">
+        <h3>Linhas do tempo por squad — recursos, vínculo e FTE</h3>
+        <p class="sec-sub" style="margin-top:2px;">Começa pela <b>1·Governança</b> (overlay que cobre todo o programa) e segue com os 5 squads de build, cada um com sua janela (barra por fase PS). O time alocado fica em uma tabela <b>recolhível</b> (clique em <b>“Ver time alocado”</b>) — recolhida por padrão para leitura das linhas do tempo. Vínculo: <span class="vin vin-ded">dedicado</span>/<span class="vin vin-shr">compartilhado</span>; FTE <span class="fte fte-1">1</span>/<span class="fte fte-half">½</span>. O par obrigatório Technical Consultant sênior + Developer pleno é dedicado (1 FTE) em todos os squads de build.</p>
+
+        <div class="sq-block gov">
+          <h4><span class="sq-num">1</span>Governança &amp; arquitetura de programa — overlay (cobre todo o programa)</h4>
+          <div class="tl">
+            <div class="tl-weeks"><span>Fase</span><div class="wk"><span>Sem 1</span><span>Sem 10</span><span>Sem 20</span><span>Sem 30</span><span>Sem 40</span></div></div>
+            <div class="tl-row"><div class="lab">Governança</div><div class="tl-track">
+              <div class="tl-bar b-gov" style="left:0%;width:100%;">Overlay de programa — Prep → Hypercare</div>
+            </div></div>
+          </div>
+          <details class="sq-details">
+            <summary>Ver time alocado</summary>
+          <table class="uc-table">
+            <thead><tr><th>Recurso</th><th>Vínculo</th><th>FTE</th></tr></thead>
+            <tbody>
+              <tr><td>Principal Program Manager</td><td><span class="vin vin-shr">overlay · todos os squads</span></td><td><span class="fte fte-1">1</span></td></tr>
+              <tr><td>Project Manager / PMO</td><td><span class="vin vin-shr">overlay · todos os squads</span></td><td><span class="fte fte-1">1</span></td></tr>
+              <tr><td>Principal Solution Architect</td><td><span class="vin vin-shr">overlay · todos os squads</span></td><td><span class="fte fte-1">1</span></td></tr>
+              <tr><td>Principal Technical Architect</td><td><span class="vin vin-shr">overlay · foco 6·INT</span></td><td><span class="fte fte-1">1</span></td></tr>
+            </tbody>
+          </table>
+          </details>
+          <p class="sec-sub" style="margin-top:6px;">A squad de governança não constrói funcionalidade — é o overlay que coordena os 5 squads de build, sustenta a coerência de solução/arquitetura e responde pela entrega ponta-a-ponta. Por isso a barra cobre todo o programa (Prep → Hypercare), enquanto os squads de build ocupam janelas menores dentro dela.</p>
+        </div>
+
+        <div class="sq-block">
+          <h4><span class="sq-num">2</span>FND + OPS — fundação · front-loaded (sai cedo)</h4>
+          <div class="tl">
+            <div class="tl-weeks"><span>Fase</span><div class="wk"><span>Sem 1</span><span>Sem 10</span><span>Sem 20</span><span>Sem 30</span><span>Sem 40</span></div></div>
+            <div class="tl-row"><div class="lab">FND</div><div class="tl-track">
+              <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+              <div class="tl-bar b-build" style="left:17.5%;width:40%;">Build (base) — sai cedo</div>
+            </div></div>
+          </div>
+          <details class="sq-details">
+            <summary>Ver time alocado</summary>
+          <table class="uc-table">
+            <thead><tr><th>Recurso</th><th>Vínculo</th><th>FTE</th></tr></thead>
+            <tbody>
+              <tr><td>Technical Consultant (sênior)</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span></td></tr>
+              <tr><td>Developer (pleno)</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span></td></tr>
+              <tr><td>Solution Consultant SC-2</td><td><span class="vin vin-shr">compart. c/ 4·CRM</span></td><td><span class="fte fte-half">½</span></td></tr>
+              <tr><td>Solution Architect SA-A</td><td><span class="vin vin-shr">compart. c/ 4·CRM</span></td><td><span class="fte fte-half">½</span></td></tr>
+              <tr><td>QA Consultant (pool)</td><td><span class="vin vin-shr">compartilhado</span></td><td><span class="fte fte-half">½</span></td></tr>
+            </tbody>
+          </table>
+          </details>
+        </div>
+
+        <div class="sq-block">
+          <h4><span class="sq-num">3</span>CIM + CPM — caminho crítico (dimensiona a janela)</h4>
+          <div class="tl">
+            <div class="tl-weeks"><span>Fase</span><div class="wk"><span>Sem 1</span><span>Sem 10</span><span>Sem 20</span><span>Sem 30</span><span>Sem 40</span></div></div>
+            <div class="tl-row"><div class="lab">CIM+CPM</div><div class="tl-track">
+              <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+              <div class="tl-bar b-build" style="left:17.5%;width:57.5%;">Build (caminho crítico)</div>
+              <div class="tl-bar b-test" style="left:65%;width:20%;">Test</div>
+            </div></div>
+          </div>
+          <details class="sq-details">
+            <summary>Ver time alocado</summary>
+          <table class="uc-table">
+            <thead><tr><th>Recurso</th><th>Vínculo</th><th>FTE</th></tr></thead>
+            <tbody>
+              <tr><td>Technical Consultant (sênior)</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span></td></tr>
+              <tr><td>Developer (pleno)</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span></td></tr>
+              <tr><td>Solution Consultant SC-1</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span></td></tr>
+              <tr><td>Solution Architect SA-B</td><td><span class="vin vin-shr">compart. c/ 5·SDP</span></td><td><span class="fte fte-half">½</span></td></tr>
+              <tr><td>QA Consultant (pool)</td><td><span class="vin vin-shr">compartilhado · surge UAT</span></td><td><span class="fte fte-1">1</span></td></tr>
+            </tbody>
+          </table>
+          </details>
+        </div>
+
+        <div class="sq-block">
+          <h4><span class="sq-num">4</span>CRM + COPM — paralelo pleno com CIM</h4>
+          <div class="tl">
+            <div class="tl-weeks"><span>Fase</span><div class="wk"><span>Sem 1</span><span>Sem 10</span><span>Sem 20</span><span>Sem 30</span><span>Sem 40</span></div></div>
+            <div class="tl-row"><div class="lab">CRM+COPM</div><div class="tl-track">
+              <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+              <div class="tl-bar b-build" style="left:17.5%;width:47.5%;">Build</div>
+              <div class="tl-bar b-test" style="left:65%;width:20%;">Test</div>
+            </div></div>
+          </div>
+          <details class="sq-details">
+            <summary>Ver time alocado</summary>
+          <table class="uc-table">
+            <thead><tr><th>Recurso</th><th>Vínculo</th><th>FTE</th></tr></thead>
+            <tbody>
+              <tr><td>Technical Consultant (sênior)</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span></td></tr>
+              <tr><td>Developer (pleno)</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span></td></tr>
+              <tr><td>Solution Consultant SC-2</td><td><span class="vin vin-shr">compart. c/ 2·FND</span></td><td><span class="fte fte-half">½</span></td></tr>
+              <tr><td>Solution Architect SA-A</td><td><span class="vin vin-shr">compart. c/ 2·FND</span></td><td><span class="fte fte-half">½</span></td></tr>
+              <tr><td>QA Consultant (pool)</td><td><span class="vin vin-shr">compartilhado</span></td><td><span class="fte fte-half">½</span></td></tr>
+            </tbody>
+          </table>
+          </details>
+        </div>
+
+        <div class="sq-block">
+          <h4><span class="sq-num">5</span>SDP — canais &amp; voz · paralelo parcial (espera modelo + infra)</h4>
+          <div class="tl">
+            <div class="tl-weeks"><span>Fase</span><div class="wk"><span>Sem 1</span><span>Sem 10</span><span>Sem 20</span><span>Sem 30</span><span>Sem 40</span></div></div>
+            <div class="tl-row"><div class="lab">SDP</div><div class="tl-track">
+              <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+              <div class="tl-bar b-build" style="left:25%;width:40%;">Build (canais · voz)</div>
+              <div class="tl-bar b-test" style="left:65%;width:20%;">Test</div>
+              <div class="tl-bar b-dep" style="left:82.5%;width:10%;">Dep</div>
+            </div></div>
+          </div>
+          <details class="sq-details">
+            <summary>Ver time alocado</summary>
+          <table class="uc-table">
+            <thead><tr><th>Recurso</th><th>Vínculo</th><th>FTE</th></tr></thead>
+            <tbody>
+              <tr><td>Technical Consultant (sênior)</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span></td></tr>
+              <tr><td>Developer (pleno)</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span></td></tr>
+              <tr><td>Solution Consultant SC-3</td><td><span class="vin vin-shr">compart. c/ 6·INT</span></td><td><span class="fte fte-half">½</span></td></tr>
+              <tr><td>Solution Architect SA-B</td><td><span class="vin vin-shr">compart. c/ 3·CIM</span></td><td><span class="fte fte-half">½</span></td></tr>
+              <tr><td>QA Consultant (pool)</td><td><span class="vin vin-shr">compartilhado</span></td><td><span class="fte fte-half">½</span></td></tr>
+            </tbody>
+          </table>
+          </details>
+        </div>
+
+        <div class="sq-block">
+          <h4><span class="sq-num">6</span>INT — integração · destrava os demais (condicional G1004)</h4>
+          <div class="tl">
+            <div class="tl-weeks"><span>Fase</span><div class="wk"><span>Sem 1</span><span>Sem 10</span><span>Sem 20</span><span>Sem 30</span><span>Sem 40</span></div></div>
+            <div class="tl-row"><div class="lab">INT</div><div class="tl-track">
+              <div class="tl-bar b-prep" style="left:0%;width:7.5%;">Prep</div>
+              <div class="tl-bar b-design" style="left:7.5%;width:12.5%;">Design</div>
+              <div class="tl-bar b-build" style="left:17.5%;width:57.5%;">Build (facades · contratos)</div>
+              <div class="tl-bar b-dep" style="left:82.5%;width:10%;">Dep</div>
+            </div></div>
+          </div>
+          <details class="sq-details">
+            <summary>Ver time alocado</summary>
+          <table class="uc-table">
+            <thead><tr><th>Recurso</th><th>Vínculo</th><th>FTE</th></tr></thead>
+            <tbody>
+              <tr><td>Technical Consultant (sênior)</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span></td></tr>
+              <tr><td>Developer (pleno)</td><td><span class="vin vin-ded">dedicado</span></td><td><span class="fte fte-1">1</span></td></tr>
+              <tr><td>Solution Consultant SC-3</td><td><span class="vin vin-shr">compart. c/ 5·SDP</span></td><td><span class="fte fte-half">½</span></td></tr>
+              <tr><td>Principal Technical Architect</td><td><span class="vin vin-shr">overlay · foco INT</span></td><td><span class="fte fte-half">½</span></td></tr>
+              <tr><td>QA Consultant (pool)</td><td><span class="vin vin-shr">compartilhado</span></td><td><span class="fte fte-half">½</span></td></tr>
+            </tbody>
+          </table>
+          </details>
+          <p class="sec-sub" style="margin-top:6px;">INT mantém o par dedicado, mas a arquitetura técnica vem do <b>Principal Technical Architect</b> (overlay, foco INT) em vez de arquitetos dedicados — o seam de facades é condicional (G1004) e concentra risco; não compartilha profissionais <i>para dentro</i>.</p>
+        </div>
+      </div>
+
+      <!-- RECURSOS COMPARTILHADOS & FTE -->
+      <div class="card">
+        <h3>Recursos compartilhados &amp; FTE — quem é full vs. meio período</h3>
+        <table class="uc-table">
+          <thead><tr><th>Recurso</th><th>Compartilhado entre</th><th>FTE por squad</th><th>FTE total</th></tr></thead>
+          <tbody>
+            <tr><td>Solution Architect SA-A</td><td>2·FND + 4·CRM+COPM</td><td><span class="fte fte-half">½</span> + <span class="fte fte-half">½</span></td><td><span class="fte fte-1">1</span></td></tr>
+            <tr><td>Solution Architect SA-B</td><td>3·CIM+CPM + 5·SDP</td><td><span class="fte fte-half">½</span> + <span class="fte fte-half">½</span></td><td><span class="fte fte-1">1</span></td></tr>
+            <tr><td>Solution Consultant SC-2</td><td>2·FND + 4·CRM+COPM</td><td><span class="fte fte-half">½</span> + <span class="fte fte-half">½</span></td><td><span class="fte fte-1">1</span></td></tr>
+            <tr><td>Solution Consultant SC-3</td><td>5·SDP + 6·INT</td><td><span class="fte fte-half">½</span> + <span class="fte fte-half">½</span></td><td><span class="fte fte-1">1</span></td></tr>
+            <tr><td>QA Consultant (pool de 7)</td><td>Todos os 5 squads de build + surge UAT</td><td><span class="fte fte-1">1</span> no crítico · <span class="fte fte-half">½</span> nos demais</td><td>7</td></tr>
+            <tr><td>Principal Technical Architect</td><td>Overlay · foco 6·INT</td><td><span class="fte fte-half">½</span> em INT</td><td><span class="fte fte-1">1</span></td></tr>
+            <tr><td>Experience Designer</td><td>Superfícies de todos os squads</td><td>—</td><td><span class="fte fte-1">1</span> <b>Prep → Deploy</b></td></tr>
+          </tbody>
+        </table>
+        <ul class="bul" style="margin-top:10px;">
+          <li><b>Dedicados a 1 squad (1 FTE):</b> os 5 pares Technical Consultant (sênior) + Developer (pleno) e o Solution Consultant SC-1 (caminho crítico, CIM+CPM).</li>
+          <li><b>Compartilhados a ½ FTE por squad:</b> SA-A, SA-B, SC-2, SC-3 — cada um soma 1 FTE dividido em duas metades. É onde a partilha cross-squad reduz assentos sem furar cobertura.</li>
+          <li><b>Experience Designer full-time até o fim do Deploy (ajuste solicitado):</b> deixou de ser fracional de P&amp;D — agora <span class="fte fte-1">1</span> FTE contínuo de Prep ao encerramento do Deploy, sustentando as superfícies durante Build, Test e cutover.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Comparativo dos três exercícios</h3>
+        <div class="cmp-grid">
+          <div class="cmp-box"><div class="n">33</div><div class="l">Ex.1 nominal</div><div class="s">1 time dedicado por squad</div></div>
+          <div class="cmp-box"><div class="n">23</div><div class="l">Ex.2 proposto</div><div class="s">perfis + cross-squad enxuto</div></div>
+          <div class="cmp-box hi"><div class="n">30</div><div class="l">Ex.3 merge</div><div class="s">pares + QA 1:2 + Exp. Designer full</div></div>
+        </div>
+        <table class="uc-table" style="margin-top:12px;">
+          <thead><tr><th>Perfil</th><th>Ex.1</th><th>Ex.2</th><th>Ex.3</th><th>O que muda no Ex.3</th></tr></thead>
+          <tbody>
+            <tr><td>Governança &amp; arq. programa</td><td>4</td><td>4</td><td>4</td><td>Inalterado (overlay).</td></tr>
+            <tr><td>Solution Architect</td><td>5</td><td>2</td><td>2</td><td>Mantém a partilha do Ex.2 (½+½ FTE).</td></tr>
+            <tr><td>Technical Architect / Consultant</td><td>6</td><td>3</td><td>5</td><td>Vira <b>Technical Consultant sênior dedicado por squad</b> (par do Developer); TA de programa fica no overlay.</td></tr>
+            <tr><td>Solution Consultant</td><td>4</td><td>3</td><td>3</td><td>Mantém 3 (SC-1 dedicado; SC-2/SC-3 a ½ FTE).</td></tr>
+            <tr><td>Developer</td><td>5</td><td>5</td><td>5</td><td>1 pleno dedicado por squad, par do Technical Consultant.</td></tr>
+            <tr><td>Quality Assurance</td><td>5</td><td>2</td><td>7</td><td><b>Recalculado pela regra 1:2</b> sobre TC+SC+Dev (13 → 7).</td></tr>
+            <tr><td>Experience &amp; adoção (HCC)</td><td>4</td><td>4</td><td>4</td><td>Experience Designer passa a <b>full-time até o Deploy</b>.</td></tr>
+            <tr><td style="font-weight:800;">Total PS</td><td style="font-weight:800;">33</td><td style="font-weight:800;">23</td><td style="font-weight:800;color:var(--purple);">30</td><td>Sobe vs. Ex.2 por QA (+5) e Technical Consultant dedicado (+2); segue abaixo do nominal graças à partilha.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="disc">
+        <b>Disclaimer — exercício de composição consolidada (Benchmark).</b> Merge dos Exercícios 1 e 2 com os ajustes solicitados (par Technical Consultant sênior + Developer pleno por squad; QA na regra 1:2; Experience Designer full-time até o Deploy; FTE marcado por squad). Derivado top-down da forma do engajamento (cenário Central, ~40 semanas) e das práticas de staffing da Salesforce PS; carrega o Benchmark Disclaimer. Distinto (e paralelo) da base de dimensionamento do ROM (5 squads de Build) — <b>sem alterar horas, fases, épicos ou premissas das demais seções</b>. Sem rates e sem valores financeiros (todos os papéis a 0). As contagens e FTEs são indicativos para planejamento de recursos, não um compromisso contratual de composição de time.
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="doc-footer">
+  <span><b>ARI Vivo · Exercício de construção de plano de projeto</b> — Salesforce Professional Services LATAM · documento controlado por versão</span>
+  <span>Versão <b>1.0</b> · gerado <b>27 ago 2026, 16:04 BRT</b></span>
+</div>
+</body>
+</html>
