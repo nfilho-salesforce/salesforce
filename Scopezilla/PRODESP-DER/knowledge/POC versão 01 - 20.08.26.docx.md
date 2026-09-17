@@ -1,0 +1,575 @@
+–  Sistema
+
+de
+POC
+Atendimento  de  Ocorrências em Rodovia
+DER-SP
+
+de  Gestão
+
+Proposta funcional e operacional para implementação de Sistema de Gestão Integrada
+dos eventos operacionais do DER-SP
+
+Versão: 01 – 20/08/2026 – Documento de Prova de Conceito
+
+Objetivo:  Validar  como  plataforma  de  controle  e  gestão  integrada,  com  visão  única  e
+rastreável, permitindo tomada de decisão.
+
+1.  Objetivo da POC
+
+A  POC  deverá  demonstrar  a  viabilidade  de  utilização  das  ferramentas  “SalesForce”  para
+gestão  de  ocorrências  em  ambiente  rodoviário,  centralizando  o  controle  do  atendimento
+desde  a  abertura  da  solicitação  até  a  conclusão  do  serviço.  O  foco  será  na  operação  em
+tempo  real,  com  distribuição  inteligente  de  recursos,  acompanhamento  do  deslocamento,
+comunicação  entre  operadores  de  campo/C2C  e  C2C/usuário,  disponibilização  de
+acompanhamento visual em tempo real do avanço do atendimento para o usuário e geração
+de indicadores operacionais.
+
+O Ambiente de teste contará com número reduzido de usuários e VTR’s que simularão panes
+e  sinistros.  Os  recursos  testados  serão  Guincho  Leve  e  veículo  de  Inspeção,  sendo  os
+critérios  de  distância,  disponibilidade  e  aderência  ao  tipo  de ocorrência a premissas iniciais
+para o despacho inteligente dos recursos.
+
+Identificador único e histórico integral do evento.
+
+2. Escopo macro da POC
+●  Abertura de ocorrência pelo Usuário/C2C
+●
+●  Qualificação e classificação da ocorrência.
+●  Registro de dados do usuário e do veículo.
+●  Recebimento e tratamento de ocorrências de pane e sinistro.
+●  Utilização dos recursos Guincho Leve e Inspeção.
+●  Distribuição automática e/ou manual dos recursos.
+●  Priorização por distância, disponibilidade, aderência e gravidade.
+●  Acompanhamento do deslocamento do recurso.
+●  Alerta quando houver ausência de mudança de posição por mais de 5 minutos de VTR’s
+
+em atendimento.
+
+●  Comunicação entre Operador de Campo e C2C.
+●  Comunicação entre C2C e Usuário.
+●  Atualização de status do atendimento.
+●  Registro do histórico completo da ocorrência.
+●  Dashboard operacional com tempos e quantidade de atendimentos.
+
+●  Uso  dos  recursos  de  comunicação  disponíveis  na  versão  full  da  ferramenta,  incluindo
+
+SMS, ligação, WhatsApp, ligação por WhatsApp e mensagens de voz.
+
+3. Atores envolvidos:
+
+Ator
+
+C2C
+
+Operador de Campo
+
+Usuário
+
+Gestor
+
+Responsabilidade na POC
+Registrar os eventos através da PA, dar suporte aos
+usuários, acompanhar a operação, visualizar e gerenciar
+ocorrências e recursos, realizar despachos manuais,
+monitorar deslocamentos, atuar em exceções e consultar
+indicadores.
+Receber o acionamento, aceitar o evento, deslocar-se até
+o local, atualizar o status, comunicar-se com o C2C e
+concluir o atendimento.
+Solicitar atendimento e fornecer as informações
+necessárias para qualificação do evento. Ficará conectado
+ao C2C durante toda a jornada de atendimento através do
+canal de registro da entrada.
+Acompanhar os eventos e pendências e desempenho.
+
+4. Tipos de Ocorrência e Recursos associado.
+
+Recurso
+Guincho Leve
+
+Inspeção
+
+Aplicação na POC
+Atendimento à pane mecânica e ou sinistro*(Emergencia).
+Atendimento  a  caminhões  em  geral e veículos de passeio
+com  pane  seca,  pane seca elétrica, pane elétrica ou pneu
+furado.
+
+5. Fluxo Operacional Proposto
+
+1.  Abertura:  O  Usuário
+
+inicia  uma  solicitação  por  um  canal  disponibilizado  pela
+
+POC(whatsapp).
+
+2.  Qualificação: o sistema registra os dados mínimos e classifica o tipo de ocorrência.
+3.  Critério 1 - Distância/tempo estimado: entre os recursos elegíveis, priorizar o de menor
+
+distância ou menor tempo estimado
+
+4.  Critério 2 - Disponibilidade: somente recursos disponíveis podem ser considerados
+5.  Critério 3 – Aderência: o tipo de recurso deve ser compatível com a ocorrência.
+6.  Acionamento automático: o recurso selecionado recebe a solicitação.
+7.  Acionamento  manual:  O  C2C  avalia  o  evento  e  tem  como  premissa  a  possibilidade  de
+inserir manualmente recursos adicionais ou a remoção de quaisquer recursos já alocados.
+
+8.  Aceite: O Operador de Campo aceita o acionamento para o evento.
+9.  Recusa:  O  operado  de  Campo  recusa  o  serviço  em  qualquer  status  de  atendimento  (a
+
+motivação da recusa deverá ser registrada pelo operador em campo obrigatório).
+
+10. Deslocamento:  O  operador
+
+inicia  o  deslocamento  e  sua  posição  passa  a  ser
+
+acompanhada.
+
+11.  Chegada/inicio:  O  operador  de  campo  dá  início  ao  atendimento  via  sistema  e  sua
+
+chegada é registrada.
+
+12. Atendimento: o operador executa o atendimento e mantém o C2C informado via canais de
+
+comunicação disponíveis nas ferramentas “salesforce”.
+
+13. Conclusão: o atendimento é encerrado com registro das informações finais.
+14. Pendência  de  atendimento:  quando  por  algum  motivo  o  atendimento  não  pode  ser
+finalizado naturalmente, seja por motivos fortuitos ou por ineficiência no atendimento que
+gerou retrabalho ou novas tomadas de decisões.
+
+15. Indicadores: os tempos e eventos do ciclo permanecem disponíveis para consulta.
+
+6. Modelo de Status da Ocorrência
+
+Status
+
+Aberto
+
+Em fila
+
+Acionado
+
+Aceito
+
+Iniciado
+
+Concluído
+
+Descrição / Critério
+Instante  em  que  as  informações  do  evento  ainda  estão
+sendo  coletadas,  nesta  etapa  é  feito  a  qualificação  do
+evento definindo o tipo de ocorrência.
+Ocorrência pronta para despacho, após a qualificação do
+evento.
+Recurso  foi  selecionado  e o acionamento foi enviado via
+sistema.
+Operador confirmou o recebimento do evento e deu início
+a  etapa  de  deslocamento.  Obs.:  Deverá  ser  permitido  a
+recusa  do  atendimento,  sendo  que  toda  recusa  de
+atendimento  deve  despertar  alarme  ao  C2C  com  a
+motivação  comunicada  pelo  operador,  caso  o  evento
+ainda  não  tenha  sido  iniciado  e  todos  os  recursos
+atribuídos recusem o atendimento, mesmo após o aceite,
+o evento deve retornar para o status aberto e obedecer às
+regras de acionamento automático e manual previamente
+definidas,  porém,  deverá  ser  lançada  em  uma  lista
+especial de monitoramento classificada como pendências
+de atendimento.
+Pelo menos um operador registrou a chegada ao usuário,
+dando  início  à  execução  dos  trabalhos.  Quando  todos
+recursos  de  um  evento  já  iniciado enviarem a recusa de
+atendimento ou forem removidos por uma ação do C2C, o
+evento  deverá  permanecer  como  iniciado,  porém, dando
+alertas  cíclicos  ao  C2C,  pede-se  que  após  o  primeiro
+alerta  instantâneo,  sejam  realizados  ciclos  de  alerta   ao
+C2C até a conclusão do evento de fato, porém, solicita-se
+que  o  operador  consiga  definir  a  frequência com que os
+alertas  serão  emitidos,  podendo  ainda  neste momento o
+evento ser classificado para acompanhamento na lista de
+pendências
+de
+simplesmente
+acompanhamento  conforme  a  necessidade  operacional
+exigir.
+Quando o último
+
+lista
+
+ou
+
+na
+
+  recurso  alocado  ao evento der a conclusão via sistema,
+nesta  situação,  deverá  subir  alarme  ao  C2C  para
+avaliação e encerramento do evento. Nesta etapa deverá
+ser  permitido  acionamentos  complementares  de  recurso
+para  conclusão  de  pendências  por  falhas  ou  ineficiência
+no  processo  de  atendimento,  neste  caso  específico  o
+status  retornará  para  acionado  e  o  evento  deverá  ficar
+visível na lista de pendências.
+Quando o status concluído é validado pelo C2C, o evento
+é encerrado definitivamente.
+
+Encerrado
+
+7. Qualificação da Ocorrência
+
+Para abertura do evento via WhatsApp ou ligação, a POC deverá capturar, no mínimo:
+
+●  Nome do solicitante.
+●  Número telefônico do solicitante
+●  Localização da ocorrência.
+●  Marca, modelo e cor do veículo.
+●  Placa.
+
+Quando  o  atendimento  ocorrer  por  WhatsApp,  deverão  ser  aproveitados  automaticamente,
+quando disponíveis, o número de telefone e a posição geográfica do solicitante.
+
+8. Distribuição Inteligente de Recursos
+
+A POC deverá demonstrar um mecanismo de seleção do recurso considerando, nesta ordem
+lógica,  a  aderência  ao  atendimento,  a  disponibilidade  e  a  proximidade  geográfica.  A  regra
+fornecida sugere o acionamento do recurso aderente, mais próximo e disponível.
+
+●  Critério 1 - Distância/tempo estimado: entre os recursos elegíveis, priorizar o de menor
+
+distância ou menor tempo estimado
+
+●  Critério 2 - Disponibilidade: somente recursos disponíveis podem ser considerados
+●  Critério 3 – Aderência: o tipo de recurso deve ser compatível com a ocorrência.
+
+Em  caso  de  ocorrências  simultâneas,  saturação  de  recursos,  recusas  de  atendimento  e
+necessidade de remanejamento de recursos empenhados, seguir as seguintes regras:
+
+●  Obedecer a matriz de risco definida para priorização dos eventos
+●  Obedecer a ordem cronológica de abertura dos eventos na priorização do despacho.
+
+Possibilitar também o direcionamento manual: o C2C poderá substituir a sugestão automática
+e acionar novos recursos.
+
+Quando  o  tempo  estimado  do  recurso  selecionado  ultrapassar  N  (minutos),  deverá  ser
+acionado adicionalmente outro recurso não aderente disponível com menor tempo estimado e
+não superior a N-10 (minutos).
+
+O  parâmetro  N  deverá  permanecer  configurável  na  POC,  pois  o  documento  de  regras  de
+negócio não define seu valor. A lógica N/N-10 deverá ser demonstrada em cenário de teste.
+
+9. Regras de Alarme e Monitoramento
+
+●  Durante  o  deslocamento,  o  sistema  deverá  monitorar  a  atualização  de  posição  do
+
+recurso.
+
+●  Caso  não  haja  mudança  de  posição  por  período  superior  a  5  minutos  (deverá  ser
+
+configurável), deverá ser gerado um alarme para acompanhamento para C2C.
+●  O alarme deverá permanecer vinculado à ocorrência e ao recurso responsável.
+●  O C2C deverá registrar a tratativa da exceção.
+●  Deverá  ser  gerado  alarmes  de  acompanhamento  dos  tempos  de  atendimento  quando
+estes  extrapolarem  a  média  histórica  ou  meta  previamente  definida  (configurável)  e  ou
+conforme definições dos status e suas mudanças anteriormente definidas.
+
+10. Canais de Comunicação
+
+A POC deverá considerar os canais de comunicação disponíveis na versão full da ferramenta
+a  ser  testada.  O  objetivo  é  validar  a  capacidade  de  manter  as  interações  vinculadas  ao
+atendimento e preservar o histórico operacional.
+
+Canal
+
+WhatsApp
+
+Ligação
+
+SMS
+
+Ligação por WhatsApp
+
+Mensagem de voz
+
+API  dos  sistemas
+inteligentes  de
+montadoras de carro e outros Órgãos
+
+11. Modelo de Dados Mínimo
+
+conforme
+
+(quando  não
+
+comunicação
+da
+
+e
+disponibilidade
+
+Uso na POC
+Abertura/qualificação
+operacional,
+ferramenta.
+Abertura ou complemento de informações.
+Comunicação  com  usuário.
+disponível WhatsApp.
+Abertura/qualificação  de  eventos  e  contato com
+usuário/operador, conforme disponibilidade.
+Abertura/qualificação  de  eventos  e  contato com
+usuário/operador, conforme disponibilidade.
+Verificar  a  possibilidade  de  aproveitar  a
+comunicação
+realizada  pelos  carros  smart
+sinistrados  e  os  dados  desta  natureza
+registrados por outros Órgãos (PM, Defesa Civil,
+Bombeiros, etc.).
+
+Objeto
+
+Ocorrência
+
+Solicitante
+Veículo
+
+Recurso
+
+Operador
+
+Comunicação
+
+Alarme
+
+da
+
+(Latitude,
+
+data/hora
+
+Principais campos sugeridos para a POC
+Número  do  evento,  data/hora  de  abertura,  tipo
+de  evento,  status,  localização  informado  pelo
+longitude,
+usuário
+endereço/referência,
+última
+posição),  solicitante,  veículo,  recurso  atribuído,
+operador, tempos de processo, encerramento.
+Nome, telefone, origem do contato.
+Marca, modelo, cor, placa, categoria.
+VTR,  tipo,  status/disponibilidade,  posição  atual,
+operador  responsável. Controles de abertura de
+turno e pausas.
+Nome/matrícula, recurso associado,
+Todas  as  comunicações  entre  C2C/usuário  e
+operadores deverá ser registrada.
+Ocorrência,  recurso,  tipo  de  alarme,  data/hora,
+status, tratativa do C2C.
+
+12. Interface do ADM – Visão Operacional
+
+Indicador de eventos abertos, acionado, iniciado, concluído e encerrado
+
+●  Mapa com eventos ativas.
+●  Mapa com posição dos recursos.
+●  Lista de ocorrências por status.
+●  Lista de ocorrências com pendências de atendimento.
+●  Lista de ocorrência para acompanhamento.
+●
+●  Tempo médio de resposta.
+●  Tempo médio de deslocamento.
+●  Tempo médio de atendimento.
+●  Quantidade de recursos disponíveis, ocupados e indisponíveis.
+●
+●  Ação de direcionamento manual.
+●  Acesso ao histórico e às comunicações da ocorrência.
+
+Identificação visual de alarmes de parada superior a 5 minutos (configurável).
+
+13. Interface do Operador de Campo
+
+●  Evento aceito
+●  Lista de eventos concluído e em espera.
+●  Detalhamento da ocorrência.
+●  Localização do atendimento.
+●  Dados do veículo e do usuário.
+●  Ações: aceitar, recusar, iniciar atendimento e concluir.
+●  Visualização da rota/navegação.
+●  Canal de comunicação com o C2C.
+●  Registro de observações e evidências do atendimento (fotos, vídeos, documentos, etc.).
+●  Canal  de  abertura  de  eventos  através  de  inspeção  com  ou  sem  a  possibilidade  de
+
+alocação imediata no atendimento.
+
+14. Dashboard e Indicadores
+
+Indicador
+Quantidade de ocorrências
+
+Tempo de resposta
+
+Tempo de deslocamento
+Tempo  de  atendimento  (para  eventos
+encerrados)
+
+Tempo total (TMA)
+
+Recursos acionados
+
+Alarmes de deslocamento
+
+Atendimentos por tipo
+
+início  do
+
+Descrição
+Total de eventos por período e por tipo.
+Intervalo  entre  abertura  e  o
+atendimento.
+Intervalo entre aceite e o início de atendimento.
+início  de  atendimento  e
+Intervalo  entre
+conclusão do atendimento.
+Intervalo  entre  abertura  e  conclusão,  após  o
+encerramento do evento.
+Quantidade e distribuição por tipo de recurso.
+Quantidade  de  ocorrências  sem  mudança  de
+posição superior a 5 minutos, por CGR.
+Pane  mecânica,  sinistro,  pane  seca,  pane
+elétrica, pneu furado etc.
+
+15. Cenários de Teste da POC/Matriz de risco
+
+Cenário
+
+01 – Pane mecânica
+
+com
+
+Simulação
+Veículo
+atendimento.
+Veículo envolvido em sinistro.
+Veículo de passeio sem combustível.
+
+pane  mecânica
+
+02 – Sinistro
+03 – Pane seca
+07 – Pane seca elétrica  Veículo elétrico descarregado.
+04 – Pane elétrica
+05 – Pneu furado
+06 – Caminhão
+
+Veículo de passeio com pane elétrica.
+Veículo de passeio com pneu furado.
+Caminhão solicita atendimento.
+
+solicita
+
+Risco
+
+03
+
+01
+03
+03
+03
+03
+02
+
+16. Premissas a serem observadas durante teste
+
+●  Registrar uma ocorrência e gerar identificador único.
+●  Capturar os dados mínimos de qualificação.
+●  Classificar as ocorrências de pane e sinistro utilizadas nos testes.
+●  Diferenciar Guincho Leve e Inspeção conforme as regras fornecidas.
+●  Demonstrar seleção de recurso por aderência, disponibilidade e proximidade.
+●  Demonstrar direcionamento manual pelo C2C.
+●  Demonstrar acompanhamento do deslocamento.
+●  Gerar alarme após mais de 5 minutos sem mudança de posição.
+●  Demonstrar comunicação vinculada à ocorrência.
+●  Registrar todo o histórico de status e ações.
+●  Apresentar indicadores básicos do atendimento.
+●  Demonstrar o cenário da regra N/N-10 com N parametrizado.
+
+17. Arquitetura Conceitual da POC no Salesforce
+
+implementação  deverá  ser  organizada  em  componentes  funcionais  da  plataforma
+
+A
+Salesforce e aderentes as regras de negócio informadas.
+
+Componente conceitual
+Registro de Ocorrência
+Gestão de Usuários/Operadores
+Gestão de Recursos
+Regras de Negócio
+
+Orquestração de Atendimento
+
+Geolocalização
+
+Comunicação
+
+Notificações/Alertas
+Dashboard
+
+Função
+Entidade central do atendimento.
+Perfis, disponibilidade e permissões.
+Cadastro e situação operacional dos veículos.
+Classificação, elegibilidade e distribuição.
+Mudança  de  estados,  acionamentos  e
+exceções.
+Posição do recurso, distância e deslocamento.
+Canais  e  histórico  de  interações  entre  os
+atores.
+Acionamentos e alarmes operacionais.
+Visão gerencial e indicadores.
+
+18. Limitações e Premissas da POC
+
+●  A POC terá caráter de exploratório e comprovatório, não representando necessariamente
+
+a arquitetura definitiva de produção.
+
+●  O número de usuários e recursos será reduzido para o ambiente de teste.
+●  Pane e sinistro serão simulados.
+●  O valor de N da regra de contingência deverá ser definido/configurado antes da execução
+
+do cenário correspondente.
+
+●  A disponibilidade real de cada canal de comunicação dependerá da versão/licenciamento
+
+e das integrações existentes na ferramenta testada.
+
+●  A  precisão  de  localização  dependerá  dos  dados  de  geolocalização  e  dos  serviços  de
+
+mapa/roteamento utilizados.
+
+●  As regras não fornecem uma matriz completa de todos os tipos de ocorrência; portanto, a
+
+POC deve limitar os testes aos cenários definidos e aos casos descritos.
+
+19. Resultado Esperado
+
+Ao final da POC, o sistema deverá ser capaz de controlar e gerenciar, de ponta a ponta, que
+uma ocorrência rodoviária pode ser registrada, qualificada, direcionada ao recurso adequado,
+acompanhada durante o deslocamento, monitorada pelo C2C, tratada por meio dos canais de
+comunicação  disponíveis  e  encerrada  com  histórico  e  indicadores.  O  resultado  deverá
+permitir  avaliar  a  viabilidade  de  evolução  da  solução  para  uma  etapa  posterior,  com  maior
+escala, integrações e dados reais.
+
+20. Próximas Etapas Recomendadas
+
+●  Definir o ambiente “Salesforce” e as funcionalidades/licenças disponíveis para a POC.
+●  Cadastrar usuários do C2C, Operadores de Campo e recursos de teste.
+●  Cadastrar os tipos de ocorrência contemplados.
+●  Configurar os estados e regras de negócio.
+●  Configurar a regra de despacho e a exceção N/N-10.
+●  Configurar o monitoramento de posição e o alarme de 5 minutos.
+●  Configurar os canais de comunicação que estiverem disponíveis.
+●  Criar o dashboard operacional.
+●  Executar os cenários de teste e registrar evidências.
+●  Consolidar resultados, limitações e recomendações para uma eventual fase piloto.
+
+

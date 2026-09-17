@@ -9,9 +9,9 @@
   "completion_status": {
     "setup": "not-started",
     "tutorial": "not-started",
-    "discover": "not-started",
-    "strategy": "not-started",
-    "requirements": "not-started",
+    "discover": "complete",
+    "strategy": "complete",
+    "requirements": "complete",
     "design": "not-started",
     "roadmap": "not-started",
     "efficiency": "not-started",
@@ -31,18 +31,34 @@
     "contribute": "not-started"
   },
   "timeline": {
-    "client_target": null,
+    "client_target": {
+      "value": "Homologação jan/fev 2027; produção abril 2027",
+      "source": "Granola — Execução PoC (resumo colado pelo usuário, 2026-09-17)",
+      "note": "Também relevante: contrato atual de URA (Instinct) ativo até abril/2027; contrato administrativo renova em 30/nov/2026 — pressiona a decisão Open CTI vs. Salesforce Voice."
+    },
     "user_commitment": null
   },
+  "products_in_scope": ["Field Service", "Agentforce"],
+  "products_with_overlay": [],
+  "org_strategy": {
+    "value": "Org única",
+    "source": "Confirmado pelo usuário em 2026-09-17",
+    "note": "Service Cloud não será usado no MVP (sem caso de uso confirmado); reavaliar se o canal WhatsApp/Agentforce exigir a camada de Digital Engagement subjacente ao Service Cloud — conflito não resolvido com a proposta de arquitetura do BSA (v2, Renata Vendramini), que lista objetos MessagingEndUser/MessagingSession/Case sob Service Cloud."
+  },
+  "geographic_scope": {
+    "value": "Produção estadual — 14 CGRs (não apenas o piloto Cubatão/Taubaté)",
+    "source": "Confirmado pelo usuário em 2026-09-17",
+    "note": "298 viaturas e 1.152 operadores de campo já refletem a escala das 14 CGRs, não apenas o piloto."
+  },
   "salesforce_link": {
-    "status": "deferred",
-    "opportunity_id": null,
-    "opportunity_url": null,
+    "status": "linked",
+    "opportunity_id": "006ed00000idVPBAA2",
+    "opportunity_url": "https://org62.lightning.force.com/lightning/r/Opportunity/006ed00000idVPBAA2/view",
     "licensing_opportunity_id": null,
     "dsr_id": null,
     "dsr_url": null,
-    "account_name": null,
-    "linked_at": null,
-    "last_nudged_at": null
+    "account_name": "PRODESP-Companhia de Processamento de Dados do Estado de São Paulo",
+    "linked_at": "2026-09-17",
+    "last_nudged_at": "2026-09-17"
   }
 }

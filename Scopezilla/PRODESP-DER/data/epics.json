@@ -1,0 +1,49 @@
+[
+  {
+    "epic_id": "E01",
+    "epic_name": "Canal Digital de Atendimento ao Cidadão (WhatsApp + Agentforce)",
+    "description": "Abertura de chamado de socorro via WhatsApp/WhatsApp voz com triagem automatizada pelo Agentforce; transbordo obrigatório para atendente humano em casos com vítimas. Complementa — nunca substitui — o 0800 como porta de entrada de voz.",
+    "confidence": "Confirmed",
+    "kb_sources": [
+      "[KB:agentforce_contact_center_4-30-2026.md:26814-26939]",
+      "[KB:agentforce_contact_center_4-30-2026.md:633-730]"
+    ]
+  },
+  {
+    "epic_id": "E02",
+    "epic_name": "Registro e Classificação da Ocorrência",
+    "description": "Criação do chamado a partir de qualquer canal (WhatsApp automatizado ou 0800 registrado manualmente pelo C2C), classificação pelo catálogo de tipos de ocorrência (5 macro-tipos, 100+ subtipos) e vinculação de uma segunda viatura como chamado relacionado quando necessário.",
+    "confidence": "Confirmed",
+    "kb_sources": [
+      "[KB:field_service_dev.md:126-184]"
+    ]
+  },
+  {
+    "epic_id": "E03",
+    "epic_name": "Despacho Automatizado de Recursos de Campo",
+    "description": "Motor de despacho por aderência/disponibilidade/proximidade operando nas 14 CGRs, com escalonamento pelo parâmetro N/N-10, Console do Dispatcher para o C2C, e trilha de auditoria de overrides manuais.",
+    "confidence": "Confirmed",
+    "kb_sources": [
+      "[KB:field_service_dev.md:27168-27209]",
+      "[KB:field_service_dev.md:26132-26198]"
+    ]
+  },
+  {
+    "epic_id": "E04",
+    "epic_name": "Execução em Campo (App Mobile)",
+    "description": "Aplicativo móvel de Field Service para as 298 viaturas e 1.152 operadores de campo: recebimento do despacho, deslocamento com alarme de 5 minutos, atendimento e encerramento do chamado.",
+    "confidence": "Confirmed",
+    "kb_sources": [
+      "[KB:field_service_dev.md:28005-28245]"
+    ]
+  },
+  {
+    "epic_id": "E05",
+    "epic_name": "Rastreamento e Visibilidade em Tempo Real",
+    "description": "Protocolo único acompanhável do pedido ao encerramento, visível ao cidadão, ao C2C e aos gestores — atende diretamente o critério de sucesso declarado pelo cliente de visão única e rastreável em tempo real.",
+    "confidence": "Assumed",
+    "kb_sources": [
+      "[extends: modelo de status de Service Appointment/Work Order coberto em E02/E03]"
+    ]
+  }
+]

@@ -1,0 +1,69 @@
+{
+  "strategic_context": {
+    "current_state_challenges": [
+      {"challenge": "Atendimento de pane/sinistro fragmentado em chamados distintos para pedido, despacho e encerramento — sem protocolo único nem rastreamento em tempo real para o cidadão.", "source": "discovery", "confidence": "Confirmed"},
+      {"challenge": "Canal único de voz (0800 055 5510); o WhatsApp existente pertence à ouvidoria, não ao socorro emergencial.", "source": "discovery", "confidence": "Confirmed"},
+      {"challenge": "Despacho manual pelo C2C, sem regra sistemática de aderência/disponibilidade/proximidade.", "source": "discovery", "confidence": "Confirmed"},
+      {"challenge": "URA atual (vendor Instinct) migrada recentemente com instabilidade reportada; contrato ativo só até abril/2027.", "source": "discovery", "confidence": "Confirmed"},
+      {"challenge": "Nenhuma discussão formal de LGPD/DPIA registrada, apesar do tratamento de geolocalização e dados de vítimas de acidente.", "source": "discovery", "confidence": "Unknown"},
+      {"challenge": "Overrides manuais de despacho pelo C2C sem trilha de auditoria obrigatória.", "source": "discovery", "confidence": "Confirmed"}
+    ],
+    "business_impacts": [
+      {"impact": "Cidadão em situação de vulnerabilidade na pista sem visibilidade do atendimento — risco de segurança e reputação institucional.", "affected_area": "Experiência do cidadão / segurança viária", "severity": "high"},
+      {"impact": "C2C sobrecarregado em picos de demanda, sem folga sistemática entre chamados.", "affected_area": "Operações / C2C", "severity": "high"},
+      {"impact": "Ausência de protocolo único dificulta a prestação de contas a órgãos de controle do Estado.", "affected_area": "Compliance / governança pública", "severity": "medium"},
+      {"impact": "Exposição operacional se a decisão de telefonia/CTI não for tomada antes do vencimento do contrato da URA (abril/2027).", "affected_area": "Continuidade operacional", "severity": "high"}
+    ],
+    "industry_context": {
+      "summary": "São Paulo registrou 135.545 sinistros de trânsito em 2024 (mais de R$12bi em custo público), e a PRODESP já é parceira confirmada de implementação do Infosiga 3.0 (painel de sinistros do Detran-SP, relançado em setembro/2025 com a Bloomberg Initiative for Road Safety). Há uma agenda estadual ativa de dados em segurança viária, e este projeto se conecta diretamente a ela.",
+      "trends": [
+        "Digitalização de painéis de segurança viária no Estado de SP (Infosiga 3.0)",
+        "Adoção de canais digitais (WhatsApp/agentes de IA) como complemento — não substituto — de centrais de atendimento de voz em serviços públicos emergenciais"
+      ],
+      "regulatory_factors": [
+        "LGPD — geolocalização e dados de vítimas de acidente ainda sem discussão formal de base legal/DPIA (gap aberto)"
+      ],
+      "competitive_pressures": [
+        "A ARTESP (rodovias concedidas) já opera um portal com taxonomia pública de ocorrências — referência de mercado que a malha estadual pública do DER-SP ainda não tem"
+      ]
+    },
+    "value_drivers": [
+      {"driver": "Despacho automático por aderência/disponibilidade/proximidade", "category": "efficiency", "description": "Regra de despacho N/N-10 reduz o tempo ocioso entre o registro do chamado e a saída da viatura, hoje dependente de triagem manual pelo C2C."},
+      {"driver": "Protocolo único e rastreável", "category": "experience", "description": "O cidadão acompanha o próprio atendimento do pedido ao encerramento, em vez de múltiplos contatos sem visibilidade — atende diretamente ao critério de sucesso declarado pelo cliente."},
+      {"driver": "Auditabilidade do ciclo de atendimento", "category": "risk", "description": "Histórico único por chamado (incluindo overrides do C2C) sustenta prestação de contas a órgãos de controle do Estado."},
+      {"driver": "Canal digital de entrada complementar", "category": "experience", "description": "WhatsApp/Agentforce dá ao motorista uma via de contato além da voz, sem eliminar o 0800 que ele já conhece."}
+    ],
+    "strategic_priorities": [
+      {"priority": "Visão única e rastreável do atendimento, do pedido ao encerramento, em tempo real", "rank": 1, "rationale": "Citação direta do cliente como critério de sucesso; é o problema central que todo o resto do projeto resolve."},
+      {"priority": "Canal digital de entrada (WhatsApp + Agentforce) complementando — nunca substituindo — a voz do 0800", "rank": 2, "rationale": "Fecha a lacuna hoje coberta apenas por voz, sem remover a porta de entrada que o cidadão já conhece e confia."},
+      {"priority": "Despacho automatizado com governança de exceção pelo C2C", "rank": 3, "rationale": "Move o C2C de triagem manual constante para atuação apenas nas exceções, com trilha de auditoria."},
+      {"priority": "Preparar a decisão de unificação de voz/CTI sem travar o MVP", "rank": 4, "rationale": "O contrato da URA (Instinct) expira em abril/2027 e o Open CTI legado do Salesforce sai de linha em fev/2028 — uma janela de decisão real, tratada como fase dedicada do Roadmap por decisão explícita do cliente (decisions/0001)."}
+    ]
+  },
+  "transformation_strategy": {
+    "vision_statement": "Todo pedido de socorro na malha rodoviária do DER-SP nasce com um protocolo único, visível ao cidadão na pista, ao C2C na mesa e aos gestores no painel, do primeiro contato ao encerramento. O despacho é automático e rastreável em tempo real, apoiado pelo Field Service, e o motorista pode pedir ajuda pelo canal que tem à mão — voz ou WhatsApp — sem que o 0800 deixe de ser a porta de entrada que ele já conhece.",
+    "strategic_objectives": [
+      {"objective": "Eliminar a fragmentação de registro do atendimento emergencial", "success_criteria": "Cada chamado tem um identificador único rastreável do pedido ao encerramento, visível aos 6 papéis definidos no MVP.", "timeline_horizon": "short"},
+      {"objective": "Oferecer ao cidadão um canal digital de entrada, sem depender exclusivamente da voz", "success_criteria": "WhatsApp e WhatsApp voz operacionais com triagem por Agentforce e transbordo humano garantido para casos com vítimas.", "timeline_horizon": "short"},
+      {"objective": "Automatizar o despacho de recursos de campo com governança de exceção", "success_criteria": "Despacho automático por aderência/disponibilidade/proximidade operando nas 14 CGRs, com o C2C atuando apenas em exceções auditáveis.", "timeline_horizon": "medium"},
+      {"objective": "Preparar a decisão de unificação de canais de voz/CTI sem comprometer o MVP", "success_criteria": "Decisão formal Open CTI vs. Salesforce Voice documentada em detalhe no Roadmap, validada com a Stefanini antes do vencimento do contrato da URA.", "timeline_horizon": "long"}
+    ],
+    "principles": [
+      {"principle": "O 0800 nunca é substituído, só complementado", "rationale": "É o único canal oficial confirmado hoje para o socorro emergencial — nenhum canal novo pode remover essa porta de entrada."},
+      {"principle": "Configurar antes de personalizar", "rationale": "Usar os objetos nativos de Field Service (Work Order, Service Appointment, Service Territory) antes de estender o modelo de dados."},
+      {"principle": "A triagem de IA nunca conclui o socorro à vítima", "rationale": "Regra de negócio já confirmada na discovery — o transbordo humano é obrigatório para casos com vítimas."},
+      {"principle": "Dependência de terceiro fica fora do MVP e visível no Roadmap", "rationale": "A validação técnica da URA (Instinct) com a Stefanini ainda está pendente; não pode travar o cronograma de homologação (jan/fev 2027) e produção (abril 2027)."}
+    ]
+  },
+  "business_case": {
+    "why_salesforce": "O modelo de dados nativo do Field Service (Work Order, Service Appointment, Service Territory) mapeia diretamente ao ciclo de 7 etapas já detalhado na discovery (Solicita→Registra→Classifica→Despacha→Desloca→Atende→Encerra), sem exigir um modelo de despacho customizado do zero. O Agentforce permite abrir o canal WhatsApp com triagem automatizada sem abandonar a voz, e a manutenção em org única sustenta diretamente o objetivo central do cliente — visão única e rastreável do atendimento.",
+    "why_now": "O contrato da URA atual (Instinct) expira em abril/2027, coincidindo com a data de produção alvo do projeto; o Open CTI legado do Salesforce sai de linha em fevereiro/2028. Essa janela cria uma decisão de arquitetura de voz que precisa ser preparada com antecedência (ver decisions/0001), e adiar a modernização do atendimento emergencial prolonga um processo hoje sem protocolo nem rastreamento para o cidadão em situação de vulnerabilidade na pista.",
+    "expected_outcomes": [
+      {"outcome": "Redução do tempo ocioso entre o registro do chamado e a saída da viatura, via despacho automático por aderência/disponibilidade/proximidade", "category": "efficiency", "timeframe": "a partir da produção estadual (abril/2027)"},
+      {"outcome": "Protocolo único e acompanhável pelo cidadão do pedido ao encerramento", "category": "experience", "timeframe": "MVP"},
+      {"outcome": "Trilha auditável de despacho e de overrides manuais do C2C", "category": "risk", "timeframe": "MVP"},
+      {"outcome": "Canal digital de entrada (WhatsApp/WhatsApp voz) complementar ao 0800", "category": "experience", "timeframe": "MVP"}
+    ],
+    "differentiation": "Metodologia de entrega de Field Service da Salesforce PS aplicada a um contexto de segurança pública de vida (socorro em rodovia), com disciplina de governança já mapeada para o agente de triagem do WhatsApp (risco de classificação incorreta pane/sinistro já identificado na própria matriz de riscos do cliente) — não uma implementação genérica de CRM."
+  }
+}

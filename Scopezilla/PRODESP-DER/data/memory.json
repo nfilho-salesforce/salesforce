@@ -2,9 +2,13 @@
   "sessions": [
     {
       "date": "2026-09-09",
-      "skills_used": ["discover (partial — ad hoc facilitation artifact, not full brief)"],
+      "skills_used": [
+        "discover (partial — ad hoc facilitation artifact, not full brief)"
+      ],
       "summary": "Ingerido o documento de POC (Sistema de Gestão de Atendimento de Ocorrências em Rodovia, v01 20/08/2026) via discover. Buscado e persistido o catálogo completo de serviços do DER-SP (Carta de Serviços) em discovery-notes/der-carta-de-servicos.md. Gerado outputs/scoping-deliverables.xlsx com guia de discovery profundo (MVP emergencial, Field Service indústria, Agentforce/WhatsApp, Service Cloud/CTI, Setor Público padrão, matriz de riscos) e aba de roadmap indicativo mapeando todo o catálogo DER contra o escopo do MVP. Adicionada, na mesma sessão, aba dedicada a Service Cloud/gestão de chamados/CTI a partir de fato novo trazido pelo usuário (DER quer também atendimento geral com CTI/URA, agentes humanos, agente de IA coworker, Omni-Channel, tiers, turnos, roteamento, volumetria, SLA) — grounded em 10 atomos [KA-XXXX] da KB central (Open CTI vs Salesforce Voice, skills vs queue routing, Agentforce Coworker, entitlements/SLA/milestones, escalation, swarming).",
-      "friction": ["WebFetch retornou 403 na Carta de Serviços; Playwright/Chrome bloqueado por política do sistema (DevTools remote debugging disallowed) — contornado com curl + User-Agent de navegador"],
+      "friction": [
+        "WebFetch retornou 403 na Carta de Serviços; Playwright/Chrome bloqueado por política do sistema (DevTools remote debugging disallowed) — contornado com curl + User-Agent de navegador"
+      ],
       "decisions": [],
       "open_threads": [
         "Parâmetro N (regra de despacho N/N-10) não definido pela POC — pendente de decisão do DER",
@@ -38,8 +42,152 @@
         "PERGUNTA A REFAZER NA REABERTURA (pedido explícito do usuário 2026-09-16): já conseguiu identificar qual sistema de URA/telefonia o DER usa hoje (fornecedor, se é PABX próprio, solução em nuvem, ou terceirizado)? Essa resposta decide se mantemos a integração via CTI de terceiro (Open CTI, em descontinuação pela Salesforce, retirada prevista fev/2028) ou migramos para o Salesforce Voice — é a pergunta mais crítica do bloco J (CTI/Telefonia/URA) da aba Discovery - Service Cloud CTI.",
         "Depois de resolvida essa pergunta, seguir com as demais perguntas pendentes do bloco J e com as sessões de discovery"
       ]
+    },
+    {
+      "date": "2026-09-17",
+      "skills_used": [
+        "discover",
+        "scopezilla-knowledge-curator"
+      ],
+      "summary": "Reaberto o projeto e refeita a pergunta pendente sobre URA/telefonia (pedido explícito do usuário em sessão anterior). Rodado discover formal completo: ingeridos todos os documentos de discovery-notes/ (deck BSA v1 e v2 de Renata Vendramini, questionário do cliente respondido, POC v01, brief estruturado da reunião de preparação de PoC via briefer, página oficial Contato Emergências, transcrição Granola da Execução da PoC) mais as 3 abas antes truncadas da scoping-deliverables.xlsx (Service Cloud CTI, Setor Público, Riscos) recuperadas via leitura direta do .xlsx com openpyxl. Vinculada a oportunidade Org62 (PRODESP DER FS Implementation CSG New, $8M, Stage 02-Scoping, Owner Juliana Brites — cross-validado como participante nominal das reuniões). Rodado scopezilla-knowledge-curator (aprovado pelo usuário) — 3 arquivos de metodologia PS + arquitetura Salesforce escritos em knowledge/, mais 4 docs curados da biblioteca compartilhada. Produzida a Extraction Audit (16 áreas) e o Discrepancy & Stub Scan. Entrevista adaptativa resolveu: (1) pesquisa web autorizada em paralelo (agent researcher disparado); (2) natureza técnica do vendor URA 'Instinct' (PABX próprio/nuvem/terceirizado) continua genuinamente pendente — a validar com a Stefanini; (3) decisão formal Open CTI vs. Salesforce Voice continua em aberto, mas o usuário decidiu tratá-la como fase dedicada e detalhada do Roadmap (registrado como ADR decisions/0001), não como item do MVP; (4) recorte geográfico de produção CONFIRMADO como as 14 CGRs completas (298 viaturas/1.152 operadores já são os números estaduais, não só do piloto); (5) ambiente/licenciamento Salesforce e SKU continuam gap consciente, não bloqueante para a primeira versão de estimativa; (6) org única já decidida; Service Cloud excluído do MVP por falta de caso de uso (conflito não resolvido com a arquitetura proposta pelo BSA v2, que lista objetos de Service Cloud/mensageria para o canal WhatsApp — flagado, não resolvido); (7) parâmetro N (regra de despacho N/N-10) continua pergunta aberta; (8) sistema 'SIPATI' citado uma vez nas notas continua desconhecido para usuário e assistente — stub genuíno. Usuário adicionou um segundo arquivo do BSA (v2, mais completo, por Renata Vendramini) durante a sessão — lido e incorporado: confirma 6 papéis (incluindo 'Atendente humano' distinto de C2C/Agentforce), detalha mecânica de despacho e alarmes, cita explicitamente que o WhatsApp da Carta de Serviços é ouvidoria (não canal de socorro), e expõe um gap novo: login do app de campo por viatura ou por pessoa ainda não fechado.",
+      "friction": [
+        "build-context.py truncou .discovery-context.md em 6776 linhas, cortando 4 das 8 abas da scoping-deliverables.xlsx — contornado lendo o .xlsx diretamente via openpyxl",
+        "STAAR folder not accessible: caminho do Google Drive é de outra conta (jcarmo@salesforce.com), não a do usuário — pulado silenciosamente por regra do skill",
+        "WebFetch em help.salesforce.com/s/articleView?id=service.fs_overview.htm retornou página genérica de erro (provável renderização JS) — pulado, cobertura já suficiente via field_service_dev.md da biblioteca curada"
+      ],
+      "decisions": [
+        {
+          "decision": "Produção nasce em todas as 14 CGRs, não apenas no piloto Cubatão/Taubaté",
+          "rationale": "Confirmado diretamente pelo usuário; 298 viaturas/1.152 operadores já são os números estaduais completos"
+        },
+        {
+          "decision": "Org única confirmada para Field Service + futuro Service Cloud/CTI",
+          "rationale": "Decisão já tomada pelo usuário, independente do produto/edição (ainda em aberto)"
+        },
+        {
+          "decision": "Service Cloud fora do MVP",
+          "rationale": "Usuário confirmou não haver caso de uso para Service Cloud nesta fase — nota: conflita com a arquitetura proposta pelo BSA v2 (objetos de mensageria sob Service Cloud para o canal WhatsApp), não resolvido"
+        },
+        {
+          "decision": "Integração CTI/voz e Agente de IA de voz tratados como fase dedicada e detalhada do Roadmap, não como item do MVP",
+          "rationale": "Vontade do DER de unificar canais é real, mas Salesforce Voice vs. Open CTI depende de validação técnica pendente com a Stefanini sobre o vendor Instinct — registrado como decisions/0001"
+        }
+      ],
+      "open_threads": [
+        "URA/telefonia: vendor 'Instinct' confirmado, mas natureza (PABX próprio/nuvem/terceirizado) e existência de API CTI viável continuam pendentes — validar com Stefanini",
+        "Decisão formal Open CTI (retirada fev/2028) vs. Salesforce Voice — em aberto, vai para o Roadmap em detalhe (decisions/0001)",
+        "Parâmetro N da regra de despacho N/N-10 — ainda não definido, pergunta aberta para o DER",
+        "SIPATI — sistema citado uma única vez nas notas, sem detalhe; desconhecido tanto para o usuário quanto para o assistente",
+        "Ambiente Salesforce, SKU/edição e org strategy de licenciamento — gap consciente, não bloqueante para a primeira versão de estimativa",
+        "Login do app de campo por viatura ou por pessoa — ainda não fechado (gap novo, surgido no BSA v2)",
+        "Conflito não resolvido: BSA v2 propõe objetos de Service Cloud (MessagingEndUser/MessagingSession) para o canal WhatsApp; usuário afirma Service Cloud fora do MVP — precisa esclarecer se a camada de Digital Engagement subjacente ao WhatsApp exige licenciamento de Service Cloud independentemente do 'caso de uso' de atendimento geral",
+        "Papel contratual da PRODESP vs. DER-SP não descrito nos documentos (PREM-08 do BSA v2) — Opportunity Org62 mostra PRODESP como Account contratante",
+        "STAAR folder not accessible: 1y5wrJZ13IoA53-TQbZSzlOwSINXA81bR (conta Drive jcarmo@salesforce.com, não a do usuário)",
+        "knowledge/ estava vazia no início da sessão — populada nesta sessão (8 docs); manter atualizada se novos produtos entrarem em escopo",
+        "Pesquisa web (DER-SP/PRODESP, setor rodoviário, Instinct, Stefanini) disparada em paralelo nesta sessão — resultado ainda pendente de retorno do agent researcher"
+      ],
+      "next_steps": [
+        "Incorporar o resultado da pesquisa web (agent researcher) quando retornar",
+        "Rodar strategy com o escopo MVP confirmado (Field Service + Agentforce/WhatsApp, org única, 14 CGRs, Service Cloud/CTI/Voice como fase de roadmap detalhada)",
+        "Levar as perguntas abertas remanescentes (parâmetro N, SIPATI, natureza do Instinct, conflito Service Cloud/WhatsApp, login viatura-vs-pessoa) para a próxima reunião com o DER/Stefanini"
+      ]
+    },
+    {
+      "date": "2026-09-17",
+      "skills_used": [
+        "strategy"
+      ],
+      "summary": "Rodada completa da skill strategy a partir do Discovery Brief aprovado. Pesquisa adicional pulada (justificativa explícita: outputs/00-discovery-brief.md e discovery-notes/web-research-der-sp.md já traziam especificidade suficiente sobre DER-SP/PRODESP e o setor rodoviário). Contexto estratégico redigido com 6 desafios do estado atual, 4 impactos de negócio, contexto de setor (Infosiga 3.0/PRODESP, 135.545 sinistros SP 2024, taxonomia ARTESP), 4 vetores de valor e 4 prioridades estratégicas ranqueadas. Declaração de visão e framework completo aprovados pelo usuário sem pedido de reescrita ('Aprovar como está' / 'Aprovar e continuar'). Business case (why Salesforce, why now, expected outcomes, differentiation) redigido sem métricas inventadas e sem preços. Value Map (business_outcomes[]) não gerado — não solicitado, não alimenta capability-map nesta sessão. data/strategy.json salvo.",
+      "friction": [],
+      "decisions": [
+        {
+          "decision": "Pesquisa web adicional pulada na skill strategy",
+          "rationale": "Discovery Brief + web-research-der-sp.md já continham as especificidades de empresa/setor exigidas pelo Step 2 da skill"
+        }
+      ],
+      "open_threads": [
+        "Todas as 9 Open Questions do Discovery Brief permanecem abertas e devem seguir para a próxima reunião DER/Stefanini (URA/Instinct, Open CTI vs Voice, parâmetro N, SIPATI, ambiente/licenciamento, conflito Service Cloud/WhatsApp, login viatura-vs-pessoa, LGPD/DPIA, papel contratual PRODESP-vs-DER-SP)",
+        "discovery-notes/web-research-der-sp.md ainda não foi lido diretamente pelo assistente (só via relato do agent researcher) — ler antes de citar verbatim em artefatos futuros"
+      ],
+      "next_steps": [
+        "Rodar requirements para definir os épicos a partir da strategy aprovada"
+      ]
+    },
+    {
+      "date": "2026-09-17",
+      "skills_used": [
+        "requirements"
+      ],
+      "summary": "Rodada completa da skill requirements. Esqueleto de épicos desenhado a partir do ciclo de 7 etapas confirmado na discovery (Solicita→Registra→Classifica→Despacha→Desloca→Atende→Encerra): E01 Canal Digital (WhatsApp+Agentforce), E02 Registro e Classificação, E03 Despacho Automatizado, E04 Execução em Campo (App Mobile), E05 Rastreamento e Visibilidade em Tempo Real (cross-cutting, atende à prioridade estratégica #1). As 4 prioridades estratégicas de strategy.json foram cruzadas contra os épicos (Step 1C); a prioridade #4 (unificação de voz/CTI) ficou deliberadamente sem épico, por decisions/0001 (fase de Roadmap dedicada, não MVP) — declarado explicitamente ao usuário, não omissão silenciosa. Avaliado e descartado um épico separado para o papel 'Atendente humano' (dobrado em E01), mas a dependência de console de Service Cloud não resolvida foi mantida como gap, não construída nem silenciada. Grounding: 4/5 épicos com citação [KB:...] direta (Agentforce Contact Center para E01; Field Service Core Data Model, Dispatcher Console e scheduling API para E02/E03; deep linking mobile para E04); E05 sem KB própria, tagueado [extends:...] e confidence 'Assumed' (distinto dos outros 4 'Confirmed'). Esqueleto aprovado pelo usuário sem modificação ('Aprovar e salvar'). data/epics.json e data/csv/01-epics.csv salvos. Gap analysis rodada em seguida: 5 agentes epic-analyst em paralelo (modo gaps apenas, sem stories), um por épico, cada um persistido incrementalmente via merge-records.py conforme retornava. Total: 71 gaps em data/gaps.json — Missing Requirement 26, Logical Gap 14, Ambiguity 10, Potential Risk 8, Source Conflict 7, Capability Gap 6. Ambos os limiares do Gap Summary foram excedidos (>15 gaps, >5 source conflicts) — Phase 0 recomendada explicitamente ao usuário.",
+      "friction": [],
+      "decisions": [
+        {
+          "decision": "5 épicos aprovados como desenhados (E01-E05), sem alternativas rejeitadas",
+          "rationale": "Usuário aprovou o esqueleto integralmente na primeira apresentação, sem pedido de modificação"
+        }
+      ],
+      "open_threads": [
+        "Phase 0 recomendada: 71 gaps totais e 7 source conflicts excedem os limiares de >15 gaps / >5 source conflicts",
+        "Cluster de conflito recorrente Service Cloud vs. canal WhatsApp aparece em 3 épicos (G0101/G0102/G0108 em E01, G0210 em E02, G0513 em E05) — mesmo fork arquitetural raiz, não 5 problemas isolados; resolver uma vez resolve as 5 instâncias",
+        "G0102 (E01): 'WhatsApp voz' confirmado no MVP pode depender de Salesforce Voice (Native Telephony) pela documentação de produto — contradição direta com decisions/0001 (voz/CTI fora do MVP); precisa esclarecimento com Renata Vendramini/DER antes do design",
+        "G0201 (E02): mecanismo de 'Incidente' citado na reunião de PoC para aglutinar protocolos duplicados não existe no modelo de dados nativo documentado do Field Service — pode ser objeto customizado não dimensionado",
+        "G0203 (E02): dois documentos de discovery têm ordens de status conflitantes (Em fila vs. Acionado invertidos, e um segundo estado de fechamento 'Concluído' presente em um documento e ausente no outro)",
+        "G0301 (E03): parâmetro N (minutos) da regra de escalonamento N/N-10 continua sem valor definido — bloqueador de configuração, já era gap no discovery brief",
+        "G0402 (E04): login do app de campo por viatura vs. por pessoa continua sem decisão — bloqueador de modelagem de licenciamento e auditoria",
+        "G0401 (E04): contagem de operadores terceirizados diverge entre fontes (1.152 no BSA v2/MVP vs. 1.292 na reunião de PoC de 04/09) — impacta dimensionamento de licenças",
+        "G0502/G0503/G0512 (E05): pacote de posicionamento do cidadão (GPS do app vs. SMS vs. AVL embarcado) e o provedor de mapa/GIS/roteamento por trás do rastreamento em tempo real continuam sem decisão — maior variável de custo não resolvida do projeto",
+        "G0508 (E05): discovery menciona necessidade de 'Portal Partner Community para terceiros' de acompanhamento — 7ª superfície de visibilidade não coberta por nenhum épico atual",
+        "Gaps de disciplina a levar como conversa deliberada com o cliente: design de experiência (G0110 roteiro de conversa do Agentforce sem dono; G0515 link de rastreamento do cidadão nunca validado com UX) e governança (G0111 QA/monitoria do Agentforce sem dono; G0209/G0211 stewardship de dados sensíveis no registro; G0516 stewardship de geolocalização em E05)"
+      ],
+      "next_steps": [
+        "Rodar design para arquitetura e T-shirt sizes dos 5 épicos, carregando os 71 gaps como contexto de risco",
+        "Considerar levar o cluster de gaps que aponta para uma decisão única (Service Cloud/WhatsApp) como pauta prioritária da próxima reunião DER/Stefanini, junto às Open Questions já registradas no discovery brief",
+        "Avaliar com o usuário se os gaps devem alimentar uma proposta de Phase 0 formal antes do MVP, dado que ambos os limiares de recomendação foram excedidos"
+      ]
     }
   ],
-  "preferences": {},
-  "decision_log": []
+  "preferences": {
+    "terminology": {
+      "SIGOR": "Sistema legado atual do DER-SP para registro de ocorrências (substituiu o SIGA ~1 ano atrás); sem dupla convivência com o Salesforce para chamados de emergência",
+      "C2C": "Centro a Centro — mesa de despacho do DER (12 programadores, 6 por turno) que qualifica e despacha ocorrências às UBAs",
+      "UBA": "Unidade Básica de Atendimento — empresa terceirizada de operação de campo, uma por CGR, responsável pelas viaturas e operadores",
+      "CGR": "Coordenadoria Geral Regional — unidade administrativa regional do DER-SP; são 14 no estado",
+      "VTE": "Viatura/Veículo Técnico de Emergência — um dos tipos de recurso de campo no catálogo de operação",
+      "TO / tipo de ocorrência": "Classificação da ocorrência dentro do catálogo operacional (5 macros: pane, sinistro, teóscio, diversos, solicitação de informação; 100+ subtipos)",
+      "Instinct": "Fornecedor terceirizado da URA/telefonia atual do DER-SP; migração recente causou instabilidade; contrato ativo até abril/2027; natureza técnica (PABX próprio/nuvem/terceirizado) ainda não confirmada",
+      "N / N-10": "Parâmetro da regra de escalonamento de despacho: se o tempo estimado de atendimento passar de N, aciona-se recurso não aderente com teto N-10; valor de N ainda não definido pelo DER",
+      "teóscio": "Um dos 5 macro-tipos de ocorrência no catálogo operacional do DER-SP (fora do escopo do MVP)"
+    }
+  },
+  "decision_log": [
+    {
+      "date": "2026-09-17",
+      "area": "scope",
+      "decision": "Produção estadual nasce em todas as 14 CGRs, não só no piloto Cubatão/Taubaté",
+      "rationale": "Confirmação direta do usuário; os números de frota/operadores (298/1.152) já eram estaduais",
+      "rejected": [
+        "Fase 1 restrita às 2 regionais do piloto, com expansão posterior às demais 12 CGRs"
+      ]
+    },
+    {
+      "date": "2026-09-17",
+      "area": "architecture",
+      "decision": "CTI/Voice e Agente de IA de voz ficam fora do MVP e são tratados como fase dedicada e detalhada do Roadmap (decisions/0001)",
+      "rationale": "Vontade do DER de unificar canais é real, mas a decisão técnica Open CTI vs. Salesforce Voice depende de validação pendente com a Stefanini sobre o vendor Instinct; usuário pediu explicitamente o maior nível de detalhe possível nessa fase do roadmap",
+      "rejected": [
+        "Incluir a integração de voz/CTI como item de MVP",
+        "Tratar CTI/Voice apenas como nota lateral genérica de 'fase futura'"
+      ]
+    },
+    {
+      "date": "2026-09-17",
+      "area": "scope",
+      "decision": "5 épicos (E01-E05) cobrindo o ciclo de 7 etapas + rastreamento cross-cutting, aprovados sem modificação",
+      "rationale": "Mapeamento MECE direto do ciclo confirmado na discovery; E05 isolado como épico próprio (não dobrado em E02/E03) porque atende diretamente à prioridade estratégica #1 do cliente (visão única e rastreável)",
+      "rejected": [
+        "Épico separado para o papel 'Atendente humano' — dobrado em E01, dependência de console mantida como gap (G0103/G0108), não como épico hollow",
+        "Épico para unificação de voz/CTI no MVP — permanece fora por decisions/0001"
+      ]
+    }
+  ]
 }

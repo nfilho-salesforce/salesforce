@@ -1,0 +1,2199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DER-SP · MVP do socorro emergencial</title>
+  <meta name="description" content="Fase inicial do serviço emergencial do DER-SP: pane, sinistro e inspeção na pista. Canal publicado: 0800 055 5510." />
+  <link rel="icon" type="image/svg+xml" href="assets/salesforce-logo.svg" />
+  <style>
+/* ============================================================
+   DER-SP · Socorro na pista — BSA
+   Branding: Salesforce Lightning Design System (SLDS)
+   Tokens: lightningdesignsystem.com
+   Personagens e ícones: ativos oficiais Salesforce
+   ============================================================ */
+
+@font-face {
+  font-family: "Salesforce Sans";
+  src: url("https://cdn.jsdelivr.net/npm/@salesforce-ux/design-system@2.27.2/assets/fonts/webfonts/SalesforceSans-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Salesforce Sans";
+  src: url("https://cdn.jsdelivr.net/npm/@salesforce-ux/design-system@2.27.2/assets/fonts/webfonts/SalesforceSans-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Salesforce Sans";
+  src: url("https://cdn.jsdelivr.net/npm/@salesforce-ux/design-system@2.27.2/assets/fonts/webfonts/SalesforceSans-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --brand: #0176d3;
+  --brand-dark: #032d60;
+  --brand-navy: #001639;
+  --brand-blue-light: #1b96ff;
+  --cloud: #eaf5fe;
+  --cloud-2: #d8edff;
+  --sky: #f3f9ff;
+  --af-teal: #04e1cb;
+  --af-coral: #fe5c4c;
+  --af-violet: #9050e9;
+  --success: #2e844a;
+  --warning: #fe9339;
+  --error: #ea001e;
+  --ink: #16325c;
+  --text: #181818;
+  --text-2: #444444;
+  --text-3: #747474;
+  --line: #e5e5e5;
+  --line-2: #d8dde6;
+  --surface: #ffffff;
+  --bg: #f7f9fb;
+  --radius: 12px;
+  --radius-sm: 10px;
+  --shadow: 0 2px 4px rgba(3, 45, 96, .06), 0 10px 28px rgba(3, 45, 96, .08);
+  --shadow-sm: 0 1px 2px rgba(3, 45, 96, .08);
+  --maxw: 1120px;
+  --sidebar-w: 264px;
+  --font: "Salesforce Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+body {
+  margin: 0;
+  font-family: var(--font);
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+.skip {
+  position: absolute; left: -999px; top: 8px; z-index: 200;
+  background: #fff; color: var(--brand-dark); padding: 8px 14px; border-radius: 8px;
+  font-weight: 700; font-size: 13px;
+}
+.skip:focus { left: 8px; }
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+h1, h2, h3, h4 { color: var(--brand-dark); line-height: 1.2; margin: 0 0 .4em; }
+h2.section-title { font-size: 30px; letter-spacing: -.01em; }
+h3 { font-size: 20px; }
+p { margin: 0 0 1em; color: var(--text-2); }
+p:last-child { margin-bottom: 0; }
+a { color: var(--brand); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
+.muted { color: var(--text-3); }
+.small { font-size: 13px; }
+ul.plain { margin: 0; padding-left: 18px; color: var(--text-2); }
+ul.plain li { margin-bottom: 6px; }
+
+/* ---------- NAV ---------- */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(255, 255, 255, .92);
+  backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.nav-inner { display: flex; align-items: center; gap: 18px; height: 64px; }
+.nav-brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.nav-brand img { height: 26px; width: auto; display: block; }
+.nav-brand .der { height: 32px; }
+.nav-brand .divider { width: 1px; height: 26px; background: var(--line-2); }
+.nav-links { display: flex; gap: 2px; margin-left: auto; flex-wrap: wrap; }
+.nav-links a {
+  color: var(--text-2); font-size: 13.5px; font-weight: 700;
+  padding: 8px 11px; border-radius: 8px; white-space: nowrap;
+}
+.nav-links a:hover, .nav-links a.active {
+  background: var(--cloud); color: var(--brand-dark); text-decoration: none;
+}
+.nav-toggle {
+  display: none; margin-left: auto; border: 1px solid var(--line-2);
+  background: #fff; border-radius: 8px; padding: 8px 10px; cursor: pointer;
+}
+.nav-toggle span { display: block; width: 18px; height: 2px; background: var(--brand-dark); margin: 3px 0; }
+
+/* ---------- HERO ---------- */
+.hero {
+  position: relative;
+  background: var(--cloud);
+  color: var(--brand-dark);
+  padding: 20px 0 48px;
+}
+.hero .container {
+  position: relative; z-index: 1;
+  display: block;
+  padding: 44px 280px 40px 40px;
+  border-radius: 16px; color: var(--brand-dark);
+  background: var(--cloud);
+  border: none;
+  box-shadow: none;
+}
+.hero-vignette {
+  position: absolute; right: -36px; bottom: -90px; width: min(48vw, 480px);
+  opacity: .12; pointer-events: none; user-select: none;
+}
+.hero h1 { color: var(--brand-dark); font-size: 36px; letter-spacing: -.02em; margin-bottom: .4em; line-height: 1.25; max-width: none; }
+.hero h1 .h1-sub {
+  display: block;
+  margin-top: .28em;
+  font-size: .55em;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0;
+  color: var(--ink);
+  max-width: 28em;
+}
+.hero .lead { font-size: 18px; color: var(--ink); max-width: 680px; }
+.hero .eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #fff; border: none;
+  color: var(--brand); padding: 6px 14px; border-radius: 999px; font-weight: 700;
+  font-size: 13px; letter-spacing: .02em; margin-bottom: 18px;
+}
+.hero-copy { position: relative; z-index: 1; max-width: 760px; }
+.hero-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+.hero-art {
+  position: absolute; right: 8px; bottom: 0; z-index: 1;
+  width: min(34%, 320px); display: flex; justify-content: center;
+}
+.hero-art img { width: 100%; max-width: 320px; filter: none; }
+.hero-badges { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 28px; max-width: 680px; }
+.hero-badges .hb {
+  display: flex; flex-direction: column; min-width: 0;
+  background: #fff; border: none;
+  border-radius: 10px; padding: 12px 12px 11px;
+}
+.hero-badges .hb b { font-size: 26px; color: var(--brand-dark); letter-spacing: -.02em; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.hero-badges .hb span { font-size: 12px; color: var(--text-2); margin-top: 4px; }
+.hero-logos { display: flex; align-items: center; gap: 16px; margin-bottom: 26px; }
+.hero-logos .chip {
+  background: #fff; border-radius: 10px; padding: 8px 12px; display: flex; align-items: center; height: 44px;
+}
+.hero-logos .chip img { height: 22px; width: auto; display: block; }
+.hero-logos .chip.der img { height: 28px; }
+.hero-logos .x { color: var(--brand); font-weight: 700; }
+.hero-note {
+  margin: 22px 0 0; max-width: 68ch;
+  font-size: 12.5px; line-height: 1.7; color: #93b6e4;
+  border-top: 1px solid rgba(255, 255, 255, .14); padding-top: 14px;
+}
+.hero-note strong { color: #eaf5fe; font-weight: 800; margin-right: 6px; }
+.hero-note .src {
+  background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.22);
+  color: #eaf5fe; margin: 0 4px 6px 0;
+}
+
+/* ---------- AS-IS / COMPARE ---------- */
+.compare {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 22px;
+}
+.compare-col {
+  border: 1px solid var(--line); border-radius: var(--radius); padding: 22px;
+  background: var(--surface);
+}
+.compare-col.gap {
+  background: #f7f8fa; border-style: dashed;
+}
+.compare-col .tag {
+  display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: .06em;
+  text-transform: uppercase; margin-bottom: 10px; padding: 3px 9px; border-radius: 999px;
+}
+.compare-col .tag.now { background: #eef1f5; color: #5a6478; }
+.compare-col .tag.next { background: #e3f6ea; color: var(--success); }
+.compare-col h3 { font-size: 18px; }
+.compare-col p { margin: 0 0 12px; color: var(--text-2); font-size: 14.5px; line-height: 1.55; }
+.compare-col li { margin-bottom: 8px; }
+.ops {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 18px;
+}
+.ops .op {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 12px;
+}
+.ops .op b { display: block; font-size: 13px; color: var(--brand-dark); margin-bottom: 4px; }
+.ops .op span { display: block; font-size: 12.5px; color: var(--text-2); line-height: 1.45; }
+.ops-title { margin: 8px 0 12px; font-size: 16px; }
+
+/* ---------- BUTTONS (SLDS brand) ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+  font-family: var(--font); font-weight: 700; font-size: 14px;
+  padding: 11px 20px; border-radius: 10px; border: 1px solid transparent;
+  transition: transform .08s ease, background .15s ease;
+}
+.btn:hover { text-decoration: none; }
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--brand); color: #fff; }
+.btn-primary:hover { background: #0b5cab; color: #fff; }
+.btn-ghost { background: rgba(255,255,255,.1); color: #fff; border-color: rgba(255,255,255,.4); }
+.btn-ghost:hover { background: rgba(255,255,255,.2); color: #fff; }
+.btn-outline { background: #fff; color: var(--brand); border-color: var(--line-2); }
+.btn-outline:hover { background: var(--cloud); }
+
+/* ---------- SECTIONS ---------- */
+section.block { padding: 28px 0 48px; background: transparent; }
+section.block.alt { background: transparent; border: 0; }
+.section-head { max-width: 760px; margin-bottom: 28px; }
+.section-head .kicker {
+  display: inline-block; color: var(--brand); font-weight: 800; font-size: 11px;
+  letter-spacing: .1em; text-transform: uppercase; margin-bottom: 8px;
+}
+.section-head h2.section-title { font-size: 28px; }
+.section-head p { font-size: 16px; line-height: 1.55; }
+.src {
+  display: inline-block; font-size: 11px; font-weight: 700; color: var(--brand);
+  background: var(--cloud); border: 1px solid var(--cloud-2);
+  border-radius: 5px; padding: 1px 8px; margin-right: 4px;
+}
+
+/* ---------- GRID / CARDS ---------- */
+.grid { display: grid; gap: 20px; }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+.grid-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.grid-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.card {
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: 22px;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.card .card-ico { width: 48px; height: 48px; margin-bottom: 14px; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .card:hover { transform: translateY(-2px); box-shadow: var(--shadow); border-color: #c9d7ea; }
+}
+.card h3 { margin-bottom: 6px; }
+.card.char { text-align: center; padding-top: 28px; }
+.card.char img {
+  height: 148px; width: auto; max-width: 100%; margin: 0 auto 14px; display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 18px rgba(3, 45, 96, .16));
+}
+.grid-6 .card.char { padding: 20px 12px 18px; }
+.grid-6 .card.char img { height: 112px; }
+.grid-6 .card.char h3 { font-size: 15px; }
+.grid-6 .card.char p { font-size: 13px; }
+.card.char .who {
+  font-size: 11.5px; font-weight: 800; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--brand); margin-bottom: 4px;
+}
+
+.persona-flow { display: none; }
+#elenco .container {
+  container-type: inline-size;
+  container-name: papeis;
+}
+.persona-strip {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px;
+  margin: 0 0 18px;
+}
+.persona-strip button {
+  font-family: var(--font); appearance: none; cursor: pointer;
+  background: #fff; border: 1px solid var(--line); border-radius: 12px;
+  padding: 12px 8px 10px; text-align: center; color: var(--text-2);
+  min-height: 44px; min-width: 0;
+}
+.persona-strip button:hover { border-color: var(--brand); color: var(--brand-dark); }
+.persona-strip button.active {
+  border-color: var(--brand); background: var(--cloud); color: var(--brand-dark);
+  box-shadow: 0 0 0 2px var(--cloud-2);
+}
+.persona-strip button:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+.persona-strip img {
+  height: 44px; width: auto; max-width: 100%; display: block; margin: 0 auto 6px;
+  object-fit: contain;
+}
+.persona-strip .n {
+  display: block; font-size: 10px; font-weight: 800; letter-spacing: .08em;
+  color: var(--brand); margin-bottom: 2px;
+}
+.persona-strip .lbl {
+  display: block; font-size: 12.5px; font-weight: 700; line-height: 1.25;
+  overflow-wrap: break-word;
+}
+.persona-stack { display: block; }
+#elenco .persona-strip {
+  position: sticky; top: 0; z-index: 5;
+  background: var(--bg); padding: 8px 0 10px;
+}
+.persona-pager {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px; align-items: center; margin-top: 16px;
+}
+.persona-pager button, .persona-pager a {
+  font-family: var(--font); font-size: 13.5px; font-weight: 700;
+  border-radius: 10px; padding: 10px 14px; min-height: 44px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer;
+}
+.persona-pager .pg {
+  appearance: none; background: #fff; border: 1px solid var(--line); color: var(--brand-dark);
+  max-width: 100%;
+}
+.persona-pager .pg:first-child { justify-self: start; }
+.persona-pager .pg:last-child { justify-self: end; }
+.persona-pager .pg:hover { border-color: var(--brand); }
+.persona-pager .pg:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+.persona-pager .pg[disabled] { opacity: .35; cursor: default; pointer-events: none; }
+.persona-pager .to-journey {
+  background: var(--brand); color: #fff; text-decoration: none; border: 0;
+  grid-column: 1 / -1; order: -1; justify-self: stretch; text-align: center;
+}
+.persona-pager .to-journey:hover { color: #fff; filter: brightness(1.05); }
+@container papeis (min-width: 1180px) {
+  .persona-strip { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .persona-pager { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); }
+  .persona-pager .to-journey {
+    grid-column: auto; order: 0; justify-self: center;
+  }
+}
+@container papeis (max-width: 420px) {
+  .persona-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.persona {
+  display: grid; grid-template-columns: 200px 1fr; gap: 28px; align-items: start;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 26px 28px; box-shadow: var(--shadow-sm);
+}
+.persona-art { text-align: center; }
+.persona-n {
+  display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: .08em;
+  color: var(--brand); margin-bottom: 8px;
+}
+.persona-art img {
+  height: 128px; width: auto; max-width: 100%; margin: 0 auto 10px; display: block;
+  object-fit: contain; filter: drop-shadow(0 10px 18px rgba(3,45,96,.16));
+}
+.persona-art .who { margin-bottom: 4px; }
+.persona-art h3 { margin: 0; font-size: 20px; }
+.persona-body { display: grid; gap: 16px; }
+.persona-block h4 {
+  margin: 0 0 6px; font-size: 11.5px; font-weight: 800; letter-spacing: .07em;
+  text-transform: uppercase; color: var(--brand);
+}
+.persona-block p, .persona-block li {
+  margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--text-2);
+}
+.persona-block ul, .persona-block ol { margin: 0; padding-left: 1.15em; }
+.persona-block li + li { margin-top: 6px; }
+.step-body .sol, .step-body .val { margin: 8px 0 0; font-size: 14px; line-height: 1.5; color: var(--text-2); }
+.step-body .sol b, .step-body .val b {
+  display: block; font-size: 11px; font-weight: 800; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--brand); margin-bottom: 3px;
+}
+.kpi-jornada { width: 100%; border-collapse: collapse; margin-top: 18px; font-size: 13.5px; background: #fff; }
+.kpi-jornada th {
+  background: var(--brand-dark); color: #fff; text-align: left; padding: 10px 12px;
+  font-size: 11.5px; font-weight: 800; letter-spacing: .03em;
+}
+.kpi-jornada td { padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--text-2); }
+.kpi-jornada tr:nth-child(even) td { background: #fafcff; }
+
+/* ---------- CALLOUT ---------- */
+.callout {
+  display: flex; gap: 14px; align-items: flex-start; border-radius: 12px; padding: 16px 18px;
+  background: var(--cloud); border: 1px solid var(--cloud-2); color: var(--brand-dark);
+  margin: 22px 0 0;
+}
+.callout.warn { background: #fff8ef; border-color: #ffe1bd; color: #7a4a12; }
+.callout.ok { background: #eef8f1; border-color: #c9ecd6; color: #1c5b34; }
+.callout .ci { flex: 0 0 auto; }
+.callout .ci img { height: 42px; width: auto; display: block; }
+
+/* ---------- PATH (SLDS-inspired) ---------- */
+.path {
+  display: flex; gap: 0; margin: 8px 0 28px; overflow-x: auto;
+}
+.path-step {
+  flex: 1; min-width: 140px; position: relative;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 4px;
+  background: var(--cloud); color: var(--brand-dark);
+  font-family: var(--font); font-weight: 700; font-size: 13px; text-align: center;
+  padding: 16px 22px 16px 30px;
+  appearance: none; border: 0; cursor: default;
+}
+.path.cycle .path-step {
+  min-width: 0; padding: 12px 8px 12px 18px;
+}
+.path-step img {
+  width: 40px; height: 40px; object-fit: contain; display: block;
+}
+.path.cycle .path-step img { width: 32px; height: 32px; }
+.path-step .lbl { line-height: 1.3; font-size: 13px; }
+.path.cycle .path-step .lbl { font-size: 12px; }
+.cycle-flow { display: flex; flex-direction: column; gap: 8px; margin: 8px 0 28px; }
+.path.cycle { margin: 0; }
+.path-cross {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  background: var(--brand-navy); color: #fff;
+  border-radius: 8px; padding: 12px 16px;
+  font-family: var(--font); font-weight: 700; font-size: 13px; text-align: center;
+  appearance: none; border: 0; width: 100%; cursor: pointer;
+}
+.path-cross.active, .path-cross[aria-pressed="true"] {
+  box-shadow: 0 0 0 2px var(--cloud-2);
+}
+.path.cycle .path-step.active {
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.7);
+}
+.path-cross .n {
+  font-size: 11px; letter-spacing: .08em; font-weight: 800; opacity: .8;
+}
+.path-cross .lbl { font-size: 13px; }
+.path-step:first-child { border-radius: 8px 0 0 8px; padding-left: 18px; }
+.path-step:last-child { border-radius: 0 8px 8px 0; }
+.path-step + .path-step::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 16px;
+  background: var(--bg);
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+.path.cycle .path-step + .path-step::before { width: 12px; }
+.path-step.done { background: var(--success); color: #fff; }
+.path-step.now { background: var(--brand); color: #fff; }
+.path-step .n { display: block; font-size: 11px; opacity: .7; font-weight: 800; letter-spacing: .04em; }
+.path-step.idle { background: #e8edf3; color: #5a6478; }
+
+.cycle-rail {
+  list-style: none; margin: 0 0 12px; padding: 0;
+  display: flex; flex-direction: column; gap: 6px;
+  max-width: 640px;
+  position: relative;
+}
+.cycle-rail::before {
+  content: "";
+  position: absolute; left: 24px; top: 16px; bottom: 16px;
+  width: 2px; background: var(--cloud-2);
+}
+.cycle-rail li {
+  position: relative; z-index: 1;
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) auto;
+  gap: 12px; align-items: center;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 14px 10px 10px;
+  min-width: 0;
+}
+.cycle-rail .n {
+  display: grid; place-items: center;
+  width: 36px; height: 36px;
+  background: var(--brand); color: #fff;
+  border-radius: 50%;
+  font-size: 11px; font-weight: 800; letter-spacing: .04em;
+}
+.cycle-rail strong {
+  font-size: 16px; color: var(--brand-dark); line-height: 1.2;
+}
+.cycle-rail .who {
+  font-size: 12px; font-weight: 700; color: var(--brand);
+  background: var(--cloud);
+  border-radius: 999px;
+  padding: 5px 10px;
+  white-space: nowrap;
+}
+.cycle-cross {
+  margin: 0 0 18px; padding: 12px 16px;
+  background: var(--brand-navy); color: #fff;
+  border-radius: 8px;
+  font-size: 13px; font-weight: 700; text-align: center;
+}
+.cycle-cross span {
+  display: inline-block; margin-right: 8px;
+  font-size: 11px; letter-spacing: .08em; font-weight: 800; opacity: .75;
+}
+.channel-strip {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px; margin: 0 0 18px;
+  max-width: 560px;
+}
+.channel-chip {
+  display: flex; align-items: center; gap: 12px;
+  background: #fff; border: 1px solid var(--line); border-radius: 12px;
+  padding: 12px 14px; min-width: 0;
+}
+.channel-chip img {
+  height: 48px; width: 48px; object-fit: contain; flex: 0 0 48px;
+}
+.channel-chip b { display: block; font-size: 14px; color: var(--brand-dark); }
+.channel-chip span { display: block; font-size: 12.5px; color: var(--text-3); margin-top: 2px; line-height: 1.4; }
+.channel-chip.now { border-color: var(--cloud-2); background: var(--sky); }
+.channel-chip.next { box-shadow: inset 0 0 0 1px var(--cloud-2); }
+.arch-sub {
+  font-size: 13px; font-weight: 800; letter-spacing: .06em;
+  text-transform: uppercase; color: var(--brand);
+  margin: 8px 0 10px;
+}
+.product-strip {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px; margin: 0 0 22px;
+  max-width: 720px;
+}
+.product-chip {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  align-items: start;
+  column-gap: 12px; row-gap: 4px;
+  background: #fff; border: 1px solid var(--line); border-radius: 12px;
+  padding: 16px;
+  min-width: 0;
+}
+.product-chip.later { background: var(--sky); }
+.product-chip > img {
+  grid-row: 1 / span 4;
+  height: 56px; width: 56px; object-fit: contain; display: block;
+}
+.product-marks {
+  display: flex; align-items: center; gap: 8px;
+  margin-top: 6px;
+  font-size: 12px; font-weight: 700; color: var(--brand); line-height: 1.3;
+}
+.product-marks img {
+  height: 22px; width: 22px; object-fit: contain; flex: 0 0 22px;
+}
+.product-mono {
+  display: grid; place-items: center;
+  height: 48px; width: 48px;
+  background: var(--brand-dark); color: #fff;
+  border-radius: 8px; font-size: 11px; font-weight: 800; letter-spacing: .04em;
+}
+.product-chip b { font-size: 15px; color: var(--brand-dark); padding-top: 4px; }
+.product-chip > span { font-size: 12.5px; color: var(--text-3); line-height: 1.4; }
+.arch-prod {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
+}
+.arch-prod img { height: 32px; width: 32px; margin: 0; object-fit: contain; }
+.arch-prod em {
+  font-style: normal; font-size: 11px; font-weight: 800; letter-spacing: .05em;
+  text-transform: uppercase; color: var(--brand);
+}
+.section-head a { color: var(--brand); font-weight: 700; }
+
+/* ---------- TABS / JORNADAS ---------- */
+.tab-row {
+  display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 18px;
+  border-bottom: 1px solid var(--line-2);
+}
+.tab {
+  display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+  font-family: var(--font); font-size: 13.5px; font-weight: 700; color: var(--text-2);
+  background: none; border: 0; border-bottom: 2.5px solid transparent;
+  padding: 9px 12px 11px; margin-bottom: -1px; border-radius: 8px 8px 0 0;
+}
+.tab:hover { color: var(--brand-dark); background: var(--cloud); }
+.tab.active { color: var(--brand); border-bottom-color: var(--brand); }
+.tab img { height: 32px; width: auto; object-fit: contain; }
+.tab-pane { display: none; }
+.tab-pane.active { display: block; }
+.journey {
+  display: grid; grid-template-columns: 220px 1fr; gap: 28px; align-items: start;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 28px; box-shadow: var(--shadow-sm);
+}
+.journey-art { text-align: center; }
+.journey-art img { width: 100%; max-width: 180px; height: auto; object-fit: contain; filter: drop-shadow(0 12px 20px rgba(3,45,96,.14)); }
+.journey-art .caption { font-size: 12px; color: var(--text-3); margin-top: 8px; font-weight: 700; }
+.steps { display: flex; flex-direction: column; gap: 0; }
+.step { display: grid; grid-template-columns: 36px 1fr; gap: 12px; }
+.step-rail { display: flex; flex-direction: column; align-items: center; }
+.step-dot {
+  width: 28px; height: 28px; border-radius: 50%; background: var(--brand); color: #fff;
+  font-size: 12px; font-weight: 800; display: grid; place-items: center; flex: 0 0 auto;
+}
+.step-dot.done { background: var(--success); }
+.step-dot.idle { background: #fff; border: 2px solid var(--line-2); color: var(--text-3); }
+.step-line { width: 2px; flex: 1; min-height: 18px; background: var(--line-2); }
+.step-body { padding-bottom: 18px; }
+.step-body h4 { font-size: 15px; margin: 4px 0 4px; }
+.chip {
+  display: inline-flex; font-size: 11px; font-weight: 800; padding: 3px 9px;
+  border-radius: 999px; margin-left: 6px; vertical-align: middle;
+}
+.chip.blue { background: var(--cloud); color: var(--brand); }
+.chip.green { background: #e3f6ea; color: var(--success); }
+.chip.orange { background: #fff0e6; color: #b3591a; }
+.chip.gray { background: #eef1f5; color: #5a6478; }
+.chip.red { background: #fde8e8; color: #b3261e; }
+
+/* ---------- ARCHITECTURE ---------- */
+.arch { display: grid; gap: 10px; }
+.arch-row {
+  display: grid; grid-template-columns: 140px 1fr; border: 1px solid var(--line);
+  border-radius: 12px; overflow: hidden; background: var(--surface);
+}
+.arch-label {
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  color: #fff; font-size: 11.5px; font-weight: 800; letter-spacing: .06em;
+  text-transform: uppercase; padding: 14px 10px;
+}
+.arch-label.ch { background: var(--brand); }
+.arch-label.cy { background: var(--af-violet); }
+.arch-label.fd { background: var(--brand-dark); }
+.arch-label.vw { background: var(--success); }
+.arch-label.ob { background: #5b4dc9; }
+.arch-label.ms { background: #0b5cab; }
+.arch-label.ex { background: #3e4e66; }
+.arch-note {
+  max-width: 720px; margin: 0 0 14px;
+  font-size: 15px; line-height: 1.55; color: var(--text-2);
+}
+.table-wrap code {
+  font-size: 12.5px; font-weight: 700; color: var(--brand-dark);
+}
+.arch-boxes { display: flex; flex-wrap: wrap; gap: 10px; padding: 12px; background: var(--sky); }
+.arch-box {
+  flex: 1; min-width: 160px; background: #fff; border: 1px solid var(--line);
+  border-radius: 10px; padding: 12px 14px;
+}
+.arch-box b { display: block; font-size: 13.5px; color: var(--brand-dark); }
+.arch-box span { display: block; font-size: 12px; color: var(--text-3); margin-top: 4px; line-height: 1.4; }
+
+/* ---------- TABLE ---------- */
+.table-wrap {
+  overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius);
+  box-shadow: var(--shadow-sm); margin: 0 0 22px;
+}
+table.uc { width: 100%; border-collapse: collapse; font-size: 14px; background: #fff; }
+table.uc th {
+  background: var(--brand-dark); color: #fff; text-align: left;
+  padding: 12px 14px; font-size: 12px; font-weight: 800; letter-spacing: .03em;
+}
+table.uc td { padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+table.uc tr:nth-child(even) td { background: #fafcff; }
+table.uc tr.expandable { cursor: pointer; }
+table.uc tr.expandable:hover td { background: var(--cloud); }
+table.uc tr.detail td { background: var(--sky); padding: 0; }
+.uc-detail { display: none; padding: 14px 18px; font-size: 13.5px; color: var(--text-2); line-height: 1.6; }
+.uc-detail.open { display: block; }
+.status {
+  display: inline-block; font-size: 11px; font-weight: 800; padding: 3px 9px; border-radius: 999px;
+}
+.status.in { background: #e3f6ea; color: var(--success); }
+.status.later { background: #fff8dc; color: #7a5900; }
+.status.out { background: #eef1f5; color: #5a6478; }
+
+/* ---------- REQUIREMENTS ---------- */
+.req { border: 1px solid var(--line); border-radius: 12px; background: #fff; overflow: hidden; }
+.req-head { display: flex; align-items: center; gap: 12px; padding: 16px 18px; cursor: pointer; }
+.req-code {
+  flex: 0 0 auto; font-weight: 800; color: #fff; background: var(--brand);
+  border-radius: 8px; padding: 6px 10px; font-size: 12px;
+}
+.req-code.nfunc { background: #0b8278; }
+.req-code.integ { background: var(--af-violet); }
+.req-title { font-weight: 700; color: var(--brand-dark); font-size: 15.5px; flex: 1; }
+.req-body { display: none; padding: 0 18px 18px; color: var(--text-2); font-size: 14px; }
+.req.open .req-body { display: block; }
+.req-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+
+/* ---------- KANBAN ---------- */
+.kanban { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.kanban h3 {
+  font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em;
+  padding: 8px 12px; border-radius: 8px; margin-bottom: 12px;
+}
+.kanban .blocker h3 { background: #fde8e8; color: var(--error); }
+.kanban .high h3 { background: #fff3e8; color: #7a3d00; }
+.kanban .medium h3 { background: #fffbe6; color: #7a5900; }
+.kanban .low h3 { background: #eef1f5; color: #5a6478; }
+.open-card {
+  background: #fff; border: 1px solid var(--line); border-radius: 10px;
+  padding: 14px; margin-bottom: 10px; box-shadow: var(--shadow-sm);
+}
+.open-card h4 { font-size: 14px; margin-bottom: 6px; }
+.open-id {
+  font-size: 10px; font-weight: 800; color: #fff; padding: 2px 7px;
+  border-radius: 4px; display: inline-block; margin-bottom: 6px;
+}
+.open-card.blocker .open-id { background: var(--error); }
+.open-card.high .open-id { background: var(--warning); color: #7a3d00; }
+.open-card.medium .open-id { background: #ffcd07; color: #7a5900; }
+.open-card.low .open-id { background: #8a94a6; }
+
+/* ---------- ROADMAP ---------- */
+.wave { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; margin-bottom: 18px; background: #fff; }
+.wave-h { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 22px; color: #fff; }
+.wave-h.w1 { background: var(--success); }
+.wave-h.w2 { background: var(--brand); }
+.wave-h h3 { color: #fff; margin: 0; font-size: 18px; }
+.wave-h .when { background: rgba(255,255,255,.2); padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+.wave-items { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 16px; }
+.wave-items.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.wave-items + .wave-items { padding-top: 0; }
+.wave-items .card { margin: 0; }
+.wave-note {
+  margin: 0; padding: 0 16px 16px;
+  font-size: 13px; line-height: 1.45; color: var(--text-3);
+}
+
+/* ---------- CLOSING ---------- */
+.closing {
+  position: relative; overflow: hidden;
+  background: linear-gradient(160deg, var(--brand-navy), var(--brand-dark));
+  color: #fff; padding: 56px 0;
+}
+.closing .container { display: grid; grid-template-columns: 1fr 220px; gap: 24px; align-items: center; }
+.closing h2 { color: #fff; font-size: 28px; }
+.closing p { color: #c8d8f2; }
+.closing-astro { width: 200px; filter: drop-shadow(0 20px 34px rgba(0,0,0,.4)); }
+
+/* ---------- FOOTER ---------- */
+.footer { background: var(--brand-navy); color: #c8d8f2; padding: 32px 0 24px; }
+.footer .f-top { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 22px; }
+.footer .chip { background: #fff; border-radius: 10px; padding: 7px 12px; display: flex; align-items: center; height: 42px; }
+.footer .chip img { height: 22px; }
+.footer .chip.der img { height: 28px; }
+.footer a { color: #9fc4ff; }
+.footer .f-cols { display: grid; grid-template-columns: 1fr 1.4fr; gap: 32px; align-items: start; }
+.footer h4 { color: #fff; font-size: 13px; text-transform: uppercase; letter-spacing: .05em; }
+.footer p { color: #c8d8f2; }
+.footer .f-fontes { margin: 0; padding: 0; border: 0; font-size: 12.5px; line-height: 1.7; color: #93b6e4; }
+.footer .f-fontes .src {
+  background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.22);
+  color: #eaf5fe; margin: 0 4px 6px 0;
+}
+.footer .f-conf {
+  margin: 22px 0 0; padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,.12);
+  font-size: 12.5px; line-height: 1.55; color: #93b6e4;
+}
+.footer .f-note { margin-top: 18px; padding-top: 0; border-top: none; font-size: 12.5px; color: #8fa8cf; }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 1280px) {
+  .hero .container { padding: 36px 24px 28px; }
+  .hero-art { position: relative; right: auto; bottom: auto; width: auto; margin: 0 auto 8px; }
+  .hero-art img { max-width: 220px; }
+}
+@media (max-width: 1040px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .grid-5 { grid-template-columns: repeat(3, 1fr); }
+  .grid-6 { grid-template-columns: repeat(3, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .hero .container, .closing .container, .journey, .persona { grid-template-columns: 1fr; }
+  .closing-astro { display: none; }
+  .kanban, .wave-items, .wave-items.cols-2, .req-grid, .compare, .ops { grid-template-columns: 1fr 1fr; }
+  .arch-row { grid-template-columns: 110px 1fr; }
+}
+@media (max-width: 860px) {
+  .nav-toggle { display: block; }
+  .nav-links {
+    display: none; position: absolute; top: 64px; left: 0; right: 0;
+    background: #fff; border-bottom: 1px solid var(--line);
+    flex-direction: column; padding: 8px 16px 16px; box-shadow: var(--shadow);
+  }
+  .nav.open .nav-links { display: flex; }
+  .hero h1 { font-size: 32px; }
+  .hero-badges { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: none; }
+  .grid-2, .grid-3, .grid-4, .grid-5, .grid-6, .kanban, .wave-items, .wave-items.cols-2, .req-grid, .compare, .ops, .footer .f-cols { grid-template-columns: 1fr; }
+  .cycle-rail li { grid-template-columns: 48px 1fr; }
+  .cycle-rail .who { grid-column: 2; justify-self: start; white-space: normal; }
+  .path { flex-direction: column; gap: 8px; }
+  .path.cycle .path-step { padding: 12px 16px; }
+  .path-step, .path-step:first-child, .path-step:last-child {
+    border-radius: 8px; padding: 12px 16px;
+    flex-direction: row; text-align: left; justify-content: flex-start;
+  }
+  .path-step img { width: 36px; height: 36px; }
+  .path-step + .path-step::before { display: none; }
+}
+
+/* ---------- BSA OVERVIEW (estrutura Dataprev · identidade SLDS) ---------- */
+.pane { display: none; }
+.pane.active { display: block; }
+
+#sb-overlay {
+  display: none; position: fixed; inset: 0; z-index: 70;
+  background: rgba(3, 45, 96, .42);
+}
+body.sb-open #sb-overlay { display: block; }
+
+#sidebar {
+  position: fixed; inset: 0 auto 0 0; width: var(--sidebar-w);
+  background: var(--brand-dark); color: #c8d8f2; z-index: 80;
+  display: flex; flex-direction: column; overflow-y: auto;
+}
+#sidebar .sb-head {
+  padding: 18px 16px 16px;
+  background: #014486;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+#sidebar .sb-head h2 { color: #fff; font-size: 14.5px; margin: 10px 0 4px; line-height: 1.35; }
+#sidebar .sb-head p { color: rgba(255,255,255,.62); font-size: 11.5px; margin: 0; line-height: 1.4; }
+#sidebar .sb-logos { display: flex; align-items: center; gap: 8px; }
+#sidebar .sb-logos .chip {
+  background: #fff; border-radius: 8px; padding: 5px 8px; height: 32px;
+  display: flex; align-items: center;
+}
+#sidebar .sb-logos .chip img { height: 16px; }
+#sidebar .sb-logos .chip.der img { height: 20px; }
+#sidebar nav { padding: 6px 0 16px; flex: 1; }
+.nav-group {
+  color: rgba(255,255,255,.42); font-size: 10px; font-weight: 800;
+  letter-spacing: .14em; text-transform: uppercase; padding: 16px 16px 6px;
+}
+.nav-item {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 8px 14px 8px 16px; color: rgba(255,255,255,.78); font-size: 13px; font-weight: 600;
+  border-left: 3px solid transparent; cursor: pointer; text-decoration: none;
+  transition: background .15s ease, color .15s ease, border-color .15s ease, padding-left .15s ease;
+}
+.nav-item:hover {
+  background: rgba(255,255,255,.07); color: #fff; padding-left: 20px; text-decoration: none;
+}
+.nav-item.active {
+  background: rgba(1, 118, 211, .28); color: #fff; border-left-color: #1b96ff;
+  text-decoration: none;
+}
+.nav-item:focus-visible { outline-color: #fff; }
+.nav-item .nb {
+  font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 10px;
+  background: var(--brand); color: #fff; flex-shrink: 0; letter-spacing: .02em;
+}
+.nb.diag { background: #dd7a01; }
+.nb.sol { background: #0b8278; }
+.nb.rom { background: var(--af-violet); }
+.nb.exe { background: #5b6b82; }
+#sidebar .sb-foot {
+  padding: 14px 16px; border-top: 1px solid rgba(255,255,255,.1);
+  font-size: 11px; color: rgba(255,255,255,.5); line-height: 1.45;
+}
+
+#main {
+  margin-left: var(--sidebar-w);
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  background: var(--bg);
+}
+.topbar { grid-row: 1; }
+.pane { display: none; grid-row: 2; }
+.pane.active { display: block; overflow: auto; }
+.footer { grid-row: 3; }
+.topbar {
+  position: sticky; top: 0; z-index: 40; background: rgba(255,255,255,.96);
+  backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--line);
+  box-shadow: none;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 10px 32px;
+}
+.topbar-title { min-width: 0; flex: 1; }
+.topbar-title .crumb {
+  margin: 0 0 1px; font-size: 11px; font-weight: 800; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--brand);
+}
+.topbar-title h1 {
+  font-size: 16px; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.topbar .pills { display: flex; gap: 8px; flex-wrap: wrap; flex-shrink: 0; }
+.pill-status {
+  font-size: 11.5px; font-weight: 800; padding: 4px 12px; border-radius: 20px;
+  background: #fff4ce; border: 1px solid #fe9339; color: #8c4b02;
+}
+.pill-date {
+  font-size: 11.5px; padding: 4px 12px; border-radius: 20px;
+  background: var(--cloud); border: 1px solid var(--cloud-2); color: var(--ink);
+}
+.sb-toggle {
+  display: none; border: 1px solid var(--line-2); background: #fff;
+  border-radius: 8px; padding: 10px; cursor: pointer; min-width: 44px; min-height: 44px;
+}
+.sb-toggle span { display: block; width: 18px; height: 2px; background: var(--brand-dark); margin: 3px auto; }
+
+.kpi-grid {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 0 0 24px;
+}
+.kpi {
+  background: #fff; border: 1px solid var(--line); border-radius: 12px;
+  padding: 18px 16px 16px; position: relative; overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.kpi::before {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--brand);
+}
+.kpi.k-teal::before { background: #0b8278; }
+.kpi.k-violet::before { background: var(--af-violet); }
+.kpi.k-navy::before { background: var(--brand-dark); }
+.kpi b {
+  display: block; font-size: 28px; font-weight: 800; color: var(--brand-dark);
+  letter-spacing: -.02em; font-variant-numeric: tabular-nums; line-height: 1.1;
+}
+.kpi span { display: block; margin-top: 6px; font-size: 12.5px; color: var(--text-2); line-height: 1.4; }
+
+.meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
+.meta {
+  font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px;
+  background: var(--cloud); color: var(--brand-dark);
+}
+.meta.assumed { background: #fff4ce; color: #8c4b02; }
+.meta.unknown { background: #f3e5ff; color: #5a1ea6; }
+.meta.out { background: #fce8e6; color: #c23934; }
+.dlv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 12px 0 0; }
+.dlv { background: var(--sky); border: 1px solid var(--cloud-2); border-radius: 10px; padding: 12px 14px; }
+.dlv b { display: block; font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: var(--brand); margin-bottom: 4px; }
+.dlv p { margin: 0; font-size: 14px; color: var(--text); }
+.step-card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  border-left: 4px solid var(--brand); padding: 20px 22px; margin-bottom: 14px;
+  box-shadow: var(--shadow-sm);
+}
+.step-card.s2 { border-left-color: #dd7a01; }
+.step-card.s3 { border-left-color: var(--success); }
+.step-card.s4 { border-left-color: var(--af-violet); }
+.step-card h3 { font-size: 18px; margin: 0 0 8px; }
+.src-note { font-size: 12.5px; color: var(--text-3); margin-top: 16px; }
+.rom-note {
+  background: var(--cloud); border: 1px solid var(--cloud-2);
+  border-left: 4px solid var(--brand);
+  border-radius: 0 12px 12px 0; padding: 14px 16px;
+  font-size: 13.5px; color: var(--ink); margin: 0 0 18px; line-height: 1.55;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .kpi { transition: transform .2s ease, box-shadow .2s ease; }
+}
+
+@media (max-width: 1040px) {
+  .dlv-grid, .kpi-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 860px) {
+  :root { --sidebar-w: 0px; }
+  #sidebar {
+    transform: translateX(-110%); transition: transform .2s ease;
+    width: min(86vw, 300px);
+  }
+  body.sb-open #sidebar { transform: none; }
+  .sb-toggle { display: block; }
+  .topbar { padding: 10px 16px; }
+  .kpi-grid { grid-template-columns: 1fr; }
+  .hero { padding: 12px 0 20px; }
+  .hero .container { padding: 28px 20px; }
+  section.block { padding: 20px 0 36px; }
+  .container { padding: 0 16px; }
+}
+
+</style>
+</head>
+<body>
+  <a class="skip" href="#main">Ir para o conteúdo</a>
+  <div id="sb-overlay"></div>
+  <aside id="sidebar" aria-label="Seções do briefing">
+  <div class="sb-head">
+    <div class="sb-logos">
+      <span class="chip"><img src="assets/salesforce-logo.svg" alt="Salesforce" /></span>
+      <span class="chip der"><img src="assets/der-logo.png" alt="DER" /></span>
+    </div>
+    <h2>DER-SP · Socorro emergencial</h2>
+    <p>Racional BSA · conta PRODESP · fase inicial</p>
+  </div>
+  <nav id="side-nav">
+    <div class="nav-group">Visão geral</div>
+    <a class="nav-item active" href="#capa" data-section="capa" data-group="Visão geral">Capa e contexto <span class="nb">1</span></a>
+    <div class="nav-group">Diagnóstico</div>
+    <a class="nav-item" href="#hoje" data-section="hoje" data-group="Diagnóstico">Como funciona hoje <span class="nb diag">2</span></a>
+    <a class="nav-item" href="#canal" data-section="canal" data-group="Diagnóstico">Canal de entrada <span class="nb diag">3</span></a>
+    <div class="nav-group">Solução</div>
+    <a class="nav-item" href="#mvp" data-section="mvp" data-group="Solução">O ciclo deste MVP <span class="nb sol">4</span></a>
+    <a class="nav-item" href="#elenco" data-section="elenco" data-group="Solução">Papéis <span class="nb sol">6</span></a>
+    <a class="nav-item" href="#jornadas" data-section="jornadas" data-group="Solução">Jornada <span class="nb sol">6</span></a>
+    <a class="nav-item" href="#arquitetura" data-section="arquitetura" data-group="Solução">Arquitetura <span class="nb sol">7</span></a>
+    <a class="nav-item" href="#casos" data-section="casos" data-group="Solução">Serviço emergencial <span class="nb sol">8</span></a>
+    <a class="nav-item" href="#sistemas" data-section="sistemas" data-group="Solução">Sistemas e volumetria <span class="nb sol">9</span></a>
+    <a class="nav-item" href="#provas" data-section="provas" data-group="Solução">Provas do ciclo <span class="nb sol">10</span></a>
+    <a class="nav-item" href="#requisitos" data-section="requisitos" data-group="Solução">Requisitos <span class="nb sol">11</span></a>
+    <a class="nav-item" href="#premissas" data-section="premissas" data-group="Solução">Premissas <span class="nb sol">12</span></a>
+    <div class="nav-group">Estimativa e ROM</div>
+    <a class="nav-item" href="#estimativa" data-section="estimativa" data-group="Estimativa e ROM">Pacotes A–I <span class="nb rom">E1</span></a>
+    <a class="nav-item" href="#depois" data-section="depois" data-group="Estimativa e ROM">Fases <span class="nb rom">E2</span></a>
+    <a class="nav-item" href="#entregaveis" data-section="entregaveis" data-group="Estimativa e ROM">Entregáveis <span class="nb rom">E3</span></a>
+    <div class="nav-group">Execução</div>
+    <a class="nav-item" href="#produtos" data-section="produtos" data-group="Execução">Produtos Salesforce <span class="nb exe">13</span></a>
+    <a class="nav-item" href="#adocao" data-section="adocao" data-group="Execução">Adoção <span class="nb exe">14</span></a>
+    <a class="nav-item" href="#proximos" data-section="proximos" data-group="Execução">Próximos passos <span class="nb exe">15</span></a>
+  </nav>
+  <div class="sb-foot">Material interno BSA LATAM<br>Renata Vendramini · PRODESP / DER-SP</div>
+</aside>
+<main id="main">
+  <div class="topbar">
+    <button class="sb-toggle" id="sb-toggle" aria-label="Abrir seções" aria-expanded="false"><span></span><span></span><span></span></button>
+    <div class="topbar-title">
+      <p class="crumb" id="top-crumb">Visão geral</p>
+      <h1 id="top-title">Capa e contexto</h1>
+    </div>
+    <div class="pills">
+      <span class="pill-status">Fase inicial</span>
+      <span class="pill-date">PRODESP · DER-SP</span>
+    </div>
+  </div>
+
+
+  <section class="hero pane active" id="capa">
+    <div class="container">
+      <img class="hero-vignette" src="assets/genie-vignette.png" alt="" />
+      <div class="hero-copy">
+        <div class="hero-logos">
+          <span class="chip"><img src="assets/salesforce-logo.svg" alt="Salesforce" /></span>
+          <span class="x">×</span>
+          <span class="chip der"><img src="assets/der-logo.png" alt="DER" /></span>
+        </div>
+        <span class="eyebrow">Fase inicial · Serviço emergencial</span>
+        <h1>Serviço emergencial: pane, sinistro e inspeção na pista</h1>
+        <p class="lead">Atualmente, o cidadão solicita o atendimento pelo 0800 055 5510. O C2C qualifica a ocorrência e realiza o despacho de forma manual, e utiliza o WhatsApp para se comunicar com as CGRs. A equipe atende no local. O processo enfrenta fragmentação nos registros — pedido, despacho e encerramento ocorrem em chamados distintos — e baixa transparência, pois o solicitante não recebe o número do protocolo nem acompanha a viatura em tempo real.</p>
+        <div class="hero-badges">
+          <div class="hb"><b>6</b><span>Papéis</span></div>
+          <div class="hb"><b>1.152</b><span>Operadores de Campo</span></div>
+          <div class="hb"><b>298</b><span>Veículos</span></div>
+          <div class="hb" title="Coordenadorias Gerais Regionais"><b>14</b><span>CGRs</span></div>
+        </div>
+      </div>
+      <div class="hero-art">
+        <img src="assets/astro-phone.png" alt="" />
+      </div>
+    </div>
+  </section>
+
+  <section class="block pane" id="hoje">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Situação atual</span>
+        <h2 class="section-title">Como o socorro funciona hoje</h2>
+        <p>Atualmente, o cidadão solicita o atendimento pelo 0800 055 5510. O C2C qualifica a ocorrência e realiza o despacho de forma manual, e utiliza o WhatsApp para se comunicar com as CGRs. A UBA atende no local. O processo enfrenta fragmentação nos registros — a evidência do km não permanece no mesmo chamado — e baixa transparência, pois o solicitante não recebe o número do protocolo nem acompanha a viatura em tempo real. A informação de tráfego permanece neste 0800.</p>
+      </div>
+      <div class="path" aria-label="Como o socorro funciona hoje">
+        <div class="path-step">
+          <img src="assets/astro-phone.png" alt="" />
+          <span class="n">01</span>
+          <span class="lbl">Cidadão solicita no 0800</span>
+        </div>
+        <div class="path-step">
+          <img src="assets/astro-clipboard.png" alt="" />
+          <span class="n">02</span>
+          <span class="lbl">C2C qualifica e despacha</span>
+        </div>
+        <div class="path-step">
+          <img src="assets/astro-job.png" alt="" />
+          <span class="n">03</span>
+          <span class="lbl">UBA atende no local</span>
+        </div>
+        <div class="path-step">
+          <img src="assets/einstein-watch.png" alt="" />
+          <span class="n">04</span>
+          <span class="lbl">Atendimento é encerrado</span>
+        </div>
+      </div>
+      <div class="compare">
+        <div class="compare-col gap">
+          <span class="tag now">Hoje</span>
+          <h3>O que acontece no pedido atual</h3>
+          <ul>
+            <li>O solicitante não recebe o número do protocolo.</li>
+            <li>O solicitante não acompanha a viatura em tempo real.</li>
+            <li>Foto, vídeo e documento do km não permanecem ligados ao mesmo chamado.</li>
+            <li>A qualificação da ocorrência e o despacho são manuais, feitos pelo C2C.</li>
+            <li>O C2C utiliza o WhatsApp para se comunicar com as CGRs.</li>
+          </ul>
+        </div>
+        <div class="compare-col">
+          <span class="tag next">Este MVP</span>
+          <h3>O que este MVP registra</h3>
+          <p>O atendimento registra e qualifica o chamado, o sistema despacha automaticamente, o C2C acompanha a operação e faz ajustes pontuais e a UBA realiza o atendimento de campo. Agora o chamado pode ser acompanhado por todos, começo, meio e fim. O DER terá todo o histórico do atendimento ao usuário em um único lugar, desde a abertura pelo canal até seu encerramento.</p>
+        </div>
+      </div>
+      <h3 class="ops-title">Quem opera o quê</h3>
+      <div class="ops">
+        <div class="op"><b>Cidadão</b><span>Solicita o atendimento pelo 0800 055 5510.</span></div>
+        <div class="op"><b>Atendimento</b><span>Registra o chamado a partir do 0800. O despacho da viatura permanece com o C2C.</span></div>
+        <div class="op"><b>C2C do DER</b><span>Qualifica a ocorrência e realiza o despacho à UBA de forma manual. Utiliza o WhatsApp para se comunicar com as CGRs.</span></div>
+        <div class="op"><b>UBA</b><span>Aceita, chega e encerra o atendimento na pista.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block pane" id="canal">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Diagnóstico</span>
+        <h2 class="section-title">Canal de entrada</h2>
+        <p>Atualmente, o canal de entrada é a voz, através do 0800 055 5510.</p>
+      </div>
+      <div class="channel-strip" aria-label="Canais deste recorte">
+        <div class="channel-chip now">
+          <img src="assets/icon-phone.svg" alt="" />
+          <div>
+            <b>0800 055 5510</b>
+            <span>Canal de hoje. Voz. Socorro e tráfego.</span>
+          </div>
+        </div>
+        <div class="channel-chip next">
+          <img src="assets/icon-whatsapp.svg" alt="" />
+          <div>
+            <b>WhatsApp</b>
+            <span>Entra nesta fase, para o cidadão.</span>
+          </div>
+        </div>
+        <div class="channel-chip next">
+          <img src="assets/icon-whatsapp.svg" alt="" />
+          <div>
+            <b>WhatsApp voz</b>
+            <span>Entra nesta fase, para o cidadão.</span>
+          </div>
+        </div>
+      </div>
+      <div class="compare">
+        <div class="compare-col gap">
+          <span class="tag now">Hoje</span>
+          <h3>O cidadão pede no 0800</h3>
+          <ul>
+            <li>O canal publicado e confirmado na aba Socorro emergencial é somente o 0800 055 5510.</li>
+            <li>O WhatsApp (11) 3325-8002 da Carta de Serviços é ouvidoria, e não canal de socorro.</li>
+            <li>O C2C utiliza o WhatsApp para se comunicar com as CGRs. Esse WhatsApp não é o canal pelo qual o cidadão solicita o atendimento.</li>
+            <li>A informação de tráfego permanece neste mesmo 0800.</li>
+          </ul>
+        </div>
+        <div class="compare-col">
+          <span class="tag next">Escopo desta fase</span>
+          <h3>WhatsApp, WhatsApp voz e Agentforce</h3>
+          <ul>
+            <li>WhatsApp e WhatsApp voz são escopo desta fase.</li>
+            <li>O Agentforce entra no contact center digital desta fase.</li>
+            <li>A URA não entra neste MVP.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="block alt pane" id="mvp">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">O que entra neste MVP</span>
+        <h2 class="section-title">O ciclo do socorro emergencial</h2>
+        <p>A ordem do chamado, da abertura ao encerramento. Sete etapas, sempre visíveis.</p>
+      </div>
+      <ol class="cycle-rail" aria-label="Ordem do chamado">
+        <li>
+          <span class="n">01</span>
+          <strong>Solicita</strong>
+          <span class="who">Cidadão · Inspeção</span>
+        </li>
+        <li>
+          <span class="n">02</span>
+          <strong>Registra</strong>
+          <span class="who">Agentforce · Atendente</span>
+        </li>
+        <li>
+          <span class="n">03</span>
+          <strong>Classifica</strong>
+          <span class="who">Sistema</span>
+        </li>
+        <li>
+          <span class="n">04</span>
+          <strong>Despacha</strong>
+          <span class="who">Sistema · C2C</span>
+        </li>
+        <li>
+          <span class="n">05</span>
+          <strong>Desloca</strong>
+          <span class="who">Campo · C2C</span>
+        </li>
+        <li>
+          <span class="n">06</span>
+          <strong>Atende</strong>
+          <span class="who">Campo</span>
+        </li>
+        <li>
+          <span class="n">07</span>
+          <strong>Encerra</strong>
+          <span class="who">Campo</span>
+        </li>
+      </ol>
+      <p class="cycle-cross"><span>CROSS</span> Indicadores atravessam as sete etapas · C2C · Gestores</p>
+      <div class="callout">
+        <div>
+          <b>Critério de sucesso.</b> Controlar o atendimento da abertura à conclusão, com visão única e rastreável, em tempo real.<sup>*</sup>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block pane" id="elenco">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Quem entra neste MVP</span>
+        <h2 class="section-title">Seis papéis no mesmo chamado</h2>
+        <p>Quem é cada papel, e o que ele não é.</p>
+      </div>
+      <div class="persona-strip" role="tablist" aria-label="Seis papéis no mesmo chamado">
+        <button type="button" class="active" role="tab" aria-selected="true" aria-controls="p-cidadao" data-tab="p-cidadao" tabindex="0">
+          <span class="n">01</span>
+          <img src="assets/astro-phone.png" alt="" />
+          <span class="lbl">Cidadão</span>
+        </button>
+        <button type="button" class="" role="tab" aria-selected="false" aria-controls="p-agent" data-tab="p-agent" tabindex="-1">
+          <span class="n">02</span>
+          <img src="assets/agentforce-icon.svg" alt="" />
+          <span class="lbl">Agentforce</span>
+        </button>
+        <button type="button" class="" role="tab" aria-selected="false" aria-controls="p-humano" data-tab="p-humano" tabindex="-1">
+          <span class="n">03</span>
+          <img src="assets/astro-headset.png" alt="" />
+          <span class="lbl">Atendente humano</span>
+        </button>
+        <button type="button" class="" role="tab" aria-selected="false" aria-controls="p-c2c" data-tab="p-c2c" tabindex="-1">
+          <span class="n">04</span>
+          <img src="assets/astro-clipboard.png" alt="" />
+          <span class="lbl">C2C</span>
+        </button>
+        <button type="button" class="" role="tab" aria-selected="false" aria-controls="p-pista" data-tab="p-pista" tabindex="-1">
+          <span class="n">05</span>
+          <img src="assets/astro-job.png" alt="" />
+          <span class="lbl">Equipe de campo</span>
+        </button>
+        <button type="button" class="" role="tab" aria-selected="false" aria-controls="p-gestor" data-tab="p-gestor" tabindex="-1">
+          <span class="n">06</span>
+          <img src="assets/einstein-watch.png" alt="" />
+          <span class="lbl">Gestores</span>
+        </button>
+      </div>
+      <div class="tab-pane active" id="p-cidadao" role="tabpanel">
+        <article class="persona">
+          <div class="persona-art">
+            <span class="persona-n">01</span>
+            <img src="assets/astro-phone.png" alt="" />
+            <p class="who">Usuário da rodovia</p>
+            <h3>Cidadão</h3>
+          </div>
+          <div class="persona-body">
+            <div class="persona-block">
+              <h4>Papel neste MVP</h4>
+              <p>O cidadão é o usuário da rodovia que solicita o socorro. Não opera mesa, não despacha e não encerra o atendimento.</p>
+            </div>
+          </div>
+        </article>
+        <div class="persona-pager">
+          <button type="button" class="pg" disabled>Anterior</button>
+          <a class="to-journey" href="#jornadas" data-open-journey="j-cidadao">Ver a jornada de Cidadão</a>
+          <button type="button" class="pg" data-tab="p-agent">Próximo · Agentforce</button>
+        </div>
+      </div>
+      <div class="tab-pane" id="p-agent" role="tabpanel" hidden>
+        <article class="persona">
+          <div class="persona-art">
+            <span class="persona-n">02</span>
+            <img src="assets/agentforce-icon.svg" alt="" />
+            <p class="who">Canais digitais</p>
+            <h3>Agentforce</h3>
+          </div>
+          <div class="persona-body">
+            <div class="persona-block">
+              <h4>Papel neste MVP</h4>
+              <p>O Agentforce é a primeira linha nos canais digitais. Não substitui a telefonia do 0800 e não opera a mesa do C2C.</p>
+            </div>
+          </div>
+        </article>
+        <div class="persona-pager">
+          <button type="button" class="pg" data-tab="p-cidadao">Anterior · Cidadão</button>
+          <a class="to-journey" href="#jornadas" data-open-journey="j-agent">Ver a jornada de Agentforce</a>
+          <button type="button" class="pg" data-tab="p-humano">Próximo · Atendente humano</button>
+        </div>
+      </div>
+      <div class="tab-pane" id="p-humano" role="tabpanel" hidden>
+        <article class="persona">
+          <div class="persona-art">
+            <span class="persona-n">03</span>
+            <img src="assets/astro-headset.png" alt="" />
+            <p class="who">0800 e transbordo</p>
+            <h3>Atendente humano</h3>
+          </div>
+          <div class="persona-body">
+            <div class="persona-block">
+              <h4>Papel neste MVP</h4>
+              <p>O atendente humano cobre a voz do 0800 e o transbordo. Este papel não é o C2C.</p>
+            </div>
+          </div>
+        </article>
+        <div class="persona-pager">
+          <button type="button" class="pg" data-tab="p-agent">Anterior · Agentforce</button>
+          <a class="to-journey" href="#jornadas" data-open-journey="j-humano">Ver a jornada de Atendente humano</a>
+          <button type="button" class="pg" data-tab="p-c2c">Próximo · C2C</button>
+        </div>
+      </div>
+      <div class="tab-pane" id="p-c2c" role="tabpanel" hidden>
+        <article class="persona">
+          <div class="persona-art">
+            <span class="persona-n">04</span>
+            <img src="assets/astro-clipboard.png" alt="" />
+            <p class="who">Mesa de despacho</p>
+            <h3>C2C</h3>
+          </div>
+          <div class="persona-body">
+            <div class="persona-block">
+              <h4>Papel neste MVP</h4>
+              <p>O C2C é o gestor de exceção do despacho automático. Não atende o 0800 e não executa o socorro na pista.</p>
+            </div>
+          </div>
+        </article>
+        <div class="persona-pager">
+          <button type="button" class="pg" data-tab="p-humano">Anterior · Atendente humano</button>
+          <a class="to-journey" href="#jornadas" data-open-journey="j-c2c">Ver a jornada de C2C</a>
+          <button type="button" class="pg" data-tab="p-pista">Próximo · Equipe de campo</button>
+        </div>
+      </div>
+      <div class="tab-pane" id="p-pista" role="tabpanel" hidden>
+        <article class="persona">
+          <div class="persona-art">
+            <span class="persona-n">05</span>
+            <img src="assets/astro-job.png" alt="" />
+            <p class="who">UBA</p>
+            <h3>Equipe de campo</h3>
+          </div>
+          <div class="persona-body">
+            <div class="persona-block">
+              <h4>Papel neste MVP</h4>
+              <p>A equipe da UBA executa o socorro na pista. Não qualifica o pedido na entrada e não opera a mesa.</p>
+            </div>
+          </div>
+        </article>
+        <div class="persona-pager">
+          <button type="button" class="pg" data-tab="p-c2c">Anterior · C2C</button>
+          <a class="to-journey" href="#jornadas" data-open-journey="j-pista">Ver a jornada de Equipe de campo</a>
+          <button type="button" class="pg" data-tab="p-gestor">Próximo · Gestores</button>
+        </div>
+      </div>
+      <div class="tab-pane" id="p-gestor" role="tabpanel" hidden>
+        <article class="persona">
+          <div class="persona-art">
+            <span class="persona-n">06</span>
+            <img src="assets/einstein-watch.png" alt="" />
+            <p class="who">Liderança</p>
+            <h3>Gestores</h3>
+          </div>
+          <div class="persona-body">
+            <div class="persona-block">
+              <h4>Papel neste MVP</h4>
+              <p>O gestor não abre o chamado e não opera a mesa. Acompanha a operação por indicadores.</p>
+            </div>
+          </div>
+        </article>
+        <div class="persona-pager">
+          <button type="button" class="pg" data-tab="p-pista">Anterior · Equipe de campo</button>
+          <a class="to-journey" href="#jornadas" data-open-journey="j-gestor">Ver a jornada de Gestores</a>
+          <button type="button" class="pg" disabled>Próximo</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block alt pane" id="jornadas">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">A jornada deste MVP</span>
+        <h2 class="section-title">O mesmo chamado visto por cada papel</h2>
+        <p>A experiência e o valor, por papel. Os indicadores ficam com os gestores.</p>
+      </div>
+      <div class="tab-row" role="tablist">
+        <button class="tab active" role="tab" aria-selected="true" data-tab="j-cidadao"><img src="assets/astro-phone.png" alt="" /> Cidadão</button>
+        <button class="tab" role="tab" aria-selected="false" tabindex="-1" data-tab="j-agent"><img src="assets/agentforce-icon.svg" alt="" /> Agentforce</button>
+        <button class="tab" role="tab" aria-selected="false" tabindex="-1" data-tab="j-humano"><img src="assets/astro-headset.png" alt="" /> Atendente humano</button>
+        <button class="tab" role="tab" aria-selected="false" tabindex="-1" data-tab="j-c2c"><img src="assets/astro-clipboard.png" alt="" /> C2C</button>
+        <button class="tab" role="tab" aria-selected="false" tabindex="-1" data-tab="j-pista"><img src="assets/astro-job.png" alt="" /> Equipe de campo</button>
+        <button class="tab" role="tab" aria-selected="false" tabindex="-1" data-tab="j-gestor"><img src="assets/einstein-watch.png" alt="" /> Gestores</button>
+      </div>
+
+      <div class="tab-pane active" id="j-cidadao">
+        <div class="journey">
+          <div class="journey-art">
+            <img src="assets/astro-phone.png" alt="" />
+            <p class="caption">Cidadão</p>
+          </div>
+          <div class="steps">
+            <div class="step"><div class="step-rail"><div class="step-dot done">1</div><div class="step-line"></div></div><div class="step-body"><h4>Pedido no canal em que está</h4><p class="sol"><b>A solução.</b> O cidadão pede socorro sem depender de um único número de voz.</p><p class="val"><b>Valor.</b> No momento de vulnerabilidade na pista, o motorista usa o canal que tem à mão, e o 0800 continua disponível para tráfego e para quem liga.</p></div></div>
+            <div class="step"><div class="step-rail"><div class="step-dot done">2</div><div class="step-line"></div></div><div class="step-body"><h4>Protocolo único</h4><p class="sol"><b>A solução.</b> O número de protocolo é gerado no primeiro contato. O mesmo identificador segue no atendimento, no C2C e na pista, da abertura ao encerramento.</p><p class="val"><b>Valor.</b> Pedido, despacho e encerramento deixam de viver em chamados distintos. O histórico permanece auditável no mesmo registro.</p></div></div>
+            <div class="step"><div class="step-rail"><div class="step-dot">3</div><div class="step-line"></div></div><div class="step-body"><h4>Mapa em tempo real</h4><p class="sol"><b>A solução.</b> O cidadão recebe o link do mapa — pelo WhatsApp, quando o pedido veio por texto, ou por SMS, quando veio por voz. Acompanha o deslocamento do aceite até a chegada.</p><p class="val"><b>Valor.</b> Reduz a necessidade de ligar de novo apenas para perguntar onde está a viatura e devolve previsibilidade no momento de vulnerabilidade na pista.</p></div></div>
+            <div class="step"><div class="step-rail"><div class="step-dot idle">4</div></div><div class="step-body"><h4>Encerramento no local</h4><p class="sol"><b>A solução.</b> No local, a equipe encerra o atendimento. O cidadão pode assinar, quando necessário.</p><p class="val"><b>Valor.</b> A comprovação fica no mesmo chamado, sem ficha paralela de papel como passo obrigatório deste MVP.</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="j-agent" hidden>
+        <div class="journey">
+          <div class="journey-art">
+            <img src="assets/agentforce-icon.svg" alt="" />
+            <p class="caption">Agentforce</p>
+          </div>
+          <div class="steps">
+            <div class="step"><div class="step-rail"><div class="step-dot done">1</div><div class="step-line"></div></div><div class="step-body"><h4>Triagem digital no WhatsApp</h4><p class="sol"><b>A solução.</b> Recebe o pedido no WhatsApp e no WhatsApp voz, registra, qualifica e informa o protocolo.</p><p class="val"><b>Valor.</b> O canal digital protocola sem um operador humano em cada mensagem.</p></div></div>
+            <div class="step"><div class="step-rail"><div class="step-dot done">2</div><div class="step-line"></div></div><div class="step-body"><h4>Qualificação no canal digital</h4><p class="sol"><b>A solução.</b> Padroniza nome, telefone, rodovia, km, sentido e veículo. O trecho vira ponto no mapa.</p><p class="val"><b>Valor.</b> O pedido chega no mesmo padrão de dados, pronto para o despacho.</p></div></div>
+            <div class="step"><div class="step-rail"><div class="step-dot idle">3</div></div><div class="step-body"><h4>Transbordo para o humano</h4><p class="sol"><b>A solução.</b> O atendimento é direcionado para um humano quando o usuário solicita ou quando a ocorrência tem vítimas. A triagem não conclui o socorro à vítima. O cidadão permanece no canal de entrada, sem discar outro número nem trocar de aplicativo.</p><p class="val"><b>Valor.</b> A inteligência artificial faz a triagem primária e entrega os casos graves ou o pedido explícito do usuário para o atendente humano, no mesmo canal.</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="j-humano" hidden>
+        <div class="journey">
+          <div class="journey-art">
+            <img src="assets/astro-headset.png" alt="" />
+            <p class="caption">Atendente humano</p>
+          </div>
+          <div class="steps">
+            <div class="step"><div class="step-rail"><div class="step-dot done">1</div><div class="step-line"></div></div><div class="step-body"><h4>0800 e chats transbordados</h4><p class="sol"><b>A solução.</b> Registra o pedido no 0800, na telefonia atual, e assume o WhatsApp quando o Agentforce direciona.</p><p class="val"><b>Valor.</b> A inteligência humana concentra-se na voz e nos casos que o canal digital não deve concluir sozinho.</p></div></div>
+            <div class="step"><div class="step-rail"><div class="step-dot done">2</div><div class="step-line"></div></div><div class="step-body"><h4>Ocorrência com vítimas</h4><p class="sol"><b>A solução.</b> Quando a ocorrência tem vítimas, o atendimento humano assume. A triagem não conclui o socorro à vítima.</p><p class="val"><b>Valor.</b> O caso grave ganha prioridade humana sem obrigar o motorista a recomeçar o pedido.</p></div></div>
+            <div class="step"><div class="step-rail"><div class="step-dot idle">3</div></div><div class="step-body"><h4>Qualificação para o despacho</h4><p class="sol"><b>A solução.</b> Finaliza a qualificação do chamado para o algoritmo despachar.</p><p class="val"><b>Valor.</b> O despacho recebe um chamado qualificável. O C2C não substitui este atendimento.</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="j-c2c" hidden>
+        <div class="journey">
+          <div class="journey-art">
+            <img src="assets/astro-clipboard.png" alt="" />
+            <p class="caption">C2C</p>
+          </div>
+          <div class="steps">
+            <div class="step"><div class="step-rail"><div class="step-dot done">1</div><div class="step-line"></div></div><div class="step-body"><h4>Despacho automático e exceções</h4><p class="sol"><b>A solução.</b> O sistema despacha automaticamente à UBA. O C2C atua nas exceções e pode alterar manualmente o que for necessário.</p><p class="val"><b>Valor.</b> A mesa deixa o despacho repetitivo com o sistema e usa o tempo da equipe nas exceções.</p></div></div>
+            <div class="step"><div class="step-rail"><div class="step-dot done">2</div><div class="step-line"></div></div><div class="step-body"><h4>Recurso, proximidade e N / N−10 <span class="chip blue">Automático neste MVP</span></h4><p class="sol"><b>A solução.</b> O sistema seleciona a viatura por aderência, disponibilidade e proximidade. A regra N / N−10 entra neste MVP — o próximo despacho pode ser programado 10 minutos antes do término da ocorrência atual; o valor de N ainda não está no documento de 20/08.</p><p class="val"><b>Valor.</b> A regra N / N−10 reduz o intervalo ocioso entre um chamado e o seguinte.</p></div></div>
+            <div class="step"><div class="step-rail"><div class="step-dot">3</div><div class="step-line"></div></div><div class="step-body"><h4>Mapa e Gantt</h4><p class="sol"><b>A solução.</b> Visualiza o mapa e a operação em tempo real na mesa (Gantt). A tela mostra o status das viaturas, o deslocamento e a posição dos chamados.</p><p class="val"><b>Valor.</b> A mesa enxerga gargalos e a posição das UBAs em uma única tela e reatribui quando necessário.</p></div></div>
+            <div class="step"><div class="step-rail"><div class="step-dot idle">4</div></div><div class="step-body"><h4>Alarmes e segunda viatura</h4><p class="sol"><b>A solução.</b> Se a viatura ficar parada mais de 5 minutos no deslocamento, a mesa é avisada. Se todos recusam, o chamado volta a Aberto. Depois de Iniciado, o alarme é cíclico. Segunda viatura abre um novo chamado vinculado.</p><p class="val"><b>Valor.</b> A mesa detecta parada no trajeto e impede que o chamado fique sem recurso depois de recusas em cadeia.</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="j-pista" hidden>
+        <div class="journey">
+          <div class="journey-art">
+            <img src="assets/astro-job.png" alt="" />
+            <p class="caption">Equipe de campo</p>
+          </div>
+          <div class="steps">
+            <div class="step"><div class="step-rail"><div class="step-dot done">1</div><div class="step-line"></div></div><div class="step-body"><h4>Aceite ou recusa antes do deslocamento</h4><p class="sol"><b>A solução.</b> A equipe da UBA recebe o chamado no aplicativo. A recusa tem de ser feita antes do início do deslocamento. A recusa volta ao C2C. O aplicativo não avança o passo se a regra não foi cumprida.</p><p class="val"><b>Valor.</b> A mesa recebe a recusa a tempo de realocar outra viatura, sem desistência no meio do trajeto.</p></div></div>
+            <div class="step"><div class="step-rail"><div class="step-dot done">2</div><div class="step-line"></div></div><div class="step-body"><h4>Deslocamento visível</h4><p class="sol"><b>A solução.</b> No deslocamento, a posição da viatura alimenta o mapa e o Gantt da mesa e o link que o cidadão recebeu.</p><p class="val"><b>Valor.</b> Mesa e cidadão veem o mesmo trajeto. O motorista acompanha o socorro sem ligar só para cobrar posição.</p></div></div>
+            <div class="step"><div class="step-rail"><div class="step-dot idle">3</div></div><div class="step-body"><h4>Execução e relatório de serviço</h4><p class="sol"><b>A solução.</b> A equipe chega, atende e encerra. Um relatório de serviço é gerado e a equipe de campo coleta a assinatura do usuário, quando necessário. Foto, vídeo ou documento ficam no mesmo chamado.</p><p class="val"><b>Valor.</b> A evidência permanece no identificador único, do km à assinatura.</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="j-gestor" hidden>
+        <div class="journey">
+          <div class="journey-art">
+            <img src="assets/einstein-watch.png" alt="" />
+            <p class="caption">Gestores</p>
+          </div>
+          <div class="steps">
+            <div class="step"><div class="step-rail"><div class="step-dot done">1</div><div class="step-line"></div></div><div class="step-body"><h4>Painel, sem operar a mesa</h4><p class="sol"><b>A solução.</b> Acompanha a operação no painel, em tempo real.</p><p class="val"><b>Valor.</b> A liderança permanece na governança. A execução transacional fica com o despacho e com a mesa.</p></div></div>
+            <div class="step"><div class="step-rail"><div class="step-dot idle">2</div></div><div class="step-body"><h4>Indicadores da operação</h4><p class="sol"><b>A solução.</b> Acompanha quantidade de ocorrências, tempo de resposta, TMA e quantidade de recusas.</p><p class="val"><b>Valor.</b> A operação passa a ter números no mesmo chamado.</p></div></div>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="kpi-jornada">
+            <thead><tr><th>Indicador</th><th>O que o painel mostra</th><th>Uso neste MVP</th></tr></thead>
+            <tbody>
+              <tr><td>Quantidade de ocorrências</td><td>Volume no período e no recorte da malha</td><td>Leitura operacional, sem meta de SLA</td></tr>
+              <tr><td>Tempo de resposta</td><td>Da abertura ao início</td><td>Leitura operacional, sem meta de SLA</td></tr>
+              <tr><td>TMA</td><td>Da abertura ao encerramento</td><td>Leitura operacional, sem meta de SLA</td></tr>
+              <tr><td>Quantidade de recusas</td><td>Recusas antes do deslocamento</td><td>Leitura operacional, sem meta de SLA</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block pane" id="arquitetura">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Componentes deste MVP</span>
+        <h2 class="section-title">Arquitetura do MVP</h2>
+        <p>Produtos, capacidade, objetos e o modelo de dados deste recorte. A política de canal está em Canal de entrada. Produto, edição e licença ainda não estão fechados.</p>
+      </div>
+      <h3 class="arch-sub">Produtos Salesforce</h3>
+      <div class="product-strip" aria-label="Produtos Salesforce neste recorte">
+        <div class="product-chip">
+          <img src="assets/agentforce-icon.svg" alt="" />
+          <b>Agentforce</b>
+          <span>Contact center digital desta fase.</span>
+          <div class="product-marks"><img src="assets/icon-whatsapp.svg" alt="" /> WhatsApp e WhatsApp voz</div>
+        </div>
+        <div class="product-chip">
+          <img src="assets/icon-service.svg" alt="" />
+          <b>Service Cloud</b>
+          <span>Voz, transbordo e mensagem.</span>
+          <div class="product-marks"><img src="assets/icon-phone.svg" alt="" /> 0800 055 5510 · SMS</div>
+        </div>
+        <div class="product-chip">
+          <img src="assets/icon-field-service.svg" alt="" />
+          <b>Field Service</b>
+          <span>Mesa, despacho e aplicativo da pista.</span>
+        </div>
+        <div class="product-chip later">
+          <img src="assets/icon-mulesoft.svg" alt="" />
+          <b>MuleSoft</b>
+          <span>Integração. SIGOR não entra neste recorte.</span>
+        </div>
+      </div>
+      <div class="arch">
+        <div class="arch-row">
+          <div class="arch-label ms">Mensageria</div>
+          <div class="arch-boxes">
+            <div class="arch-box">
+              <div class="arch-prod"><img src="assets/icon-service.svg" alt="" /><em>Service Cloud</em></div>
+              <b>MessagingEndUser</b><span>Identificador do cidadão no WhatsApp ou no SMS.</span>
+            </div>
+            <div class="arch-box">
+              <div class="arch-prod"><img src="assets/icon-service.svg" alt="" /><em>Service Cloud</em></div>
+              <b>MessagingSession</b><span>Janela da conversa com o Agentforce ou com o atendente humano. O lookup padrão CaseId é opcional. O vínculo com o socorro é o lookup customizado para o Work Order.</span>
+            </div>
+            <div class="arch-box">
+              <div class="arch-prod"><img src="assets/icon-service.svg" alt="" /><em>Service Cloud</em></div>
+              <b>Case</b><span>Lookup padrão da sessão, quando houver caso. Não substitui o Work Order como registro mestre deste recorte.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h3 class="arch-sub">Modelo de dados deste recorte</h3>
+      <p class="arch-note">A conversa digital vive na MessagingSession. O socorro vive no Work Order. Um chamado, um Service Appointment. Work Order Line Item não entra.</p>
+      <div class="table-wrap">
+        <table class="uc">
+          <thead>
+            <tr><th>Objeto</th><th>Campo</th><th>Origem</th><th>Neste recorte</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>MessagingEndUser</td><td><code>MessagingPlatformKey</code></td><td>Padrão</td><td>Número de WhatsApp ou SMS do cidadão.</td></tr>
+            <tr><td>MessagingEndUser</td><td><code>MessageType</code></td><td>Padrão</td><td>Origem do canal: WhatsApp ou SMS.</td></tr>
+            <tr><td>MessagingSession</td><td><code>MessagingEndUserId</code></td><td>Padrão</td><td>Liga a sessão ao cidadão no canal.</td></tr>
+            <tr><td>MessagingSession</td><td><code>Status</code></td><td>Padrão</td><td>Active, Ended ou Waiting.</td></tr>
+            <tr><td>MessagingSession</td><td><code>CaseId</code></td><td>Padrão</td><td>Opcional. Não substitui o Work Order.</td></tr>
+            <tr><td>MessagingSession</td><td><code>ConversationId</code></td><td>Padrão</td><td>Histórico da conversa na Conversation relacionada.</td></tr>
+            <tr><td>MessagingSession</td><td><code>WorkOrder__c</code></td><td>Custom</td><td>Lookup proposto para o Work Order gerado na triagem.</td></tr>
+            <tr><td>MessagingSession</td><td><code>Has_Victims__c</code></td><td>Custom</td><td>Se verdadeiro, a sessão vai para o atendente humano. Este papel não é o C2C.</td></tr>
+            <tr><td>Work Order</td><td>Protocolo, rodovia, km, sentido, veículo</td><td>Custom no WO</td><td>Dados mestres do chamado. Não se duplicam na sessão.</td></tr>
+            <tr><td>Service Appointment</td><td><code>ParentRecordId</code></td><td>Padrão</td><td>Pai: Work Order. Relação 1:1 neste recorte.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="arch">
+        <div class="arch-row">
+          <div class="arch-label cy">Mesa C2C</div>
+          <div class="arch-boxes">
+            <div class="arch-box">
+              <div class="arch-prod"><img src="assets/icon-field-service.svg" alt="" /><em>Field Service</em></div>
+              <b>Dispatcher console</b><span>Console da mesa.</span>
+            </div>
+            <div class="arch-box">
+              <b>Capacidade da mesa</b><span>Doze programadores DER, seis por turno.</span>
+            </div>
+          </div>
+        </div>
+        <div class="arch-row">
+          <div class="arch-label fd">Campo</div>
+          <div class="arch-boxes">
+            <div class="arch-box">
+              <div class="arch-prod"><img src="assets/icon-field-service.svg" alt="" /><em>Field Service</em></div>
+              <b>Aplicativo da equipe</b><span>Login — viatura ou pessoa — ainda não está fechado.</span>
+            </div>
+            <div class="arch-box">
+              <b>Frota UBA</b><span>298 veículos. Nenhuma viatura própria do DER neste MVP.</span>
+            </div>
+            <div class="arch-box">
+              <b>Operadores UBA</b><span>1.152 operadores de campo. Uma empresa por CGR.</span>
+            </div>
+          </div>
+        </div>
+        <div class="arch-row">
+          <div class="arch-label ob">Objetos Field Service</div>
+          <div class="arch-boxes">
+            <div class="arch-box">
+              <div class="arch-prod"><img src="assets/icon-field-service.svg" alt="" /><em>Field Service</em></div>
+              <b>Work Order</b><span>Registro mestre. Protocolo, nome, telefone, rodovia, km, sentido e veículo. Recebe o lookup da MessagingSession. Sem lat/long a viatura não é despachada.</span>
+            </div>
+            <div class="arch-box">
+              <div class="arch-prod"><img src="assets/icon-field-service.svg" alt="" /><em>Field Service</em></div>
+              <b>Service Appointment</b><span>Um chamado, um compromisso. Segunda viatura abre chamado vinculado.</span>
+            </div>
+            <div class="arch-box">
+              <div class="arch-prod"><img src="assets/icon-field-service.svg" alt="" /><em>Field Service</em></div>
+              <b>Work Type</b><span>Pane mecânica: guincho leve. Demais tipos deste MVP: inspeção.</span>
+            </div>
+            <div class="arch-box">
+              <div class="arch-prod"><img src="assets/icon-field-service.svg" alt="" /><em>Field Service</em></div>
+              <b>Service Resource e Assigned Resource</b><span>Frota e equipe da UBA ligadas ao compromisso.</span>
+            </div>
+            <div class="arch-box">
+              <div class="arch-prod"><img src="assets/icon-field-service.svg" alt="" /><em>Field Service</em></div>
+              <b>Service Territory</b><span>Trechos e horários da operação.</span>
+            </div>
+            <div class="arch-box">
+              <div class="arch-prod"><img src="assets/icon-field-service.svg" alt="" /><em>Field Service</em></div>
+              <b>Work Plan e WorkStep</b><span>Passos no celular, relatório de serviço e assinatura da equipe de campo, quando necessário.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="arch">
+        <div class="arch-row">
+          <div class="arch-label ex">Fora deste MVP</div>
+          <div class="arch-boxes">
+            <div class="arch-box"><b>URA</b><span>Não entra neste MVP.</span></div>
+            <div class="arch-box"><b>Work Order Line Item</b><span>Não entra. Segunda viatura abre chamado vinculado.</span></div>
+            <div class="arch-box"><b>EngagementTopic</b><span>Objeto de Industries. Não entra neste recorte. O vínculo da conversa com o chamado é o lookup customizado WorkOrder__c na MessagingSession.</span></div>
+            <div class="arch-box"><b>Native GIS / ArcGIS</b><span>Não está fechado neste recorte.</span></div>
+            <div class="arch-box"><b>Carta de Serviços</b><span>Multa, AET, ouvidoria, pátio e demais fichas.</span></div>
+            <div class="arch-box"><b>Socorro UBA fora deste MVP</b><span>Guincho pesado, desobstrução, pick-up de apoio e apreensão de animais.</span></div>
+            <div class="arch-box">
+              <div class="arch-prod"><img src="assets/icon-mulesoft.svg" alt="" /><em>MuleSoft</em></div>
+              <b>SIGOR</b><span>Integração fora deste recorte.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block alt pane" id="casos">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">O que entra neste MVP</span>
+        <h2 class="section-title">Serviço emergencial</h2>
+        <p>Entram pane, sinistro, inspeção e vítimas. A informação de tráfego permanece no 0800. Guincho pesado, desobstrução, animais e as fichas da Carta ficam para uma fase futura.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="uc">
+          <thead>
+            <tr><th>ID</th><th>Serviço</th><th>Quem</th><th>Recurso</th><th>Neste MVP</th></tr>
+          </thead>
+          <tbody>
+            <tr class="expandable"><td><b style="color:var(--brand)">—</b></td><td><b>Ciclo do atendimento</b></td><td>Cidadão · atendimento · C2C · campo · gestores</td><td>Guincho leve ou inspeção</td><td><span class="status in">Entra</span></td></tr>
+            <tr class="detail"><td colspan="5"><div class="uc-detail">O ciclo cobre abrir, qualificar, despachar, acompanhar, evidenciar e encerrar. Os sete itens abaixo são o mesmo ciclo, com tipo e recurso diferentes. O piloto citado nas fontes é Cubatão (R5) e Taubaté (R6).</div></td></tr>
+            <tr class="expandable"><td><b style="color:var(--brand)">01</b></td><td><b>Pane mecânica</b></td><td>Cidadão · C2C · campo</td><td>Guincho leve</td><td><span class="status in">Entra</span></td></tr>
+            <tr class="detail"><td colspan="5"><div class="uc-detail">Guincho para veículo de passeio com pane mecânica. O ciclo precisa mostrar abertura, aceite, chegada e evidência.</div></td></tr>
+            <tr class="expandable"><td><b style="color:var(--error)">02</b></td><td><b>Sinistro</b></td><td>Cidadão · C2C · campo</td><td>Guincho leve</td><td><span class="status in">Entra · prioridade</span></td></tr>
+            <tr class="detail"><td colspan="5"><div class="uc-detail">Prioridade na lista do documento de 20/08. A matriz de risco completa não está anexada a esse documento.</div></td></tr>
+            <tr class="expandable"><td><b style="color:var(--warning)">02b</b></td><td><b>Sinistro com vítimas</b></td><td>C2C → humano</td><td>—</td><td><span class="status in">Entra</span></td></tr>
+            <tr class="detail"><td colspan="5"><div class="uc-detail">Call de 02/09. Triagem e transferência para atendimento humano. A triagem não conclui o socorro à vítima.</div></td></tr>
+            <tr class="expandable"><td><b style="color:var(--brand)">03</b></td><td><b>Pane seca</b></td><td>Cidadão · campo</td><td>Inspeção</td><td><span class="status in">Entra</span></td></tr>
+            <tr class="detail"><td colspan="5"><div class="uc-detail">Veículo de passeio sem combustível. Recurso: inspeção.</div></td></tr>
+            <tr class="expandable"><td><b style="color:var(--brand)">04</b></td><td><b>Pane elétrica</b></td><td>Cidadão · campo</td><td>Inspeção</td><td><span class="status in">Entra</span></td></tr>
+            <tr class="detail"><td colspan="5"><div class="uc-detail">Veículo de passeio com pane elétrica. Recurso: inspeção.</div></td></tr>
+            <tr class="expandable"><td><b style="color:var(--brand)">05</b></td><td><b>Pneu furado</b></td><td>Cidadão · campo</td><td>Inspeção</td><td><span class="status in">Entra</span></td></tr>
+            <tr class="detail"><td colspan="5"><div class="uc-detail">Veículo de passeio com pneu furado. Recurso: inspeção.</div></td></tr>
+            <tr class="expandable"><td><b style="color:var(--brand)">06</b></td><td><b>Caminhão na via</b></td><td>Cidadão · campo</td><td>Inspeção</td><td><span class="status in">Entra</span></td></tr>
+            <tr class="detail"><td colspan="5"><div class="uc-detail">Caminhão que solicita atendimento. Recurso: inspeção.</div></td></tr>
+            <tr class="expandable"><td><b style="color:var(--brand)">07</b></td><td><b>Elétrico sem carga</b></td><td>Cidadão · campo</td><td>Inspeção</td><td><span class="status in">Entra</span></td></tr>
+            <tr class="detail"><td colspan="5"><div class="uc-detail">Veículo elétrico descarregado. Recurso: inspeção.</div></td></tr>
+            <tr class="expandable"><td>—</td><td><b>Informação de tráfego no 0800</b></td><td>Cidadão · atendimento · C2C</td><td>—</td><td><span class="status in">Continua no 0800</span></td></tr>
+            <tr class="detail"><td colspan="5"><div class="uc-detail">O 0800 055 5510 já informa o trânsito. Portal e WhatsApp de informação ficam para uma fase futura.</div></td></tr>
+            <tr class="expandable"><td>—</td><td><b>Guincho pesado, remoção e desobstrução, pick-up de apoio, apreensão de animais</b></td><td>UBA</td><td>—</td><td><span class="status later">Fase futura</span></td></tr>
+            <tr class="detail"><td colspan="5"><div class="uc-detail">Serviços publicados na página da UBA. O documento de 20/08 testa guincho leve e inspeção. Estes tipos ficam para uma fase futura.</div></td></tr>
+            <tr class="expandable"><td>—</td><td><b>Despacho automático</b></td><td>C2C</td><td>—</td><td><span class="status in">Entra</span></td></tr>
+            <tr class="detail"><td colspan="5"><div class="uc-detail">Aderência, disponibilidade e proximidade, conforme o documento de 20/08. A mesa pode alterar manualmente o que for necessário. A regra N / N−10 entra; o valor de N ainda não está definido.</div></td></tr>
+            <tr class="expandable"><td>—</td><td><b>Multa, AET, escolta, cartão-caminhão, ouvidoria, SIC, pátio, faixa de domínio, anúncios, ressarcimento</b></td><td>—</td><td>—</td><td><span class="status out">Fase futura</span></td></tr>
+            <tr class="detail"><td colspan="5"><div class="uc-detail">Serviços da Carta de Serviços do DER. Ficam fora do socorro deste MVP.</div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="block pane" id="provas">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">O que o ciclo precisa demonstrar</span>
+        <h2 class="section-title">Provas do ciclo</h2>
+        <p>Estas provas descrevem o que o ciclo precisa demonstrar. O despacho automático (P-02) e a regra N / N−10 (P-06) entram neste MVP. O valor de N é configurável e ainda não consta do documento de 20/08.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="uc">
+          <thead>
+            <tr><th>Prova</th><th>O que demonstra</th><th>Neste MVP</th></tr>
+          </thead>
+          <tbody>
+            <tr class="expandable"><td><b style="color:var(--brand)">P-01</b></td><td><b>Identificador único e histórico</b></td><td><span class="status in">Entra</span></td></tr>
+            <tr class="detail"><td colspan="3"><div class="uc-detail">O mesmo número segue do pedido ao encerramento, visível para os seis papéis.</div></td></tr>
+            <tr class="expandable"><td><b style="color:var(--brand)">P-02</b></td><td><b>Despacho automático</b></td><td><span class="status in">Entra</span></td></tr>
+            <tr class="detail"><td colspan="3"><div class="uc-detail">Aderência, disponibilidade e proximidade, conforme o documento de 20/08. É o despacho deste MVP.</div></td></tr>
+            <tr class="expandable"><td><b style="color:var(--brand)">P-03</b></td><td><b>Alteração manual pelo C2C</b></td><td><span class="status in">Entra</span></td></tr>
+            <tr class="detail"><td colspan="3"><div class="uc-detail">Doze programadores DER (6 por turno) acompanham a mesa e podem enviar o chamado à UBA no mapa quando precisarem alterar manualmente o que for necessário.</div></td></tr>
+            <tr class="expandable"><td><b style="color:var(--brand)">P-04</b></td><td><b>Recusa e pendências</b></td><td><span class="status in">Entra</span></td></tr>
+            <tr class="detail"><td colspan="3"><div class="uc-detail">A recusa tem de ser feita antes do início do deslocamento. A equipe aceita ou recusa o serviço. Se todos recusam, o chamado volta a Aberto. Depois de Iniciado, o alarme é cíclico. Segunda viatura abre um novo chamado.</div></td></tr>
+            <tr class="expandable"><td><b style="color:var(--brand)">P-05</b></td><td><b>Alarme de 5 minutos</b></td><td><span class="status in">Entra</span></td></tr>
+            <tr class="detail"><td colspan="3"><div class="uc-detail">Se não houver mudança de posição no deslocamento, o C2C é avisado.</div></td></tr>
+            <tr class="expandable"><td><b style="color:var(--brand)">P-06</b></td><td><b>Regra N / N−10</b></td><td><span class="status in">Entra</span></td></tr>
+            <tr class="detail"><td colspan="3"><div class="uc-detail">Se o tempo estimado passar de N, aciona-se recurso não aderente com teto N−10. N é configurável. O valor ainda não está no documento de 20/08.</div></td></tr>
+            <tr class="expandable"><td><b style="color:var(--brand)">P-07</b></td><td><b>Comunicação vinculada ao evento</b></td><td><span class="status in">Entra no 0800 e SMS</span></td></tr>
+            <tr class="detail"><td colspan="3"><div class="uc-detail">O cidadão permanece no canal de entrada. WhatsApp e WhatsApp voz entram nesta fase.</div></td></tr>
+            <tr class="expandable"><td><b style="color:var(--brand)">P-08</b></td><td><b>Acompanhamento visual para o cidadão</b></td><td><span class="status in">Entra</span></td></tr>
+            <tr class="detail"><td colspan="3"><div class="uc-detail">Link do mapa do aceite até a chegada. Se o pedido veio por voz, o aviso vai por SMS.</div></td></tr>
+            <tr class="expandable"><td><b style="color:var(--brand)">P-09</b></td><td><b>Painel do C2C e dos gestores</b></td><td><span class="status in">Entra</span></td></tr>
+            <tr class="detail"><td colspan="3"><div class="uc-detail">Mapa, pendências, tempos e quantidade. Sem meta de SLA neste MVP.</div></td></tr>
+            <tr class="expandable"><td><b style="color:var(--brand)">P-10</b></td><td><b>Evidência de campo e abertura por inspeção</b></td><td><span class="status in">Entra</span></td></tr>
+            <tr class="detail"><td colspan="3"><div class="uc-detail">Foto, vídeo ou documento no encerramento. A inspeção na pista também abre o chamado.</div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="block alt pane" id="requisitos">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Condições deste MVP</span>
+        <h2 class="section-title">Requisitos do ciclo</h2>
+        <p>Este MVP exige canal 0800, celular de campo e ponto no mapa. As licenças ficam definidas depois que o ambiente Salesforce estiver escolhido.</p>
+      </div>
+      <div class="req-grid">
+        <div class="req open">
+          <div class="req-head"><span class="req-code">CH-01</span><span class="req-title">0800 com abertura no atendimento</span></div>
+          <div class="req-body">O cidadão liga 0800 055 5510 e o atendimento registra o chamado. A telefonia física permanece no convênio atual.</div>
+        </div>
+        <div class="req">
+          <div class="req-head"><span class="req-code">CH-02</span><span class="req-title">WhatsApp de socorro</span></div>
+          <div class="req-body">WhatsApp e WhatsApp voz entram nesta fase. São distintos do WhatsApp de ouvidoria.</div>
+        </div>
+        <div class="req">
+          <div class="req-head"><span class="req-code">CH-04</span><span class="req-title">Agentforce no contact center</span></div>
+          <div class="req-body">Neste MVP, espera-se que o Agentforce atue no contact center, como primeira linha nos canais digitais. No WhatsApp e no WhatsApp voz, ele recebe o pedido, registra e qualifica o chamado e informa o número do protocolo. O pedido pelo 0800 permanece na telefonia atual. A URA não entra neste MVP.</div>
+        </div>
+        <div class="req">
+          <div class="req-head"><span class="req-code">CH-03</span><span class="req-title">Informação de tráfego no mesmo 0800</span></div>
+          <div class="req-body">A informação de tráfego continua neste número. Portal e WhatsApp de informação ficam para uma fase futura.</div>
+        </div>
+        <div class="req">
+          <div class="req-head"><span class="req-code">CY-02</span><span class="req-title">Status visível</span></div>
+          <div class="req-body">Aberto, em fila, acionado, aceito, iniciado, concluído e encerrado. A recusa tem de ser feita antes do início do deslocamento. A equipe aceita ou recusa o serviço. Se todos recusam, o chamado volta a Aberto. Depois de Iniciado, o alarme é cíclico.</div>
+        </div>
+        <div class="req">
+          <div class="req-head"><span class="req-code">FD-02</span><span class="req-title">Trava de regra no celular</span></div>
+          <div class="req-body">O aplicativo não deixa avançar o passo se a regra não foi cumprida.</div>
+        </div>
+        <div class="req">
+          <div class="req-head"><span class="req-code">FD-03</span><span class="req-title">Pista operada pela UBA</span></div>
+          <div class="req-body">O questionário registra 1.152 operadores de campo e 298 veículos da UBA. Este MVP não inclui técnico próprio do DER, troca de peça ou material da via.</div>
+        </div>
+        <div class="req">
+          <div class="req-head"><span class="req-code">GEO-01</span><span class="req-title">Dados de endereço (lat/long)</span></div>
+          <div class="req-body">Sem os dados de endereço (lat/long) a viatura não é despachada.</div>
+        </div>
+        <div class="req">
+          <div class="req-head"><span class="req-code integ">FR-01</span><span class="req-title">SIGOR e Carta</span></div>
+          <div class="req-body">Sem API do SIGOR neste MVP. As fichas da Carta e o socorro UBA fora deste MVP ficam para uma fase futura.</div>
+        </div>
+        <div class="req">
+          <div class="req-head"><span class="req-code integ">FR-02</span><span class="req-title">Ambiente e licenças</span></div>
+          <div class="req-body">O ambiente Salesforce e as licenças precisam estar definidos antes de executar, conforme o documento de 20/08.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block pane" id="premissas">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">O que assumimos neste MVP</span>
+        <h2 class="section-title">Premissas</h2>
+        <p>O questionário confirmou frota, mesa e pista. As demais premissas abaixo ainda não têm data definida pelo DER.</p>
+      </div>
+      <div class="kanban">
+        <div class="blocker">
+          <h3>Canal e ambiente</h3>
+          <div class="open-card blocker"><span class="open-id">PREM-01</span><h4>Canal deste MVP</h4><p>O cidadão solicita o atendimento pelo 0800 055 5510. WhatsApp e WhatsApp voz entram nesta fase. O WhatsApp de ouvidoria não entra.</p></div>
+          <div class="open-card blocker"><span class="open-id">PREM-02</span><h4>Ambiente e licenças</h4><p>Ambiente Salesforce e licenças ficam definidos antes de executar.</p></div>
+        </div>
+        <div class="high">
+          <h3>Neste MVP</h3>
+          <div class="open-card high"><span class="open-id">PREM-03</span><h4>Despacho automático</h4><p>O envio à UBA é automático, e o C2C pode alterar manualmente o que for necessário. A regra N / N−10 entra. O valor de N ainda não está no documento de 20/08.</p></div>
+          <div class="open-card high"><span class="open-id">PREM-04</span><h4>Telefonia do 0800</h4><p>A telefonia atual permanece. O Agentforce entra para o contact center. A URA não entra neste MVP.</p></div>
+        </div>
+        <div class="medium">
+          <h3>Serviços</h3>
+          <div class="open-card medium"><span class="open-id">PREM-05</span><h4>Serviços emergenciais</h4><p>Entram pane, sinistro, inspeção e vítimas. Guincho pesado, desobstrução, animais e a Carta ficam para uma fase futura.</p></div>
+          <div class="open-card medium"><span class="open-id">PREM-06</span><h4>Dados de endereço (lat/long)</h4><p>Sem os dados de endereço (lat/long) a viatura não é despachada.</p></div>
+        </div>
+        <div class="low">
+          <h3>Conta</h3>
+          <div class="open-card low"><span class="open-id">PREM-07</span><h4>Cubatão e Taubaté</h4><p>O piloto citado nas fontes é Cubatão (R5) e Taubaté (R6). Não há data de produção estadual nos documentos de 20/08 e 02/09.</p></div>
+          <div class="open-card low"><span class="open-id">PREM-08</span><h4>Conta PRODESP</h4><p>A conta é PRODESP. O documento de 20/08 e a call de 02/09 não descrevem o papel contratual da PRODESP.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block alt pane" id="depois">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Estimativa e ROM</span>
+        <h2 class="section-title">Fases</h2>
+        <p>Itens abaixo entram depois que o ciclo do socorro estiver demonstrado. Datas só entram quando o DER as registrar por escrito.</p>
+      </div>
+      <div class="wave">
+        <div class="wave-h w1"><h3>Este MVP</h3><span class="when">Serviço emergencial</span></div>
+        <div class="wave-items">
+          <div class="card"><h3>Ciclo</h3><p>O ciclo cobre abrir, qualificar, despachar e encerrar, com pane, sinistro, inspeção e vítimas. Inclui despacho automático, evidência, mapa e painel dos gestores.</p></div>
+          <div class="card"><h3>Papéis</h3><p>Cidadão, Agentforce, atendente humano, C2C, equipe de campo e gestores veem o mesmo chamado.</p></div>
+          <div class="card"><h3>Canal</h3><p>O cidadão solicita o atendimento pelo 0800 e, nesta fase, também pelo WhatsApp e WhatsApp voz. O Agentforce entra para o contact center. A informação de tráfego permanece no 0800.</p></div>
+        </div>
+      </div>
+      <div class="wave">
+        <div class="wave-h w2"><h3>Fase futura</h3><span class="when">Depois deste MVP</span></div>
+        <div class="wave-items cols-2">
+          <div class="card"><h3>Carta de Serviços</h3><p>Multa, AET, escolta, cartão-caminhão, ouvidoria, SIC, pátio, faixa de domínio, anúncios e ressarcimento.</p></div>
+          <div class="card"><h3>Socorro UBA fora deste MVP</h3><p>Guincho pesado, remoção e desobstrução, pick-up de apoio e apreensão de animais.</p></div>
+        </div>
+        <div class="wave-items cols-2">
+          <div class="card"><h3>Informação digital</h3><p>Portal e WhatsApp passam a informar o trânsito. O 0800 de tráfego permanece.</p></div>
+          <div class="card"><h3>SIGOR e telefonia</h3><p>Integração com o SIGOR fica fora deste MVP. A telefonia física permanece no convênio atual.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="block pane" id="sistemas">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Solução</span>
+        <h2 class="section-title">Sistemas e volumetria</h2>
+        <p>Números confirmados na aba Socorro emergencial. Volume diário de ocorrências e nome do legado da mesa ainda não foram preenchidos.</p>
+      </div>
+      <div class="kpi-grid">
+            <div class="kpi"><b>14</b><span>Coordenadorias Gerais Regionais — uma empresa por lote, com sobreposição</span></div>
+        <div class="kpi k-teal"><b>298</b><span>Veículos da UBA · 0 próprios do DER</span></div>
+        <div class="kpi k-navy"><b>1.152</b><span>Operadores de Campo da UBA · pista terceirizada</span></div>
+        <div class="kpi k-violet"><b>12</b><span>Programadores DER · 6 por turno</span></div>
+      </div>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Operação confirmada</h3>
+          <p>Campo 7 dias, 24 horas, em quatro turnos 12×36. A viatura parte de base ou pátio. O DER despacha direto à equipe da UBA. O aparelho é Android e há trecho sem rede. Material e peça não entram neste MVP.</p>
+        </div>
+        <div class="card">
+          <h3>Catálogo da operação</h3>
+          <p>Há cinco macros — pane, sinistro, teóscio, diversos e solicitação de informação — e mais de 100 tipos no microcatálogo. Os veículos da operação incluem VTE, guincho leve e pesado, moto, brigadista e veículo de fauna. Neste MVP entram pane, sinistro e inspeção, com guincho leve e inspeção.</p>
+        </div>
+        <div class="card">
+          <h3>Ainda em aberto</h3>
+          <p>Nome do sistema de registro atual. Convivência com o SIGOR. Volume médio de ocorrências. SLA publicado. Recorte geográfico desta fase — piloto Cubatão/Taubaté ou as 14 CGRs.</p>
+        </div>
+        <div class="card">
+          <h3>Critério de sucesso</h3>
+          <p>Confirmado no questionário: controlar o atendimento emergencial desde a abertura até a conclusão, com visão única e rastreável, em tempo real.</p>
+        </div>
+      </div>
+      <p class="src-note">Fonte: DER-SP_Questionario-Cliente-Socorro.xlsx · aba Socorro emergencial, e PDF preenchido da mesma aba.</p>
+    </div>
+  </section>
+
+  <section class="block alt pane" id="estimativa">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Estimativa e ROM</span>
+        <h2 class="section-title">Nove pacotes, um escopo, sem faixa de horas</h2>
+        <p>O mesmo mapa de trabalho da planilha de discovery. Tamanho P/M/G descreve complexidade relativa. Não há horas, valor nem prazo neste material: estimate e commercials ainda não foram gerados.</p>
+      </div>
+      <div class="rom-note">Amounts are indicative and for planning discussion only. Final estimates, effort model, and commercial structure will be confirmed through the applicable commercial agreement. Travel and expenses billed as actual and are not included in estimates.</div>
+      <div class="table-wrap">
+        <table class="uc">
+          <thead>
+            <tr><th>Pacote</th><th>O que entra se o recorte deixar</th><th>O que muda o tamanho</th><th>Confiança</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><b>A</b> Fundação do ciclo</td><td>Tipos, status, identificador único e histórico.</td><td>P: 7 variantes da prova. G: catálogo completo no dia 1.</td><td><span class="meta">Confirmado no MVP</span></td></tr>
+            <tr><td><b>B</b> Território e frota</td><td>CGR, viatura, turno 12×36, uma empresa por lote.</td><td>P: Cubatão e Taubaté. G: 14 CGR e 298 viaturas.</td><td><span class="meta assumed">Recorte geográfico aberto</span></td></tr>
+            <tr><td><b>C</b> Local na abertura</td><td>Sem os dados de endereço (lat/long) a viatura não é despachada.</td><td>P: GPS do canal. G: API GIS + 0800 + WhatsApp.</td><td><span class="meta assumed">Premissa</span></td></tr>
+            <tr><td><b>D</b> Mesa de despacho</td><td>Automático P-02/P-06, alteração manual, recusa, segunda viatura, alarme.</td><td>P: automático no recorte. G: teto N por CGR.</td><td><span class="meta">Confirmado no MVP</span></td></tr>
+            <tr><td><b>E</b> Aplicativo de campo</td><td>Aceite, deslocamento, evidência, abertura na pista.</td><td>P: online com foto. G: offline + trava de regra.</td><td><span class="meta assumed">Offline pedido</span></td></tr>
+            <tr><td><b>F</b> Posição e cidadão</td><td>Mapa da mesa, alarme de parado, link ao cidadão.</td><td>P: GPS do app. M: SMS no 0800. G: AVL embarcado.</td><td><span class="meta">Pedido no questionário</span></td></tr>
+            <tr><td><b>G</b> Integração e cutover</td><td>SIGOR, sistema da UBA, histórico.</td><td>P: recorte zerado. G: mão dupla SIGOR + API da UBA.</td><td><span class="meta unknown">Em aberto</span></td></tr>
+            <tr><td><b>H</b> Canal e licença</td><td>0800 agora. WhatsApp e Agentforce no contact center nesta fase. URA fora.</td><td>P: um canal. M: 0800 + WhatsApp.</td><td><span class="meta assumed">Pedido vs canal de hoje</span></td></tr>
+            <tr><td><b>I</b> Painel e evidência</td><td>Tempos da F2.1, sem meta de SLA.</td><td>P: painel padrão. G: relatório à medida por CGR.</td><td><span class="meta">Confirmado no MVP</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="src-note">Fonte: DER-SP_Discovery-Esforco-Socorro-Emergencial.xlsx · aba O_que_sera_feito. Confiança lida do Recorte_da_fase e da aba Socorro emergencial. Tamanhos não foram atribuídos: o DER ainda não fechou R-07, R-08, R-09 e 8.01.</p>
+    </div>
+  </section>
+
+  <section class="block pane" id="entregaveis">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Estimativa e ROM</span>
+        <h2 class="section-title">O que este BSA entrega neste MVP</h2>
+        <p>Cada linha tem critério de aceite nas provas P-01 a P-10. Não há semana de calendário: ambiente e licenças ainda não foram definidos.</p>
+      </div>
+      <div class="grid grid-2">
+        <div class="card"><h3>1. Chamado único</h3><p>Identificador e histórico da abertura ao encerramento, visível aos seis papéis. Aceite: P-01.</p></div>
+        <div class="card"><h3>2. Mesa C2C</h3><p>Qualificação, despacho automático no mapa, alteração manual, recusa antes do deslocamento e alarme de 5 minutos. Aceite: P-02, P-03, P-04, P-05, P-06.</p></div>
+        <div class="card"><h3>3. Aplicativo de campo</h3><p>Aceite, chegada, evidência e abertura pela inspeção. Aceite: P-10. Offline e trava de regra dependem da resposta de recorte.</p></div>
+        <div class="card"><h3>4. Acompanhamento ao cidadão</h3><p>Link do mapa do aceite à chegada. No 0800 o aviso vai por SMS. Aceite: P-07 e P-08.</p></div>
+        <div class="card"><h3>5. Painel</h3><p>Quantidade, tempos e pendências. Sem meta de SLA. Aceite: P-09.</p></div>
+        <div class="card"><h3>Fora da entrega deste MVP</h3><p>URA, Carta de Serviços, material na viatura, e produção estadual sem data.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block alt pane" id="produtos">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Execução</span>
+        <h2 class="section-title">Produtos Salesforce neste recorte</h2>
+        <p>Produto, edição e licença ainda não estão fechados. O recorte de camadas e objetos está em <a href="#arquitetura">Arquitetura</a>. Esta página não é order form.</p>
+      </div>
+      <div class="grid grid-3">
+        <div class="card"><h3>Ainda não fechado</h3><p>Org, sandbox, edição e licenças de mesa e de campo. Login da pista — viatura ou pessoa — permanece em aberto.</p></div>
+        <div class="card"><h3>Telefonia</h3><p>A telefonia física do 0800 permanece no convênio atual. A URA não entra neste MVP.</p></div>
+        <div class="card"><h3>O que esta página não decide</h3><p>O papel de cada produto neste recorte está na arquitetura. Aqui não se fecha SKU nem quantidade de licença.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block pane" id="adocao">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Execução</span>
+        <h2 class="section-title">Adoção</h2>
+        <p>A plataforma só registra o ciclo se a mesa e a pista usarem o mesmo chamado. Treino e permissão entram depois do ambiente.</p>
+      </div>
+      <div class="grid grid-3">
+        <div class="card"><h3>Mesa C2C</h3><p>12 programadores DER, 6 por turno. Acompanham o despacho automático, a recusa e o alarme no mesmo identificador.</p></div>
+        <div class="card"><h3>Pista UBA</h3><p>Há 1.152 operadores de campo em 298 veículos, com uma empresa por CGR. Login e aplicativo ainda não estão fechados — viatura ou pessoa.</p></div>
+        <div class="card"><h3>Cidadão</h3><p>O cidadão permanece no 0800, recebe o número do protocolo e o link da viatura. A pesquisa de satisfação fica para depois.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block alt pane" id="proximos">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Execução</span>
+        <h2 class="section-title">Próximos passos</h2>
+        <p>Cada etapa tem dono e entregável. Datas só entram quando o DER as registrar por escrito.</p>
+      </div>
+      <div class="step-card">
+        <h3>1. Ambiente Salesforce e licenças</h3>
+        <p>O documento de 20/08 pede definir o ambiente antes de executar.</p>
+        <div class="dlv-grid">
+          <div class="dlv"><b>Dono</b><p>PRODESP e Salesforce, com o DER operacional</p></div>
+          <div class="dlv"><b>Entregável</b><p>Ambiente escolhido e lista de licenças de mesa e de campo</p></div>
+          <div class="dlv"><b>Desbloqueia</b><p>Configuração do ciclo neste MVP</p></div>
+        </div>
+      </div>
+      <div class="step-card s2">
+        <h3>2. Recorte geográfico desta fase</h3>
+          <p>O piloto citado nas fontes é Cubatão (R5) e Taubaté (R6). O questionário descreve 14 Coordenadorias Gerais Regionais (CGRs). Sem essa decisão, a ROM tem dois tamanhos.</p>
+        <div class="dlv-grid">
+          <div class="dlv"><b>Dono</b><p>Gestão DER</p></div>
+          <div class="dlv"><b>Entregável</b><p>Lista das CGR/UBA que entram neste incremento</p></div>
+          <div class="dlv"><b>Desbloqueia</b><p>Pacote B e o tamanho da frota a cadastrar</p></div>
+        </div>
+      </div>
+      <div class="step-card s3">
+        <h3>3. Canal desta fase</h3>
+          <p>Atualmente o cidadão solicita pelo 0800. WhatsApp e WhatsApp voz são escopo desta fase. O Agentforce entra para o contact center. A URA fica fora.</p>
+        <div class="dlv-grid">
+          <div class="dlv"><b>Dono</b><p>C2C / gestão DER</p></div>
+          <div class="dlv"><b>Entregável</b><p>Um canal ou 0800 + WhatsApp, por escrito</p></div>
+          <div class="dlv"><b>Desbloqueia</b><p>Pacote H e a jornada do cidadão</p></div>
+        </div>
+      </div>
+      <div class="step-card s4">
+        <h3>4. Sistema de registro e SIGOR</h3>
+        <p>A aba Socorro emergencial ainda não nomeia o legado nem decide substituir, integrar ou operar em paralelo.</p>
+        <div class="dlv-grid">
+          <div class="dlv"><b>Dono</b><p>TI / SIGOR</p></div>
+          <div class="dlv"><b>Entregável</b><p>Nome do sistema de hoje e o modo de convivência neste recorte</p></div>
+          <div class="dlv"><b>Desbloqueia</b><p>Pacote G e a ROM de integração</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="f-top">
+        <span class="chip"><img src="assets/salesforce-logo.svg" alt="Salesforce" /></span>
+        <span class="chip der"><img src="assets/der-logo.png" alt="DER" /></span>
+      </div>
+      <div class="f-cols">
+        <div>
+          <h4>Marca</h4>
+          <p class="small">Tipografia, paleta e ilustrações oficiais da Salesforce. Layout inspirado no <a href="https://www.lightningdesignsystem.com/" target="_blank" rel="noopener">Lightning Design System</a>.</p>
+        </div>
+        <div class="f-fontes">
+          <h4>Fontes</h4>
+          <p class="small">
+            <span class="src">Portal C2C/UBA (F6.1–F6.2)</span>
+            <span class="src">Documento funcional 20/08</span>
+            <span class="src">Call E2E 02/09</span>
+            <span class="src">Piloto Cubatão 10/09 e Taubaté 11/09</span>
+            <span class="src">* Agenda presencial · Execução PoC dia 11/09</span>
+            <span class="src">Carta de Serviços DER</span>
+            <span class="src">Questionário de discovery · aba Socorro emergencial</span>
+          </p>
+        </div>
+      </div>
+      <p class="f-conf">Material interno e confidencial. Uso restrito à conta PRODESP e ao DER-SP. Não distribuir fora deste recorte sem autorização.</p>
+      <div class="f-note">© <span id="year"></span> Salesforce · BSA LATAM · Renata Vendramini</div>
+    </div>
+  </footer>
+</main>
+
+  <script>
+document.getElementById("year").textContent = String(new Date().getFullYear());
+
+const panes = [...document.querySelectorAll(".pane")];
+const items = [...document.querySelectorAll("#side-nav .nav-item")];
+const toggle = document.getElementById("sb-toggle");
+const overlay = document.getElementById("sb-overlay");
+const crumb = document.getElementById("top-crumb");
+const topTitle = document.getElementById("top-title");
+const sidebar = document.getElementById("sidebar");
+
+function setSidebar(open) {
+  document.body.classList.toggle("sb-open", open);
+  if (toggle) {
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    toggle.setAttribute("aria-label", open ? "Fechar seções" : "Abrir seções");
+  }
+  if (sidebar) {
+    sidebar.setAttribute(
+      "aria-hidden",
+      window.matchMedia("(max-width: 860px)").matches && !open ? "true" : "false"
+    );
+  }
+}
+
+function showSection(id) {
+  const target = id.replace(/^#/, "");
+  const pane = document.getElementById(target);
+  if (!pane || !pane.classList.contains("pane")) return;
+  panes.forEach((p) => p.classList.toggle("active", p.id === target));
+  items.forEach((a) => {
+    const on = a.getAttribute("data-section") === target;
+    a.classList.toggle("active", on);
+    if (on) a.setAttribute("aria-current", "page");
+    else a.removeAttribute("aria-current");
+    if (on && crumb && topTitle) {
+      crumb.textContent = a.getAttribute("data-group") || "";
+      const label = a.childNodes[0] ? a.childNodes[0].textContent.trim() : a.textContent.trim();
+      topTitle.textContent = label;
+    }
+  });
+  window.scrollTo(0, 0);
+  setSidebar(false);
+}
+
+items.forEach((a) => {
+  a.addEventListener("click", (e) => {
+    e.preventDefault();
+    const id = a.getAttribute("data-section");
+    showSection(id);
+    history.replaceState(null, "", "#" + id);
+  });
+});
+
+if (toggle) {
+  toggle.addEventListener("click", () => {
+    setSidebar(!document.body.classList.contains("sb-open"));
+  });
+}
+if (overlay) {
+  overlay.addEventListener("click", () => setSidebar(false));
+}
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") setSidebar(false);
+});
+
+const initial = (location.hash || "#capa").slice(1);
+showSection(document.getElementById(initial) ? initial : "capa");
+window.addEventListener("hashchange", () => {
+  const id = location.hash.slice(1);
+  if (id) showSection(id);
+});
+
+function activateLocalTab(wrap, id) {
+  if (!wrap || !id) return;
+  wrap.querySelectorAll(".tab, .persona-strip [data-tab]").forEach((b) => {
+    const on = b.getAttribute("data-tab") === id;
+    b.classList.toggle("active", on);
+    if (b.getAttribute("role") === "tab") {
+      b.setAttribute("aria-selected", on ? "true" : "false");
+      b.tabIndex = on ? 0 : -1;
+    }
+  });
+  wrap.querySelectorAll(".tab-pane").forEach((p) => {
+    const on = p.id === id;
+    p.classList.toggle("active", on);
+    p.toggleAttribute("hidden", !on);
+  });
+  const section = wrap.closest(".pane");
+  if (section) section.scrollTop = 0;
+  const current = wrap.querySelector(`.persona-strip [data-tab="${id}"]`);
+  if (current) current.scrollIntoView({ block: "nearest", inline: "nearest" });
+}
+
+document.querySelectorAll(".tab, .persona-strip button, .persona-pager .pg").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const id = btn.getAttribute("data-tab");
+    if (!id || btn.disabled) return;
+    activateLocalTab(btn.closest(".container"), id);
+  });
+});
+
+document.querySelectorAll("[data-open-journey]").forEach((link) => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+    const journeyId = link.getAttribute("data-open-journey");
+    showSection("jornadas");
+    history.replaceState(null, "", "#jornadas");
+    const jwrap = document.querySelector("#jornadas .container");
+    activateLocalTab(jwrap, journeyId);
+  });
+});
+
+document.querySelectorAll('[role="tablist"]').forEach((list) => {
+  list.addEventListener("keydown", (e) => {
+    const tabs = [...list.querySelectorAll('[role="tab"]')];
+    const i = tabs.indexOf(document.activeElement);
+    if (i < 0) return;
+    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+    e.preventDefault();
+    const next = e.key === "ArrowRight" ? (i + 1) % tabs.length : (i - 1 + tabs.length) % tabs.length;
+    tabs[next].focus();
+    tabs[next].click();
+  });
+});
+
+document.querySelectorAll("tr.expandable").forEach((tr) => {
+  tr.addEventListener("click", () => {
+    const next = tr.nextElementSibling;
+    if (!next || !next.classList.contains("detail")) return;
+    const box = next.querySelector(".uc-detail");
+    if (box) box.classList.toggle("open");
+  });
+});
+
+document.querySelectorAll(".req-head").forEach((head) => {
+  head.addEventListener("click", () => head.parentElement.classList.toggle("open"));
+});
+
+</script>
+</body>
+</html>
