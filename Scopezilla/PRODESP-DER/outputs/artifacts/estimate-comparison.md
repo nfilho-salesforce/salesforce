@@ -1,6 +1,6 @@
 # Estimate Comparison — PRODESP · DER-SP
 
-*Estimativa completa, precificação diferida.* A comparação de prazo, esforço e equipe nomeada entre 3 lanes de entrega é o entregável completo desta versão — nenhuma rate validada foi fornecida para converter isso em preço indicativo ainda.
+*Estimativa completa, com preço indicativo.* Comparação de prazo, esforço, equipe nomeada e preço indicativo entre 3 lanes de entrega, a partir de rates validadas pelo usuário em 2026-09-17 (ver `## Approved Commercials` abaixo).
 
 ## Base compartilhada
 
@@ -78,9 +78,31 @@ Não há `user_commitment` de semanas — apenas a faixa derivada (16-30 semanas
 
 Leitura qualitativa aprovada pelo Solution Lead: lane traditional/augmented soma **10 papéis PS** (pico de ~7-8 pessoas simultâneas nas Fases 1-3, incluindo o pod de 3 Developers offshore) + **6 papéis client-side**. Lane AI-native cai para **8 papéis PS** (pico de ~5-6 pessoas) com o pod de Developers colapsado de 3 para 1 sênior amplificado por agentes. Um FTE numérico real fica disponível se/quando o DER/PRODESP comprometer um número de semanas (`roadmap` Step 0.6).
 
-## Precificação
+## Approved Commercials
 
-Diferida em todas as 3 lanes — nenhuma rate validada foi fornecida. Rodar `commercials` por lane quando uma rate estiver disponível para validação.
+Rates fornecidas e validadas pelo usuário em 2026-09-17, a partir da tabela oficial de rates PS LATAM (não específica deste projeto — reaproveitada por decisão explícita do usuário). Valores COM imposto (sem imposto ÷ 0,9345). Moeda: **BRL** (assumida a partir da tabela de origem e do fato de o cliente ser uma entidade estadual paulista — não confirmada em USD).
+
+**Rates aplicadas (R$/hora, com imposto):**
+
+| Bucket | Cobre | Rate/h |
+|---|---|---|
+| Architect-class sênior onshore | PM, Solution Architect, Technical Architect · Program Lead, Intent Architect, Agent Orchestrator (AI-native) | R$ 946,69 |
+| Entrega sênior onshore, ou qualquer papel offshore regular | Functional Consultant/Developer/QA sênior onshore · Functional Consultant/Developer/QA regular offshore · Logic & Integration Engineer, Logic Validator (AI-native) | R$ 715,66 |
+| Change & Adoption regular onshore | Change & Adoption · Adoption Architect (AI-native) | R$ 614,21 |
+
+**Faixa indicativa de preço por lane** (Σ(count × alocação × rate) × 40h × faixa de duração da própria lane — faixa "honestamente larga", sem descontar por `phases_active`):
+
+| Lane | Duração | Faixa indicativa (BRL) |
+|---|---|---|
+| **Traditional** (âncora) | 16-30 semanas | **R$ 6.332.940,80 – R$ 11.874.264,00** |
+| **Augmented** | 14-25 semanas | **R$ 5.541.323,20 – R$ 9.895.220,00** |
+| **AI-native** (condicional) | 10-18 semanas | **R$ 2.383.636,00 – R$ 4.290.544,80** |
+
+> *Esta faixa é baseada nas rates de R$946,69/h (architect-class sênior onshore), R$715,66/h (entrega sênior onshore/qualquer offshore regular) e R$614,21/h (change & adoption regular onshore) que você forneceu e validou em 2026-09-17. Indicativo para planejamento apenas; a estrutura comercial final é confirmada através do acordo comercial aplicável.*
+
+A faixa AI-native permanece condicional ao gate de qualificação (nenhum sponsor executivo nomeado, mandato AI-first ainda não assumido) — é um motivador ("se você se comprometer com este modelo de trabalho, esta seria a faixa de investimento"), nunca uma entrega comprometida sem nomear o compromisso.
+
+Este é um preço **indicativo**, não custo/margem, e não uma proposta de fixed fee — o número que sai daqui é o que o cliente é cobrado (bill rate), nunca o que a entrega custa internamente.
 
 ---
 *Esta comparação é benchmark-based, derivada dos dados de treinamento do modelo e padrões gerais de entrega (não validado pela Salesforce) — não é um compromisso. Faixas de duração e a faixa AI-native carregam a incerteza herdada de `confidence: Assumed` em todos os 5 épicos.*

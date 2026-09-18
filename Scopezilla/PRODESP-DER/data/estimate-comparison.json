@@ -10,6 +10,13 @@
     "basis": "Confirmado pelo usuário — 100% do escopo dos 5 épicos (E01-E05) é entregue pela Salesforce PS. Papéis client-side existem apenas como coverage necessária (product owner, SMEs, data steward, IT liaison, UAT), nunca como redução de escopo SF-owned."
   },
   "size_confidence_note": "Todos os 5 épicos carregam confidence: Assumed em data/estimates.json — amplia o risco realizado de todas as 3 lanes para a ponta alta das faixas, mesmo sem mover mecanicamente o piso.",
+  "rate_basis": "per-resource-hourly",
+  "rates": [
+    {"role": "architect-class-onshore-senior (PM/SA/TA e equivalentes AI-native Program Lead/Intent Architect/Agent Orchestrator)", "rate": 946.69, "currency": "BRL", "validated_by": "user", "validated_at": "2026-09-17"},
+    {"role": "delivery-onshore-senior-or-offshore-regular (FC/Developer/QA sênior onshore, e qualquer papel offshore regular em qualquer lane)", "rate": 715.66, "currency": "BRL", "validated_by": "user", "validated_at": "2026-09-17"},
+    {"role": "change-adoption-onshore-regular (Change & Adoption / Adoption Architect)", "rate": 614.21, "currency": "BRL", "validated_by": "user", "validated_at": "2026-09-17"}
+  ],
+  "commercials_note": "Rates fornecidas e validadas pelo usuário em 2026-09-17 a partir da tabela oficial PS LATAM (memory reference_ps_rates_tax_latam), não específica de um projeto DATAPREV — usuário autorizou explicitamente reaproveitá-la aqui. Valores COM imposto (sem imposto ÷ 0,9345, regra permanente da mesma referência). Mapeamento de papel→bucket e tratamento offshore (mesma rate 668,78/715,66 sem redutor, tabela não distingue onshore/offshore) confirmados pelo usuário via AskUserQuestion. Moeda BRL assumida (tabela de origem + cliente é entidade estadual SP) — não confirmada em USD.",
   "lanes": {
     "traditional": {
       "label": "Traditional",
@@ -19,8 +26,8 @@
       "confidence": "Assumed",
       "roster_ref": "data/resource-plan.json",
       "roster_note": "Roster nomeado escrito em data/resource-plan.json (lane comprometida/âncora) — pod de build offshore-weighted escalando com o volume dos 4 épicos L, arquitetura/PM/QA lead onshore sênior.",
-      "indicative_price_range": null,
-      "pricing_status": "deferred — nenhuma rate validada foi fornecida; a comparação de tempo/esforço/roster é o entregável completo desta versão"
+      "indicative_price_range": {"low": 6332940.80, "high": 11874264.00, "currency": "BRL", "confidence": "Assumed"},
+      "pricing_status": "computed — Σ(count × alocação × rate) × 40h × faixa de 16-30 semanas, sobre as rates validadas pelo usuário em 2026-09-17 (ver rates[] no topo do arquivo). Faixa 'honestamente larga' — não desconta por phases_active (fallback documentado para faixa sem compromisso semanal fechado)."
     },
     "augmented": {
       "label": "Augmented (traditional methodology + AI tooling)",
@@ -30,8 +37,8 @@
       "confidence": "Assumed",
       "roster_ref": "data/resource-plan.json",
       "roster_note": "Mesma forma de equipe da lane traditional (data/resource-plan.json) — a ferramenta de IA muda o ritmo de entrega dentro dos mesmos papéis/contagens, não a composição do time.",
-      "indicative_price_range": null,
-      "pricing_status": "deferred — nenhuma rate validada foi fornecida"
+      "indicative_price_range": {"low": 5541323.20, "high": 9895220.00, "currency": "BRL", "confidence": "Assumed"},
+      "pricing_status": "computed — mesmo roster/rates da lane traditional, faixa de 14-25 semanas (comprimida por efficiency.json.realized_band)."
     },
     "quantum-leap": {
       "label": "AI-native",
@@ -58,8 +65,8 @@
         {"resource_id": "AN-14", "role": "Quality Assurance", "seniority": "regular", "location": "onshore", "count": 1, "allocation": "quarter", "phases_active": "4", "side": "client", "justification": "Amostra de UAT das 14 CGRs — mesma cobertura da lane traditional."}
       ],
       "core_accountability_check": "Piso presente: Program Lead ✓, Intent Architect ✓, Agent Orchestrator ✓ (Technical Architect, não senior Developer — escolhido pela complexidade de governança/auditoria estadual), Adoption Architect ✓ (ganho por G0515). Nenhuma accountability core ausente.",
-      "indicative_price_range": null,
-      "pricing_status": "deferred — nenhuma rate validada foi fornecida; a faixa nativa é adicionalmente condicional ao gate de qualificação"
+      "indicative_price_range": {"low": 2383636.00, "high": 4290544.80, "currency": "BRL", "confidence": "Assumed"},
+      "pricing_status": "computed — roster AI-native (8 papéis PS, AN-06 em alocação half), faixa de 10-18 semanas. Motivador condicional: só realizável se o gate de qualificação AI-native (native_qualification: conditional) for atendido — nunca apresentar como alcançável sem nomear o compromisso."
     }
   },
   "staffing_integrity_self_check": "1 workstream principal (W=1) — nenhum segundo fluxo com decision-maker empoderado separado identificado; papéis de liderança não foram dobrados fora do programa. Volume (Developer/QA) escala monotonicamente com o peso dos 4 épicos L na lane traditional/augmented; na lane AI-native, o volume cai para agentes mas as accountabilities não-delegáveis (integração crítica, QA independente, decisão de negócio) seguem humanas — nenhuma foi zerada por reflexo.",
