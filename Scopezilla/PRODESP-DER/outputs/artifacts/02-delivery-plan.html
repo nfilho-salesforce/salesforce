@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plano de Entrega — PRODESP · DER-SP</title>
+<style>
+  :root {
+    /* ── Core blues (everyday palette) ─────────────────────────────── */
+    --sf-navy:        #001E5B;   /* Electric Blue 15 — heritage navy, hero backgrounds */
+    --sf-type:        #002775;   /* Electric Blue 20 — body/heading type on light */
+    --sf-container:   #022AC0;   /* Electric Blue 30 — filled containers, table headers */
+    --sf-blue:        #066AFE;   /* Electric Blue 50 — secondary elements, highlights, CTAs */
+    --sf-cloud:       #00B3FF;   /* Cloud Blue 68 — "Salesforce Blue" accent */
+    --sf-cloud-80:    #90D0FE;   /* Cloud Blue 80 — tints, borders */
+    --sf-bg:          #CFE9FE;   /* Cloud Blue 90 — page background */
+    --sf-light-bg:    #EAF5FE;   /* Cloud Blue 95 — white-adjacent bg, alt rows */
+    --sf-text:        #002775;   /* default text = Electric Blue 20 */
+    --sf-text-weak:   #4A5578;   /* muted metadata — passes AA on white/light-bg */
+
+    /* ── Extended palette (categorical / data-viz / severity accents) ── */
+    --ext-teal:       #06A59A;  --ext-teal-80: #04E1CB;  --ext-teal-95:   #DEF9F3;
+    --ext-yellow:     #FCC003;  --ext-yellow-70: #E4A201; --ext-yellow-95: #FBF3E0;
+    --ext-pink:       #FF538A;  --ext-pink-40: #B60554;  --ext-pink-95:   #FEF0F3;
+    --ext-violet:     #D17DFE;  --ext-violet-30: #730394; --ext-violet-95: #F9F0FF;
+
+    /* ── Semantic status (traffic-light: scope in/at-risk/out, on-track/late).
+       Distinct from the severity .sz-tag family above — always pair with a label. */
+    --sf-ok:      #2E844A;  --sf-ok-bg:      #EAFCE9;
+    --sf-warn:    #DD7A01;  --sf-warn-bg:    #FFF7E6;
+    --sf-bad:     #BA0517;  --sf-bad-bg:     #FDECEB;
+    --sf-neutral: #94A3B3;  --sf-neutral-bg: #F3F6FA;
+
+    /* ── Client co-brand accent — no co-brand on this project; internal artifact ── */
+    --client-primary: #066AFE;   /* default = Electric Blue 50 */
+    --client-dark:    #022AC0;
+
+    /* ── Typography ────────────────────────────────────────────────── */
+    --font-heading: 'ITC Avant Garde Gothic Demi', 'Avant Garde', 'Century Gothic',
+                    'Salesforce Sans', 'Source Sans 3', Arial, sans-serif;
+    --font-body:    'Salesforce Sans', 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+    --fs-title: 54px; --fs-subtitle: 36px; --fs-l1: 30px; --fs-cat: 26px;
+    --fs-l2: 24px; --fs-desc: 22px; --fs-body: 16px;
+
+    /* ── Spacing / radius / shadow ─────────────────────────────────── */
+    --space-xs: 4px;  --space-sm: 8px;  --space-md: 16px;
+    --space-lg: 24px; --space-xl: 32px; --space-2xl: 48px;
+    --radius-sm: 4px; --radius-md: 8px; --radius-lg: 16px;
+    --shadow-brand: 2.6px 9.7px 25px rgba(6,106,254,0.15);
+  }
+
+  /* ── Base ─────────────────────────────────────────────────────────── */
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:var(--font-body); color:var(--sf-text); background:var(--sf-light-bg);
+         -webkit-font-smoothing:antialiased; line-height:1.55; }
+  h1,h2,h3,.sz-title,.sz-stat-num { font-family:var(--font-heading); color:var(--sf-navy); line-height:1.15; }
+  a { color:var(--sf-blue); }
+  :focus-visible { outline:3px solid var(--sf-blue); outline-offset:2px; border-radius:2px; }
+  @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none !important; transition:none !important; scroll-behavior:auto !important; } }
+
+  /* ── Section header ───────────────────────────────────────────────── */
+  .sz-section { margin:var(--space-2xl) 0; }
+  .sz-section-eyebrow { font-family:var(--font-heading); font-size:12px; font-weight:700;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--sf-blue); margin-bottom:var(--space-xs); }
+  .sz-section-title { font-size:var(--fs-cat); margin-bottom:var(--space-md); }
+
+  /* ── Card (white on light bg → brand shadow) ──────────────────────── */
+  .sz-card { background:#fff; border-radius:var(--radius-md); padding:var(--space-lg);
+    box-shadow:var(--shadow-brand); }
+  .sz-card + .sz-card { margin-top:var(--space-md); }
+
+  /* ── Stat tile / KPI ──────────────────────────────────────────────── */
+  .sz-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:var(--space-md); }
+  .sz-stat { background:#fff; border-radius:var(--radius-md); padding:var(--space-lg) var(--space-md);
+    text-align:center; box-shadow:var(--shadow-brand); }
+  .sz-stat-num { font-size:var(--fs-title); color:var(--client-primary); }
+  .sz-stat-lbl { font-size:14px; color:var(--sf-text-weak); margin-top:var(--space-xs); }
+
+  /* ── Table (zebra, brand header) ──────────────────────────────────── */
+  .sz-table { width:100%; border-collapse:collapse; background:#fff; border-radius:var(--radius-md);
+    overflow:hidden; box-shadow:var(--shadow-brand); }
+  .sz-table th { background:var(--sf-container); color:#fff; font-family:var(--font-heading);
+    text-align:left; padding:var(--space-sm) var(--space-md); font-size:14px; }
+  .sz-table td { padding:var(--space-sm) var(--space-md); border-top:1px solid var(--sf-light-bg); }
+  .sz-table tbody tr:nth-child(even) { background:var(--sf-light-bg); }
+
+  /* ── Tag (never color alone — always carries a label) ─────────────── */
+  .sz-tag { display:inline-block; font-size:12px; font-weight:700; padding:2px 10px;
+    border-radius:999px; line-height:1.6; }
+  .sz-tag--critical { background:var(--ext-pink-95);   color:var(--ext-pink-40); }
+  .sz-tag--high     { background:var(--ext-yellow-95); color:var(--ext-yellow-70); }
+  .sz-tag--medium   { background:var(--ext-yellow-95); color:var(--ext-yellow-70); }
+  .sz-tag--low      { background:var(--ext-teal-95);   color:var(--ext-teal); }
+  .sz-tag--info     { background:var(--sf-light-bg);   color:var(--sf-blue); }
+
+  /* ── TL;DR / callout box ──────────────────────────────────────────── */
+  .sz-tldr { background:var(--sf-light-bg); border-left:4px solid var(--sf-blue);
+    border-radius:var(--radius-sm); padding:var(--space-md) var(--space-lg); margin:var(--space-lg) 0; }
+  .sz-tldr-label { font-family:var(--font-heading); font-size:12px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--sf-blue); margin-bottom:var(--space-xs); }
+
+  /* ── Timeline / phase bar (horizontal) ────────────────────────────── */
+  .sz-timeline { display:flex; gap:2px; border-radius:var(--radius-sm); overflow:hidden;
+    box-shadow:var(--shadow-brand); flex-wrap:wrap; }
+  .sz-phase { flex:1; min-width:150px; padding:var(--space-md); color:#fff; text-align:center; font-size:14px; }
+  .sz-phase:nth-child(1){background:var(--sf-navy);} .sz-phase:nth-child(2){background:var(--sf-container);}
+  .sz-phase:nth-child(3){background:var(--sf-blue);} .sz-phase:nth-child(4){background:var(--sf-cloud);}
+  .sz-phase:nth-child(5){background:var(--sf-cloud-80); color:var(--sf-navy);}
+  .sz-phase-name { font-family:var(--font-heading); }
+  .sz-phase-dur { opacity:.85; font-size:12px; margin-top:2px; }
+
+  /* ── Chip row ─────────────────────────────────────────────────────── */
+  .sz-chips { display:flex; flex-wrap:wrap; gap:var(--space-xs); }
+  .sz-chip { background:var(--sf-light-bg); color:var(--sf-container); border:1px solid var(--sf-cloud-80);
+    border-radius:999px; padding:4px 12px; font-size:13px; }
+
+  /* ── CTA button ───────────────────────────────────────────────────── */
+  .sz-cta { display:inline-block; background:var(--sf-blue); color:#fff; font-family:var(--font-heading);
+    text-decoration:none; padding:var(--space-sm) var(--space-lg); border-radius:999px;
+    box-shadow:var(--shadow-brand); border:none; cursor:pointer; }
+
+  /* ── Panorama (THE brand signature — use ONCE per artifact) ───────── */
+  .sz-panorama { position:relative; background:var(--sf-cloud); color:var(--sf-navy);
+    padding:var(--space-2xl) var(--space-xl); text-align:center;
+    border-radius:var(--radius-lg); box-shadow:var(--shadow-brand); overflow:hidden; }
+  .sz-panorama--navy { background:linear-gradient(135deg,var(--sf-navy),var(--sf-container)); color:#fff; }
+  .sz-panorama h2 { color:inherit; }
+
+  /* ── Copy-as-image control (canonical: shells/copy-as-image.html) ──── */
+  .shot-btn{position:absolute;top:14px;right:16px;font-size:11px;font-weight:600;color:var(--sf-blue);background:#fff;border:1px solid var(--sf-cloud-80);border-radius:5px;padding:4px 9px;cursor:pointer;z-index:2}
+  .shot-btn:hover{background:var(--sf-light-bg)}
+  [data-shot]{background:#fff; position:relative;}
+  @media print{ .shot-btn,.sz-export{display:none} }
+
+  /* ── Disclaimer note ─────────────────────────────────────────────── */
+  .sz-disclaimer { font-size:13px; color:var(--sf-text-weak); font-style:italic;
+    border-top:1px solid var(--sf-cloud-80); padding-top:var(--space-sm); margin-top:var(--space-md); }
+
+  /* ── Doc-shell layout (specific to this format) ───────────────────── */
+  .sz-wrap { max-width:960px; margin:0 auto; padding:var(--space-2xl) var(--space-lg); }
+  .sz-hero { background:var(--sf-navy); color:#fff; padding:var(--space-2xl) var(--space-lg); }
+  .sz-hero h1 { color:#fff; font-size:var(--fs-subtitle); }
+  .sz-hero p  { color:var(--sf-cloud-80); margin-top:var(--space-sm); }
+  .sz-nav { position:sticky; top:0; background:rgba(255,255,255,.92); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--sf-cloud-80); padding:var(--space-sm) var(--space-lg); z-index:10; }
+  .sz-nav a { font-size:14px; margin-right:var(--space-md); text-decoration:none; color:var(--sf-container); }
+  .sz-export { text-align:center; margin:var(--space-2xl) 0 var(--space-lg); }
+  html { scroll-behavior:smooth; }
+  section { scroll-margin-top:56px; }
+  .sz-footer { text-align:center; font-size:13px; color:var(--sf-text-weak); padding:var(--space-lg);
+    border-top:1px solid var(--sf-cloud-80); }
+  ul.sz-list { margin-left:var(--space-lg); margin-top:var(--space-sm); }
+  ul.sz-list li { margin-bottom:var(--space-xs); }
+  h3.sz-phase-h { font-size:var(--fs-l2); margin-bottom:var(--space-sm); color:var(--sf-navy); }
+  .sz-meta { font-size:13px; color:var(--sf-text-weak); margin-top:2px; }
+  .sz-crit-path { font-family:var(--font-heading); font-size:var(--fs-l2); color:var(--sf-container);
+    letter-spacing:.02em; }
+  @media (max-width: 900px) { .sz-stats { grid-template-columns:repeat(2,1fr); } }
+</style>
+</head>
+<body>
+
+<header class="sz-hero">
+  <div class="sz-wrap" style="padding-top:0;padding-bottom:0;">
+    <h1>Plano de Entrega — PRODESP · DER-SP</h1>
+    <p>Field Service + Service Cloud/Agentforce Contact Center Enterprise + Experience Cloud · documento interno · gerado a partir de <code>02-delivery-plan.md</code></p>
+  </div>
+</header>
+
+<nav class="sz-nav" aria-label="Navegação por seção">
+  <a href="#overview">Visão Geral</a>
+  <a href="#fase0">Fase 0</a>
+  <a href="#fase1">Fase 1</a>
+  <a href="#fase2">Fase 2</a>
+  <a href="#fase3">Fase 3</a>
+  <a href="#fase4">Fase 4</a>
+  <a href="#processos">Processos</a>
+  <a href="#riscos">Riscos</a>
+</nav>
+
+<main class="sz-wrap">
+
+  <div class="sz-tldr">
+    <div class="sz-tldr-label">TL;DR</div>
+    <p>Duração de programa (benchmark-based): <strong>16–30 semanas</strong> — derivada top-down a partir da forma do engagement (5 épicos, mix 1M + 4L, Field Service + Service Cloud/Agentforce Contact Center Enterprise + Experience Cloud, 2 integrações ponto-a-ponto), classificada como Multi-Cloud/Medium. Baseline 16–24 semanas, ajustada +15% por UI/UX customizada sem padrão nativo (E04, E05) e +10% por sobrecarga de governança/auditoria (G0305, G0211) → 24×1,25 = 30. <strong>Não é um compromisso.</strong></p>
+  </div>
+
+  <section id="overview" class="sz-section">
+    <div class="sz-section-eyebrow">Visão Geral</div>
+    <h2 class="sz-section-title">Duração do Programa e Caminho Crítico</h2>
+
+    <div class="sz-stats">
+      <div class="sz-stat"><div class="sz-stat-num">16–30</div><div class="sz-stat-lbl">Semanas (faixa benchmark)</div></div>
+      <div class="sz-stat"><div class="sz-stat-num">5</div><div class="sz-stat-lbl">Fases</div></div>
+      <div class="sz-stat"><div class="sz-stat-num">5</div><div class="sz-stat-lbl">Épicos (E01–E05)</div></div>
+      <div class="sz-stat"><div class="sz-stat-num">73</div><div class="sz-stat-lbl">Gaps identificados</div></div>
+    </div>
+
+    <div class="sz-card" style="margin-top:var(--space-md);">
+      <p class="sz-disclaimer">Esta figura é baseada em benchmark, derivada dos dados de treinamento do modelo e padrões gerais de entrega (não validado pela Salesforce) — não é um compromisso. Números finais são confirmados através do acordo comercial aplicável.</p>
+    </div>
+
+    <div class="sz-card" style="margin-top:var(--space-md);">
+      <h3 class="sz-phase-h">Contra o alvo do cliente</h3>
+      <p>Homologação jan/fev 2027 (~19–23 semanas a partir de 17/set/2026) cai dentro da faixa; Produção abril 2027 (~30 semanas) coincide com a ponta alta — pouca folga se os fatores de risco abaixo se confirmarem no lado mais pesado.</p>
+    </div>
+
+    <div class="sz-card">
+      <h3 class="sz-phase-h">O que mais amplia a faixa <span class="sz-meta">(resolver estes primeiro para estreitá-la)</span></h3>
+      <ul class="sz-list">
+        <li><strong>E05</strong> — link de rastreamento guest sem feature nativa, segurança do token ainda não confirmada → resolver <strong>G0517</strong>.</li>
+        <li><strong>E03</strong> — console + escalonamento N/N-10 sobre trilha de auditoria aberta → resolver <strong>G0305</strong> antes do build detalhado.</li>
+        <li><strong>E04</strong> — as 3 travas de negócio são hoje só online; enforcement offline é premissa de corte de escopo → confirmar <strong>G0413</strong>.</li>
+      </ul>
+    </div>
+
+    <div class="sz-card">
+      <h3 class="sz-phase-h">Caminho crítico</h3>
+      <p class="sz-crit-path">E02 → E03 → E04 → E05</p>
+      <p style="margin-top:var(--space-sm);">A fundação de registro/integrações (E02) gate todo o resto; o canal digital (E01) só depende de E02 e pode avançar em paralelo à Fase 2. Atraso em qualquer épico do caminho crítico se propaga para os seguintes.</p>
+    </div>
+
+    <h3 class="sz-phase-h" style="margin-top:var(--space-lg);">Sequência das fases</h3>
+    <div class="sz-timeline" data-shot>
+      <div class="sz-phase"><div class="sz-phase-name">Fase 0</div><div class="sz-phase-dur">Resolução de Discovery · sequência 1 de 5</div></div>
+      <div class="sz-phase"><div class="sz-phase-name">Fase 1</div><div class="sz-phase-dur">Fundação: Registro &amp; Integrações · sequência 2 de 5</div></div>
+      <div class="sz-phase"><div class="sz-phase-name">Fase 2</div><div class="sz-phase-dur">Despacho Automatizado &amp; Canal Digital · sequência 3 de 5</div></div>
+      <div class="sz-phase"><div class="sz-phase-name">Fase 3</div><div class="sz-phase-dur">Execução em Campo · sequência 4 de 5</div></div>
+      <div class="sz-phase"><div class="sz-phase-name">Fase 4</div><div class="sz-phase-dur">Rastreamento, Visibilidade &amp; Estabilização · sequência 5 de 5</div></div>
+    </div>
+  </section>
+
+  <section id="fase0" class="sz-section">
+    <div class="sz-section-eyebrow">Fase 0 · sequência 1 de 5</div>
+    <h2 class="sz-section-title">Resolução de Discovery</h2>
+    <div class="sz-card">
+      <p>73 gaps identificados no levantamento de requisitos (&gt;15, dispara Fase 0 por regra). Fecha as questões bloqueadoras antes do build: especificação de payload/API do SIGOR e SIGEO com o DER/Stefanini; trilha de auditoria de overrides manuais (G0305); limite contratual da UBA por CGR para escalonamento cross-CGR (G0309); desenho de segurança do token do guest link (G0517); premissa de DevOps/pipeline versionado (G0415); dimensionamento do workstream de Change Management/Operação Assistida (G0515).</p>
+      <p style="margin-top:var(--space-md);"><strong>Critério de sucesso:</strong> G0305, G0309, G0517, G0415 respondidos; especificação SIGOR/SIGEO assinada; Change Management dimensionado.</p>
+      <p style="margin-top:var(--space-sm);"><span class="sz-tag sz-tag--high">Risco</span> Sem resolução, E03 e E05 entram em build com premissas não confirmadas — retrabalho no console e no guest site.</p>
+    </div>
+  </section>
+
+  <section id="fase1" class="sz-section">
+    <div class="sz-section-eyebrow">Fase 1 · sequência 2 de 5</div>
+    <h2 class="sz-section-title">Fundação: Registro da Ocorrência e Integrações</h2>
+    <div class="sz-card">
+      <div class="sz-chips" style="margin-bottom:var(--space-md);"><span class="sz-chip">Épicos: E02</span></div>
+      <p>Modelo núcleo (Work Order, Work Type de 100+ subtipos, 2 slots de Assigned Resource) e as duas integrações legadas: SIGOR (dupla convivência, Platform Events/CDC assíncrono) e SIGEO (correção de lat/long, callout síncrono). Fundação sobre a qual o canal digital e o motor de despacho escrevem <span class="sz-meta">[KA-6240: Work Order Management precede Workforce/Dispatch na sequência recomendada de setup do Field Service]</span>.</p>
+      <p style="margin-top:var(--space-md);"><strong>Critério de sucesso:</strong> Work Order criável por qualquer canal; sincronização SIGOR validada; callout SIGEO testado.</p>
+      <p style="margin-top:var(--space-sm);"><span class="sz-tag sz-tag--medium">Risco</span> Divergência de dados na dupla convivência SIGOR — monitorar volume de conflitos nas primeiras semanas.</p>
+    </div>
+  </section>
+
+  <section id="fase2" class="sz-section">
+    <div class="sz-section-eyebrow">Fase 2 · sequência 3 de 5 · depende de E02</div>
+    <h2 class="sz-section-title">Despacho Automatizado e Canal Digital</h2>
+    <div class="sz-card">
+      <div class="sz-chips" style="margin-bottom:var(--space-md);"><span class="sz-chip">Épicos: E03, E01 (concorrentes)</span></div>
+      <p>Épicos concorrentes — nenhum depende do outro, ambos só de E02. Motor de despacho por aderência com escalonamento N/N-10 customizado e console do Dispatcher (12 licenças); em paralelo, canal WhatsApp com triagem Agentforce e fila humana única 24x7.</p>
+      <p style="margin-top:var(--space-md);"><strong>Critério de sucesso:</strong> despacho aciona a viatura correta nas 14 CGRs; console operacional nos 4 turnos; triagem WhatsApp cria Work Order de ponta a ponta.</p>
+      <p style="margin-top:var(--space-sm);"><span class="sz-tag sz-tag--high">Risco</span> G0305/G0309, se não resolvidos na Fase 0, forçam retrabalho no console e no modelo de território durante esta fase.</p>
+    </div>
+  </section>
+
+  <section id="fase3" class="sz-section">
+    <div class="sz-section-eyebrow">Fase 3 · sequência 4 de 5 · depende de E03</div>
+    <h2 class="sz-section-title">Execução em Campo</h2>
+    <div class="sz-card">
+      <div class="sz-chips" style="margin-bottom:var(--space-md);"><span class="sz-chip">Épicos: E04</span></div>
+      <p>App único de Field Service Mobile para os 1.152 operadores das 14 UBAs, com push nativo, retry ao reconectar, briefcase offline restrito à ocorrência em andamento, e as 3 travas de negócio (recusa com motivo, foto obrigatória, check-in geolocalizado) em modo online.</p>
+      <p style="margin-top:var(--space-md);"><strong>Critério de sucesso:</strong> app executa o ciclo completo até o encerramento com evidência; piloto com subconjunto de UBAs antes do rollout estadual.</p>
+      <p style="margin-top:var(--space-sm);"><span class="sz-tag sz-tag--high">Risco</span> Known issue de Service Appointment com licença Field Service Community; enforcement offline das travas fora do MVP.</p>
+    </div>
+  </section>
+
+  <section id="fase4" class="sz-section">
+    <div class="sz-section-eyebrow">Fase 4 · sequência 5 de 5 · depende de E03, E04</div>
+    <h2 class="sz-section-title">Rastreamento, Visibilidade e Estabilização</h2>
+    <div class="sz-card">
+      <div class="sz-chips" style="margin-bottom:var(--space-md);"><span class="sz-chip">Épicos: E05</span></div>
+      <p>Link de rastreamento guest para o cidadão (Experience Cloud + LWC/Apex, token de uso único), mapa/Gantt do C2C com Aerial Routing nativo, painel de gestores com 4 indicadores agregados. Fecha com UAT em escala estadual (298 viaturas, 1.152 operadores, 14 CGRs) e hypercare antes do go-live pleno.</p>
+      <p style="margin-top:var(--space-md);"><strong>Critério de sucesso:</strong> link guest ativo e protegido por token; UAT estadual assinado pelo DER; hypercare concluído sem bloqueadores críticos.</p>
+      <p style="margin-top:var(--space-sm);"><span class="sz-tag sz-tag--critical">Risco</span> Todo o link do cidadão é build customizado — validar segurança do guest profile antes do go-live.</p>
+    </div>
+  </section>
+
+  <section id="processos" class="sz-section">
+    <div class="sz-section-eyebrow">Processos Padrão</div>
+    <h2 class="sz-section-title">Consolidados, não repetidos por fase</h2>
+    <div class="sz-card">
+      <ul class="sz-list">
+        <li><strong>Testes:</strong> por fase, mais UAT em escala estadual antes do go-live pleno (Fase 4).</li>
+        <li><strong>Implantação:</strong> sandbox Developer para squads, Full/Partial para UAT com volume representativo das 14 CGRs.</li>
+        <li><strong>Treinamento:</strong> personalizado por persona, foco nos técnicos de campo das UBAs — parte do workstream de Change Management (Fase 0 dimensiona, execução atravessa as Fases 3–4).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="riscos" class="sz-section">
+    <div class="sz-section-eyebrow">Riscos</div>
+    <h2 class="sz-section-title">Riscos Consolidados</h2>
+    <table class="sz-table" data-shot>
+      <thead>
+        <tr><th>Risco</th><th>Fase mais exposta</th><th>Mitigação</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>G0305/G0309 não resolvidos a tempo</td><td>Fase 0 → 2</td><td>Levar como perguntas bloqueadoras formais ao DER/Stefanini antes do fim da Fase 0</td></tr>
+        <tr><td>Divergência SIGOR (dupla convivência)</td><td>Fase 1</td><td>Log de erro + alerta ao C2C; monitorar volume nas primeiras semanas</td></tr>
+        <tr><td>Known issue de licença Field Service Community</td><td>Fase 3</td><td>Monitorar releases; plano de contingência = migrar para licença padrão se crítico</td></tr>
+        <tr><td>Ausência de feature nativa de rastreamento público</td><td>Fase 4</td><td>Validar segurança do guest profile antes do go-live; resolver G0517</td></tr>
+        <tr><td>Enforcement offline das 3 travas fora do MVP</td><td>Fase 3</td><td>Documentar como premissa de redução de escopo (G0413) para validação formal com o cliente</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="sz-section">
+    <div class="sz-card">
+      <p class="sz-meta">Grounding: 5 fases com 3 decisões marcadas — 1 grounded ([KA-6240]), 2 inferred (agrupamento E01+E03 na Fase 2 por dependência compartilhada não-bloqueante; E05 unido à estabilização/hypercare), 0 flagged assumptions.</p>
+      <p class="sz-meta" style="margin-top:var(--space-sm);">O disciplinar e o roster nomeado (papéis, senioridade, localização, contagem defensável por fase) para entregar este plano vêm da skill <strong>estimate</strong>.</p>
+    </div>
+  </section>
+
+  <div class="sz-export">
+    <button class="sz-cta" onclick="copyText()">⧉ Copiar como texto</button>
+  </div>
+
+</main>
+
+<footer class="sz-footer">
+  Gerado em 17/09/2026 23:37 — documento interno
+</footer>
+
+<script>
+  // Export-back-to-text — lift the rendered artifact back into a conversation.
+  async function copyText(){
+    try { await navigator.clipboard.writeText(document.querySelector('main').innerText);
+          event.target.textContent='✓ Copiado'; }
+    catch(e){ event.target.textContent='✗ Selecione manualmente'; }
+    setTimeout(function(){ event.target.textContent='⧉ Copiar como texto'; }, 2200);
+  }
+</script>
+<!-- canonical source: shells/copy-as-image.html — copy-as-image control (verbatim) -->
+<script>
+  async function nodeToPngBlob(node){
+    var r = node.getBoundingClientRect(), w = Math.ceil(r.width), h = Math.ceil(r.height), scale = 2;
+    var clone = node.cloneNode(true), src = node.querySelectorAll('*'), dst = clone.querySelectorAll('*');
+    inlineStyle(node, clone);
+    for (var i=0;i<src.length;i++) inlineStyle(src[i], dst[i]);
+    clone.style.margin = '0';
+    var xml = new XMLSerializer().serializeToString(clone);
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'">'
+            + '<foreignObject width="100%" height="100%">'
+            + '<div xmlns="http://www.w3.org/1999/xhtml">'+xml+'</div>'
+            + '</foreignObject></svg>';
+    var img = new Image();
+    await new Promise(function(res,rej){
+      img.onload = res; img.onerror = rej;
+      img.src = 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+    });
+    var c = document.createElement('canvas'); c.width = w*scale; c.height = h*scale;
+    var ctx = c.getContext('2d'); ctx.scale(scale,scale);
+    ctx.fillStyle = '#fff'; ctx.fillRect(0,0,w,h); ctx.drawImage(img,0,0);
+    return await new Promise(function(res){ c.toBlob(res,'image/png'); });
+  }
+  function inlineStyle(from,to){
+    var cs = getComputedStyle(from), s = '';
+    for (var i=0;i<cs.length;i++){ var p = cs[i]; s += p+':'+cs.getPropertyValue(p)+';'; }
+    to.setAttribute('style', s);
+  }
+  async function copyShot(node,btn){
+    var label = btn.textContent;
+    try{
+      var blob = await nodeToPngBlob(node);
+      if (navigator.clipboard && window.ClipboardItem){
+        await navigator.clipboard.write([new ClipboardItem({'image/png':blob})]);
+        btn.textContent = '✓ Copiado';
+      } else { throw new Error('no clipboard-image'); }
+    }catch(e){
+      try{
+        var blob2 = await nodeToPngBlob(node), a = document.createElement('a');
+        a.href = URL.createObjectURL(blob2); a.download = 'prodesp-der-plano-entrega.png'; a.click();
+        btn.textContent = '✓ Baixado';
+      }catch(e2){ btn.textContent = '✗ Tente capturar a tela'; }
+    }
+    setTimeout(function(){ btn.textContent = label; }, 2200);
+  }
+  document.querySelectorAll('[data-shot]').forEach(function(node){
+    var btn = document.createElement('button');
+    btn.className = 'shot-btn'; btn.textContent = '⧉ Copiar como imagem';
+    btn.addEventListener('click', function(){ copyShot(node, btn); });
+    node.appendChild(btn);
+  });
+</script>
+</body>
+</html>

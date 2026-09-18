@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<!--
+  SCOPEZILLA — DOC SHELL (based on brand/shells/doc.html)
+  PRODESP · DER-SP — Solução (01-solution.md)
+  Internal artifact — no client co-brand configured for this project.
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solução — PRODESP · DER-SP</title>
+<style>
+  :root {
+    /* ── Core blues (everyday palette) ─────────────────────────────── */
+    --sf-navy:        #001E5B;
+    --sf-type:        #002775;
+    --sf-container:   #022AC0;
+    --sf-blue:        #066AFE;
+    --sf-cloud:       #00B3FF;
+    --sf-cloud-80:    #90D0FE;
+    --sf-bg:          #CFE9FE;
+    --sf-light-bg:    #EAF5FE;
+    --sf-text:        #002775;
+    --sf-text-weak:   #4A5578;
+
+    /* ── Extended palette ─────────────────────────────────────────── */
+    --ext-teal:       #06A59A;  --ext-teal-80: #04E1CB;  --ext-teal-95:   #DEF9F3;
+    --ext-yellow:     #FCC003;  --ext-yellow-70: #E4A201; --ext-yellow-95: #FBF3E0;
+    --ext-pink:       #FF538A;  --ext-pink-40: #B60554;  --ext-pink-95:   #FEF0F3;
+    --ext-violet:     #D17DFE;  --ext-violet-30: #730394; --ext-violet-95: #F9F0FF;
+
+    /* ── Semantic status ───────────────────────────────────────────── */
+    --sf-ok:      #2E844A;  --sf-ok-bg:      #EAFCE9;
+    --sf-warn:    #DD7A01;  --sf-warn-bg:    #FFF7E6;
+    --sf-bad:     #BA0517;  --sf-bad-bg:     #FDECEB;
+    --sf-neutral: #94A3B3;  --sf-neutral-bg: #F3F6FA;
+
+    /* ── No client co-brand on this project — defaults apply ───────── */
+    --client-primary: #066AFE;
+    --client-dark:    #022AC0;
+
+    /* ── Typography ────────────────────────────────────────────────── */
+    --font-heading: 'ITC Avant Garde Gothic Demi', 'Avant Garde', 'Century Gothic',
+                    'Salesforce Sans', 'Source Sans 3', Arial, sans-serif;
+    --font-body:    'Salesforce Sans', 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+    --fs-title: 54px; --fs-subtitle: 36px; --fs-l1: 30px; --fs-cat: 26px;
+    --fs-l2: 24px; --fs-desc: 22px; --fs-body: 16px;
+
+    /* ── Spacing / radius / shadow ─────────────────────────────────── */
+    --space-xs: 4px;  --space-sm: 8px;  --space-md: 16px;
+    --space-lg: 24px; --space-xl: 32px; --space-2xl: 48px;
+    --radius-sm: 4px; --radius-md: 8px; --radius-lg: 16px;
+    --shadow-brand: 2.6px 9.7px 25px rgba(6,106,254,0.15);
+  }
+
+  /* ── Base ─────────────────────────────────────────────────────────── */
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:var(--font-body); color:var(--sf-text); background:var(--sf-light-bg);
+         -webkit-font-smoothing:antialiased; line-height:1.55; }
+  h1,h2,h3,.sz-title,.sz-stat-num { font-family:var(--font-heading); color:var(--sf-navy); line-height:1.15; }
+  h3 { font-size:20px; margin-bottom:var(--space-sm); }
+  h4 { font-family:var(--font-heading); color:var(--sf-container); font-size:16px; margin:var(--space-md) 0 var(--space-xs); }
+  p  { margin-bottom:var(--space-sm); }
+  ul,ol { margin:0 0 var(--space-sm) var(--space-lg); }
+  li { margin-bottom:var(--space-xs); }
+  a { color:var(--sf-blue); }
+  :focus-visible { outline:3px solid var(--sf-blue); outline-offset:2px; border-radius:2px; }
+  @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none !important; transition:none !important; scroll-behavior:auto !important; } }
+
+  /* ── Section header ───────────────────────────────────────────────── */
+  .sz-section { margin:var(--space-2xl) 0; }
+  .sz-section-eyebrow { font-family:var(--font-heading); font-size:12px; font-weight:700;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--sf-blue); margin-bottom:var(--space-xs); }
+  .sz-section-title { font-size:var(--fs-cat); margin-bottom:var(--space-md); }
+
+  /* ── Card ─────────────────────────────────────────────────────────── */
+  .sz-card { background:#fff; border-radius:var(--radius-md); padding:var(--space-lg);
+    box-shadow:var(--shadow-brand); }
+  .sz-card + .sz-card { margin-top:var(--space-md); }
+  .sz-card p:last-child, .sz-card ul:last-child { margin-bottom:0; }
+
+  /* ── Stat tile ────────────────────────────────────────────────────── */
+  .sz-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:var(--space-md); }
+  .sz-stat { background:#fff; border-radius:var(--radius-md); padding:var(--space-lg) var(--space-md);
+    text-align:center; box-shadow:var(--shadow-brand); }
+  .sz-stat-num { font-size:28px; color:var(--client-primary); }
+  .sz-stat-lbl { font-size:14px; color:var(--sf-text-weak); margin-top:var(--space-xs); }
+
+  /* ── Table ────────────────────────────────────────────────────────── */
+  .sz-table { width:100%; border-collapse:collapse; background:#fff; border-radius:var(--radius-md);
+    overflow:hidden; box-shadow:var(--shadow-brand); }
+  .sz-table th { background:var(--sf-container); color:#fff; font-family:var(--font-heading);
+    text-align:left; padding:var(--space-sm) var(--space-md); font-size:14px; }
+  .sz-table td { padding:var(--space-sm) var(--space-md); border-top:1px solid var(--sf-light-bg); vertical-align:top; }
+  .sz-table tbody tr:nth-child(even) { background:var(--sf-light-bg); }
+
+  /* ── Tag ──────────────────────────────────────────────────────────── */
+  .sz-tag { display:inline-block; font-size:12px; font-weight:700; padding:2px 10px;
+    border-radius:999px; line-height:1.6; }
+  .sz-tag--info { background:var(--sf-light-bg); color:var(--sf-blue); }
+  .sz-tag--critical { background:var(--ext-pink-95); color:var(--ext-pink-40); }
+
+  /* ── TL;DR / callout ──────────────────────────────────────────────── */
+  .sz-tldr { background:var(--sf-light-bg); border-left:4px solid var(--sf-blue);
+    border-radius:var(--radius-sm); padding:var(--space-md) var(--space-lg); margin:var(--space-lg) 0; }
+  .sz-tldr-label { font-family:var(--font-heading); font-size:12px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--sf-blue); margin-bottom:var(--space-xs); }
+  .sz-tldr p:last-child { margin-bottom:0; }
+  .sz-tldr-note { font-size:13px; color:var(--sf-text-weak); font-style:italic; margin-top:var(--space-sm); }
+
+  /* ── Chip row ─────────────────────────────────────────────────────── */
+  .sz-chips { display:flex; flex-wrap:wrap; gap:var(--space-xs); }
+  .sz-chip { background:var(--sf-light-bg); color:var(--sf-container); border:1px solid var(--sf-cloud-80);
+    border-radius:999px; padding:4px 12px; font-size:13px; }
+
+  /* ── CTA button ───────────────────────────────────────────────────── */
+  .sz-cta { display:inline-block; background:var(--sf-blue); color:#fff; font-family:var(--font-heading);
+    text-decoration:none; padding:var(--space-sm) var(--space-lg); border-radius:999px;
+    box-shadow:var(--shadow-brand); border:none; cursor:pointer; }
+
+  /* ── Citation / provenance tag (project-specific: [KB:...] / [assumption:...] / [KA-...]) ── */
+  .sz-cite { display:inline; font-family:'SFMono-Regular','Menlo','Consolas',monospace; font-size:12.5px;
+    background:var(--sf-light-bg); color:var(--sf-container); border:1px solid var(--sf-cloud-80);
+    border-radius:4px; padding:1px 6px; white-space:normal; }
+  .sz-cite--assumption { background:var(--ext-yellow-95); color:var(--ext-yellow-70); border-color:var(--ext-yellow); }
+  .sz-cite--gap { background:var(--ext-pink-95); color:var(--ext-pink-40); border-color:var(--ext-pink); font-weight:700; }
+
+  /* ── Version stamp bar (top marker) ──────────────────────────────── */
+  .sz-stamp { background:var(--sf-navy); color:var(--sf-cloud-80); font-size:12px;
+    text-align:center; padding:6px var(--space-md); letter-spacing:.03em; }
+  .sz-stamp strong { color:#fff; }
+
+  /* ── Doc-shell layout ────────────────────────────────────────────── */
+  .sz-wrap { max-width:960px; margin:0 auto; padding:var(--space-2xl) var(--space-lg); }
+  .sz-hero { background:var(--sf-navy); color:#fff; padding:var(--space-2xl) var(--space-lg) var(--space-lg); }
+  .sz-hero-eyebrow { font-family:var(--font-heading); font-size:12px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--sf-cloud-80); margin-bottom:var(--space-sm); }
+  .sz-hero h1 { color:#fff; font-size:var(--fs-subtitle); }
+  .sz-hero .sz-hero-original { color:var(--sf-cloud-80); margin-top:var(--space-sm); font-size:15px; }
+  .sz-hero p.sz-hero-meta { color:var(--sf-cloud-80); margin-top:var(--space-md); font-size:13px; }
+  .sz-nav { position:sticky; top:0; background:rgba(255,255,255,.92); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--sf-cloud-80); padding:var(--space-sm) var(--space-lg); z-index:10; }
+  .sz-nav a { font-size:14px; margin-right:var(--space-md); text-decoration:none; color:var(--sf-container); }
+  .sz-export { text-align:center; margin:var(--space-2xl) 0 var(--space-lg); }
+  html { scroll-behavior:smooth; }
+  section { scroll-margin-top:56px; }
+  .sz-epic-block + .sz-epic-block { margin-top:var(--space-lg); }
+  .sz-footer { text-align:center; padding:var(--space-lg); font-size:12px; color:var(--sf-text-weak); }
+</style>
+</head>
+<body>
+
+<div class="sz-stamp">v1.0 · gerado em 2026-09-17 23:37 (America/Sao_Paulo) · <strong>documento interno</strong> — Scopezilla / PRODESP-DER</div>
+
+<header class="sz-hero">
+  <div class="sz-wrap" style="padding-top:0;padding-bottom:0;">
+    <div class="sz-hero-eyebrow">Salesforce Professional Services · Scopezilla — outputs/01-solution.md</div>
+    <h1>Solução — PRODESP · DER-SP</h1>
+    <p class="sz-hero-original">PRODESP — DER-SP · Solução Salesforce para Atendimento Emergencial nas Rodovias</p>
+    <p class="sz-hero-meta">v1.0 · Gerado em 2026-09-17 23:37 (America/Sao_Paulo) · documento interno</p>
+  </div>
+</header>
+
+<nav class="sz-nav" aria-label="Navegação por seção">
+  <a href="#escopo">Escopo do MVP</a>
+  <a href="#fundamentos">1. Fundamentos</a>
+  <a href="#processos">2. Solução por Processo</a>
+  <a href="#riscos">3. Riscos</a>
+  <a href="#proximos-passos">Próximos Passos</a>
+</nav>
+
+<main class="sz-wrap">
+
+  <div class="sz-tldr" id="escopo">
+    <div class="sz-tldr-label">Escopo do MVP</div>
+    <p>Field Service + Agentforce (Service Cloud, Digital Engagement — canal WhatsApp), produção estadual nas 14 CGRs desde o dia 1 (298 viaturas, 1.152 operadores de campo, 14 UBAs terceirizadas).</p>
+    <p><strong>Homologação</strong>: jan/fev 2027 · <strong>Produção</strong>: abril 2027.</p>
+    <p class="sz-tldr-note">T-shirt sizes neste documento expressam complexidade relativa, não esforço — não são convertíveis em horas e não devem ser multiplicados por uma taxa para gerar preço. Para prazo, ver a skill <code>roadmap</code>; para preço indicativo, <code>commercials</code> (com taxa validada pelo cliente).</p>
+  </div>
+
+  <section id="fundamentos" class="sz-section">
+    <div class="sz-section-eyebrow">Seção 1</div>
+    <h2 class="sz-section-title">Arquitetura — Fundamentos</h2>
+
+    <div class="sz-card">
+      <h3>1.1 Estratégia de Org</h3>
+      <p><strong>Org única.</strong> Governança unificada, modelo de dados compartilhado entre o canal digital (Agentforce/WhatsApp), o motor de despacho (Field Service) e o app de campo — os três operam sobre o mesmo Work Order/Service Appointment. <em>(decisions/0002, confirmado pelo usuário em 2026-09-17.)</em></p>
+    </div>
+
+    <div class="sz-card">
+      <h3>1.2 Seleção de Produtos</h3>
+      <ul>
+        <li><strong>Field Service</strong> — motor de despacho (Skills-based), Work Order/Service Appointment, app mobile de execução em campo, mapa/Gantt de rastreamento.</li>
+        <li><strong>Service Cloud — Agentforce Contact Center Enterprise (50 licenças) + Digital Engagement</strong> — canal WhatsApp de abertura de chamado, triagem por IA, fila humana única 24x7. Escopado <em>apenas</em> ao canal de socorro emergencial; exclusão geral de Service Cloud para atendimento amplo permanece válida. <em>(decisions/0002.)</em></li>
+        <li><strong>Fora do MVP</strong>: Salesforce Voice/Native Telephony (decisions/0001); objeto nativo Incident/CSIM (dedup fica em alerta manual); Enhanced Scheduling and Optimization — ESO (roteamento usa Aerial Routing nativo); Partner Community Portal (7ª superfície de visibilidade, candidato a nova epic no Roadmap).</li>
+      </ul>
+    </div>
+
+    <div class="sz-card">
+      <h3>1.3 Licenciamento</h3>
+      <ul>
+        <li>Agentforce Contact Center Enterprise: 50 licenças (canal WhatsApp).</li>
+        <li>Dispatcher Console: 12 licenças individuais (6/turno × 4 turnos 12x36).</li>
+        <li>Field Service Mobile: 1.152 operadores de campo, licença <strong>Field Service Community (Partner License)</strong> — risco monitorado: known issue de erro em Service Appointment com licença Community <span class="sz-cite">KB:field_service_dev.md:27272-27273</span>.</li>
+        <li>Nenhum hardware AVL — rastreamento tier P (GPS do próprio app de campo).</li>
+      </ul>
+    </div>
+
+    <div class="sz-card">
+      <h3>1.4 Modelo de Dados</h3>
+      <p>Objetos padrão do Field Service — sem objetos customizados de negócio no núcleo do fluxo:</p>
+      <ul>
+        <li><strong>Work Order</strong> — a ocorrência. 2 slots de <strong>Assigned Resource</strong> (não Work Order Line Item) para acomodar uma 2ª viatura no mesmo chamado <span class="sz-cite">extends: padrão multi-recurso do Field Service — um WO, múltiplos Assigned Resource</span>.</li>
+        <li><strong>Work Type</strong> — catálogo completo de 100+ subtipos, disponível desde o dia 1; macro-tipo (pane/sinistro/inspeção) como picklist informativo, sem Record Type.</li>
+        <li><strong>Contact</strong> — o relator (não anônimo, não Person Account).</li>
+        <li><strong>Service Appointment</strong> — status lifecycle padrão; briefcase offline prima apenas a ocorrência em andamento (sem Task, sem histórico encerrado) <span class="sz-cite">KB:field_service_dev.md:27274-27275</span>.</li>
+        <li><strong>Service Resource / Service Resource Skill / Skill Requirement</strong> — motor de aderência (E03).</li>
+      </ul>
+      <p>Sem migração de dados — é um build greenfield; SIGOR/SIGEO entram por integração, não por carga inicial.</p>
+    </div>
+
+    <div class="sz-card">
+      <h3>1.5 Arquitetura de Integração</h3>
+      <p>Dois sistemas legados do DER-SP em escopo — abaixo do limiar de 3 integrações que justificaria middleware dedicado. <strong>Point-to-point</strong>, sem MuleSoft <span class="sz-cite">KA-0012</span>:</p>
+      <ul>
+        <li><strong>SIGOR</strong> (dupla convivência): sincronização quase-real-time bidirecional via Platform Events/Change Data Capture — Data Integration assíncrona <span class="sz-cite">KA-0012</span>. Justifica-se pela natureza operacional (chamado de emergência em andamento nos dois sistemas simultaneamente).</li>
+        <li><strong>SIGEO</strong> (correção de lat/long): callout síncrono (request/reply) disparado no ajuste manual de endereço pelo C2C — Process Integration síncrona <span class="sz-cite">KA-0012</span>.</li>
+        <li>Autenticação: Named Credentials para ambos os callouts server-to-server.</li>
+        <li>Erro/retry: Platform Event de erro + log customizado para falhas de sincronização SIGOR; alertas ao C2C em caso de falha persistente.</li>
+      </ul>
+    </div>
+
+    <div class="sz-card">
+      <h3>1.6 Arquitetura de Segurança e Sharing</h3>
+      <ul>
+        <li><strong>OWD</strong>: Private no Work Order (dados operacionais sensíveis de despacho).</li>
+        <li><strong>Sharing model</strong>: role hierarchy padrão + sharing rules baseadas em Service Territory (CGR = território). Visibilidade restrita à CGR de origem, com override automático quando o recurso é acionado cross-CGR <span class="sz-cite">extends: Service Territory + criteria-based sharing — padrão para modelos regionais de Field Service</span>. O limite exato de fronteira entre CGRs e o limite contratual da UBA permanecem <strong>gaps abertos</strong> (G0307 confirmado só para áreas de intersecção geográfica; G0309 aberto — limite contratual da UBA).</li>
+        <li><strong>Perfis/Permission Sets</strong>: um único app de Field Service Mobile, visões gated por Permission Set (não apps distintos por perfil). Console do Dispatcher com 12 licenças individuais.</li>
+        <li><strong>Acesso externo</strong>: site Experience Cloud com usuário guest para o link de rastreamento do cidadão — acesso controlado pelo número de telefone que abriu a ocorrência, com token de uso único e expiração (E05).</li>
+        <li><strong>LGPD/Governança de dados</strong>: DER-SP como steward dos dados de geolocalização (G0211).</li>
+      </ul>
+    </div>
+
+    <div class="sz-card">
+      <h3>1.7 DevOps</h3>
+      <p>Salesforce CLI + desenvolvimento orientado a source (Git) — volume de customização (LWC no app de campo, Apex de escalonamento N/N-10, 2 integrações) justifica um pipeline versionado desde o início <span class="sz-cite sz-cite--assumption">assumption: prática padrão de PS para builds multi-integração; validar contra tooling de DevOps já existente na PRODESP — G0415</span>. Sandbox mínimo: Developer (squads), Full/Partial para UAT com volume representativo das 14 CGRs.</p>
+    </div>
+
+    <div class="sz-card">
+      <h3>1.8 Governança e Auditoria</h3>
+      <p>Trilha de auditoria de overrides manuais de despacho — piso é Field History Tracking padrão, mas <strong>G0305 permanece aberto</strong> (pergunta bloqueadora ao DER/Stefanini: campos a rastrear, retenção exigida — pode escalar para Field Audit Trail add-on). Change Management: workstream dedicado solicitado pelo DER, incluindo até 2 meses de Scale/Operação Assistida pós-go-live e treinamento personalizado por persona, com foco nos técnicos de campo das UBAs — a refletir no dimensionamento de esforço do programa (G0515).</p>
+    </div>
+  </section>
+
+  <section id="processos" class="sz-section">
+    <div class="sz-section-eyebrow">Seção 2</div>
+    <h2 class="sz-section-title">Solução por Processo de Negócio</h2>
+
+    <div class="sz-card sz-epic-block">
+      <h3>Canal Digital de Atendimento ao Cidadão</h3>
+      <h4>Contexto de negócio</h4>
+      <p>O cidadão precisa reportar pane ou sinistro na rodovia da forma mais rápida possível — hoje, só pelo 0800. O DER quer um canal digital que reduza o tempo de abertura sem perder o 0800 como porta de entrada de voz.</p>
+      <h4>Abordagem de solução</h4>
+      <p>WhatsApp (texto e áudio) com triagem automatizada pelo Agentforce — identifica tipo de emergência e local; se não conseguir, ou por preferência do cidadão, ou em suspeita de vítima, transborda para fila humana única 24x7, sempre com contexto completo. O Agentforce cria a ordem de serviço e devolve o protocolo ao cidadão; a partir daí, o Field Service assume o Work Order.</p>
+      <h4>Arquitetura de suporte</h4>
+      <ul>
+        <li>Triagem via Agentforce Contact Center — reconhecimento de tipo/local como topic/actions do agente <span class="sz-cite">KB:agentforce_contact_center_4-30-2026.md:26814-26939</span>.</li>
+        <li>Mensageria outbound no WhatsApp requer add-on (WhatsApp Outbound Messages ou Message Credits) <span class="sz-cite">KB:agentforce_contact_center_4-30-2026.md:19416-19458</span>.</li>
+        <li>Transbordo humano: <strong>fila única, roteamento baseado em queue</strong> (não skills-based) — adequado porque o modelo é de uma fila sem combinação de habilidades a avaliar <span class="sz-cite">KA-4393</span>. Premissa de setup a revalidar formalmente com o cliente.</li>
+        <li>A IA nunca decide a gravidade da vítima — toda suspeita de vítima transborda automaticamente para o humano.</li>
+        <li>"WhatsApp voz" é só áudio dentro do canal de mensageria — não usa Salesforce Voice/Native Telephony (decisions/0001).</li>
+      </ul>
+    </div>
+
+    <div class="sz-card sz-epic-block">
+      <h3>Registro e Classificação da Ocorrência</h3>
+      <h4>Contexto de negócio</h4>
+      <p>A ocorrência pode chegar pelo WhatsApp (automatizado) ou pelo 0800 (registro manual pelo C2C). Precisa de um registro único, completo e auditável, com espaço para 2ª viatura e reclassificação em campo.</p>
+      <h4>Abordagem de solução</h4>
+      <p>Work Order criado a partir de qualquer canal, indistintamente pela tela nativa do Field Service ou pelo Service Console. Classificação pelo catálogo completo de subtipos desde o dia 1. Deduplicação por alerta manual ao C2C (raio geográfico + janela de tempo + tipo) — sem fusão automática.</p>
+      <h4>Arquitetura de suporte</h4>
+      <ul>
+        <li>Work Order + 2 Assigned Resource slots para a 2ª viatura, sem Work Order Line Item <span class="sz-cite">extends: padrão multi-recurso do Field Service</span>.</li>
+        <li>Work Type como catálogo (100+ subtipos); macro-tipo é picklist informativo, sem Record Type.</li>
+        <li>Relator como Contact — login individual por operador para trilha de auditoria de reclassificação (mesma decisão de E04/G0212).</li>
+        <li>Objeto nativo Incident (CSIM) fora do MVP — vai para o Roadmap.</li>
+        <li>Integrações SIGOR (dupla convivência, Platform Events) e SIGEO (correção de lat/long, callout síncrono) — ver Fundamentos §1.5.</li>
+      </ul>
+    </div>
+
+    <div class="sz-card sz-epic-block">
+      <h3>Despacho Automatizado de Recursos de Campo</h3>
+      <h4>Contexto de negócio</h4>
+      <p>Uma vez aberta a ocorrência, o DER precisa acionar a viatura certa, na CGR certa, o mais rápido possível — 100% reativo, sem pré-agendamento, operando nas 14 CGRs simultaneamente.</p>
+      <h4>Abordagem de solução</h4>
+      <p>Motor de despacho por aderência (Work Type → Skill Requirement × Service Resource Skill × território × disponibilidade). Regra N/N-10 (N = 30min, valor de referência a validar) como escalonamento de espera — se o tempo estimado exceder N, amplia o pool para recursos não-aderentes com teto N-10. Recusa exige motivo estruturado; reprocessamento automático imediato, sem intervenção do C2C.</p>
+      <h4>Arquitetura de suporte</h4>
+      <ul>
+        <li>Modelo padrão de Skills do Field Service — Skill Requirement × Service Resource Skill <span class="sz-cite">KB:field_service_dev.md:23338-23832</span>.</li>
+        <li>Escalonamento N/N-10 exige Apex/Flow customizado sobre a scheduling policy padrão — a lógica de teto/ampliação de pool excede automação declarativa pura <span class="sz-cite">extends: field_service_dev.md:25488-25602</span>.</li>
+        <li>Escalonamento cross-CGR restrito a áreas de intersecção/fronteira geográfica — flag customizado no território <span class="sz-cite sz-cite--assumption">assumption: extends Service Territory com indicador de zona de fronteira; G0309 aberto — limite contratual da UBA</span>.</li>
+        <li>Console do Dispatcher: 12 licenças individuais (6/turno × 4 turnos 12x36); despacho e cronômetros continuam sem interrupção na troca de turno.</li>
+        <li>Alarme de 5 minutos ao programador responsável, com escalonamento ao supervisor da CGR se não reconhecido.</li>
+        <li><strong>G0305 aberto</strong>: trilha de auditoria de overrides manuais (campos, retenção) — pergunta bloqueadora ao DER antes do build do console.</li>
+      </ul>
+    </div>
+
+    <div class="sz-card sz-epic-block">
+      <h3>Execução em Campo (App Mobile)</h3>
+      <h4>Contexto de negócio</h4>
+      <p>O operador de campo (das 14 UBAs terceirizadas) precisa receber o despacho, executar o atendimento e encerrar com evidência — muitas vezes em trechos de rodovia sem cobertura de rede.</p>
+      <h4>Abordagem de solução</h4>
+      <p>Aplicativo único de Field Service Mobile (visões por Permission Set, não apps distintos) para os 1.152 operadores. Recebimento via push nativo, com retry automático ao reconectar. Encerramento com formulário por macro-tipo e 3 travas de negócio (recusa com motivo, foto obrigatória, check-in geolocalizado em 200m).</p>
+      <h4>Arquitetura de suporte</h4>
+      <ul>
+        <li>Licença Field Service Community (Partner License) — risco monitorado de known issue <span class="sz-cite">KB:field_service_dev.md:27272-27273</span>, aceito pelo cliente apesar da recomendação original de licença padrão.</li>
+        <li>Push nativo configurável: on assignment + on dispatch, com retry ao reconectar <span class="sz-cite">KA-6541</span>. Sem fallback SMS no MVP.</li>
+        <li>Alarme cíclico de 5 minutos visível na mesa (C2C); confirmação local no app excede capacidade declarativa nativa — fora do MVP.</li>
+        <li>Offline: briefcase prima apenas Work Order/Service Appointment/Assigned Resource abertos, sem Task, sem histórico encerrado <span class="sz-cite">KB:field_service_dev.md:27274-27275</span>.</li>
+        <li>As 3 travas são regras de negócio ativas (validation rule/Flow + LWC de captura de foto e check-in geolocalizado), mas o <strong>enforcement offline fica fora do MVP</strong> — exige LWC offline "seasoned", vai para o Roadmap <span class="sz-cite">extends: field_service_dev.md:27512-27655</span>. Premissa de redução de escopo a validar formalmente com o cliente.</li>
+        <li>1 formulário base por macro-tipo (pane/sinistro/inspeção) com campos condicionais por subtipo.</li>
+        <li>Sharing restrito à CGR de origem, exceto quando o operador é acionado por reforço cross-CGR.</li>
+      </ul>
+    </div>
+
+    <div class="sz-card sz-epic-block">
+      <h3>Rastreamento e Visibilidade em Tempo Real</h3>
+      <h4>Contexto de negócio</h4>
+      <p>O cidadão quer acompanhar o atendimento; o C2C precisa de um mapa operacional; os gestores precisam de indicadores agregados — um único protocolo acompanhável do pedido ao encerramento, em três públicos diferentes.</p>
+      <h4>Abordagem de solução</h4>
+      <p>Cidadão recebe link por SMS (exclusivo ao número que abriu a ocorrência); C2C opera mapa/Gantt com roteamento nativo; gestores veem painel único com 4 indicadores agregados, sem meta de SLA nesta fase.</p>
+      <h4>Arquitetura de suporte</h4>
+      <ul>
+        <li>Mapa/Gantt do C2C: <strong>Aerial Routing nativo do Field Service</strong> (sem ESO/add-on) <span class="sz-cite">KA-6746</span>; Street-Level Routing como upgrade de Roadmap.</li>
+        <li>Link do cidadão: site <strong>Experience Cloud com acesso guest + LWC/Apex customizado</strong> — não há feature nativa de rastreamento público/guest-acessível no Field Service ou Salesforce Maps <span class="sz-cite sz-cite--assumption">assumption: ausência confirmada via busca na central KB, incl. KA-6746; revalidar na build caso surja feature nova</span>. Mostra apenas a 1ª viatura quando há segunda vinculada. Token de uso único com expiração (encerramento + buffer) via Apex <span class="sz-cite sz-cite--assumption">assumption: padrão de link seguro — token assinado + TTL; validar contra padrões de segurança da PRODESP — G0517</span>.</li>
+        <li>Tier P de rastreamento — GPS do app de campo, zero hardware AVL; última posição conhecida com flag/timestamp quando o GPS perde sinal; sem fallback de canal quando o cidadão está sem sinal (risco aceito).</li>
+        <li>Painel de gestores: artefato único (mesmo do console C2C), gated por Permission Set — sem relatório à medida por CGR no MVP <span class="sz-cite">extends: padrão Report/Dashboard folder + sharing</span>. 4 indicadores agregados (ocorrências, tempo de resposta, TMA, recusas), sem meta de SLA (decisão deliberada de fase) e sem drill-down por protocolo.</li>
+        <li>Canal WhatsApp de entrega do link usa a mesma base de licenciamento de Service Cloud já decidida (decisions/0002).</li>
+        <li>UX da experiência do cidadão já validada na PoC. Portal Partner Community para terceiros fica fora do MVP (candidato a nova epic no Roadmap).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="riscos" class="sz-section">
+    <div class="sz-section-eyebrow">Seção 3</div>
+    <h2 class="sz-section-title">Riscos Técnicos Principais</h2>
+    <table class="sz-table">
+      <thead>
+        <tr><th>Risco</th><th>Mitigação</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Known issue de Service Appointment com licença Field Service Community</td>
+          <td>Monitorar releases; escalar para Support se o issue impactar volume real; plano de contingência = migrar para licença padrão se crítico</td>
+        </tr>
+        <tr>
+          <td>G0305/G0309 abertos podem exigir retrabalho no console do Dispatcher e no modelo de território</td>
+          <td>Levar como perguntas bloqueadoras formais ao DER antes do build detalhado de E03</td>
+        </tr>
+        <tr>
+          <td>Ausência de feature nativa de rastreamento público — todo o link do cidadão é build customizado (guest site + LWC/Apex)</td>
+          <td>Dimensionar como capability de build (não config) no Estimate; validar segurança do guest profile antes do go-live</td>
+        </tr>
+        <tr>
+          <td>Offline enforcement das travas fora do MVP — risco de evidência incompleta em campo sem rede</td>
+          <td>Documentar como premissa de redução de escopo para validação formal com o cliente (G0413); reavaliar prioridade no Roadmap</td>
+        </tr>
+        <tr>
+          <td>Sincronização SIGOR em dupla convivência — risco de divergência entre sistemas</td>
+          <td>Log de erro + alerta ao C2C em falha persistente; monitorar volume de divergências nas primeiras semanas de produção</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="proximos-passos" class="sz-section">
+    <div class="sz-section-eyebrow">Fechamento</div>
+    <h2 class="sz-section-title">Próximos Passos</h2>
+    <div class="sz-card">
+      <ul>
+        <li><code>roadmap</code> — fasear os épicos e derivar uma faixa de prazo top-down.</li>
+        <li><code>estimate</code> — dimensionar o roster nomeado (papéis, senioridade, localização).</li>
+        <li>Levar G0305 e G0309 como perguntas bloqueadoras formais ao DER/Stefanini.</li>
+        <li>Refletir o workstream de Change Management (G0515) no dimensionamento de esforço do programa.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Export-back-to-text -->
+  <div class="sz-export">
+    <button class="sz-cta" onclick="copyText()">⧉ Copiar como texto</button>
+  </div>
+
+</main>
+
+<footer class="sz-footer">
+  Gerado em 2026-09-17 23:37 (America/Sao_Paulo) — documento interno · v1.0 · PRODESP-DER · Scopezilla / Salesforce Professional Services
+</footer>
+
+<script>
+  async function copyText(){
+    try { await navigator.clipboard.writeText(document.querySelector('main').innerText);
+          event.target.textContent='✓ Copiado'; }
+    catch(e){ event.target.textContent='✗ Selecione manualmente'; }
+    setTimeout(function(){ event.target.textContent='⧉ Copiar como texto'; }, 2200);
+  }
+</script>
+</body>
+</html>

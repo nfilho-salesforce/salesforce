@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<!--
+  SCOPEZILLA — Resumo Executivo — PRODESP · DER-SP
+  Gerado a partir de outputs/artifacts/executive-summary.md via shells/doc.html.
+  Artefato interno — sem co-branding de cliente (Section 5 do brand kit).
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resumo Executivo — PRODESP · DER-SP</title>
+<style>
+  :root {
+    /* ── Core blues (everyday palette) ─────────────────────────────── */
+    --sf-navy:        #001E5B;   /* Electric Blue 15 — heritage navy, hero backgrounds */
+    --sf-type:        #002775;   /* Electric Blue 20 — body/heading type on light */
+    --sf-container:   #022AC0;   /* Electric Blue 30 — filled containers, table headers */
+    --sf-blue:        #066AFE;   /* Electric Blue 50 — secondary elements, highlights, CTAs */
+    --sf-cloud:       #00B3FF;   /* Cloud Blue 68 — "Salesforce Blue" accent */
+    --sf-cloud-80:    #90D0FE;   /* Cloud Blue 80 — tints, borders */
+    --sf-bg:          #CFE9FE;   /* Cloud Blue 90 — page background */
+    --sf-light-bg:    #EAF5FE;   /* Cloud Blue 95 — white-adjacent bg, alt rows */
+    --sf-text:        #002775;   /* default text = Electric Blue 20 */
+    --sf-text-weak:   #4A5578;   /* muted metadata — passes AA on white/light-bg */
+
+    /* ── Extended palette (categorical / data-viz / severity accents) ── */
+    --ext-teal:       #06A59A;  --ext-teal-80: #04E1CB;  --ext-teal-95:   #DEF9F3;
+    --ext-yellow:     #FCC003;  --ext-yellow-70: #E4A201; --ext-yellow-95: #FBF3E0;
+    --ext-pink:       #FF538A;  --ext-pink-40: #B60554;  --ext-pink-95:   #FEF0F3;
+    --ext-violet:     #D17DFE;  --ext-violet-30: #730394; --ext-violet-95: #F9F0FF;
+
+    /* ── Semantic status (traffic-light: scope in/at-risk/out, on-track/late).
+       Distinct from the severity .sz-tag family above — always pair with a label. */
+    --sf-ok:      #2E844A;  --sf-ok-bg:      #EAFCE9;
+    --sf-warn:    #DD7A01;  --sf-warn-bg:    #FFF7E6;
+    --sf-bad:     #BA0517;  --sf-bad-bg:     #FDECEB;
+    --sf-neutral: #94A3B3;  --sf-neutral-bg: #F3F6FA;
+
+    /* ── Client co-brand accent — no co-brand configured on this internal project;
+         primary stays Salesforce Electric Blue 50 (Section 5 default). ───────── */
+    --client-primary: #066AFE;
+    --client-dark:    #022AC0;
+
+    /* ── Typography ────────────────────────────────────────────────── */
+    --font-heading: 'ITC Avant Garde Gothic Demi', 'Avant Garde', 'Century Gothic',
+                    'Salesforce Sans', 'Source Sans 3', Arial, sans-serif;
+    --font-body:    'Salesforce Sans', 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+    --fs-title: 54px; --fs-subtitle: 36px; --fs-l1: 30px; --fs-cat: 26px;
+    --fs-l2: 24px; --fs-desc: 22px; --fs-body: 16px;
+
+    /* ── Spacing / radius / shadow ─────────────────────────────────── */
+    --space-xs: 4px;  --space-sm: 8px;  --space-md: 16px;
+    --space-lg: 24px; --space-xl: 32px; --space-2xl: 48px;
+    --radius-sm: 4px; --radius-md: 8px; --radius-lg: 16px;
+    --shadow-brand: 2.6px 9.7px 25px rgba(6,106,254,0.15);
+  }
+
+  /* ── Base ─────────────────────────────────────────────────────────── */
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:var(--font-body); color:var(--sf-text); background:var(--sf-light-bg);
+         -webkit-font-smoothing:antialiased; line-height:1.55; }
+  h1,h2,h3,.sz-title,.sz-stat-num { font-family:var(--font-heading); color:var(--sf-navy); line-height:1.15; }
+  a { color:var(--sf-blue); }
+  :focus-visible { outline:3px solid var(--sf-blue); outline-offset:2px; border-radius:2px; }
+  @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none !important; transition:none !important; scroll-behavior:auto !important; } }
+
+  /* ── Section header ───────────────────────────────────────────────── */
+  .sz-section { margin:var(--space-2xl) 0; }
+  .sz-section-eyebrow { font-family:var(--font-heading); font-size:12px; font-weight:700;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--sf-blue); margin-bottom:var(--space-xs); }
+  .sz-section-title { font-size:var(--fs-cat); margin-bottom:var(--space-md); }
+
+  /* ── Card (white on light bg → brand shadow) ──────────────────────── */
+  .sz-card { background:#fff; border-radius:var(--radius-md); padding:var(--space-lg);
+    box-shadow:var(--shadow-brand); }
+  .sz-card + .sz-card { margin-top:var(--space-md); }
+  .sz-card p + p { margin-top:var(--space-md); }
+  .sz-card h3 { font-size:var(--fs-desc); margin-bottom:var(--space-sm); }
+
+  /* ── Stat tile / KPI ──────────────────────────────────────────────── */
+  .sz-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:var(--space-md); }
+  .sz-stat { background:#fff; border-radius:var(--radius-md); padding:var(--space-lg) var(--space-md);
+    text-align:center; box-shadow:var(--shadow-brand); }
+  .sz-stat-num { font-size:var(--fs-title); color:var(--client-primary); }
+  .sz-stat-lbl { font-size:14px; color:var(--sf-text-weak); margin-top:var(--space-xs); }
+
+  /* ── Table (zebra, brand header) ──────────────────────────────────── */
+  .sz-table { width:100%; border-collapse:collapse; background:#fff; border-radius:var(--radius-md);
+    overflow:hidden; box-shadow:var(--shadow-brand); }
+  .sz-table th { background:var(--sf-container); color:#fff; font-family:var(--font-heading);
+    text-align:left; padding:var(--space-sm) var(--space-md); font-size:14px; }
+  .sz-table td { padding:var(--space-sm) var(--space-md); border-top:1px solid var(--sf-light-bg); font-size:14px; vertical-align:top; }
+  .sz-table tbody tr:nth-child(even) { background:var(--sf-light-bg); }
+
+  /* ── Tag (never color alone — always carries a label) ─────────────── */
+  .sz-tag { display:inline-block; font-size:12px; font-weight:700; padding:2px 10px;
+    border-radius:999px; line-height:1.6; white-space:nowrap; }
+  .sz-tag--critical { background:var(--ext-pink-95);   color:var(--ext-pink-40); }
+  .sz-tag--high     { background:var(--ext-yellow-95); color:var(--ext-yellow-70); }
+  .sz-tag--medium   { background:var(--ext-yellow-95); color:var(--ext-yellow-70); }
+  .sz-tag--low      { background:var(--ext-teal-95);   color:var(--ext-teal); }
+  .sz-tag--info     { background:var(--sf-light-bg);   color:var(--sf-blue); }
+  .sz-tag--sz-s  { background:var(--sf-light-bg); color:var(--sf-blue); }
+  .sz-tag--sz-m  { background:#DCEBFF;            color:var(--sf-blue); }
+  .sz-tag--sz-l  { background:var(--sf-cloud);    color:var(--sf-navy); }
+  .sz-tag--sz-xl { background:var(--sf-container); color:#fff; }
+
+  /* ── TL;DR / callout box ──────────────────────────────────────────── */
+  .sz-tldr { background:var(--sf-light-bg); border-left:4px solid var(--sf-blue);
+    border-radius:var(--radius-sm); padding:var(--space-md) var(--space-lg); margin:var(--space-lg) 0; }
+  .sz-tldr-label { font-family:var(--font-heading); font-size:12px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--sf-blue); margin-bottom:var(--space-xs); }
+
+  /* ── Timeline / phase bar (horizontal) ────────────────────────────── */
+  .sz-timeline { display:flex; gap:2px; border-radius:var(--radius-sm); overflow:hidden;
+    box-shadow:var(--shadow-brand); flex-wrap:wrap; }
+  .sz-phase { flex:1; min-width:140px; padding:var(--space-md); color:#fff; text-align:center; font-size:14px; }
+  .sz-phase:nth-child(1){background:var(--sf-navy);} .sz-phase:nth-child(2){background:var(--sf-container);}
+  .sz-phase:nth-child(3){background:var(--sf-blue);} .sz-phase:nth-child(4){background:var(--sf-cloud);}
+  .sz-phase:nth-child(5){background:var(--sf-cloud-80); color:var(--sf-navy);}
+  .sz-phase-name { font-family:var(--font-heading); }
+  .sz-phase-dur { opacity:.85; font-size:12px; margin-top:2px; }
+
+  /* ── Chip row ─────────────────────────────────────────────────────── */
+  .sz-chips { display:flex; flex-wrap:wrap; gap:var(--space-xs); }
+  .sz-chip { background:var(--sf-light-bg); color:var(--sf-container); border:1px solid var(--sf-cloud-80);
+    border-radius:999px; padding:4px 12px; font-size:13px; }
+
+  /* ── CTA button ───────────────────────────────────────────────────── */
+  .sz-cta { display:inline-block; background:var(--sf-blue); color:#fff; font-family:var(--font-heading);
+    text-decoration:none; padding:var(--space-sm) var(--space-lg); border-radius:999px;
+    box-shadow:var(--shadow-brand); border:none; cursor:pointer; }
+
+  /* ── Panorama (THE brand signature — use ONCE per artifact) ───────── */
+  .sz-panorama { position:relative; background:var(--sf-cloud); color:var(--sf-navy);
+    padding:var(--space-2xl) var(--space-xl); text-align:center;
+    border-radius:var(--radius-lg); box-shadow:var(--shadow-brand); overflow:hidden; }
+  .sz-panorama--navy { background:linear-gradient(135deg,var(--sf-navy),var(--sf-container)); color:#fff; }
+  .sz-panorama h2 { color:inherit; }
+
+  /* ── Copy-as-image control (canonical: shells/copy-as-image.html) ──── */
+  .shot-btn{position:absolute;top:14px;right:16px;font-size:11px;font-weight:600;color:var(--sf-blue);background:#fff;border:1px solid var(--sf-cloud-80);border-radius:5px;padding:4px 9px;cursor:pointer;z-index:2}
+  .shot-btn:hover{background:var(--sf-light-bg)}
+  [data-shot]{background:#fff; position:relative;}
+  @media print{ .shot-btn,.sz-export{display:none} }
+
+  /* ── Doc-shell layout (specific to this format) ───────────────────── */
+  .sz-wrap { max-width:1040px; margin:0 auto; padding:var(--space-2xl) var(--space-lg); }
+  .sz-hero { background:var(--sf-navy); color:#fff; padding:var(--space-2xl) var(--space-lg); }
+  .sz-hero h1 { color:#fff; font-size:var(--fs-subtitle); }
+  .sz-hero .sz-hero-sub { color:var(--sf-cloud-80); margin-top:var(--space-xs); font-size:var(--fs-desc); font-family:var(--font-heading); }
+  .sz-hero p  { color:var(--sf-cloud-80); margin-top:var(--space-sm); }
+  .sz-nav { position:sticky; top:0; background:rgba(255,255,255,.92); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--sf-cloud-80); padding:var(--space-sm) var(--space-lg); z-index:10; }
+  .sz-nav a { font-size:14px; margin-right:var(--space-md); text-decoration:none; color:var(--sf-container); }
+  .sz-export { text-align:center; margin:var(--space-2xl) 0 var(--space-lg); }
+  html { scroll-behavior:smooth; }
+  section { scroll-margin-top:56px; }
+
+  /* ── Quick-view grid (Visão Rápida) — one card per bullet, icon accent ──── */
+  .sz-quickgrid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:var(--space-md); }
+  .sz-quickcard { background:#fff; border-radius:var(--radius-md); padding:var(--space-lg);
+    box-shadow:var(--shadow-brand); border-top:4px solid var(--sf-blue); }
+  .sz-quickcard--risk { border-top-color:var(--sf-bad); }
+  .sz-quickcard--action { border-top-color:var(--ext-teal); }
+  .sz-quickcard .sz-quick-icon { font-size:22px; margin-bottom:var(--space-sm); display:block; }
+  .sz-quickcard .sz-quick-label { font-family:var(--font-heading); font-size:13px; letter-spacing:.04em;
+    color:var(--sf-container); margin-bottom:var(--space-xs); text-transform:uppercase; }
+  .sz-quickcard p { font-size:14px; color:var(--sf-text); }
+
+  /* ── Risk callout row — severity-coded, always paired with a text label ── */
+  .sz-risk { border-radius:var(--radius-md); padding:var(--space-md) var(--space-lg); margin-bottom:var(--space-md);
+    background:#fff; box-shadow:var(--shadow-brand); border-left:6px solid var(--sf-neutral); }
+  .sz-risk--blocker { border-left-color:var(--sf-bad); background:var(--sf-bad-bg); }
+  .sz-risk--watch   { border-left-color:var(--sf-warn); background:var(--sf-warn-bg); }
+  .sz-risk--info    { border-left-color:var(--sf-neutral); background:var(--sf-neutral-bg); }
+  .sz-risk-head { display:flex; align-items:center; gap:var(--space-sm); margin-bottom:var(--space-xs); flex-wrap:wrap; }
+  .sz-risk-title { font-family:var(--font-heading); font-size:var(--fs-body); color:var(--sf-navy); }
+  .sz-risk-tag { display:inline-block; font-size:11px; font-weight:700; padding:2px 10px; border-radius:999px; letter-spacing:.04em; text-transform:uppercase; }
+  .sz-risk--blocker .sz-risk-tag { background:var(--sf-bad); color:#fff; }
+  .sz-risk--watch .sz-risk-tag   { background:var(--sf-warn); color:#fff; }
+  .sz-risk--info .sz-risk-tag    { background:var(--sf-neutral); color:#fff; }
+  .sz-risk-mit { margin-top:var(--space-sm); font-size:14px; }
+  .sz-risk-mit b { color:var(--sf-container); }
+
+  .sz-footer { text-align:center; padding:var(--space-lg); font-size:12px; color:var(--sf-text-weak);
+    background:var(--sf-light-bg); border-top:1px solid var(--sf-cloud-80); }
+</style>
+</head>
+<body>
+
+<header class="sz-hero">
+  <div class="sz-wrap" style="padding-top:0;padding-bottom:0;">
+    <h1>Resumo Executivo — PRODESP · DER-SP</h1>
+    <div class="sz-hero-sub">Atendimento de Socorro na Malha Rodoviária Estadual</div>
+    <p>Documento interno · Salesforce Professional Services · Programa Field Service + Agentforce</p>
+  </div>
+</header>
+
+<nav class="sz-nav" aria-label="Navegação por seções">
+  <a href="#visao-rapida">Visão Rápida</a>
+  <a href="#visao-geral">Visão Geral</a>
+  <a href="#escopo">Escopo</a>
+  <a href="#destaques">Destaques</a>
+  <a href="#abordagem">Abordagem</a>
+  <a href="#esforco">Esforço</a>
+  <a href="#riscos">Riscos</a>
+  <a href="#premissas">Premissas</a>
+  <a href="#proximos-passos">Próximos Passos</a>
+</nav>
+
+<main class="sz-wrap">
+
+  <!-- ============================================================ -->
+  <section id="visao-rapida" class="sz-section" style="margin-top:0;">
+    <div class="sz-section-eyebrow">A leitura de 30 segundos</div>
+    <h2 class="sz-section-title">Visão Rápida</h2>
+
+    <div class="sz-quickgrid">
+      <div class="sz-quickcard">
+        <span class="sz-quick-icon" aria-hidden="true">⚠️</span>
+        <div class="sz-quick-label">Dor atual</div>
+        <p>Atendimento de socorro fragmentado em chamados distintos para pedido, despacho e encerramento, sem protocolo único nem rastreamento em tempo real para o cidadão na pista.</p>
+      </div>
+      <div class="sz-quickcard">
+        <span class="sz-quick-icon" aria-hidden="true">🎯</span>
+        <div class="sz-quick-label">Visão de transformação</div>
+        <p>Protocolo único e rastreável do primeiro contato ao encerramento, com despacho automático apoiado pelo Field Service e entrada pelo canal que o motorista já usa — voz ou WhatsApp.</p>
+      </div>
+      <div class="sz-quickcard">
+        <span class="sz-quick-icon" aria-hidden="true">💡</span>
+        <div class="sz-quick-label">Principais drivers de valor</div>
+        <p>Despacho automático por aderência/disponibilidade/proximidade, protocolo único rastreável, trilha de auditoria de overrides e canal digital complementar ao 0800.</p>
+      </div>
+      <div class="sz-quickcard sz-quickcard--risk">
+        <span class="sz-quick-icon" aria-hidden="true">🚧</span>
+        <div class="sz-quick-label">Maior risco / incerteza</div>
+        <p>73 gaps abertos (7 conflitos de fonte) — dois bloqueiam decisão do DER antes do build: trilha de auditoria de despacho (G0305) e limite contratual das UBAs por CGR (G0309).</p>
+      </div>
+      <div class="sz-quickcard sz-quickcard--action">
+        <span class="sz-quick-icon" aria-hidden="true">▶️</span>
+        <div class="sz-quick-label">Primeiro passo recomendado</div>
+        <p>Fase 0 de resolução de discovery, fechando as perguntas bloqueadoras ao DER/Stefanini antes de iniciar o build do motor de despacho.</p>
+      </div>
+    </div>
+
+    <!-- Headline numbers — pulled verbatim from Escopo / Abordagem / Premissas below -->
+    <div class="sz-stats" style="margin-top:var(--space-lg);">
+      <div class="sz-stat"><div class="sz-stat-num">5</div><div class="sz-stat-lbl">Épicos</div></div>
+      <div class="sz-stat"><div class="sz-stat-num">5</div><div class="sz-stat-lbl">Fases (incl. Fase 0)</div></div>
+      <div class="sz-stat"><div class="sz-stat-num">16–30</div><div class="sz-stat-lbl">Semanas (faixa benchmark)</div></div>
+      <div class="sz-stat"><div class="sz-stat-num">14</div><div class="sz-stat-lbl">CGRs</div></div>
+      <div class="sz-stat"><div class="sz-stat-num">1.152</div><div class="sz-stat-lbl">Operadores de campo</div></div>
+      <div class="sz-stat"><div class="sz-stat-num">73</div><div class="sz-stat-lbl">Gaps identificados</div></div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="visao-geral" class="sz-section">
+    <div class="sz-section-eyebrow">Contexto</div>
+    <h2 class="sz-section-title">Visão Geral</h2>
+    <div class="sz-card">
+      <p>O DER-SP registra hoje o atendimento de socorro em rodovia por canais e chamados separados, sem um identificador único que acompanhe o pedido do primeiro contato ao encerramento — o próprio critério de sucesso que o cliente definiu para o projeto. A janela de decisão é real: o contrato da URA atual (Instinct) expira em abril de 2027, mesma data-alvo de produção do programa, e o Open CTI legado do Salesforce sai de linha em fevereiro de 2028. O modelo de dados nativo do Field Service (Work Order, Service Appointment, Service Territory) mapeia diretamente ao ciclo de sete etapas já mapeado na discovery — solicita, registra, classifica, despacha, desloca, atende, encerra — sem exigir um motor de despacho customizado do zero, e o Agentforce abre o canal WhatsApp sem substituir a voz do 0800 que o cidadão já conhece.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="escopo" class="sz-section">
+    <div class="sz-section-eyebrow">O que será entregue</div>
+    <h2 class="sz-section-title">Escopo</h2>
+    <div class="sz-card">
+      <p>O programa está estruturado em 5 épicos, todos entregues integralmente pela Salesforce PS, em org única:</p>
+    </div>
+
+    <table class="sz-table" style="margin-top:var(--space-md);">
+      <thead>
+        <tr><th>Épico</th><th>Tamanho</th><th>Descrição</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>E01 — Canal Digital de Atendimento ao Cidadão</b></td>
+          <td><span class="sz-tag sz-tag--sz-m">M</span></td>
+          <td>Abertura de chamado por WhatsApp com triagem pelo Agentforce (Agentforce Contact Center Enterprise, 50 licenças) e transbordo garantido para fila humana em suspeita de vítima.</td>
+        </tr>
+        <tr>
+          <td><b>E02 — Registro e Classificação da Ocorrência</b></td>
+          <td><span class="sz-tag sz-tag--sz-l">L</span></td>
+          <td>Criação e classificação do chamado a partir de qualquer canal, com catálogo de mais de 100 subtipos e sincronização com os sistemas legados SIGOR e SIGEO.</td>
+        </tr>
+        <tr>
+          <td><b>E03 — Despacho Automatizado de Recursos de Campo</b></td>
+          <td><span class="sz-tag sz-tag--sz-l">L</span></td>
+          <td>Motor de despacho por aderência operando nas 14 CGRs, com escalonamento por tempo de espera (regra N/N-10) e reprocessamento automático em caso de recusa.</td>
+        </tr>
+        <tr>
+          <td><b>E04 — Execução em Campo</b></td>
+          <td><span class="sz-tag sz-tag--sz-l">L</span></td>
+          <td>Aplicativo único de Field Service Mobile para os 1.152 operadores das 14 empresas terceirizadas, com recebimento de despacho, encerramento por checklist e as três travas de negócio confirmadas (motivo de recusa, foto obrigatória, check-in geolocalizado).</td>
+        </tr>
+        <tr>
+          <td><b>E05 — Rastreamento e Visibilidade em Tempo Real</b></td>
+          <td><span class="sz-tag sz-tag--sz-l">L</span></td>
+          <td>Link de acompanhamento para o cidadão, mapa da mesa do C2C e painel agregado para gestores, sobre a mesma base de dados de E02/E03.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="sz-tldr" style="margin-top:var(--space-lg);">
+      <div class="sz-tldr-label">Abrangência</div>
+      <p>O escopo cobre a produção estadual completa — 14 CGRs, 298 viaturas e 1.152 operadores de campo — não apenas o piloto de Cubatão/Taubaté testado na PoC.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="destaques" class="sz-section">
+    <div class="sz-section-eyebrow">Como a solução funciona</div>
+    <h2 class="sz-section-title">Destaques da Solução</h2>
+    <div class="sz-card">
+      <p>A arquitetura assenta-se em org única do Salesforce, com Field Service como motor central de despacho e Agentforce Contact Center Enterprise cobrindo o canal WhatsApp — Service Cloud entra no MVP escopado a esse canal, não como plataforma de atendimento ampla. O modelo de dados reaproveita os objetos nativos do Field Service (Work Order, Service Appointment, Service Territory) e usa o modelo padrão de Skills para o critério de aderência do despacho, evitando um motor customizado do zero.</p>
+      <p>Dois pontos de integração externa compõem o escopo: sincronização com o sistema legado SIGOR (convivência dupla durante a transição) e um retorno síncrono ao SIGEO para correção de coordenadas geográficas após ajuste manual de endereço. O acesso do cidadão ao rastreamento em tempo real é resolvido por um site Experience Cloud com acesso de convidado e componente customizado, já que não existe capability nativa de rastreamento público ao vivo no Field Service.</p>
+      <p>O modelo de sharing segmenta a visibilidade por CGR de origem, com exposição pontual em reforços entre regiões, e o login individual por operador (campo e mesa) sustenta a trilha de auditoria exigida pela governança pública.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="abordagem" class="sz-section">
+    <div class="sz-section-eyebrow">Como e quando será entregue</div>
+    <h2 class="sz-section-title">Abordagem de Implementação</h2>
+    <div class="sz-card">
+      <p>O programa está sequenciado em 5 fases, com uma Fase 0 dedicada à resolução de discovery — recomendada porque o volume de gaps abertos (73, sendo 7 conflitos de fonte) excede os limiares que justificam essa fase dedicada antes do build.</p>
+    </div>
+
+    <div class="sz-timeline" style="margin-top:var(--space-md);" data-shot>
+      <div class="sz-phase">
+        <div class="sz-phase-name">Fase 0</div>
+        <div class="sz-phase-dur">Resolução de Discovery</div>
+      </div>
+      <div class="sz-phase">
+        <div class="sz-phase-name">Fase 1</div>
+        <div class="sz-phase-dur">Fundação (E02)</div>
+      </div>
+      <div class="sz-phase">
+        <div class="sz-phase-name">Fase 2</div>
+        <div class="sz-phase-dur">Despacho e Canal Digital (E03, E01)</div>
+      </div>
+      <div class="sz-phase">
+        <div class="sz-phase-name">Fase 3</div>
+        <div class="sz-phase-dur">Execução em Campo (E04)</div>
+      </div>
+      <div class="sz-phase">
+        <div class="sz-phase-name">Fase 4</div>
+        <div class="sz-phase-dur">Rastreamento e Estabilização (E05)</div>
+      </div>
+    </div>
+
+    <div class="sz-card" style="margin-top:var(--space-md);">
+      <p><b>Fase 0 — Resolução de Discovery</b>: fecha as perguntas bloqueadoras ao DER/Stefanini antes de iniciar o build, sem épicos associados.</p>
+      <p><b>Fase 1 — Fundação</b>: Registro da Ocorrência e Integrações (E02), a base sobre a qual despacho, campo e rastreamento se apoiam.</p>
+      <p><b>Fase 2 — Despacho e Canal Digital</b>: Despacho Automatizado (E03) e Canal Digital de Atendimento (E01), em paralelo.</p>
+      <p><b>Fase 3 — Execução em Campo</b>: aplicativo mobile para os operadores das 14 UBAs (E04).</p>
+      <p><b>Fase 4 — Rastreamento e Estabilização</b>: visibilidade em tempo real (E05) e estabilização em escala estadual.</p>
+      <p>O caminho crítico segue E02 → E03 → E04 → E05, com E01 correndo em paralelo a partir da Fase 2 — atraso em qualquer ponto desse caminho se propaga para as fases seguintes.</p>
+    </div>
+
+    <div class="sz-stats" style="margin-top:var(--space-lg);">
+      <div class="sz-stat"><div class="sz-stat-num">16–30</div><div class="sz-stat-lbl">Semanas (faixa benchmark)</div></div>
+      <div class="sz-stat"><div class="sz-stat-num">Média</div><div class="sz-stat-lbl">Complexidade multi-cloud</div></div>
+    </div>
+
+    <p style="margin-top:var(--space-md);">A duração do programa é uma <b>faixa derivada do formato do engagement, não um compromisso</b>: <b>16 a 30 semanas</b>, classificada como multi-cloud de complexidade média (5 épicos, 1 M e 4 L, duas integrações ponto a ponto, sem migração de dados), com a ponta alta ampliada por dois fatores específicos deste projeto — a experiência mobile e o site de rastreamento não têm padrão nativo equivalente e exigem build customizado do zero, e há uma sobreposição de governança/auditoria ainda em aberto (trilha de auditoria de despacho, tratamento de dados de geolocalização sob LGPD).</p>
+
+    <div class="sz-tldr" style="margin-top:var(--space-md); border-left-color:var(--sf-text-weak);">
+      <div class="sz-tldr-label">Nota de benchmark</div>
+      <p><em>Esta figura é benchmark-based, derivada dos dados de treinamento do modelo e padrões gerais de entrega (não validado pela Salesforce) — não é um compromisso. Os números finais são confirmados através do acordo comercial aplicável.</em></p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="esforco" class="sz-section">
+    <div class="sz-section-eyebrow">Onde o esforço se concentra</div>
+    <h2 class="sz-section-title">Esforço e Disciplinas</h2>
+    <div class="sz-card">
+      <p>O programa concentra 4 dos 5 épicos em tamanho L — apenas o canal digital (E01) é M — o que empurra o esforço para engenharia de integração e desenvolvimento customizado (motor de despacho, app mobile, site de rastreamento) mais do que para configuração declarativa pura. As disciplinas necessárias cobrem arquitetura de solução e técnica, consultoria funcional, desenvolvimento (caminho crítico de integração e um pod de build escalando com o volume dos épicos L), garantia de qualidade com surge na fase final de estabilização em escala estadual, e change management.</p>
+      <p>O workstream de Change Management existe porque o próprio DER solicitou explicitamente até 2 meses de operação assistida e treinamento personalizado por persona, com foco nos técnicos de campo das 14 UBAs — não é uma adição do time de entrega, é uma linha de esforço nomeada pelo cliente para reduzir o risco de adoção numa mudança de processo que afeta 1.152 operadores terceirizados. A experiência do cidadão em si (o link de rastreamento) já foi validada na PoC e não exige pesquisa de UX formal adicional.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="riscos" class="sz-section">
+    <div class="sz-section-eyebrow">O que pode travar o programa</div>
+    <h2 class="sz-section-title">Riscos e Mitigações</h2>
+
+    <div class="sz-risk sz-risk--blocker">
+      <div class="sz-risk-head">
+        <span class="sz-risk-tag">Bloqueador ao DER</span>
+        <span class="sz-risk-title">Trilha de auditoria do despacho ainda sem desenho definido</span>
+      </div>
+      <p>Overrides manuais do C2C não têm campos ou retenção definidos, e o padrão nativo (Field History Tracking) tem limite de 20 campos e retenção de 18 a 24 meses — pode não atender à exigência de prestação de contas.</p>
+      <p class="sz-risk-mit"><b>Mitigação:</b> resolver na Fase 0, decidindo entre o padrão nativo e o add-on Field Audit Trail antes do build do console do dispatcher.</p>
+    </div>
+
+    <div class="sz-risk sz-risk--blocker">
+      <div class="sz-risk-head">
+        <span class="sz-risk-tag">Bloqueador ao DER</span>
+        <span class="sz-risk-title">Limite contratual das UBAs por CGR não confirmado</span>
+      </div>
+      <p>O despacho por proximidade pode indicar uma viatura de CGR vizinha, mas cada empresa terceirizada é contratada por CGR — não está definido se o motor pode atribuir fora desse limite.</p>
+      <p class="sz-risk-mit"><b>Mitigação:</b> levar ao DER como pergunta bloqueadora antes de configurar o modelo de território.</p>
+    </div>
+
+    <div class="sz-risk sz-risk--watch">
+      <div class="sz-risk-head">
+        <span class="sz-risk-tag">Risco de escopo</span>
+        <span class="sz-risk-title">Enforcement das travas de negócio quando o app está offline foi retirado do MVP</span>
+      </div>
+      <p>As três travas (recusa com motivo, foto obrigatória, check-in geolocalizado) permanecem como regra de negócio, mas o bloqueio automático de avanço sem rede exige desenvolvimento LWC offline especializado, fora do escopo desta fase.</p>
+      <p class="sz-risk-mit"><b>Mitigação:</b> validar formalmente essa redução de escopo com o cliente antes do go-live — a evidência ainda é capturada e sincroniza ao reconectar, apenas sem o bloqueio automático.</p>
+    </div>
+
+    <div class="sz-risk sz-risk--watch">
+      <div class="sz-risk-head">
+        <span class="sz-risk-tag">Risco de governança</span>
+        <span class="sz-risk-title">Governança de dados de geolocalização (LGPD/DPIA) sem discussão formal registrada</span>
+      </div>
+      <p>O link de rastreamento expõe posição em tempo real, incluindo casos com vítimas de acidente.</p>
+      <p class="sz-risk-mit"><b>Mitigação:</b> nomear o DER-SP como steward de dados (já assumido) e levar o mecanismo de token de uso único à próxima rodada formal de DPIA.</p>
+    </div>
+
+    <div class="sz-risk sz-risk--watch">
+      <div class="sz-risk-head">
+        <span class="sz-risk-tag">Risco técnico</span>
+        <span class="sz-risk-title">Licença Field Service Community para os 1.152 operadores terceirizados carrega um known issue documentado</span>
+      </div>
+      <p>Erro de registro ausente ao abrir Service Appointment.</p>
+      <p class="sz-risk-mit"><b>Mitigação:</b> testar esse fluxo especificamente em ambiente de build antes de escalar para as 14 CGRs.</p>
+    </div>
+
+    <div class="sz-risk sz-risk--info">
+      <div class="sz-risk-head">
+        <span class="sz-risk-tag">Condicional</span>
+        <span class="sz-risk-title">Lane AI-native ainda não qualificada</span>
+      </div>
+      <p>Nenhum sponsor executivo nomeado foi identificado na discovery, e a cadeia de decisão atravessa três organizações (DER, PRODESP, Stefanini) — sem esse compromisso operacional, a compressão de cronograma do modelo AI-native permanece um motivador condicional, não uma entrega planejável.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="premissas" class="sz-section">
+    <div class="sz-section-eyebrow">Nível de confiança do escopo</div>
+    <h2 class="sz-section-title">Premissas e Nível de Confiança</h2>
+    <div class="sz-card">
+      <p>O escopo dos 5 épicos está com confiança <span class="sz-tag sz-tag--low">Confirmed</span> — validado com o cliente. Os tamanhos T-shirt (M/L) que dimensionam o esforço de cada épico estão com confiança <span class="sz-tag sz-tag--medium">Assumed</span> em todos os cinco, o que amplia o risco realizado da faixa de duração para a ponta alta na prática, mesmo sem mover o piso mecanicamente.</p>
+      <p>O programa carrega <b>73 gaps identificados</b> na discovery, dos quais a maioria já tem uma premissa fixada e documentada (a base deste resumo) — mas 7 são conflitos de fonte e um conjunto menor permanece como pergunta bloqueadora aberta ao DER/Stefanini, principalmente em torno da trilha de auditoria de despacho e do modelo contratual das UBAs. Esse volume de gaps é o que justifica a Fase 0 dedicada, e recomenda uma sessão de validação com o cliente antes de finalizar o escopo para o build.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <section id="proximos-passos" class="sz-section">
+    <div class="sz-section-eyebrow">O que vem a seguir</div>
+    <h2 class="sz-section-title">Próximos Passos e Recomendações</h2>
+    <div class="sz-card">
+      <ol style="padding-left:1.25em; display:flex; flex-direction:column; gap:var(--space-md);">
+        <li><b>Agendar sessão de validação com DER/PRODESP/Stefanini</b> para fechar as perguntas bloqueadoras (trilha de auditoria de despacho, limite contratual das UBAs) antes do início da Fase 0.</li>
+        <li><b>Confirmar a decisão de voz/CTI</b> (Open CTI vs. Salesforce Voice) com antecedência ao vencimento do contrato da URA em abril de 2027 — é uma janela real, não uma decisão que pode esperar o MVP.</li>
+        <li><b>Validar formalmente com o cliente</b> a redução de escopo do enforcement offline das travas de negócio (E04) antes de comprometer o desenho do app mobile.</li>
+        <li><b>Levar o mecanismo de token de uso único do link de rastreamento</b> (E05) à próxima rodada formal de LGPD/DPIA, nomeando especificamente esse fluxo.</li>
+        <li>Uma vez o escopo validado, seguir para a fase de resolução de discovery com o roteiro já mapeado nos 5 épicos e no plano de 5 fases.</li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="sz-tldr" style="border-left-color:var(--sf-text-weak);">
+    <p><em>Este resumo é derivado dos dados de scoping do projeto (epics, gaps, estimativas, roadmap e estratégia) — não substitui a validação formal com o DER-SP nos pontos ainda marcados como pergunta bloqueadora ou premissa a confirmar.</em></p>
+  </div>
+
+  <!-- Export-back-to-text: copies the whole artifact as plain text for pasting back into a chat. -->
+  <div class="sz-export">
+    <button class="sz-cta" onclick="copyText()">⧉ Copy as text</button>
+  </div>
+
+</main>
+
+<footer class="sz-footer">
+  Gerado em 17/09/2026 às 23:38 — documento interno
+</footer>
+
+<script>
+  // Export-back-to-text — lift the rendered artifact back into a conversation.
+  async function copyText(){
+    try { await navigator.clipboard.writeText(document.querySelector('main').innerText);
+          event.target.textContent='✓ Copied'; }
+    catch(e){ event.target.textContent='✗ Try selecting'; }
+    setTimeout(function(){ event.target.textContent='⧉ Copy as text'; }, 2200);
+  }
+</script>
+<!-- canonical source: shells/copy-as-image.html — copy-as-image control (verbatim) -->
+<script>
+  async function nodeToPngBlob(node){
+    var r = node.getBoundingClientRect(), w = Math.ceil(r.width), h = Math.ceil(r.height), scale = 2;
+    var clone = node.cloneNode(true), src = node.querySelectorAll('*'), dst = clone.querySelectorAll('*');
+    inlineStyle(node, clone);
+    for (var i=0;i<src.length;i++) inlineStyle(src[i], dst[i]);
+    clone.style.margin = '0';
+    var xml = new XMLSerializer().serializeToString(clone);
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'">'
+            + '<foreignObject width="100%" height="100%">'
+            + '<div xmlns="http://www.w3.org/1999/xhtml">'+xml+'</div>'
+            + '</foreignObject></svg>';
+    var img = new Image();
+    await new Promise(function(res,rej){
+      img.onload = res; img.onerror = rej;
+      img.src = 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+    });
+    var c = document.createElement('canvas'); c.width = w*scale; c.height = h*scale;
+    var ctx = c.getContext('2d'); ctx.scale(scale,scale);
+    ctx.fillStyle = '#fff'; ctx.fillRect(0,0,w,h); ctx.drawImage(img,0,0);
+    return await new Promise(function(res){ c.toBlob(res,'image/png'); });
+  }
+  function inlineStyle(from,to){
+    var cs = getComputedStyle(from), s = '';
+    for (var i=0;i<cs.length;i++){ var p = cs[i]; s += p+':'+cs.getPropertyValue(p)+';'; }
+    to.setAttribute('style', s);
+  }
+  async function copyShot(node,btn){
+    var label = btn.textContent;
+    try{
+      var blob = await nodeToPngBlob(node);
+      if (navigator.clipboard && window.ClipboardItem){
+        await navigator.clipboard.write([new ClipboardItem({'image/png':blob})]);
+        btn.textContent = '✓ Copied';
+      } else { throw new Error('no clipboard-image'); }
+    }catch(e){
+      try{
+        var blob2 = await nodeToPngBlob(node), a = document.createElement('a');
+        a.href = URL.createObjectURL(blob2); a.download = 'prodesp-der-executive-summary-timeline.png'; a.click();
+        btn.textContent = '✓ Downloaded';
+      }catch(e2){ btn.textContent = '✗ Try screenshot'; }
+    }
+    setTimeout(function(){ btn.textContent = label; }, 2200);
+  }
+  document.querySelectorAll('[data-shot]').forEach(function(node){
+    var btn = document.createElement('button');
+    btn.className = 'shot-btn'; btn.textContent = '⧉ Copy as image';
+    btn.addEventListener('click', function(){ copyShot(node, btn); });
+    node.appendChild(btn);
+  });
+</script>
+</body>
+</html>

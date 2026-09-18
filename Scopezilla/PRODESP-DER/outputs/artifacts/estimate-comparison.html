@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<!--
+  SCOPEZILLA — Comparação de Estimativas — PRODESP · DER-SP
+  Artefato interno (sem co-branding de cliente). Gerado a partir de
+  outputs/artifacts/estimate-comparison.md. Shell base: brand/shells/doc.html.
+  Self-contained: sem dependências externas, abre offline.
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comparação de Estimativas — PRODESP · DER-SP</title>
+<style>
+  :root {
+    /* ── Core blues (everyday palette) ─────────────────────────────── */
+    --sf-navy:        #001E5B;   /* Electric Blue 15 — heritage navy, hero backgrounds */
+    --sf-type:        #002775;   /* Electric Blue 20 — body/heading type on light */
+    --sf-container:   #022AC0;   /* Electric Blue 30 — filled containers, table headers */
+    --sf-blue:        #066AFE;   /* Electric Blue 50 — secondary elements, highlights, CTAs */
+    --sf-cloud:       #00B3FF;   /* Cloud Blue 68 — "Salesforce Blue" accent */
+    --sf-cloud-80:    #90D0FE;   /* Cloud Blue 80 — tints, borders */
+    --sf-bg:          #CFE9FE;   /* Cloud Blue 90 — page background */
+    --sf-light-bg:    #EAF5FE;   /* Cloud Blue 95 — white-adjacent bg, alt rows */
+    --sf-text:        #002775;   /* default text = Electric Blue 20 */
+    --sf-text-weak:   #4A5578;   /* muted metadata — passes AA on white/light-bg */
+
+    /* ── Extended palette (categorical / data-viz / severity accents) ── */
+    --ext-teal:       #06A59A;  --ext-teal-80: #04E1CB;  --ext-teal-95:   #DEF9F3;
+    --ext-yellow:     #FCC003;  --ext-yellow-70: #E4A201; --ext-yellow-95: #FBF3E0;
+    --ext-pink:       #FF538A;  --ext-pink-40: #B60554;  --ext-pink-95:   #FEF0F3;
+    --ext-violet:     #D17DFE;  --ext-violet-30: #730394; --ext-violet-95: #F9F0FF;
+
+    /* ── Semantic status (traffic-light: scope in/at-risk/out, on-track/late).
+       Distinct from the severity .sz-tag family above — always pair with a label. */
+    --sf-ok:      #2E844A;  --sf-ok-bg:      #EAFCE9;
+    --sf-warn:    #DD7A01;  --sf-warn-bg:    #FFF7E6;
+    --sf-bad:     #BA0517;  --sf-bad-bg:     #FDECEB;
+    --sf-neutral: #94A3B3;  --sf-neutral-bg: #F3F6FA;
+
+    /* ── Client co-brand accent — no co-brand configured for this internal artifact,
+         so this stays the default Salesforce Electric Blue 50/30. ────────────────── */
+    --client-primary: #066AFE;
+    --client-dark:    #022AC0;
+
+    /* ── Typography ────────────────────────────────────────────────── */
+    --font-heading: 'ITC Avant Garde Gothic Demi', 'Avant Garde', 'Century Gothic',
+                    'Salesforce Sans', 'Source Sans 3', Arial, sans-serif;
+    --font-body:    'Salesforce Sans', 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+    --fs-title: 54px; --fs-subtitle: 36px; --fs-l1: 30px; --fs-cat: 26px;
+    --fs-l2: 24px; --fs-desc: 22px; --fs-body: 16px;
+
+    /* ── Spacing / radius / shadow ─────────────────────────────────── */
+    --space-xs: 4px;  --space-sm: 8px;  --space-md: 16px;
+    --space-lg: 24px; --space-xl: 32px; --space-2xl: 48px;
+    --radius-sm: 4px; --radius-md: 8px; --radius-lg: 16px;
+    --shadow-brand: 2.6px 9.7px 25px rgba(6,106,254,0.15);
+  }
+
+  /* ── Base ─────────────────────────────────────────────────────────── */
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:var(--font-body); color:var(--sf-text); background:var(--sf-light-bg);
+         -webkit-font-smoothing:antialiased; line-height:1.55; }
+  h1,h2,h3,.sz-title,.sz-stat-num { font-family:var(--font-heading); color:var(--sf-navy); line-height:1.15; }
+  a { color:var(--sf-blue); }
+  :focus-visible { outline:3px solid var(--sf-blue); outline-offset:2px; border-radius:2px; }
+  @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none !important; transition:none !important; scroll-behavior:auto !important; } }
+
+  /* ── Section header ───────────────────────────────────────────────── */
+  .sz-section { margin:var(--space-2xl) 0; }
+  .sz-section-eyebrow { font-family:var(--font-heading); font-size:12px; font-weight:700;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--sf-blue); margin-bottom:var(--space-xs); }
+  .sz-section-title { font-size:var(--fs-cat); margin-bottom:var(--space-md); }
+
+  /* ── Card (white on light bg → brand shadow) ──────────────────────── */
+  .sz-card { background:#fff; border-radius:var(--radius-md); padding:var(--space-lg);
+    box-shadow:var(--shadow-brand); }
+  .sz-card + .sz-card { margin-top:var(--space-md); }
+  .sz-card h3 { font-size:18px; margin-bottom:var(--space-sm); }
+  .sz-card p, .sz-card li { color:var(--sf-text); }
+  .sz-card p + p { margin-top:var(--space-sm); }
+
+  /* ── Stat tile / KPI ──────────────────────────────────────────────── */
+  .sz-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:var(--space-md); }
+  .sz-stat { background:#fff; border-radius:var(--radius-md); padding:var(--space-lg) var(--space-md);
+    text-align:center; box-shadow:var(--shadow-brand); }
+  .sz-stat-num { font-size:32px; color:var(--client-primary); }
+  .sz-stat-lbl { font-size:14px; color:var(--sf-text-weak); margin-top:var(--space-xs); }
+
+  /* ── Table (zebra, brand header) ──────────────────────────────────── */
+  .sz-table { width:100%; border-collapse:collapse; background:#fff; border-radius:var(--radius-md);
+    overflow:hidden; box-shadow:var(--shadow-brand); font-size:14px; }
+  .sz-table th { background:var(--sf-container); color:#fff; font-family:var(--font-heading);
+    text-align:left; padding:var(--space-sm) var(--space-md); font-size:13px; }
+  .sz-table td { padding:var(--space-sm) var(--space-md); border-top:1px solid var(--sf-light-bg); }
+  .sz-table tbody tr:nth-child(even) { background:var(--sf-light-bg); }
+  .sz-table-wrap { overflow-x:auto; border-radius:var(--radius-md); }
+  .sz-num { font-variant-numeric:tabular-nums; white-space:nowrap; }
+
+  /* ── Tag (never color alone — always carries a label) ─────────────── */
+  .sz-tag { display:inline-block; font-size:12px; font-weight:700; padding:2px 10px;
+    border-radius:999px; line-height:1.6; }
+  .sz-tag--critical { background:var(--ext-pink-95);   color:var(--ext-pink-40); }
+  .sz-tag--high     { background:var(--ext-yellow-95); color:var(--ext-yellow-70); }
+  .sz-tag--medium   { background:var(--ext-yellow-95); color:var(--ext-yellow-70); }
+  .sz-tag--low      { background:var(--ext-teal-95);   color:var(--ext-teal); }
+  .sz-tag--info     { background:var(--sf-light-bg);   color:var(--sf-blue); }
+  .sz-tag--sz-s  { background:var(--sf-light-bg); color:var(--sf-blue); }
+  .sz-tag--sz-m  { background:#DCEBFF;            color:var(--sf-blue); }
+  .sz-tag--sz-l  { background:var(--sf-cloud);    color:var(--sf-navy); }
+  .sz-tag--sz-xl { background:var(--sf-container); color:#fff; }
+
+  /* ── TL;DR / callout box ──────────────────────────────────────────── */
+  .sz-tldr { background:var(--sf-light-bg); border-left:4px solid var(--sf-blue);
+    border-radius:var(--radius-sm); padding:var(--space-md) var(--space-lg); margin:var(--space-lg) 0; }
+  .sz-tldr-label { font-family:var(--font-heading); font-size:12px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--sf-blue); margin-bottom:var(--space-xs); }
+
+  /* ── Disclaimer callout (validated-rate / benchmark) ──────────────── */
+  .sz-disclaimer { background:var(--sf-neutral-bg); border-left:4px solid var(--sf-neutral);
+    border-radius:var(--radius-sm); padding:var(--space-md) var(--space-lg); margin:var(--space-md) 0;
+    font-size:14px; color:var(--sf-text-weak); font-style:italic; }
+  .sz-disclaimer-label { font-family:var(--font-heading); font-style:normal; font-size:11px;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--sf-text-weak); margin-bottom:var(--space-xs); }
+
+  /* ── Chip row ─────────────────────────────────────────────────────── */
+  .sz-chips { display:flex; flex-wrap:wrap; gap:var(--space-xs); }
+  .sz-chip { background:var(--sf-light-bg); color:var(--sf-container); border:1px solid var(--sf-cloud-80);
+    border-radius:999px; padding:4px 12px; font-size:13px; }
+
+  /* ── CTA button ───────────────────────────────────────────────────── */
+  .sz-cta { display:inline-block; background:var(--sf-blue); color:#fff; font-family:var(--font-heading);
+    text-decoration:none; padding:var(--space-sm) var(--space-lg); border-radius:999px;
+    box-shadow:var(--shadow-brand); border:none; cursor:pointer; }
+
+  /* ── Panorama (THE brand signature — use ONCE per artifact) ───────── */
+  .sz-panorama { position:relative; background:var(--sf-cloud); color:var(--sf-navy);
+    padding:var(--space-2xl) var(--space-xl); text-align:center;
+    border-radius:var(--radius-lg); box-shadow:var(--shadow-brand); overflow:hidden; }
+  .sz-panorama--navy { background:linear-gradient(135deg,var(--sf-navy),var(--sf-container)); color:#fff; }
+  .sz-panorama h2 { color:inherit; }
+
+  /* ── Copy-as-image control (canonical: shells/copy-as-image.html) ──── */
+  .shot-btn{position:absolute;top:14px;right:16px;font-size:11px;font-weight:600;color:var(--sf-blue);background:#fff;border:1px solid var(--sf-cloud-80);border-radius:5px;padding:4px 9px;cursor:pointer;z-index:2}
+  .shot-btn:hover{background:var(--sf-light-bg)}
+  [data-shot]{background:#fff; position:relative;}
+  @media print{ .shot-btn,.sz-export{display:none} }
+
+  /* ── Doc-shell layout (specific to this format) ───────────────────── */
+  .sz-wrap { max-width:960px; margin:0 auto; padding:var(--space-2xl) var(--space-lg); }
+  .sz-hero { background:var(--sf-navy); color:#fff; padding:var(--space-2xl) var(--space-lg); }
+  .sz-hero h1 { color:#fff; font-size:var(--fs-subtitle); }
+  .sz-hero p  { color:var(--sf-cloud-80); margin-top:var(--space-sm); }
+  .sz-nav { position:sticky; top:0; background:rgba(255,255,255,.92); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--sf-cloud-80); padding:var(--space-sm) var(--space-lg); z-index:10; }
+  .sz-nav a { font-size:14px; margin-right:var(--space-md); text-decoration:none; color:var(--sf-container); }
+  .sz-export { text-align:center; margin:var(--space-2xl) 0 var(--space-lg); }
+  html { scroll-behavior:smooth; }
+  section { scroll-margin-top:56px; }
+  .sz-footer { text-align:center; padding:var(--space-lg); color:var(--sf-text-weak); font-size:13px;
+    border-top:1px solid var(--sf-cloud-80); }
+  ul.sz-list { padding-left:1.1em; }
+  ul.sz-list li { margin-bottom:var(--space-xs); }
+  .sz-blockquote { font-style:italic; color:var(--sf-text-weak); border-left:3px solid var(--sf-cloud-80);
+    padding-left:var(--space-md); margin:var(--space-md) 0; font-size:14px; }
+
+  @media (max-width:900px) { .sz-wrap { padding:var(--space-xl) var(--space-md); } }
+</style>
+</head>
+<body>
+
+<header class="sz-hero">
+  <div class="sz-wrap" style="padding-top:0;padding-bottom:0;">
+    <h1>Comparação de Estimativas — PRODESP · DER-SP</h1>
+    <p>Estimativa completa, com preço indicativo · Traditional vs. Augmented vs. AI-native · Documento interno · Rates validadas em 2026-09-17</p>
+  </div>
+</header>
+
+<nav class="sz-nav" aria-label="Navegação de seções">
+  <a href="#base">Base compartilhada</a>
+  <a href="#lanes">As 3 lanes</a>
+  <a href="#gate">Gate AI-native</a>
+  <a href="#roster">Roster nomeado</a>
+  <a href="#leitura-equipe">Leitura de equipe</a>
+  <a href="#commercials">Approved Commercials</a>
+</nav>
+
+<main class="sz-wrap">
+
+  <div class="sz-tldr">
+    <div class="sz-tldr-label">TL;DR</div>
+    <p>Comparação de prazo, esforço, equipe nomeada e preço indicativo entre 3 lanes de entrega, a partir de rates validadas pelo usuário em 2026-09-17 (ver seção <strong>Approved Commercials</strong> abaixo).</p>
+  </div>
+
+  <section id="base" class="sz-section">
+    <div class="sz-section-eyebrow">Escopo</div>
+    <h2 class="sz-section-title">Base compartilhada</h2>
+    <div class="sz-card">
+      <p>Escopo: 5 épicos (E01-E05), 100% entregue pela Salesforce PS (confirmado pelo usuário) — sem redução por subtração, os papéis client-side abaixo são coverage necessária, não escopo removido. Todos os 5 épicos carregam <code>confidence: Assumed</code> em <code>data/estimates.json</code>, o que amplia o risco realizado das 3 lanes para a ponta alta das faixas.</p>
+      <p><strong>Lane-âncora: Traditional.</strong> A faixa benchmark é o número real; as lanes de IA são derivadas por compressão dessa faixa — a postura de pitch, já que o DER/PRODESP ainda não se comprometeu com o modelo operacional AI-native.</p>
+    </div>
+  </section>
+
+  <section id="lanes" class="sz-section">
+    <div class="sz-section-eyebrow">Comparação</div>
+    <h2 class="sz-section-title">As 3 lanes</h2>
+
+    <div class="sz-card" data-shot>
+      <div class="sz-table-wrap">
+        <table class="sz-table">
+          <thead><tr><th>Lane</th><th>Duração</th><th>Basis</th><th>Confiança</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Traditional</strong> (âncora)</td>
+              <td class="sz-num"><strong>16-30 semanas</strong></td>
+              <td>Derivada do formato do engagement (benchmark top-down), sem compressão</td>
+              <td><span class="sz-tag sz-tag--medium">Assumed</span></td>
+            </tr>
+            <tr>
+              <td><strong>Augmented</strong> (metodologia tradicional + tooling de IA)</td>
+              <td class="sz-num"><strong>14-25 semanas</strong></td>
+              <td>Faixa traditional comprimida por <code>efficiency.json.realized_band</code> (~10-18%)</td>
+              <td><span class="sz-tag sz-tag--medium">Assumed</span></td>
+            </tr>
+            <tr>
+              <td><strong>AI-native</strong> (condicional)</td>
+              <td class="sz-num"><strong>10-18 semanas</strong></td>
+              <td>Faixa traditional comprimida por <code>efficiency.json.native_band</code> (~35-40%) — gate de qualificação ainda não atendido</td>
+              <td><span class="sz-tag sz-tag--medium">Assumed</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="sz-card">
+      <p><strong>Delta traditional → augmented</strong>: ~2-5 semanas mais rápido, mesma equipe, tooling de IA sobre o modelo operacional inalterado.</p>
+      <p><strong>Delta traditional → AI-native</strong>: ~6-12 semanas mais rápido, <strong>mas condicional</strong> a um compromisso operacional (decisão diária, product owner nomeado e disponível, mandato AI-first) que o DER/PRODESP ainda não assumiu. Hoje é um motivador — "se você se comprometer com este modelo de trabalho, esta seria a faixa" — nunca uma entrega alcançável sem nomear o compromisso.</p>
+    </div>
+  </section>
+
+  <section id="gate" class="sz-section">
+    <div class="sz-section-eyebrow">Qualificação</div>
+    <h2 class="sz-section-title">Gate de qualificação AI-native: condicional</h2>
+    <div class="sz-card">
+      <p>Confirmado pelo usuário: nenhum sponsor executivo nomeado identificado na discovery (Discovery Brief item #12); cadeia de decisão em 3 camadas DER→PRODESP→Stefanini; nenhum mandato AI-first declarado. O roster client-side desta lane (Product Owner/Decision-maker) reflete exatamente esse gap — ainda não está preenchido. Este é o sinal, não o número, que mantém a lane rotulada condicional.</p>
+    </div>
+  </section>
+
+  <section id="roster" class="sz-section">
+    <div class="sz-section-eyebrow">Equipe</div>
+    <h2 class="sz-section-title">Roster nomeado</h2>
+
+    <h3 style="margin-top:var(--space-md); margin-bottom:var(--space-sm);">Traditional &amp; Augmented (mesma forma de equipe)</h3>
+    <div class="sz-card">
+      <p>A ferramenta de IA muda o ritmo de entrega dentro dos mesmos papéis e contagens na lane augmented — não a composição do time. Roster completo em <code>data/resource-plan.json</code> (16 papéis).</p>
+    </div>
+    <div class="sz-card" data-shot>
+      <div class="sz-table-wrap">
+        <table class="sz-table">
+          <thead><tr><th>Papel</th><th>Senioridade</th><th>Local</th><th>Qtd</th><th>Alocação</th><th>Fases</th><th>Lado</th></tr></thead>
+          <tbody>
+            <tr><td>Project/Program Manager</td><td>Sênior</td><td>Onshore</td><td>1</td><td>Full</td><td>0-4</td><td>PS</td></tr>
+            <tr><td>Solution Architect</td><td>Sênior</td><td>Onshore</td><td>1</td><td>Full</td><td>0-4</td><td>PS</td></tr>
+            <tr><td>Technical Architect</td><td>Sênior</td><td>Onshore</td><td>1</td><td>Full</td><td>1-4</td><td>PS</td></tr>
+            <tr><td>Functional Consultant (config crítica)</td><td>Sênior</td><td>Onshore</td><td>1</td><td>Full</td><td>0-2</td><td>PS</td></tr>
+            <tr><td>Functional Consultant (volume)</td><td>Regular</td><td>Offshore</td><td>1</td><td>Full</td><td>1-4</td><td>PS</td></tr>
+            <tr><td>Developer (caminho crítico)</td><td>Sênior</td><td>Onshore</td><td>1</td><td>Full</td><td>1-3</td><td>PS</td></tr>
+            <tr><td>Developer (pod de build)</td><td>Regular</td><td>Offshore</td><td>3</td><td>Full</td><td>1-4</td><td>PS</td></tr>
+            <tr><td>Quality Assurance (estratégia/auditoria)</td><td>Sênior</td><td>Onshore</td><td>1</td><td>Full</td><td>1-4</td><td>PS</td></tr>
+            <tr><td>Quality Assurance (execução)</td><td>Regular</td><td>Offshore</td><td>2</td><td>Full</td><td>2-4</td><td>PS</td></tr>
+            <tr><td>Change &amp; Adoption</td><td>Regular</td><td>Onshore</td><td>1</td><td>Full</td><td>3-4</td><td>PS</td></tr>
+            <tr><td>Product Owner/Decision-maker</td><td>Regular</td><td>Onshore</td><td>1</td><td>Half</td><td>0-4</td><td>Cliente</td></tr>
+            <tr><td>Functional Consultant (SME C2C)</td><td>Regular</td><td>Onshore</td><td>1</td><td>Quarter</td><td>1-2</td><td>Cliente</td></tr>
+            <tr><td>Functional Consultant (SME UBA)</td><td>Regular</td><td>Onshore</td><td>1</td><td>Quarter</td><td>2-3</td><td>Cliente</td></tr>
+            <tr><td>Change &amp; Adoption (Data Steward)</td><td>Regular</td><td>Onshore</td><td>1</td><td>Quarter</td><td>1,4</td><td>Cliente</td></tr>
+            <tr><td>Technical Architect (IT liaison)</td><td>Regular</td><td>Onshore</td><td>1</td><td>Quarter</td><td>0-1</td><td>Cliente</td></tr>
+            <tr><td>Quality Assurance (amostra UAT)</td><td>Regular</td><td>Onshore</td><td>1</td><td>Quarter</td><td>4</td><td>Cliente</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h3 style="margin-top:var(--space-lg); margin-bottom:var(--space-sm);">AI-native (piso de accountability core + 5 ajustes de delta)</h3>
+    <div class="sz-card">
+      <p>Piso presente: Program Lead ✓, Intent Architect ✓, Agent Orchestrator ✓ (Technical Architect — escolhido pela complexidade de governança/auditoria estadual), Adoption Architect ✓ (ganho pelo escopo real de G0515). Nenhuma accountability core ausente.</p>
+    </div>
+    <div class="sz-card" data-shot>
+      <div class="sz-table-wrap">
+        <table class="sz-table">
+          <thead><tr><th>Papel (rótulo AI-native)</th><th>Senioridade</th><th>Local</th><th>Qtd</th><th>Alocação</th><th>Fases</th><th>Lado</th></tr></thead>
+          <tbody>
+            <tr><td>Program Lead</td><td>Sênior</td><td>Onshore</td><td>1</td><td>Full</td><td>0-4</td><td>PS</td></tr>
+            <tr><td>Intent Architect</td><td>Sênior</td><td>Onshore</td><td>1</td><td>Full</td><td>0-4</td><td>PS</td></tr>
+            <tr><td>Agent Orchestrator</td><td>Sênior</td><td>Onshore</td><td>1</td><td>Full</td><td>1-4</td><td>PS</td></tr>
+            <tr><td>Adoption Architect</td><td>Regular</td><td>Onshore</td><td>1</td><td>Full</td><td>3-4</td><td>PS</td></tr>
+            <tr><td>Logic &amp; Integration Engineer</td><td>Sênior</td><td>Onshore</td><td>1</td><td>Full</td><td>1-4</td><td>PS</td></tr>
+            <tr><td>Functional Consultant (agent-assisted)</td><td>Regular</td><td>Offshore</td><td>1</td><td>Half</td><td>1-2</td><td>PS</td></tr>
+            <tr><td>Logic Validator</td><td>Sênior</td><td>Onshore</td><td>1</td><td>Full</td><td>1-4</td><td>PS</td></tr>
+            <tr><td>Logic Validator (surge)</td><td>Regular</td><td>Offshore</td><td>1</td><td>Full</td><td>4</td><td>PS</td></tr>
+            <tr><td>Product Owner/Decision-maker</td><td>Regular</td><td>Onshore</td><td>1</td><td>Half</td><td>0-4</td><td>Cliente</td></tr>
+            <tr><td>Functional Consultant (SME C2C)</td><td>Regular</td><td>Onshore</td><td>1</td><td>Quarter</td><td>1-2</td><td>Cliente</td></tr>
+            <tr><td>Functional Consultant (SME UBA)</td><td>Regular</td><td>Onshore</td><td>1</td><td>Quarter</td><td>2-3</td><td>Cliente</td></tr>
+            <tr><td>Change &amp; Adoption (Data Steward)</td><td>Regular</td><td>Onshore</td><td>1</td><td>Quarter</td><td>1,4</td><td>Cliente</td></tr>
+            <tr><td>Technical Architect (IT liaison)</td><td>Regular</td><td>Onshore</td><td>1</td><td>Quarter</td><td>0-1</td><td>Cliente</td></tr>
+            <tr><td>Quality Assurance (amostra UAT)</td><td>Regular</td><td>Onshore</td><td>1</td><td>Quarter</td><td>4</td><td>Cliente</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="sz-card">
+      <p><strong>O que muda vs. traditional/augmented</strong>: o pod de 3 Developers offshore colapsa para 1 senior dirigindo agentes (volume → agentes, não corpos); QA permanece amplificada por agentes, nunca substituída, com surge na Fase 4; sequenciamento multiplica a cobertura sênior (mesmo número de "cabeças core", mais escopo coberto por cada uma).</p>
+    </div>
+  </section>
+
+  <section id="leitura-equipe" class="sz-section">
+    <div class="sz-section-eyebrow">Leitura qualitativa</div>
+    <h2 class="sz-section-title">Leitura de equipe (sem FTE numérico)</h2>
+    <div class="sz-card">
+      <p>Não há <code>user_commitment</code> de semanas — apenas a faixa derivada (16-30 semanas) — e <code>derive-hours.py</code> corretamente se recusa a derivar horas/FTE de uma faixa, só de um compromisso. Inventar um número aqui violaria a mesma regra.</p>
+      <p>Leitura qualitativa aprovada pelo Solution Lead: lane traditional/augmented soma <strong>10 papéis PS</strong> (pico de ~7-8 pessoas simultâneas nas Fases 1-3, incluindo o pod de 3 Developers offshore) + <strong>6 papéis client-side</strong>. Lane AI-native cai para <strong>8 papéis PS</strong> (pico de ~5-6 pessoas) com o pod de Developers colapsado de 3 para 1 sênior amplificado por agentes. Um FTE numérico real fica disponível se/quando o DER/PRODESP comprometer um número de semanas (<code>roadmap</code> Step 0.6).</p>
+    </div>
+  </section>
+
+  <section id="commercials" class="sz-section">
+    <div class="sz-section-eyebrow">Rates validadas · 2026-09-17</div>
+    <h2 class="sz-section-title">Approved Commercials</h2>
+
+    <div class="sz-card">
+      <p>Rates fornecidas e validadas pelo usuário em 2026-09-17, a partir da tabela oficial de rates PS LATAM (não específica deste projeto — reaproveitada por decisão explícita do usuário). Valores COM imposto (sem imposto ÷ 0,9345). Moeda: <strong>BRL</strong> (assumida a partir da tabela de origem e do fato de o cliente ser uma entidade estadual paulista — não confirmada em USD).</p>
+    </div>
+
+    <h3 style="margin-top:var(--space-lg); margin-bottom:var(--space-sm);">Rates aplicadas (R$/hora, com imposto)</h3>
+    <div class="sz-card" data-shot>
+      <div class="sz-table-wrap">
+        <table class="sz-table">
+          <thead><tr><th>Bucket</th><th>Cobre</th><th>Rate/h</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Architect-class sênior onshore</td>
+              <td>PM, Solution Architect, Technical Architect · Program Lead, Intent Architect, Agent Orchestrator (AI-native)</td>
+              <td class="sz-num"><strong>R$ 946,69</strong></td>
+            </tr>
+            <tr>
+              <td>Entrega sênior onshore, ou qualquer papel offshore regular</td>
+              <td>Functional Consultant/Developer/QA sênior onshore · Functional Consultant/Developer/QA regular offshore · Logic &amp; Integration Engineer, Logic Validator (AI-native)</td>
+              <td class="sz-num"><strong>R$ 715,66</strong></td>
+            </tr>
+            <tr>
+              <td>Change &amp; Adoption regular onshore</td>
+              <td>Change &amp; Adoption · Adoption Architect (AI-native)</td>
+              <td class="sz-num"><strong>R$ 614,21</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h3 style="margin-top:var(--space-lg); margin-bottom:var(--space-sm);">Faixa indicativa de preço por lane</h3>
+    <div class="sz-card">
+      <p style="font-size:14px; color:var(--sf-text-weak);">Σ(count × alocação × rate) × 40h × faixa de duração da própria lane — faixa "honestamente larga", sem descontar por <code>phases_active</code>.</p>
+    </div>
+    <div class="sz-card" data-shot>
+      <div class="sz-table-wrap">
+        <table class="sz-table">
+          <thead><tr><th>Lane</th><th>Duração</th><th>Faixa indicativa (BRL)</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Traditional</strong> (âncora)</td>
+              <td class="sz-num">16-30 semanas</td>
+              <td class="sz-num"><strong>R$ 6.332.940,80 – R$ 11.874.264,00</strong></td>
+            </tr>
+            <tr>
+              <td><strong>Augmented</strong></td>
+              <td class="sz-num">14-25 semanas</td>
+              <td class="sz-num"><strong>R$ 5.541.323,20 – R$ 9.895.220,00</strong></td>
+            </tr>
+            <tr>
+              <td><strong>AI-native</strong> (condicional)</td>
+              <td class="sz-num">10-18 semanas</td>
+              <td class="sz-num"><strong>R$ 2.383.636,00 – R$ 4.290.544,80</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="sz-disclaimer">
+      <div class="sz-disclaimer-label">Disclaimer — Rate Validada</div>
+      <p>Esta faixa é baseada nas rates de R$946,69/h (architect-class sênior onshore), R$715,66/h (entrega sênior onshore/qualquer offshore regular) e R$614,21/h (change &amp; adoption regular onshore) que você forneceu e validou em 2026-09-17. Indicativo para planejamento apenas; a estrutura comercial final é confirmada através do acordo comercial aplicável.</p>
+    </div>
+
+    <div class="sz-card">
+      <p>A faixa AI-native permanece condicional ao gate de qualificação (nenhum sponsor executivo nomeado, mandato AI-first ainda não assumido) — é um motivador ("se você se comprometer com este modelo de trabalho, esta seria a faixa de investimento"), nunca uma entrega comprometida sem nomear o compromisso.</p>
+      <p>Este é um preço <strong>indicativo</strong>, não custo/margem, e não uma proposta de fixed fee — o número que sai daqui é o que o cliente é cobrado (bill rate), nunca o que a entrega custa internamente.</p>
+    </div>
+
+    <div class="sz-disclaimer">
+      <div class="sz-disclaimer-label">Disclaimer — Benchmark</div>
+      <p>Esta comparação é benchmark-based, derivada dos dados de treinamento do modelo e padrões gerais de entrega (não validado pela Salesforce) — não é um compromisso. Faixas de duração e a faixa AI-native carregam a incerteza herdada de <code>confidence: Assumed</code> em todos os 5 épicos.</p>
+    </div>
+  </section>
+
+  <!-- Export-back-to-text: copies the whole artifact as plain text for pasting back into a chat. -->
+  <div class="sz-export">
+    <button class="sz-cta" onclick="copyText()">⧉ Copiar como texto</button>
+  </div>
+
+</main>
+
+<footer class="sz-footer">
+  Gerado em 2026-09-17 23:37 — documento interno
+</footer>
+
+<script>
+  // Export-back-to-text — lift the rendered artifact back into a conversation.
+  async function copyText(){
+    try { await navigator.clipboard.writeText(document.querySelector('main').innerText);
+          event.target.textContent='✓ Copiado'; }
+    catch(e){ event.target.textContent='✗ Selecione manualmente'; }
+    setTimeout(function(){ event.target.textContent='⧉ Copiar como texto'; }, 2200);
+  }
+</script>
+<!-- canonical source: shells/copy-as-image.html — copy-as-image control (verbatim) -->
+<script>
+  async function nodeToPngBlob(node){
+    var r = node.getBoundingClientRect(), w = Math.ceil(r.width), h = Math.ceil(r.height), scale = 2;
+    var clone = node.cloneNode(true), src = node.querySelectorAll('*'), dst = clone.querySelectorAll('*');
+    inlineStyle(node, clone);
+    for (var i=0;i<src.length;i++) inlineStyle(src[i], dst[i]);
+    clone.style.margin = '0';
+    var xml = new XMLSerializer().serializeToString(clone);
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'">'
+            + '<foreignObject width="100%" height="100%">'
+            + '<div xmlns="http://www.w3.org/1999/xhtml">'+xml+'</div>'
+            + '</foreignObject></svg>';
+    var img = new Image();
+    await new Promise(function(res,rej){
+      img.onload = res; img.onerror = rej;
+      img.src = 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+    });
+    var c = document.createElement('canvas'); c.width = w*scale; c.height = h*scale;
+    var ctx = c.getContext('2d'); ctx.scale(scale,scale);
+    ctx.fillStyle = '#fff'; ctx.fillRect(0,0,w,h); ctx.drawImage(img,0,0);
+    return await new Promise(function(res){ c.toBlob(res,'image/png'); });
+  }
+  function inlineStyle(from,to){
+    var cs = getComputedStyle(from), s = '';
+    for (var i=0;i<cs.length;i++){ var p = cs[i]; s += p+':'+cs.getPropertyValue(p)+';'; }
+    to.setAttribute('style', s);
+  }
+  async function copyShot(node,btn){
+    var label = btn.textContent;
+    try{
+      var blob = await nodeToPngBlob(node);
+      if (navigator.clipboard && window.ClipboardItem){
+        await navigator.clipboard.write([new ClipboardItem({'image/png':blob})]);
+        btn.textContent = '✓ Copiado';
+      } else { throw new Error('no clipboard-image'); }
+    }catch(e){
+      try{
+        var blob2 = await nodeToPngBlob(node), a = document.createElement('a');
+        a.href = URL.createObjectURL(blob2); a.download = 'estimate-comparison.png'; a.click();
+        btn.textContent = '✓ Baixado';
+      }catch(e2){ btn.textContent = '✗ Tente printscreen'; }
+    }
+    setTimeout(function(){ btn.textContent = label; }, 2200);
+  }
+  document.querySelectorAll('[data-shot]').forEach(function(node){
+    var btn = document.createElement('button');
+    btn.className = 'shot-btn'; btn.textContent = '⧉ Copiar como imagem';
+    btn.addEventListener('click', function(){ copyShot(node, btn); });
+    node.appendChild(btn);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<!--
+  SCOPEZILLA BRAND KIT — DOC SHELL (scrollable, shareable page)
+  Artefato interno — PRODESP · DER-SP — Análise de Eficiência de Entrega IA
+  Gerado a partir de outputs/artifacts/efficiency-analysis.md (conteúdo preservado verbatim).
+  Sem co-branding de cliente (artefato interno).
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Análise de Eficiência — PRODESP · DER-SP</title>
+<style>
+  :root {
+    /* ── Core blues (everyday palette) ─────────────────────────────── */
+    --sf-navy:        #001E5B;   /* Electric Blue 15 — heritage navy, hero backgrounds */
+    --sf-type:        #002775;   /* Electric Blue 20 — body/heading type on light */
+    --sf-container:   #022AC0;   /* Electric Blue 30 — filled containers, table headers */
+    --sf-blue:        #066AFE;   /* Electric Blue 50 — secondary elements, highlights, CTAs */
+    --sf-cloud:       #00B3FF;   /* Cloud Blue 68 — "Salesforce Blue" accent */
+    --sf-cloud-80:    #90D0FE;   /* Cloud Blue 80 — tints, borders */
+    --sf-bg:          #CFE9FE;   /* Cloud Blue 90 — page background */
+    --sf-light-bg:    #EAF5FE;   /* Cloud Blue 95 — white-adjacent bg, alt rows */
+    --sf-text:        #002775;   /* default text = Electric Blue 20 */
+    --sf-text-weak:   #4A5578;   /* muted metadata — passes AA on white/light-bg */
+
+    /* ── Extended palette (categorical / data-viz / severity accents) ── */
+    --ext-teal:       #06A59A;  --ext-teal-80: #04E1CB;  --ext-teal-95:   #DEF9F3;
+    --ext-yellow:     #FCC003;  --ext-yellow-70: #E4A201; --ext-yellow-95: #FBF3E0;
+    --ext-pink:       #FF538A;  --ext-pink-40: #B60554;  --ext-pink-95:   #FEF0F3;
+    --ext-violet:     #D17DFE;  --ext-violet-30: #730394; --ext-violet-95: #F9F0FF;
+
+    /* ── Semantic status (traffic-light: scope in/at-risk/out, on-track/late).
+       Distinct from the severity .sz-tag family above — always pair with a label. */
+    --sf-ok:      #2E844A;  --sf-ok-bg:      #EAFCE9;
+    --sf-warn:    #DD7A01;  --sf-warn-bg:    #FFF7E6;
+    --sf-bad:     #BA0517;  --sf-bad-bg:     #FDECEB;
+    --sf-neutral: #94A3B3;  --sf-neutral-bg: #F3F6FA;
+
+    /* ── Client co-brand accent (unused — internal artifact, no co-brand) ── */
+    --client-primary: #066AFE;   /* default = Electric Blue 50 */
+    --client-dark:    #022AC0;
+
+    /* ── Typography ────────────────────────────────────────────────── */
+    --font-heading: 'ITC Avant Garde Gothic Demi', 'Avant Garde', 'Century Gothic',
+                    'Salesforce Sans', 'Source Sans 3', Arial, sans-serif;
+    --font-body:    'Salesforce Sans', 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+    --fs-title: 54px; --fs-subtitle: 36px; --fs-l1: 30px; --fs-cat: 26px;
+    --fs-l2: 24px; --fs-desc: 22px; --fs-body: 16px;
+
+    /* ── Spacing / radius / shadow ─────────────────────────────────── */
+    --space-xs: 4px;  --space-sm: 8px;  --space-md: 16px;
+    --space-lg: 24px; --space-xl: 32px; --space-2xl: 48px;
+    --radius-sm: 4px; --radius-md: 8px; --radius-lg: 16px;
+    --shadow-brand: 2.6px 9.7px 25px rgba(6,106,254,0.15);
+  }
+
+  /* ── Base ─────────────────────────────────────────────────────────── */
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:var(--font-body); color:var(--sf-text); background:var(--sf-light-bg);
+         -webkit-font-smoothing:antialiased; line-height:1.55; }
+  h1,h2,h3,.sz-title,.sz-stat-num { font-family:var(--font-heading); color:var(--sf-navy); line-height:1.15; }
+  a { color:var(--sf-blue); }
+  :focus-visible { outline:3px solid var(--sf-blue); outline-offset:2px; border-radius:2px; }
+  @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none !important; transition:none !important; scroll-behavior:auto !important; } }
+
+  /* ── Section header ───────────────────────────────────────────────── */
+  .sz-section { margin:var(--space-2xl) 0; }
+  .sz-section-eyebrow { font-family:var(--font-heading); font-size:12px; font-weight:700;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--sf-blue); margin-bottom:var(--space-xs); }
+  .sz-section-title { font-size:var(--fs-cat); margin-bottom:var(--space-md); }
+
+  /* ── Card (white on light bg → brand shadow) ──────────────────────── */
+  .sz-card { background:#fff; border-radius:var(--radius-md); padding:var(--space-lg);
+    box-shadow:var(--shadow-brand); }
+  .sz-card + .sz-card { margin-top:var(--space-md); }
+  .sz-card h3 { font-size:18px; margin-bottom:var(--space-sm); }
+  .sz-card ul, .sz-card ol { margin-left:1.2em; margin-top:var(--space-sm); }
+  .sz-card li { margin-bottom:var(--space-xs); }
+  .sz-card p + p { margin-top:var(--space-sm); }
+
+  /* ── Stat tile / KPI ──────────────────────────────────────────────── */
+  .sz-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:var(--space-md); }
+  .sz-stat { background:#fff; border-radius:var(--radius-md); padding:var(--space-lg) var(--space-md);
+    text-align:center; box-shadow:var(--shadow-brand); }
+  .sz-stat-num { font-size:38px; color:var(--client-primary); }
+  .sz-stat-lbl { font-size:14px; color:var(--sf-text-weak); margin-top:var(--space-xs); }
+
+  /* ── Table (zebra, brand header) ──────────────────────────────────── */
+  .sz-table { width:100%; border-collapse:collapse; background:#fff; border-radius:var(--radius-md);
+    overflow:hidden; box-shadow:var(--shadow-brand); }
+  .sz-table th { background:var(--sf-container); color:#fff; font-family:var(--font-heading);
+    text-align:left; padding:var(--space-sm) var(--space-md); font-size:14px; }
+  .sz-table td { padding:var(--space-sm) var(--space-md); border-top:1px solid var(--sf-light-bg); vertical-align:top; }
+  .sz-table tbody tr:nth-child(even) { background:var(--sf-light-bg); }
+
+  /* ── Tag (never color alone — always carries a label) ─────────────── */
+  .sz-tag { display:inline-block; font-size:12px; font-weight:700; padding:2px 10px;
+    border-radius:999px; line-height:1.6; }
+  .sz-tag--critical { background:var(--ext-pink-95);   color:var(--ext-pink-40); }
+  .sz-tag--high     { background:var(--ext-yellow-95); color:var(--ext-yellow-70); }
+  .sz-tag--medium   { background:var(--ext-yellow-95); color:var(--ext-yellow-70); }
+  .sz-tag--low      { background:var(--ext-teal-95);   color:var(--ext-teal); }
+  .sz-tag--info     { background:var(--sf-light-bg);   color:var(--sf-blue); }
+  .sz-tag--sz-s  { background:var(--sf-light-bg); color:var(--sf-blue); }
+  .sz-tag--sz-m  { background:#DCEBFF;            color:var(--sf-blue); }
+  .sz-tag--sz-l  { background:var(--sf-cloud);    color:var(--sf-navy); }
+  .sz-tag--sz-xl { background:var(--sf-container); color:#fff; }
+
+  /* ── TL;DR / callout box ──────────────────────────────────────────── */
+  .sz-tldr { background:var(--sf-light-bg); border-left:4px solid var(--sf-blue);
+    border-radius:var(--radius-sm); padding:var(--space-md) var(--space-lg); margin:var(--space-lg) 0; }
+  .sz-tldr-label { font-family:var(--font-heading); font-size:12px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--sf-blue); margin-bottom:var(--space-xs); }
+  .sz-tldr ul { margin-left:1.2em; margin-top:var(--space-sm); }
+  .sz-tldr li { margin-bottom:var(--space-xs); }
+
+  /* ── Chip row ─────────────────────────────────────────────────────── */
+  .sz-chips { display:flex; flex-wrap:wrap; gap:var(--space-xs); }
+  .sz-chip { background:var(--sf-light-bg); color:var(--sf-container); border:1px solid var(--sf-cloud-80);
+    border-radius:999px; padding:4px 12px; font-size:13px; }
+
+  /* ── CTA button ───────────────────────────────────────────────────── */
+  .sz-cta { display:inline-block; background:var(--sf-blue); color:#fff; font-family:var(--font-heading);
+    text-decoration:none; padding:var(--space-sm) var(--space-lg); border-radius:999px;
+    box-shadow:var(--shadow-brand); border:none; cursor:pointer; }
+
+  /* ── Panorama (THE brand signature — use ONCE per artifact) ───────── */
+  .sz-panorama { position:relative; background:var(--sf-cloud); color:var(--sf-navy);
+    padding:var(--space-2xl) var(--space-xl); text-align:center;
+    border-radius:var(--radius-lg); box-shadow:var(--shadow-brand); overflow:hidden; }
+  .sz-panorama--navy { background:linear-gradient(135deg,var(--sf-navy),var(--sf-container)); color:#fff; }
+  .sz-panorama h2 { color:inherit; margin-bottom:var(--space-sm); }
+
+  /* ── Copy-as-image control (canonical: shells/copy-as-image.html) ──── */
+  .shot-btn{position:absolute;top:14px;right:16px;font-size:11px;font-weight:600;color:var(--sf-blue);background:#fff;border:1px solid var(--sf-cloud-80);border-radius:5px;padding:4px 9px;cursor:pointer;z-index:2}
+  .shot-btn:hover{background:var(--sf-light-bg)}
+  [data-shot]{background:#fff; position:relative;}
+  @media print{ .shot-btn,.sz-export{display:none} }
+
+  /* ── Doc-shell layout (specific to this format) ───────────────────── */
+  .sz-wrap { max-width:960px; margin:0 auto; padding:var(--space-2xl) var(--space-lg); }
+  .sz-hero { background:var(--sf-navy); color:#fff; padding:var(--space-2xl) var(--space-lg); }
+  .sz-hero h1 { color:#fff; font-size:var(--fs-subtitle); }
+  .sz-hero p  { color:var(--sf-cloud-80); margin-top:var(--space-sm); }
+  .sz-nav { position:sticky; top:0; background:rgba(255,255,255,.92); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--sf-cloud-80); padding:var(--space-sm) var(--space-lg); z-index:10; }
+  .sz-nav a { font-size:14px; margin-right:var(--space-md); text-decoration:none; color:var(--sf-container); }
+  .sz-export { text-align:center; margin:var(--space-2xl) 0 var(--space-lg); }
+  html { scroll-behavior:smooth; }
+  section { scroll-margin-top:56px; }
+
+  .sz-source-note { font-size:13px; color:var(--sf-text-weak); font-style:italic; }
+  .sz-footer { text-align:center; padding:var(--space-lg); color:var(--sf-text-weak); font-size:13px;
+    border-top:1px solid var(--sf-cloud-80); background:#fff; }
+  .sz-refs { font-size:13px; color:var(--sf-text-weak); }
+</style>
+</head>
+<body>
+
+<header class="sz-hero">
+  <div class="sz-wrap" style="padding-top:0;padding-bottom:0;">
+    <h1>Análise de Eficiência — PRODESP · DER-SP</h1>
+    <p>AI Delivery Efficiency Analysis · Field Service + Agentforce · Documento interno · Gerado em 17/09/2026 às 23:37</p>
+  </div>
+</header>
+
+<nav class="sz-nav" aria-label="Navegação por seções">
+  <a href="#so-what">So What</a>
+  <a href="#headline">Headline</a>
+  <a href="#cenarios">Cenários de Client-Readiness</a>
+  <a href="#categorias">Por Categoria</a>
+  <a href="#nao-ajuda">Onde a IA não ajuda</a>
+  <a href="#assumptions">Premissas e Ressalvas</a>
+</nav>
+
+<main class="sz-wrap">
+
+  <!-- So What -->
+  <section id="so-what" class="sz-section">
+    <div class="sz-section-eyebrow">So What</div>
+    <div class="sz-tldr">
+      <div class="sz-tldr-label">TL;DR</div>
+      <p><strong>~10-18% de eficiência de entrega realizada em readiness Low.</strong> Um ganho de ritmo e qualidade dentro da mesma forma de equipe — não redução de headcount, não é insumo de precificação.</p>
+    </div>
+
+    <div class="sz-card">
+      <h3>Onde os ganhos aparecem neste projeto</h3>
+      <ul>
+        <li><strong>Documentation &amp; Knowledge Management</strong> (~11-20%): especificações de payload SIGOR/SIGEO (E02) e a documentação de segurança do token de guest (E05) — o rascunho comprime bem, mas o sign-off multi-organizacional mantém a revisão em ritmo humano.</li>
+        <li><strong>Technical Engineering &amp; QA</strong> (~8-16%): integração dupla SIGOR/SIGEO (E02) e motor de despacho/escalonamento (E03) — geração de código e dados de teste acelera, mas a revisão sobre specs legadas não confirmadas limita o ganho.</li>
+        <li><strong>Analysis &amp; Design</strong> (~8-16%): fluxos de triagem do Agentforce (E01) e lógica de escalonamento N/N-10 (E03) — rascunho rápido, refinamento com stakeholders permanece humano.</li>
+      </ul>
+    </div>
+
+    <div class="sz-card">
+      <p><strong>Onde a IA não ajuda</strong>: resolução de gaps bloqueadores com DER/Stefanini (G0305, G0309, G0517) — decisão formal entre três organizações — mais o trabalho de alinhamento de stakeholders e conflito, que seguem 100% humanos.</p>
+      <p><strong>Para subir para readiness High (~18-22%)</strong>: resolver LGPD/DPIA e a trilha de auditoria de overrides (G0305), definir política de uso de IA para dados sensíveis do canal de emergência, reduzir camadas de aprovação entre DER/PRODESP/Stefanini.</p>
+    </div>
+  </section>
+
+  <!-- Headline -->
+  <section id="headline" class="sz-section">
+    <div class="sz-section-eyebrow">Headline</div>
+    <h2 class="sz-section-title">Números-chave</h2>
+
+    <div class="sz-stats">
+      <div class="sz-stat"><div class="sz-stat-num">~10-18%</div><div class="sz-stat-lbl">Realizado (readiness Low)</div></div>
+      <div class="sz-stat"><div class="sz-stat-num">~30-45%</div><div class="sz-stat-lbl">Blend em nível de tarefa</div></div>
+      <div class="sz-stat"><div class="sz-stat-num">0,30-0,40</div><div class="sz-stat-lbl">Fator de realização</div></div>
+      <div class="sz-stat"><div class="sz-stat-num"><span class="sz-tag sz-tag--info">Assumed</span></div><div class="sz-stat-lbl">Confiança</div></div>
+    </div>
+
+    <div class="sz-card" style="margin-top:var(--space-md);">
+      <p><strong>Realizado: ~10-18%</strong> (readiness Low) · <strong>Blend em nível de tarefa: ~30-45%</strong> · <strong>Fator de realização: 0,30-0,40</strong> — perfil misto entre "config+dev customizado" e "setor regulado/legado pesado", puxado para baixo pela auditoria em aberto e pelas integrações SIGOR/SIGEO sem spec confirmado · <strong>Confiança: Assumed</strong></p>
+      <p style="margin-top:var(--space-md);"><strong>Faixa AI-native (condicional, não qualificada): ~35-40%</strong> — motivador, não um número alcançável hoje. Depende de um compromisso operacional (decisão diária, donos de negócio empoderados, mandato AI-first) que o DER/PRODESP ainda não assumiu — a cadeia de decisão DER→PRODESP→Stefanini e a ausência de um sponsor executivo nomeado são os sinais que mantêm este gate fechado.</p>
+    </div>
+  </section>
+
+  <!-- Cenários de Client-Readiness -->
+  <section id="cenarios" class="sz-section">
+    <div class="sz-section-eyebrow">Cenários</div>
+    <h2 class="sz-section-title">Cenários de Client-Readiness</h2>
+
+    <div class="sz-card" data-shot>
+      <table class="sz-table">
+        <thead>
+          <tr><th>Cenário</th><th>Faixa Realizada</th><th>Notas</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Low readiness (atual: ✓)</td>
+            <td>~7-11%</td>
+            <td>Estado atual — ganhos modestos até a cadeia DER→PRODESP→Stefanini amadurecer e a postura de dados ser resolvida.</td>
+          </tr>
+          <tr>
+            <td>Mid readiness</td>
+            <td>~10-16%</td>
+            <td>Faixa base se a cadência de decisão e a postura de dados melhorarem moderadamente.</td>
+          </tr>
+          <tr>
+            <td>High readiness</td>
+            <td>~18-22%</td>
+            <td>Favorece a ponta alta com cadência ágil e ambiente de integração maduro — improvável no perfil atual de contratação pública.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top:var(--space-md);"><strong>Cenário atual</strong>: <span class="sz-tag sz-tag--high">Low</span> (score 2/8)</p>
+
+    <div class="sz-card" style="margin-top:var(--space-md);">
+      <h3>Sinais por trás do score</h3>
+      <ul>
+        <li><strong>Postura de ferramentas de IA</strong>: 1/2 — nenhuma menção a política de uso de IA/ferramentas aprovadas na discovery do DER/PRODESP.</li>
+        <li><strong>Velocidade de entrega</strong>: 0/2 — cadeia de decisão DER→PRODESP→Stefanini, Opportunity em Stage 02-Scoping, ciclo formal de contratação pública.</li>
+        <li><strong>Higiene de dados e ambiente</strong>: 1/2 — org Salesforce greenfield, mas duas integrações legadas (SIGOR, SIGEO) com payload/API ainda não confirmado.</li>
+        <li><strong>Postura legal/segurança/compliance</strong>: 0/2 — nenhuma discussão formal de LGPD/DPIA registrada; trilha de auditoria de overrides (G0305) permanece gap aberto.</li>
+      </ul>
+    </div>
+
+    <div class="sz-card">
+      <h3>O que é preciso para subir</h3>
+      <ul>
+        <li><strong>Low → Mid</strong>: resolver LGPD/DPIA e G0305; definir política de uso de IA para dados sensíveis; reduzir camadas de aprovação DER/PRODESP/Stefanini.</li>
+        <li><strong>Mid → High</strong>: aprovar ferramentas de IA para uso em IDE/documentação; fechar a spec SIGOR/SIGEO.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Por Categoria -->
+  <section id="categorias" class="sz-section">
+    <div class="sz-section-eyebrow">Por Categoria</div>
+    <h2 class="sz-section-title">Por Categoria</h2>
+
+    <div class="sz-card">
+      <h3>Technical Engineering &amp; QA — realizado ~8-16% (nível de tarefa ~25-40%)</h3>
+      <p><strong>Épicos que impulsionam</strong>: E02 (L), E03 (L), E04 (L)</p>
+      <p><strong>Como aparece aqui</strong>: Na integração dupla SIGOR/SIGEO (E02) e no motor de despacho/escalonamento (E03), a IA acelera geração de código e dados de teste, mas a revisão sobre duas specs de payload legado ainda não confirmadas limita o ganho realizado <sup>[1]</sup>.</p>
+    </div>
+
+    <div class="sz-card">
+      <h3>Analysis &amp; Design — realizado ~8-16% (nível de tarefa ~25-40%)</h3>
+      <p><strong>Épicos que impulsionam</strong>: E01 (M), E03 (L)</p>
+      <p><strong>Como aparece aqui</strong>: Rascunhar os fluxos de triagem do Agentforce (E01) e a lógica de escalonamento N/N-10 (E03) comprime bem, mas o refinamento com stakeholders sobre o valor de N e a trilha de auditoria (G0305) permanece 100% humano <sup>[2]</sup>.</p>
+    </div>
+
+    <div class="sz-card">
+      <h3>Documentation &amp; Knowledge Management — realizado ~11-20% (nível de tarefa ~35-50%)</h3>
+      <p><strong>Épicos que impulsionam</strong>: E02 (L), E05 (L)</p>
+      <p><strong>Como aparece aqui</strong>: As especificações de payload de integração (E02) e a documentação de segurança do token de guest (E05) compressam bem no rascunho, mas a cadeia de aprovação DER/PRODESP/Stefanini mantém a revisão final em ritmo humano <sup>[7]</sup>.</p>
+    </div>
+
+    <div class="sz-card">
+      <h3>Project Management &amp; Operations — realizado ~8-14% (nível de tarefa ~25-35%)</h3>
+      <p><strong>Épicos que impulsionam</strong>: E02 (L), E03 (L)</p>
+      <p><strong>Como aparece aqui</strong>: Um programa de 5 fases cobrindo 14 CGRs e três organizações gera carga alta de coordenação; a IA rascunha status e notas de reunião, mas o alinhamento real sobre G0305/G0309 continua humano.</p>
+    </div>
+  </section>
+
+  <!-- Onde a IA não ajuda -->
+  <section id="nao-ajuda" class="sz-section">
+    <div class="sz-section-eyebrow">Limites</div>
+    <h2 class="sz-section-title">Onde a IA não ajuda</h2>
+    <div class="sz-card">
+      <ul>
+        <li><strong>Project Pulse Reports</strong> — trabalho de construção de confiança que a IA pode resumir, mas não conduzir.</li>
+        <li><strong>Stakeholder Alignment</strong> — negociação humano-a-humano; a IA rascunha posições, pessoas decidem.</li>
+        <li><strong>Conflict Resolution</strong> — julgamento humano.</li>
+        <li><strong>Resolução de gaps bloqueadores com DER/Stefanini (G0305, G0309, G0517)</strong> — exige decisão formal entre três organizações; a IA prepara a pauta, não decide.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Assumptions & Caveats -->
+  <section id="assumptions" class="sz-section">
+    <div class="sz-section-eyebrow">Premissas e Ressalvas</div>
+    <h2 class="sz-section-title">Assumptions &amp; Caveats</h2>
+    <div class="sz-card">
+      <ul class="sz-refs">
+        <li>Benchmarks extraídos de dados publicados 2022-2026 (Peng et al./GitHub 2022, Paradis et al./Google 2024, METR 2025, DORA 2024-2025, McKinsey 2025, GitClear 2025, Stanford HAI AI Index 2026) mais observações internas da Salesforce <sup>[1][2][7]</sup>.</li>
+        <li>Todos os 5 épicos carregam <code>confidence: Assumed</code> em <code>estimates.json</code> — amplia a incerteza em ambas as direções.</li>
+        <li>Bandas são qualitativas e específicas do projeto, não garantias. Nenhuma implicação de horas, FTE ou custo é computada ou implícita.</li>
+        <li>O gap de percepção é real — equipes frequentemente se sentem mais rápidas do que os ganhos medidos confirmam (METR 2025).</li>
+        <li>A faixa AI-native (~35-40%) é condicional e provisória — depende de um compromisso operacional que o DER/PRODESP ainda não assumiu.</li>
+      </ul>
+    </div>
+
+    <div class="sz-tldr" style="border-left-color:var(--sf-navy); margin-top:var(--space-lg);">
+      <p class="sz-source-note">Esta análise é baseada em benchmark, derivada dos dados de treinamento do modelo e padrões gerais de entrega (não validado pela Salesforce) — não é um compromisso.</p>
+    </div>
+  </section>
+
+  <!-- Export-back-to-text: copies the whole artifact as plain text for pasting back into a chat. -->
+  <div class="sz-export">
+    <button class="sz-cta" onclick="copyText()">⧉ Copy as text</button>
+  </div>
+
+</main>
+
+<footer class="sz-footer">
+  Gerado em 17/09/2026 às 23:37 — documento interno
+</footer>
+
+<script>
+  // Export-back-to-text — lift the rendered artifact back into a conversation.
+  async function copyText(){
+    try { await navigator.clipboard.writeText(document.querySelector('main').innerText);
+          event.target.textContent='✓ Copied'; }
+    catch(e){ event.target.textContent='✗ Try selecting'; }
+    setTimeout(function(){ event.target.textContent='⧉ Copy as text'; }, 2200);
+  }
+</script>
+<!-- canonical source: shells/copy-as-image.html — copy-as-image control (verbatim) -->
+<script>
+  async function nodeToPngBlob(node){
+    var r = node.getBoundingClientRect(), w = Math.ceil(r.width), h = Math.ceil(r.height), scale = 2;
+    var clone = node.cloneNode(true), src = node.querySelectorAll('*'), dst = clone.querySelectorAll('*');
+    inlineStyle(node, clone);
+    for (var i=0;i<src.length;i++) inlineStyle(src[i], dst[i]);
+    clone.style.margin = '0';
+    var xml = new XMLSerializer().serializeToString(clone);
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'">'
+            + '<foreignObject width="100%" height="100%">'
+            + '<div xmlns="http://www.w3.org/1999/xhtml">'+xml+'</div>'
+            + '</foreignObject></svg>';
+    var img = new Image();
+    await new Promise(function(res,rej){
+      img.onload = res; img.onerror = rej;
+      img.src = 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+    });
+    var c = document.createElement('canvas'); c.width = w*scale; c.height = h*scale;
+    var ctx = c.getContext('2d'); ctx.scale(scale,scale);
+    ctx.fillStyle = '#fff'; ctx.fillRect(0,0,w,h); ctx.drawImage(img,0,0);
+    return await new Promise(function(res){ c.toBlob(res,'image/png'); });
+  }
+  function inlineStyle(from,to){
+    var cs = getComputedStyle(from), s = '';
+    for (var i=0;i<cs.length;i++){ var p = cs[i]; s += p+':'+cs.getPropertyValue(p)+';'; }
+    to.setAttribute('style', s);
+  }
+  async function copyShot(node,btn){
+    var label = btn.textContent;
+    try{
+      var blob = await nodeToPngBlob(node);
+      if (navigator.clipboard && window.ClipboardItem){
+        await navigator.clipboard.write([new ClipboardItem({'image/png':blob})]);
+        btn.textContent = '✓ Copied';
+      } else { throw new Error('no clipboard-image'); }
+    }catch(e){
+      try{
+        var blob2 = await nodeToPngBlob(node), a = document.createElement('a');
+        a.href = URL.createObjectURL(blob2); a.download = 'scopezilla-chart.png'; a.click();
+        btn.textContent = '✓ Downloaded';
+      }catch(e2){ btn.textContent = '✗ Try screenshot'; }
+    }
+    setTimeout(function(){ btn.textContent = label; }, 2200);
+  }
+  document.querySelectorAll('[data-shot]').forEach(function(node){
+    var btn = document.createElement('button');
+    btn.className = 'shot-btn'; btn.textContent = '⧉ Copy as image';
+    btn.addEventListener('click', function(){ copyShot(node, btn); });
+    node.appendChild(btn);
+  });
+</script>
+</body>
+</html>
