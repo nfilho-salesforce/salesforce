@@ -1,126 +1,212 @@
 # Outline de Apresentação — PRODESP · DER-SP
-*Gerado em 2026-09-17 23:54 -03*
+*Gerado em 2026-09-17 23:54 -03 · Revisado em 2026-09-18 (abertura de gaps/premissas, mapa de riscos, linha do tempo visual, roadmap de futuro, seção única de visão, change management aprofundado, investimento com entregáveis de escopo fechado)*
 
 ## Fundações Socráticas
 
 - **Objetivo real**: o cliente sai da apresentação com escopo alinhado (MVP, arquitetura, gaps/riscos, linha do tempo, capacidades/tecnologia, roadmap) e decide seguir com a Salesforce PS — a conclusão que buscamos é "eles entenderam o que a DER precisa."
 - **Audiência**: DER-SP / PRODESP / Stefanini — lideranças de processo e operação. Fluentes no processo de negócio de socorro rodoviário, já viram valor concreto na PoC de Cubatão/Taubaté. Não são técnicos de TI/plataforma.
-- **Fluência**: Parcialmente fluente — nomes de produto aparecem diretos (Field Service, Agentforce, Service Cloud, Experience Cloud), mas todo padrão interno (Skills, Service Territory, trilha de auditoria) é explicado em uma frase na primeira menção. Sem jargão Scopezilla (sem E01-E05 expostos como códigos — aparecem como nomes de capacidade).
+- **Fluência**: Parcialmente fluente — nomes de produto aparecem diretos (Field Service, Agentforce, Service Cloud, Experience Cloud), mas todo padrão interno (Skills, Service Territory, trilha de auditoria) é explicado em uma frase na primeira menção.
 - **Big Idea**: Este projeto leva o DER a uma nova fase de escalabilidade e inovação — coloca a tecnologia em prol dos processos e, no fim da linha, do cidadão na pista.
+- **Natureza contratual do ROM**: este é um documento de escopo/preço **fechado** (não time & material) — cada seção de escopo abaixo é, em conjunto, a lista de entregáveis que sustenta a validação da proposta, não uma faixa de horas a consumir.
 
-**Nomes de produto travados para o deck**: Field Service, Agentforce (Contact Center Enterprise), Service Cloud (escopado ao canal WhatsApp), Experience Cloud, WhatsApp. Buscarei consistência dos mesmos termos que já constam em `01-solution.md`/`executive-summary.md`.
+**Nomes de produto travados para o deck**: Field Service, Agentforce (Contact Center Enterprise), Service Cloud (escopado ao canal WhatsApp), Experience Cloud, WhatsApp.
 
 ## Cadeia Lógica e Tom
 
-- **Arco**: Situação Atual → Visão de Transformação → Caminho (arquitetura, MVP, roadmap, riscos administrados) → Fechamento com o Ask. Escolhido porque a audiência já acredita no valor (viu a PoC) — o trabalho da apresentação é provar que entendemos a escala real do problema e temos um caminho executável, não convencer do valor em si.
-- **Tom**: Autoritativo — direto, baseado em evidência, sem hedging — moderado por uma leitura de "parceria" na seção de change management (é uma jornada que a equipe de 1.152 operadores faz junto).
+- **Arco**: Situação Atual + Visão + Resultados (uma única leitura) → Caminho (arquitetura, MVP, capacidades, gaps abertos, riscos administrados) → Linha do tempo e roadmap que escala → Change Management → Fechamento com o Ask.
+- **Tom**: Autoritativo — direto, baseado em evidência, sem hedging — moderado por uma leitura de "parceria" na seção de change management (é uma jornada que a equipe de 1.152 operadores faz junto) e por transparência total nos gaps: abrimos o que assumimos, não só contamos.
 
 ---
 
 ## Slide 1 — Capa
 
 **Action Title**: PRODESP-DER: da PoC de Cubatão/Taubaté para uma nova fase de escala estadual
-**Motivo**: Ancora o Big Idea antes de qualquer dado — a audiência sabe onde a história termina antes de percorrer o caminho.
+**Motivo**: Ancora o Big Idea antes de qualquer dado.
 **Conteúdo**: Nome do programa · DER-SP · Field Service + Agentforce · data
 **Visual**: Capa limpa, wordmark + big idea como subtítulo
 **Densidade**: sparse
-**Fonte de dados**: `.project-metadata.json` (nome do projeto, produtos em escopo)
+**Fonte de dados**: `.project-metadata.json`
 
-## Slide 2 — Situação Atual
+## Slide 2 — Situação Atual, Visão de Transformação e Resultados de Valor
 
-**Action Title**: Hoje, o socorro na rodovia não tem um protocolo único do pedido ao encerramento
-**Motivo**: Estabelece a dor antes da visão — sem isso, "nova fase de inovação" é abstrato.
-**Conteúdo**: Atendimento fragmentado em chamados distintos (pedido/despacho/encerramento); sem identificador único; sem rastreamento em tempo real para o cidadão na pista; único canal hoje é a voz (0800) — WhatsApp existente pertence à ouvidoria, não ao socorro emergencial.
-**Visual**: Stat/quote dominante ("0 protocolo único") + 3 bullets de apoio
-**Densidade**: sparse
-**Fonte de dados**: `strategy.json.business_outcomes` (pain_removed de V1/V2), `executive-summary.md` Visão Geral
+**Action Title**: Do atendimento fragmentado a um protocolo único e rastreável — quatro resultados de valor já confirmados com o DER
+**Motivo**: O usuário pediu explicitamente que as três seções antes separadas (Situação Atual, Visão de Transformação, Resultados de Valor Confirmados) se tornem uma única leitura contínua — dor, visão e prova de valor lidas em sequência, sem quebra de página, porque a audiência já viu a PoC e não precisa de três momentos separados para se convencer.
+**Conteúdo** (três blocos em uma página):
+1. **Situação atual**: atendimento fragmentado em chamados distintos para pedido, despacho e encerramento; sem identificador único; sem rastreamento em tempo real para o cidadão na pista; único canal hoje é a voz (0800) — o WhatsApp existente pertence à ouvidoria, não ao socorro emergencial.
+2. **Visão de transformação**: protocolo único e rastreável do primeiro contato ao encerramento; despacho automático apoiado pelo Field Service; entrada pelo canal que o motorista já usa (voz ou WhatsApp); a escala real é 14 CGRs, não só o piloto.
+3. **Resultados de valor confirmados** (V1-V4, todos `confidence: Confirmed`): **V1** Protocolo único e rastreável do pedido ao encerramento · **V2** Canal digital complementar ao 0800 · **V3** Despacho automatizado com governança de exceção · **V4** Auditabilidade do ciclo de atendimento — cada um com a dor específica que remove.
+**Visual**: Três faixas horizontais empilhadas (Hoje → Visão → Prova), a terceira com 4 linhas categoria-chip (chip = V#, conteúdo = outcome + dor removida) — a leitura visual é uma progressão, não três slides colados.
+**Densidade**: dense
+**Fonte de dados**: `strategy.json.business_outcomes[]` (V1-V4), `strategy.json.transformation_strategy.vision_statement`, `executive-summary.md` Visão Geral.
 
-## Slide 3 — Visão de Transformação
-
-**Action Title**: A tecnologia a serviço do processo — e, no fim da linha, do cidadão na pista
-**Motivo**: É o Big Idea, dito uma vez de forma central e memorável antes de entrar em arquitetura/MVP.
-**Conteúdo**: Protocolo único e rastreável do primeiro contato ao encerramento; despacho automático apoiado pelo Field Service; entrada pelo canal que o motorista já usa (voz ou WhatsApp); a escala real é 14 CGRs, não só o piloto.
-**Visual**: Texto hero central, sem gráfico competindo
-**Densidade**: sparse
-**Fonte de dados**: `strategy.json.transformation_strategy.vision_statement`
-
-## Slide 4 — Resultados de Valor Confirmados
-
-**Action Title**: Quatro resultados de valor confirmados com o DER orientam todo o desenho da solução
-**Motivo**: Conecta a visão a compromissos concretos e verificáveis antes de mostrar arquitetura — mostra que entendemos o "porquê" tanto quanto o "o quê".
-**Conteúdo**: V1 Protocolo único e rastreável · V2 Canal digital complementar ao 0800 · V3 Despacho automatizado com governança de exceção · V4 Auditabilidade do ciclo de atendimento — cada um com a dor que remove.
-**Visual**: 4 linhas categoria-chip (chip = V#, conteúdo = outcome + dor removida)
-**Densidade**: balanced
-**Fonte de dados**: `strategy.json.business_outcomes[]` (V1-V4, todos confidence: Confirmed)
-
-## Slide 5 — Arquitetura da Solução
+## Slide 3 — Arquitetura da Solução
 
 **Action Title**: Uma única arquitetura: o Field Service comanda o despacho, o Agentforce abre a porta do WhatsApp
 **Motivo**: É a prova técnica (em linguagem de negócio) de que a solução é coerente, não uma colagem de produtos.
 **Conteúdo**: Org única Salesforce · Field Service como motor central de despacho (Work Order/Service Appointment/Service Territory, modelo de Skills para aderência) · Agentforce Contact Center Enterprise cobrindo o canal WhatsApp · Service Cloud escopado a esse canal (não atendimento amplo) · Experience Cloud para o link de rastreamento do cidadão · duas integrações com os sistemas legados SIGOR/SIGEO.
 **Visual**: Hub-and-spoke — Salesforce (org única) no centro, com Field Service/Agentforce/Service Cloud/Experience Cloud como módulos e SIGOR/SIGEO como sistemas externos alimentando/recebendo dados
 **Densidade**: dense
-**Fonte de dados**: `outputs/01-solution.md` (Arquitetura Foundations + Destaques da Solução), `data/epics.json` (products)
+**Fonte de dados**: `outputs/01-solution.md`, `data/epics.json` (products)
 
-## Slide 6 — Alcance do MVP
+## Slide 4 — Alcance do MVP e Mapa de Capacidades
 
-**Action Title**: O MVP cobre toda a produção estadual — 14 CGRs, 298 viaturas, 1.152 operadores
-**Motivo**: Fecha de vez a pergunta "isso é só o piloto?" — o MVP já é a escala real, não uma extensão futura.
-**Conteúdo**: 14 CGRs (não apenas Cubatão/Taubaté) · 298 viaturas · 1.152 operadores de campo em 14 empresas terceirizadas · 5 capacidades entregues integralmente pela Salesforce PS, em org única.
-**Visual**: Linha de stat tiles (14 / 298 / 1.152 / 5) + tabela dos 5 épicos (nome + tamanho)
-**Densidade**: balanced
-**Fonte de dados**: `.project-metadata.json.geographic_scope`, `executive-summary.md` Escopo, `data/epics.json`
+**Action Title**: O MVP cobre toda a produção estadual — 14 CGRs, 298 viaturas, 1.152 operadores — em 26 capacidades concretas
+**Motivo**: Fecha "isso é só o piloto?" com escala real, e mostra o alcance da solução em capacidades nomeadas, não só em nomes de épico — visão real do que é entregue, não uma etiqueta genérica.
+**Conteúdo**: 14 CGRs · 298 viaturas · 1.152 operadores de campo em 14 empresas terceirizadas · 5 capacidades entregues integralmente pela Salesforce PS, em org única, totalizando 26 sub-capacidades nomeadas:
+- **E01 — Canal Digital (M)**: abertura via WhatsApp (texto/áudio) · triagem automatizada pelo Agentforce · transbordo garantido para fila humana com contexto completo · criação automática de ordem de serviço e protocolo.
+- **E02 — Registro e Classificação (L)**: registro multi-canal (WhatsApp/0800) · catálogo de 100+ subtipos · segunda viatura no mesmo chamado · reclassificação com trilha de auditoria · deduplicação por alerta ao C2C · sincronização SIGOR/SIGEO.
+- **E03 — Despacho Automatizado (L)**: motor de despacho por aderência (Skills) · escalonamento N/N-10 · reprocessamento automático em recusa · console do Dispatcher · alarme/escalonamento ao supervisor · trilha de auditoria de overrides.
+- **E04 — Execução em Campo (L)**: app único de Field Service Mobile · push nativo · modo offline com fila de sincronização · encerramento por checklist condicional · travas de negócio (recusa com motivo, foto, check-in geolocalizado) · sharing restrito à CGR de origem.
+- **E05 — Rastreamento e Visibilidade (L)**: link de rastreamento para o cidadão (Experience Cloud guest) · mapa/Gantt do C2C com Aerial Routing · painel agregado para gestores (4 indicadores) · governança de dados de geolocalização.
+**Visual**: Linha de stat tiles (14 / 298 / 1.152 / 5 / 26) + grade capacidade×épico (5 colunas, uma por épico, cada célula lista suas sub-capacidades) — a mesma grade que alimenta o mapa de capacidades interno do projeto.
+**Densidade**: dense
+**Fonte de dados**: `.project-metadata.json.geographic_scope`, `data/epics.json` (campo `capabilities[]`, 26 itens nomeados no total), `executive-summary.md` Escopo.
 
-## Slide 7 — Complexidade e Tecnologia por Capacidade
+## Slide 5 — Complexidade e Tecnologia por Capacidade
 
 **Action Title**: Quatro das cinco capacidades concentram alta complexidade — despacho e mobilidade de campo puxam o esforço
-**Motivo**: Mostra honestidade sobre onde está o esforço real, sem inflar nem esconder — credibilidade técnica em linguagem de negócio.
+**Motivo**: Mostra honestidade sobre onde está o esforço real, sem inflar nem esconder.
 **Conteúdo**: Canal Digital (M) · Registro e Classificação (L) · Despacho Automatizado (L) · Execução em Campo (L) · Rastreamento em Tempo Real (L) — tecnologia por capacidade: catálogo de +100 subtipos, motor de aderência com Skills, app único de Field Service Mobile, site de convidado no Experience Cloud.
 **Visual**: Distribuição de tamanhos (1 M, 4 L) + tabela capacidade→tecnologia
 **Densidade**: dense
-**Fonte de dados**: `data/estimates.json` (t_shirt_size), `outputs/01-solution.md` (solução por épico)
+**Fonte de dados**: `data/estimates.json` (t_shirt_size), `outputs/01-solution.md`
 
-## Slide 8 — Gaps Mapeados e a Fase 0
+## Slide 6 — Gaps Mapeados: Premissas, Perguntas Abertas e Fora do Escopo
 
-**Action Title**: 79 gaps mapeados na discovery, sete deles conflitos de fonte — por isso a Fase 0 é necessária antes do build
-**Motivo**: Antecipa a objeção "por que uma fase extra antes de começar?" com o número, não com uma justificativa vaga.
-**Conteúdo**: Missing Requirement 26 · Logical Gap 14 · Ambiguity 10 · Potential Risk 8 · Out of Scope 6 · Capability Gap 6 · Source Conflict 7 · Assumption 2. Limite que aciona recomendação de Fase 0: >15 gaps ou >5 conflitos de fonte — ambos excedidos.
-**Visual**: Barra/distribuição das 8 categorias, com Source Conflict destacado
+**Action Title**: 79 gaps mapeados — 2 decisões de arquitetura ratificadas, 5 perguntas bloqueadoras ao DER, 7 premissas de entrega a confirmar, 6 itens deliberadamente fora do MVP
+**Motivo**: O usuário pediu explicitamente para **abrir** os gaps mapeados, não só contá-los — cada categoria abaixo nomeia o item real, não uma estatística. Modelo estrutural: a seção "Premissas & Fora do Escopo" do ROM de referência (DATAPREV-PAT), adaptada às premissas e ADRs reais deste projeto.
+**Conteúdo** (quatro blocos, nesta ordem):
+
+**(A) Premissas de arquitetura — ratificadas (ADR)**
+- **ADR 0001** — CTI/voz (Salesforce Voice/Native Telephony) fica fora do MVP; vira fase dedicada de Roadmap, no maior nível de detalhe possível, antes do vencimento do contrato de URA (Instinct) em abril/2027 e da retirada do Open CTI legado em fevereiro/2028.
+- **ADR 0002** — Service Cloud ENTRA no MVP, mas só para o canal WhatsApp: Agentforce Contact Center Enterprise (50 licenças), 1 fila humana única 24x7, sem skills-based routing (premissa a revalidar). Não inclui Salesforce Voice — a ADR 0001 permanece intacta.
+
+**(B) Perguntas abertas ao DER — bloqueiam decisão de design, não o início do build**
+| Gap | Área | O que está em aberto |
+|---|---|---|
+| G0107 | E01 | Provisionamento de um número dedicado de WhatsApp (registro Meta Business API, homologação, dono do processo no DER/PRODESP) — o número atual da ouvidoria não pode ser reaproveitado. |
+| G0305 | E03 | Overrides manuais de despacho pelo C2C sem trilha de auditoria definida — o padrão nativo (Field History Tracking) tem limite de 20 campos e retenção de 18-24 meses; não confirmado se atende à exigência de prestação de contas do Estado. |
+| G0309 | E03 | Despacho por proximidade pode indicar viatura de CGR vizinha, mas cada UBA é contratada por CGR — não definido se o motor pode atribuir fora desse limite contratual. |
+| G0415 | E02-E04 | Premissa de DevOps assume Salesforce CLI + desenvolvimento versionado em Git para o build (2 integrações + LWC customizado + Apex de escalonamento) — a confirmar formalmente com o cliente. |
+| G0517 | E05 | Mecanismo técnico do token de uso único/expirável do link de rastreamento do cidadão assume um token Apex assinado com TTL, expirando após encerramento do chamado + buffer — a confirmar na próxima rodada de DPIA. |
+
+**(C) Premissas de entrega — assumidas, com o que muda se caírem**
+| Premissa | O que assumimos | Se cair… |
+|---|---|---|
+| Correção de localização (G0213) | C2C corrige manualmente km/local antes do despacho; ajuste dispara integração síncrona com SIGEO para corrigir lat/long. | Sem essa correção, o despacho por proximidade herda o erro de GPS de quem relata (ex.: "quilômetros atrás" do local real) — risco operacional direto. |
+| Licenciamento do Console do Dispatcher (G0310) | 12 licenças individuais (não pool por turno) — preserva granularidade de autoria na trilha de auditoria. | Pool compartilhado quebraria a rastreabilidade individual de quem autorizou cada override. |
+| Estratégia offline do app de campo (G0404) | Briefcase prima apenas Work Order, Service Appointment e Assigned Resource em aberto; conflitos resolvidos por last-write-wins (timestamp do servidor). | Sem esse recorte, o app tenta sincronizar histórico completo em trecho sem rede — risco de performance e de conflito de dados. |
+| Sharing entre CGRs (G0412) | Território restringe visibilidade padrão à CGR de origem; reforço cross-CGR expõe só o chamado específico, não a CGR vizinha inteira. | Sem essa regra, operadores de empresas terceirizadas concorrentes veriam dados operacionais uns dos outros. |
+| Token do link de rastreamento (G0506) | Token de uso único vinculado ao protocolo, expirando após encerramento do chamado + buffer — mesma base de governança do G0209/G0109. | Sem expiração, o link do cidadão continua expondo a posição GPS de uma equipe de campo do Estado indefinidamente. |
+| Cobertura de sinal no aparelho do cidadão (G0507) | Sem fallback de canal alternativo (SMS) para o cidadão sem sinal — página leve, baixo consumo de dados. | Risco de falha em trecho sem rede fica aceito e registrado, não resolvido — o cidadão pode não conseguir abrir o link. |
+| Última posição conhecida (G0511) | Mesa do C2C e link do cidadão exibem última posição conhecida com timestamp explícito quando o GPS perde sinal. | Sem esse flag, a mesa mostraria posição desatualizada como se fosse tempo real — risco de decisão operacional sobre dado errado. |
+
+**(D) Fora do escopo do MVP — com destino nomeado no Roadmap** (ver Slide 9 para o desenvolvimento completo)
+G0518 (Voice/CTI unificado) · G0519 (objeto Incidente nativo com merge automático) · G0520 (enforcement offline das travas) · G0521 (Portal de Parceiros para as 14 UBAs) · G0522 (Street-Level Routing/ESO) · G0523 (relatório por CGR + meta de SLA).
+
+**Visual**: Quatro cartões coloridos empilhados — verde (A, ratificado), amarelo (B, a confirmar), tabela neutra (C, aceito com consequência), roxo (D, fora do escopo com destino) — mesmo código de cores do ROM de referência (DATAPREV-PAT).
 **Densidade**: dense
-**Fonte de dados**: `data/gaps.json` (contagem por categoria)
+**Fonte de dados**: `decisions/0001`, `decisions/0002`, `data/gaps.json` (79 linhas — 5 `Open*`, 7 `Premise Accepted*`, 6 `Out of Scope`, resto resolvido).
 
-## Slide 9 — Riscos Críticos e Mitigações
+## Slide 7 — Mapa de Riscos
 
-**Action Title**: Dois riscos bloqueiam decisão do DER antes do build — trilha de auditoria e limite contratual das UBAs por CGR
-**Motivo**: Nomeia os únicos dois itens que realmente travam o cronograma, separando do ruído dos outros riscos monitorados.
-**Conteúdo**: G0305 — trilha de auditoria do despacho sem desenho definido (padrão nativo tem limite de 20 campos/18-24 meses de retenção); G0309 — limite contratual das UBAs por CGR não confirmado, despacho por proximidade pode indicar viatura de CGR vizinha. Mitigações: resolver ambos na Fase 0, antes de configurar console/território.
-**Visual**: 2 callouts vermelhos (bloqueadores) + 3-4 callouts amarelos (riscos monitorados: enforcement offline, LGPD/DPIA, licença Field Service Community)
-**Densidade**: balanced
-**Fonte de dados**: `data/gaps.json` (Potential Risk, G0305/G0309), `executive-summary.md` Riscos e Mitigações
-
-## Slide 10 — Roadmap: Cinco Fases
-
-**Action Title**: Cinco fases levam a solução da fundação ao rastreamento em tempo real em 16 a 30 semanas
-**Motivo**: É a resposta central a "quando" — com uma faixa otimista mas honesta, não uma data solta.
-**Conteúdo**: Fase 0 Resolução de Discovery · Fase 1 Fundação (Registro da Ocorrência e Integrações) · Fase 2 Despacho Automatizado + Canal Digital · Fase 3 Execução em Campo · Fase 4 Rastreamento e Estabilização. Caminho crítico E02→E03→E04→E05. Faixa derivada do formato do engagement (benchmark), 16-30 semanas — ponta alta ampliada por mobile/site 100% customizados e overlay de governança/auditoria em aberto. Nota de urgência: contrato da URA atual expira abril/2027, mesma janela da produção-alvo.
-**Visual**: Timeline horizontal das 5 fases + faixa de duração com disclaimer de benchmark
+**Action Title**: Oito riscos monitorados, dois deles bloqueiam decisão do DER antes do build
+**Motivo**: O usuário pediu explicitamente um mapa de risco — não existia um `risks.json` neste projeto, então este mapa é sintetizado das categorias `Potential Risk`/`Source Conflict` de `gaps.json`, da seção de Riscos já escrita em `executive-summary.md`, e do documento interno de governança agêntica (`knowledge/latam-agentic-governance-services.md`), que mapeia especificamente 6 riscos de governança de IA a estes gaps.
+**Conteúdo**:
+| Risco | Categoria | Probabilidade | Impacto | Mitigação | Gap relacionado |
+|---|---|---|---|---|---|
+| Trilha de auditoria de despacho sem desenho definido | Governança/Auditoria | Média | Alto | Resolver na Fase 0 — decidir entre padrão nativo e add-on Field Audit Trail antes do build do console | G0305 |
+| Limite contratual da UBA por CGR não confirmado | Contratual | Média | Alto | Levar como pergunta bloqueadora ao DER antes de configurar o modelo de território | G0309 |
+| Enforcement offline das travas de negócio retirado do MVP | Escopo/Operacional | Média | Médio | Validar formalmente a redução de escopo com o cliente antes do go-live — evidência ainda é capturada e sincroniza ao reconectar | G0413/G0520 |
+| Governança de dados de geolocalização sem DPIA formal | LGPD/Compliance | Média | Alto | Nomear o DER-SP como steward (já assumido) e levar o mecanismo de token de uso único à próxima rodada formal de DPIA | G0211/G0506/G0209 |
+| Classificação incorreta do Agentforce (pane vs. sinistro com vítimas) | Qualidade do Agente de IA | Baixa-Média | Alto (risco de vida) | Aceito como risco residual dadas as mitigações conservadoras já adotadas (transbordo obrigatório); QA contínuo do agente ainda sem dono nomeado no DER | G0112 |
+| Known issue de licença Field Service Community para Service Appointment | Técnico/Licenciamento | Baixa | Médio | Testar esse fluxo especificamente em ambiente de build antes de escalar às 14 CGRs | — |
+| Conectividade intermitente em rodovia (GPS e sincronização) | Infraestrutura/Física | Média-Alta | Médio | Correção manual de km/local + integração SIGEO; sincronização por last-write-wins | G0213/G0404 |
+| Lane AI-native sem sponsor executivo nomeado | Governança do Programa | — | Baixo (não bloqueia o MVP) | Compressão de cronograma AI-native permanece condicional — revisitar quando um sponsor operacional for identificado | `decisions/0033` |
+**Visual**: Matriz 2×2 (probabilidade × impacto) com os 8 riscos posicionados, os 2 riscos "Alto/Média" (auditoria, UBA) destacados em vermelho como bloqueadores de decisão.
 **Densidade**: dense
-**Fonte de dados**: `data/roadmap.json` (fases/épicos), `.project-metadata.json.timeline` (faixa derivada, driver de urgência)
+**Fonte de dados**: `data/gaps.json` (categorias `Potential Risk` e `Source Conflict`), `executive-summary.md` Riscos e Mitigações, `knowledge/latam-agentic-governance-services.md`.
 
-## Slide 11 — Adoção e Change Management
+## Slide 8 — Roadmap: Cinco Fases e Linha do Tempo Visual
 
-**Action Title**: 1.152 operadores em 14 empresas terceirizadas — por isso o DER pediu até dois meses de operação assistida
-**Motivo**: Mostra que a escala humana da mudança foi ouvida e planejada, não é um risco escondido.
-**Conteúdo**: Change management não é adição do time de entrega — foi pedido explícito do DER; operação assistida + treinamento personalizado por persona, foco nos técnicos de campo das 14 UBAs; a experiência do cidadão (link de rastreamento) já foi validada na PoC, sem necessidade de pesquisa de UX adicional.
-**Visual**: Stat tile (1.152 / 14 / até 2 meses) + narrativa curta
+**Action Title**: Cinco fases levam a solução da fundação ao rastreamento em tempo real em 16 a 30 semanas — ilustradas semana a semana, não só nomeadas
+**Motivo**: O usuário pediu um diagrama visual de fato representando as semanas, com as etapas baseadas na metodologia de entrega PS Salesforce e os marcos de entrega mais importantes — não uma tabela de fases.
+**Conteúdo**: Diagrama estilo Gantt em grade de semanas (S1 a S30), com duas barras por fase — cenário compacto (16 semanas) e cenário estendido (30 semanas) — ilustrando a faixa derivada, nunca uma data-compromisso:
+
+| Fase | Cenário compacto (16 sem.) | Cenário estendido (30 sem.) | Épicos | O que o marco de fim de fase entrega |
+|---|---|---|---|---|
+| Fase 0 — Resolução de Discovery | S1–S2 | S1–S3 | — | **M0**: gaps bloqueadores (G0305, G0309, G0517, G0415) respondidos; especificação SIGOR/SIGEO assinada; workstream de Change Management dimensionado. |
+| Fase 1 — Fundação (Registro e Integrações) | S3–S5 | S4–S9 | E02 | **M1**: Work Order criável a partir de qualquer canal; catálogo completo de Work Type; sincronização SIGOR validada; callout SIGEO testado. |
+| Fase 2 — Despacho e Canal Digital | S6–S8 | S10–S15 | E03, E01 | **M2**: despacho aciona a viatura correta nas 14 CGRs; console do Dispatcher operacional nos 4 turnos; triagem WhatsApp cria Work Order de ponta a ponta. |
+| Fase 3 — Execução em Campo | S9–S11 | S16–S20 | E04 | **M3**: app de campo em operação nas 14 UBAs, travas de negócio ativas, piloto concluído antes do rollout estadual. |
+| Fase 4 — Rastreamento e Estabilização | S12–S16 | S21–S30 | E05 | **M4 (Go-live)**: link de rastreamento e painel de gestores ativos; UAT estadual (298 viaturas, 1.152 operadores, 14 CGRs) assinado; hypercare concluído. |
+
+**Caminho crítico**: E02 → E03 → E04 → E05, com E01 correndo em paralelo a partir da Fase 2 — atraso em qualquer ponto do caminho se propaga às fases seguintes.
+**Metodologia**: as 5 fases seguem a sequência recomendada de setup do Field Service (Work Order Management → Workforce/Scheduling → execução em campo → visibilidade), citada em `[KA-6240]` — não uma estrutura genérica de projeto.
+**Disclaimer no próprio diagrama**: a divisão semana-a-semana por fase é **ilustrativa e proporcional à complexidade relativa de cada fase** — não é uma data-compromisso. Só a faixa agregada (16-30 semanas) e os 3 range drivers nomeados (`.project-metadata.json.timeline.derived`) têm provenance direta; a alocação por fase distribui essa faixa de forma proporcional para visualização, e é sinalizada como tal no próprio gráfico (ex.: "ilustrativo — confirmar no planejamento detalhado da Fase 0").
+**Visual**: Grade CSS de 30 colunas (uma por semana) × 5 faixas (uma por fase), cada faixa com duas barras semi-transparentes sobrepostas (compacto sólido, estendido tracejado/mais claro), marcos M0-M4 como bandeiras na semana de transição de fase; legenda de cores por fase; caixa de "Caminho crítico" em prosa abaixo da grade — modelo estrutural: seção "Linha do Tempo & Marcos" do ROM de referência (DATAPREV-PAT), adaptada de datas fixas para números de semana + duas barras de cenário (porque este projeto não tem data de início comprometida, só uma faixa de 16-30 semanas).
+**Densidade**: dense
+**Fonte de dados**: `data/roadmap.json` (fases, objetivos, success_criteria — grão real do projeto, sem `duration_weeks` fabricado), `.project-metadata.json.timeline.derived` (16-30 semanas, 3 range drivers), `[KA-6240]`.
+
+## Slide 9 — Visão de Futuro: um Roadmap que Escala
+
+**Action Title**: Seis capacidades já têm destino nomeado no Roadmap — o MVP não é um teto, é uma base que escala sem re-arquitetura
+**Motivo**: O usuário pediu explicitamente que a visão de itens de roadmap fosse incluída de forma atraente ao cliente — mostrando que o plano escala para o futuro, não que faltou algo no MVP. Cada item abaixo tem uma razão deliberada de fasing e um destino nomeado, nunca um "gap" apresentado como falha.
+**Conteúdo** (6 capacidades de futuro, cada uma com o motivo da decisão de fasing):
+1. **Voz/CTI unificado** (G0518, ADR 0001) — Salesforce Voice/Native Telephony como canal de voz unificado ao WhatsApp e ao 0800. Decisão explícita do DER: preparar a decisão Open CTI vs. Salesforce Voice antes do vencimento do contrato de URA (abril/2027) e da retirada do Open CTI legado (fevereiro/2028) — no maior nível de detalhe possível, como fase própria do Roadmap.
+2. **Objeto Incidente nativo com deduplicação automática** (G0519) — hoje a deduplicação é um alerta manual ao C2C (raio geográfico + janela de tempo + tipo); o objeto `Incident` nativo do Service Cloud (CSIM) automatiza esse merge quando o volume justificar o investimento.
+3. **Enforcement offline (bloqueio duro)** (G0520) — a evidência de campo (foto, check-in, motivo de recusa) já é capturada offline e sincroniza ao reconectar; o bloqueio automático de avanço sem rede exige LWC offline especializado, upgrade natural quando esse roster estiver confirmado.
+4. **Portal de Parceiros** (G0521) — hoje 6 superfícies de visibilidade (cidadão, C2C, gestores, app de campo, dispatcher, Agentforce); um portal dedicado para as 14 empresas terceirizadas (UBAs) é a 7ª superfície natural, candidato a nova épica de Roadmap.
+5. **Street-Level Routing (ESO)** (G0522) — o MVP usa Aerial Routing nativo do Field Service para o mapa/Gantt do C2C, sem add-on; roteamento de precisão em nível de rua é um upgrade de Roadmap quando a operação pedir esse refinamento.
+6. **Relatório por CGR + meta de SLA** (G0523) — o painel de gestores do MVP é um artefato único com 4 indicadores agregados; relatório segmentado por CGR e uma meta formal de SLA são decisão deliberada de fase, com dono a nomear no Roadmap.
+**Visual**: Linha do tempo estendida à direita da linha do tempo do MVP (Slide 8) — um "trilho de futuro" com 6 cartões na mesma identidade visual das fases do MVP, mas em tom mais claro/aspiracional, cada um com ícone + título + "por que agora não, por que depois sim". Mensagem de fechamento do slide: "a arquitetura de hoje já suporta cada um destes itens sem re-trabalho — não são um roadmap de correções, são a próxima onda de valor."
 **Densidade**: balanced
-**Fonte de dados**: `executive-summary.md` Esforço e Disciplinas (parágrafo de Change Management)
+**Fonte de dados**: `data/gaps.json` (categoria `Out of Scope`, G0518-G0523), `decisions/0001`.
+
+## Slide 10 — Adoção e Change Management
+
+**Action Title**: 1.152 operadores em 14 empresas terceirizadas — por isso o DER pediu, por escrito, até dois meses de operação assistida e treinamento por persona
+**Motivo**: O usuário pediu para explorar mais profundamente o change management — escopo, entregáveis e metodologia — e não tratá-lo como um parágrafo de encerramento. O workstream é um pedido nomeado do próprio DER (não uma adição do time de entrega), e a análise a seguir consolida conteúdo já presente em 9+ arquivos do projeto (epics, gaps, roadmap, estimate-comparison, resource-plan, delivery-plan, executive-summary) numa única leitura.
+**Conteúdo**:
+
+**Origem e escopo**: o gap `G0515` nasceu de uma necessidade de pesquisa de UX para a experiência de rastreamento do cidadão — dispensada porque a PoC (20/08) já validou essa experiência. Mas na mesma resolução, o DER trouxe um pedido mais amplo e explícito: até **2 meses de operação assistida (hypercare/Scale)** pós-go-live, mais **treinamento personalizado por persona**, com foco específico nos técnicos de campo das 14 UBAs — não uma adição do time de entrega, é uma linha de esforço nomeada pelo cliente, refletida no dimensionamento do programa inteiro, não apenas do épico de rastreamento (E05).
+
+**Por que este escopo, e não outro**: o risco de adoção é estrutural, não incidental — 1.152 operadores terceirizados, de 14 empresas distintas, precisam adotar um único aplicativo e um único fluxo de trabalho no lugar de processos hoje fragmentados por empresa. O canal digital (WhatsApp) é complemento à voz, não substituto — reduz o risco de excluir o cidadão que só confia na ligação, mesma lógica aplicada à adoção interna: nenhuma mudança de processo é "só tecnologia".
+
+**Entregáveis do workstream**:
+- **Currículo de treinamento por persona** — trilhas distintas para o operador de campo (uso do app, travas de negócio, evidência), o programador/dispatcher (console, escalonamento N/N-10) e o gestor (painel de indicadores) — não um treinamento genérico único.
+- **Plano de comunicação e leitura de prontidão para a mudança** — antecipando resistência nas 14 empresas terceirizadas antes do rollout estadual, não depois dele.
+- **Modelo de hypercare/operação assistida** — canal de suporte dedicado, escalonamento definido, cadência diária nas primeiras semanas pós-go-live, por até 2 meses.
+- **Acompanhamento de adoção** — usa o próprio painel de gestores (E05) como instrumento de leitura de adesão, não um relatório paralelo.
+
+**Metodologia e dimensionamento**: o workstream é dimensionado na **Fase 0** (junto aos demais gaps bloqueadores) e sua execução atravessa as **Fases 3-4** — exatamente o período em que o app de campo entra em operação e o programa vai a produção estadual. No roster, aparece como a função **Change & Adoption** (lane traditional) / **Adoption Architect** (lane AI-native) — 1 pessoa, regular, onshore, ativa nas fases 3-4, com a justificativa citando `G0515` explicitamente: é headcount central *por causa* deste pedido nomeado, não um papel padrão que entraria de qualquer forma.
+
+**O que já está resolvido, e não precisa de trabalho adicional**: a experiência do cidadão (link de rastreamento) já foi validada na PoC (20/08) — não é reaberta como pesquisa de UX formal.
+
+**Visual**: Linha do tempo do workstream (dimensiona na Fase 0, executa nas Fases 3-4) + 4 cartões de entregável (treinamento por persona / comunicação / hypercare / adoção) + stat tile (1.152 operadores / 14 empresas / até 2 meses).
+**Densidade**: dense
+**Fonte de dados**: `data/gaps.json` (G0515), `data/epics.json` (E05, descrição), `data/roadmap.json` (Fase 0 objectives/success_criteria, Fase 3-4), `data/estimate-comparison.json` (linha AN-04, Change & Adoption/Adoption Architect), `outputs/02-delivery-plan.md`, `outputs/01-solution.md`, `executive-summary.md` Esforço e Disciplinas.
+
+## Slide 11 — Investimento: Escopo Fechado e Entregáveis
+
+**Action Title**: Este é um preço fechado por escopo — cinco capacidades, uma fase de discovery e o workstream de change management, todos entregues integralmente
+**Motivo**: O usuário foi explícito: este projeto é escopo/preço fechado, não time & material — o que está incluído no preço precisa estar claro na validação da proposta, não apenas a faixa de investimento. Ver a seção `## Approved Commercials` abaixo para as figuras completas (rates, faixas por lane) — esta seção nomeia os entregáveis que essas figuras cobrem.
+**Conteúdo**: o preço fechado cobre a entrega integral de:
+- **Fase 0** — resolução das 5 perguntas bloqueadoras (G0107, G0305, G0309, G0415, G0517) e dimensionamento do workstream de Change Management.
+- **5 capacidades (épicos)** — Canal Digital (E01), Registro e Classificação (E02), Despacho Automatizado (E03), Execução em Campo (E04), Rastreamento e Visibilidade (E05) — as 26 sub-capacidades nomeadas na Slide 4, não uma lista aberta.
+- **2 integrações** — SIGOR e SIGEO, ponto a ponto, especificadas e testadas.
+- **Workstream de Change Management** — até 2 meses de operação assistida + treinamento por persona para os 1.152 operadores das 14 UBAs (Slide 10).
+- **UAT estadual e hypercare** — validação nas 14 CGRs (298 viaturas, 1.152 operadores), não apenas no piloto.
+**O que não está incluído** (e por quê — ver Slide 9): os 6 itens de Roadmap futuro (Voice/CTI, Incidente nativo, enforcement offline, Portal de Parceiros, Street-Level Routing, relatório por CGR) são explicitamente fora deste escopo fechado, com destino nomeado — qualquer expansão para esses itens é uma mudança de escopo formal, não uma reinterpretação do preço fechado.
+**Visual**: Lista de entregáveis em formato de checklist (o que está incluído) ao lado da tabela de faixas por lane (ver `## Approved Commercials`).
+**Densidade**: dense
+**Fonte de dados**: `data/roadmap.json` (success_criteria por fase — a lista de entregáveis concretos), `data/gaps.json` (Out of Scope), `## Approved Commercials` abaixo (figuras).
 
 ## Slide 12 — Fechamento: o Ask
 
 **Action Title**: Fechar agora leva o DER a uma nova fase de escalabilidade e inovação — a tecnologia em prol do processo e do cidadão
-**Motivo**: Repete o Big Idea como último pensamento na sala e converte em três ações concretas — é o slide que precisa gerar a decisão.
-**Conteúdo**: Ask em 3 passos: (1) aprovar o escopo dos 5 épicos e a faixa de roadmap apresentada; (2) validar com Salesforce PS os dois riscos bloqueadores (auditoria, limite de UBAs) na sessão de Fase 0; (3) iniciar a Fase 0 com o roteiro já mapeado.
+**Motivo**: Repete o Big Idea como último pensamento na sala e converte em três ações concretas.
+**Conteúdo**: Ask em 3 passos: (1) aprovar o escopo fechado dos 5 épicos, Fase 0 e change management, e a faixa de roadmap apresentada; (2) validar com Salesforce PS as 5 perguntas bloqueadoras (Slide 6-B) na sessão de Fase 0; (3) iniciar a Fase 0 com o roteiro já mapeado.
 **Visual**: Big Idea repetida como hero + 3 bullets de ask numerados
 **Densidade**: sparse
 **Fonte de dados**: `executive-summary.md` Próximos Passos e Recomendações
@@ -130,56 +216,31 @@
 ## Notas de Palco (resumo por slide)
 
 1. Abrir com confiança — este é o resultado da PoC, não uma nova venda.
-2. Não passar rápido demais aqui — é a única vez que a dor aparece explicitamente antes da solução.
-3. Pausa de 2-3 segundos após ler o Big Idea — deixar a frase assentar.
-4. Se perguntarem "por que só 4 outcomes", responder: são os que o DER confirmou — o resto é tático, não estratégico.
-5. Se perguntarem sobre outras nuvens Salesforce fora de escopo, reforçar: Service Cloud está deliberadamente limitado ao canal WhatsApp — não é atendimento amplo.
-6. Âncora numérica — repetir "14, 298, 1.152" verbalmente, não só ler o slide.
-7. Honestidade aqui gera confiança — "sim, é complexo, e sabemos exatamente onde".
-8. Framear como "encontramos isso porque olhamos com profundidade" — não como uma falha da PoC.
-9. Ser direto: "estes dois itens precisam de uma decisão do DER, não da Salesforce, antes do build."
-10. Nomear a janela do contrato da URA em voz alta — é o argumento de urgência mais forte que existe.
-11. Deixar claro: esse plano já reflete o pedido do próprio DER, não é overhead nosso.
+2. Não passar rápido demais — esta é a leitura completa de dor, visão e prova em uma página; deixar cada bloco assentar antes de avançar ao próximo.
+3. Reforçar: arquitetura é uma decisão, não uma colagem — cada produto tem um motivo de estar ali.
+4. Âncora numérica — repetir "14, 298, 1.152, 26 capacidades" verbalmente, não só ler o slide.
+5. Honestidade aqui gera confiança — "sim, é complexo, e sabemos exatamente onde".
+6. Framear como "abrimos cada gap porque olhamos com profundidade" — mostrar os itens nomeados, não só o número 79. Se perguntarem por que duas ADRs e não mais, responder: são as duas decisões de arquitetura que realmente mudam o dimensionamento — o resto é premissa de entrega, documentada à parte.
+7. Ser direto sobre os dois riscos vermelhos: "estes dois itens precisam de uma decisão do DER, não da Salesforce, antes do build."
+8. Explicar a lógica do diagrama antes de mostrar os números: "as barras semana a semana são ilustrativas — a faixa real é 16 a 30 semanas, a divisão por fase é proporcional para visualização." Nomear a janela do contrato da URA em voz alta.
+9. Este é o slide mais estratégico para o cliente sentir confiança de longo prazo — "nada aqui é um gap escondido, é uma decisão deliberada com destino."
+10. Deixar claro: esse plano de change management já reflete o pedido do próprio DER, não é overhead nosso — é fruto de terem pedido por escrito.
+11. Reforçar a palavra "fechado" — o que está na lista de entregáveis é o que está no preço; qualquer coisa fora dela é mudança de escopo, não ambiguidade.
 12. Terminar em silêncio após o ask — não preencher o espaço, deixar a decisão ser deles.
 
 ---
 
 ## Reclassificação: este artefato é o ROM
 
-Confirmado com o usuário — o entregável final não é só um deck de venda, é o **ROM (Rough Order of Magnitude)** de PRODESP-DER: o documento único que leva escopo, arquitetura, gaps/riscos, linha do tempo, épicos/casos de uso e investimento ao cliente para decisão de fechamento. Estrutura adotada, seguindo o padrão de ROM já usado em `DATAPREV-PAT/outputs/artifacts/rom-cliente.html` (grupos de nav: Análise · Desenho · Escopo · Gestão · Estimativa & Entrega):
+Confirmado com o usuário — o entregável final não é só um deck de venda, é o **ROM (Rough Order of Magnitude)** de PRODESP-DER: o documento único que leva escopo, arquitetura, gaps/riscos, linha do tempo, épicos/casos de uso e investimento ao cliente para decisão de fechamento. Estrutura de navegação adotada, seguindo o padrão de ROM já usado em `DATAPREV-PAT/outputs/artifacts/rom-cliente.html`:
 
-1. **Visão Executiva** — Capa, Situação Atual, Visão de Transformação, Resultados de Valor (Slides 1-4)
-2. **Arquitetura & Solução** — Arquitetura, Alcance do MVP (Slides 5-6)
-3. **Escopo** — Épicos & Casos de Uso (nova seção abaixo), Complexidade por Capacidade, Gaps e Fase 0 (Slide 7-8 + nova seção)
-4. **Gestão** — Riscos Críticos, Adoção/Change Management (Slides 9, 11)
-5. **Estimativa & Entrega** — Linha do Tempo detalhada, Investimento com/sem impostos (novas seções abaixo)
-6. **Fechamento** — o Ask (Slide 12)
-
-## Linha do Tempo — Detalhamento (Estimativa & Entrega)
-
-**Ação**: Cinco fases levam da fundação ao rastreamento em tempo real; a faixa de investimento varia por modelo de entrega.
-
-| Fase | Épicos incluídos | Objetivo |
-|---|---|---|
-| Fase 0 — Resolução de Discovery | — | Resolver G0305 (auditoria de despacho) e G0309 (limite de UBAs por CGR) antes do build |
-| Fase 1 — Fundação | E02 | Registro da Ocorrência e Integrações (SIGOR/SIGEO) |
-| Fase 2 — Despacho e Canal Digital | E03, E01 | Despacho Automatizado + Canal Digital (WhatsApp/Agentforce) |
-| Fase 3 — Execução em Campo | E04 | App mobile único, travas de negócio |
-| Fase 4 — Rastreamento e Estabilização | E05 | Link de rastreamento do cidadão, painel de gestores |
-
-**Caminho crítico**: E02 → E03 → E04 → E05.
-
-**Três lanes de duração** (não há `duration_weeks` por fase — `roadmap.json` não carrega essa granularidade; a faixa é derivada top-down por lane, não somada bottom-up):
-
-| Lane | Duração | Basis |
-|---|---|---|
-| **Traditional** (âncora) | 16-30 semanas | Derivada do formato do engagement (benchmark top-down), sem compressão |
-| **Augmented** | 14-25 semanas | Faixa traditional comprimida por `efficiency.json.realized_band` (~10-18%) |
-| **AI-native** (condicional) | 10-18 semanas | Faixa traditional comprimida por `efficiency.json.native_band` (~35-40%) — gate de qualificação ainda não atendido |
-
-**Urgência**: o contrato atual de URA (Instinct) expira abril/2027 — mesma janela da meta de produção do cliente (homologação jan/fev 2027, produção abril 2027). O contrato administrativo renova em 30/nov/2026, pressionando a decisão Open CTI vs. Salesforce Voice.
-
-**Fonte de dados**: `data/roadmap.json` (fases/épicos/objetivos), `data/estimate-comparison.json.lanes` (durações por lane), `.project-metadata.json.timeline` (faixa derivada, driver de urgência).
+1. **Visão Executiva** — Capa, Situação Atual + Visão + Resultados de Valor (Slides 1-2)
+2. **Arquitetura & Solução** — Arquitetura, Alcance do MVP + Mapa de Capacidades, Complexidade por Capacidade (Slides 3-5)
+3. **Escopo & Governança** — Gaps Mapeados (Premissas/Abertos/Fora do Escopo), Mapa de Riscos (Slides 6-7)
+4. **Roadmap** — Linha do Tempo Visual, Visão de Futuro (Slides 8-9)
+5. **Gestão da Mudança** — Adoção e Change Management (Slide 10)
+6. **Estimativa & Entrega** — Investimento: Escopo Fechado, Épicos/Casos de Uso detalhado, Investimento com/sem impostos (Slide 11 + seções abaixo)
+7. **Fechamento** — o Ask (Slide 12)
 
 ## Épicos e Casos de Uso (Escopo)
 
@@ -212,6 +273,32 @@ Cada épico segue o padrão "o que entrega / capacidade Salesforce / casos de us
 
 **Fonte de dados**: `data/epics.json` (capabilities, description), `data/estimates.json` (t_shirt_size).
 
+## Linha do Tempo — Detalhamento Visual (Estimativa & Entrega)
+
+Ver Slide 8 para o conteúdo completo do diagrama de semanas (S1-S30, dois cenários, marcos M0-M4, caminho crítico) e Slide 9 para o trilho de futuro do Roadmap. Resumo tabular de apoio:
+
+| Fase | Épicos incluídos | Objetivo | Marco de fim de fase |
+|---|---|---|---|
+| Fase 0 — Resolução de Discovery | — | Resolver as 5 perguntas bloqueadoras (G0107, G0305, G0309, G0415, G0517) e dimensionar o Change Management (G0515) antes do build | M0 |
+| Fase 1 — Fundação | E02 | Registro da Ocorrência e Integrações (SIGOR/SIGEO) | M1 |
+| Fase 2 — Despacho e Canal Digital | E03, E01 | Despacho Automatizado + Canal Digital (WhatsApp/Agentforce) | M2 |
+| Fase 3 — Execução em Campo | E04 | App mobile único, travas de negócio | M3 |
+| Fase 4 — Rastreamento e Estabilização | E05 | Link de rastreamento do cidadão, painel de gestores, UAT estadual, hypercare | M4 (Go-live) |
+
+**Caminho crítico**: E02 → E03 → E04 → E05.
+
+**Três lanes de duração** (não há `duration_weeks` por fase — `roadmap.json` não carrega essa granularidade; a faixa é derivada top-down por lane, não somada bottom-up):
+
+| Lane | Duração | Basis |
+|---|---|---|
+| **Traditional** (âncora) | 16-30 semanas | Derivada do formato do engagement (benchmark top-down), sem compressão |
+| **Augmented** | 14-25 semanas | Faixa traditional comprimida por `efficiency.json.realized_band` (~10-18%) |
+| **AI-native** (condicional) | 10-18 semanas | Faixa traditional comprimida por `efficiency.json.native_band` (~35-40%) — gate de qualificação ainda não atendido |
+
+**Urgência**: o contrato atual de URA (Instinct) expira abril/2027 — mesma janela da meta de produção do cliente (homologação jan/fev 2027, produção abril 2027). O contrato administrativo renova em 30/nov/2026, pressionando a decisão Open CTI vs. Salesforce Voice (ver Slide 9).
+
+**Fonte de dados**: `data/roadmap.json` (fases/épicos/objetivos/success_criteria), `data/estimate-comparison.json.lanes` (durações por lane), `.project-metadata.json.timeline` (faixa derivada, driver de urgência), `[KA-6240]`.
+
 ## Approved Commercials — Investimento (ROM), valores com e sem impostos (Estimativa & Entrega)
 
 Regra permanente de precificação PS LATAM: **valor COM imposto = valor SEM imposto ÷ 0,9345**. As rates abaixo já foram validadas pelo usuário em 2026-09-17 (com imposto); o valor sem imposto é obtido multiplicando por 0,9345 — mesma fonte, sem novo dado inventado.
@@ -236,11 +323,24 @@ Regra permanente de precificação PS LATAM: **valor COM imposto = valor SEM imp
 
 A faixa AI-native permanece condicional ao gate de qualificação (nenhum sponsor executivo nomeado, mandato AI-first ainda não assumido) — é um motivador, nunca uma entrega comprometida sem nomear o compromisso.
 
-Este é um preço **indicativo**, não custo/margem, e não uma proposta de fixed fee.
+Este é um preço **indicativo**, não custo/margem, e não uma proposta de fixed fee — a estrutura comercial final (incluindo o modelo de preço fechado por escopo) é confirmada através do acordo comercial aplicável.
 
 *Esta comparação é benchmark-based, derivada dos dados de treinamento do modelo e padrões gerais de entrega (não validado pela Salesforce) — não é um compromisso. Faixas de duração e a faixa AI-native carregam a incerteza herdada de `confidence: Assumed` em todos os 5 épicos.*
 
-**Fonte de dados**: `data/estimate-comparison.json` (rates, lanes, indicative_price_range — Approved Commercials, validado pelo Solution Lead em 2026-09-17), `outputs/artifacts/estimate-comparison.md` (`## Approved Commercials`), regra de imposto ÷0,9345 (diretriz permanente do usuário).
+### O que este preço fechado inclui — entregáveis do programa
+
+Este projeto é conduzido como **escopo fechado**, não time & material: as figuras acima cobrem a entrega integral de um conjunto definido de entregáveis, não uma bolsa de horas a consumir. A lista abaixo é a base de validação da proposta — o que está dentro do preço, fase a fase (fonte: `success_criteria` de cada fase em `data/roadmap.json`, sem número novo inventado):
+
+- **Fase 0**: as 5 perguntas bloqueadoras (G0107, G0305, G0309, G0415, G0517) respondidas pelo DER/Stefanini; especificação de payload SIGOR/SIGEO assinada; workstream de Change Management dimensionado.
+- **Fase 1**: Work Order criável a partir da tela nativa do Field Service e do Service Console; catálogo completo de Work Type; sincronização SIGOR validada em janela controlada; callout SIGEO testado; alerta de deduplicação manual funcionando.
+- **Fase 2**: despacho aciona a viatura correta nas 14 CGRs em cenários de teste; escalonamento N/N-10 funciona; console do Dispatcher operacional nos 4 turnos; triagem WhatsApp cria Work Order de ponta a ponta; transbordo para fila humana preserva contexto.
+- **Fase 3**: app recebe despacho e executa o ciclo completo até o encerramento com evidência; piloto com subconjunto de UBAs antes do rollout às 14 CGRs; travas de negócio bloqueiam encerramento sem os requisitos mínimos.
+- **Fase 4**: link guest ativo e protegido por token com expiração; mapa/Gantt operacional para o C2C; painel de gestores exibindo os 4 indicadores; UAT estadual assinado pelo DER; hypercare concluído sem bloqueadores críticos.
+- **Change Management** (atravessa Fases 3-4, dimensionado na Fase 0): até 2 meses de operação assistida + treinamento por persona para os 1.152 operadores das 14 UBAs.
+
+**O que fica explicitamente fora deste preço fechado**: os 6 itens de Roadmap futuro nomeados na Slide 9 (Voice/CTI, Incidente nativo, enforcement offline, Portal de Parceiros, Street-Level Routing, relatório por CGR + SLA) — qualquer decisão de trazê-los para dentro do escopo é uma mudança de escopo formal a negociar separadamente, não uma reinterpretação das figuras acima.
+
+**Fonte de dados**: `data/estimate-comparison.json` (rates, lanes, indicative_price_range — Approved Commercials, validado pelo Solution Lead em 2026-09-17), `outputs/artifacts/estimate-comparison.md` (`## Approved Commercials`), `data/roadmap.json` (success_criteria por fase), regra de imposto ÷0,9345 (diretriz permanente do usuário).
 
 ---
 
@@ -248,7 +348,7 @@ Este é um preço **indicativo**, não custo/margem, e não uma proposta de fixe
 
 Este outline (Fundações + Slides 1-12 + Linha do Tempo detalhada + Épicos/Casos de Uso + Investimento) é a fonte única de conteúdo para dois entregáveis:
 
-1. **ROM HTML** — `outputs/artifacts/rom-cliente.html`, menu lateral esquerdo, modelado em `DATAPREV-PAT/outputs/artifacts/rom-cliente.html` (PT-BR apenas, sem toggle bilíngue).
-2. **Prompt para Gemini gerar o PPTX** — `outputs/artifacts/rom-gemini-prompt.md`, um prompt único cobrindo todo o conteúdo acima (incluindo investimento e linha do tempo) para colar no Gemini e gerar a apresentação em PowerPoint/Google Slides.
+1. **ROM HTML** — `outputs/artifacts/rom-cliente.html`, menu lateral esquerdo, modelado em `DATAPREV-PAT/outputs/artifacts/rom-cliente.html` (PT-BR apenas, sem toggle bilíngue). A seção de linha do tempo (Slide 8) usa o padrão visual de grade CSS "Linha do Tempo & Marcos" do ROM de referência (`s9`), adaptado de datas fixas para números de semana com dois cenários (compacto/estendido) e disclaimer de ilustratividade. A seção de gaps (Slide 6) usa o padrão visual de cartões coloridos "Premissas & Fora do Escopo" do ROM de referência (`s6b`), adaptado às 2 ADRs, 5 perguntas abertas e 6 itens fora de escopo reais deste projeto.
+2. **Prompt para Gemini gerar o PPTX** — `outputs/artifacts/rom-gemini-prompt.md`, um prompt único cobrindo todo o conteúdo acima (incluindo investimento, linha do tempo visual, mapa de riscos, roadmap de futuro e change management aprofundado) para colar no Gemini e gerar a apresentação em PowerPoint/Google Slides.
 
-Ambos carregam os mesmos disclaimers verbatim (benchmark, rate validada, faixa AI-native condicional) — nenhum dos dois some com a lente de risco/preço que o outro mostra.
+Ambos carregam os mesmos disclaimers verbatim (benchmark, rate validada, faixa AI-native condicional, ilustratividade da linha do tempo) — nenhum dos dois some com a lente de risco/preço que o outro mostra. Toda adição futura pedida pelo usuário se aplica igualmente aos dois — regra permanente, sem necessidade de perguntar qual superfície.

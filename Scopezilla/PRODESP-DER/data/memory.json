@@ -428,6 +428,28 @@
         "share se o usuário quiser um link do ROM em vez do arquivo local",
         "commercials por lane com rate validada específica do PRODESP-DER, se o DER/PRODESP recusar reaproveitar a tabela DATAPREV"
       ]
+    },
+    {
+      "date": "2026-09-18",
+      "skills_used": [
+        "slides",
+        "validate"
+      ],
+      "summary": "Rodada autônoma (usuário pediu para rodar até concluir, sem novas perguntas, assumindo as recomendações, antes de dormir) reescrevendo outputs/artifacts/presentation-outline.md por completo e propagando para os dois deliverables (regra fixa: toda mudança se aplica a rom-cliente.html E rom-gemini-prompt.md). Mudanças de conteúdo: (1) fundir as 3 seções Situação Atual + Visão de Transformação + Resultados de Valor Confirmados numa única página em 3 faixas (Hoje → Visão → Prova), citando strategy.json.business_outcomes[] V1-V4; (2) abrir os gaps em vez de só contá-los — nova seção com 2 cards de ADR, 5 perguntas abertas em tabela, 7 premissas de entrega com coluna 'se cair...', 6 itens Fora do Escopo com destino nomeado no Roadmap; (3) nova página 'Mapa de Riscos' — 8 riscos sintetizados (trilha de auditoria G0305, limite contratual UBA G0309, enforcement offline G0413/G0520, LGPD/DPIA, Agentforce misclassification, known issue Field Service Community, conectividade rodovia G0213/G0404, condicionalidade AI-native) com probabilidade/impacto/mitigação; (4) linha do tempo visual real (grade S1-S30, 5 fases, 2 cenários 16/30 semanas, marcos M0-M4, caminho crítico E02→E03→E04→E05), espelhando o padrão DATAPREV-PAT adaptado para sem-data-fixa; (5) nova página 'Visão de Futuro' com os 6 itens de roadmap pós-MVP (G0518-G0523) framed como 'a arquitetura de hoje já suporta cada um sem retrabalho'; (6) Change Management aprofundado (origem G0515, currículo por persona, plano de comunicação, hypercare, tracking de adoção); (7) nova seção 'Investimento: Escopo Fechado e Entregáveis' com checklist de entregáveis por fase e cross-ref explícito ao que fica fora — tudo posicionado antes do heading protegido '## Approved Commercials', sem tocar em nenhuma cifra. Propagação feita via 2 agentes fork em paralelo (rom-cliente.html: 758→1149 linhas v1.0→v2.0, 14 seções; rom-gemini-prompt.md: 15→14 blocos). validate-data.py final: PASS limpo (só os 2 WARNs pré-existentes estimates/gaps vs epics.json, ruído já classificado em 84fc071), pricing/rate leak check explicitamente PASS nos dois arquivos.",
+      "friction": [
+        "Fork agent dedicado a rom-cliente.html leu no próprio contexto herdado o resultado do dispatch dos 2 forks (o seu próprio e o do irmão) e se confundiu, respondendo como se fosse um observador externo esperando 'os dois forks' terminarem, sem executar sua tarefa. Corrigido via ListAgents (mostrou completed sem trabalho real) + SendMessage explicitando 'você É o agente X, não um observador' — o agente retomou e completou corretamente.",
+        "rom-gemini-prompt.md falhou validate-data.py na primeira rodada (pricing leak) porque o novo slide 'Investimento: Escopo Fechado' reproduzia faixas de preço sem heading correspondente à zona de exceção do validador — corrigido adicionando '#### Approved Commercials' imediatamente antes do conteúdo precificado, sem alterar nenhum valor; revalidado PASS."
+      ],
+      "decisions": [],
+      "open_threads": [
+        "Moeda BRL vs USD ainda não confirmada para a comparação de 3 lanes — tema anterior, não tocado nesta sessão",
+        "Checkpoint git (add/commit/push) dos 3 arquivos alterados (presentation-outline.md, rom-cliente.html, rom-gemini-prompt.md) + este update de memory.json ainda pendente ao fim desta sessão"
+      ],
+      "next_steps": [
+        "Usuário revisa o ROM reconstruído na volta (dormiu pedindo execução autônoma até conclusão)",
+        "share se o usuário quiser um link do ROM em vez do arquivo local",
+        "Resolver moeda BRL vs USD antes de qualquer emissão formal de proposta"
+      ]
     }
   ],
   "preferences": {
