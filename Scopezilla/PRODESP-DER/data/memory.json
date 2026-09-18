@@ -409,6 +409,25 @@
       "next_steps": [
         "Sugerir roadmap somente se novo dado de escopo chegar; por ora nao ha necessidade. Seguir para share/slides do capability-map e demais artefatos conforme pedido do usuario."
       ]
+    },
+    {
+      "date": "2026-09-18",
+      "skills_used": [
+        "slides"
+      ],
+      "summary": "Rodada da skill slides — Creation Mode + Gemini Delivery Mode, reclassificada em voo pelo usuário para o ROM (Rough Order of Magnitude) formal do projeto. Outline inicial de 12 seções foi expandido a pedido do usuário com 4 blocos ausentes: (1) mapeamento explícito do artefato para a taxonomia de 6 grupos de nav do ROM de referência (Visão Executiva/Arquitetura & Solução/Escopo/Gestão/Estimativa & Entrega/Fechamento), espelhando outputs/artifacts/rom-cliente.html do projeto DATAPREV-PAT; (2) detalhamento de linha do tempo (5 fases E00-E05, critical path E02→E03→E04→E05, faixa de 3 lanes, urgência do contrato URA); (3) épicos e casos de uso (E01-E05, padrão 'o que entrega/capacidade Salesforce/casos de uso habilitados'); (4) investimento (ROM) com valores sem E com imposto — rates e faixas de preço já validadas em estimate-comparison.json (2026-09-17), recombinadas via a regra permanente do usuário (com imposto = sem imposto ÷ 0,9345, aplicada aqui na direção inversa para recuperar o sem-imposto a partir do com-imposto já persistido), sem nenhum dado novo inventado. Outline final aprovado como fonte única para 2 deliverables renderizados por 2 agentes paralelos: outputs/artifacts/rom-cliente.html (ROM sidebar HTML, 6 grupos de nav, 14 seções, PT-BR, sem co-branding, versionado v1.0) e outputs/artifacts/rom-gemini-prompt.md (15 prompts Gemini/Google Slides, mesmo conteúdo). Gap de grounding auto-flagado pelo agente do Gemini (texto 'dor removida' de V3/V4 era inferência leve, não transcrição direta) verificado contra data/strategy.json.business_outcomes[] (todos confidence:Confirmed) e corrigido nos dois deliverables com o texto exato — incluindo V1/V2, que também carregavam paráfrase e não a citação verbatim. validate-data.py falhou inicialmente (pricing leak) porque presentation-outline.md e rom-gemini-prompt.md reproduziam as faixas de preço já aprovadas sem o heading literal '## Approved Commercials' que o validador reconhece como zona de exceção — corrigido renomeando os headings das seções de investimento em ambos os arquivos (sem alterar nenhum número); validador voltou a PASS limpo (só os 2 WARNs pré-existentes de staleness estimates/gaps vs epics.json, não relacionados a esta sessão).",
+      "friction": [
+        "validate-data.py reportou FAIL de pricing/rate leak em presentation-outline.md e rom-gemini-prompt.md mesmo com todas as cifras rastreáveis a estimate-comparison.json — causa raiz era só o heading da seção não usar o texto literal em inglês '## Approved Commercials' que o script procura como zona de exceção; resolvido renomeando os 2 headings, sem tocar em nenhum valor"
+      ],
+      "decisions": [],
+      "open_threads": [
+        "Moeda BRL vs USD ainda não confirmada para a comparação de 3 lanes — tema anterior, não tocado nesta sessão",
+        "Commit/push git dos 3 arquivos novos/alterados (presentation-outline.md, rom-cliente.html, rom-gemini-prompt.md) ainda não feito — aguardando fechamento da sessão"
+      ],
+      "next_steps": [
+        "share se o usuário quiser um link do ROM em vez do arquivo local",
+        "commercials por lane com rate validada específica do PRODESP-DER, se o DER/PRODESP recusar reaproveitar a tabela DATAPREV"
+      ]
     }
   ],
   "preferences": {
