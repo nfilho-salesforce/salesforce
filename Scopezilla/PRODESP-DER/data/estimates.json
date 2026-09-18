@@ -1,0 +1,92 @@
+[
+  {
+    "item_id": "E01",
+    "item_type": "epic",
+    "t_shirt_size": "M",
+    "size_drivers": {
+      "data_model": {"tier": "XS", "signal": "Objetos padrão (Case/MessagingSession/MessagingEndUser via Digital Engagement) — nenhum objeto customizado no canal digital [extends: modelo padrão Service Cloud/Digital Engagement]."},
+      "automation": {"tier": "S", "signal": "Regras de transbordo (fila única, sem skills) e guardrail de suspeita de vítima — declarativo/hybrid, baixa densidade [KA-4393]."},
+      "intelligence_ai": {"tier": "M", "signal": "Agentforce triage multi-topic/action (tipo de emergência + local), grounding e trust guardrails (vítima nunca decidida pela IA) — comportamento moldado e avaliado, não só configurado [KB:agentforce_contact_center_4-30-2026.md:26814-26939]."},
+      "integration": {"tier": "S", "signal": "Canal WhatsApp via Digital Engagement + add-on de mensageria outbound — integração padrão de canal, sem transformação complexa [KB:agentforce_contact_center_4-30-2026.md:19416-19458]."},
+      "sharing_security": {"tier": "XS", "signal": "Fila única com roteamento baseado em queue — OWD + role hierarchy padrão, sem modelo de sharing customizado [KA-4393]."},
+      "ui": {"tier": "S", "signal": "Service Console padrão para a fila humana — sem componente customizado neste epic."}
+    },
+    "size_rationale": "M — driven by Intelligence/AI (Agentforce triage multi-topic/action com guardrails de gravidade); integração de canal e automação de transbordo ficam moderadas, sharing e UI mínimos.",
+    "complexity_drivers": "Desenho de tópicos/ações do Agentforce, estratégia de grounding e guardrails de confiança (nunca decidir gravidade de vítima); ajuste fino de reconhecimento de tipo/local via linguagem natural em português.",
+    "skills_needed": "Agentforce/Conversational AI Specialist, Service Cloud Consultant, Prompt/Conversation Designer.",
+    "risks": "Precisão de reconhecimento de tipo/local em áudio (voz via WhatsApp) não testada; roteamento de fila única/sem skills é premissa a revalidar formalmente.",
+    "confidence": "Assumed",
+    "solution_approach": "Agentforce Contact Center Enterprise com Digital Engagement (canal WhatsApp), tópicos/ações de triagem, transbordo automático para fila humana única 24x7 com roteamento por queue."
+  },
+  {
+    "item_id": "E02",
+    "item_type": "epic",
+    "t_shirt_size": "L",
+    "size_drivers": {
+      "data_model": {"tier": "S", "signal": "Work Order + 2 slots de Assigned Resource (extensão, não objeto novo) + Work Type catalog de 100+ subtipos a construir [extends: padrão multi-recurso do Field Service]."},
+      "automation": {"tier": "M", "signal": "Deduplicação por alerta manual (raio geográfico + janela de tempo + tipo) e trilha de auditoria de reclassificação — lógica de correlação além de Flow simples, hybrid Flow+Apex."},
+      "integration": {"tier": "L", "signal": "SIGOR em dupla convivência (sincronização quase-real-time bidirecional via Platform Events/CDC, com erro/retry) + SIGEO (callout síncrono request/reply) — padrão event-driven multi-system [KA-0012]."},
+      "sharing_security": {"tier": "S", "signal": "Login individual por operador para trilha de auditoria — extensão do modelo de sharing padrão, sem sharing customizado neste epic."},
+      "ui": {"tier": "S", "signal": "Criação de Work Order pela tela nativa do Field Service ou Service Console — sem componente customizado."}
+    },
+    "size_rationale": "L — driven by Integration (SIGOR dupla convivência event-driven + SIGEO síncrono, dois sistemas legados com erro/retry); automação de dedup/auditoria soma como driver secundário; data model e UI ficam moderados.",
+    "complexity_drivers": "Sincronização bidirecional com SIGOR sem perda de dados em caso de falha; mapeamento de campos e tratamento de erro para dois sistemas legados distintos; lógica de dedup sem fusão automática.",
+    "skills_needed": "Integration Architect, Apex Developer (Platform Events/CDC), Field Service Consultant.",
+    "risks": "Especificação de payload/API do SIGOR e SIGEO ainda não confirmada pela PRODESP — schema é presunção até validação; volume de divergência de sincronização desconhecido.",
+    "confidence": "Assumed",
+    "solution_approach": "Work Order/Work Type padrão do Field Service; integração point-to-point com SIGOR via Platform Events/CDC (assíncrona) e SIGEO via callout síncrono (Named Credentials); dedup via regra declarativa + alerta ao C2C."
+  },
+  {
+    "item_id": "E03",
+    "item_type": "epic",
+    "t_shirt_size": "L",
+    "size_drivers": {
+      "data_model": {"tier": "S", "signal": "Modelo padrão de Skills do Field Service (Skill Requirement × Service Resource Skill) — sem objeto customizado [KB:field_service_dev.md:23338-23832]."},
+      "automation": {"tier": "L", "signal": "Regra de escalonamento N/N-10 sobre a scheduling policy padrão excede automação declarativa — exige Apex/Flow customizado para teto/ampliação de pool, reprocessamento automático após recusa, e alarme de 5min com escalonamento ao supervisor [extends: field_service_dev.md:25488-25602]."},
+      "sharing_security": {"tier": "M", "signal": "Sharing baseado em Service Territory (CGR) com flag customizado de zona de fronteira para escalonamento cross-CGR, mais trilha de auditoria de overrides manuais (G0305 aberto) [extends: Service Territory + criteria-based sharing]."},
+      "ui": {"tier": "M", "signal": "Console do Dispatcher com 12 licenças individuais, mapa/Gantt operacional contínuo entre turnos (12x36) — customização de layout sobre componentes padrão."}
+    },
+    "size_rationale": "L — driven by Automation (regra N/N-10 customizada sobre a scheduling policy padrão, fora do escopo declarativo); sharing/security soma como driver secundário pela fronteira cross-CGR e auditoria de overrides.",
+    "complexity_drivers": "Lógica de teto/ampliação de pool sem intervenção do C2C; escalonamento cross-CGR restrito a zonas de fronteira (limite exato ainda gap aberto); continuidade de cronômetros N/N-10 na troca de turno.",
+    "skills_needed": "Field Service Technical Architect, Apex Developer, Dispatcher Console Consultant.",
+    "risks": "G0305 (trilha de auditoria de overrides) e G0309 (limite contratual da UBA) permanecem gaps abertos — podem exigir retrabalho no modelo de território e no console antes do build.",
+    "confidence": "Assumed",
+    "solution_approach": "Skills-based dispatch nativo do Field Service; Apex/Flow customizado para a regra de escalonamento N/N-10 sobre a scheduling policy; Service Territory com flag de zona de fronteira; Console do Dispatcher customizado para 12 licenças."
+  },
+  {
+    "item_id": "E04",
+    "item_type": "epic",
+    "t_shirt_size": "L",
+    "size_drivers": {
+      "data_model": {"tier": "XS", "signal": "Objetos padrão (Service Appointment/Work Order/Assigned Resource) com briefcase offline configurado — sem objeto customizado [KB:field_service_dev.md:27274-27275]."},
+      "automation": {"tier": "S", "signal": "Push nativo on-assignment/on-dispatch com retry ao reconectar — configuração declarativa [KA-6541]."},
+      "sharing_security": {"tier": "S", "signal": "Licença Field Service Community (Partner License) + login individual — sharing padrão de território, sem modelo customizado."},
+      "ui": {"tier": "L", "signal": "LWC customizado com Apex controller: formulário por macro-tipo com campos condicionais por subtipo, captura de foto obrigatória, check-in geolocalizado em 200m, validação de recusa com motivo estruturado — componente interconectado e offline-aware [extends: field_service_dev.md:27512-27655]."}
+    },
+    "size_rationale": "L — driven by UI (LWC customizado interconectado para as 3 travas de negócio + formulário condicional por macro-tipo); data model e automação ficam baixos, apoiados em funcionalidade nativa.",
+    "complexity_drivers": "3 travas de negócio (recusa com motivo, foto obrigatória, check-in geolocalizado) implementadas como LWC customizado; known issue de Service Appointment com licença Community; enforcement offline dessas travas fica fora do MVP.",
+    "skills_needed": "LWC Developer, Field Service Mobile Consultant, Apex Developer.",
+    "risks": "Known issue de Service Appointment com licença Field Service Community [KB:field_service_dev.md:27272-27273] pode exigir workaround ou migração de licença; enforcement offline das travas fora do MVP é redução de escopo a validar formalmente.",
+    "confidence": "Assumed",
+    "solution_approach": "Field Service Mobile único (visões por Permission Set) com LWC customizado para o formulário de encerramento e as 3 travas de negócio; push nativo com retry; briefcase primando apenas a ocorrência em andamento."
+  },
+  {
+    "item_id": "E05",
+    "item_type": "epic",
+    "t_shirt_size": "L",
+    "size_drivers": {
+      "data_model": {"tier": "XS", "signal": "Sem objeto novo — reaproveita Service Appointment/Work Order já modelados em E02/E03."},
+      "automation": {"tier": "S", "signal": "Geração/expiração de token de uso único via Apex, disparada no encerramento + buffer [assumption: padrão de link seguro — validar contra segurança da PRODESP, G0517]."},
+      "sharing_security": {"tier": "M", "signal": "Site Experience Cloud com usuário guest controlado por número de telefone + token — modelo de acesso público temporário, não é sharing padrão de role hierarchy."},
+      "ui": {"tier": "L", "signal": "Site Experience Cloud + LWC/Apex customizado para o link de rastreamento do cidadão — não há feature nativa de rastreamento público/guest-acessível no Field Service ou Salesforce Maps [assumption: ausência confirmada via busca na central KB, incl. KA-6746]; mapa/Gantt do C2C usa Aerial Routing nativo [KA-6746]."},
+      "analytics_insights": {"tier": "S", "signal": "Painel único com 4 indicadores agregados, sem meta de SLA — reports/dashboard padrão, sem CRM Analytics [extends: padrão Report/Dashboard folder + sharing]."}
+    },
+    "size_rationale": "L — driven by UI (site Experience Cloud guest + LWC/Apex customizado, capability de build sem equivalente nativo); sharing soma como driver secundário pelo modelo de acesso público temporário.",
+    "complexity_drivers": "Construção de uma capability inteira (rastreamento público guest-acessível) sem feature nativa de referência; segurança do token/TTL; exibição de apenas a 1ª viatura quando há reforço.",
+    "skills_needed": "Experience Cloud Developer, LWC Developer, Apex Developer, Field Service Consultant (Aerial Routing).",
+    "risks": "Ausência de feature nativa torna todo o rastreamento do cidadão build customizado — risco de subestimar esforço; mecanismo de segurança do token (G0517) não validado com a equipe de segurança da PRODESP.",
+    "confidence": "Assumed",
+    "size_if_assumption_breaks": "L; XL se a exigência de segurança do token da PRODESP (rotação de chave, algoritmo de assinatura específico) for mais sofisticada que a premissa assumida de token assinado + TTL simples.",
+    "solution_approach": "Site Experience Cloud com acesso guest + componente customizado (LWC/Apex) para o link de rastreamento do cidadão; Aerial Routing nativo para o mapa/Gantt do C2C; painel de gestores como artefato único gated por Permission Set."
+  }
+]

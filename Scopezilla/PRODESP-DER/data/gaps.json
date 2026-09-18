@@ -3,426 +3,657 @@
     "gap_id": "G0101",
     "category": "Source Conflict",
     "gap_or_question": "Service Cloud está confirmado FORA do MVP (sem caso de uso de atendimento geral), mas o modelo de dados do BSA v2 para o canal WhatsApp depende de MessagingEndUser, MessagingSession e Case — objetos nativos de Service Cloud/Digital Engagement, não de Field Service. Não há decisão registrada sobre se essa camada de mensageria pode existir sem licença de Service Cloud.",
-    "impact_or_notes": "Bloqueia o dimensionamento de licenciamento (já listado como bloqueador na discovery) e a própria viabilidade técnica do canal WhatsApp do MVP. Precisa de confirmação explícita da AE/Salesforce sobre requisito de licença de Digital Engagement/Service Cloud independente do caso de uso de atendimento geral, antes do design técnico do canal."
+    "impact_or_notes": "Bloqueia o dimensionamento de licenciamento (já listado como bloqueador na discovery) e a própria viabilidade técnica do canal WhatsApp do MVP. Precisa de confirmação explícita da AE/Salesforce sobre requisito de licença de Digital Engagement/Service Cloud independente do caso de uso de atendimento geral, antes do design técnico do canal.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Service Cloud ENTRA no MVP: Agentforce Contact Center Enterprise (50 licenças), escopado ao canal WhatsApp. Setup: 1 fila humana única, 24x7, roteamento simples sem skills (premissa a revalidar com o cliente). Jornada: cidadão contata via WhatsApp; Agentforce tenta identificar emergência/local; falha ou preferência do cidadão => transbordo para a fila humana. Agentforce cria a ordem de serviço e devolve o protocolo; Field Service é responsável pelo Work Order e pelo encaminhamento/gestão de recursos de campo (dois registros distintos, não um). Ver decisions/0002.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0102",
     "category": "Source Conflict",
     "gap_or_question": "\"WhatsApp voz\" está confirmado em escopo do MVP (aba Canal de entrada: \"WhatsApp e WhatsApp voz são escopo desta fase\"), mas a documentação de produto mostra que provisionar um canal de voz do WhatsApp exige a edição \"Salesforce Voice (Native Telephony)\" [KB: agentforce_contact_center_4-30-2026.md:569-588] — exatamente o produto de CTI/voz que a decisions/0001 e a instrução direta do cliente empurraram para uma fase dedicada de Roadmap, fora do MVP.",
-    "impact_or_notes": "Se \"WhatsApp voz\" do MVP depender de Salesforce Voice, o MVP já carrega parte do escopo de voz que a ADR 0001 diz estar fora dele — contradição real entre dois documentos do próprio cliente. Precisa esclarecer com Renata Vendramini/DER se \"WhatsApp voz\" nesta fase é apenas recepção de áudio dentro do canal de mensageria (sem Salesforce Voice) ou o canal de voz nativo completo."
+    "impact_or_notes": "Se \"WhatsApp voz\" do MVP depender de Salesforce Voice, o MVP já carrega parte do escopo de voz que a ADR 0001 diz estar fora dele — contradição real entre dois documentos do próprio cliente. Precisa esclarecer com Renata Vendramini/DER se \"WhatsApp voz\" nesta fase é apenas recepção de áudio dentro do canal de mensageria (sem Salesforce Voice) ou o canal de voz nativo completo.",
+    "status": "Resolved - Confirmed",
+    "resolution": "\"WhatsApp voz\" = recepção/processamento de mensagens de áudio dentro do canal de mensageria (mesma esteira do texto, via Agentforce/Digital Engagement), transbordando automaticamente para a fila humana em falha ou preferência do cidadão. NÃO envolve Salesforce Voice (Native Telephony) — esse produto permanece fora do MVP, no Roadmap, conforme decisions/0001 (sem alteração à ADR). Ver decisions/0002.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0103",
     "category": "Missing Requirement",
     "gap_or_question": "Não há console definido para o papel \"Atendente humano\" (distinto do C2C) receber o transbordo do Agentforce quando há vítima ou pedido explícito do cidadão. O documento nomeia o papel e sua responsabilidade, mas não a ferramenta/tela em que ele opera.",
-    "impact_or_notes": "Sem console definido, não é possível especificar o requisito de UI, permissões, ou tempo de resposta do transbordo. Risco de o atendente humano não ter visibilidade da MessagingSession herdada do Agentforce no momento em que mais importa (caso com vítima)."
+    "impact_or_notes": "Sem console definido, não é possível especificar o requisito de UI, permissões, ou tempo de resposta do transbordo. Risco de o atendente humano não ter visibilidade da MessagingSession herdada do Agentforce no momento em que mais importa (caso com vítima).",
+    "status": "Resolved - Confirmed Requirement",
+    "resolution": "Requisito confirmado (não é premissa): Digital Engagement + Service Console configurados para o transbordo humano, dentro do mesmo Service Cloud/Agentforce Contact Center Enterprise de G0101.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0104",
     "category": "Logical Gap",
     "gap_or_question": "O campo `Has_Victims__c` na MessagingSession decide o transbordo obrigatório, mas não há regra de negócio documentada sobre como ele é preenchido: classificação automática do Agentforce via NLP na conversa, campo declarado pelo cidadão em um menu/pergunta fechada, ou confirmação humana posterior?",
-    "impact_or_notes": "Sem essa regra, o build não sabe se `Has_Victims__c` é um output de IA (sujeito a erro de classificação) ou um input estruturado — afeta diretamente o desenho do fluxo Agentforce e o nível de confiança do transbordo obrigatório."
+    "impact_or_notes": "Sem essa regra, o build não sabe se `Has_Victims__c` é um output de IA (sujeito a erro de classificação) ou um input estruturado — afeta diretamente o desenho do fluxo Agentforce e o nível de confiança do transbordo obrigatório.",
+    "status": "Resolved - Confirmed",
+    "resolution": "A IA (Agentforce) entende e sinaliza a suspeita de vítima, e transborda para o atendente humano com todo o contexto da conversa. A IA nunca faz a determinação final de gravidade/vítima — essa decisão é sempre humana, pós-transbordo.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0105",
     "category": "Ambiguity",
     "gap_or_question": "O critério de \"ocorrência com vítimas\" que aciona o transbordo obrigatório não está definido (ferimento leve vs. grave, óbito, múltiplos veículos, vítima presa nas ferragens). O documento trata \"vítimas\" como categoria binária.",
-    "impact_or_notes": "Sem critério objetivo, a confiabilidade da classificação automática de risco (pane vs. sinistro vs. sinistro com vítimas) não pode ser testada nem auditada — agrava o risco já citado pelo próprio cliente (\"Qualidade do Agente Conversacional\")."
+    "impact_or_notes": "Sem critério objetivo, a confiabilidade da classificação automática de risco (pane vs. sinistro vs. sinistro com vítimas) não pode ser testada nem auditada — agrava o risco já citado pelo próprio cliente (\"Qualidade do Agente Conversacional\").",
+    "status": "Resolved - Confirmed (cascade from G0104)",
+    "resolution": "Confirmado: a severidade da vítima (leve, grave, óbito etc.) é avaliada pelo atendente humano após o transbordo, nunca pela IA — decorre diretamente da resolução de G0104.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0106",
     "category": "Logical Gap",
     "gap_or_question": "O transbordo para atendente humano é \"obrigatório\" em casos com vítimas, mas não há SLA nem fallback definido para quando não há atendente humano disponível no momento (fila saturada) — especialmente relevante porque o mesmo papel \"Atendente humano\" cobre tanto a voz do 0800 quanto o transbordo do WhatsApp.",
-    "impact_or_notes": "Em pico de demanda (ex.: acidente múltiplo), o cidadão com vítima pode ficar em espera sem atendimento humano imediato, contradizendo a regra de negócio confirmada (\"a triagem de IA nunca conclui o socorro à vítima\"). Precisa de dimensionamento de capacidade e regra de escalonamento/backup."
+    "impact_or_notes": "Em pico de demanda (ex.: acidente múltiplo), o cidadão com vítima pode ficar em espera sem atendimento humano imediato, contradizendo a regra de negócio confirmada (\"a triagem de IA nunca conclui o socorro à vítima\"). Precisa de dimensionamento de capacidade e regra de escalonamento/backup.",
+    "status": "Resolved - Accepted as Operational Risk",
+    "resolution": "Aceito como risco operacional de staffing/dimensionamento de fila, não como gap de configuração Salesforce. SLA e fallback de saturação de fila são questão de dimensionamento de equipe do DER/PRODESP, a ser tratada no risk register, não no design do sistema.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0107",
     "category": "Missing Requirement",
     "gap_or_question": "Está confirmado que o WhatsApp da Carta de Serviços (11) 3325-8002, hoje da ouvidoria, NÃO pode ser reaproveitado para o socorro — mas não há requisito documentado do processo de provisionamento do novo número dedicado: registro no Meta Business API/WhatsApp Business Platform, prazo de homologação do Meta, e quem no DER/PRODESP é o dono desse processo.",
-    "impact_or_notes": "Homologação de número novo no WhatsApp Business Platform tem prazo e aprovação do Meta fora do controle da Salesforce/PRODESP — risco direto ao cronograma de homologação (jan/fev 2027) se não for iniciado com antecedência."
+    "impact_or_notes": "Homologação de número novo no WhatsApp Business Platform tem prazo e aprovação do Meta fora do controle da Salesforce/PRODESP — risco direto ao cronograma de homologação (jan/fev 2027) se não for iniciado com antecedência.",
+    "status": "Open",
+    "resolution": "Gap mantido aberto por decisão explícita do usuário — levar à próxima reunião DER/Stefanini (processo/prazo/dono do registro do novo número no Meta Business API/WhatsApp Business Platform).",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0108",
     "category": "Logical Gap",
     "gap_or_question": "Se o atendente humano assume a MessagingSession transbordada, mas o console de atendimento (tipicamente Service Cloud Console/Omni-Channel) não está confirmado nem licenciado (ver G0101 e G0103), não há tela onde essa sessão pode ser efetivamente recebida e trabalhada.",
-    "impact_or_notes": "Gap em cascata: resolver G0101 (licenciamento Service Cloud) é pré-requisito para resolver G0103 (console do atendente humano). Enquanto não resolvido, o requisito de \"transbordo obrigatório\" não é implementável de ponta a ponta."
+    "impact_or_notes": "Gap em cascata: resolver G0101 (licenciamento Service Cloud) é pré-requisito para resolver G0103 (console do atendente humano). Enquanto não resolvido, o requisito de \"transbordo obrigatório\" não é implementável de ponta a ponta.",
+    "status": "Resolved - Confirmed (cascade from G0101 + G0103)",
+    "resolution": "Resolvido em cascata: o console é o Digital Engagement/Service Console confirmado em G0103, sobre o Service Cloud/Agentforce Contact Center Enterprise confirmado em G0101.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0109",
     "category": "Missing Requirement",
     "gap_or_question": "Não há mensagem/fluxo de consentimento LGPD específico para o canal WhatsApp cobrindo o compartilhamento de geolocalização e, em casos de sinistro, dados de vítima — antes ou durante a triagem automatizada do Agentforce.",
-    "impact_or_notes": "A discovery já registra o gap geral de LGPD/DPIA (nenhum responsável por dados pessoais identificado), mas este é o ponto de captura de dado sensível mais provável do MVP (WhatsApp = canal de maior volume esperado). Sem esse desenho, o canal pode entrar em produção sem base legal clara para o dado que ele mais coleta."
+    "impact_or_notes": "A discovery já registra o gap geral de LGPD/DPIA (nenhum responsável por dados pessoais identificado), mas este é o ponto de captura de dado sensível mais provável do MVP (WhatsApp = canal de maior volume esperado). Sem esse desenho, o canal pode entrar em produção sem base legal clara para o dado que ele mais coleta.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa aceita: banner padrão de consentimento LGPD no início de toda conversa de WhatsApp, pendente de uma DPIA formal. Relacionado aos gaps de governança G0209/G0211 (ainda a resolver em E02).",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0110",
     "category": "Missing Requirement",
     "gap_or_question": "Não existe artefato formal de design de conversa para o Agentforce no WhatsApp (roteiro de prompts, tom, tratamento de usuário em situação de pânico/emergência na pista, acessibilidade para baixa literacia digital ou conexão instável). Quem no DER é o responsável por esse desenho de experiência antes do build começar?",
-    "impact_or_notes": "A própria discovery já sinaliza (área 15 do Extraction Audit) ausência de pesquisa de UX formal. Um roteiro de triagem mal desenhado em um canal de socorro emergencial tem risco direto de má classificação e de o cidadão abandonar a conversa no momento de maior vulnerabilidade."
+    "impact_or_notes": "A própria discovery já sinaliza (área 15 do Extraction Audit) ausência de pesquisa de UX formal. Um roteiro de triagem mal desenhado em um canal de socorro emergencial tem risco direto de má classificação e de o cidadão abandonar a conversa no momento de maior vulnerabilidade.",
+    "status": "Resolved - Premise Accepted (discipline gap - experience)",
+    "resolution": "Premissa aceita: a Salesforce PS desenha o roteiro de conversa do Agentforce a partir da discovery; o DER atua apenas como revisor/aprovador, não como dono da pesquisa de UX. Registrado como decisão de escopo — sem pesquisa de UX formal financiada no MVP.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0111",
     "category": "Missing Requirement",
     "gap_or_question": "Não há dono nomeado para QA/monitoria contínua da classificação do Agentforce (pane vs. sinistro vs. sinistro com vítimas) após o go-live. Quem no DER assume esse papel de governança do agente de IA?",
-    "impact_or_notes": "Risco já citado na própria matriz de riscos do cliente (\"Qualidade do Agente Conversacional\", sem dono identificado) e mapeado como \"Hallucinated Execution\" no `knowledge/latam-agentic-governance-services.md` — o documento recomenda uma trilha de Governance Foundations (12-16 semanas) por o DER estar bem abaixo do limiar de 10 agentes, mas nenhuma conversa formal sobre isso ocorreu ainda. [KB: latam-agentic-governance-services.md:5-28]"
+    "impact_or_notes": "Risco já citado na própria matriz de riscos do cliente (\"Qualidade do Agente Conversacional\", sem dono identificado) e mapeado como \"Hallucinated Execution\" no `knowledge/latam-agentic-governance-services.md` — o documento recomenda uma trilha de Governance Foundations (12-16 semanas) por o DER estar bem abaixo do limiar de 10 agentes, mas nenhuma conversa formal sobre isso ocorreu ainda. [KB: latam-agentic-governance-services.md:5-28]",
+    "status": "Resolved - Premise Accepted (discipline gap - governance)",
+    "resolution": "Premissa aceita: a Salesforce PS propõe uma trilha leve de Governance Foundations (~12-16 semanas) como item antecipado de Roadmap, não incluída no MVP.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0112",
     "category": "Potential Risk",
     "gap_or_question": "Classificação incorreta do Agentforce (ex.: não reconhecer menção implícita a vítima em texto livre e ambíguo do cidadão em pânico) pode impedir o disparo do transbordo obrigatório.",
-    "impact_or_notes": "Risco de vida, não apenas operacional — é o cenário mais grave possível para este épico. Reforça a necessidade de G0104 (regra de detecção), G0105 (critério objetivo) e G0111 (QA/monitoria com dono nomeado) antes do go-live."
+    "impact_or_notes": "Risco de vida, não apenas operacional — é o cenário mais grave possível para este épico. Reforça a necessidade de G0104 (regra de detecção), G0105 (critério objetivo) e G0111 (QA/monitoria com dono nomeado) antes do go-live.",
+    "status": "Resolved - Accepted as Residual Risk",
+    "resolution": "Aceito como risco residual (não eliminado) para o risk register, dadas as mitigações conservadoras adotadas em G0104/G0105/G0111.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0113",
     "category": "Ambiguity",
     "gap_or_question": "O texto do MVP diz que o transbordo ocorre \"quando o usuário solicita ou quando a ocorrência tem vítimas\" — mas não define como o Agentforce reconhece um \"pedido explícito\" de atendimento humano dentro de uma conversa em linguagem livre: frase-gatilho, botão/menu de opção, ou qualquer sinal de recusa da triagem automatizada?",
-    "impact_or_notes": "Sem esse critério, o comportamento de fallback para transbordo por solicitação do usuário (distinto do transbordo por vítima) fica em aberto para interpretação do agente de build, o que é justamente o tipo de decisão que não deveria ficar implícita em um canal de socorro emergencial."
+    "impact_or_notes": "Sem esse critério, o comportamento de fallback para transbordo por solicitação do usuário (distinto do transbordo por vítima) fica em aberto para interpretação do agente de build, o que é justamente o tipo de decisão que não deveria ficar implícita em um canal de socorro emergencial.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa aceita: um botão/quick-reply fixo \"falar com atendente humano\" fica sempre disponível na conversa, complementando a detecção de sinal por NLP em texto livre.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0114",
     "category": "Logical Gap",
     "gap_or_question": "O lookup `MessagingSession.WorkOrder__c` liga a sessão ao Work Order gerado na triagem — mas não há requisito para o caso em que o transbordo ocorre ANTES da triagem terminar (ex.: vítima identificada logo na primeira mensagem, antes de capturar rodovia/km/veículo). O atendente humano herda uma sessão sem Work Order vinculado?",
-    "impact_or_notes": "Sem esse requisito, o build pode assumir (incorretamente) que todo transbordo já chega com Work Order criado, quebrando o rastreamento de protocolo único — exatamente o critério de sucesso central do projeto (\"visão única e rastreável, em tempo real\")."
+    "impact_or_notes": "Sem esse requisito, o build pode assumir (incorretamente) que todo transbordo já chega com Work Order criado, quebrando o rastreamento de protocolo único — exatamente o critério de sucesso central do projeto (\"visão única e rastreável, em tempo real\").",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa aceita: um Work Order placeholder (mesmo com dados parciais) é sempre criado no momento do transbordo para humano, que completa os campos restantes — protege o critério de sucesso de protocolo único rastreável mesmo em transbordo precoce.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0115",
     "category": "Missing Requirement",
     "gap_or_question": "O link do mapa de acompanhamento é enviado por WhatsApp quando o pedido veio por texto, ou por SMS quando veio por voz (WhatsApp voz) — mas não há requisito de gateway/provedor de SMS (custo por envio, contrato, quem contrata: DER ou PRODESP).",
-    "impact_or_notes": "É uma dependência de integração nova, não mencionada em nenhuma outra parte da discovery. Sem provedor de SMS definido, a prova P-08 (\"Acompanhamento visual para o cidadão\") não pode ser demonstrada para o canal de voz do WhatsApp."
+    "impact_or_notes": "É uma dependência de integração nova, não mencionada em nenhuma outra parte da discovery. Sem provedor de SMS definido, a prova P-08 (\"Acompanhamento visual para o cidadão\") não pode ser demonstrada para o canal de voz do WhatsApp.",
+    "status": "Resolved - Premise Accepted (to revalidate)",
+    "resolution": "Premissa aceita, a revalidar: a PRODESP assume o contrato do gateway de SMS para o link de acompanhamento do cidadão quando o pedido veio por WhatsApp voz, análogo a outras integrações de telefonia/URA já sob responsabilidade da PRODESP.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0201",
     "category": "Capability Gap",
     "gap_or_question": "A reunião de preparação de PoC (04/09, condutor Rafael Marques — Salesforce) registra a decisão de usar 'a funcionalidade nativa de Incidente' para aglutinar múltiplos protocolos do mesmo evento (ex.: vários cidadãos reportando o mesmo animal na pista) em uma única ordem de serviço de campo, evitando despacho duplicado. O Field Service Developer Guide indexado em knowledge/ (field_service_dev.md) não menciona nenhum objeto 'Incident' nativo no modelo de dados core (Work Order, Work Order Line Item, Service Appointment, Work Type) — zero ocorrências do termo no documento. Não está confirmado se 'Incidente' é (a) um objeto padrão do Field Service em uma versão/licença não documentada na KB, (b) um objeto do Service Cloud ITSM (gestão de incidentes de TI, sem relação com ocorrências rodoviárias), ou (c) um objeto customizado que a equipe Salesforce construiria especificamente para este projeto.",
-    "impact_or_notes": "Item load-bearing para a fundação do ciclo (Pacote A: 'Tipos, status, identificador único e histórico'). Se 'Incidente' for customizado, isso é escopo de build não dimensionado em nenhum pacote atual e precisa entrar explicitamente em E02. Grounding: [KB:field_service_dev.md — Field Service Core Data Model, linhas ~101-220, sem menção a 'Incident']; a alegação do BSA/PoC fica 🔴 não fundamentada até validação com a equipe de arquitetura Salesforce."
+    "impact_or_notes": "Item load-bearing para a fundação do ciclo (Pacote A: 'Tipos, status, identificador único e histórico'). Se 'Incidente' for customizado, isso é escopo de build não dimensionado em nenhum pacote atual e precisa entrar explicitamente em E02. Grounding: [KB:field_service_dev.md — Field Service Core Data Model, linhas ~101-220, sem menção a 'Incident']; a alegação do BSA/PoC fica 🔴 não fundamentada até validação com a equipe de arquitetura Salesforce.",
+    "status": "Resolved - Grounded, deferred to Roadmap",
+    "resolution": "Pesquisa dedicada confirma: existe objeto nativo Incident — Customer Service Incident Management (CSIM), sob SERVICE CLOUD (não Field Service — correção de framing), objeto standalone (não construído sobre Case), incluído em Service Cloud Enterprise/Unlimited sem SKU adicional identificado. Relaciona-se a Case via related list; NÃO há relação nativa Incident↔Work Order (exigiria lookup/junção customizada). O fluxo documentado é humano-no-controle (agente/supervisor detecta e liga Cases manualmente) — NÃO há matching automático por geolocalização/tempo para deduplicar eventos reais. Por decisão de G0202, o mecanismo Incident é RETIRADO do MVP e vira item de Roadmap; a lógica de matching (raio+tempo+tipo, G0204) precisa de build customizado independentemente do objeto-base escolhido. Grounding: [KA-4112, KA-4090, KA-4063, KA-4059, KA-4093, KA-4096] via central KB, confiança média (fetch direto de help.salesforce.com bloqueado por renderização JS).",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0202",
     "category": "Logical Gap",
     "gap_or_question": "O próprio épico E02 define um mecanismo distinto para 'segunda viatura' no mesmo chamado: 'chamado vinculado' explicitamente SEM usar Work Order Line Item (confirmado no BSA v2, linha 618). A reunião de PoC descreve um segundo mecanismo — o objeto 'Incidente' — para aglutinar múltiplos protocolos do MESMO evento reportado por PESSOAS diferentes. Nenhum documento resolve a relação entre os dois: são dois objetos/mecanismos paralelos (chamado vinculado vs. Incidente), ou o 'chamado vinculado' da segunda viatura É a mesma funcionalidade de Incidente aplicada a um caso de uso diferente?",
-    "impact_or_notes": "Sem essa resolução, o time de build pode implementar dois padrões de vinculação divergentes para o que talvez seja o mesmo conceito de dados (múltiplos registros apontando para uma ocorrência-mestre), duplicando esforço de modelagem e arriscando inconsistência de relatório/indicador (Pacote A e I)."
+    "impact_or_notes": "Sem essa resolução, o time de build pode implementar dois padrões de vinculação divergentes para o que talvez seja o mesmo conceito de dados (múltiplos registros apontando para uma ocorrência-mestre), duplicando esforço de modelagem e arriscando inconsistência de relatório/indicador (Pacote A e I).",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa fixada: NÃO usar Work Order Line Item (WOLI) para a segunda viatura — implementar como dois slots de recursos (resource assignments/Service Resources) no mesmo Work Order/Service Appointment, não um chamado vinculado separado. O mecanismo 'Incidente' (aglutinação de múltiplos protocolos do mesmo evento reportado por pessoas diferentes) é RETIRADO do escopo do MVP pela complexidade de definir localidade/raio de aglutinação — vira item de Roadmap, dependente da pesquisa de grounding de G0201. No MVP, entra um fluxo de identificação de duplicidade de ocorrência com ALERTA ao C2C (ação manual, não fusão automática) — ver G0204.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0203",
     "category": "Source Conflict",
     "gap_or_question": "O modelo de status da ocorrência conflita entre duas fontes de discovery. Documento da POC (20/08, linhas ~2739-2799): Aberto → Em fila → Acionado → Aceito → Iniciado → Concluído, com dois fechamentos distintos (equipe 'Conclui' no celular / C2C 'Encerra' na mesa — premissa registrada na linha 2531-2533 do discovery-context). Notas Gemini da reunião de 04/09 (brief, linha 5233): Aberto → Acionado → Em fila → Aceito → Iniciado → Encerrado/Cancelado — ordem invertida de 'Em fila' e 'Acionado', e sem menção ao segundo estado de fechamento ('Concluído' pela equipe).",
-    "impact_or_notes": "O ciclo de vida do status é a base do Pacote A ('Fundação do ciclo') e do E02 (registro/classificação inicial happens no status Aberto/Em fila, per linha 2757-2760). Uma reconciliação formal do fluxo de status com o DER é necessária antes de configurar o objeto — hoje há duas versões divergentes na base de conhecimento do projeto, nenhuma delas confirmada como final pelo cliente."
+    "impact_or_notes": "O ciclo de vida do status é a base do Pacote A ('Fundação do ciclo') e do E02 (registro/classificação inicial happens no status Aberto/Em fila, per linha 2757-2760). Uma reconciliação formal do fluxo de status com o DER é necessária antes de configurar o objeto — hoje há duas versões divergentes na base de conhecimento do projeto, nenhuma delas confirmada como final pelo cliente.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa aceita: adotar os status padrão (out-of-the-box) do Field Service para Work Order/Service Appointment, em vez de reconciliar os dois fluxos customizados divergentes citados na POC (20/08) e nas notas Gemini (04/09).",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0204",
     "category": "Missing Requirement",
     "gap_or_question": "Não existe regra confirmada de deduplicação na abertura da ocorrência. O questionário de discovery pergunta explicitamente: 'Existe alguma regra que impede a abertura em duplicidade de ocorrências?' (linha 2496-2497) e a resposta está marcada 'GAP DE RESPOSTA DO CLIENTE' — sem resposta do DER.",
-    "impact_or_notes": "Sem uma regra ou critério de correspondência (raio geográfico + janela de tempo + tipo, por exemplo) no momento do registro/classificação, múltiplos cidadãos reportando o mesmo pane/sinistro por canais diferentes (WhatsApp de um, 0800 de outro) geram protocolos separados — o que é exatamente o cenário que o mecanismo 'Incidente' (G0201) supostamente resolveria, tornando G0201 e G0204 dependentes entre si."
+    "impact_or_notes": "Sem uma regra ou critério de correspondência (raio geográfico + janela de tempo + tipo, por exemplo) no momento do registro/classificação, múltiplos cidadãos reportando o mesmo pane/sinistro por canais diferentes (WhatsApp de um, 0800 de outro) geram protocolos separados — o que é exatamente o cenário que o mecanismo 'Incidente' (G0201) supostamente resolveria, tornando G0201 e G0204 dependentes entre si.",
+    "status": "Resolved - Premise Accepted (to revalidate with client)",
+    "resolution": "Premissa aceita como recomendação nossa, explicitamente marcada para validação formal com o cliente durante o projeto (não fechada por resposta direta do DER): critério de dedup por raio geográfico + janela de tempo + mesmo tipo de ocorrência, sinalizando duplicidade potencial como alerta ao C2C — fluxo manual, não fusão automática, consistente com o mecanismo de G0202.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0205",
     "category": "Capability Gap",
     "gap_or_question": "O catálogo operacional tem 5 macro-tipos (pane, sinistro, teóscio, diversos, solicitação de informação) e 100+ subtipos no microcatálogo (discovery-context linha 866). O objeto nativo mais próximo no Field Service — Work Type — é, pela KB, um objeto plano usado como template (duração + skills requeridas), sem hierarquia nativa de categoria/subcategoria [KB:field_service_dev.md linhas ~149-152: 'Work types are templates... define the duration of the work and add skill requirements']. Não há decisão registrada sobre como representar a hierarquia macro-tipo → subtipo: Work Type + campo de agrupamento customizado, dois picklists dependentes, ou uma estrutura de Record Type por macro-tipo.",
-    "impact_or_notes": "Decisão de modelagem de dados load-bearing para o Pacote A ('catálogo completo no dia 1' é o cenário G/grande). Sem resolver isso, o dimensionamento de configuração de mais de 100 subtipos fica sem base técnica."
+    "impact_or_notes": "Decisão de modelagem de dados load-bearing para o Pacote A ('catálogo completo no dia 1' é o cenário G/grande). Sem resolver isso, o dimensionamento de configuração de mais de 100 subtipos fica sem base técnica.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa fixada: os 100+ subtipos são cadastrados como Work Type; o macro-tipo (5 valores) é um campo personalizado tipo picklist no Work Type, informativo/critério de filtro de subtipo — sem uso de Record Type, por complexidade de manutenção.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0206",
     "category": "Logical Gap",
     "gap_or_question": "A premissa registrada é 'sem dupla convivência — chamados de serviço emergencial são criados somente no Salesforce' (discovery-context linha 2274-2275). Mas o próprio questionário de discovery, na sequência, pergunta 'Entretanto, o Salesforce tem que sincronizar as emergências com o sistema atual [SIGOR]?' (linha 2283-2284) — pergunta que permanece sem resposta registrada.",
-    "impact_or_notes": "Se a resposta for 'sim, precisa sincronizar' (para relatórios estaduais, auditoria ou outros sistemas que só leem do SIGOR), isso contradiz a premissa de não-convivência e implica uma integração de saída (Salesforce → SIGOR) não contemplada em nenhum pacote de escopo atual (Pacote G trata de SIGOR apenas como 'recorte zerado')."
+    "impact_or_notes": "Se a resposta for 'sim, precisa sincronizar' (para relatórios estaduais, auditoria ou outros sistemas que só leem do SIGOR), isso contradiz a premissa de não-convivência e implica uma integração de saída (Salesforce → SIGOR) não contemplada em nenhum pacote de escopo atual (Pacote G trata de SIGOR apenas como 'recorte zerado').",
+    "status": "Resolved - Premise Accepted (scope reversal)",
+    "resolution": "Premissa fixada, REVERTE a leitura original de 'sem dupla convivência': assume-se dupla convivência com integração de sincronização Salesforce→SIGOR para as ocorrências de emergência. Isso adiciona uma integração de saída não dimensionada em nenhum pacote de escopo atual — considerar no dimensionamento de E02/Roadmap.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0207",
     "category": "Missing Requirement",
     "gap_or_question": "Não há sistema de registro confirmado para a identidade de quem solicita o socorro. À pergunta 'Onde está o cadastro de origem de quem pede o socorro (cidadão/usuário)? Qual sistema é o dono?' (discovery-context linha 2287-2288), a resposta registrada é apenas 'Não' (linha 2308), marcada como gap de resposta do cliente.",
-    "impact_or_notes": "Para o canal WhatsApp, o modelo de dados capta apenas o número via MessagingEndUser.MessagingPlatformKey (linha 559) — sem perfil de cidadão. Para o 0800, não há cadastro algum. Isso deixa em aberto como modelar um relator terceiro (alguém que reporta em nome de outro motorista, ou um passante anônimo reportando um animal na pista) de forma distinta da parte afetada — relevante diretamente para a etapa de 'Registro' do E02."
+    "impact_or_notes": "Para o canal WhatsApp, o modelo de dados capta apenas o número via MessagingEndUser.MessagingPlatformKey (linha 559) — sem perfil de cidadão. Para o 0800, não há cadastro algum. Isso deixa em aberto como modelar um relator terceiro (alguém que reporta em nome de outro motorista, ou um passante anônimo reportando um animal na pista) de forma distinta da parte afetada — relevante diretamente para a etapa de 'Registro' do E02.",
+    "status": "Resolved - Premise Accepted (to revalidate)",
+    "resolution": "Premissa aceita, a validar: o relator é registrado como Contact (não Person Account) no Salesforce. A ocorrência não é anônima, mas o conjunto mínimo de dados capturados do relator ainda não está definido nesta fase de pré-venda.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0208",
     "category": "Ambiguity",
     "gap_or_question": "Quem pode reclassificar o tipo de ocorrência já registrado (ex.: inspeção reclassificada para pane/sinistro no local) é uma pergunta aberta e sem resposta do cliente: 'Coletamos se o tipo de trabalho muda no local... Diga quem pode mudar o tipo no local' (discovery-context linha 2518-2520).",
-    "impact_or_notes": "Isso é central à capacidade de classificação do E02: sem resposta, o modelo de permissão (C2C apenas vs. equipe de campo também) e o gatilho de re-despacho (mudança de tipo pode mudar recurso/skill exigido, cruzando para E03) ficam indefinidos."
+    "impact_or_notes": "Isso é central à capacidade de classificação do E02: sem resposta, o modelo de permissão (C2C apenas vs. equipe de campo também) e o gatilho de re-despacho (mudança de tipo pode mudar recurso/skill exigido, cruzando para E03) ficam indefinidos.",
+    "status": "Resolved - Premise Accepted (to revalidate with DER)",
+    "resolution": "Premissa aceita, a revalidar com o DER: tanto o C2C (mesa) quanto a equipe de campo (via app mobile) podem reclassificar o tipo de ocorrência; toda mudança gera histórico auditado e pode disparar re-despacho (E03) se o novo tipo exigir skill/recurso diferente.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0209",
     "category": "Missing Requirement",
     "gap_or_question": "[Gap de disciplina — governança de dados/LGPD] A etapa de registro/classificação — em qualquer canal — é o ponto de entrada de dados de geolocalização e, conforme o modelo de dados documentado, de um campo `Has_Victims__c` que sinaliza a presença de vítimas de acidente (dado pessoal sensível/relativo à saúde) já na triagem inicial (discovery-context linha 566). Nenhuma discussão formal de LGPD/DPIA foi registrada especificamente para este ponto de captação — o mais precoce do ciclo em que dado sensível entra no sistema.",
-    "impact_or_notes": "Diferente do gap geral de LGPD/DPIA já mapeado no projeto (que trata do tema em nível de programa), este é o ponto de captação concreto que precisa de um responsável por retenção, minimização e base legal — antes de configurar os campos de intake do E02, não depois."
+    "impact_or_notes": "Diferente do gap geral de LGPD/DPIA já mapeado no projeto (que trata do tema em nível de programa), este é o ponto de captação concreto que precisa de um responsável por retenção, minimização e base legal — antes de configurar os campos de intake do E02, não depois.",
+    "status": "Resolved - Premise Accepted (discipline gap - governance)",
+    "resolution": "Premissa aceita, na mesma base de G0109: banner de consentimento LGPD estendido a todos os canais de intake (WhatsApp e 0800); retenção/minimização do dado de geolocalização e do campo de vítima ficam pendentes de DPIA formal, ainda sem dono nomeado.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0210",
     "category": "Ambiguity",
     "gap_or_question": "Para o canal 0800, o registro é feito manualmente pelo C2C (per descrição do E02). Não está definido qual objeto/tela o atendente do C2C usa para essa criação manual: uma tela nativa de criação de Work Order (Field Service), ou um Case em um console de Service Cloud — o que reabriria a questão de licenciamento de Service Cloud já identificada no nível do projeto, mas agora aplicada especificamente ao assento de digitação manual do C2C (canal 0800), independente da camada de mensageria do WhatsApp.",
-    "impact_or_notes": "Afeta diretamente o dimensionamento de licença e a experiência de registro do E02 para o canal 0800 — sem essa definição, não há base para configurar a tela/objeto de abertura manual."
+    "impact_or_notes": "Afeta diretamente o dimensionamento de licença e a experiência de registro do E02 para o canal 0800 — sem essa definição, não há base para configurar a tela/objeto de abertura manual.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa nova: independentemente do canal (WhatsApp ou 0800), o fluxo de registro manual do C2C é o mesmo e pode criar o registro tanto pela tela nativa do Field Service quanto pelo Service Console — não há tela exclusiva por canal.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0211",
     "category": "Missing Requirement",
     "gap_or_question": "[Gap de disciplina — governança/stewardship de dados] Com o papel contratual PRODESP vs. DER-SP não documentado, também não está definido quem é o steward/owner de governança do próprio registro da ocorrência (protocolo, dados do solicitante, geolocalização, classificação) para efeitos de modelo de compartilhamento (OWD) e responsabilização em auditoria de órgãos de controle do Estado — a PRODESP como operadora contratada do sistema, ou o DER-SP como órgão responsável pelo serviço público.",
-    "impact_or_notes": "Isso é um pré-requisito de design para o modelo de sharing do Work Order/registro no E02, e para a prestação de contas mencionada como impacto de negócio ('ausência de protocolo único dificulta a prestação de contas a órgãos de controle')."
+    "impact_or_notes": "Isso é um pré-requisito de design para o modelo de sharing do Work Order/registro no E02, e para a prestação de contas mencionada como impacto de negócio ('ausência de protocolo único dificulta a prestação de contas a órgãos de controle').",
+    "status": "Resolved - Premise Accepted (discipline gap - governance)",
+    "resolution": "Premissa aceita: DER-SP é o steward/owner de negócio dos dados de ocorrência (protocolo, dados do solicitante, geolocalização) para efeitos de prestação de contas; PRODESP atua como operadora técnica contratada do sistema — modelo de sharing (OWD) reflete essa separação.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0212",
     "category": "Ambiguity",
     "gap_or_question": "Com o login do aplicativo de campo ainda não decidido entre 'por viatura' ou 'por pessoa', a trilha de auditoria da classificação/registro feito em campo (quem reclassificou, quem registrou dados no local) fica sem identidade individual resolvida caso o login seja por viatura.",
-    "impact_or_notes": "Aplicado especificamente ao rastro de histórico do E02 ('identificador único e histórico' — Pacote A): se o login for por viatura, qualquer alteração de classificação feita no app não é atribuível a uma pessoa específica, o que é uma lacuna de auditabilidade já sinalizada como risco no nível do projeto, mas ainda não resolvida na modelagem do próprio objeto de registro."
+    "impact_or_notes": "Aplicado especificamente ao rastro de histórico do E02 ('identificador único e histórico' — Pacote A): se o login for por viatura, qualquer alteração de classificação feita no app não é atribuível a uma pessoa específica, o que é uma lacuna de auditabilidade já sinalizada como risco no nível do projeto, mas ainda não resolvida na modelagem do próprio objeto de registro.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa aceita: login individual por operador de campo (não por viatura) — preserva auditabilidade completa do rastro de reclassificação/registro exigido por G0208. Implica licenciamento por pessoa (1.152 operadores), não por viatura (298).",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0213",
     "category": "Potential Risk",
     "gap_or_question": "A localização captada na abertura via WhatsApp depende do GPS do dispositivo de quem está relatando, que pode não refletir o local real do incidente — cenário citado explicitamente na reunião de PoC (animal na pista reportado por alguém 'quilômetros atrás' do local real, linhas 3587-3594). A mitigação proposta (delimitação por polígonos geográficos) está marcada como 'não configurada' e 'Unknown' (discovery-context linha 5252, 5321) — sem decisão de correção manual do km/local na etapa de classificação.",
-    "impact_or_notes": "Risco operacional direto para o E02: sem uma etapa de validação/correção de local na classificação, o despacho automático (E03) herda uma localização potencialmente incorreta, gerando deslocamento de recurso para o ponto errado — sobretudo relevante já que o próprio Pacote C do projeto trata 'local na abertura' como premissa aberta."
+    "impact_or_notes": "Risco operacional direto para o E02: sem uma etapa de validação/correção de local na classificação, o despacho automático (E03) herda uma localização potencialmente incorreta, gerando deslocamento de recurso para o ponto errado — sobretudo relevante já que o próprio Pacote C do projeto trata 'local na abertura' como premissa aberta.",
+    "status": "Resolved - Premise Accepted (to confirm)",
+    "resolution": "Premissa 1 confirmada (etapa de validação/correção manual de km/local pelo C2C antes do despacho), com detalhe adicional: após o ajuste do endereço, é necessária integração com o sistema legado do DER (SIGEO) para corrigir a lat/long do novo endereço. Premissa assumida, a confirmar — SIGEO é uma nova dependência de integração de geolocalização, distinta do SIGOR (G0206), a documentar na terminologia do projeto.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0214",
     "category": "Missing Requirement",
     "gap_or_question": "O recorte de subtipos do MVP não está fechado no nível de detalhe do microcatálogo. O discovery confirma macro-tipos em escopo (pane, sinistro, inspeção) mas o Pacote A distingue explicitamente 'P: 7 variantes da prova' de 'G: catálogo completo no dia 1' sem uma lista intermediária de quais dos 100+ subtipos entram na primeira versão produtiva (não apenas na prova de conceito).",
-    "impact_or_notes": "Sem essa lista, o dimensionamento de configuração do catálogo de classificação do E02 oscila entre 7 e 100+ itens — uma variação de tamanho relevante que hoje só existe como faixa P/G, não como escopo fechado."
+    "impact_or_notes": "Sem essa lista, o dimensionamento de configuração do catálogo de classificação do E02 oscila entre 7 e 100+ itens — uma variação de tamanho relevante que hoje só existe como faixa P/G, não como escopo fechado.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa fixada: o MVP entra com o catálogo completo (100+ subtipos como Work Type) desde o dia 1 produtivo, consistente com a decisão de produção estadual completa nas 14 CGRs.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0301",
     "category": "Missing Requirement",
     "gap_or_question": "O valor do parâmetro N (minutos) da regra de escalonamento N/N-10 nunca foi especificado em nenhum documento de discovery (POC 20/08, brief, questionário). O motor de despacho automático não pode ser configurado — nem os work rules/scheduling policy do Field Service parametrizados — sem esse valor.",
-    "impact_or_notes": "Bloqueia a configuração da Scheduling Policy e dos work rules de pré-agendamento. Precisa ser levado como pergunta bloqueadora à próxima reunião com DER/Stefanini antes do início do build do Console do Dispatcher."
+    "impact_or_notes": "Bloqueia a configuração da Scheduling Policy e dos work rules de pré-agendamento. Precisa ser levado como pergunta bloqueadora à próxima reunião com DER/Stefanini antes do início do build do Console do Dispatcher.",
+    "status": "Resolved - Premise Accepted (to validate)",
+    "resolution": "Premissa fixada: N = 30 minutos como valor de referência inicial para configuração e demonstração — tempo típico de atendimento de pane/sinistro simples em rodovia. Marcado explicitamente como premissa a validar/ajustar com o DER antes do go-live.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0302",
     "category": "Capability Gap",
     "gap_or_question": "O Field Service nativo (Scheduling Optimizer / optimize() API / Scheduling Policies) não oferece um gatilho pronto de 'pré-agendar o próximo despacho N minutos antes do término da ocorrência atual'. Exige lógica customizada (Apex/Flow) para materializar a regra N/N-10.",
-    "impact_or_notes": "Sem esse componente customizado, a regra N/N-10 fica apenas descrita no processo e não implementada no sistema. Deve entrar explicitamente como item de build (Apex/Flow)."
+    "impact_or_notes": "Sem esse componente customizado, a regra N/N-10 fica apenas descrita no processo e não implementada no sistema. Deve entrar explicitamente como item de build (Apex/Flow).",
+    "status": "Resolved - Gap Dismissed / Reframed",
+    "resolution": "Gap dispensado no framing original: por ser serviço emergencial, o modelo de despacho NÃO usa pré-agendamento do próximo atendimento antes do término do atual — não há necessidade do gatilho de scheduling proativo descrito neste gap. O parâmetro N/N-10 (G0301) opera como regra de escalonamento em tempo real sobre o tempo de espera da ocorrência atual (se o tempo estimado de espera exceder N, amplia o pool de recursos para não-aderentes com teto N-10), não como pré-agendamento do próximo despacho. O mecanismo de escalonamento em si ainda pode exigir lógica customizada (Apex/Flow) sobre a Scheduling API, mas sem o componente de 'agendamento futuro' originalmente suposto.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0303",
     "category": "Source Conflict",
     "gap_or_question": "Duas passagens do discovery-context divergem sobre a obrigatoriedade de motivo na recusa: uma versão descreve a recusa sem exigir motivo; uma versão revisada afirma 'Recusa exige motivo'.",
-    "impact_or_notes": "Afeta o desenho do app de campo (UI de recusa) e o dado que alimenta a trilha de auditoria. Confirmar qual versão é vigente."
+    "impact_or_notes": "Afeta o desenho do app de campo (UI de recusa) e o dado que alimenta a trilha de auditoria. Confirmar qual versão é vigente.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa fixada: adotada a versão revisada como vigente — recusa de despacho pela equipe de campo sempre exige motivo estruturado (picklist), alimentando a trilha de auditoria.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0304",
     "category": "Logical Gap",
     "gap_or_question": "O fluxo de reatribuição após recusa não está detalhado — reprocessamento automático imediato vs. nova intervenção manual do C2C.",
-    "impact_or_notes": "Determina se a automação de despacho é ponta-a-ponta ou gera trabalho manual repetido — muda dimensionamento operacional e complexidade do build."
+    "impact_or_notes": "Determina se a automação de despacho é ponta-a-ponta ou gera trabalho manual repetido — muda dimensionamento operacional e complexidade do build.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa fixada: após recusa, o motor de despacho automático reprocessa imediatamente e aciona o próximo recurso aderente, sem intervenção manual do C2C — mantém a automação ponta-a-ponta como princípio do E03.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0305",
     "category": "Missing Requirement",
     "gap_or_question": "Overrides manuais de despacho pelo C2C não têm campos/mecanismo de trilha de auditoria definidos (dados a capturar, retenção). Field History Tracking padrão tem limite de 20 campos e retenção 18-24 meses — não confirmado se atende à retenção exigida para prestação de contas.",
-    "impact_or_notes": "Risco já mapeado como 'Governança de Despacho'. Pode exigir Field Audit Trail (add-on) ou log customizado."
+    "impact_or_notes": "Risco já mapeado como 'Governança de Despacho'. Pode exigir Field Audit Trail (add-on) ou log customizado.",
+    "status": "Open - Blocking question for DER",
+    "resolution": "Gap mantido aberto: mecanismo de trilha de auditoria para overrides manuais de despacho (campos a capturar, retenção) não foi premissado. Levar como pergunta bloqueadora ao DER/Stefanini antes do build do Console do Dispatcher — decidir entre Field History Tracking padrão (20 campos, 18-24 meses) e Field Audit Trail (add-on, retenção estendida), à luz da exigência de prestação de contas a órgãos de controle (DER-SP como steward de governança, G0211).",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0306",
     "category": "Ambiguity",
     "gap_or_question": "Destinatário e ação do alarme de 5 minutos não detalhados (todo o turno vs. programador específico, canal, escalonamento a supervisor).",
-    "impact_or_notes": "Sem essa definição, o Console do Dispatcher não pode ser desenhado corretamente; SLA de resposta ao alarme fica indefinido."
+    "impact_or_notes": "Sem essa definição, o Console do Dispatcher não pode ser desenhado corretamente; SLA de resposta ao alarme fica indefinido.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa fixada: o alarme de 5 minutos (deslocamento) é direcionado ao programador responsável pelo despacho daquele chamado especificamente, não a todo o turno; se não reconhecido em 5 minutos adicionais, escalona automaticamente ao supervisor da CGR.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0307",
     "category": "Logical Gap",
     "gap_or_question": "Comportamento indefinido quando nenhuma viatura está disponível dentro do teto N (saturação regional) — fila, escalonamento a CGR vizinha, ou alerta a gestores?",
-    "impact_or_notes": "Risco de 'priorização em saturação' já mapeado, mas sem tratamento funcional específico — justamente o cenário de pico onde a automação mais precisa funcionar."
+    "impact_or_notes": "Risco de 'priorização em saturação' já mapeado, mas sem tratamento funcional específico — justamente o cenário de pico onde a automação mais precisa funcionar.",
+    "status": "Resolved - Premise Accepted (to confirm)",
+    "resolution": "Premissa assumida, a confirmar: escalonamento cross-CGR é restrito a áreas de intersecção/fronteira entre duas CGRs — se o local do incidente estiver nessa área de intersecção e houver indisponibilidade de recursos na CGR responsável, o despacho automático pode acionar recurso da CGR vizinha cuja área de intersecção cobre o local. Não é uma regra geral de overflow regional (qualquer CGR saturada aciona qualquer vizinha), mas condicionada à geografia de fronteira. Comportamento de saturação fora dessas áreas de intersecção permanece sem tratamento definido.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0308",
     "category": "Missing Requirement",
     "gap_or_question": "Critérios de 'aderência' não mapeados a atributos concretos de Service Resource/Skill — modelo de habilidade/certificação por viatura não definido.",
-    "impact_or_notes": "Sem esse mapeamento, 'aderência' não é configurável como critério de match no motor de despacho."
+    "impact_or_notes": "Sem esse mapeamento, 'aderência' não é configurável como critério de match no motor de despacho.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa fixada: aderência usa o modelo padrão de Skills do Field Service — cada subtipo (Work Type) define Skill Requirements; cada viatura/operador (Service Resource) recebe Skills por certificação; o motor de despacho usa match de skill + território + disponibilidade como critério de aderência, sem objeto customizado.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0309",
     "category": "Ambiguity",
     "gap_or_question": "Despacho por proximidade pode indicar viatura de CGR vizinha, mas cada UBA é contratada por CGR — não definido se o motor pode atribuir fora dos limites contratuais da CGR de origem.",
-    "impact_or_notes": "Afeta configuração de Service Territory (isolado vs. sobreposto/hierárquico) e pode ter implicação contratual de pagamento à UBA."
+    "impact_or_notes": "Afeta configuração de Service Territory (isolado vs. sobreposto/hierárquico) e pode ter implicação contratual de pagamento à UBA.",
+    "status": "Open - Blocking question for DER",
+    "resolution": "Gap mantido aberto: modelo contratual entre UBAs por CGR não permite premissar se o motor pode atribuir viatura fora do limite contratual de origem (tema distinto de G0307, que trata apenas da geografia de fronteira). Levar como pergunta ao DER sobre o modelo contratual/financeiro entre UBAs e CGRs antes de configurar Service Territory.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0310",
     "category": "Potential Risk",
     "gap_or_question": "Modelo de licenciamento do Console do Dispatcher para os 12 programadores (6/turno, 4 turnos 12x36) não definido — licença individual vs. pool compartilhado por turno.",
-    "impact_or_notes": "Impacta custo de licenciamento e a granularidade de autoria da trilha de auditoria de override (G0305) se as licenças forem compartilhadas."
+    "impact_or_notes": "Impacta custo de licenciamento e a granularidade de autoria da trilha de auditoria de override (G0305) se as licenças forem compartilhadas.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa fixada: 12 licenças individuais para os programadores do Console do Dispatcher (não pool compartilhado por turno) — preserva a granularidade de autoria da trilha de auditoria de override, consistente com o login individual já fixado para o app de campo (G0212).",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0311",
     "category": "Logical Gap",
     "gap_or_question": "Ciclo de vida da 'segunda viatura' (chamado vinculado após recusas em cadeia) não detalha se herda o mesmo teto N/N-10 e critérios do chamado original, ou inicia ciclo independente.",
-    "impact_or_notes": "Sem essa definição, o comportamento em recusas em cadeia (cenário que mais estressa a automação) fica ambíguo."
+    "impact_or_notes": "Sem essa definição, o comportamento em recusas em cadeia (cenário que mais estressa a automação) fica ambíguo.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa fixada: o ciclo de escalonamento da segunda viatura (segundo slot de recurso) herda o mesmo parâmetro N/N-10 e critérios de aderência do chamado original — não inicia cronômetro independente.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0312",
     "category": "Missing Requirement",
     "gap_or_question": "Continuidade do despacho automático durante troca de turno (12x36) não definida — tratamento de viatura em atendimento na virada de turno, comportamento do parâmetro N/N-10 próximo ao limite do turno.",
-    "impact_or_notes": "Risco operacional de lacuna de responsabilidade na passagem de turno entre programadores, especialmente para chamados em andamento."
+    "impact_or_notes": "Risco operacional de lacuna de responsabilidade na passagem de turno entre programadores, especialmente para chamados em andamento.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa fixada: o motor de despacho e os cronômetros N/N-10 continuam rodando sem interrupção na troca de turno (12x36); chamados em andamento permanecem com a mesma viatura/operador até conclusão; o Console do Dispatcher apenas muda de operador (handoff de tela, não de estado) — sem lacuna de responsabilidade.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0401",
     "category": "Source Conflict",
     "gap_or_question": "O número de operadores de campo terceirizados da UBA aparece como 1.152 no questionário BSA v2/MVP (linhas 69, 586, 728, 960, 1439 do discovery-context) e como 1.292 na reunião de preparação da PoC de 04/09 ('escala referência do estado: 1.292 operadores terceirizados para até 298 recursos simultâneos'). As duas fontes pareiam o mesmo número de viaturas (298) com contagens de operador diferentes, sem reconciliação explícita entre 'escopo MVP (14 CGRs)' e 'escala do estado'.",
-    "impact_or_notes": "Afeta diretamente o dimensionamento de licenças de usuário externo/mobile e o provisionamento de contas para o app de campo. Sem esclarecer se 1.292 é a base estadual total (superset) e 1.152 o recorte MVP, o Estimate e a proposta de licenciamento correm risco de subdimensionar ou sobredimensionar a compra."
+    "impact_or_notes": "Afeta diretamente o dimensionamento de licenças de usuário externo/mobile e o provisionamento de contas para o app de campo. Sem esclarecer se 1.292 é a base estadual total (superset) e 1.152 o recorte MVP, o Estimate e a proposta de licenciamento correm risco de subdimensionar ou sobredimensionar a compra.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa fixada: 1.152 é o recorte confirmado de produção para as 14 CGRs (consistente com G0212 e o escopo geográfico estadual já fixado em .project-metadata.json); 1.292 é uma referência estadual mais ampla (superset, possivelmente incluindo reserva/redundância ou metodologia de contagem diferente), fora do dimensionamento de licença do MVP. Licenciar para 1.152 operadores.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0402",
     "category": "Missing Requirement",
     "gap_or_question": "O mecanismo de login do app de campo — por viatura (dispositivo compartilhado, várias pessoas por turno) ou por pessoa (login individual) — está nomeado no BSA v2 como 'ainda não fechado' (linhas 582, 938, 960, 1795). Nenhuma das fontes registra qual dos dois modelos o DER/UBA prefere, nem trade-offs discutidos.",
-    "impact_or_notes": "Decisão estrutural: login por viatura implica sessão compartilhada, rastreabilidade de quem de fato atendeu (auditoria, assinatura, evidência) fica ambígua; login por pessoa implica 1.152+ contas individuais provisionadas, gestão de credenciais para 14 empresas terceirizadas (uma por CGR), e maior custo/complexidade de administração de usuários. Bloqueia o desenho de licenciamento e o modelo de dados de Service Resource/Assigned Resource."
+    "impact_or_notes": "Decisão estrutural: login por viatura implica sessão compartilhada, rastreabilidade de quem de fato atendeu (auditoria, assinatura, evidência) fica ambígua; login por pessoa implica 1.152+ contas individuais provisionadas, gestão de credenciais para 14 empresas terceirizadas (uma por CGR), e maior custo/complexidade de administração de usuários. Bloqueia o desenho de licenciamento e o modelo de dados de Service Resource/Assigned Resource.",
+    "status": "Resolved - Confirmed (cascade from G0212)",
+    "resolution": "Confirmado: o app de campo do E04 usa o mesmo modelo de login individual por operador já fixado em G0212 para E02 — não é uma decisão nova, é a aplicação da mesma premissa de auditabilidade ao E04. Implica 1.152 contas individuais provisionadas (consistente com G0401).",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0403",
     "category": "Missing Requirement",
     "gap_or_question": "1.152 (ou 1.292) operadores de campo são funcionários de empresas terceirizadas — uma empresa por CGR (14 empresas) — não do DER. Nenhuma fonte define o tipo de licença Salesforce a atribuir a esses usuários externos (Field Service mobile license padrão, Digital Engagement/Community license, ou outro), nem o modelo de provisionamento/desprovisionamento (quem cria, atualiza e revoga acesso quando um operador troca de empresa terceirizada ou de CGR).",
-    "impact_or_notes": "A documentação de Field Service (knowledge/field_service_dev.md, linhas 27272-27273) registra um known issue: 'A Community license user who opens a service appointment can experience a missing record error' — risco concreto se o tipo de licença escolhido para os terceirizados for Community/Partner em vez de Field Service padrão. Sem essa decisão, o custo de licenciamento (14 empresas × ~82-92 operadores cada, em média) e o processo de onboarding/offboarding ficam fora do escopo estimado. [KB: field_service_dev.md:27272-27273]"
+    "impact_or_notes": "A documentação de Field Service (knowledge/field_service_dev.md, linhas 27272-27273) registra um known issue: 'A Community license user who opens a service appointment can experience a missing record error' — risco concreto se o tipo de licença escolhido para os terceirizados for Community/Partner em vez de Field Service padrão. Sem essa decisão, o custo de licenciamento (14 empresas × ~82-92 operadores cada, em média) e o processo de onboarding/offboarding ficam fora do escopo estimado. [KB: field_service_dev.md:27272-27273]",
+    "status": "Resolved - Premise Accepted (risk flagged)",
+    "resolution": "Premissa assumida: licença Field Service Community (Partner License) para os 1.152 operadores terceirizados (não Field Service mobile padrão), com processo manual de provisionamento/desprovisionamento entre as 14 empresas terceirizadas (uma por CGR) — SLA de onboarding a definir. Risco a monitorar e validar em ambiente de build antes de escalar para as 14 CGRs: a KB de Field Service documenta um known issue de usuários com licença Community abrindo Service Appointment e recebendo erro de registro ausente [KB: field_service_dev.md:27272-27273] — recomenda-se teste dirigido desse fluxo específico antes do go-live.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0404",
     "category": "Potential Risk",
     "gap_or_question": "A conectividade em rodovia é risco mapeado na matriz de riscos do cliente ('trecho sem rede' confirmado como premissa nas linhas 862, 1685, 1997-2003, 2064), e o app é Android com 'trabalho offline: Sim'. Porém não há estratégia offline detalhada: quais objetos são primados no briefcase (Work Order, Service Appointment, Assigned Resource — e por quanto tempo de histórico), como o app sincroniza ao reconectar, e como resolve conflitos de sincronização (ex.: duas atualizações de status do mesmo chamado enquanto offline).",
-    "impact_or_notes": "A KB de Field Service (knowledge/field_service_dev.md, linhas 27274-27275) alerta que objetos Task não são primados corretamente em briefcases offline e geram erro — um exemplo concreto de limitação que pode colidir com o desenho de evidência/checklist do app. Sem esse desenho, o alarme de 5 minutos e o bloqueio de passo ('trava') podem não funcionar de forma confiável em trechos sem rede prolongados. [KB: field_service_dev.md:27274-27275]"
+    "impact_or_notes": "A KB de Field Service (knowledge/field_service_dev.md, linhas 27274-27275) alerta que objetos Task não são primados corretamente em briefcases offline e geram erro — um exemplo concreto de limitação que pode colidir com o desenho de evidência/checklist do app. Sem esse desenho, o alarme de 5 minutos e o bloqueio de passo ('trava') podem não funcionar de forma confiável em trechos sem rede prolongados. [KB: field_service_dev.md:27274-27275]",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa fixada: briefcase prima apenas Work Order, Service Appointment e Assigned Resource em aberto (não histórico encerrado — ver G0405 para essa parte específica); evita o objeto Task por conta do known issue documentado [KB: field_service_dev.md:27274-27275]. Conflitos de sincronização resolvidos pelo padrão do Field Service mobile (last-write-wins por timestamp do servidor), sem lógica customizada de merge no MVP.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0405",
     "category": "Missing Requirement",
     "gap_or_question": "A pergunta do questionário ('Sem rede, o celular precisa guardar só a ocorrência em andamento, ou também um histórico de já encerradas? De quantos dias para trás?', linha 2484) está marcada como GAP DE RESPOSTA DO CLIENTE — não foi respondida.",
-    "impact_or_notes": "Define o tamanho do pacote offline (briefcase) por dispositivo e o desenho de sincronização. Sem essa resposta, o dimensionamento de dados primados por viatura fica indefinido, o que pode gerar app lento ou estourar limites de briefcase em 298 dispositivos simultâneos."
+    "impact_or_notes": "Define o tamanho do pacote offline (briefcase) por dispositivo e o desenho de sincronização. Sem essa resposta, o dimensionamento de dados primados por viatura fica indefinido, o que pode gerar app lento ou estourar limites de briefcase em 298 dispositivos simultâneos.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa fixada: o briefcase offline guarda apenas a(s) ocorrência(s) em andamento atribuída(s) à viatura — sem histórico de chamados encerrados primado no dispositivo (consistente com G0404). Consulta a histórico encerrado, se necessária, depende de conexão online.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0406",
     "category": "Logical Gap",
     "gap_or_question": "A regra confirmada é que a recusa só é permitida antes do início do deslocamento, e que 'se todos recusam, o chamado volta a Aberto' (linhas 452, 464, 682, 720, 1372, 1382, 1509, 1543). Não há definição do comportamento do app após uma recusa individual (não a recusa em cadeia de todos): a viatura que recusou recebe confirmação de que foi liberada? A UBA/CGR recebe notificação de que outra viatura foi acionada no lugar? Existe um timer/SLA entre a recusa e a reatribuição pela mesa?",
-    "impact_or_notes": "Sem esse desenho, o app pode deixar o operador sem retorno visual do que aconteceu com o chamado recusado (UX de 'buraco negro'), e a mesa (C2C) pode não ter um gatilho automático para agir rápido na reatribuição — o que compromete o tempo de resposta que é o KPI central do MVP."
+    "impact_or_notes": "Sem esse desenho, o app pode deixar o operador sem retorno visual do que aconteceu com o chamado recusado (UX de 'buraco negro'), e a mesa (C2C) pode não ter um gatilho automático para agir rápido na reatribuição — o que compromete o tempo de resposta que é o KPI central do MVP.",
+    "status": "Resolved - Deferred to Roadmap",
+    "resolution": "Gap não fixado como premissa de MVP: o comportamento de retorno ao operador após recusa individual e a notificação à UBA/CGR sobre a reatribuição não constam no mapa de requisitos do cliente — fica para o Roadmap pós-MVP, não como item de build do E04 nesta fase.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0407",
     "category": "Logical Gap",
     "gap_or_question": "Após o status 'Iniciado', o alarme de 5 minutos passa a ser cíclico (linhas 452, 720, 1372, 1543). Nenhuma fonte define o comportamento do app do lado do operador durante esse alarme cíclico: o celular emite algum aviso local, exige confirmação de status ('ainda estou no local'), ou o alarme é só visível na mesa (C2C), sem qualquer sinal no app de campo?",
-    "impact_or_notes": "Se o alarme só aparece na mesa, o operador em campo não tem como se auto-corrigir (ex.: confirmar que está bem, apenas parado por motivo legítimo) antes de a mesa acionar uma segunda viatura — risco de escalonamento desnecessário ou de o operador ser 'pego de surpresa' por uma segunda viatura despachada sem aviso."
+    "impact_or_notes": "Se o alarme só aparece na mesa, o operador em campo não tem como se auto-corrigir (ex.: confirmar que está bem, apenas parado por motivo legítimo) antes de a mesa acionar uma segunda viatura — risco de escalonamento desnecessário ou de o operador ser 'pego de surpresa' por uma segunda viatura despachada sem aviso.",
+    "status": "Resolved - Premise Accepted (conditional, resolved to mesa-only)",
+    "resolution": "Premissa condicional do usuário: assumir aviso local no app + confirmação de status ('ainda no local') SE for capacidade nativa (não customizada); caso contrário, notificar apenas a mesa (C2C). Pesquisa na KB confirma que o Field Service Mobile suporta push notifications configuráveis nativamente para alertar sobre appointments próximos e mudanças de agenda [KA-6541]. Porém, o comportamento descrito aqui — alarme CÍCLICO a cada 5 minutos com botão de confirmação embutido, disparado por regra de negócio customizada (mesmo mecanismo de escalonamento N/N-10 já identificado em G0302 como exigindo Apex/Flow customizado) — excede a capacidade declarativa nativa de push notification. Conclusão: aplica-se a condição 'caso contrário' do usuário — no MVP, o alarme cíclico é visível apenas na mesa (C2C); aviso local no app de campo com confirmação de status fica como extensão de escopo (usar a mesma lógica customizada de G0302, se priorizado), não item padrão do MVP.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0408",
     "category": "Ambiguity",
     "gap_or_question": "O questionário lista várias regras candidatas de bloqueio ('trava') do app — não recusar sem motivo, não iniciar sem foto, não fazer check-in longe do km (linhas 2059-2063) — mas não confirma quais delas de fato se aplicam, exceto a regra de recusa-antes-do-deslocamento (essa sim confirmada). O valor de 'X metros' para o check-in geolocalizado nunca é definido em nenhuma fonte.",
-    "impact_or_notes": "Cada regra de trava é uma ação customizada (LWC/Apex) a ser desenhada, testada offline e validada em campo — não é configuração declarativa trivial. Sem a lista fechada de regras e o valor de X metros, o escopo de desenvolvimento do app mobile (E04) não pode ser dimensionado com precisão."
+    "impact_or_notes": "Cada regra de trava é uma ação customizada (LWC/Apex) a ser desenhada, testada offline e validada em campo — não é configuração declarativa trivial. Sem a lista fechada de regras e o valor de X metros, o escopo de desenvolvimento do app mobile (E04) não pode ser dimensionado com precisão.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa fixada: as três travas do app ficam confirmadas como escopo do MVP — recusa exige motivo (já fixado em G0303), início exige foto obrigatória, check-in exige geolocalização dentro de 200 metros do km registrado (valor de referência para rodovia, a validar com o DER).",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0409",
     "category": "Missing Requirement",
     "gap_or_question": "O questionário registra como GAP DE RESPOSTA a pergunta 'quantos modelos distintos de formulário/checklist o socorro usa e se mudam por tipo de ocorrência' (linhas 2032-2035), e a premissa de foto/assinatura no encerramento fica em 'média de 5 fotos' sem confirmação de quantos tipos de ocorrência exigem comprovante assinado (linha 2039-2043).",
-    "impact_or_notes": "Cada modelo de formulário é uma tela distinta no app, com campos condicionais por tipo de ocorrência (pane, sinistro, inspeção etc.) — aumenta o desenho e o teste offline proporcionalmente. Sem o número de modelos confirmado, a estimativa do app de campo carrega uma premissa não validada."
+    "impact_or_notes": "Cada modelo de formulário é uma tela distinta no app, com campos condicionais por tipo de ocorrência (pane, sinistro, inspeção etc.) — aumenta o desenho e o teste offline proporcionalmente. Sem o número de modelos confirmado, a estimativa do app de campo carrega uma premissa não validada.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa fixada: 1 formulário/checklist base por macro-tipo (pane, sinistro, inspeção — 3 modelos), com campos condicionais adicionais por subtipo dentro de cada macro-tipo. Média de 5 fotos e assinatura obrigatória mantidas como premissa geral de encerramento, aplicadas dentro de cada modelo base.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0410",
     "category": "Missing Requirement",
     "gap_or_question": "A pergunta 'Precisamos ter diferentes app mobile por perfil? E se tem design system específico?' (linha 2007-2010) não tem resposta registrada em nenhuma fonte.",
-    "impact_or_notes": "Se a resposta for sim (apps distintos por perfil — operador UBA vs. inspeção vs. C2C móvel), o escopo do E04 multiplica: cada variante exige seu próprio pacote de permissão, ações rápidas e testes offline. Hoje o epic assume implicitamente um único app para os 1.152 operadores."
+    "impact_or_notes": "Se a resposta for sim (apps distintos por perfil — operador UBA vs. inspeção vs. C2C móvel), o escopo do E04 multiplica: cada variante exige seu próprio pacote de permissão, ações rápidas e testes offline. Hoje o epic assume implicitamente um único app para os 1.152 operadores.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa fixada: um único app Field Service Mobile para todos os operadores, com ações rápidas e telas condicionadas por Permission Set/perfil (ex.: inspeção vs. atendimento de pane) — não múltiplos apps nativos distintos. Design system padrão do Field Service Mobile, sem customização visual dedicada no MVP.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0411",
     "category": "Logical Gap",
     "gap_or_question": "O fluxo de 'segunda viatura' abre um chamado (Service Appointment) vinculado ao Work Order mestre quando a primeira recusa/falha (linhas 452, 596, 618, 683, 1372). Não está definido o que o app da segunda viatura mostra ao operador: ele vê o histórico da tentativa anterior (ex.: motivo da recusa/parada da primeira viatura), ou recebe o chamado como se fosse novo, sem esse contexto?",
-    "impact_or_notes": "Falta de contexto na tela do segundo operador pode gerar retrabalho de qualificação (ele reabre perguntas já respondidas) ou decisões erradas em campo (ex.: não sabe que a ocorrência já tem uma viatura no local com pane mecânica)."
+    "impact_or_notes": "Falta de contexto na tela do segundo operador pode gerar retrabalho de qualificação (ele reabre perguntas já respondidas) ou decisões erradas em campo (ex.: não sabe que a ocorrência já tem uma viatura no local com pane mecânica).",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa fixada: o app do segundo operador NÃO mostra o histórico/contexto da tentativa anterior (motivo de recusa/status da primeira viatura) — recebe o chamado vinculado sem esse contexto adicional no MVP.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0412",
     "category": "Potential Risk",
     "gap_or_question": "As 14 empresas terceirizadas (uma por CGR) operam com contratos e potencialmente sistemas de gestão de pessoal distintos. Não há definição de modelo de compartilhamento (sharing) de dados no app entre operadores de empresas diferentes — ex.: um operador da empresa da CGR-5 pode ver/ser despachado para ocorrências da CGR-6 em caso de reforço entre regiões?",
-    "impact_or_notes": "Sem esse desenho, o modelo de sharing rules e territórios (mencionado no PoC como 'territórios primários, secundários e realocações temporárias', linhas 3374-3379) pode não refletir a fronteira contratual real entre as 14 empresas, gerando exposição de dados operacionais entre concorrentes terceirizados ou bloqueio indevido de reforço entre CGRs."
+    "impact_or_notes": "Sem esse desenho, o modelo de sharing rules e territórios (mencionado no PoC como 'territórios primários, secundários e realocações temporárias', linhas 3374-3379) pode não refletir a fronteira contratual real entre as 14 empresas, gerando exposição de dados operacionais entre concorrentes terceirizados ou bloqueio indevido de reforço entre CGRs.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa fixada: sharing rules/territórios restringem a visibilidade padrão de cada operador à sua CGR de origem (evita exposição de dados operacionais entre empresas terceirizadas concorrentes); quando o motor de despacho aciona reforço cross-CGR (G0307/G0309), o registro específico do chamado é exposto pontualmente ao operador acionado, sem abrir visibilidade ampla da CGR vizinha.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0413",
     "category": "Capability Gap",
     "gap_or_question": "O comportamento de trava de passo (bloquear avanço se a regra não foi cumprida) e as ações customizadas de evidência (foto obrigatória, assinatura, check-in geolocalizado) dependem de Lightning Web Components rodando em modo offline no app Field Service — recurso opt-in que exige definição e atribuição de permission sets dedicados antes de LWCs funcionarem no app (KB). Não há nenhuma menção nas fontes de que esse setup de permissão já foi mapeado ou de que a equipe tem desenvolvedores LWC dedicados para esse trabalho.",
-    "impact_or_notes": "Trata-se de desenvolvimento seasoned (a própria documentação da Salesforce recomenda 'seasoned developers' para LWC offline), não configuração declarativa — é trabalho de build real, não só parametrização do Field Service. Se não estiver no roster de skills do projeto, é um gap de capacidade de entrega, não só de requisito. [KB: field_service_dev.md:27279-27285, 27268]"
+    "impact_or_notes": "Trata-se de desenvolvimento seasoned (a própria documentação da Salesforce recomenda 'seasoned developers' para LWC offline), não configuração declarativa — é trabalho de build real, não só parametrização do Field Service. Se não estiver no roster de skills do projeto, é um gap de capacidade de entrega, não só de requisito. [KB: field_service_dev.md:27279-27285, 27268]",
+    "status": "Resolved - Premise Accepted (scope reduction, to validate with client)",
+    "resolution": "Premissa assumida: as travas de passo (bloqueio de avanço) e ações de evidência quando o dispositivo está OFFLINE NÃO entram no MVP — dependem de desenvolvimento LWC offline seasoned, fora do roster confirmado, e o risco de atraso de entrega não deve comprometer o lançamento. Ficam no Roadmap pós-MVP. Nuance de reconciliação com G0408: as 3 travas (recusa com motivo, foto obrigatória, check-in geolocalizado dentro de 200m) permanecem confirmadas como regra de negócio do MVP, mas a ENFORCEMENT (bloqueio duro) dessas travas quando o app está offline não é construída nesta fase — captura de evidência offline ainda ocorre e sincroniza ao reconectar, mas sem o bloqueio de avanço de passo enquanto sem rede. Premissa explicitamente marcada para validação formal com o cliente antes do go-live, por ser uma redução de escopo relevante frente à expectativa original do questionário.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0414",
     "category": "Missing Requirement",
     "gap_or_question": "Não há registro de estratégia de push notification / recebimento de despacho quando o dispositivo está em trecho sem rede — o despacho automático (P-02) supõe que a viatura recebe o chamado 'no aplicativo', mas em rodovia com sinal intermitente o mecanismo de entrega (retry, fallback SMS, fila local) não é definido em nenhuma fonte.",
-    "impact_or_notes": "Se a notificação de despacho depender só de push online, uma viatura em trecho sem rede pode ficar sem saber que foi acionada até reconectar — indo contra o próprio objetivo do MVP de reduzir tempo de resposta e eliminar dependência do WhatsApp/0800 manual."
+    "impact_or_notes": "Se a notificação de despacho depender só de push online, uma viatura em trecho sem rede pode ficar sem saber que foi acionada até reconectar — indo contra o próprio objetivo do MVP de reduzir tempo de resposta e eliminar dependência do WhatsApp/0800 manual.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa fixada: o despacho é entregue via push nativo do Field Service Mobile [KA-6541]; se o dispositivo estiver sem rede, a notificação é entregue automaticamente ao reconectar (fila padrão do provedor de push — FCM/APNs) — sem fallback SMS dedicado no MVP. Risco de atraso em trechos sem rede prolongados fica registrado como risco operacional aceito nesta fase, não mitigado por canal alternativo.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0501",
     "category": "Source Conflict",
     "gap_or_question": "A epic (data/epics.json, data/strategy.json) marca E05 como confidence 'Assumed' dizendo que o mecanismo de exposição ao cidadão nunca foi definido. Mas a POC do BSA (20/08) já propõe um desenho concreto: 'link enviado por WhatsApp (texto) ou SMS (voz), aberto no browser, como o app Uber' — só que esse trecho está literalmente rotulado 'GAP DE RESPOSTA' no questionário, ou seja, é premissa do BSA, não decisão confirmada pelo DER-SP por escrito.",
-    "impact_or_notes": "Antes de desenhar E05 como 'mecanismo 100% aberto', confirmar com o DER-SP se aceitam especificamente esse desenho (link público não-autenticado, no browser, estilo Uber) ou se querem outra via (dentro do próprio WhatsApp, app nativo, portal separado). Sem essa validação, o time de build corre o risco de construir algo que nunca foi de fato aprovado pelo cliente final."
+    "impact_or_notes": "Antes de desenhar E05 como 'mecanismo 100% aberto', confirmar com o DER-SP se aceitam especificamente esse desenho (link público não-autenticado, no browser, estilo Uber) ou se querem outra via (dentro do próprio WhatsApp, app nativo, portal separado). Sem essa validação, o time de build corre o risco de construir algo que nunca foi de fato aprovado pelo cliente final.",
+    "status": "Resolved - Premise Accepted (to validate formally)",
+    "resolution": "Premissa assumida: adotar o desenho proposto pelo BSA — link público não-autenticado, aberto no browser, estilo Uber, entregue por WhatsApp/SMS — como premissa de MVP para E05, marcada explicitamente para validação formal com o DER-SP antes do design final (não construir sem confirmação por escrito).",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0502",
     "category": "Missing Requirement",
     "gap_or_question": "O pacote de esforço 'F — Posição e cidadão' (aba O_que_sera_feito) tem P/M/G explicitamente não atribuído, com opções que mudam radicalmente o escopo: P = GPS do app de campo (sem hardware adicional); M = adiciona SMS para o canal 0800; G = AVL embarcado (dispositivo de rastreamento veicular instalado nas 298 viaturas). O documento afirma textualmente que R-07, R-08, R-09 e 8.01 ainda não foram fechados pelo DER.",
-    "impact_or_notes": "Essa é a maior variável de custo/complexidade não resolvida de E05: GPS do celular do operador de campo (zero hardware) vs. um rollout de AVL em 298 viaturas (procurement, instalação, integração de telemetria) são propostas de arquitetura totalmente diferentes. Bloqueador de sizing — precisa ser fechado antes de qualquer T-shirt size confiável para E05."
+    "impact_or_notes": "Essa é a maior variável de custo/complexidade não resolvida de E05: GPS do celular do operador de campo (zero hardware) vs. um rollout de AVL em 298 viaturas (procurement, instalação, integração de telemetria) são propostas de arquitetura totalmente diferentes. Bloqueador de sizing — precisa ser fechado antes de qualquer T-shirt size confiável para E05.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa fixada: MVP usa tier P — GPS do celular do operador via app de campo (E04), sem AVL embarcado nem procurement de hardware. Tier M (SMS para 0800) e tier G (AVL nas 298 viaturas) ficam candidatos a Roadmap, dependendo de decisão futura do DER sobre precisão/redundância.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0503",
     "category": "Missing Requirement",
     "gap_or_question": "O pacote 'C — Local na abertura' declara que 'sem os dados de endereço (lat/long) a viatura não é despachada', com confidence 'Premissa' (não confirmada), e o tier G exige 'API GIS'. O próprio texto da POC (seção 18, Limitações) admite: 'a precisão de localização dependerá dos dados de geolocalização e dos serviços de mapa/roteamento utilizados' — mas nenhum documento nomeia qual serviço de mapa/roteamento/geocoding alimenta (a) a triagem inicial lat/long, (b) o mapa ao vivo que C2C e cidadão veem. Nenhum hit em knowledge/ confirma uma escolha (Salesforce Maps? Google Maps Platform? ArcGIS nativo — já listado como 'não fechado' no discovery brief?).",
-    "impact_or_notes": "Sem essa decisão, não há como confirmar se o rastreamento em tempo real (mapa da mesa + link do cidadão) depende de uma licença/integração de terceiro (custo e prazo de integração) ou de capacidade nativa do Field Service. Recomendo validar explicitamente com um SA de Salesforce antes do design de E05."
+    "impact_or_notes": "Sem essa decisão, não há como confirmar se o rastreamento em tempo real (mapa da mesa + link do cidadão) depende de uma licença/integração de terceiro (custo e prazo de integração) ou de capacidade nativa do Field Service. Recomendo validar explicitamente com um SA de Salesforce antes do design de E05.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa fixada: MVP usa Aerial Routing nativo do Field Service (incluído, sem licenciamento adicional) para cálculo de tempo/distância no mapa interno da mesa; Street-Level Routing via Enhanced Scheduling and Optimization (ESO, add-on pago) [KA-6746] fica como upgrade de precisão candidato a Roadmap. Não assume Salesforce Maps nem Google Maps Platform como licença adicional no MVP.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0504",
     "category": "Ambiguity",
     "gap_or_question": "'Painel' é usado no material para duas coisas distintas: (1) a visão operacional da mesa do C2C (mapa + Gantt + fila, pacotes D/F) e (2) o painel de leitura dos gestores, sem operar a mesa (pacote I, indicadores agregados, 'sem meta de SLA'). O texto do pacote I ainda separa 'painel padrão' (P) de 'relatório à medida por CGR' (G) sem dizer se são o MESMO artefato Salesforce com visão gated por perfil, ou dois builds distintos (console de Field Service vs. relatório/CRM Analytics).",
-    "impact_or_notes": "O walkthrough de aceite de E05 precisa saber se é 1 objeto (dashboard único, visão por permissão) ou 2 objetos (console C2C + relatório de gestores) — muda o esforço e o teste de aceite."
+    "impact_or_notes": "O walkthrough de aceite de E05 precisa saber se é 1 objeto (dashboard único, visão por permissão) ou 2 objetos (console C2C + relatório de gestores) — muda o esforço e o teste de aceite.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa fixada: mesmo console/dashboard base para C2C e gestores, com a visão do gestor sendo um recorte agregado (sem operação da mesa) controlado por Permission Set/perfil — não dois builds distintos. Reduz esforço frente à opção de relatório à medida por CGR (14 variantes).",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0505",
     "category": "Logical Gap",
     "gap_or_question": "E02 já confirma que uma segunda viatura abre 'um chamado vinculado' (não usa Work Order Line Item). Nenhum documento diz se o identificador único/protocolo do cidadão continua apontando para UM só rastreamento consolidado quando há dois Work Orders vinculados, ou se o link do cidadão só acompanha o primeiro recurso e o segundo fica invisível para ele.",
-    "impact_or_notes": "Justamente no cenário de maior severidade (sinistro com vítimas, guincho + inspeção simultâneos) é onde a 'visão única e rastreável' — o critério de sucesso nº1 do cliente — corre risco de quebrar. Precisa ser testado explicitamente no design de E05, não assumido como resolvido por E02/E03."
+    "impact_or_notes": "Justamente no cenário de maior severidade (sinistro com vítimas, guincho + inspeção simultâneos) é onde a 'visão única e rastreável' — o critério de sucesso nº1 do cliente — corre risco de quebrar. Precisa ser testado explicitamente no design de E05, não assumido como resolvido por E02/E03.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa fixada: o link de rastreamento do cidadão mostra apenas a primeira viatura/recurso — a segunda viatura (chamado vinculado) fica invisível para o cidadão no MVP. Risco de tensão com o critério de sucesso de 'visão única' no cenário de sinistro com vítimas fica registrado como aceito nesta fase.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0506",
     "category": "Potential Risk",
     "gap_or_question": "O link de rastreamento do cidadão é descrito como aberto no browser, sem menção a autenticação, expiração de token, ou vínculo de uso único ao número de protocolo. O caso pode envolver vítimas de acidente e expõe a posição GPS em tempo real de uma equipe de campo do Estado.",
-    "impact_or_notes": "É a instância concreta, dentro de E05, do gap genérico já registrado no discovery brief ('Nenhuma discussão formal de LGPD/DPIA'). Um link persistente e não-autenticado que mostra geolocalização em tempo real, sem expiração após o encerramento do chamado, é exposição real de dados pessoais — deve entrar na próxima rodada de LGPD/DPIA nomeando especificamente este mecanismo."
+    "impact_or_notes": "É a instância concreta, dentro de E05, do gap genérico já registrado no discovery brief ('Nenhuma discussão formal de LGPD/DPIA'). Um link persistente e não-autenticado que mostra geolocalização em tempo real, sem expiração após o encerramento do chamado, é exposição real de dados pessoais — deve entrar na próxima rodada de LGPD/DPIA nomeando especificamente este mecanismo.",
+    "status": "Resolved - Premise Accepted (discipline gap - governance)",
+    "resolution": "Premissa aceita, na mesma base de G0109/G0209 (banner de consentimento, DPIA formal sem dono nomeado): recomendação técnica específica documentada para este mecanismo — token de uso único vinculado ao protocolo, expirando automaticamente após o encerramento do chamado (+ buffer). Nomear este mecanismo especificamente na próxima rodada de DPIA.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0507",
     "category": "Potential Risk",
     "gap_or_question": "A persona do cidadão que recebe o link é, por definição, um motorista parado no acostamento em situação de vulnerabilidade — mas nenhum documento discute a cobertura de dados/sinal do APARELHO DO CIDADÃO. O material só trata a falta de rede para o app de campo ('há trecho sem rede'), nunca para o navegador do cidadão que precisa abrir o link.",
-    "impact_or_notes": "Se o cidadão está sem sinal de dados exatamente na rodovia (cenário mais provável, não exceção), a promessa de 'tempo real' — critério de sucesso nº1 citado verbatim pelo cliente — falha silenciosamente no momento em que mais importa. Não há fallback definido (ex.: atualização periódica por SMS com ETA, sem depender de carregamento de mapa)."
+    "impact_or_notes": "Se o cidadão está sem sinal de dados exatamente na rodovia (cenário mais provável, não exceção), a promessa de 'tempo real' — critério de sucesso nº1 citado verbatim pelo cliente — falha silenciosamente no momento em que mais importa. Não há fallback definido (ex.: atualização periódica por SMS com ETA, sem depender de carregamento de mapa).",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa fixada, consistente com o tier P já fixado em G0502 (sem SMS adicional no MVP): nenhum fallback de canal alternativo para o cidadão sem sinal — página do link desenhada leve/baixo consumo de dados para maximizar chance de carregar, mas risco de falha em trecho sem rede fica registrado e aceito nesta fase.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0508",
     "category": "Capability Gap",
     "gap_or_question": "O material de discovery afirma textualmente: 'PRECISAMOS CONSTRUIR PORTAL PARTNER COMUNITY PARA TERCEIROS... que, apesar de não fazer dispatcher, farão acompanhamento dos recursos e relatórios' — uma terceira superfície de visibilidade em tempo real (além do app de campo da UBA e do console interno do C2C), ainda rotulada 'PREMISSA'. Isso não aparece em E04 (app mobile) nem na descrição atual de E05.",
-    "impact_or_notes": "Se confirmado, é um 7º ponto de acesso ao rastreamento (portal de parceiro/Experience Cloud para terceiros que acompanham recursos e relatórios sem despachar) que nenhuma epic atual cobre — pode exigir uma epic nova ou expansão explícita de E05, não uma extensão trivial do app de campo."
+    "impact_or_notes": "Se confirmado, é um 7º ponto de acesso ao rastreamento (portal de parceiro/Experience Cloud para terceiros que acompanham recursos e relatórios sem despachar) que nenhuma epic atual cobre — pode exigir uma epic nova ou expansão explícita de E05, não uma extensão trivial do app de campo.",
+    "status": "Resolved - Deferred to Roadmap",
+    "resolution": "Fora do MVP: portal Partner Community para terceiros (acompanhamento de recursos/relatórios sem despachar) fica registrado como candidato a nova epic ou expansão futura de E05 no Roadmap pós-MVP, condicionado à confirmação do DER sobre quem são esses terceiros e o que precisam ver.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0509",
     "category": "Ambiguity",
     "gap_or_question": "O pacote 'I — Painel e evidência' está 'Confirmado no MVP' quanto à existência, mas o tier P ('painel padrão') vs. G ('relatório à medida por CGR') não foi atribuído.",
-    "impact_or_notes": "Responde parcialmente à pergunta original ('dashboard nativo Field Service? relatório?') — mostra que as duas opções estão na mesa, mas nenhuma foi escolhida. Precisa fechar antes de estimar E05, pois um relatório sob medida por CGR (14 variantes) é um esforço muito maior que um painel padrão único."
+    "impact_or_notes": "Responde parcialmente à pergunta original ('dashboard nativo Field Service? relatório?') — mostra que as duas opções estão na mesa, mas nenhuma foi escolhida. Precisa fechar antes de estimar E05, pois um relatório sob medida por CGR (14 variantes) é um esforço muito maior que um painel padrão único.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa fixada: MVP entrega painel padrão único para gestores (consistente com o artefato único gated por perfil já fixado em G0504) — relatório à medida por CGR (14 variantes) fica candidato a Roadmap.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0510",
     "category": "Missing Requirement",
     "gap_or_question": "Nenhum dos 4 indicadores confirmados para gestores (quantidade de ocorrências, tempo de resposta, TMA, quantidade de recusas) tem meta de SLA — o texto repete 'sem meta de SLA neste MVP' duas vezes. Não há definição de quem (DER? PRODESP?) e quando definirá metas de SLA, nem se essa ausência é uma decisão deliberada de fase ou um gap simplesmente não discutido.",
-    "impact_or_notes": "O critério de sucesso do cliente é sobre 'controlar' o atendimento, o que implica governança por meta em algum momento. Recomendo registrar explicitamente que SLA é compromisso de fase futura (Roadmap), com dono nomeado, em vez de deixar como ausência silenciosa."
+    "impact_or_notes": "O critério de sucesso do cliente é sobre 'controlar' o atendimento, o que implica governança por meta em algum momento. Recomendo registrar explicitamente que SLA é compromisso de fase futura (Roadmap), com dono nomeado, em vez de deixar como ausência silenciosa.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa fixada: a ausência de meta de SLA no MVP é registrada como decisão deliberada de fase (indicadores descritivos, não normativos) — definição de metas e dono (DER ou PRODESP) fica como item nomeado do Roadmap, não ausência silenciosa.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0511",
     "category": "Potential Risk",
     "gap_or_question": "O mapa/Gantt da mesa do C2C depende do GPS do app de campo (pacote F, tier P), e o próprio app de campo é descrito como operando 'em trecho sem rede'. Não há definição de comportamento quando uma viatura perde sinal em pleno deslocamento — a mesa mostra posição desatualizada? Um flag de 'última posição conhecida'? E esse mesmo estado se propaga para o link do cidadão?",
-    "impact_or_notes": "Estado plausível e frequente dado o footprint rodoviário estadual das 14 CGRs — sem comportamento definido, o rastreamento em tempo real pode exibir dados enganosos (posição congelada apresentada como atual) exatamente no cenário que a alarme de 5 minutos (E04) já foi desenhado para detectar internamente, mas nunca comunicado ao cidadão."
+    "impact_or_notes": "Estado plausível e frequente dado o footprint rodoviário estadual das 14 CGRs — sem comportamento definido, o rastreamento em tempo real pode exibir dados enganosos (posição congelada apresentada como atual) exatamente no cenário que a alarme de 5 minutos (E04) já foi desenhado para detectar internamente, mas nunca comunicado ao cidadão.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa fixada: mesa e link do cidadão exibem a última posição conhecida com um flag/timestamp explícito quando o GPS perde sinal (ex.: 'atualizado há X min') — evita apresentar dado desatualizado como tempo real, sem lógica de inferência adicional.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0512",
     "category": "Capability Gap",
     "gap_or_question": "Nenhum documento nomeia se Salesforce Maps (ou equivalente) está licenciado/avaliado para viabilizar o rastreamento externo ao cidadão em estilo 'Uber' (posição ao vivo, rota) exigido por E05. A busca em knowledge/ (field_service_dev.md, service_cloud_3-27-2026.md) não retornou nenhuma referência a link público/guest-acessível com rastreamento de posição ao vivo — só documentação genérica de objetos de Field Service.",
-    "impact_or_notes": "Capability real e não confirmada: expor posição ao vivo a um usuário não-autenticado via link público tipicamente exige Salesforce Maps, um SDK de mapa de terceiro (Google Maps Platform) embutido em um componente Experience Cloud/LWC customizado, ou uma solução DIY — nenhuma dessas opções está nomeada como escopo. Precisa validação de capability antes de assumir o desenho 'estilo Uber' como factível dentro do MVP."
+    "impact_or_notes": "Capability real e não confirmada: expor posição ao vivo a um usuário não-autenticado via link público tipicamente exige Salesforce Maps, um SDK de mapa de terceiro (Google Maps Platform) embutido em um componente Experience Cloud/LWC customizado, ou uma solução DIY — nenhuma dessas opções está nomeada como escopo. Precisa validação de capability antes de assumir o desenho 'estilo Uber' como factível dentro do MVP.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Resolvido pelo usuário: o link de rastreamento em tempo real é enviado por SMS, exclusivamente ao número de telefone que registrou a abertura da ocorrência — o número de telefone funciona como controle de acesso (só quem abriu o chamado recebe o link), complementando o token de uso único/expiração já premissado em G0506. Nota de escopo técnico ainda válida: como não há capability nativa confirmada de rastreamento público ao vivo no Field Service/Salesforce Maps, o link em si continua dependendo de um site Experience Cloud com acesso guest e componente customizado (LWC + Apex) consumindo a geolocalização do Work Order/Service Appointment — item de build a confirmar com um SA de Salesforce, distinto da decisão de canal/controle de acesso já resolvida aqui.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0513",
     "category": "Source Conflict",
     "gap_or_question": "O discovery brief já registra o conflito geral: Service Cloud está confirmado fora do MVP pelo usuário, mas o deck do BSA v2 propõe objetos de mensageria (MessagingEndUser/MessagingSession/Case) sob Service Cloud para o mesmo canal WhatsApp. Esse conflito atinge E05 diretamente, pois o WhatsApp é o canal que entrega o link de rastreamento ao cidadão (junto com SMS para o 0800).",
-    "impact_or_notes": "Se o canal WhatsApp que entrega o link de rastreamento exigir licenciamento/objetos de Service Cloud não incluídos no MVP, o próprio mecanismo de entrega de E05 fica sem base de licenciamento confirmada — não é só um conflito de arquitetura genérico, é um bloqueador direto de E05."
+    "impact_or_notes": "Se o canal WhatsApp que entrega o link de rastreamento exigir licenciamento/objetos de Service Cloud não incluídos no MVP, o próprio mecanismo de entrega de E05 fica sem base de licenciamento confirmada — não é só um conflito de arquitetura genérico, é um bloqueador direto de E05.",
+    "status": "Resolved - Confirmed (cascade from decisions/0002)",
+    "resolution": "Confirmado: a entrega do link de rastreamento por WhatsApp em E05 usa a mesma inclusão de Service Cloud/Agentforce Contact Center Enterprise já decidida em decisions/0002 (E01) — não é um bloqueador novo de licenciamento, é a mesma base de E01 aplicada a E05.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0514",
     "category": "Logical Gap",
     "gap_or_question": "O critério de sucesso pede visibilidade 'aos gestores', mas a tabela de indicadores confirmados (pacote I) só mostra contagens agregadas e durações médias — nenhuma visão de drill-down por chamado individual. O texto reforça: 'o gestor não abre o chamado e não opera a mesa; acompanha a operação por indicadores' — o que sugere visão puramente agregada, não por-protocolo.",
-    "impact_or_notes": "Contradiz (ou pelo menos tensiona) a expectativa implícita de 'protocolo único acompanhável... visível... aos gestores' na descrição da própria epic E05 — precisa esclarecer se gestor tem ou não capacidade de consultar 'onde está o chamado #1234 agora', ou se sua visão é estritamente agregada/KPI."
+    "impact_or_notes": "Contradiz (ou pelo menos tensiona) a expectativa implícita de 'protocolo único acompanhável... visível... aos gestores' na descrição da própria epic E05 — precisa esclarecer se gestor tem ou não capacidade de consultar 'onde está o chamado #1234 agora', ou se sua visão é estritamente agregada/KPI.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa fixada, consistente com o texto do questionário e com G0510: gestores acompanham a operação por indicadores agregados (contagens, médias) — não consultam 'onde está o chamado #1234 agora'. A descrição genérica de E05 ('visível aos gestores') é ajustada para refletir essa granularidade.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0515",
     "category": "Missing Requirement",
     "gap_or_question": "[Discipline gap — design de experiência] O discovery brief (item 15) já registra sinais de design de experiência como 'Assumed, raso — sem UX research formal'. Aplicado a E05 especificamente: o mecanismo de rastreamento do cidadão (link estilo Uber) é uma premissa do BSA, nunca testada com usuário real, e toca o momento mais sensível de toda a jornada — um motorista em situação de vulnerabilidade na pista.",
-    "impact_or_notes": "Recomendo, antes de comprometer o design, ao menos uma validação leve de service design/UX com o DER (mesmo que informal) sobre essa experiência específica — é o ponto de maior risco reputacional do programa, não um detalhe de tela."
+    "impact_or_notes": "Recomendo, antes de comprometer o design, ao menos uma validação leve de service design/UX com o DER (mesmo que informal) sobre essa experiência específica — é o ponto de maior risco reputacional do programa, não um detalhe de tela.",
+    "status": "Resolved - Scope Clarified (new workstream surfaced)",
+    "resolution": "Gap de UX dispensado: a experiência de rastreamento do cidadão já foi testada na PoC (20/08), não exigindo serviço formal de UX research adicional. Porém, o usuário surfou um item de escopo novo e mais amplo: o DER solicita explicitamente um serviço de Change Management no projeto, incluindo até 2 meses de Scale/Operação Assistida e treinamento personalizado por persona, com foco nos técnicos de campo (UBAs). Este item extrapola o E05 (rastreamento) — é um workstream de adoção/change management transversal ao programa, a ser refletido no dimensionamento de esforço/Estimate, não apenas como nota de gap.",
+    "resolved_date": "2026-09-17"
   },
   {
     "gap_id": "G0516",
     "category": "Missing Requirement",
     "gap_or_question": "[Discipline gap — governança/data stewardship] O discovery brief (item 16) já registra 'Sinais de governança: Unknown (maioria)'. Aplicado a E05: não há dono nomeado para os dados de geolocalização expostos via link público, para a decisão de retenção pós-encerramento do chamado, nem para a decisão de expandir do tier P (GPS do celular) para o tier G (AVL embarcado) do pacote F.",
-    "impact_or_notes": "Recomendo nomear um steward de dados/governança específico para esta capability antes do build — é diferente (e mais concreto) do que apenas registrar 'LGPD/DPIA' como pendência genérica do programa."
+    "impact_or_notes": "Recomendo nomear um steward de dados/governança específico para esta capability antes do build — é diferente (e mais concreto) do que apenas registrar 'LGPD/DPIA' como pendência genérica do programa.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Premissa fixada: DER-SP é o steward de governança dos dados de geolocalização expostos via link público (mesma base de G0211); retenção pós-encerramento segue o token de uso único/expiração já premissado em G0506; a decisão futura de expandir tier P→G (AVL) fica nomeada explicitamente como decisão de Roadmap de propriedade do DER, não gap silencioso.",
+    "resolved_date": "2026-09-17"
+  },
+  {
+    "gap_id": "G0415",
+    "category": "Assumption",
+    "gap_or_question": "DevOps/deployment: assume Salesforce CLI + desenvolvimento orientado a source (Git) para o build (2 integrações — SIGOR/SIGEO — + LWC customizado no app de campo + Apex de escalonamento N/N-10).",
+    "impact_or_notes": "Premissa de design (skill `design`, 2026-09-17): prática padrão de PS para builds com múltiplas integrações e componentes customizados. O que validaria: confirmar com a PRODESP/DER se já existe tooling de CI/CD/pipeline em uso (Copado, Gearset, Azure DevOps) que deva ser reaproveitado em vez de um pipeline novo via Salesforce CLI.",
+    "status": "Open - Design assumption to validate",
+    "resolution": "Premissa assumida no design: Salesforce CLI + source-driven development. Não bloqueia a arquitetura, mas precisa de confirmação da PRODESP antes do kickoff de build.",
+    "resolved_date": "2026-09-17"
+  },
+  {
+    "gap_id": "G0517",
+    "category": "Assumption",
+    "gap_or_question": "Mecanismo técnico do token de uso único/expiração do link de rastreamento do cidadão (E05/G0506): assume-se token assinado (Apex) com TTL, expirando após o encerramento da ocorrência + buffer.",
+    "impact_or_notes": "Premissa de design (skill `design`, 2026-09-17): padrão comum de link seguro para acesso guest via Experience Cloud, mas não confirmado contra os padrões de segurança/compliance específicos da PRODESP (ex.: exigência de rotação de chave, algoritmo de assinatura, tempo de vida padrão). O que validaria: confirmar com a equipe de segurança da PRODESP o padrão aceito para links de acesso público temporário.",
+    "status": "Open - Design assumption to validate",
+    "resolution": "Premissa assumida no design: token assinado + TTL via Apex, expiração no encerramento + buffer. Mecanismo específico (algoritmo, rotação) a validar com segurança da PRODESP antes do build do site Experience Cloud.",
+    "resolved_date": "2026-09-17"
   }
 ]

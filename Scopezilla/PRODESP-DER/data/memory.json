@@ -144,6 +144,84 @@
         "Considerar levar o cluster de gaps que aponta para uma decisão única (Service Cloud/WhatsApp) como pauta prioritária da próxima reunião DER/Stefanini, junto às Open Questions já registradas no discovery brief",
         "Avaliar com o usuário se os gaps devem alimentar uma proposta de Phase 0 formal antes do MVP, dado que ambos os limiares de recomendação foram excedidos"
       ]
+    },
+    {
+      "date": "2026-09-17",
+      "skills_used": [
+        "requirements (gap resolution follow-up)"
+      ],
+      "summary": "Repasse completo dos 71 gaps de data/gaps.json (E01=15, E02=14, E03=12, E04=14, E05=16), a pedido explícito do usuário: para cada gap, opção sugerida (premissa recomendada) apresentada via AskUserQuestion, sempre com 'Manter gap aberto' como alternativa. Resultado: a grande maioria fechada como premissa aceita (aderindo ou corrigindo a sugestão); um pequeno grupo mantido explicitamente ABERTO como pergunta bloqueadora ao DER (G0305 — trilha de auditoria de overrides; G0309 — limite contratual de UBA por CGR); alguns reframed/dismissed quando a sugestão inicial estava mal colocada (G0302 — não há pré-agendamento em serviço emergencial, N/N-10 é escalonamento de espera em tempo real); e vários deferidos explicitamente ao Roadmap pós-MVP (Incident/CSIM nativo, G0406, G0413 — travas offline do app de campo, G0508 — portal Partner Community). Duas reversões de arquitetura load-bearing capturadas como ADR: decisions/0002 (Service Cloud/Agentforce Contact Center Enterprise entra no MVP, escopado ao WhatsApp) já existia de sessão anterior e foi referenciada em cascata (G0210, G0513). Decisões pontuais de escopo/governança/licenciamento (não ADR, por serem conclusões específicas, não regras de arquitetura padrão) registradas em decision_log: SIGOR/SIGEO em escopo, Incident fora do MVP, licença Field Service Community/Partner para terceirizados (contra a recomendação inicial, risco de known issue documentado e aceito), travas offline fora do MVP, e um workstream NOVO de escopo surgido em E05 (G0515): Change Management explícito solicitado pelo DER, incluindo até 2 meses de Scale/Operação Assistida e treinamento personalizado por persona (foco em técnicos de campo) — a refletir no dimensionamento do Estimate do programa como um todo, não restrito a E05. Todas as 5 epics.json descriptions atualizadas para refletir as resoluções (E01/E02 na sessão anterior; E03/E04/E05 nesta sessão). CSVs regenerados a cada épica concluída.",
+      "friction": [],
+      "decisions": [
+        {
+          "decision": "Modelo de despacho E03 é 100% reativo (sem pré-agendamento); N=30min valor de referência a validar; escalonamento cross-CGR restrito a áreas de intersecção geográfica, não overflow regional geral; trilha de auditoria de overrides fica ABERTA como pergunta bloqueadora ao DER.",
+          "alternatives_rejected": [
+            "Pré-agendamento do próximo despacho N minutos antes do término do atual (framing original do gap, descartado)",
+            "Escalonamento geral para qualquer CGR vizinha em saturação (framing original, restringido pelo usuário à geografia de fronteira)"
+          ]
+        },
+        {
+          "decision": "E04: 1.152 operadores = recorte MVP (14 CGRs), 1.292 = superset estadual; login individual (cascade de G0212); licença Field Service Community/Partner (não padrão, apesar do known issue documentado); travas de passo SEM enforcement offline no MVP (Roadmap, para não comprometer o cronograma); app único para todos os perfis; 1 formulário base por macro-tipo.",
+          "alternatives_rejected": [
+            "Licença Field Service mobile padrão para terceirizados (recomendação original, para evitar known issue) — descartada pelo usuário",
+            "Confirmar travas offline como item de build no Estimate (mantendo no MVP) — descartada por risco de cronograma"
+          ]
+        },
+        {
+          "decision": "E05: link de rastreamento entregue por SMS (não WhatsApp) exclusivamente ao número que abriu a ocorrência, com token de uso único/expiração; mostra só a 1ª viatura quando há 2ª viatura vinculada; tier P (GPS, zero hardware); Aerial Routing nativo (sem add-on); painel único gated por perfil (sem relatório por CGR); gestor só visão agregada, sem drill-down; capability de rastreamento público via Experience Cloud guest + LWC/Apex customizado (sem feature nativa); novo workstream de Change Management/Scale-Assisted-Operation solicitado pelo DER.",
+          "alternatives_rejected": [
+            "Link consolidando as duas viaturas sob o mesmo protocolo (sugestão original, substituída pela decisão do usuário de mostrar só a 1ª)",
+            "UX research formal para a experiência do cidadão (descartada — já validada na PoC)"
+          ]
+        }
+      ],
+      "open_threads": [
+        "G0305 (E03) ABERTO: mecanismo de trilha de auditoria de overrides manuais de despacho (campos, retenção — Field History Tracking vs. Field Audit Trail add-on) — pergunta bloqueadora ao DER/Stefanini antes do build do Console do Dispatcher.",
+        "G0309 (E03) ABERTO: modelo contratual entre UBAs e CGRs — se o motor pode atribuir viatura fora do limite contratual de origem (distinto de G0307, que trata só da geografia de fronteira).",
+        "decisions/0002 e vários gaps (G0105, G0207-G0208, G0301, G0501, G0503 etc.) seguem marcados como 'premissa a validar/confirmar formalmente com o DER-SP' — não são gaps abertos, mas precisam de ratificação formal do cliente antes do go-live.",
+        "Novo workstream de Change Management/Scale-Operação Assistida (2 meses) + treinamento por persona (G0515) ainda não dimensionado em nenhum Estimate — precisa entrar no escopo de esforço do programa.",
+        "outputs/00-discovery-brief.md (Seção 3 Discrepancy Scan e Open Question #6) ainda não atualizado para refletir a resolução do conflito Service Cloud/WhatsApp — está desatualizado frente a decisions/0002.",
+        "Nenhum commit/push git foi feito para todo este trabalho (decisions/0002, .project-metadata.json, epics.json, gaps.json, csv/, memory.json) — permanece como working-tree change sobre o commit 27b0fd4."
+      ],
+      "next_steps": [
+        "Levar G0305 e G0309 como perguntas bloqueadoras formais ao DER/Stefanini antes do design detalhado de E03.",
+        "Atualizar outputs/00-discovery-brief.md para refletir as resoluções de gaps (especialmente Seção 3 e Open Question #6).",
+        "Rodar a skill design com o escopo agora fechado (71/71 gaps com resolução ou premissa), incorporando as decisões desta sessão.",
+        "Refletir o novo workstream de Change Management/Scale-Operação Assistida no dimensionamento do Estimate.",
+        "Fazer checkpoint de git (commit) cobrindo todo o trabalho desta sessão, quando o usuário autorizar."
+      ]
+    },
+    {
+      "date": "2026-09-17",
+      "skills_used": [
+        "design"
+      ],
+      "summary": "Rodada completa da skill design. Esqueleto arquitetural (org única; Field Service + Agentforce Contact Center Enterprise/Digital Engagement; point-to-point sem MuleSoft para SIGOR/SIGEO; OWD Private + sharing por Service Territory; Salesforce CLI/source-driven dev) desenhado com tag de fonte em toda decisão load-bearing, checagem de knowledge base (9 docs em knowledge/, nenhum produto faltante via example-knowledge.py), e sweep obrigatório de central KB mesmo onde a doc de layer 1 já confirmava a feature (architecture-fork checkpoint): KA-4393 (routing por queue vs. skills, funda E01), KA-0012 (seleção de padrão de integração, funda SIGOR/SIGEO em E02), KA-6746 (Aerial Routing sem ESO, funda E05), KA-6541 (push nativo, funda E04). Grounding summary: 18 decisões tageadas — 14 grounded, 2 inferidas, 2 flagged assumptions (Salesforce CLI/DevOps; mecanismo de token do link de rastreamento). Esqueleto aprovado pelo usuário sem modificação ('Approve and continue'). Persistidas como gaps.json (categoria Assumption) as 2 assumptions genuinamente novas (não duplicando G0305/G0309/G0512 já rastreados): G0415 (Salesforce CLI/pipeline) e G0517 (mecanismo de token do link do cidadão) — total de gaps sobe de 71 para 73. outputs/01-solution.md escrito (Arquitetura Fundamentos + Solução por 5 processos de negócio E01-E05, com riscos técnicos e próximos passos). Estimativa T-shirt rodada épico-a-épico (sem backlog de user stories) via rubrica de 8 dimensões: E01=M (driver Intelligence/AI — triagem multi-topic/action do Agentforce), E02=L (driver Integration — SIGOR dupla convivência event-driven + SIGEO síncrono), E03=L (driver Automation — regra N/N-10 customizada sobre scheduling policy), E04=L (driver UI — LWC customizado das 3 travas de negócio), E05=L (driver UI — site Experience Cloud guest + LWC/Apex sem feature nativa equivalente; sensibilidade documentada: sobe a XL se a exigência de segurança do token da PRODESP for mais sofisticada). Estimativas aprovadas sem ajuste ('Approve estimates'). data/estimates.json salvo; CSVs (01-epics, 01-gap-analysis, 02-estimates) regenerados duas vezes (após os 2 novos gaps e após as estimativas).",
+      "friction": [],
+      "decisions": [
+        {
+          "decision": "Integração SIGOR/SIGEO fica point-to-point (sem MuleSoft) — 2 integrações abaixo do limiar de 3 que justificaria middleware dedicado",
+          "rationale": "KA-0012 (seleção de padrão de integração) + guidance do próprio architecture-template.md sobre o limiar de MuleSoft; SIGOR é Data Integration assíncrona via Platform Events/CDC, SIGEO é Process Integration síncrona (request/reply)"
+        },
+        {
+          "decision": "Roteamento de transbordo humano em E01 é queue-based (não skills-based) — modelo de fila única sem combinação de habilidades a avaliar",
+          "rationale": "KA-4393 confirma explicitamente que skills-based routing não se justifica quando um modelo simples de uma-skill-por-queue com membership estática é suficiente"
+        }
+      ],
+      "open_threads": [
+        "G0415 (novo, Assumption): premissa de Salesforce CLI/desenvolvimento orientado a source para o build — validar se a PRODESP já tem tooling de DevOps (Copado/Gearset/Azure DevOps) que deva ser reaproveitado",
+        "G0517 (novo, Assumption): mecanismo técnico do token de uso único/expiração do link de rastreamento do cidadão (E05) — token assinado + TTL via Apex é premissa, não confirmado com a equipe de segurança da PRODESP",
+        "G0305 e G0309 (E03) continuam ABERTOS como perguntas bloqueadoras ao DER/Stefanini — não resolvidos nesta sessão, apenas carregados para o design",
+        "outputs/00-discovery-brief.md ainda não atualizado para refletir decisions/0002 (Seção 3 e Open Question #6) — pendente de sessão anterior",
+        "Workstream de Change Management/Scale-Operação Assistida (G0515) ainda não dimensionado num Estimate dedicado de esforço/roster — os T-shirt sizes desta sessão são só de complexidade de build, não cobrem esse workstream",
+        "Nenhum commit/push git feito ainda para o trabalho de design (outputs/01-solution.md, data/estimates.json, gaps.json atualizado, csv/) — segue como working-tree change"
+      ],
+      "next_steps": [
+        "Rodar roadmap para fasear os 5 épicos e derivar uma faixa de prazo top-down (benchmark-based)",
+        "Rodar estimate para o roster nomeado (papéis, senioridade, localização) quando o usuário quiser o quadro de equipe",
+        "Levar G0305 e G0309 como perguntas bloqueadoras formais ao DER/Stefanini",
+        "Fazer checkpoint de git cobrindo requirements (gap resolution) + design (esqueleto, solution doc, estimates) desta e da sessão anterior"
+      ]
     }
   ],
   "preferences": {
@@ -187,6 +265,93 @@
       "rejected": [
         "Épico separado para o papel 'Atendente humano' — dobrado em E01, dependência de console mantida como gap (G0103/G0108), não como épico hollow",
         "Épico para unificação de voz/CTI no MVP — permanece fora por decisions/0001"
+      ]
+    },
+    {
+      "date": "2026-09-17",
+      "area": "architecture",
+      "decision": "Service Cloud (Agentforce Contact Center Enterprise, 50 licenças, Digital Engagement + Service Console) ENTRA no MVP, escopado ao canal WhatsApp — reverte a premissa anterior de 'Service Cloud fora do MVP' (registrada em 2026-09-17 discover). Ver decisions/0002.",
+      "rationale": "Resolução direta do usuário ao gap G0101/G0102/G0103/G0104 durante a rodada de resolução de gaps de requirements: o canal WhatsApp/Agentforce sempre exigiu essa camada (MessagingEndUser/MessagingSession/Case); a exclusão geral de Service Cloud permanece válida só para casos de uso de atendimento amplo fora deste canal. Salesforce Voice/Native Telephony continua fora do MVP, sem alteração a decisions/0001.",
+      "rejected": [
+        "Manter Service Cloud totalmente fora do MVP e resolver o canal WhatsApp só com Field Service (tecnicamente inviável — objetos de mensageria não existem em Field Service)"
+      ]
+    },
+    {
+      "date": "2026-09-17",
+      "area": "integration",
+      "decision": "MVP passa a incluir integração de sincronização Salesforce→SIGOR (dupla convivência) e Salesforce↔SIGEO (correção de lat/long de endereço) — reverte a premissa original de discovery de 'sem dupla convivência, só no Salesforce'",
+      "rationale": "Resolução direta do usuário aos gaps G0206 e G0213 durante a rodada de resolução de gaps de E02. SIGEO é um sistema legado do DER novo, não mapeado anteriormente na discovery (distinto do SIGOR).",
+      "rejected": [
+        "Manter premissa de não-convivência (Salesforce como única fonte, sem sincronização de saída)"
+      ]
+    },
+    {
+      "date": "2026-09-17",
+      "area": "scope",
+      "decision": "Objeto nativo Incident (Service Cloud Customer Service Incident Management) fica fora do MVP; deduplicação de ocorrências no MVP é só alerta manual ao C2C (raio+tempo+tipo), sem fusão automática. Segunda viatura no mesmo chamado usa dois slots de recurso no Work Order, não Work Order Line Item.",
+      "rationale": "Resolução do usuário aos gaps G0201/G0202/G0204 (E02): a complexidade de definir raio/localidade para aglutinação automática via Incident não se justifica no MVP; pesquisa dedicada confirmou que o matching automático não é nativo em nenhum caso (precisaria de build customizado mesmo usando Incident) — fica como item de Roadmap.",
+      "rejected": [
+        "Usar o objeto Incident nativo com fusão automática de protocolos duplicados já no MVP",
+        "Usar Work Order Line Item para representar a segunda viatura"
+      ]
+    },
+    {
+      "date": "2026-09-17",
+      "area": "dispatch",
+      "decision": "O modelo de despacho automático (E03) é 100% reativo em tempo real — NÃO há pré-agendamento do próximo atendimento antes do término do atual. A regra N/N-10 (N = 30 minutos, valor de referência a validar com o DER) opera como escalonamento de espera sobre a ocorrência atual: se o tempo estimado de espera exceder N, amplia o pool de recursos não-aderentes com teto N-10.",
+      "rationale": "Reframing do usuário sobre G0302: por ser serviço emergencial, não se aplica lógica de scheduling futuro (o gap original supunha incorretamente um gatilho de pré-agendamento). O mecanismo de escalonamento em tempo real ainda pode exigir lógica customizada (Apex/Flow) sobre a Scheduling API.",
+      "rejected": [
+        "Implementar pré-agendamento do próximo despacho N minutos antes do término do atual (framing original do gap, descartado pelo usuário)"
+      ]
+    },
+    {
+      "date": "2026-09-17",
+      "area": "dispatch",
+      "decision": "Escalonamento cross-CGR (recurso de CGR vizinha) é restrito a áreas de intersecção/fronteira geográfica entre CGRs — não é uma regra geral de overflow regional. O limite contratual da UBA por CGR (se o motor pode atribuir fora do território contratual mesmo dentro da área de intersecção) permanece gap aberto (G0309).",
+      "rationale": "Correção do usuário sobre G0307: a premissa original sugerida (overflow regional geral) era mais ampla do que o cenário real, que é condicionado à geografia de fronteira entre CGRs.",
+      "rejected": [
+        "Escalonamento geral para qualquer CGR vizinha em caso de saturação regional, independente de geografia de fronteira"
+      ]
+    },
+    {
+      "date": "2026-09-17",
+      "area": "governance",
+      "decision": "Trilha de auditoria de overrides manuais de despacho pelo C2C (campos, retenção — Field History Tracking padrão vs. Field Audit Trail add-on) permanece GAP ABERTO — pergunta bloqueadora ao DER/Stefanini antes do build do Console do Dispatcher.",
+      "rationale": "Usuário optou por não premissar (G0305), dado o peso da decisão sobre custo de licenciamento (add-on) e a exigência de prestação de contas a órgãos de controle (DER-SP como steward, G0211).",
+      "rejected": []
+    },
+    {
+      "date": "2026-09-17",
+      "area": "scope",
+      "decision": "As travas de passo (bloqueio de avanço) e ações de evidência (foto, assinatura, check-in geolocalizado) NÃO têm enforcement offline no MVP do app de campo (E04) — dependem de LWC offline seasoned, fora do roster confirmado. Capturas de evidência ainda ocorrem offline e sincronizam ao reconectar, mas sem bloqueio duro de avanço enquanto sem rede. Vai para o Roadmap pós-MVP.",
+      "rationale": "Decisão do usuário sobre G0413: risco de capacidade de entrega (dev LWC offline seasoned) não deve comprometer o cronograma de lançamento. Redução de escopo relevante frente à expectativa original do questionário do cliente — usuário pediu explicitamente que a premissa seja documentada para validação formal com o cliente antes do go-live.",
+      "rejected": [
+        "Confirmar como item de build explícito no Estimate (manter travas offline no MVP, dimensionando devs LWC seasoned) — descartado por risco ao cronograma"
+      ]
+    },
+    {
+      "date": "2026-09-17",
+      "area": "licensing",
+      "decision": "Os 1.152 operadores terceirizados de campo (E04) recebem licença Field Service Community (Partner License), não Field Service mobile padrão — apesar de known issue documentado na KB sobre usuários Community abrindo Service Appointment [KB: field_service_dev.md:27272-27273].",
+      "rationale": "Decisão explícita do usuário em G0403, contrária à recomendação inicial (que sugeria licença padrão para evitar o known issue). Risco fica registrado para monitoramento/teste dirigido antes do go-live, mas a escolha de licença foi mantida como o usuário definiu.",
+      "rejected": [
+        "Field Service mobile license padrão (recomendação original, para evitar known issue) — descartada pelo usuário"
+      ]
+    },
+    {
+      "date": "2026-09-17",
+      "area": "delivery-scope",
+      "decision": "Novo workstream transversal ao programa: Change Management explícito, incluindo até 2 meses de Scale/Operação Assistida pós-go-live e treinamento personalizado por persona, com foco nos técnicos de campo das UBAs (terceirizados). Não é escopo só de E05 — deve refletir no dimensionamento de esforço do Estimate do projeto como um todo.",
+      "rationale": "Surgiu na resolução de G0515 (originalmente um gap de disciplina de UX research para o rastreamento do cidadão). O usuário esclareceu que a experiência já foi validada na PoC (sem necessidade de UX research formal), mas que o DER pediu explicitamente esse serviço de Change Management — informação nova de escopo, não apenas mitigação de risco de UX.",
+      "rejected": []
+    },
+    {
+      "date": "2026-09-17",
+      "area": "architecture",
+      "decision": "Capability de rastreamento público ao vivo (E05): não há feature nativa de link público/guest-acessível com posição ao vivo no Field Service ou Salesforce Maps. Build via site Experience Cloud com acesso guest + componente customizado (LWC/Apex). Mapa interno da mesa usa Aerial Routing nativo do Field Service (sem add-on); Street-Level Routing via ESO é upgrade de precisão candidato a Roadmap. Controle de acesso ao link: entrega por SMS exclusiva ao número que registrou a abertura da ocorrência (não WhatsApp para esta entrega específica), combinado com token de uso único/expiração (G0506).",
+      "rationale": "Pesquisa dirigida na KB central (kb-search.py) não retornou nenhuma capability nativa de rastreamento público ao vivo para usuário não-autenticado [KA-6746 confirma apenas routing nativo/ESO para uso interno]. Resolução de G0503/G0512.",
+      "rejected": [
+        "Assumir Salesforce Maps ou Google Maps Platform como licenciamento adicional confirmado no MVP — sem base para essa afirmação nas fontes disponíveis"
       ]
     }
   ]

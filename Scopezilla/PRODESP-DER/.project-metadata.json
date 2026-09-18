@@ -12,7 +12,7 @@
     "discover": "complete",
     "strategy": "complete",
     "requirements": "complete",
-    "design": "not-started",
+    "design": "complete",
     "roadmap": "not-started",
     "efficiency": "not-started",
     "estimate": "not-started",
@@ -43,7 +43,7 @@
   "org_strategy": {
     "value": "Org única",
     "source": "Confirmado pelo usuário em 2026-09-17",
-    "note": "Service Cloud não será usado no MVP (sem caso de uso confirmado); reavaliar se o canal WhatsApp/Agentforce exigir a camada de Digital Engagement subjacente ao Service Cloud — conflito não resolvido com a proposta de arquitetura do BSA (v2, Renata Vendramini), que lista objetos MessagingEndUser/MessagingSession/Case sob Service Cloud."
+    "note": "RESOLVIDO 2026-09-17 (decisions/0002): Service Cloud ENTRA no MVP, escopado ao canal WhatsApp — Agentforce Contact Center Enterprise (50 licenças), Digital Engagement, 1 fila humana única 24x7, roteamento simples sem skills (premissa a revalidar). Confirma a proposta de arquitetura do BSA (v2, Renata Vendramini) quanto a MessagingEndUser/MessagingSession/Case sob Service Cloud. Exclusão geral de Service Cloud permanece só para casos de uso de atendimento amplo fora deste canal; Salesforce Voice/Native Telephony continua fora do MVP per decisions/0001."
   },
   "geographic_scope": {
     "value": "Produção estadual — 14 CGRs (não apenas o piloto Cubatão/Taubaté)",
