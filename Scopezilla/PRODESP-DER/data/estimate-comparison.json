@@ -1,0 +1,70 @@
+{
+  "anchor": "traditional",
+  "validated_by": "user",
+  "disclaimer_class": "input-derived",
+  "validation_note": "Aprovado pelo Solution Lead (usuário) em 2026-09-17 — 3 faixas de duração, roster nomeado das 3 lanes, e a leitura qualitativa de FTE abaixo, tudo como apresentado no gate de sign-off.",
+  "team_shape_note": "Nenhum FTE numérico é computado — .project-metadata.json.timeline.user_commitment é null (só a faixa derivada 16-30 semanas existe), e derive-hours.py corretamente se recusa a derivar horas de uma faixa, não de um compromisso. Leitura qualitativa aprovada pelo usuário: lane traditional/augmented soma 10 papéis PS (pico ~7-8 pessoas simultâneas nas Fases 1-3, incluindo o pod de 3 Developers offshore) + 6 papéis client-side; lane AI-native cai para 8 papéis PS (pico ~5-6 pessoas) com o pod de Developers colapsado de 3 para 1 sênior dirigindo agentes. Um FTE numérico real fica disponível se/quando o usuário comprometer um número de semanas (roadmap Step 0.6).",
+  "ownership_split": {
+    "sf_ps_owned_pct": 100,
+    "client_owned_pct": 0,
+    "basis": "Confirmado pelo usuário — 100% do escopo dos 5 épicos (E01-E05) é entregue pela Salesforce PS. Papéis client-side existem apenas como coverage necessária (product owner, SMEs, data steward, IT liaison, UAT), nunca como redução de escopo SF-owned."
+  },
+  "size_confidence_note": "Todos os 5 épicos carregam confidence: Assumed em data/estimates.json — amplia o risco realizado de todas as 3 lanes para a ponta alta das faixas, mesmo sem mover mecanicamente o piso.",
+  "lanes": {
+    "traditional": {
+      "label": "Traditional",
+      "basis": "derived",
+      "duration_weeks_range": "16-30",
+      "duration_provenance": "Faixa top-down benchmark-based da forma do engagement (.project-metadata.json.timeline.derived) — a lane-âncora, sem compressão. Classificada Multi-Cloud/Medium; ajustada +15% UI/UX customizada (E04/E05) +10% governança/auditoria (G0305/G0211).",
+      "confidence": "Assumed",
+      "roster_ref": "data/resource-plan.json",
+      "roster_note": "Roster nomeado escrito em data/resource-plan.json (lane comprometida/âncora) — pod de build offshore-weighted escalando com o volume dos 4 épicos L, arquitetura/PM/QA lead onshore sênior.",
+      "indicative_price_range": null,
+      "pricing_status": "deferred — nenhuma rate validada foi fornecida; a comparação de tempo/esforço/roster é o entregável completo desta versão"
+    },
+    "augmented": {
+      "label": "Augmented (traditional methodology + AI tooling)",
+      "basis": "derived",
+      "duration_weeks_range": "14-25",
+      "duration_provenance": "Faixa da lane traditional (16-30 sem) comprimida pelo realized_band de data/efficiency.json (~10-18%) — tooling de IA, modelo operacional inalterado.",
+      "confidence": "Assumed",
+      "roster_ref": "data/resource-plan.json",
+      "roster_note": "Mesma forma de equipe da lane traditional (data/resource-plan.json) — a ferramenta de IA muda o ritmo de entrega dentro dos mesmos papéis/contagens, não a composição do time.",
+      "indicative_price_range": null,
+      "pricing_status": "deferred — nenhuma rate validada foi fornecida"
+    },
+    "quantum-leap": {
+      "label": "AI-native",
+      "basis": "derived",
+      "duration_weeks_range": "10-18",
+      "duration_provenance": "Faixa da lane traditional (16-30 sem) comprimida pelo native_band de data/efficiency.json (~35-40%) — condicional, gate de qualificação AI-native ainda não atendido (decisions/0033). Apresentada como motivador: 'se o DER/PRODESP se comprometer com este modelo operacional, esta seria a faixa' — nunca como alcançável sem nomear o compromisso.",
+      "confidence": "Assumed",
+      "native_qualification": "conditional",
+      "qualification_rationale": "Confirmado pelo usuário: nenhum sponsor executivo nomeado identificado na discovery (Discovery Brief item #12); cadeia de decisão em 3 camadas DER→PRODESP→Stefanini; nenhum mandato AI-first declarado. O roster client-side desta lane (product owner/decision-maker) reflete exatamente esse gap — não está preenchido.",
+      "roster": [
+        {"resource_id": "AN-01", "role": "Project / Program Manager", "ai_native_label": "Program Lead", "seniority": "senior", "location": "onshore", "count": 1, "allocation": "full", "phases_active": "0-4", "side": "ps", "justification": "Piso de accountability core — relacionamento com DER/PRODESP/Stefanini, decisões de gate, o plano."},
+        {"resource_id": "AN-02", "role": "Solution Architect", "ai_native_label": "Intent Architect", "seniority": "senior", "location": "onshore", "count": 1, "allocation": "full", "phases_active": "0-4", "side": "ps", "justification": "Piso de accountability core — dono do quê/porquê: metas, guardrails, sign-off de intenção; orienta o product owner do cliente (hoje um gap, ver qualification_rationale)."},
+        {"resource_id": "AN-03", "role": "Technical Architect", "ai_native_label": "Agent Orchestrator", "seniority": "senior", "location": "onshore", "count": 1, "allocation": "full", "phases_active": "1-4", "side": "ps", "justification": "Piso de accountability core — dirige a frota de agentes no build de integração SIGOR/SIGEO e do motor de despacho; escolhido Technical Architect (não senior Developer) pela complexidade de governança estadual (14 CGRs) e trilha de auditoria (G0305) que excede o que um único senior Developer sequenciaria."},
+        {"resource_id": "AN-04", "role": "Change & Adoption", "ai_native_label": "Adoption Architect", "seniority": "regular", "location": "onshore", "count": 1, "allocation": "full", "phases_active": "3-4", "side": "ps", "justification": "Piso de accountability core, ganho pelo escopo real de G0515 (Change Management/Scale-Operação Assistida explicitamente solicitado pelo DER, com treinamento por persona para as 14 UBAs) — não seria core sem esse escopo nomeado."},
+        {"resource_id": "AN-05", "role": "Developer", "ai_native_label": "Logic & Integration Engineer", "seniority": "senior", "location": "onshore", "count": 1, "allocation": "full", "phases_active": "1-4", "side": "ps", "justification": "Builder humano no caminho crítico (integração legada SIGOR/SIGEO + motor de despacho/escalonamento) dirigindo agentes para o volume de código; o pod offshore de 3 devs da lane traditional cai para este único senior amplificado por agentes (ajuste 1: volume→agentes, mantendo o problema de alta integridade humano)."},
+        {"resource_id": "AN-06", "role": "Functional Consultant", "ai_native_label": "Functional Consultant (agent-assisted)", "seniority": "regular", "location": "offshore", "count": 1, "allocation": "half", "phases_active": "1-2", "side": "ps", "justification": "Especialista fracionário comprado quando consumido (ajuste 5) — catálogo de 100+ Work Types e setup de Digital Engagement, com agentes absorvendo a maior parte do volume declarativo."},
+        {"resource_id": "AN-07", "role": "Quality Assurance", "ai_native_label": "Logic Validator", "seniority": "senior", "location": "onshore", "count": 1, "allocation": "full", "phases_active": "1-4", "side": "ps", "justification": "QA é amplificada por agentes, nunca substituída (ajuste 2) — agente não pode ser o checker independente do próprio output; dono da estratégia de teste e da evidência de auditoria."},
+        {"resource_id": "AN-08", "role": "Quality Assurance", "ai_native_label": "Logic Validator (surge)", "seniority": "regular", "location": "offshore", "count": 1, "allocation": "full", "phases_active": "4", "side": "ps", "justification": "Surge de QA na janela de hardening (ajuste 2) — UAT estadual em serviço de emergência safety-critical (298 viaturas, 1.152 operadores, 14 CGRs) não pode rodar com um pod tokenizado."},
+        {"resource_id": "AN-09", "role": "Product Owner / Decision-maker", "seniority": "regular", "location": "onshore", "count": 1, "allocation": "half", "phases_active": "0-4", "side": "client", "justification": "GAP — mesmo gap da lane traditional. É exatamente o sinal que o gate de qualificação AI-native testa: sem um dono nomeado e disponível no ritmo diário, o modelo operacional AI-native não se sustenta."},
+        {"resource_id": "AN-10", "role": "Functional Consultant", "seniority": "regular", "location": "onshore", "count": 1, "allocation": "quarter", "phases_active": "1-2", "side": "client", "justification": "SME de Operações de Despacho (C2C) — mesma cobertura da lane traditional."},
+        {"resource_id": "AN-11", "role": "Functional Consultant", "seniority": "regular", "location": "onshore", "count": 1, "allocation": "quarter", "phases_active": "2-3", "side": "client", "justification": "SME de Operações de Campo (UBA) — mesma cobertura da lane traditional."},
+        {"resource_id": "AN-12", "role": "Change & Adoption", "seniority": "regular", "location": "onshore", "count": 1, "allocation": "quarter", "phases_active": "1,4", "side": "client", "justification": "Data Steward do DER-SP (LGPD/geolocalização) — mesma cobertura da lane traditional."},
+        {"resource_id": "AN-13", "role": "Technical Architect", "seniority": "regular", "location": "onshore", "count": 1, "allocation": "quarter", "phases_active": "0-1", "side": "client", "justification": "TI da PRODESP + coordenação Stefanini (SIGOR/SIGEO/URA) — mesma cobertura da lane traditional."},
+        {"resource_id": "AN-14", "role": "Quality Assurance", "seniority": "regular", "location": "onshore", "count": 1, "allocation": "quarter", "phases_active": "4", "side": "client", "justification": "Amostra de UAT das 14 CGRs — mesma cobertura da lane traditional."}
+      ],
+      "core_accountability_check": "Piso presente: Program Lead ✓, Intent Architect ✓, Agent Orchestrator ✓ (Technical Architect, não senior Developer — escolhido pela complexidade de governança/auditoria estadual), Adoption Architect ✓ (ganho por G0515). Nenhuma accountability core ausente.",
+      "indicative_price_range": null,
+      "pricing_status": "deferred — nenhuma rate validada foi fornecida; a faixa nativa é adicionalmente condicional ao gate de qualificação"
+    }
+  },
+  "staffing_integrity_self_check": "1 workstream principal (W=1) — nenhum segundo fluxo com decision-maker empoderado separado identificado; papéis de liderança não foram dobrados fora do programa. Volume (Developer/QA) escala monotonicamente com o peso dos 4 épicos L na lane traditional/augmented; na lane AI-native, o volume cai para agentes mas as accountabilities não-delegáveis (integração crítica, QA independente, decisão de negócio) seguem humanas — nenhuma foi zerada por reflexo.",
+  "delta_decomposition": {
+    "traditional_to_augmented": "~2-5 semanas mais rápido (14-25 vs 16-30) via tooling de IA sobre a mesma equipe — sem mudança de composição ou modelo operacional.",
+    "traditional_to_quantum_leap": "~6-12 semanas mais rápido (10-18 vs 16-30), MAS condicional a um compromisso operacional (decisão diária, product owner nomeado e disponível, mandato AI-first) que o DER/PRODESP ainda não assumiu — hoje é um motivador, não uma entrega comprometida."
+  }
+}

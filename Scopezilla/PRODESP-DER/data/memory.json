@@ -252,6 +252,52 @@
         "Considerar capturar um user_commitment se o cliente quiser fixar um numero de semanas",
         "Revisar outputs/00-discovery-brief.md — confirmar que a redacao do valor Org62 nao quebrou nenhum outro artefato que dependa desse numero"
       ]
+    },
+    {
+      "date": "2026-09-17",
+      "skills_used": [
+        "efficiency"
+      ],
+      "summary": "Rodada completa da skill efficiency, invocada como sub-step da skill estimate (que precisava dos bands de compressão para as lanes augmented/AI-native). Fidelidade category-only (resource-plan.json ainda não existe). Mapeados os 5 épicos contra as categorias de benchmark de benchmarks.md: Technical Engineering & QA (E02/E03/E04, driver de integração legada + build custom), Analysis & Design (E01/E03), Documentation & Knowledge Management (E02/E05, driver de compliance/setor público), Project Management & Operations (E02/E03, driver de coordenação DER/PRODESP/Stefanini). Task-level blend ~30-45%; fator de realização 0,30-0,40 (perfil misto entre 'mixed config+custom dev' e 'regulated/legacy-heavy', puxado para baixo por SIGOR/SIGEO sem spec confirmada + trilha de auditoria G0305 aberta). Realized band (augmented) ~10-18%. Native band (AI-native) ~35-40%, qualification 'conditional' — per decisão já tomada na skill estimate (usuário confirmou 'ainda não qualificado', citando ausência de sponsor executivo nomeado e a cadeia de decisão DER→PRODESP→Stefanini). Readiness scoreada em 4 sinais (0-2 cada): AI tooling posture=1 (Unknown), delivery velocity=0 (cadeia multi-organizacional, contratação pública), data/env hygiene=1 (org greenfield mas integrações legadas sem spec), legal/compliance=0 (LGPD/DPIA não discutido, G0305 aberto) — total 2/8, Low readiness. 3 cenários computados (Low ~7-11%, Mid ~10-16%, High ~18-22%). Barreira humana específica do projeto adicionada às 3 canônicas: resolução de G0305/G0309/G0517 exige decisão formal entre DER/PRODESP/Stefanini. Draft aprovado pelo usuário sem ajuste ('Aprovar e salvar'). data/efficiency.json e outputs/artifacts/efficiency-analysis.md salvos; csv/08-efficiency.csv gerado; completion_status.efficiency = complete.",
+      "friction": [],
+      "decisions": [],
+      "open_threads": [
+        "G0305, G0309, G0517, G0415, G0515 continuam abertos — sem mudança nesta sessão",
+        "readiness Low (2/8) é o estado real hoje — nenhum sinal de política de IA ou de postura de compliance foi levantado na discovery; ambos ficaram Unknown/score baixo e devem ser confirmados na próxima reunião com o DER/PRODESP",
+        "native_band (~35-40%) é condicional/provisório — não deve ser apresentado ao cliente como número alcançável sem nomear o compromisso operacional que ele depende (decisions/0033)"
+      ],
+      "next_steps": [
+        "Retomar a skill estimate no Step 3: derivar a duração de cada lane (traditional = 16-30 semanas sem compressão; augmented comprimida por realized_band; AI-native comprimida por native_band, rotulada condicional)",
+        "Autorar o roster nomeado para as 3 lanes (decisions/0026), incluindo linhas side:client",
+        "Montar e escrever data/estimate-comparison.json, apresentar para sign-off do Solution Lead"
+      ]
+    },
+    {
+      "date": "2026-09-17",
+      "skills_used": [
+        "estimate"
+      ],
+      "summary": "Concluída a skill estimate — orquestrador fino que sequenciou design/roadmap/efficiency já feitos e produziu a comparação de 3 lanes. Anchor: traditional (confirmado na sessão anterior). Durações derivadas: traditional 16-30 semanas (faixa benchmark sem compressão); augmented 14-25 semanas (traditional comprimida por efficiency.json.realized_band ~10-18%); AI-native 10-18 semanas (traditional comprimida por native_band ~35-40%, qualification 'conditional'). Autorado o roster nomeado da lane traditional/augmented em data/resource-plan.json — 16 papéis (10 PS + 6 client-side), seguindo 'fold, time-box, then fraction' e a contrapeso anti-under-staffing de resourcing-roles.md; W=1 (nenhum segundo workstream com decision-maker separado identificado). Pod de 3 Developers offshore escalando com os 4 épicos L (E02-E05); PM/SA/TA/QA lead sênior onshore. Autorado separadamente o roster AI-native (14 papéis) direto em estimate-comparison.json (não pertence a resource-plan.json, que é lane-free/committed-lane-only) aplicando o piso de accountability core (Program Lead/Intent Architect/Agent Orchestrator via Technical Architect/Adoption Architect ganho por G0515) + os 5 ajustes de delta — pod de devs colapsado de 3 para 1 sênior dirigindo agentes, QA amplificada não substituída com surge na Fase 4. Bloqueio resolvido: derive-hours.py se recusou a computar FTE numérico (sem user_commitment, só a faixa derivada) — decisão tomada de apresentar leitura qualitativa de forma de equipe (contagem de papéis + pico de pessoas por fase) em vez de inventar um número, aprovada pelo Solution Lead no gate de sign-off. validate-data.py corrigido e passou limpo após 3 rodadas de fix: resource-plan.json precisava de resource_id + phases_active como string (não array); estimate-comparison.json precisava do roster augmented como array/omitido (não string) + validated_by:'user' + disclaimer_class:'input-derived' (setados só após a aprovação do usuário). Escrito outputs/artifacts/estimate-comparison.md. Pricing diferido nas 3 lanes (nenhuma rate validada). completion_status.estimate = complete.",
+      "friction": [
+        "derive-hours.py corretamente recusou computar FTE sem user_commitment — não é bug, é o guardrail funcionando; resolvido com leitura qualitativa em vez de FTE numérico",
+        "validate-data.py exigiu 3 correções de schema no primeiro pass (resource_id ausente, phases_active como array em vez de string, roster augmented como string em vez de array/omitido) — corrigido antes do sign-off"
+      ],
+      "decisions": [
+        {
+          "decision": "FTE do programa apresentado como leitura qualitativa (contagem de papéis + pico de pessoas por fase), não como número computado",
+          "rationale": "Não existe user_commitment de semanas (só a faixa derivada 16-30sem) — derive-hours.py só deriva de um compromisso, nunca de uma faixa. Inventar um FTE aqui violaria a mesma regra. Aprovado pelo Solution Lead no gate de sign-off."
+        }
+      ],
+      "open_threads": [
+        "Pricing diferido nas 3 lanes — rodar commercials por lane quando o DER/PRODESP validar uma rate",
+        "Gate de qualificação AI-native permanece 'conditional' — reavaliar se um sponsor executivo for nomeado ou se a cadeia de decisão DER→PRODESP→Stefanini for simplificada",
+        "Se o usuário comprometer um número de semanas (roadmap Step 0.6), um FTE numérico real passa a ser derivável via derive-hours.py"
+      ],
+      "next_steps": [
+        "commercials por lane, quando houver rate validada",
+        "validate (gate central) antes de export, se o projeto avançar para pacote de proposta",
+        "narratives / export quando o ciclo de proposta avançar"
+      ]
     }
   ],
   "preferences": {

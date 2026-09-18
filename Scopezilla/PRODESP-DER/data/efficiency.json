@@ -1,0 +1,127 @@
+{
+  "fidelity": "category-only",
+  "generated_from": {
+    "epics_count": 5,
+    "estimates_count": 5,
+    "has_roadmap": true,
+    "has_resource_plan": false
+  },
+  "task_level": {
+    "blended_band": "~30-45%",
+    "basis": "Mix 1M+4L pesado em integração customizada (E02: SIGOR/SIGEO) e build sob medida (E03 console/escalonamento, E04 LWC de campo, E05 site guest Experience Cloud) — perfil integration-heavy/custom-build-heavy, com nudge adicional de documentação/compliance por ser órgão público regulado.",
+    "sources": ["[1]", "[2]", "[4]", "[7]"]
+  },
+  "realization_factor": {
+    "value_range": "0.30-0.40",
+    "rationale": "Perfil misto entre 'mixed config + custom dev, standard enterprise client' (0.35-0.45) e 'regulated industry, heavy legacy integration' (0.25-0.35) — órgão público com trilha de auditoria em aberto (G0305) e duas integrações legadas sem spec confirmado (SIGOR/SIGEO) puxam para a ponta baixa.",
+    "drivers": [
+      "Duas integrações legadas com payload/API não confirmado (SIGOR, SIGEO)",
+      "Setor público regulado — trilha de auditoria e LGPD/DPIA ainda não resolvidos (G0305, G0211)",
+      "Todos os 5 épicos com confidence Assumed — amplia a incerteza de esforço"
+    ]
+  },
+  "project_level": {
+    "realized_band": "~10-18%",
+    "basis": "task-level (~30-45%) × fator de realização (0,30-0,40), antes da modulação de readiness.",
+    "confidence": "Assumed",
+    "native_band": "~35-40%",
+    "native_basis": "task-level × fator de realização AI-native (0,55-0,75), aplicável SOMENTE atrás do gate de qualificação. Provisório — magnitude não calibrada (decisions/0033).",
+    "native_qualification": "conditional"
+  },
+  "readiness": {
+    "signals": [
+      {"signal": "AI tooling posture", "score": 1, "evidence": "Nenhuma menção a política de uso de IA/ferramentas aprovadas na discovery do DER/PRODESP — sinal ausente, tratado como Unknown."},
+      {"signal": "Delivery velocity / speed bias", "score": 0, "evidence": "Cadeia de decisão DER→PRODESP→Stefanini; Opportunity em Stage 02-Scoping; ciclo formal de contratação pública — perfil de aprovação multi-camada, não de entrega rápida."},
+      {"signal": "Data & environment hygiene", "score": 1, "evidence": "Org Salesforce greenfield (sem legado interno), mas duas integrações legadas (SIGOR, SIGEO) com payload/API ainda não confirmado pela PRODESP — ambiente misto."},
+      {"signal": "Legal / security / compliance posture", "score": 0, "evidence": "Nenhuma discussão formal de LGPD/DPIA registrada (Discovery Brief item #10); trilha de auditoria de overrides manuais permanece gap aberto bloqueador (G0305)."}
+    ],
+    "total_score": 2,
+    "scenarios": [
+      {
+        "scenario": "Low readiness",
+        "score_range": "0-2",
+        "realized_band": "~7-11%",
+        "narrative": "Estado atual do projeto — ganhos ficam modestos até a cadeia de aprovação DER→PRODESP→Stefanini amadurecer e a postura de dados sensíveis (LGPD/auditoria) ser resolvida.",
+        "unlock_to_move_up": [
+          "Resolver LGPD/DPIA e a trilha de auditoria de overrides (G0305)",
+          "Definir política de uso de IA para dados sensíveis do canal de emergência",
+          "Reduzir camadas de aprovação entre DER/PRODESP/Stefanini para decisões técnicas"
+        ]
+      },
+      {
+        "scenario": "Mid readiness",
+        "score_range": "3-5",
+        "realized_band": "~10-16%",
+        "narrative": "Faixa base do projeto se a cadência de decisão e a postura de dados melhorarem moderadamente, sem mudança estrutural na governança pública.",
+        "unlock_to_move_up": [
+          "Aprovar um conjunto restrito de ferramentas de IA para uso em IDE/documentação",
+          "Fechar a especificação SIGOR/SIGEO para reduzir a incerteza de integração"
+        ]
+      },
+      {
+        "scenario": "High readiness",
+        "score_range": "6-8",
+        "realized_band": "~18-22%",
+        "narrative": "Condições favorecem a ponta alta se o órgão adotar cadência ágil de decisão e um ambiente de dados/integração maduro — improvável no perfil atual de contratação pública, mas não descartado.",
+        "unlock_to_move_up": []
+      }
+    ],
+    "current_scenario": "Low readiness"
+  },
+  "by_category": [
+    {
+      "category": "Technical Engineering & QA",
+      "task_level_band": "~25-40%",
+      "realized_band": "~8-16%",
+      "driving_tasks": ["Create Code (realistic enterprise / legacy)", "Analyze Code & Fix Defects", "Write Test Classes"],
+      "driving_epics": ["E02", "E03", "E04"],
+      "sources": ["[1]", "[4]", "[5]"],
+      "narrative": "Na integração dupla SIGOR/SIGEO (E02) e no motor de despacho/escalonamento (E03), a IA acelera geração de código e dados de teste, mas a revisão sobre duas specs de payload legado ainda não confirmadas limita o ganho realizado [1]."
+    },
+    {
+      "category": "Analysis & Design",
+      "task_level_band": "~25-40%",
+      "realized_band": "~8-16%",
+      "driving_tasks": ["Discovery Preparation", "Generation of Analysis Models", "Write User Stories & Epics"],
+      "driving_epics": ["E01", "E03"],
+      "sources": ["[2]"],
+      "narrative": "Rascunhar os fluxos de triagem do Agentforce (E01) e a lógica de escalonamento N/N-10 (E03) comprime bem, mas o refinamento com stakeholders sobre o valor de N e o escopo da trilha de auditoria (G0305) permanece 100% humano [2]."
+    },
+    {
+      "category": "Documentation & Knowledge Management",
+      "task_level_band": "~35-50%",
+      "realized_band": "~11-20%",
+      "driving_tasks": ["Generate Documents", "Knowledge Transfer"],
+      "driving_epics": ["E02", "E05"],
+      "sources": ["[7]"],
+      "narrative": "As especificações de payload de integração (E02) e a documentação de segurança do token de guest (E05) compressam bem na fase de rascunho, mas a cadeia de aprovação DER/PRODESP/Stefanini mantém a revisão final em ritmo humano [7]."
+    },
+    {
+      "category": "Project Management & Operations",
+      "task_level_band": "~25-35%",
+      "realized_band": "~8-14%",
+      "driving_tasks": ["Project Status Reports", "Coordination Meeting Time"],
+      "driving_epics": ["E02", "E03"],
+      "sources": ["[7]"],
+      "narrative": "Um programa de 5 fases cobrindo 14 CGRs e três organizações (DER, PRODESP, Stefanini) gera carga alta de coordenação; a IA rascunha status e notas de reunião, mas o alinhamento real sobre G0305/G0309 continua humano."
+    }
+  ],
+  "by_role_type": [],
+  "human_barriers": [
+    {"activity": "Project Pulse Reports", "why_no_gain": "Trabalho de construção de confiança que a IA pode resumir, mas não conduzir."},
+    {"activity": "Stakeholder Alignment", "why_no_gain": "Negociação humano-a-humano; a IA rascunha posições, pessoas decidem."},
+    {"activity": "Conflict Resolution", "why_no_gain": "Julgamento humano."},
+    {"activity": "Resolução de gaps bloqueadores com DER/Stefanini (G0305, G0309, G0517)", "why_no_gain": "Exige decisão formal entre três organizações (DER, PRODESP, Stefanini) — a IA prepara a pauta, não decide."}
+  ],
+  "assumptions": [
+    "Benchmarks extraídos de dados publicados 2022-2026 (Peng et al./GitHub 2022, Paradis et al./Google 2024, METR 2025, DORA 2024-2025, McKinsey 2025, GitClear 2025, Stanford HAI AI Index 2026) mais observações internas da Salesforce.",
+    "Bandas de tarefa convertidas em nível de projeto via fator de realização que contabiliza a Lei de Amdahl + sobrecarga de revisão/AI-tax.",
+    "Todos os 5 épicos carregam confidence Assumed em estimates.json — amplia a incerteza em ambas as direções."
+  ],
+  "caveats": [
+    "Bandas são qualitativas e específicas do projeto, não garantias.",
+    "Nenhuma implicação de horas, FTE ou custo é computada ou implícita.",
+    "O gap de percepção é real — equipes frequentemente se sentem mais rápidas do que os ganhos medidos confirmam (per METR 2025).",
+    "A faixa AI-native (~35-40%) é condicional e provisória — depende de um compromisso operacional que o DER/PRODESP ainda não assumiu."
+  ]
+}

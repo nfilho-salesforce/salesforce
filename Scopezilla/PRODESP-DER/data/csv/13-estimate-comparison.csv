@@ -1,0 +1,4 @@
+Lane,Anchor,Basis,Duration Weeks Range,Indicative Price Low,Indicative Price High,Currency,Roster,Capacity Summary,Delta vs Other Lane,Validated By,Disclaimer Class
+traditional,yes,derived,16-30,,,,,,,user,input-derived
+augmented,,derived,14-25,,,,,,,user,input-derived
+quantum-leap,,derived,10-18,,,,1x Project / Program Manager (senior onshore); 1x Solution Architect (senior onshore); 1x Technical Architect (senior onshore); 1x Change & Adoption (regular onshore); 1x Developer (senior onshore); 1x Functional Consultant (regular offshore); 1x Quality Assurance (senior onshore); 1x Quality Assurance (regular offshore); 1x Product Owner / Decision-maker (regular onshore); 1x Functional Consultant (regular onshore); 1x Functional Consultant (regular onshore); 1x Change & Adoption (regular onshore); 1x Technical Architect (regular onshore); 1x Quality Assurance (regular onshore),,,user,input-derived
