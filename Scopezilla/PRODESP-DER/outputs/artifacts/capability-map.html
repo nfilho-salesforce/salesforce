@@ -1,24 +1,4 @@
 <!DOCTYPE html>
-<!--
-  SCOPEZILLA CAPABILITY MAP — TEMPLATE
-  The chrome (CSS, JS) is fixed so every capability map looks the same and the
-  copy-as-image button always works. The skill fills ONLY the header placeholders
-  and the <!-- INJECT:x --> zones with the DERIVED read (see SKILL.md — status is
-  derived from roadmap/priority/scenarios/gaps, never stored or invented).
-
-  Header placeholders: {{PROJECT_TITLE}} (appears TWICE — <title> and <h1>),
-  {{SUB_LINE}}, {{STAMP_GENERATED}}, {{STAMP_VERSION}}, {{STAMP_DATA_DATE}}.
-  Zones:
-    INJECT:tally     — the count key + the proportional tally bar (in / deferred / gated).
-    INJECT:lanes     — one .lane per business outcome, each a .lane-head + N .cap cards.
-                       The grid auto-wraps (auto-fit): 3-5 outcomes = one row, 8-10 = two
-                       rows, no horizontal scroll — the whole map copies as one image.
-    INJECT:boundary  — one .brow per out-of-scope / gap capability (the red band).
-    INJECT:coverage  — one line: what was derived vs. authored; flag if >12 outcomes.
-
-  The map card and the boundary band each carry data-shot, so each copies to the
-  clipboard as its own image. Do not restyle; do not add a build step; keep it one file.
--->
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
