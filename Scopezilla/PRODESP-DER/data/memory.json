@@ -222,6 +222,36 @@
         "Levar G0305 e G0309 como perguntas bloqueadoras formais ao DER/Stefanini",
         "Fazer checkpoint de git cobrindo requirements (gap resolution) + design (esqueleto, solution doc, estimates) desta e da sessão anterior"
       ]
+    },
+    {
+      "date": "2026-09-17",
+      "skills_used": [
+        "roadmap"
+      ],
+      "summary": "Derivada faixa de prazo top-down (16-30 semanas, benchmark-based, sem compromisso) via timeline-methodology.md: classificado Multi-Cloud/Medium (Field Service + Service Cloud/Agentforce Contact Center Enterprise + Experience Cloud), baseline 16-24 semanas, +15% UI/UX customizada (E04, E05) +10% governanca/auditoria (G0305, G0211) -> 30. Escrito em .project-metadata.json.timeline.derived (nao ha efficiency.json, sem compressao AI-native). Esqueleto de 5 fases aprovado (Fase 0 discovery-resolution + 4 fases de build), sem duration_weeks (nenhum user_commitment definido). depends_on escrito em epics.json: E01->E02, E03->E02, E04->E03, E05->E03,E04 (grounded em [KA-6240], sequencia recomendada de setup do Field Service). outputs/02-delivery-plan.md escrito com o critical path E02->E03->E04->E05. Corrigido, como achado colateral do self-gate (validate-data.py), um pricing leak pre-existente no outputs/00-discovery-brief.md (valor Org62 $8M exposto em artefato client-facing) - redigido para referencia interna.",
+      "friction": [],
+      "decisions": [
+        {
+          "decision": "Fase 0 (discovery-resolution) obrigatoria — 73 gaps > limiar de 15",
+          "rationale": "Regra mecanica do skill roadmap (>15 gaps OU >5 source conflicts); aqui ambos os limiares foram excedidos (73 gaps, 7 source conflicts)"
+        },
+        {
+          "decision": "E01 e E03 agrupados na mesma fase (Fase 2), concorrentes",
+          "rationale": "Ambos dependem apenas de E02 (fundacao), nao um do outro — podem avancar em paralelo sem violar dependencia"
+        }
+      ],
+      "open_threads": [
+        "G0305, G0309, G0517, G0415, G0515 continuam abertos — Fase 0 e o veiculo formal para leva-los ao DER/Stefanini",
+        "estimates.json e gaps.json marcados como possivelmente stale pelo validate-data.py apos o depends_on write-back em epics.json — write-back e so metadado de sequenciamento, nao altera escopo/sizing, mas fica registrado para o proximo `revise` avaliar",
+        "Faixa derivada (16-30 semanas) ainda nao comparada formalmente contra um analogo do usuario (nenhum fornecido nesta sessao) — Step 2.5 da timeline-methodology ficou sem reconciliacao",
+        "Nenhum user_commitment foi capturado — usuario optou por faixa derivada; oferta de tambem capturar um compromisso formal permanece em aberto"
+      ],
+      "next_steps": [
+        "estimate — dimensionar o roster nomeado por fase",
+        "Levar G0305 e G0309 como perguntas bloqueadoras formais ao DER/Stefanini",
+        "Considerar capturar um user_commitment se o cliente quiser fixar um numero de semanas",
+        "Revisar outputs/00-discovery-brief.md — confirmar que a redacao do valor Org62 nao quebrou nenhum outro artefato que dependa desse numero"
+      ]
     }
   ],
   "preferences": {

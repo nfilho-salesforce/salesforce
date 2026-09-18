@@ -7,7 +7,8 @@
     "kb_sources": [
       "[KB:agentforce_contact_center_4-30-2026.md:26814-26939]",
       "[KB:agentforce_contact_center_4-30-2026.md:633-730]"
-    ]
+    ],
+    "depends_on": ["E02"]
   },
   {
     "epic_id": "E02",
@@ -26,7 +27,8 @@
     "kb_sources": [
       "[KB:field_service_dev.md:27168-27209]",
       "[KB:field_service_dev.md:26132-26198]"
-    ]
+    ],
+    "depends_on": ["E02"]
   },
   {
     "epic_id": "E04",
@@ -35,7 +37,8 @@
     "confidence": "Confirmed",
     "kb_sources": [
       "[KB:field_service_dev.md:28005-28245]"
-    ]
+    ],
+    "depends_on": ["E03"]
   },
   {
     "epic_id": "E05",
@@ -44,6 +47,7 @@
     "confidence": "Confirmed",
     "kb_sources": [
       "[extends: modelo de status de Service Appointment/Work Order coberto em E02/E03]"
-    ]
+    ],
+    "depends_on": ["E03", "E04"]
   }
 ]

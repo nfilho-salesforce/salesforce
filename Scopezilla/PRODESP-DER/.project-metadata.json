@@ -13,7 +13,7 @@
     "strategy": "complete",
     "requirements": "complete",
     "design": "complete",
-    "roadmap": "not-started",
+    "roadmap": "complete",
     "efficiency": "not-started",
     "estimate": "not-started",
     "commercials": "not-started",
@@ -36,7 +36,19 @@
       "source": "Granola — Execução PoC (resumo colado pelo usuário, 2026-09-17)",
       "note": "Também relevante: contrato atual de URA (Instinct) ativo até abril/2027; contrato administrativo renova em 30/nov/2026 — pressiona a decisão Open CTI vs. Salesforce Voice."
     },
-    "user_commitment": null
+    "user_commitment": null,
+    "derived": {
+      "derived_low_weeks": 16,
+      "derived_high_weeks": 30,
+      "derivation_source": "top-down-shape",
+      "basis": "Classified Multi-Cloud/Medium (Field Service + Service Cloud/Agentforce Contact Center Enterprise + Experience Cloud): 5 epics, 1 M + 4 L (heavily L-weighted vs. the row's typical 8-12 epic count — complexity-weight equivalent to ~7-8 typical mixed-size epics), 2 point-to-point integrations, no data migration — baseline 16-24 weeks. Adjusted: +15% custom UI/UX with no native pattern (E04 custom mobile LWC business locks, E05 from-scratch Experience Cloud guest tracking site) + +10% governance/audit-compliance overlay (open audit-trail requirement G0305, LGPD data-stewardship G0211) -> high end 24x1.25=30. Low end held at baseline; all 5 epics carry confidence: Assumed, which widens realized risk toward the high end in practice even though it doesn't mechanically move the floor.",
+      "ai_native_compressed": false,
+      "range_drivers": [
+        {"epic_id": "E05", "driver": "Guest-accessible citizen tracking link has no native Field Service/Maps feature — full custom build (Experience Cloud + LWC/Apex), and token security spec is unconfirmed", "tighten_with": "Confirm PRODESP's security requirements for the guest token (key rotation, signature algorithm) - G0517"},
+        {"epic_id": "E03", "driver": "Dispatcher console + N/N-10 escalation logic sits on an open audit-trail requirement", "tighten_with": "Resolve G0305 (which fields need audit trail, retention requirement) before console build - may require Field Audit Trail add-on"},
+        {"epic_id": "E04", "driver": "Mobile app's 3 business-rule locks (refusal reason, photo, geolocated check-in) are scoped as online-only; offline enforcement is a deferred assumption", "tighten_with": "Confirm offline-enforcement scope with client (G0413) - if required rather than deferred to Roadmap, this epic's build grows"}
+      ]
+    }
   },
   "products_in_scope": ["Field Service", "Agentforce"],
   "products_with_overlay": [],

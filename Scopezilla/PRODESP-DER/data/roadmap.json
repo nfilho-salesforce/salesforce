@@ -1,0 +1,52 @@
+[
+  {
+    "phase_number": 0,
+    "phase_name": "Resolução de Discovery",
+    "objectives": "Fechar as questões bloqueadoras antes do build detalhado: especificar payload/API do SIGOR e SIGEO com o DER/Stefanini; resolver a trilha de auditoria de overrides manuais (G0305); confirmar o limite contratual da UBA por CGR para escalonamento cross-CGR (G0309); validar o desenho de segurança do token do link guest de rastreamento (G0517); confirmar com o cliente a premissa de DevOps/pipeline versionado (G0415); dimensionar o workstream de Change Management/Scale-Operação-Assistida solicitado pelo DER (G0515) e refletir seu esforço no programa. 73 gaps identificados (>15, dispara Fase 0) — priorizar os 7 Source Conflicts e os gaps que bloqueiam E02/E03/E05.",
+    "epics_included": "",
+    "success_criteria": "G0305, G0309, G0517, G0415 respondidos pelo DER/Stefanini; especificação de payload SIGOR/SIGEO assinada; workstream de Change Management dimensionado; nenhuma questão bloqueadora aberta antes do início da Fase 1.",
+    "dependencies": "Nenhuma — ponto de partida do programa.",
+    "risks": "Se G0305/G0309/G0517 não forem resolvidos a tempo, E03 e E05 entram em Fase 1/4 com premissas não confirmadas — risco de retrabalho no console do Dispatcher e no guest site.",
+    "kb_sources": []
+  },
+  {
+    "phase_number": 1,
+    "phase_name": "Fundação — Registro da Ocorrência e Integrações",
+    "objectives": "Construir o modelo de dados núcleo (Work Order, Work Type de 100+ subtipos, Contact como relator, 2 slots de Assigned Resource) e as duas integrações com sistemas legados do DER-SP: SIGOR (dupla convivência, Platform Events/CDC assíncrono) e SIGEO (correção de lat/long, callout síncrono). Esta é a fundação sobre a qual o canal digital (Fase 2) e o motor de despacho (Fase 2) escrevem.",
+    "epics_included": "E02",
+    "success_criteria": "Work Order criável a partir da tela nativa do Field Service e do Service Console; catálogo completo de Work Type disponível; sincronização SIGOR validada em janela controlada; callout SIGEO testado; alerta de deduplicação manual funcionando.",
+    "dependencies": "Depende da resolução de Fase 0 (especificação SIGOR/SIGEO).",
+    "risks": "Divergência de dados entre SIGOR e Salesforce durante a dupla convivência — monitorar volume de conflitos nas primeiras semanas.",
+    "kb_sources": ["[KA-6240] Set Up Work Order Management precede Workforce/Dispatch na sequência recomendada de setup do Field Service — fundamenta Work Order como base antes do motor de despacho."]
+  },
+  {
+    "phase_number": 2,
+    "phase_name": "Despacho Automatizado e Canal Digital",
+    "objectives": "Motor de despacho por aderência (Service Resource/Skill, escalonamento N/N-10 customizado sobre a scheduling policy) e console do Dispatcher (12 licenças). Em paralelo, canal WhatsApp com triagem Agentforce e fila humana única 24x7 — ambos dependem apenas da fundação da Fase 1, não um do outro, e podem avançar concorrentemente.",
+    "epics_included": "E03,E01",
+    "success_criteria": "Despacho aciona a viatura correta nas 14 CGRs em cenários de teste; escalonamento N/N-10 funciona; console do Dispatcher operacional nos 4 turnos; triagem WhatsApp cria Work Order de ponta a ponta; transbordo para fila humana preserva contexto.",
+    "dependencies": "depends on: E02 (Fase 1) — modelo de Work Order e recursos de campo precisam existir antes do motor de despacho e da criação automatizada de chamados.",
+    "risks": "G0305 (trilha de auditoria) e G0309 (limite contratual da UBA), se não resolvidos na Fase 0, forçam retrabalho no console do Dispatcher e no modelo de território durante esta fase.",
+    "kb_sources": ["[KA-6240] Setor de Workforce/scheduling é configurado após Work Order Management na sequência recomendada de implementação do Field Service."]
+  },
+  {
+    "phase_number": 3,
+    "phase_name": "Execução em Campo",
+    "objectives": "App único de Field Service Mobile para os 1.152 operadores de campo das 14 UBAs, com licença Field Service Community, push nativo com retry, briefcase offline restrito à ocorrência em andamento, e as 3 travas de negócio (recusa com motivo, foto obrigatória, check-in geolocalizado) em modo online.",
+    "epics_included": "E04",
+    "success_criteria": "App recebe despacho e executa o ciclo completo até o encerramento com evidência; piloto com subconjunto de UBAs antes do rollout às 14 CGRs; travas de negócio bloqueiam encerramento sem os requisitos mínimos.",
+    "dependencies": "depends on: E03 (Fase 2) — o app de campo recebe atribuições geradas pelo motor de despacho.",
+    "risks": "Known issue de Service Appointment com licença Field Service Community — monitorar releases; enforcement offline das travas fica fora do MVP (risco de evidência incompleta em campo sem rede).",
+    "kb_sources": []
+  },
+  {
+    "phase_number": 4,
+    "phase_name": "Rastreamento, Visibilidade e Estabilização",
+    "objectives": "Link de rastreamento guest para o cidadão (Experience Cloud + LWC/Apex customizado, token de uso único), mapa/Gantt do C2C com Aerial Routing nativo, painel único de gestores com 4 indicadores agregados. Fecha o programa com UAT em escala estadual (298 viaturas, 1.152 operadores, 14 CGRs) e um período de hypercare/Operação Assistida antes do go-live pleno.",
+    "epics_included": "E05",
+    "success_criteria": "Link guest ativo e protegido por token com expiração; mapa/Gantt operacional para o C2C; painel de gestores exibindo os 4 indicadores; UAT estadual assinado pelo DER; hypercare concluído sem bloqueadores críticos.",
+    "dependencies": "depends on: E03, E04 (Fases 2 e 3) — o rastreamento consome o ciclo de vida do Work Order/Service Appointment gerado pelo despacho e pela execução em campo.",
+    "risks": "Ausência de feature nativa de rastreamento público — todo o link do cidadão é build customizado; segurança do guest profile deve ser validada antes do go-live (G0517).",
+    "kb_sources": []
+  }
+]

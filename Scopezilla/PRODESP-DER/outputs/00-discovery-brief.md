@@ -1,7 +1,7 @@
 # Discovery Brief — PRODESP · DER-SP (Socorro Emergencial em Rodovias)
 
 **Data:** 2026-09-17 · **Conta:** PRODESP-Companhia de Processamento de Dados do Estado de São Paulo · **Cliente final:** DER-SP (Departamento de Estradas de Rodagem do Estado de São Paulo)
-**Oportunidade Org62:** PRODESP DER FS Implementation CSG New · Stage 02-Scoping · Amount $8,000,000 · Close Date 2026-10-30 · Owner Juliana Brites · Type SOW
+**Oportunidade Org62:** PRODESP DER FS Implementation CSG New · Stage 02-Scoping · Close Date 2026-10-30 · Owner Juliana Brites · Type SOW *(valor da oportunidade é referência interna — ver Org62; não exposto em artefato client-facing)*
 
 ---
 
@@ -25,7 +25,7 @@ O DER-SP quer substituir o fluxo manual e fragmentado de atendimento a pane e si
 | 8 | Integrações | Confirmed (exclusões) | SIGOR e URA/CTI explicitamente fora do MVP. Integrações futuras (PM, Bombeiros, Defesa Civil, montadoras) citadas como "a verificar". SIPATI citado uma vez, sem substância — stub. |
 | 9 | Migração de dados | Confirmed | Sem dupla convivência — chamados de emergência só nascem no Salesforce; SIGOR continua para outros fins |
 | 10 | Compliance/regulatório | Unknown (gap real) | Nenhuma discussão de LGPD/DPIA registrada; RACI, retenção para auditoria, acessibilidade — gaps na aba Setor Público |
-| 11 | Orçamento e funding | Confirmed no nível de deal | Amount $8M, Stage 02-Scoping, Close Date 30/10/2026. Instrumento contratual no nível DER (termo de referência vs. ata) — Unknown |
+| 11 | Orçamento e funding | Confirmed no nível de deal | Valor confirmado internamente no Org62 (não exposto neste documento) · Stage 02-Scoping · Close Date 30/10/2026. Instrumento contratual no nível DER (termo de referência vs. ata) — Unknown |
 | 12 | Stakeholders | Confirmed | Nominal: Rafael Marques, Thiago Mantoanelli, Cristina Cândido, Renata Vendramini (BSA), Juliana Brites, Pedro Ganem Filho, Iran da Costa, Alex Gonzalez Veiga, Nelson Stebulaitis Filho + Stefanini (parceiro de telefonia). Sponsor executivo nominal: não identificado — gap. |
 | 13 | Riscos e restrições | Confirmed | 10 riscos mapeados (aba Riscos): conectividade, salto POC→produção, LGPD/DPIA, dependência de terceiros, licenciamento indefinido, auditabilidade de override, canal de contingência, resistência a geolocalização, QA do agente sem dono, priorização em saturação |
 | 14 | Sinais de handoff | Confirmed | Opportunity em Stage 02-Scoping pós-POC; a própria POC se declara exploratória, não arquitetura definitiva |
