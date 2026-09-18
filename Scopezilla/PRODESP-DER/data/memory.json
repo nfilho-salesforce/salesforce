@@ -381,6 +381,34 @@
         "Re-rodar capability-map apos qualquer revise/roadmap para refrescar o in/out",
         "share ou slides se o capability map precisar ir para o cliente"
       ]
+    },
+    {
+      "date": "2026-09-17",
+      "skills_used": [
+        "validate"
+      ],
+      "summary": "validate-data.py: PASS (2 WARN nao-bloqueantes: estimates.json e gaps.json possivelmente stale porque epics.json mudou depois deles -- resultado do backfill capabilities[]/outcome_ids[] desta sessao, resolve com revise). Nenhum FAIL, nenhum leak de pricing, disclaimers de benchmark ok. confidence-report.py: epics.json 100% Confirmed, estimates.json 100% Assumed (tamanhos T-shirt ja disclosed como Assumed no executive summary) -- 50% Confirmed geral. 79 gaps (7 Source Conflict, 14 Logical Gap, 26 Missing Requirement, 10 Ambiguity, 8 Potential Risk, 14 Other incluindo os 6 novos Out of Scope) -- Fase 0 recomendada (ja refletido no executive summary).",
+      "friction": [],
+      "decisions": [],
+      "open_threads": [
+        "2 WARNs de staleness (estimates.json, gaps.json vs epics.json) a resolver via revise nesta mesma sessao"
+      ],
+      "next_steps": [
+        "Rodar revise para propagar o backfill de capabilities/outcome_ids em epics.json e reavaliar estimates/gaps"
+      ]
+    },
+    {
+      "date": "2026-09-17",
+      "skills_used": [
+        "revise"
+      ],
+      "summary": "Triagem dos 2 WARNs do validate (estimates.json e gaps.json \"stale\" vs epics.json). Classificados como RUIDO: o backfill em epics.json (22:58) so adicionou capabilities[]/outcome_ids[] (labels de rastreabilidade para o capability-map), sem tocar size_drivers/complexity_drivers/t_shirt_size -- tamanhos E01-E05 (M/L/L/L/L) identicos ao executive-summary.md, sem alteracao desde 21:05. gaps.json na verdade ja tinha as 6 linhas Out of Scope gravadas 2min ANTES do backfill de epics (22:56 vs 22:58) -- ja estava consistente, o WARN e so um artefato de comparacao de mtime, nao um conteudo desatualizado. Nenhuma mudanca real de escopo/sizing confirmada -> blast radius = zero, nenhum skill downstream (design/roadmap/estimate/commercials) precisou ser re-executado. Revalidado apos a triagem: mesmo resultado PASS com os 2 WARNs (esperado, sao mecanicos).",
+      "friction": [],
+      "decisions": [],
+      "open_threads": [],
+      "next_steps": [
+        "Sugerir roadmap somente se novo dado de escopo chegar; por ora nao ha necessidade. Seguir para share/slides do capability-map e demais artefatos conforme pedido do usuario."
+      ]
     }
   ],
   "preferences": {
