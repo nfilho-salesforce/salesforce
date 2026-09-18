@@ -655,5 +655,59 @@
     "status": "Open - Design assumption to validate",
     "resolution": "Premissa assumida no design: token assinado + TTL via Apex, expiração no encerramento + buffer. Mecanismo específico (algoritmo, rotação) a validar com segurança da PRODESP antes do build do site Experience Cloud.",
     "resolved_date": "2026-09-17"
+  },
+  {
+    "gap_id": "G0518",
+    "category": "Out of Scope",
+    "gap_or_question": "Salesforce Voice / Native Telephony como canal de voz unificado",
+    "impact_or_notes": "Fora do MVP por decisions/0001 — o 0800 continua operando sobre a URA legada (Instinct) até a decisão formal Open CTI vs. Salesforce Voice, preparada no Roadmap antes do vencimento do contrato em abril/2027. \"WhatsApp voz\" no MVP é apenas áudio dentro do canal de mensageria, não telefonia nativa.",
+    "status": "Resolved - Deferred to Roadmap (decisions/0001)",
+    "resolution": "",
+    "resolved_date": ""
+  },
+  {
+    "gap_id": "G0519",
+    "category": "Out of Scope",
+    "gap_or_question": "Objeto nativo Incident (Service Cloud CSIM) com fusão automática de chamados duplicados",
+    "impact_or_notes": "Fica fora do MVP e vai para o Roadmap (E02). No MVP, a deduplicação é só alerta manual ao C2C (raio geográfico + janela de tempo + tipo), sem fusão automática de registros.",
+    "status": "Resolved - Deferred to Roadmap",
+    "resolution": "",
+    "resolved_date": ""
+  },
+  {
+    "gap_id": "G0520",
+    "category": "Out of Scope",
+    "gap_or_question": "Enforcement offline (bloqueio duro de avanço) das travas de negócio no app mobile",
+    "impact_or_notes": "Depende de desenvolvimento LWC offline seasoned, fora do roster confirmado (E04) — ver G0413. Captura de evidência (foto, check-in, motivo de recusa) ainda ocorre offline e sincroniza ao reconectar; apenas o bloqueio automático de avanço sem rede não é construído nesta fase. Premissa marcada para validação formal com o cliente antes do go-live.",
+    "status": "Resolved - Premise Accepted (scope reduction, to validate with client) — see G0413",
+    "resolution": "",
+    "resolved_date": "2026-09-17"
+  },
+  {
+    "gap_id": "G0521",
+    "category": "Out of Scope",
+    "gap_or_question": "Portal Partner Community para terceiros (7ª superfície de visibilidade, uso das UBAs)",
+    "impact_or_notes": "Fica fora do MVP (E05), candidato a nova epic no Roadmap. As 6 superfícies confirmadas no MVP são cidadão, C2C, gestores, operador de campo (app), dispatcher e Agentforce — a visibilidade dedicada para as 14 UBAs terceirizadas não está incluída.",
+    "status": "Resolved - Deferred to Roadmap (candidate new epic)",
+    "resolution": "",
+    "resolved_date": ""
+  },
+  {
+    "gap_id": "G0522",
+    "category": "Out of Scope",
+    "gap_or_question": "Street-Level Routing / ESO (roteamento de precisão para o mapa do C2C)",
+    "impact_or_notes": "O MVP usa Aerial Routing nativo do Field Service (sem add-on) para o mapa/Gantt do C2C (E05). Street-Level Routing via ESO é um upgrade de Roadmap, não incluído no dimensionamento atual.",
+    "status": "Resolved - Deferred to Roadmap (upgrade)",
+    "resolution": "",
+    "resolved_date": ""
+  },
+  {
+    "gap_id": "G0523",
+    "category": "Out of Scope",
+    "gap_or_question": "Relatório à medida por CGR e meta de SLA formal no painel de gestores",
+    "impact_or_notes": "O painel de gestores do MVP (E05) é um artefato único gated por perfil, com 4 indicadores agregados (ocorrências, tempo de resposta, TMA, recusas) — sem relatório por CGR e sem meta de SLA. Decisão deliberada de fase; dono da meta de SLA a nomear no Roadmap.",
+    "status": "Resolved - Deferred to Roadmap (deliberate phasing decision)",
+    "resolution": "",
+    "resolved_date": ""
   }
 ]

@@ -65,5 +65,11 @@
       {"outcome": "Canal digital de entrada (WhatsApp/WhatsApp voz) complementar ao 0800", "category": "experience", "timeframe": "MVP"}
     ],
     "differentiation": "Metodologia de entrega de Field Service da Salesforce PS aplicada a um contexto de segurança pública de vida (socorro em rodovia), com disciplina de governança já mapeada para o agente de triagem do WhatsApp (risco de classificação incorreta pane/sinistro já identificado na própria matriz de riscos do cliente) — não uma implementação genérica de CRM."
-  }
+  },
+  "business_outcomes": [
+    {"outcome_id": "V1", "outcome": "Protocolo único e rastreável do atendimento, do pedido ao encerramento", "pain_removed": "Atendimento fragmentado em chamados distintos para pedido, despacho e encerramento, sem identificador único nem rastreamento em tempo real para o cidadão na pista.", "confidence": "Confirmed"},
+    {"outcome_id": "V2", "outcome": "Canal digital de entrada complementar ao 0800", "pain_removed": "O único canal hoje é a voz (0800); o WhatsApp existente pertence à ouvidoria e não ao socorro emergencial, deixando o motorista sem alternativa quando a voz não é viável.", "confidence": "Confirmed"},
+    {"outcome_id": "V3", "outcome": "Despacho automatizado com governança de exceção", "pain_removed": "Despacho manual pelo C2C sem regra sistemática de aderência/disponibilidade/proximidade, sobrecarregando a mesa em picos de demanda.", "confidence": "Confirmed"},
+    {"outcome_id": "V4", "outcome": "Auditabilidade do ciclo de atendimento", "pain_removed": "Overrides manuais de despacho e execução em campo sem trilha de auditoria obrigatória, dificultando a prestação de contas a órgãos de controle do Estado.", "confidence": "Confirmed"}
+  ]
 }

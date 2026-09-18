@@ -298,6 +298,89 @@
         "validate (gate central) antes de export, se o projeto avançar para pacote de proposta",
         "narratives / export quando o ciclo de proposta avançar"
       ]
+    },
+    {
+      "date": "2026-09-17",
+      "skills_used": [
+        "commercials"
+      ],
+      "summary": "Precificadas as 3 lanes do estimate-comparison.json (traditional, augmented, AI-native) numa única rodada, com o usuário explicitamente autorizando reaproveitar a tabela oficial de rates PS LATAM (memory reference_ps_rates_tax_latam, originalmente usada em projetos DATAPREV) em vez de rates específicas deste projeto. Como a tabela é por papel/título (7 faixas) e não tem dimensão onshore/offshore, e o grid de 3 células do roster PRODESP-DER (onshore-senior/onshore-regular/offshore-regular) mistura papéis architect-class com papéis de entrega dentro da mesma célula onshore-senior, o usuário resolveu a ambiguidade via AskUserQuestion: (1) onshore-senior se divide em 2 buckets — architect-class (PM/SA/TA e equivalentes AI-native) em R$884,68 sem imposto, entrega sênior (Developer/FC/QA) em R$668,78 sem imposto; (2) offshore-regular usa a mesma R$668,78 sem imposto, sem redutor adicional (a tabela já é única LATAM). Aplicada a regra permanente de imposto (com imposto = sem imposto ÷ 0,9345): R$946,69/h, R$715,66/h e R$614,21/h (Change & Adoption/Adoption Architect, regra de mapeamento nome-mais-similar → Solution Consultant 573,98 sem imposto) respectivamente. Moeda BRL assumida (tabela de origem + cliente estadual SP), sinalizada como não confirmada em USD. Como a arquitetura de precificação multi-lane vive em estimate-comparison.json (rate_basis/rates[] no topo + indicative_price_range por lane — decisions/#200, evita o round-trip forçado de um commercials.json de lane única), não foi escrito um data/commercials.json separado; o padrão seguido foi o mesmo que o orquestrador estimate usaria ao chamar commercials por lane. Fórmula usada (fallback de faixa sem compromisso semanal, per decisions/0023): Σ(count × alocação × rate) × 40h × faixa de duração de cada lane — sem descontar por phases_active. Resultado: traditional R$6.332.940,80-11.874.264,00 (16-30sem); augmented R$5.541.323,20-9.895.220,00 (14-25sem); AI-native R$2.383.636,00-4.290.544,80 (10-18sem, condicional ao gate de qualificação). Escrita a seção '## Approved Commercials' em outputs/artifacts/estimate-comparison.md com o Validated-Rate Disclaimer verbatim. validate-data.py passou limpo (só os 2 WARNs pré-existentes de staleness estimates/gaps vs epics). completion_status.commercials = complete.",
+      "friction": [
+        "Tabela de rates fornecida pelo usuário é por papel/título (7 faixas), não por grid seniority×location — exigiu 2 perguntas de mapeamento (AskUserQuestion) antes de computar, já que aplicar 'nome mais semelhante' silenciosamente teria colapsado papéis architect-class e de entrega na mesma rate, distorcendo o número"
+      ],
+      "decisions": [
+        {
+          "decision": "Reaproveitar a tabela de rates PS LATAM (originalmente documentada para DATAPREV) neste projeto PRODESP-DER, com mapeamento explícito papel→bucket confirmado pelo usuário, em vez de coletar rates novas específicas do projeto",
+          "rationale": "Instrução explícita do usuário ('utilize as rates do skill dataprev apesar de nao ser um projeto dataprev') — a tabela é uma referência de rate PS LATAM permanente do usuário (não escopada a um projeto), e ele optou por aplicá-la aqui em vez de validar rates novas."
+        },
+        {
+          "decision": "Onshore-senior dividido em 2 rates (architect-class R$946,69/h vs entrega R$715,66/h) em vez de uma única rate para toda a célula do grid",
+          "rationale": "A tabela de origem distingue Architect/PM/Business-Strategy sênior (884,68) de Technical Consultant/Developer (668,78) — colapsar os dois em um único número teria sobre ou sub-precificado um dos dois grupos de papéis; usuário escolheu manter a distinção."
+        }
+      ],
+      "open_threads": [
+        "Moeda BRL assumida, não confirmada — se o DER/PRODESP precisar de USD, reconverter as 3 faixas",
+        "Faixa AI-native permanece condicional ao gate de qualificação — preço só é real se o compromisso operacional for assumido",
+        "Se o usuário comprometer um número de semanas (roadmap Step 0.6), as faixas de preço podem ser recomputadas com hours derivadas via derive-hours.py em vez do fallback de faixa"
+      ],
+      "next_steps": [
+        "validate (gate central) antes de export, se o projeto avançar para pacote de proposta",
+        "narratives / export quando o ciclo de proposta avançar",
+        "Confirmar moeda (BRL vs USD) com o Solution Lead antes de o preço chegar ao cliente"
+      ]
+    },
+    {
+      "date": "2026-09-17",
+      "skills_used": [
+        "narratives"
+      ],
+      "summary": "Gerado outputs/artifacts/executive-summary.md. Público não coube nos 3 templates padrão (Executive/Technical/Delivery) do skill — o usuário pediu explicitamente uma mistura: framing executivo + delivery, com qualquer conteúdo técnico restrito a arquitetura (sem mecânica de integração/padrão de automação). Estrutura seguida: Visão Rápida, Visão Geral, Escopo (5 épicos), Destaques da Solução (arquitetura apenas — org única, Field Service como motor, integrações SIGOR/SIGEO nomeadas sem detalhar padrão de sync, site Experience Cloud guest para rastreamento), Abordagem de Implementação (5 fases + faixa de duração 16-30 semanas com Benchmark Disclaimer verbatim), Esforço e Disciplinas (T-shirt 1M+4L, workstream de Change Management justificado pelo pedido explícito do DER em G0515), Riscos e Mitigações (6 riscos: trilha de auditoria G0305, limite contratual UBA G0309, enforcement offline retirado G0413, LGPD/DPIA, known issue de licença Community, gate AI-native condicional), Premissas e Nível de Confiança (confidence-report.py: 50% Confirmed/50% Assumed; 73 gaps, 7 conflitos de fonte — Fase 0 recomendada), Próximos Passos. Regra 'NO pricing' respeitada — nenhuma cifra da comparação de 3 lanes (commercials) aparece no documento. validate-data.py passou limpo (PASS no pricing/rate leak check e no benchmark provenance check; só os 2 WARNs pré-existentes de staleness estimates/gaps vs epics, não relacionados a esta rodada). completion_status.narratives = complete.",
+      "friction": [
+        "Público informado pelo usuário não mapeava para nenhum dos 3 templates canônicos do skill (Executive/Technical/Delivery) — resolvido produzindo um único documento que já mistura naturalmente business value (Visão Geral/Riscos/Próximos Passos) com conteúdo de fases/dependências (Abordagem de Implementação) e mantendo o conteúdo técnico estritamente em nível de arquitetura (Destaques da Solução), sem forçar 3 arquivos separados"
+      ],
+      "decisions": [
+        {
+          "decision": "Público do executive summary tratado como um único documento blend (executivo + delivery, técnico só arquitetura), não como 3 variantes audience-specific",
+          "rationale": "Resposta explícita do usuário ('misto de executivo e delivery, tecnicamente apenas arquitetura') não mapeava a nenhuma das 3 opções oferecidas em AskUserQuestion; a estrutura padrão de Executive Summary do skill (Step 2) já cobre essa mistura sem precisar do Step 3 de Audience Adaptation"
+        }
+      ],
+      "open_threads": [
+        "Moeda BRL vs USD ainda não confirmada para a comparação de 3 lanes (commercials) — irrelevante para este documento (sem pricing), mas pendente para quando o preço for ao cliente",
+        "Mudanças não commitadas de data/estimate-comparison.json, .project-metadata.json, data/csv/13-estimate-comparison.csv, data/memory.json, outputs/artifacts/estimate-comparison.md, mais o commit c54d55a ainda não pushado — usuário ainda não respondeu se quer commitar/pushar"
+      ],
+      "next_steps": [
+        "export empacota os deliverables em Excel/Word quando o usuário quiser os arquivos client-ready",
+        "slides se precisar de um deck a partir deste resumo",
+        "validate (gate central) antes de export, se o projeto avançar para pacote de proposta formal"
+      ]
+    },
+    {
+      "date": "2026-09-17",
+      "skills_used": [
+        "strategy",
+        "design",
+        "capability-map"
+      ],
+      "summary": "Backfill orientado pelo usuario (\"Ambos antes de mapear\") para viabilizar o capability map: (1) strategy.json ganhou business_outcomes[] (Value Map V1-V4: protocolo unico rastreavel, canal digital complementar ao 0800, despacho automatizado com governanca de excecao, auditabilidade do ciclo), confidence Confirmed alinhado ao strategic_context existente; (2) epics.json ganhou capabilities[] (lista de sub-capacidades por epico, extraidas verbatim das descricoes existentes) e outcome_ids[] com mapeamento single-primary-outcome por epico (E01->V2, E02->V1, E03->V3, E04->V4, E05->V1) para evitar duplicacao de cards entre lanes; (3) gaps.json ganhou 6 linhas novas category=\"Out of Scope\" (G0518-G0523: Salesforce Voice/CTI, objeto Incident/CSIM, enforcement offline das travas, Portal Partner Community para UBAs, Street-Level Routing/ESO, relatorio por CGR e meta de SLA) grounded em linguagem ja presente nas descricoes dos epicos. Renderizado outputs/artifacts/capability-map.html a partir do template padrao (copy + Edit por INJECT zone): tally 26 capacidades/4 outcomes (23 ok, 3 decision-dependent via gaps G0517/G0305/G0309, 0 gated), 4 lanes V1-V4, boundary band com as 6 linhas out-of-scope, coverage line documentando a simplificacao single-primary-outcome.",
+      "friction": [],
+      "decisions": [
+        {
+          "decision": "outcome_ids[] em epics.json usa um outcome primario por epico (nao multi-tag)",
+          "rationale": "Multi-tag inicial (ex.: E02 em V1+V4) duplicaria capability cards entre lanes e inflaria a lane V4 desproporcionalmente; single-primary produz um capability map limpo e nao sobreposto, mesmo sabendo que alguns epicos (E02/E05 tambem tocam V4; E04 tambem toca V1) tem relevancia secundaria nao capturada nas lanes -- documentado na coverage line do HTML, nao escondido"
+        },
+        {
+          "decision": "capabilities[]/outcome_ids[] em epics.json persistidos via jq direto, nao merge-records.py",
+          "rationale": "Arquivo pequeno (5 records); merge-records.py exige reescrever o record inteiro por linha via shell echo, arriscando escaping em texto PT-BR com acentos/aspas -- um map jq preserva os demais campos automaticamente com menos risco"
+        }
+      ],
+      "open_threads": [
+        "Moeda BRL vs USD ainda nao confirmada para a comparacao de 3 lanes (commercials) -- tema anterior, nao tocado nesta sessao",
+        "Mudancas nao commitadas de data/estimate-comparison.json, outputs/artifacts/estimate-comparison.md e o commit c54d55a ainda nao pushado -- usuario ainda nao respondeu se quer commitar/pushar essa parte"
+      ],
+      "next_steps": [
+        "Re-rodar capability-map apos qualquer revise/roadmap para refrescar o in/out",
+        "share ou slides se o capability map precisar ir para o cliente"
+      ]
     }
   ],
   "preferences": {
@@ -428,6 +511,16 @@
       "rationale": "Pesquisa dirigida na KB central (kb-search.py) não retornou nenhuma capability nativa de rastreamento público ao vivo para usuário não-autenticado [KA-6746 confirma apenas routing nativo/ESO para uso interno]. Resolução de G0503/G0512.",
       "rejected": [
         "Assumir Salesforce Maps ou Google Maps Platform como licenciamento adicional confirmado no MVP — sem base para essa afirmação nas fontes disponíveis"
+      ]
+    },
+    {
+      "date": "2026-09-17",
+      "area": "commercials",
+      "decision": "Preço indicativo das 3 lanes computado a partir da tabela oficial de rates PS LATAM (originalmente documentada para DATAPREV, memory reference_ps_rates_tax_latam) em vez de coletar rates novas específicas do PRODESP-DER; onshore-senior dividido em 2 rates (architect-class R$946,69/h vs entrega R$715,66/h) e offshore-regular usando a mesma R$715,66/h sem redutor (a tabela não tem dimensão onshore/offshore); moeda BRL assumida.",
+      "rationale": "Instrução explícita do usuário para reaproveitar a tabela DATAPREV neste projeto. A divisão em 2 rates onshore-senior e o não-redutor offshore foram confirmados via AskUserQuestion para não colapsar papéis architect-class e de entrega numa única rate distorcida, nem inventar um desconto offshore que a tabela de origem não especifica.",
+      "rejected": [
+        "Usar uma única rate onshore-senior (884,68) para todos os papéis sênior onshore, incluindo Developer/FC/QA",
+        "Aplicar um redutor arbitrário sobre offshore-regular"
       ]
     }
   ]

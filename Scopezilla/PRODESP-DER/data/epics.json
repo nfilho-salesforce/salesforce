@@ -8,7 +8,18 @@
       "[KB:agentforce_contact_center_4-30-2026.md:26814-26939]",
       "[KB:agentforce_contact_center_4-30-2026.md:633-730]"
     ],
-    "depends_on": ["E02"]
+    "depends_on": [
+      "E02"
+    ],
+    "capabilities": [
+      "Abertura de chamado via WhatsApp (texto/áudio)",
+      "Triagem automatizada pelo Agentforce",
+      "Transbordo garantido para fila humana com contexto completo",
+      "Criação automática de ordem de serviço e protocolo"
+    ],
+    "outcome_ids": [
+      "V2"
+    ]
   },
   {
     "epic_id": "E02",
@@ -17,6 +28,17 @@
     "confidence": "Confirmed",
     "kb_sources": [
       "[KB:field_service_dev.md:126-184]"
+    ],
+    "capabilities": [
+      "Registro do chamado multi-canal (WhatsApp/0800)",
+      "Catálogo de classificação (100+ subtipos)",
+      "Segunda viatura no mesmo chamado",
+      "Reclassificação com trilha de auditoria",
+      "Deduplicação por alerta ao C2C",
+      "Integração de sincronização SIGOR/SIGEO"
+    ],
+    "outcome_ids": [
+      "V1"
     ]
   },
   {
@@ -28,7 +50,20 @@
       "[KB:field_service_dev.md:27168-27209]",
       "[KB:field_service_dev.md:26132-26198]"
     ],
-    "depends_on": ["E02"]
+    "depends_on": [
+      "E02"
+    ],
+    "capabilities": [
+      "Motor de despacho por aderência (Skills)",
+      "Escalonamento de espera por tempo (regra N/N-10)",
+      "Reprocessamento automático em recusa",
+      "Console do Dispatcher",
+      "Alarme e escalonamento ao supervisor da CGR",
+      "Trilha de auditoria de overrides manuais"
+    ],
+    "outcome_ids": [
+      "V3"
+    ]
   },
   {
     "epic_id": "E04",
@@ -38,7 +73,20 @@
     "kb_sources": [
       "[KB:field_service_dev.md:28005-28245]"
     ],
-    "depends_on": ["E03"]
+    "depends_on": [
+      "E03"
+    ],
+    "capabilities": [
+      "Aplicativo único de Field Service Mobile",
+      "Recebimento de despacho via push nativo",
+      "Modo offline com fila de sincronização",
+      "Encerramento por checklist condicional por subtipo",
+      "Travas de negócio (recusa com motivo, foto, check-in geolocalizado)",
+      "Sharing restrito à CGR de origem"
+    ],
+    "outcome_ids": [
+      "V4"
+    ]
   },
   {
     "epic_id": "E05",
@@ -48,6 +96,18 @@
     "kb_sources": [
       "[extends: modelo de status de Service Appointment/Work Order coberto em E02/E03]"
     ],
-    "depends_on": ["E03", "E04"]
+    "depends_on": [
+      "E03",
+      "E04"
+    ],
+    "capabilities": [
+      "Link de rastreamento para o cidadão (Experience Cloud guest)",
+      "Mapa/Gantt do C2C com Aerial Routing",
+      "Painel agregado para gestores (4 indicadores)",
+      "Governança de dados de geolocalização (DER-SP steward)"
+    ],
+    "outcome_ids": [
+      "V1"
+    ]
   }
 ]
