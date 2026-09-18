@@ -19,11 +19,11 @@
   The map card and the boundary band each carry data-shot, so each copies to the
   clipboard as its own image. Do not restyle; do not add a build step; keep it one file.
 -->
-<html lang="en">
+<html lang="pt-BR">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Capability Map — PRODESP · DER-SP</title>
+<title>Mapa de Capacidades — PRODESP · DER-SP</title>
 <style>
   /* canonical source: brand/shells/report.html — the 2026 brand tokens + report-vocabulary
      aliases (map this template's historical --navy/--blue/--ok class CSS onto the one palette,
@@ -105,24 +105,24 @@
 </head>
 <body>
 <header>
-  <div class="eyebrow">Scopezilla Capability Map</div>
+  <div class="eyebrow">Mapa de Capacidades Scopezilla</div>
   <h1>PRODESP · DER-SP</h1>
   <div class="sub">Atendimento de Socorro na Malha Rodoviária Estadual — vertical: pace</div>
   <div class="stampline">
-    <span><b>Generated:</b> 2026-09-17 22:58 -03 (Brasília Time)</span>
+    <span><b>Gerado em:</b> 2026-09-17 23:05 -03 (Horário de Brasília)</span>
     <span><b>Scopezilla:</b> v1.25.2</span>
-    <span><b>Project data last updated:</b> 2026-09-17 22:56 -03</span>
+    <span><b>Dados do projeto atualizados em:</b> 2026-09-17 22:56 -03</span>
   </div>
-  <div class="whatis">The value the client is investing in, the capabilities each outcome needs, and exactly what's in vs. out. Read across the lanes for the "why," down each lane for the capabilities, color for the "when / whether." Scope status is <b>derived</b> from the roadmap, priorities, and gaps. <b>Proposed scope, to validate</b> — the colors are our recommendation, not client-confirmed; this is a conversation tool, not a commitment. Use "Copy as image" to drop the whole map into a deck.</div>
+  <div class="whatis">O valor em que o cliente está investindo, as capacidades que cada outcome exige, e exatamente o que está dentro e fora do escopo. Leia as lanes da esquerda para a direita para entender o "porquê", e cada lane de cima a baixo para as capacidades — a cor indica o "quando / se". O status de escopo é <b>derivado</b> do roadmap, das prioridades e dos gaps. <b>Escopo proposto, a validar</b> — as cores são nossa recomendação, não uma confirmação do cliente; esta é uma ferramenta de conversa, não um compromisso. Use "Copiar como imagem" para levar o mapa completo a uma apresentação.</div>
 </header>
 
 <main>
   <!-- The map is ONE data-shot card so it copies as a single image. -->
   <div class="card" data-shot>
-    <h2>Value → Capability → Scope</h2>
-    <p class="hint">One lane per business outcome; each card is a capability, colored by derived scope status. What's deliberately out is the red band below. A short lane means fewer capabilities were scoped for that outcome, not an omission.</p>
+    <h2>Valor → Capacidade → Escopo</h2>
+    <p class="hint">Uma lane por outcome de negócio; cada card é uma capacidade, colorida pelo status de escopo derivado. O que está deliberadamente fora aparece na faixa vermelha abaixo. Uma lane curta significa que menos capacidades foram escopadas para aquele outcome, não uma omissão.</p>
     <div class="tally-key">
-      <b>26 capabilities</b> · <b>4 outcomes</b> · 🟢 23 in scope (phased) · 🟠 3 decision-dependent · 🔴 6 out of scope / gap
+      <b>26 capacidades</b> · <b>4 outcomes</b> · 🟢 23 no escopo (faseadas) · 🟠 3 dependentes de decisão · 🔴 6 fora de escopo / gap
     </div>
     <div class="tally">
       <span class="t-ok" style="flex:23">23</span>
@@ -133,7 +133,7 @@
         <div class="lane-head">
           <div class="lh-id">V1</div>
           <div class="lh-name">Protocolo único e rastreável do atendimento</div>
-          <div class="lh-pain">Remove: atendimento fragmentado em chamados distintos, sem identificador único nem rastreamento em tempo real.</div>
+          <div class="lh-pain">Dor removida: atendimento fragmentado em chamados distintos, sem identificador único nem rastreamento em tempo real.</div>
         </div>
         <div class="cap ok">
           <div class="cap-label">Registro do chamado multi-canal (WhatsApp/0800)</div>
@@ -173,7 +173,7 @@
         </div>
         <div class="cap warn">
           <div class="cap-label">Link de rastreamento para o cidadão (Experience Cloud guest)</div>
-          <div class="cap-meta"><span class="epic">E05</span><span class="pill warn">Decision-dependent</span></div>
+          <div class="cap-meta"><span class="epic">E05</span><span class="pill warn">Dependente de decisão</span></div>
           <div class="cap-meta"><span class="muted small">G0517 — mecanismo de token de uso único ainda é premissa de design a validar</span></div>
         </div>
       </div>
@@ -182,7 +182,7 @@
         <div class="lane-head">
           <div class="lh-id">V2</div>
           <div class="lh-name">Canal digital de entrada complementar ao 0800</div>
-          <div class="lh-pain">Remove: único canal hoje é a voz (0800); o WhatsApp existente pertence à ouvidoria, não ao socorro emergencial.</div>
+          <div class="lh-pain">Dor removida: único canal hoje é a voz (0800); o WhatsApp existente pertence à ouvidoria, não ao socorro emergencial.</div>
         </div>
         <div class="cap ok">
           <div class="cap-label">Abertura de chamado via WhatsApp (texto/áudio)</div>
@@ -206,11 +206,11 @@
         <div class="lane-head">
           <div class="lh-id">V3</div>
           <div class="lh-name">Despacho automatizado com governança de exceção</div>
-          <div class="lh-pain">Remove: despacho manual pelo C2C sem regra sistemática de aderência/disponibilidade/proximidade.</div>
+          <div class="lh-pain">Dor removida: despacho manual pelo C2C sem regra sistemática de aderência/disponibilidade/proximidade.</div>
         </div>
         <div class="cap warn">
           <div class="cap-label">Motor de despacho por aderência (Skills)</div>
-          <div class="cap-meta"><span class="epic">E03</span><span class="pill warn">Decision-dependent</span></div>
+          <div class="cap-meta"><span class="epic">E03</span><span class="pill warn">Dependente de decisão</span></div>
           <div class="cap-meta"><span class="muted small">G0309 — limite contratual das UBAs por CGR não confirmado para atribuição cross-CGR</span></div>
         </div>
         <div class="cap ok">
@@ -231,7 +231,7 @@
         </div>
         <div class="cap warn">
           <div class="cap-label">Trilha de auditoria de overrides manuais</div>
-          <div class="cap-meta"><span class="epic">E03</span><span class="pill warn">Decision-dependent</span></div>
+          <div class="cap-meta"><span class="epic">E03</span><span class="pill warn">Dependente de decisão</span></div>
           <div class="cap-meta"><span class="muted small">G0305 — pergunta bloqueadora ao DER: campos e retenção da trilha ainda não definidos</span></div>
         </div>
       </div>
@@ -240,7 +240,7 @@
         <div class="lane-head">
           <div class="lh-id">V4</div>
           <div class="lh-name">Auditabilidade do ciclo de atendimento</div>
-          <div class="lh-pain">Remove: overrides e execução em campo sem trilha de auditoria obrigatória, dificultando a prestação de contas ao Estado.</div>
+          <div class="lh-pain">Dor removida: overrides e execução em campo sem trilha de auditoria obrigatória, dificultando a prestação de contas ao Estado.</div>
         </div>
         <div class="cap ok">
           <div class="cap-label">Aplicativo único de Field Service Mobile</div>
@@ -271,8 +271,8 @@
   </div>
 
   <div class="boundary" data-shot>
-    <h2>What's out — the boundary</h2>
-    <p class="hint" style="color:#7a1a13">Deliberately excluded or unmet capabilities the value stream needs. Showing what's out is the point — never invent a delivered capability to fill a gap.</p>
+    <h2>O que está fora — o limite de escopo</h2>
+    <p class="hint" style="color:#7a1a13">Capacidades deliberadamente excluídas ou não atendidas que o fluxo de valor exige. Mostrar o que está fora é o ponto central — nunca inventamos uma capacidade entregue para preencher um gap.</p>
     <div class="brow">
       <div class="bcap">Salesforce Voice / Native Telephony como canal de voz unificado</div>
       <div class="bwhy">Fora do MVP por decisions/0001 — o 0800 continua operando sobre a URA legada (Instinct) até a decisão formal Open CTI vs. Salesforce Voice, preparada no Roadmap antes do vencimento do contrato em abril/2027. "WhatsApp voz" no MVP é apenas áudio dentro do canal de mensageria, não telefonia nativa.</div>
@@ -299,7 +299,7 @@
     </div>
   </div>
 
-  <p class="coverage">Outcome grouping (V1-V4) is authored via <code>outcome_ids[]</code> on each epic, simplified to one primary outcome per epic for lane clarity — several epics genuinely also touch a second outcome (E02/E05 also support V4 auditability; E04 also supports V1 protocol continuity), captured in the epic descriptions but not double-plotted here. Wave labels come from <code>roadmap.json</code>'s 5-phase plan; decision-dependent capabilities are epics with an open blocking question in <code>gaps.json</code> (G0305, G0309, G0517). 4 outcomes is well under the ~12 threshold that would flag outcome/capability conflation.</p>
+  <p class="coverage">O agrupamento por outcome (V1-V4) é autorado via <code>outcome_ids[]</code> em cada épico, simplificado a um outcome primário por épico para manter as lanes claras — alguns épicos também tocam um segundo outcome (E02/E05 também sustentam a auditabilidade de V4; E04 também sustenta a continuidade de protocolo de V1), capturado nas descrições dos épicos mas não replicado aqui. Os rótulos de fase vêm do plano de 5 fases em <code>roadmap.json</code>; as capacidades dependentes de decisão são épicos com uma pergunta bloqueadora aberta em <code>gaps.json</code> (G0305, G0309, G0517). 4 outcomes está bem abaixo do limiar de ~12 que sinalizaria confusão entre outcome e capacidade.</p>
 </main>
 
 <script>
@@ -338,20 +338,20 @@
       var blob = await nodeToPngBlob(node);
       if (navigator.clipboard && window.ClipboardItem){
         await navigator.clipboard.write([new ClipboardItem({'image/png':blob})]);
-        btn.textContent = '✓ Copied';
+        btn.textContent = '✓ Copiado';
       } else { throw new Error('no clipboard-image'); }
     }catch(e){
       try{
         var blob2 = await nodeToPngBlob(node), a = document.createElement('a');
         a.href = URL.createObjectURL(blob2); a.download = 'capability-map.png'; a.click();
-        btn.textContent = '✓ Downloaded';
-      }catch(e2){ btn.textContent = '✗ Try screenshot'; }
+        btn.textContent = '✓ Baixado';
+      }catch(e2){ btn.textContent = '✗ Tente captura de tela'; }
     }
     setTimeout(function(){ btn.textContent = label; }, 2200);
   }
   document.querySelectorAll('[data-shot]').forEach(function(node){
     var btn = document.createElement('button');
-    btn.className = 'shot-btn'; btn.textContent = '⧉ Copy as image';
+    btn.className = 'shot-btn'; btn.textContent = '⧉ Copiar como imagem';
     btn.addEventListener('click', function(){ copyShot(node, btn); });
     node.appendChild(btn);
   });
