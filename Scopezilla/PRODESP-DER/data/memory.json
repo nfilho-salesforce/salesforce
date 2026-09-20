@@ -450,6 +450,28 @@
         "share se o usuário quiser um link do ROM em vez do arquivo local",
         "Resolver moeda BRL vs USD antes de qualquer emissão formal de proposta"
       ]
+    },
+    {
+      "date": "2026-09-20",
+      "skills_used": [
+        "roadmap",
+        "estimate",
+        "validate"
+      ],
+      "summary": "Re-rodagem de roadmap + estimate solicitada pelo usuário para propagar o resize E01 (M→L, CTI/telefonia entra no MVP) e E05 (L→S, Appointment Assistant nativo do Field Service substitui build customizado de site guest no Experience Cloud) — já refletido em epics.json/estimates.json de sessão anterior. Recalculada a faixa de duração do programa (16-30→16-31 semanas tradicional; 10-18→10-19 semanas AI-native) e propagada em cascata para data/roadmap.json, data/resource-plan.json (justificativas dos papéis PS-02/PS-07/PS-09 atualizadas) e data/estimate-comparison.json. Repropagado depois em todos os deliverables renderizados que exibiam os números antigos: outputs/artifacts/estimate-comparison.md+.html, outputs/artifacts/executive-summary.md+.html, outputs/02-delivery-plan.md, outputs/artifacts/presentation-outline.md, outputs/artifacts/rom-gemini-prompt.md, outputs/artifacts/rom-cliente.html — incluindo extensão manual do grid CSS do Gantt em rom-cliente.html de 30 para 31 colunas de semana (3 regras grid-template-columns, novo rótulo de eixo S31, barra da Fase 4 estendida, nova célula de marcador) e recálculo dos preços sem imposto (regra permanente valor SEM imposto = COM imposto × 0,9345): traditional high R$12.270.072,80 com imposto → R$11.466.383,03 sem imposto; AI-native high R$4.528.908,40 com imposto → R$4.231.264,90 sem imposto. Rodado validate-data.py como self-gate do Step 6.5 do skill estimate — PASS limpo (sem leak de preço/rate, sem placeholder de disclaimer não substituído) tanto antes quanto depois da extensão manual do grid CSS. Também corrigida, fora do escopo do resize mas descoberta durante o sweep de verificação, uma inconsistência pré-existente em executive-summary.html: 4 ocorrências do tile/texto 'Gaps identificados' mostravam '73' enquanto data/gaps.json já tinha 80 itens (confirmado por validate-data.py) — corrigidas para 80, mantendo os '7 conflitos de fonte' que já estavam corretos.",
+      "friction": [
+        "Primeiro sweep de rg em executive-summary.html encontrou só uma ocorrência de '16–30' desatualizada; um segundo sweep mais completo revelou um segundo stat tile ainda desatualizado na mesma página — lição: revarrer cada arquivo após a primeira rodada de correções em vez de assumir que um único hit de grep cobre o arquivo inteiro."
+      ],
+      "decisions": [],
+      "open_threads": [
+        "Moeda BRL vs USD para a comparação de 3 lanes permanece não confirmada — tema de sessões anteriores, não tocado nesta.",
+        "Checkpoint git (commit + push, já que origin existe) desta rodada de propagação ainda pendente ao término desta sessão — a ser feito imediatamente após este memory update."
+      ],
+      "next_steps": [
+        "Checkpoint git escopado (paths exatos, nunca git add -A) cobrindo os arquivos de dados e outputs modificados nesta e nas sessões anteriores ainda não commitados.",
+        "Reportar ao usuário o resumo consolidado da propagação e o achado/correção da inconsistência 73→80 gaps.",
+        "Resolver moeda BRL vs USD antes de qualquer emissão formal de proposta."
+      ]
     }
   ],
   "preferences": {
@@ -590,6 +612,19 @@
       "rejected": [
         "Usar uma única rate onshore-senior (884,68) para todos os papéis sênior onshore, incluindo Developer/FC/QA",
         "Aplicar um redutor arbitrário sobre offshore-regular"
+      ]
+    },
+    {
+      "date": "2026-09-20",
+      "area": "roadmap+estimate",
+      "decision": "Resize E01 M→L (CTI/telefonia via integração com a URA entra no MVP) e E05 L→S (rastreamento do cidadão via Appointment Assistant nativo do Field Service, não mais via site guest customizado no Experience Cloud) propagado para a faixa de duração do programa: 16-30→16-31 semanas (lane tradicional) e 10-18→10-19 semanas (lane AI-native), e para os preços indicativos correspondentes (traditional high R$12.270.072,80 c/imposto / R$11.466.383,03 s/imposto; AI-native high R$4.528.908,40 c/imposto / R$4.231.264,90 s/imposto).",
+      "rationale": "Reversão do ADR 0001 (CTI antes ficava fora do MVP) e mudança de abordagem de arquitetura do ADR 0002/E05 (site guest customizado → capacidade nativa Appointment Assistant), ambas confirmadas pelo usuário em sessão anterior. Este resize das faixas de esforço/duração/preço é a propagação de skill (roadmap+estimate) dessas duas decisões arquiteturais já ratificadas, não uma nova decisão de escopo.",
+      "rejected": [
+        "Manter as faixas antigas (16-30 / 10-18 semanas) e tratar o resize apenas como nota textual sem recalcular os números renderizados nos deliverables"
+      ],
+      "supersedes": [
+        "2026-09-17: 'CTI/Voice e Agente de IA de voz ficam fora do MVP...' (decisions/0001, revertida)",
+        "2026-09-17: 'Capability de rastreamento público ao vivo (E05): ... Build via site Experience Cloud...' (revertida — Appointment Assistant nativo do Field Service substitui o build customizado)"
       ]
     }
   ]

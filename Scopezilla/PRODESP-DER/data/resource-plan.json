@@ -19,7 +19,7 @@
     "allocation": "full",
     "phases_active": "0-4",
     "side": "ps",
-    "justification": "Traduz o escopo de 5 épicos (Field Service + Agentforce Contact Center Enterprise + Experience Cloud) em capacidades Salesforce; conduz a resolução de gaps bloqueadores da Fase 0 (G0305, G0309, G0517)."
+    "justification": "Traduz o escopo de 5 épicos (Field Service + Agentforce Contact Center Enterprise + Service Cloud) em capacidades Salesforce; conduz a resolução de gaps bloqueadores da Fase 0 (G0305, G0309, G0524)."
   },
   {
     "resource_id": "PS-03",
@@ -74,7 +74,7 @@
     "allocation": "full",
     "phases_active": "1-4",
     "side": "ps",
-    "justification": "Pod de build offshore escalando com 4 épicos L (integração E02, dispatch E03, app mobile customizado E04, site guest Experience Cloud E05) — volume de código customizado é o driver dominante de tamanho desses épicos."
+    "justification": "Pod de build offshore escalando com 4 épicos L (canal digital/CTI E01, integração E02, dispatch E03, app mobile customizado E04 — E05 caiu para S nesta revisão, Appointment Assistant nativo sem build customizado) — volume de código customizado é o driver dominante de tamanho desses épicos."
   },
   {
     "resource_id": "PS-08",
@@ -96,7 +96,7 @@
     "allocation": "full",
     "phases_active": "2-4",
     "side": "ps",
-    "justification": "Execução de teste escalando com o volume de build dos 4 épicos L (motor de despacho, app mobile, integrações, site guest)."
+    "justification": "Execução de teste escalando com o volume de build dos 4 épicos L (canal digital/CTI, motor de despacho, app mobile, integrações SIGOR/SIGEO)."
   },
   {
     "resource_id": "PS-10",

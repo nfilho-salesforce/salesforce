@@ -14,7 +14,7 @@
     "gap_or_question": "\"WhatsApp voz\" está confirmado em escopo do MVP (aba Canal de entrada: \"WhatsApp e WhatsApp voz são escopo desta fase\"), mas a documentação de produto mostra que provisionar um canal de voz do WhatsApp exige a edição \"Salesforce Voice (Native Telephony)\" [KB: agentforce_contact_center_4-30-2026.md:569-588] — exatamente o produto de CTI/voz que a decisions/0001 e a instrução direta do cliente empurraram para uma fase dedicada de Roadmap, fora do MVP.",
     "impact_or_notes": "Se \"WhatsApp voz\" do MVP depender de Salesforce Voice, o MVP já carrega parte do escopo de voz que a ADR 0001 diz estar fora dele — contradição real entre dois documentos do próprio cliente. Precisa esclarecer com Renata Vendramini/DER se \"WhatsApp voz\" nesta fase é apenas recepção de áudio dentro do canal de mensageria (sem Salesforce Voice) ou o canal de voz nativo completo.",
     "status": "Resolved - Confirmed",
-    "resolution": "\"WhatsApp voz\" = recepção/processamento de mensagens de áudio dentro do canal de mensageria (mesma esteira do texto, via Agentforce/Digital Engagement), transbordando automaticamente para a fila humana em falha ou preferência do cidadão. NÃO envolve Salesforce Voice (Native Telephony) — esse produto permanece fora do MVP, no Roadmap, conforme decisions/0001 (sem alteração à ADR). Ver decisions/0002.",
+    "resolution": "\"WhatsApp voz\" = recepção/processamento de mensagens de áudio dentro do canal de mensageria (mesma esteira do texto, via Agentforce/Digital Engagement), transbordando automaticamente para a fila humana em falha ou preferência do cidadão via Omni-Channel. NÃO envolve Salesforce Voice (Native Telephony) — esse produto permanece fora do MVP (decisions/0003, que substitui decisions/0001). A integração CTI com a URA do 0800 é um produto distinto de Salesforce Voice e ENTRA no MVP como canal de telefonia separado (decisions/0003/0004) — não contradiz esta resolução, que trata apenas do canal WhatsApp voz.",
     "resolved_date": "2026-09-17"
   },
   {
@@ -599,7 +599,7 @@
     "gap_or_question": "Nenhum documento nomeia se Salesforce Maps (ou equivalente) está licenciado/avaliado para viabilizar o rastreamento externo ao cidadão em estilo 'Uber' (posição ao vivo, rota) exigido por E05. A busca em knowledge/ (field_service_dev.md, service_cloud_3-27-2026.md) não retornou nenhuma referência a link público/guest-acessível com rastreamento de posição ao vivo — só documentação genérica de objetos de Field Service.",
     "impact_or_notes": "Capability real e não confirmada: expor posição ao vivo a um usuário não-autenticado via link público tipicamente exige Salesforce Maps, um SDK de mapa de terceiro (Google Maps Platform) embutido em um componente Experience Cloud/LWC customizado, ou uma solução DIY — nenhuma dessas opções está nomeada como escopo. Precisa validação de capability antes de assumir o desenho 'estilo Uber' como factível dentro do MVP.",
     "status": "Resolved - Premise Accepted",
-    "resolution": "Resolvido pelo usuário: o link de rastreamento em tempo real é enviado por SMS, exclusivamente ao número de telefone que registrou a abertura da ocorrência — o número de telefone funciona como controle de acesso (só quem abriu o chamado recebe o link), complementando o token de uso único/expiração já premissado em G0506. Nota de escopo técnico ainda válida: como não há capability nativa confirmada de rastreamento público ao vivo no Field Service/Salesforce Maps, o link em si continua dependendo de um site Experience Cloud com acesso guest e componente customizado (LWC + Apex) consumindo a geolocalização do Work Order/Service Appointment — item de build a confirmar com um SA de Salesforce, distinto da decisão de canal/controle de acesso já resolvida aqui.",
+    "resolution": "Resolvido pelo usuário: o link de rastreamento em tempo real é enviado por SMS, exclusivamente ao número de telefone que registrou a abertura da ocorrência — o número de telefone funciona como controle de acesso (só quem abriu o chamado recebe o link). Nota de escopo técnico ATUALIZADA em revisão pós-scoping (2026-09-20, ver G0517): o rastreamento do cidadão em E05 passou a usar o Appointment Assistant nativo do Field Service, não mais um site de convidado customizado no Experience Cloud com LWC/Apex — o Appointment Assistant já resolve a exposição de posição ao vivo a um usuário não-autenticado via link, sem exigir build customizado nem Salesforce Maps/SDK de terceiro.",
     "resolved_date": "2026-09-17"
   },
   {
@@ -650,20 +650,20 @@
   {
     "gap_id": "G0517",
     "category": "Assumption",
-    "gap_or_question": "Mecanismo técnico do token de uso único/expiração do link de rastreamento do cidadão (E05/G0506): assume-se token assinado (Apex) com TTL, expirando após o encerramento da ocorrência + buffer.",
-    "impact_or_notes": "Premissa de design (skill `design`, 2026-09-17): padrão comum de link seguro para acesso guest via Experience Cloud, mas não confirmado contra os padrões de segurança/compliance específicos da PRODESP (ex.: exigência de rotação de chave, algoritmo de assinatura, tempo de vida padrão). O que validaria: confirmar com a equipe de segurança da PRODESP o padrão aceito para links de acesso público temporário.",
-    "status": "Open - Design assumption to validate",
-    "resolution": "Premissa assumida no design: token assinado + TTL via Apex, expiração no encerramento + buffer. Mecanismo específico (algoritmo, rotação) a validar com segurança da PRODESP antes do build do site Experience Cloud.",
-    "resolved_date": "2026-09-17"
+    "gap_or_question": "Mecanismo técnico do token de uso único/expiração do link de rastreamento do cidadão (E05/G0506): assumia-se token assinado (Apex) com TTL, expirando após o encerramento da ocorrência + buffer.",
+    "impact_or_notes": "OBSOLETO em revisão pós-scoping (2026-09-20): o rastreamento do cidadão em E05 passou a usar o Appointment Assistant nativo do Field Service (não mais um site de convidado customizado no Experience Cloud) — ver ajuste da Complexidade e Tecnologia e capabilities de epics.json E05. O Appointment Assistant não precisa de um token/link assinado customizado; a notificação e o rastreamento seguem o mecanismo nativo do Field Service. Este gap fica sem objeto.",
+    "status": "Resolved - Obsolete (architecture changed to Appointment Assistant)",
+    "resolution": "Fechado por mudança de arquitetura: E05 passou de site de convidado Experience Cloud para Appointment Assistant nativo (Field Service), eliminando a necessidade de token/link customizado.",
+    "resolved_date": "2026-09-20"
   },
   {
     "gap_id": "G0518",
     "category": "Out of Scope",
-    "gap_or_question": "Salesforce Voice / Native Telephony como canal de voz unificado",
-    "impact_or_notes": "Fora do MVP por decisions/0001 — o 0800 continua operando sobre a URA legada (Instinct) até a decisão formal Open CTI vs. Salesforce Voice, preparada no Roadmap antes do vencimento do contrato em abril/2027. \"WhatsApp voz\" no MVP é apenas áudio dentro do canal de mensageria, não telefonia nativa.",
-    "status": "Resolved - Deferred to Roadmap (decisions/0001)",
-    "resolution": "",
-    "resolved_date": ""
+    "gap_or_question": "Salesforce Voice / substituição nativa da URA do 0800",
+    "impact_or_notes": "Fora do MVP por decisions/0003 (que substitui decisions/0001) — não porque a integração CTI esteja fora (ela entra no MVP), mas porque a substituição da própria URA por telefonia nativa Salesforce Voice é um projeto de infraestrutura de telefonia separado, cuja viabilidade ainda está sendo definida entre DER e PRODESP. O 0800 continua operando sobre a URA vigente (atual: Instinct), agora integrada via CTI ao Salesforce (decisions/0003). \"WhatsApp voz\" no MVP é apenas áudio dentro do canal de mensageria, não telefonia nativa.",
+    "status": "Resolved - Out of scope (decisions/0003) - separate infrastructure project",
+    "resolution": "Escopo reduzido em revisão pós-scoping (2026-09-20): apenas Salesforce Voice/substituição da URA fica fora; a integração CTI com a URA existente/futura entra no MVP.",
+    "resolved_date": "2026-09-20"
   },
   {
     "gap_id": "G0519",
@@ -696,7 +696,7 @@
     "gap_id": "G0522",
     "category": "Out of Scope",
     "gap_or_question": "Street-Level Routing / ESO (roteamento de precisão para o mapa do C2C)",
-    "impact_or_notes": "O MVP usa Aerial Routing nativo do Field Service (sem add-on) para o mapa/Gantt do C2C (E05). Street-Level Routing via ESO é um upgrade de Roadmap, não incluído no dimensionamento atual.",
+    "impact_or_notes": "O MVP usa Aerial Routing nativo do Field Service (sem add-on) para o mapa/Gantt do C2C, no Console do Dispatcher (E03). Street-Level Routing via ESO é um upgrade de Roadmap, não incluído no dimensionamento atual.",
     "status": "Resolved - Deferred to Roadmap (upgrade)",
     "resolution": "",
     "resolved_date": ""
@@ -707,6 +707,15 @@
     "gap_or_question": "Relatório à medida por CGR e meta de SLA formal no painel de gestores",
     "impact_or_notes": "O painel de gestores do MVP (E05) é um artefato único gated por perfil, com 4 indicadores agregados (ocorrências, tempo de resposta, TMA, recusas) — sem relatório por CGR e sem meta de SLA. Decisão deliberada de fase; dono da meta de SLA a nomear no Roadmap.",
     "status": "Resolved - Deferred to Roadmap (deliberate phasing decision)",
+    "resolution": "",
+    "resolved_date": ""
+  },
+  {
+    "gap_id": "G0524",
+    "category": "Assumption",
+    "gap_or_question": "Padrão técnico exato da integração CTI com a URA (E01/E02/E03): não fixado nesta fase. A Open CTI clássica está descontinuada pela Salesforce (modo de manutenção, indisponível para orgs Agentforce Service recém-criados, retirada prevista fev/2028) — recomendação oficial é migrar para Salesforce Voice em qualquer implementação nova, o que conflita com a intenção do cliente de manter o Salesforce Voice fora do MVP.",
+    "impact_or_notes": "Premissa técnica de decisions/0003 (2026-09-20), fundamentada em central KB (KA-5475, KA-5474, KA-5437 — maturity: official). O que validaria: (1) confirmar se o org Salesforce do DER é anterior ao corte de disponibilidade da Open CTI para orgs Agentforce Service, ou se será um org recém-criado; (2) confirmar com o fornecedor de telefonia (atual: Instinct) qual API de CTI ele expõe e se é compatível com o caminho de integração escolhido. Se a Open CTI não for viável (org novo) e não houver outro caminho de integração CTI de terceiro, a arquitetura de acionamento via URA precisaria ser revisitada antes do build de E01/E02/E03 — risco a monitorar, não motivo para reabrir a exclusão do Salesforce Voice.",
+    "status": "Open - Design assumption to validate",
     "resolution": "",
     "resolved_date": ""
   }

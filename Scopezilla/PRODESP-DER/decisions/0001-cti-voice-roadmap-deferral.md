@@ -1,6 +1,8 @@
 # 0001 — MVP exclui integração de voz/URA (CTI); unificação de canais vai para fase dedicada do Roadmap, em alto nível de detalhe
 
-**Date:** 2026-09-17 · **Status:** accepted · **Source:** client-supplied (vontade de unificação) + scopezilla-recommended (fasing)
+**Date:** 2026-09-17 · **Status:** superseded-by-0003 · **Source:** client-supplied (vontade de unificação) + scopezilla-recommended (fasing)
+
+> **Superseded em 2026-09-20 por [`0003-cti-integration-enters-mvp.md`](0003-cti-integration-enters-mvp.md).** Em revisão pós-scoping, o cliente esclareceu que a exclusão pretendida era mais estreita do que este ADR registrou: a integração CTI com a URA (acionamento de chamada/caso) entra no MVP; o que fica fora é especificamente o Salesforce Voice / substituição nativa da URA do 0800, como projeto de infraestrutura separado.
 
 ## Context
 O DER-SP expressou o desejo de unificar todos os canais de atendimento (WhatsApp, voz/URA, 0800) em uma única plataforma. Hoje a URA é operada pela "Instinct" (vendor terceirizado, migração recente causou instabilidade), com contrato ativo até abril/2027. O MVP já está confirmado como WhatsApp-first (questionário do cliente: "URA, não previsto no MVP"). A pergunta em aberto desde a reabertura deste projeto era se essa integração de voz/CTI deveria entrar no MVP ou ser tratada separadamente.

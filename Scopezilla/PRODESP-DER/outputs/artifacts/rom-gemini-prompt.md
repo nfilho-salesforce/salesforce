@@ -1,6 +1,6 @@
 # Prompts Gemini — ROM PRODESP-DER (geração de deck PPTX/Google Slides)
 
-*Gerado em 2026-09-18. Revisado em 2026-09-18 (sincronizado com a reescrita do outline: seção única de Situação Atual/Visão/Resultados, gaps abertos em 4 blocos, mapa de riscos, linha do tempo visual em Gantt, roadmap de futuro, change management aprofundado, investimento com entregáveis de escopo fechado). Fonte única de conteúdo: `outputs/artifacts/presentation-outline.md`. Todo número (R$, semanas, contagens) foi copiado verbatim dessa fonte — nenhum valor foi recalculado ou arredondado.*
+*Gerado em 2026-09-18. Revisado em 2026-09-20 (CTI entra no MVP — ADR 0003/0004 —, capacidades recontadas de 26 para 21 em 4 frentes tecnológicas, arquitetura de telefonia detalhada com novo diagrama 0800→PABX→URA→agente de IA→Service Console, documento reclassificado de escopo/preço fechado para validação da visão de solução, alcance, faseamento e esforço). Fonte única de conteúdo: `outputs/artifacts/presentation-outline.md`. Todo número (R$, semanas, contagens) foi copiado verbatim dessa fonte — nenhum valor foi recalculado ou arredondado.*
 
 ## Como usar
 
@@ -9,7 +9,7 @@
 3. Cole os prompts **um por vez, na ordem abaixo**, cada um em um slide de template em branco (não duplique um slide já estilizado — o estilo "vaza" para o próximo).
 4. Cada prompt é autocontido: não depende do Gemini lembrar o conteúdo do slide anterior. Aceite o resultado, inspecione o slide antes de colar o próximo prompt.
 5. Todo o conteúdo é PT-BR. Não peça tradução para inglês ou espanhol em nenhum momento.
-6. Esta versão cobre os 12 slides do outline (Capa → Fechamento) mais 2 blocos adicionais: "Épicos e Casos de Uso" (detalhamento completo por épico, após o Alcance do MVP) e a divisão do slide de Investimento em duas telas (entregáveis do escopo fechado, sem valores, e as figuras de investimento com/sem impostos do `## Approved Commercials`). Total: 14 blocos de prompt.
+6. Esta versão cobre os 12 slides do outline (Capa → Fechamento) mais 2 blocos adicionais: "Épicos e Casos de Uso" (detalhamento completo por épico, após o Alcance do MVP) e a divisão do slide de Investimento em duas telas (entregáveis mapeados, sem valores, e as figuras de investimento com/sem impostos do `## Approved Commercials`). Total: 14 blocos de prompt.
 7. Se o Gemini parafrasear, expandir ou colapsar itens, use as frases de recuperação do guia `gemini-delivery.md` (ex.: "Restaure minha formulação exata, verbatim: [colar]. Não parafraseie.").
 
 ---
@@ -128,9 +128,13 @@ Do not reference or reproduce any attached file, PDF, or other slide. Use only t
 
 Todo o texto deve estar em português do Brasil (PT-BR). Não traduza para inglês nem para espanhol.
 
-TITLE: Uma única arquitetura: o Field Service comanda o despacho, o Agentforce abre a porta do WhatsApp
+TITLE: Uma única arquitetura: o Field Service comanda o despacho, o Agentforce atende WhatsApp e telefonia via CTI
 
-LAYOUT: Hub-and-spoke. Salesforce (org única) no centro do slide, em um círculo ou hexágono de destaque. Ao redor, 4 módulos conectados por linhas ao centro: Field Service, Agentforce (Contact Center Enterprise), Service Cloud (escopado ao canal WhatsApp), Experience Cloud. Fora do hub, dois sistemas externos conectados por linhas de integração: SIGOR e SIGEO.
+LAYOUT: Dois diagramas neste slide — Diagrama 1 (arquitetura em camadas / hub-and-spoke) e Diagrama 2 (fluxo de telefonia e atendimento). Se os dois não couberem com boa legibilidade no mesmo slide, divida em dois slides (3a: Diagrama 1; 3b: Diagrama 2), mantendo os mesmos títulos e o conteúdo descrito abaixo.
+
+### DIAGRAMA 1 — Arquitetura em camadas (hub-and-spoke)
+
+Salesforce (org única) no centro do slide, em um círculo ou hexágono de destaque. Ao redor, 3 módulos conectados por linhas ao centro: Field Service, Agentforce (Contact Center Enterprise), Service Cloud. Fora do hub, dois sistemas externos conectados por linhas de integração: SIGOR e SIGEO.
 
 CENTRO DO HUB
 - Salesforce — org única
@@ -138,29 +142,60 @@ CENTRO DO HUB
 MÓDULO 1 — Field Service
 - Motor central de despacho
 - Work Order, Service Appointment, Service Territory
-- Modelo de Skills para aderência
+- Site de rastreamento do cidadão via template de Experience Cloud embutido (não é um módulo próprio, é uma etiqueta pequena dentro desta caixa) + Appointment Assistant nativo
 
 MÓDULO 2 — Agentforce (Contact Center Enterprise)
-- Cobre o canal WhatsApp
+- Cobre dois canais de entrada: WhatsApp e a integração CTI com a URA
+- Transbordo garantido para fila humana via Omni-Channel, preservando contexto (incluindo screen-pop de CTI)
 
-MÓDULO 3 — Service Cloud (escopado ao canal WhatsApp)
-- Não é atendimento amplo — escopo limitado a esse canal
-
-MÓDULO 4 — Experience Cloud
-- Link de rastreamento do cidadão
+MÓDULO 3 — Service Cloud
+- Camada de atendimento que hospeda o console/fila (Digital Engagement + Service Console)
 
 SISTEMAS EXTERNOS (fora do hub, conectados por linhas de integração)
 - SIGOR
 - SIGEO
 
-Style: aplicar a cor de destaque do template ao círculo/hexágono central "Salesforce". Módulos em caixas de mesmo tamanho ao redor do hub. Sistemas externos (SIGOR, SIGEO) em caixas de estilo visualmente diferente (ex.: contorno pontilhado ou cor neutra), indicando que são sistemas legados fora da org Salesforce, conectados por linhas rotuladas "integração".
+NOTA DE RODAPÉ (pequena, discreta)
+- O Visual Remote Assistant é outra extensão nativa do mesmo pacote de Field Service — sem caso de uso mapeado neste discovery para o MVP, citado aqui só para completude do inventário de capacidades.
+
+Style (Diagrama 1): aplicar a cor de destaque do template ao círculo/hexágono central "Salesforce". Módulos em caixas de mesmo tamanho ao redor do hub, com a etiqueta "Experience Cloud" aparecendo apenas dentro do Módulo 1 (Field Service), nunca como caixa própria. Sistemas externos (SIGOR, SIGEO) em caixas de estilo visualmente diferente (ex.: contorno pontilhado ou cor neutra), conectados por linhas rotuladas "integração".
+
+### DIAGRAMA 2 — Fluxo de telefonia e atendimento (0800 → PABX → URA → agente de IA → Service Console)
+
+LAYOUT: Fluxograma horizontal, esquerda para a direita, com 6 passos em sequência. No Passo 4, a caixa se ramifica em 3 saídas menores lado a lado; apenas uma delas (o ramo "c") continua a sequência até os Passos 5 e 6 — as outras duas terminam ali (represente isso com um pequeno ícone de "fim de chamada" em vez de uma flecha que segue adiante).
+
+PASSO 1 — Cidadão liga para o 0800
+- A operadora de telefonia (linha 0800 055 5510, hoje operada pela Instinct) recebe a chamada.
+
+PASSO 2 — PABX
+- On-premise ou virtual, a depender do fornecedor de telefonia vigente na hora do build (gap G0524). Roteia a chamada para a URA.
+
+PASSO 3 — URA
+- Atende e apresenta o menu/fluxo de voz.
+
+PASSO 4 — Agente de IA operando a URA
+- Conduz a conversa (linguagem natural ou menu, a depender da capacidade da URA vigente) e tenta identificar a natureza do contato. Três desfechos possíveis, mostrados como 3 ramos a partir desta caixa:
+  - RAMO (a) — Atendimento resolvido na própria URA: o cidadão tem a resposta (ex.: confirmação de protocolo já aberto) e desliga, sem transbordo.
+  - RAMO (b) — Derivação para uma área interna do DER: ex. chamada sobre multas, derivada ao departamento correto dentro do DER, fora do fluxo de socorro emergencial e fora deste programa.
+  - RAMO (c) — Derivação para o fluxo emergencial: a URA identifica uma emergência (pane/sinistro na pista) e deriva a chamada para um agente especialista de emergência (atendimento humano especializado, primeira linha do socorro rodoviário). Destaque este ramo visualmente (cor diferente, seta mais grossa) — é o único que segue para o Passo 5.
+
+PASSO 5 — Transbordo com contexto para o Service Console
+- O agente especialista de emergência aciona a integração CTI (padrão exato a confirmar — gap G0524), que apresenta ao atendente no Service Console do Salesforce um screen-pop: contexto completo da chamada (número, transcrição/resumo da URA quando disponível, natureza identificada) já carregado — o atendente não repete perguntas que o cidadão já respondeu à URA.
+
+PASSO 6 — Entra no processo já coberto pela arquitetura em camadas (Diagrama 1)
+- Service Cloud cria a ordem de serviço/protocolo, Field Service assume o despacho.
+
+NOTA DE RODAPÉ (pequena, discreta)
+- O mecanismo de screen-pop com contexto de chamada é um padrão documentado (integração de Open CTI com Lightning Flow for Service). O padrão técnico exato de CTI usado no build não é fixado nesta fase.
+
+Style (Diagrama 2): caixas dos Passos 1-3 em cor neutra; Passo 4 e seus 3 ramos em cor de destaque secundária; Passos 5-6 já na cor de destaque principal do template, sinalizando a entrada no fluxo Salesforce. Setas horizontais conectando cada passo; a ramificação do Passo 4 abre para 3 caixas menores, com apenas o ramo (c) prosseguindo.
 ```
 
 ---
 
 ### Slide 4 — Alcance do MVP e Mapa de Capacidades
 
-Nota de palco: âncora numérica — repetir "14, 298, 1.152, 26 capacidades" verbalmente, não só ler o slide.
+Nota de palco: âncora numérica — repetir "14, 298, 1.152, 21 capacidades" verbalmente, não só ler o slide.
 
 ```
 Format this slide using my current template — build the layout described below.
@@ -175,7 +210,7 @@ Do not reference or reproduce any attached file, PDF, or other slide. Use only t
 
 Todo o texto deve estar em português do Brasil (PT-BR). Não traduza para inglês nem para espanhol.
 
-TITLE: O MVP cobre toda a produção estadual — 14 CGRs, 298 viaturas, 1.152 operadores — em 26 capacidades concretas
+TITLE: O MVP cobre toda a produção estadual em 21 capacidades concretas, organizadas em 4 frentes tecnológicas
 
 LAYOUT: Linha de 5 stat tiles no topo (número grande + legenda abaixo de cada um), seguida de uma grade de 5 cartões (um por épico) ocupando o restante do slide. Cada cartão tem o nome do épico + tamanho como badge no topo, e a lista de sub-capacidades nomeadas como marcadores dentro do cartão. Each sub-capability goes on its own line inside its card; never concatenate them into one paragraph.
 
@@ -183,44 +218,39 @@ STAT TILES (5 blocos em linha)
 - 14 / CGRs
 - 298 / viaturas
 - 1.152 / operadores de campo
-- 5 / capacidades entregues em org única
-- 26 / sub-capacidades nomeadas
+- 4 / frentes tecnológicas entregues em org única
+- 21 / sub-capacidades nomeadas
 
 CARTÃO 1 — E01 · Canal Digital (M)
-- Abertura via WhatsApp (texto/áudio)
+- Abertura de chamado via WhatsApp (texto/áudio) e telefonia (CTI)
 - Triagem automatizada pelo Agentforce
-- Transbordo garantido para fila humana com contexto completo
+- Transbordo garantido para fila humana via Omni-Channel, com contexto completo (incluindo screen-pop de CTI)
 - Criação automática de ordem de serviço e protocolo
 
 CARTÃO 2 — E02 · Registro e Classificação (L)
-- Registro multi-canal (WhatsApp/0800)
-- Catálogo de 100+ subtipos
-- Segunda viatura no mesmo chamado
-- Reclassificação com trilha de auditoria
+- Registro do chamado multi-canal (WhatsApp/0800/CTI)
+- Catálogo de classificação (100+ subtipos)
+- Qualificação do chamado e da ordem de campo pelo Agentforce/Atendente
 - Deduplicação por alerta ao C2C
-- Sincronização SIGOR/SIGEO
+- Integração de sincronização SIGOR/SIGEO
 
 CARTÃO 3 — E03 · Despacho Automatizado (L)
-- Motor de despacho por aderência (Skills)
-- Escalonamento N/N-10
+- Motor de agendamento e otimização (Field Service)
 - Reprocessamento automático em recusa
-- Console do Dispatcher
-- Alarme/escalonamento ao supervisor
-- Trilha de auditoria de overrides
+- Console do Dispatcher (Gantt/Mesa)
+- Alarme e escalonamento ao supervisor da CGR
+- Trilha de auditoria
 
 CARTÃO 4 — E04 · Execução em Campo (L)
-- App único de Field Service Mobile
-- Push nativo
+- Aplicativo único de Field Service Mobile
+- Recebimento de despacho via push nativo
 - Modo offline com fila de sincronização
-- Encerramento por checklist condicional
+- Encerramento com formulário, quando aplicável
 - Travas de negócio (recusa com motivo, foto, check-in geolocalizado)
-- Sharing restrito à CGR de origem
 
 CARTÃO 5 — E05 · Rastreamento e Visibilidade (L)
-- Link de rastreamento para o cidadão (Experience Cloud guest)
-- Mapa/Gantt do C2C com Aerial Routing
+- Rastreamento do cidadão via Appointment Assistant (Field Service)
 - Painel agregado para gestores (4 indicadores)
-- Governança de dados de geolocalização
 
 Style: stat tiles com números grandes na cor de destaque do template, legendas em fonte menor abaixo de cada número. Cartões com título do épico em destaque e o tamanho (M/L) como badge colorido no canto; sub-capacidades em lista com marcadores dentro do cartão.
 ```
@@ -242,47 +272,36 @@ Do not reference or reproduce any attached file, PDF, or other slide. Use only t
 
 Todo o texto deve estar em português do Brasil (PT-BR). Não traduza para inglês nem para espanhol.
 
-TITLE: Cinco épicos entregam o MVP completo — do canal digital ao rastreamento em tempo real
+TITLE: Cinco épicos entregam o MVP completo — do canal digital (WhatsApp e telefonia) ao rastreamento em tempo real
 
-LAYOUT: Render this as an actual table object — or a card/tile grid if that lays out more cleanly — not a text box with bolded headers and pipe characters. Each field below goes in its OWN cell (or its own tile); never concatenate a row's values into one cell. A tabela tem 6 linhas (1 de cabeçalho + 5 de conteúdo) e 4 colunas.
+LAYOUT: Grid de 5 cartões, um por épico, em sequência (E01→E05). Cada cartão tem um cabeçalho (nome do épico + tamanho como badge) e 3 campos de corpo, cada um em seu próprio parágrafo/linha dentro do cartão — nunca concatenados em um único bloco de texto: "O que entrega", "Capacidade Salesforce", "Casos de uso habilitados". Se o grid de 5 cartões ficar denso demais em um único slide, renderize como uma tabela real (Insert > Table) com 6 linhas (1 cabeçalho + 5 conteúdo) e 5 colunas (Épico / Tamanho / O que entrega / Capacidade Salesforce / Casos de uso habilitados) — cada campo em sua própria célula, nunca concatenado.
 
-LINHA 1 — Cabeçalho
-- Célula 1: Épico
-- Célula 2: Tamanho
-- Célula 3: O que entrega
-- Célula 4: Casos de uso principais
+CARTÃO 1 — Canal Digital de Atendimento ao Cidadão (WhatsApp + Telefonia via CTI + Agentforce) · Tamanho M
+- O que entrega: abertura de chamado de socorro via WhatsApp (texto/áudio) e via telefonia (integração CTI com a URA) com triagem automatizada, sempre com transbordo garantido para fila humana via Omni-Channel, com contexto completo (incluindo screen-pop de CTI) — a IA nunca decide a gravidade da vítima. Complementa, nunca substitui, o 0800.
+- Capacidade Salesforce: Service Cloud (Agentforce Contact Center Enterprise — número de licenças a revalidar per decisions/0004) + Digital Engagement + Omni-Channel + Service Console + integração CTI (padrão a confirmar, data/gaps.json G0524).
+- Casos de uso habilitados: abertura de chamado via WhatsApp (texto/áudio) e telefonia (CTI) · triagem automatizada pelo Agentforce · transbordo garantido para fila humana via Omni-Channel, com contexto completo (incluindo screen-pop de CTI) · criação automática de ordem de serviço e protocolo.
 
-LINHA 2 — Canal Digital de Atendimento ao Cidadão
-- Célula 1: Canal Digital de Atendimento ao Cidadão (WhatsApp + Agentforce)
-- Célula 2: M
-- Célula 3: Abertura de chamado de socorro via WhatsApp com triagem automatizada e transbordo garantido para fila humana — a IA nunca decide a gravidade da vítima
-- Célula 4: Abertura de chamado via WhatsApp · Triagem automatizada pelo Agentforce · Transbordo garantido para fila humana
+CARTÃO 2 — Registro e Classificação da Ocorrência · Tamanho L
+- O que entrega: criação do chamado a partir de qualquer canal, classificação por catálogo de 100+ subtipos desde o dia 1, qualificação do chamado e da ordem de campo, e integração com os sistemas legados SIGOR/SIGEO.
+- Capacidade Salesforce: Field Service (Work Order, Work Type) + Service Console + integrações ponto a ponto.
+- Casos de uso habilitados: registro do chamado multi-canal (WhatsApp/0800/CTI) · catálogo de classificação (100+ subtipos) · qualificação do chamado e da ordem de campo pelo Agentforce/Atendente · deduplicação por alerta ao C2C · integração de sincronização SIGOR/SIGEO.
 
-LINHA 3 — Registro e Classificação da Ocorrência
-- Célula 1: Registro e Classificação da Ocorrência
-- Célula 2: L
-- Célula 3: Criação do chamado a partir de qualquer canal, classificado por catálogo de 100+ subtipos desde o dia 1, com trilha de auditoria e integração aos sistemas legados SIGOR/SIGEO
-- Célula 4: Registro multi-canal (WhatsApp/0800) · Catálogo de classificação com 100+ subtipos · Sincronização SIGOR/SIGEO
+CARTÃO 3 — Despacho Automatizado de Recursos de Campo · Tamanho L
+- O que entrega: motor de agendamento e otimização operando nas 14 CGRs, 100% reativo em tempo real, com reprocessamento automático em recusa e trilha de auditoria completa.
+- Capacidade Salesforce: Field Service (motor de agendamento e otimização, Service Territory, Console do Dispatcher).
+- Casos de uso habilitados: motor de agendamento e otimização (Field Service) · reprocessamento automático em recusa · console do Dispatcher (Gantt/Mesa) · alarme e escalonamento ao supervisor da CGR · trilha de auditoria.
 
-LINHA 4 — Despacho Automatizado de Recursos de Campo
-- Célula 1: Despacho Automatizado de Recursos de Campo
-- Célula 2: L
-- Célula 3: Motor de despacho por aderência operando nas 14 CGRs, 100% reativo em tempo real, com escalonamento de espera e reprocessamento automático em recusa
-- Célula 4: Motor de despacho por aderência (Skills) · Escalonamento de espera por tempo (regra N/N-10) · Console do Dispatcher
+CARTÃO 4 — Execução em Campo (App Mobile) · Tamanho L
+- O que entrega: aplicativo único de Field Service Mobile para os 1.152 operadores de campo das 14 UBAs, com recebimento de despacho via push nativo e encerramento com formulário, quando aplicável.
+- Capacidade Salesforce: Field Service Mobile (licença Field Service Community).
+- Casos de uso habilitados: aplicativo único de Field Service Mobile · recebimento de despacho via push nativo · modo offline com fila de sincronização · encerramento com formulário, quando aplicável · travas de negócio (recusa com motivo, foto, check-in geolocalizado).
 
-LINHA 5 — Execução em Campo (App Mobile)
-- Célula 1: Execução em Campo (App Mobile)
-- Célula 2: L
-- Célula 3: Aplicativo único de Field Service Mobile para os 1.152 operadores de campo das 14 UBAs, com despacho via push nativo e encerramento por checklist condicional
-- Célula 4: App único de Field Service Mobile · Recebimento de despacho via push nativo · Travas de negócio (recusa com motivo, foto, check-in geolocalizado)
+CARTÃO 5 — Rastreamento e Visibilidade em Tempo Real · Tamanho L
+- O que entrega: protocolo único acompanhável do pedido ao encerramento — rastreamento do cidadão via Appointment Assistant e painel agregado para gestores.
+- Capacidade Salesforce: Field Service (template de Experience Cloud embutido + Appointment Assistant nativo, KA-6140) — sem build de site guest dedicado.
+- Casos de uso habilitados: rastreamento do cidadão via Appointment Assistant (Field Service) · painel agregado para gestores (4 indicadores).
 
-LINHA 6 — Rastreamento e Visibilidade em Tempo Real
-- Célula 1: Rastreamento e Visibilidade em Tempo Real
-- Célula 2: L
-- Célula 3: Protocolo único acompanhável do pedido ao encerramento — link de rastreamento para o cidadão, mapa/Gantt para o C2C, painel agregado para gestores
-- Célula 4: Link de rastreamento para o cidadão (Experience Cloud guest) · Mapa/Gantt do C2C com Aerial Routing · Painel agregado para gestores (4 indicadores)
-
-Style: header row com fundo na cor de destaque do template; linhas de corpo em texto padrão. Coluna 1 (Épico) e coluna 2 (Tamanho) mais estreitas; colunas 3 e 4 mais largas para acomodar o texto. Se a tabela ficar muito densa para 5 linhas de conteúdo, renderize como grid de 5 cartões (um por épico) com os 4 campos dentro de cada cartão, nunca concatenados.
+Style: cabeçalho de cada cartão com o tamanho (M/L) como badge colorido; os 3 campos de corpo em parágrafos distintos dentro do cartão, com o rótulo do campo ("O que entrega:", "Capacidade Salesforce:", "Casos de uso habilitados:") em negrito.
 ```
 
 ---
@@ -323,15 +342,15 @@ LINHA 1 — Cabeçalho
 
 LINHA 2
 - Célula 1: Canal Digital
-- Célula 2: Agentforce (Contact Center Enterprise) + Digital Engagement, no canal WhatsApp
+- Célula 2: Agentforce Contact Center Enterprise + Digital Engagement, com triagem conversacional
 
 LINHA 3
 - Célula 1: Registro e Classificação
-- Célula 2: Catálogo de mais de 100 subtipos
+- Célula 2: Catálogo com mais de 100 subtipos, modelado como Work Type
 
 LINHA 4
 - Célula 1: Despacho Automatizado
-- Célula 2: Motor de aderência com Skills
+- Célula 2: Motor de agendamento e otimização do Field Service — regras de trabalho e políticas do cliente
 
 LINHA 5
 - Célula 1: Execução em Campo
@@ -339,7 +358,7 @@ LINHA 5
 
 LINHA 6
 - Célula 1: Rastreamento em Tempo Real
-- Célula 2: Site de convidado no Experience Cloud
+- Célula 2: Appointment Assistant (Field Service)
 
 Style: blocos de tamanho na seção superior usando cores diferentes para M e L (M em cor neutra, L na cor de destaque do template, indicando maior complexidade). Tabela na seção inferior com cabeçalho destacado.
 ```
@@ -348,7 +367,7 @@ Style: blocos de tamanho na seção superior usando cores diferentes para M e L 
 
 ### Slide 7 — Gaps Mapeados: Premissas, Perguntas Abertas e Fora do Escopo
 
-Nota de palco: framear como "abrimos cada gap porque olhamos com profundidade" — mostrar os itens nomeados, não só o número 79. Se perguntarem por que duas ADRs e não mais, responder: são as duas decisões de arquitetura que realmente mudam o dimensionamento — o resto é premissa de entrega, documentada à parte.
+Nota de palco: framear como "abrimos cada gap porque olhamos com profundidade" — mostrar os itens nomeados, não só o número 80. Se perguntarem por que duas ADRs e não mais, responder: são as duas decisões de arquitetura que realmente mudam o dimensionamento — o resto é premissa de entrega, documentada à parte.
 
 ```
 Format this slide using my current template — build the layout described below.
@@ -363,13 +382,13 @@ Do not reference or reproduce any attached file, PDF, or other slide. Use only t
 
 Todo o texto deve estar em português do Brasil (PT-BR). Não traduza para inglês nem para espanhol.
 
-TITLE: 79 gaps mapeados — 2 decisões de arquitetura ratificadas, 5 perguntas bloqueadoras ao DER, 7 premissas de entrega a confirmar, 6 itens deliberadamente fora do MVP
+TITLE: 80 gaps mapeados — 2 decisões de arquitetura ratificadas, 5 perguntas bloqueadoras ao DER, 7 premissas de entrega a confirmar, 6 itens deliberadamente fora do MVP
 
 LAYOUT: Quatro blocos horizontais empilhados, cada um ocupando toda a largura do slide, com uma cor de fundo/faixa lateral distinta por categoria: Bloco A (verde), Bloco B (amarelo, contém uma tabela), Bloco C (neutro, contém uma tabela), Bloco D (roxo). Each table field below goes in its OWN cell; never concatenate a row's values into one cell. Se os quatro blocos não couberem com boa legibilidade em um único slide, divida em dois slides (7a: Blocos A+B; 7b: Blocos C+D), mantendo os mesmos títulos de bloco e o mesmo código de cores.
 
 BLOCO A — fundo verde — "Premissas de arquitetura — ratificadas (ADR)"
-- ADR 0001 — CTI/voz (Salesforce Voice/Native Telephony) fica fora do MVP; vira fase dedicada de Roadmap, no maior nível de detalhe possível, antes do vencimento do contrato de URA (Instinct) em abril/2027 e da retirada do Open CTI legado em fevereiro/2028.
-- ADR 0002 — Service Cloud ENTRA no MVP, mas só para o canal WhatsApp: Agentforce Contact Center Enterprise (50 licenças), 1 fila humana única 24x7, sem skills-based routing (premissa a revalidar). Não inclui Salesforce Voice — a ADR 0001 permanece intacta.
+- ADR 0003 (substitui a ADR 0001) — a integração CTI com a URA ENTRA no MVP: acionamento de chamada/caso a partir da URA (atual, vendor Instinct, ou uma futura substituta), com contexto/screen-pop ao atendente no Service Console. O padrão técnico exato não é fixado nesta ADR — a Open CTI clássica está em descontinuação pela Salesforce (retirada prevista fevereiro/2028), então o padrão a usar é uma premissa a validar (G0524), não um fato assumido. Fica fora do MVP o Salesforce Voice (telefonia nativa) e a substituição da própria URA/0800 — projeto de infraestrutura de telefonia separado, ainda em viabilização entre DER e PRODESP.
+- ADR 0004 (substitui a ADR 0002) — Service Cloud ENTRA no MVP para dois canais: WhatsApp (Agentforce Contact Center Enterprise, 1 fila humana única 24x7, sem skills-based routing — premissa a revalidar) e telefonia via CTI (per ADR 0003), com screen-pop no transbordo. Não inclui Salesforce Voice.
 
 BLOCO B — fundo amarelo — "Perguntas abertas ao DER — bloqueiam decisão de design, não o início do build" — TABELA (6 linhas: 1 cabeçalho + 5 conteúdo, 3 colunas: Gap / Área / O que está em aberto)
 
@@ -399,9 +418,9 @@ LINHA 5
 - Célula 3: Premissa de DevOps assume Salesforce CLI + desenvolvimento versionado em Git para o build (2 integrações + LWC customizado + Apex de escalonamento) — a confirmar formalmente com o cliente.
 
 LINHA 6
-- Célula 1: G0517
-- Célula 2: E05
-- Célula 3: Mecanismo técnico do token de uso único/expirável do link de rastreamento do cidadão assume um token Apex assinado com TTL, expirando após encerramento do chamado + buffer — a confirmar na próxima rodada de DPIA.
+- Célula 1: G0524
+- Célula 2: E01-E03
+- Célula 3: Padrão técnico exato da integração CTI com a URA — a Open CTI clássica está descontinuada pela Salesforce (indisponível para orgs Agentforce Service recém-criados, retirada fev/2028); depende de (i) a data de criação do org do DER frente a esse corte e (ii) qual API de CTI o fornecedor de telefonia expõe.
 
 BLOCO C — fundo neutro — "Premissas de entrega — assumidas, com o que muda se caírem" — TABELA (8 linhas: 1 cabeçalho + 7 conteúdo, 3 colunas: Premissa / O que assumimos / Se cair…)
 
@@ -446,7 +465,7 @@ LINHA 8
 - Célula 3: Sem esse flag, a mesa mostraria posição desatualizada como se fosse tempo real — risco de decisão operacional sobre dado errado.
 
 BLOCO D — fundo roxo — "Fora do escopo do MVP — com destino nomeado no Roadmap"
-- G0518 (Voice/CTI unificado) · G0519 (objeto Incidente nativo com merge automático) · G0520 (enforcement offline das travas) · G0521 (Portal de Parceiros para as 14 UBAs) · G0522 (Street-Level Routing/ESO) · G0523 (relatório por CGR + meta de SLA).
+- G0518 (Salesforce Voice / substituição nativa da URA do 0800 — projeto de infraestrutura separado, distinto da integração CTI que entra no MVP via ADR 0003) · G0519 (objeto Incidente nativo com merge automático) · G0520 (enforcement offline das travas) · G0521 (Portal de Parceiros para as 14 UBAs) · G0522 (Street-Level Routing/ESO) · G0523 (relatório por CGR + meta de SLA).
 
 Style: Bloco A com fundo verde claro. Bloco B com fundo amarelo claro e a tabela contida dentro do bloco, cabeçalho da tabela destacado. Bloco C como tabela de aparência neutra com cabeçalho cinza. Bloco D com fundo roxo claro. Os quatro blocos mantêm a mesma largura e alinhamento vertical entre si.
 ```
@@ -560,7 +579,7 @@ Style: tabela com cabeçalho destacado na cor de destaque do template. Matriz 2�
 
 ### Slide 9 — Roadmap: Cinco Fases e Linha do Tempo Visual
 
-Nota de palco: explicar a lógica do diagrama antes de mostrar os números: "as barras semana a semana são ilustrativas — a faixa real é 16 a 30 semanas, a divisão por fase é proporcional para visualização." Nomear a janela do contrato da URA em voz alta.
+Nota de palco: explicar a lógica do diagrama antes de mostrar os números: "as barras semana a semana são ilustrativas — a faixa real é 16 a 31 semanas, a divisão por fase é proporcional para visualização." Nomear a janela do contrato da URA em voz alta.
 
 ```
 Format this slide using my current template — build the layout described below.
@@ -575,11 +594,11 @@ Do not reference or reproduce any attached file, PDF, or other slide. Use only t
 
 Todo o texto deve estar em português do Brasil (PT-BR). Não traduza para inglês nem para espanhol.
 
-TITLE: Cinco fases levam a solução da fundação ao rastreamento em tempo real em 16 a 30 semanas — ilustradas semana a semana, não só nomeadas
+TITLE: Cinco fases levam a solução da fundação ao rastreamento em tempo real em 16 a 31 semanas — ilustradas semana a semana, não só nomeadas
 
-LAYOUT: Build this as an actual visual Gantt-style diagram — not a table with pipe characters and not a bullet list. Construct a horizontal week axis from S1 to S30 (label at least S1, S5, S10, S15, S20, S25, S30) and 5 horizontal lanes stacked top to bottom, one per phase, in this order: Fase 0, Fase 1, Fase 2, Fase 3, Fase 4. Inside each lane, draw TWO overlapping horizontal bars for that phase's two scenarios:
+LAYOUT: Build this as an actual visual Gantt-style diagram — not a table with pipe characters and not a bullet list. Construct a horizontal week axis from S1 to S31 (label at least S1, S5, S10, S15, S20, S25, S31) and 5 horizontal lanes stacked top to bottom, one per phase, in this order: Fase 0, Fase 1, Fase 2, Fase 3, Fase 4. Inside each lane, draw TWO overlapping horizontal bars for that phase's two scenarios:
 - "Cenário compacto (16 semanas)": solid fill, positioned at that phase's compact-scenario week range.
-- "Cenário estendido (30 semanas)": lighter fill or dashed outline, positioned at that phase's extended-scenario week range — it always starts at or after the compact bar's start and extends further right, since it represents the SAME phase taking longer, never a different phase.
+- "Cenário estendido (31 semanas)": lighter fill or dashed outline, positioned at that phase's extended-scenario week range — it always starts at or after the compact bar's start and extends further right, since it represents the SAME phase taking longer, never a different phase.
 Give each phase lane its own distinct accent color (5 colors total); within a lane, the two bars share that same hue at different styles (compact = solid/full opacity, extended = lighter/dashed border) so the two scenarios read as paired, not as different phases. Place a small flag/marker at each phase boundary, labeled with its milestone code (M0, M1, M2, M3, M4). Below the grid, add a callout box with the "Caminho crítico" text. Below that, add a small italic disclaimer box with the illustrativeness note, verbatim. Never collapse two phases into one bar, and never render the week grid as a markdown-style table.
 
 FAIXAS (fase | cenário compacto | cenário estendido | marco de transição)
@@ -587,10 +606,10 @@ FAIXAS (fase | cenário compacto | cenário estendido | marco de transição)
 - Fase 1 — Fundação (Registro e Integrações) | S3–S5 | S4–S9 | M1
 - Fase 2 — Despacho e Canal Digital | S6–S8 | S10–S15 | M2
 - Fase 3 — Execução em Campo | S9–S11 | S16–S20 | M3
-- Fase 4 — Rastreamento e Estabilização | S12–S16 | S21–S30 | M4 (Go-live)
+- Fase 4 — Rastreamento e Estabilização | S12–S16 | S21–S31 | M4 (Go-live)
 
 CONTEÚDO DOS MARCOS (texto de apoio abaixo do grid — uma linha por marco, o que cada um entrega)
-- M0: gaps bloqueadores (G0305, G0309, G0517, G0415) respondidos; especificação SIGOR/SIGEO assinada; workstream de Change Management dimensionado.
+- M0: gaps bloqueadores (G0107, G0305, G0309, G0415, G0524) respondidos; especificação SIGOR/SIGEO assinada; workstream de Change Management dimensionado.
 - M1: Work Order criável a partir de qualquer canal; catálogo completo de Work Type; sincronização SIGOR validada; callout SIGEO testado.
 - M2: despacho aciona a viatura correta nas 14 CGRs; console do Dispatcher operacional nos 4 turnos; triagem WhatsApp cria Work Order de ponta a ponta.
 - M3: app de campo em operação nas 14 UBAs, travas de negócio ativas, piloto concluído antes do rollout estadual.
@@ -600,7 +619,7 @@ CAMINHO CRÍTICO (callout abaixo do grid)
 - E02 → E03 → E04 → E05, com E01 correndo em paralelo a partir da Fase 2 — atraso em qualquer ponto do caminho se propaga às fases seguintes.
 
 DISCLAIMER (caixa pequena, itálica, no rodapé — usar exatamente este texto, sem alterar uma palavra):
-"A divisão semana-a-semana por fase é ilustrativa e proporcional à complexidade relativa de cada fase — não é uma data-compromisso. Só a faixa agregada (16-30 semanas) tem provenance direta; a alocação por fase distribui essa faixa de forma proporcional para visualização."
+"A divisão semana-a-semana por fase é ilustrativa e proporcional à complexidade relativa de cada fase — não é uma data-compromisso. Só a faixa agregada (16-31 semanas) tem provenance direta; a alocação por fase distribui essa faixa de forma proporcional para visualização."
 
 Style: 5 cores de fase distintas, consistentes com as cores usadas para os épicos nos demais slides. Barra "compacto" sólida; barra "estendido" com opacidade menor ou borda tracejada. Marcos M0-M4 como pequenas bandeiras/triângulos na fronteira entre fases, com o código do marco visível. Legenda de cores por fase em um canto do slide.
 ```
@@ -628,8 +647,8 @@ TITLE: Seis capacidades já têm destino nomeado no Roadmap — o MVP não é um
 
 LAYOUT: Trilho horizontal de 6 cartões em sequência, na mesma identidade visual das fases do MVP (slide anterior) mas em tom mais claro/aspiracional — sinalizando que é a continuação da linha do tempo, não um problema. Cada cartão tem: título com código do gap entre parênteses, e o "por que agora não, por que depois sim" resumido. Um bloco de destaque no rodapé com a mensagem de fechamento.
 
-CARTÃO 1 — Voz/CTI unificado (G0518, ADR 0001)
-- Salesforce Voice/Native Telephony como canal de voz unificado ao WhatsApp e ao 0800. Decisão explícita do DER: preparar a decisão Open CTI vs. Salesforce Voice antes do vencimento do contrato de URA (abril/2027) e da retirada do Open CTI legado (fevereiro/2028) — no maior nível de detalhe possível, como fase própria do Roadmap.
+CARTÃO 1 — Salesforce Voice / substituição da URA do 0800 (G0518, ADR 0003)
+- A integração CTI com a URA já entra no MVP (ver Slide 3/7); o que fica de fora é a telefonia nativa (Salesforce Voice) e a substituição da própria URA/0800 — projeto de infraestrutura de telefonia ainda em viabilização entre DER e PRODESP, distinto deste programa. Janela relevante: contrato atual de URA (Instinct) expira abril/2027; retirada da Open CTI legada prevista para fevereiro/2028.
 
 CARTÃO 2 — Objeto Incidente nativo com deduplicação automática (G0519)
 - Hoje a deduplicação é um alerta manual ao C2C (raio geográfico + janela de tempo + tipo); o objeto Incident nativo do Service Cloud (CSIM) automatiza esse merge quando o volume justificar o investimento.
@@ -701,9 +720,9 @@ Style: bloco de estatísticas com números grandes na cor de destaque do templat
 
 ---
 
-### Slide 12 — Investimento: Escopo Fechado e Entregáveis
+### Slide 12 — Investimento Indicativo e Entregáveis Mapeados
 
-Nota de palco: reforçar a palavra "fechado" — o que está na lista de entregáveis é o que está no preço; qualquer coisa fora dela é mudança de escopo, não ambiguidade.
+Nota de palco: reforçar que este é um documento de validação — o que está na lista de entregáveis é o que sustenta a faixa de investimento indicativa; qualquer coisa fora dela é mudança de escopo a validar formalmente, não ambiguidade.
 
 ```
 Format this slide using my current template — build the layout described below.
@@ -718,21 +737,21 @@ Do not reference or reproduce any attached file, PDF, or other slide. Use only t
 
 Todo o texto deve estar em português do Brasil (PT-BR). Não traduza para inglês nem para espanhol.
 
-TITLE: Este é um preço fechado por escopo — cinco capacidades, uma fase de discovery e o workstream de change management, todos entregues integralmente
+TITLE: A faixa de investimento indicativo cobre um conjunto de entregáveis mapeado e nomeado — cinco capacidades, uma fase de discovery e o workstream de change management
 
-LAYOUT: Checklist de entregáveis ("O que está incluído") ocupando a maior parte do slide, com um ícone de check por item, organizado por fase. Abaixo, um bloco menor e visualmente neutro, "O que não está incluído", listando os 6 itens de Roadmap futuro com seus destinos. Nenhum valor em R$ aparece neste slide — os valores completos estão no próximo slide (Investimento — ROM).
+LAYOUT: Checklist de entregáveis ("O que está mapeado") ocupando a maior parte do slide, com um ícone de check por item, organizado por fase. Abaixo, um bloco menor e visualmente neutro, "O que não está mapeado", listando os 6 itens de Roadmap futuro com seus destinos. Nenhum valor em R$ aparece neste slide — os valores completos estão no próximo slide (Investimento — ROM).
 
-O QUE ESTÁ INCLUÍDO (checklist)
-- Fase 0: resolução das 5 perguntas bloqueadoras (G0107, G0305, G0309, G0415, G0517) e dimensionamento do workstream de Change Management.
-- 5 capacidades (épicos): Canal Digital (E01), Registro e Classificação (E02), Despacho Automatizado (E03), Execução em Campo (E04), Rastreamento e Visibilidade (E05) — as 26 sub-capacidades nomeadas, não uma lista aberta.
+O QUE ESTÁ MAPEADO (checklist)
+- Fase 0: resolução das 5 perguntas bloqueadoras (G0107, G0305, G0309, G0415, G0524) e dimensionamento do workstream de Change Management.
+- 5 capacidades (épicos): Canal Digital (E01), Registro e Classificação (E02), Despacho Automatizado (E03), Execução em Campo (E04), Rastreamento e Visibilidade (E05) — as 21 sub-capacidades nomeadas na Slide 4, não uma lista aberta.
 - 2 integrações: SIGOR e SIGEO, ponto a ponto, especificadas e testadas.
 - Workstream de Change Management: até 2 meses de operação assistida + treinamento por persona para os 1.152 operadores das 14 UBAs.
 - UAT estadual e hypercare: validação nas 14 CGRs (298 viaturas, 1.152 operadores), não apenas no piloto.
 
-O QUE NÃO ESTÁ INCLUÍDO (bloco menor, tom neutro — decisão deliberada, não uma falha)
-- Os 6 itens de Roadmap futuro (Voice/CTI, Incidente nativo, enforcement offline, Portal de Parceiros, Street-Level Routing, relatório por CGR) são explicitamente fora deste escopo fechado, com destino nomeado — qualquer expansão para esses itens é uma mudança de escopo formal, não uma reinterpretação do preço fechado.
+O QUE NÃO ESTÁ MAPEADO (bloco menor, tom neutro — decisão deliberada, não uma falha)
+- Os 6 itens de Roadmap futuro (Salesforce Voice/substituição da URA, Incidente nativo, enforcement offline, Portal de Parceiros, Street-Level Routing, relatório por CGR) ficam fora deste alcance, com destino nomeado — qualquer decisão de trazê-los para dentro é uma mudança de escopo a validar formalmente, não uma reinterpretação da faixa indicativa.
 
-Style: checklist com ícones de check verdes, um por linha. Bloco "não incluído" com fundo neutro/cinza claro, tom informativo, sem conotação negativa. Nenhuma tabela de valores neste slide.
+Style: checklist com ícones de check verdes, um por linha. Bloco "não mapeado" com fundo neutro/cinza claro, tom informativo, sem conotação negativa. Nenhuma tabela de valores neste slide.
 ```
 
 ---
@@ -761,7 +780,7 @@ TITLE: Investimento indicativo por modelo de entrega, com e sem impostos
 LAYOUT: Duas tabelas empilhadas verticalmente, ambas como table objects reais (Insert > Table), nunca texto com pipes. Each field below goes in its OWN cell; never concatenate a row's values into one cell. Tabela 1 (superior): rates aplicadas, 4 linhas (1 cabeçalho + 3 conteúdo) e 3 colunas. Tabela 2 (inferior): faixa de investimento por modelo de entrega, 4 linhas (1 cabeçalho + 3 conteúdo) e 4 colunas. Na Tabela 2, a linha "AI-native (condicional)" deve ter borda tracejada e etiqueta "CONDICIONAL" visível. Abaixo das duas tabelas, um bloco de texto pequeno e discreto com os três avisos abaixo, na ordem dada, sem alterar uma palavra. Um pequeno texto de referência acima das tabelas remete ao slide anterior para os entregáveis cobertos por estas figuras.
 
 REFERÊNCIA (linha pequena acima das tabelas)
-- Ver slide anterior ("Investimento: Escopo Fechado e Entregáveis") para o que estas figuras cobrem.
+- Ver slide anterior ("Investimento Indicativo e Entregáveis Mapeados") para o que estas figuras cobrem.
 
 TABELA 1 — Rates aplicadas (R$/hora)
 
@@ -795,9 +814,9 @@ LINHA 1 — Cabeçalho
 
 LINHA 2 — Traditional (âncora)
 - Célula 1: Traditional (âncora)
-- Célula 2: 16-30 semanas
-- Célula 3: R$ 5.918.133,18 – R$ 11.096.499,71
-- Célula 4: R$ 6.332.940,80 – R$ 11.874.264,00
+- Célula 2: 16-31 semanas
+- Célula 3: R$ 5.918.133,18 – R$ 11.466.383,03
+- Célula 4: R$ 6.332.940,80 – R$ 12.270.072,80
 
 LINHA 3 — Augmented
 - Célula 1: Augmented
@@ -807,9 +826,9 @@ LINHA 3 — Augmented
 
 LINHA 4 — AI-native (condicional)
 - Célula 1: AI-native (condicional)
-- Célula 2: 10-18 semanas
-- Célula 3: R$ 2.227.507,84 – R$ 4.009.514,12
-- Célula 4: R$ 2.383.636,00 – R$ 4.290.544,80
+- Célula 2: 10-19 semanas
+- Célula 3: R$ 2.227.507,84 – R$ 4.231.264,90
+- Célula 4: R$ 2.383.636,00 – R$ 4.528.908,40
 
 RODAPÉ (pequeno, discreto, itálico) — usar exatamente os três avisos abaixo, nesta ordem, sem alterar uma palavra:
 
@@ -849,7 +868,7 @@ TEXTO HERO (centralizado, fonte grande)
 - Este projeto leva o DER a uma nova fase de escalabilidade e inovação — coloca a tecnologia em prol dos processos e, no fim da linha, do cidadão na pista
 
 ASK EM 3 PASSOS (numerados, abaixo do texto hero)
-- 1. Aprovar o escopo fechado dos 5 épicos, Fase 0 e change management, e a faixa de roadmap apresentada
+- 1. Validar a visão de solução, o alcance dos 5 épicos, a Fase 0 e o change management apresentados
 - 2. Validar com a Salesforce PS as 5 perguntas bloqueadoras (Slide 7-B) na sessão de Fase 0
 - 3. Iniciar a Fase 0 com o roteiro já mapeado
 

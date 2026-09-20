@@ -89,9 +89,9 @@
   <h1>PRODESP · DER-SP</h1>
   <div class="sub">Atendimento de Socorro na Malha Rodoviária Estadual — vertical: pace</div>
   <div class="stampline">
-    <span><b>Gerado em:</b> 2026-09-17 23:05 -03 (Horário de Brasília)</span>
+    <span><b>Gerado em:</b> 2026-09-20 15:10 -03 (Horário de Brasília)</span>
     <span><b>Scopezilla:</b> v1.25.2</span>
-    <span><b>Dados do projeto atualizados em:</b> 2026-09-17 22:56 -03</span>
+    <span><b>Dados do projeto atualizados em:</b> 2026-09-20 15:05 -03</span>
   </div>
   <div class="whatis">O valor em que o cliente está investindo, as capacidades que cada outcome exige, e exatamente o que está dentro e fora do escopo. Leia as lanes da esquerda para a direita para entender o "porquê", e cada lane de cima a baixo para as capacidades — a cor indica o "quando / se". O status de escopo é <b>derivado</b> do roadmap, das prioridades e dos gaps. <b>Escopo proposto, a validar</b> — as cores são nossa recomendação, não uma confirmação do cliente; esta é uma ferramenta de conversa, não um compromisso. Use "Copiar como imagem" para levar o mapa completo a uma apresentação.</div>
 </header>
@@ -102,11 +102,11 @@
     <h2>Valor → Capacidade → Escopo</h2>
     <p class="hint">Uma lane por outcome de negócio; cada card é uma capacidade, colorida pelo status de escopo derivado. O que está deliberadamente fora aparece na faixa vermelha abaixo. Uma lane curta significa que menos capacidades foram escopadas para aquele outcome, não uma omissão.</p>
     <div class="tally-key">
-      <b>26 capacidades</b> · <b>4 outcomes</b> · 🟢 23 no escopo (faseadas) · 🟠 3 dependentes de decisão · 🔴 6 fora de escopo / gap
+      <b>21 capacidades</b> · <b>4 outcomes</b> · 🟢 17 no escopo (faseadas) · 🟠 4 dependentes de decisão · 🔴 6 fora de escopo / gap
     </div>
     <div class="tally">
-      <span class="t-ok" style="flex:23">23</span>
-      <span class="t-warn" style="flex:3">3</span>
+      <span class="t-ok" style="flex:17">17</span>
+      <span class="t-warn" style="flex:4">4</span>
     </div>
     <div class="lanes">
       <div class="lane">
@@ -116,7 +116,7 @@
           <div class="lh-pain">Dor removida: atendimento fragmentado em chamados distintos, sem identificador único nem rastreamento em tempo real.</div>
         </div>
         <div class="cap ok">
-          <div class="cap-label">Registro do chamado multi-canal (WhatsApp/0800)</div>
+          <div class="cap-label">Registro do chamado multi-canal (WhatsApp/0800/CTI)</div>
           <div class="cap-meta"><span class="epic">E02</span><span class="pill ok">Fase 1</span></div>
         </div>
         <div class="cap ok">
@@ -124,11 +124,7 @@
           <div class="cap-meta"><span class="epic">E02</span><span class="pill ok">Fase 1</span></div>
         </div>
         <div class="cap ok">
-          <div class="cap-label">Segunda viatura no mesmo chamado</div>
-          <div class="cap-meta"><span class="epic">E02</span><span class="pill ok">Fase 1</span></div>
-        </div>
-        <div class="cap ok">
-          <div class="cap-label">Reclassificação com trilha de auditoria</div>
+          <div class="cap-label">Qualificação do chamado e da ordem de campo pelo Agentforce/Atendente</div>
           <div class="cap-meta"><span class="epic">E02</span><span class="pill ok">Fase 1</span></div>
         </div>
         <div class="cap ok">
@@ -140,21 +136,12 @@
           <div class="cap-meta"><span class="epic">E02</span><span class="pill ok">Fase 1</span></div>
         </div>
         <div class="cap ok">
-          <div class="cap-label">Mapa/Gantt do C2C com Aerial Routing</div>
+          <div class="cap-label">Rastreamento do cidadão via Appointment Assistant</div>
           <div class="cap-meta"><span class="epic">E05</span><span class="pill ok">Fase 4</span></div>
         </div>
         <div class="cap ok">
           <div class="cap-label">Painel agregado para gestores (4 indicadores)</div>
           <div class="cap-meta"><span class="epic">E05</span><span class="pill ok">Fase 4</span></div>
-        </div>
-        <div class="cap ok">
-          <div class="cap-label">Governança de dados de geolocalização (DER-SP steward)</div>
-          <div class="cap-meta"><span class="epic">E05</span><span class="pill ok">Fase 4</span></div>
-        </div>
-        <div class="cap warn">
-          <div class="cap-label">Link de rastreamento para o cidadão (Experience Cloud guest)</div>
-          <div class="cap-meta"><span class="epic">E05</span><span class="pill warn">Dependente de decisão</span></div>
-          <div class="cap-meta"><span class="muted small">G0517 — mecanismo de token de uso único ainda é premissa de design a validar</span></div>
         </div>
       </div>
 
@@ -164,17 +151,19 @@
           <div class="lh-name">Canal digital de entrada complementar ao 0800</div>
           <div class="lh-pain">Dor removida: único canal hoje é a voz (0800); o WhatsApp existente pertence à ouvidoria, não ao socorro emergencial.</div>
         </div>
-        <div class="cap ok">
-          <div class="cap-label">Abertura de chamado via WhatsApp (texto/áudio)</div>
-          <div class="cap-meta"><span class="epic">E01</span><span class="pill ok">Fase 2</span></div>
+        <div class="cap warn">
+          <div class="cap-label">Abertura de chamado via WhatsApp (texto/áudio) e telefonia (CTI)</div>
+          <div class="cap-meta"><span class="epic">E01</span><span class="pill warn">Dependente de decisão</span></div>
+          <div class="cap-meta"><span class="muted small">G0524 — padrão técnico da integração CTI com a URA ainda não fixado</span></div>
         </div>
         <div class="cap ok">
           <div class="cap-label">Triagem automatizada pelo Agentforce</div>
           <div class="cap-meta"><span class="epic">E01</span><span class="pill ok">Fase 2</span></div>
         </div>
-        <div class="cap ok">
-          <div class="cap-label">Transbordo garantido para fila humana com contexto completo</div>
-          <div class="cap-meta"><span class="epic">E01</span><span class="pill ok">Fase 2</span></div>
+        <div class="cap warn">
+          <div class="cap-label">Transbordo garantido para fila humana via Omni-Channel, com contexto completo (incluindo screen-pop de CTI)</div>
+          <div class="cap-meta"><span class="epic">E01</span><span class="pill warn">Dependente de decisão</span></div>
+          <div class="cap-meta"><span class="muted small">G0524 — screen-pop depende do mesmo padrão CTI ainda a validar</span></div>
         </div>
         <div class="cap ok">
           <div class="cap-label">Criação automática de ordem de serviço e protocolo</div>
@@ -189,20 +178,16 @@
           <div class="lh-pain">Dor removida: despacho manual pelo C2C sem regra sistemática de aderência/disponibilidade/proximidade.</div>
         </div>
         <div class="cap warn">
-          <div class="cap-label">Motor de despacho por aderência (Skills)</div>
+          <div class="cap-label">Motor de agendamento e otimização (Field Service)</div>
           <div class="cap-meta"><span class="epic">E03</span><span class="pill warn">Dependente de decisão</span></div>
           <div class="cap-meta"><span class="muted small">G0309 — limite contratual das UBAs por CGR não confirmado para atribuição cross-CGR</span></div>
-        </div>
-        <div class="cap ok">
-          <div class="cap-label">Escalonamento de espera por tempo (regra N/N-10)</div>
-          <div class="cap-meta"><span class="epic">E03</span><span class="pill ok">Fase 2</span></div>
         </div>
         <div class="cap ok">
           <div class="cap-label">Reprocessamento automático em recusa</div>
           <div class="cap-meta"><span class="epic">E03</span><span class="pill ok">Fase 2</span></div>
         </div>
         <div class="cap ok">
-          <div class="cap-label">Console do Dispatcher</div>
+          <div class="cap-label">Console do Dispatcher (Gantt/Mesa)</div>
           <div class="cap-meta"><span class="epic">E03</span><span class="pill ok">Fase 2</span></div>
         </div>
         <div class="cap ok">
@@ -210,7 +195,7 @@
           <div class="cap-meta"><span class="epic">E03</span><span class="pill ok">Fase 2</span></div>
         </div>
         <div class="cap warn">
-          <div class="cap-label">Trilha de auditoria de overrides manuais</div>
+          <div class="cap-label">Trilha de auditoria</div>
           <div class="cap-meta"><span class="epic">E03</span><span class="pill warn">Dependente de decisão</span></div>
           <div class="cap-meta"><span class="muted small">G0305 — pergunta bloqueadora ao DER: campos e retenção da trilha ainda não definidos</span></div>
         </div>
@@ -235,15 +220,11 @@
           <div class="cap-meta"><span class="epic">E04</span><span class="pill ok">Fase 3</span></div>
         </div>
         <div class="cap ok">
-          <div class="cap-label">Encerramento por checklist condicional por subtipo</div>
+          <div class="cap-label">Encerramento com formulário, quando aplicável</div>
           <div class="cap-meta"><span class="epic">E04</span><span class="pill ok">Fase 3</span></div>
         </div>
         <div class="cap ok">
           <div class="cap-label">Travas de negócio (recusa com motivo, foto, check-in geolocalizado)</div>
-          <div class="cap-meta"><span class="epic">E04</span><span class="pill ok">Fase 3</span></div>
-        </div>
-        <div class="cap ok">
-          <div class="cap-label">Sharing restrito à CGR de origem</div>
           <div class="cap-meta"><span class="epic">E04</span><span class="pill ok">Fase 3</span></div>
         </div>
       </div>
@@ -254,8 +235,8 @@
     <h2>O que está fora — o limite de escopo</h2>
     <p class="hint" style="color:#7a1a13">Capacidades deliberadamente excluídas ou não atendidas que o fluxo de valor exige. Mostrar o que está fora é o ponto central — nunca inventamos uma capacidade entregue para preencher um gap.</p>
     <div class="brow">
-      <div class="bcap">Salesforce Voice / Native Telephony como canal de voz unificado</div>
-      <div class="bwhy">Fora do MVP por decisions/0001 — o 0800 continua operando sobre a URA legada (Instinct) até a decisão formal Open CTI vs. Salesforce Voice, preparada no Roadmap antes do vencimento do contrato em abril/2027. "WhatsApp voz" no MVP é apenas áudio dentro do canal de mensageria, não telefonia nativa.</div>
+      <div class="bcap">Salesforce Voice (telefonia nativa) e substituição da própria URA/0800</div>
+      <div class="bwhy">Fora do MVP por decisions/0003 — projeto de infraestrutura de telefonia separado, ainda em viabilização entre DER e PRODESP. A integração CTI com a URA atual (Instinct ou futura substituta) ENTRA no MVP como canal de telefonia distinto (decisions/0003/0004); "WhatsApp voz" continua sendo apenas áudio dentro do canal de mensageria, não telefonia nativa.</div>
     </div>
     <div class="brow">
       <div class="bcap">Objeto nativo Incident (Service Cloud CSIM) com fusão automática de duplicados</div>
@@ -271,7 +252,7 @@
     </div>
     <div class="brow">
       <div class="bcap">Street-Level Routing / ESO para o mapa do C2C</div>
-      <div class="bwhy">O MVP usa Aerial Routing nativo do Field Service (sem add-on) para o mapa/Gantt do C2C (E05). Street-Level Routing via ESO é um upgrade de Roadmap, não incluído no dimensionamento atual.</div>
+      <div class="bwhy">O MVP usa Aerial Routing nativo do Field Service (sem add-on) para o mapa/Gantt do C2C, entregue como parte do Console do Dispatcher (E03). Street-Level Routing via ESO é um upgrade de Roadmap, não incluído no dimensionamento atual (G0522).</div>
     </div>
     <div class="brow">
       <div class="bcap">Relatório à medida por CGR e meta de SLA formal no painel de gestores</div>
@@ -279,7 +260,7 @@
     </div>
   </div>
 
-  <p class="coverage">O agrupamento por outcome (V1-V4) é autorado via <code>outcome_ids[]</code> em cada épico, simplificado a um outcome primário por épico para manter as lanes claras — alguns épicos também tocam um segundo outcome (E02/E05 também sustentam a auditabilidade de V4; E04 também sustenta a continuidade de protocolo de V1), capturado nas descrições dos épicos mas não replicado aqui. Os rótulos de fase vêm do plano de 5 fases em <code>roadmap.json</code>; as capacidades dependentes de decisão são épicos com uma pergunta bloqueadora aberta em <code>gaps.json</code> (G0305, G0309, G0517). 4 outcomes está bem abaixo do limiar de ~12 que sinalizaria confusão entre outcome e capacidade.</p>
+  <p class="coverage">O agrupamento por outcome (V1-V4) é autorado via <code>outcome_ids[]</code> em cada épico — E02 e E05 compartilham V1, E01 sustenta V2, E03 sustenta V3, E04 sustenta V4 — simplificado a um outcome primário por épico para manter as lanes claras; alguns épicos também tocam um segundo outcome, capturado nas descrições dos épicos mas não replicado aqui. Os rótulos de fase vêm do plano de 5 fases em <code>roadmap.json</code>; as capacidades dependentes de decisão são épicos com uma pergunta bloqueadora aberta em <code>gaps.json</code> (G0305, G0309, G0524). G0517 (mecanismo de token do link de rastreamento) foi resolvido nesta revisão pela mudança de arquitetura para o Appointment Assistant nativo — o rastreamento do cidadão (E05) já não carrega dependência de decisão. 4 outcomes está bem abaixo do limiar de ~12 que sinalizaria confusão entre outcome e capacidade.</p>
 </main>
 
 <script>

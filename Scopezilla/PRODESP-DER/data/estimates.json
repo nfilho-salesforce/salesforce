@@ -2,21 +2,22 @@
   {
     "item_id": "E01",
     "item_type": "epic",
-    "t_shirt_size": "M",
+    "t_shirt_size": "L",
     "size_drivers": {
       "data_model": {"tier": "XS", "signal": "Objetos padrão (Case/MessagingSession/MessagingEndUser via Digital Engagement) — nenhum objeto customizado no canal digital [extends: modelo padrão Service Cloud/Digital Engagement]."},
-      "automation": {"tier": "S", "signal": "Regras de transbordo (fila única, sem skills) e guardrail de suspeita de vítima — declarativo/hybrid, baixa densidade [KA-4393]."},
+      "automation": {"tier": "S", "signal": "Regras de transbordo (fila única, sem skills) via Omni-Channel e guardrail de suspeita de vítima — declarativo/hybrid, baixa densidade [KA-4393]."},
       "intelligence_ai": {"tier": "M", "signal": "Agentforce triage multi-topic/action (tipo de emergência + local), grounding e trust guardrails (vítima nunca decidida pela IA) — comportamento moldado e avaliado, não só configurado [KB:agentforce_contact_center_4-30-2026.md:26814-26939]."},
-      "integration": {"tier": "S", "signal": "Canal WhatsApp via Digital Engagement + add-on de mensageria outbound — integração padrão de canal, sem transformação complexa [KB:agentforce_contact_center_4-30-2026.md:19416-19458]."},
+      "integration": {"tier": "M", "signal": "Dois canais de entrada — WhatsApp via Digital Engagement (padrão) e telefonia via integração CTI com a URA, cujo padrão técnico ainda não está fixado (G0524: Open CTI descontinuada, conflito com a exclusão de Salesforce Voice) — a integração CTI em si soma um adaptador/conector adicional com screen-pop, além do canal de mensageria já coberto."},
       "sharing_security": {"tier": "XS", "signal": "Fila única com roteamento baseado em queue — OWD + role hierarchy padrão, sem modelo de sharing customizado [KA-4393]."},
-      "ui": {"tier": "S", "signal": "Service Console padrão para a fila humana — sem componente customizado neste epic."}
+      "ui": {"tier": "M", "signal": "Service Console precisa acomodar dois contextos de transbordo — mensageria WhatsApp e screen-pop de CTI com contexto da chamada — não é mais um único layout de fila humana [decisions/0004]."}
     },
-    "size_rationale": "M — driven by Intelligence/AI (Agentforce triage multi-topic/action com guardrails de gravidade); integração de canal e automação de transbordo ficam moderadas, sharing e UI mínimos.",
-    "complexity_drivers": "Desenho de tópicos/ações do Agentforce, estratégia de grounding e guardrails de confiança (nunca decidir gravidade de vítima); ajuste fino de reconhecimento de tipo/local via linguagem natural em português.",
-    "skills_needed": "Agentforce/Conversational AI Specialist, Service Cloud Consultant, Prompt/Conversation Designer.",
-    "risks": "Precisão de reconhecimento de tipo/local em áudio (voz via WhatsApp) não testada; roteamento de fila única/sem skills é premissa a revalidar formalmente.",
+    "size_rationale": "L — subiu de M para L nesta revisão: Integration e UI passam de S para M com a entrada do canal de telefonia via CTI (decisions/0003/0004) — um segundo canal com padrão técnico ainda não fixado (G0524) e screen-pop no Service Console — somando-se ao driver dominante de Intelligence/AI (Agentforce triage) já em M.",
+    "complexity_drivers": "Desenho de tópicos/ações do Agentforce, estratégia de grounding e guardrails de confiança (nunca decidir gravidade de vítima); ajuste fino de reconhecimento de tipo/local via linguagem natural em português; integração CTI com padrão técnico não fixado e screen-pop no Service Console.",
+    "skills_needed": "Agentforce/Conversational AI Specialist, Service Cloud Consultant, Prompt/Conversation Designer, CTI/Telephony Integration Consultant.",
+    "risks": "Precisão de reconhecimento de tipo/local em áudio (voz via WhatsApp) não testada; roteamento de fila única/sem skills é premissa a revalidar formalmente; padrão CTI não fixado (G0524) pode exigir revisão de arquitetura de acionamento via URA antes do build.",
     "confidence": "Assumed",
-    "solution_approach": "Agentforce Contact Center Enterprise com Digital Engagement (canal WhatsApp), tópicos/ações de triagem, transbordo automático para fila humana única 24x7 com roteamento por queue."
+    "size_if_assumption_breaks": "L; XL se G0524 (padrão CTI) resolver para um caminho de integração de terceiro não padronizado, exigindo build de adaptador customizado em vez de um conector suportado.",
+    "solution_approach": "Agentforce Contact Center Enterprise com Digital Engagement (canal WhatsApp) e integração CTI com a URA (canal de telefonia), tópicos/ações de triagem, transbordo automático via Omni-Channel para fila humana única 24x7 com roteamento por queue, incluindo screen-pop de CTI no Service Console."
   },
   {
     "item_id": "E02",
@@ -73,20 +74,19 @@
   {
     "item_id": "E05",
     "item_type": "epic",
-    "t_shirt_size": "L",
+    "t_shirt_size": "S",
     "size_drivers": {
       "data_model": {"tier": "XS", "signal": "Sem objeto novo — reaproveita Service Appointment/Work Order já modelados em E02/E03."},
-      "automation": {"tier": "S", "signal": "Geração/expiração de token de uso único via Apex, disparada no encerramento + buffer [assumption: padrão de link seguro — validar contra segurança da PRODESP, G0517]."},
-      "sharing_security": {"tier": "M", "signal": "Site Experience Cloud com usuário guest controlado por número de telefone + token — modelo de acesso público temporário, não é sharing padrão de role hierarchy."},
-      "ui": {"tier": "L", "signal": "Site Experience Cloud + LWC/Apex customizado para o link de rastreamento do cidadão — não há feature nativa de rastreamento público/guest-acessível no Field Service ou Salesforce Maps [assumption: ausência confirmada via busca na central KB, incl. KA-6746]; mapa/Gantt do C2C usa Aerial Routing nativo [KA-6746]."},
+      "automation": {"tier": "XS", "signal": "Geração e expiração do link de rastreamento são nativas do Appointment Assistant — sem token/Apex customizado (G0517, resolvido: gap fechado por mudança de arquitetura) [KA-6140]."},
+      "sharing_security": {"tier": "S", "signal": "Acesso guest ao Appointment Assistant é o padrão nativo do template embutido na licença de Field Service — configuração, não modelo de sharing customizado [KA-6140]."},
+      "ui": {"tier": "S", "signal": "Appointment Assistant nativo (template de Experience Cloud embutido no Field Service) para o link de rastreamento do cidadão — sem LWC/Apex customizado; configuração de branding/conteúdo do template [KA-6140]/[KA-6156]. Mapa/Gantt do C2C com Aerial Routing é entregue em E03, não aqui."},
       "analytics_insights": {"tier": "S", "signal": "Painel único com 4 indicadores agregados, sem meta de SLA — reports/dashboard padrão, sem CRM Analytics [extends: padrão Report/Dashboard folder + sharing]."}
     },
-    "size_rationale": "L — driven by UI (site Experience Cloud guest + LWC/Apex customizado, capability de build sem equivalente nativo); sharing soma como driver secundário pelo modelo de acesso público temporário.",
-    "complexity_drivers": "Construção de uma capability inteira (rastreamento público guest-acessível) sem feature nativa de referência; segurança do token/TTL; exibição de apenas a 1ª viatura quando há reforço.",
-    "skills_needed": "Experience Cloud Developer, LWC Developer, Apex Developer, Field Service Consultant (Aerial Routing).",
-    "risks": "Ausência de feature nativa torna todo o rastreamento do cidadão build customizado — risco de subestimar esforço; mecanismo de segurança do token (G0517) não validado com a equipe de segurança da PRODESP.",
+    "size_rationale": "S — caiu de L para S nesta revisão: a mudança de arquitetura de site Experience Cloud guest customizado para o Appointment Assistant nativo do Field Service elimina o driver que sustentava L (UI/build customizado); nenhum driver restante passa de S.",
+    "complexity_drivers": "Configuração/branding do template do Appointment Assistant; confirmação do canal de entrega do link (SMS) e do comportamento quando há segunda viatura vinculada (mostrar apenas a 1ª); painel de gestores com os 4 indicadores.",
+    "skills_needed": "Field Service Consultant, Service Cloud Consultant (canal de entrega SMS), Business Analyst (painel de gestores).",
+    "risks": "Confiança da estimativa depende de revalidar [KA-6140]/[KA-6156] (Appointment Assistant como template embutido, sem licenciamento adicional) antes do build; comportamento de exibição de 1ª viatura em segunda-viatura ainda não confirmado no Appointment Assistant nativo.",
     "confidence": "Assumed",
-    "size_if_assumption_breaks": "L; XL se a exigência de segurança do token da PRODESP (rotação de chave, algoritmo de assinatura específico) for mais sofisticada que a premissa assumida de token assinado + TTL simples.",
-    "solution_approach": "Site Experience Cloud com acesso guest + componente customizado (LWC/Apex) para o link de rastreamento do cidadão; Aerial Routing nativo para o mapa/Gantt do C2C; painel de gestores como artefato único gated por Permission Set."
+    "solution_approach": "Appointment Assistant nativo do Field Service (template de Experience Cloud embutido na licença) para o link de rastreamento do cidadão, entregue por SMS; painel de gestores como artefato único gated por Permission Set com os 4 indicadores agregados; mapa/Gantt do C2C com Aerial Routing entregue como parte do Console do Dispatcher em E03."
   }
 ]

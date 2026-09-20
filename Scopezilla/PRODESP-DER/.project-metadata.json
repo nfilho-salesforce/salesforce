@@ -39,23 +39,23 @@
     "user_commitment": null,
     "derived": {
       "derived_low_weeks": 16,
-      "derived_high_weeks": 30,
+      "derived_high_weeks": 31,
       "derivation_source": "top-down-shape",
-      "basis": "Classified Multi-Cloud/Medium (Field Service + Service Cloud/Agentforce Contact Center Enterprise + Experience Cloud): 5 epics, 1 M + 4 L (heavily L-weighted vs. the row's typical 8-12 epic count — complexity-weight equivalent to ~7-8 typical mixed-size epics), 2 point-to-point integrations, no data migration — baseline 16-24 weeks. Adjusted: +15% custom UI/UX with no native pattern (E04 custom mobile LWC business locks, E05 from-scratch Experience Cloud guest tracking site) + +10% governance/audit-compliance overlay (open audit-trail requirement G0305, LGPD data-stewardship G0211) -> high end 24x1.25=30. Low end held at baseline; all 5 epics carry confidence: Assumed, which widens realized risk toward the high end in practice even though it doesn't mechanically move the floor.",
+      "basis": "Classified Multi-Cloud/Medium (Field Service + Service Cloud/Agentforce Contact Center Enterprise, dois canais WhatsApp+telefonia via CTI): 5 epics, agora 4 L + 1 S (resize desta revisão: E01 M->L pelo canal de telefonia via CTI; E05 L->S pelo Appointment Assistant nativo substituindo o site guest customizado) — complexity-weight equivalente a ~7 épicos típicos, ainda heavily L-weighted vs. a contagem típica de 8-12 épicos da linha; baseline mantido em 16-24 weeks (a queda de peso em E05 compensa parcialmente a alta em E01). Adjusted: +10% custom UI/UX sem padrão declarativo nativo equivalente (E04 — travas de negócio do app mobile; o driver de E05 caiu nesta revisão) + +10% governança/auditoria-compliance overlay (trilha de auditoria de despacho G0305, LGPD geolocalização G0211) + +10% risco de padrão de integração — padrão técnico da CTI com a URA não fixado (E01/E02, G0524; Open CTI clássica em retirada fev/2028) -> high end 24x1.30=31.2, arredondado para 31. Low end mantido no baseline; todos os 5 épicos carregam confidence: Assumed, o que amplia o risco realizado da faixa para a ponta alta na prática mesmo sem mover o piso mecanicamente.",
       "ai_native_compressed": false,
       "range_drivers": [
-        {"epic_id": "E05", "driver": "Guest-accessible citizen tracking link has no native Field Service/Maps feature — full custom build (Experience Cloud + LWC/Apex), and token security spec is unconfirmed", "tighten_with": "Confirm PRODESP's security requirements for the guest token (key rotation, signature algorithm) - G0517"},
-        {"epic_id": "E03", "driver": "Dispatcher console + N/N-10 escalation logic sits on an open audit-trail requirement", "tighten_with": "Resolve G0305 (which fields need audit trail, retention requirement) before console build - may require Field Audit Trail add-on"},
-        {"epic_id": "E04", "driver": "Mobile app's 3 business-rule locks (refusal reason, photo, geolocated check-in) are scoped as online-only; offline enforcement is a deferred assumption", "tighten_with": "Confirm offline-enforcement scope with client (G0413) - if required rather than deferred to Roadmap, this epic's build grows"}
+        {"epic_id": "E01", "driver": "Padrão técnico da integração CTI com a URA ainda não fixado — Open CTI clássica em retirada (fev/2028), conflita com a exclusão de Salesforce Voice do MVP", "tighten_with": "Confirmar com o fornecedor de telefonia (Instinct) a API de CTI exposta e se o org do DER é anterior ao corte de disponibilidade da Open CTI - G0524"},
+        {"epic_id": "E03", "driver": "Console do Dispatcher e escalonamento N/N-10 sentam sobre um requisito de trilha de auditoria ainda aberto", "tighten_with": "Resolver G0305 (campos a rastrear, retenção exigida) antes do build do console - pode exigir o add-on Field Audit Trail"},
+        {"epic_id": "E04", "driver": "As 3 travas de negócio do app mobile são escopadas como online-only; o enforcement offline é uma premissa de redução de escopo ainda a validar", "tighten_with": "Confirmar formalmente com o cliente o escopo de enforcement offline (G0413) - se exigido em vez de diferido, este épico cresce"}
       ]
     }
   },
-  "products_in_scope": ["Field Service", "Agentforce"],
+  "products_in_scope": ["Field Service", "Agentforce", "Service Cloud"],
   "products_with_overlay": [],
   "org_strategy": {
     "value": "Org única",
     "source": "Confirmado pelo usuário em 2026-09-17",
-    "note": "RESOLVIDO 2026-09-17 (decisions/0002): Service Cloud ENTRA no MVP, escopado ao canal WhatsApp — Agentforce Contact Center Enterprise (50 licenças), Digital Engagement, 1 fila humana única 24x7, roteamento simples sem skills (premissa a revalidar). Confirma a proposta de arquitetura do BSA (v2, Renata Vendramini) quanto a MessagingEndUser/MessagingSession/Case sob Service Cloud. Exclusão geral de Service Cloud permanece só para casos de uso de atendimento amplo fora deste canal; Salesforce Voice/Native Telephony continua fora do MVP per decisions/0001."
+    "note": "RESOLVIDO 2026-09-20 (decisions/0004, que substitui decisions/0002): Service Cloud ENTRA no MVP, cobrindo dois canais — WhatsApp e telefonia via integração CTI com a URA — Agentforce Contact Center Enterprise (número de licenças a revalidar à luz do canal de telefonia), Digital Engagement, Omni-Channel, 1 fila humana única 24x7, roteamento simples sem skills (premissa a revalidar). Confirma a proposta de arquitetura do BSA (v2, Renata Vendramini) quanto a MessagingEndUser/MessagingSession/Case sob Service Cloud. Exclusão geral de Service Cloud permanece só para casos de uso de atendimento amplo fora destes dois canais; Salesforce Voice (telefonia nativa) e a substituição da URA/0800 continuam fora do MVP per decisions/0003 — projeto de infraestrutura separado."
   },
   "geographic_scope": {
     "value": "Produção estadual — 14 CGRs (não apenas o piloto Cubatão/Taubaté)",

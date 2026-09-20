@@ -68,8 +68,8 @@
   },
   "business_outcomes": [
     {"outcome_id": "V1", "outcome": "Protocolo único e rastreável do atendimento, do pedido ao encerramento", "pain_removed": "Atendimento fragmentado em chamados distintos para pedido, despacho e encerramento, sem identificador único nem rastreamento em tempo real para o cidadão na pista.", "confidence": "Confirmed"},
-    {"outcome_id": "V2", "outcome": "Canal digital de entrada complementar ao 0800", "pain_removed": "O único canal hoje é a voz (0800); o WhatsApp existente pertence à ouvidoria e não ao socorro emergencial, deixando o motorista sem alternativa quando a voz não é viável.", "confidence": "Confirmed"},
-    {"outcome_id": "V3", "outcome": "Despacho automatizado com governança de exceção", "pain_removed": "Despacho manual pelo C2C sem regra sistemática de aderência/disponibilidade/proximidade, sobrecarregando a mesa em picos de demanda.", "confidence": "Confirmed"},
-    {"outcome_id": "V4", "outcome": "Auditabilidade do ciclo de atendimento", "pain_removed": "Overrides manuais de despacho e execução em campo sem trilha de auditoria obrigatória, dificultando a prestação de contas a órgãos de controle do Estado.", "confidence": "Confirmed"}
+    {"outcome_id": "V2", "outcome": "Canal digital de entrada complementar ao 0800", "pain_removed": "Remove a dependência exclusiva da voz, além de trazer alternativas ao usuário de canais de contato quando a voz não está disponível.", "confidence": "Confirmed"},
+    {"outcome_id": "V3", "outcome": "Despacho automatizado com governança de exceção", "pain_removed": "Elimina a gestão manual da operação do Serviço Emergencial pelo C2C, onde não existe regras sistemáticas de aderência/disponibilidade/proximidade, o que sobrecarrega a mesa com inúmeras atividades processuais que um sistema poderia estar executando.", "confidence": "Confirmed"},
+    {"outcome_id": "V4", "outcome": "Auditabilidade do ciclo de atendimento", "pain_removed": "Ganha-se uma trilha de auditoria obrigatória que facilita a prestação de contas a órgãos de controle do Estado.", "confidence": "Confirmed"}
   ]
 }

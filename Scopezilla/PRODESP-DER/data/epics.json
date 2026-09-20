@@ -1,20 +1,22 @@
 [
   {
     "epic_id": "E01",
-    "epic_name": "Canal Digital de Atendimento ao Cidadão (WhatsApp + Agentforce)",
-    "description": "Abertura de chamado de socorro via WhatsApp (texto e áudio) com triagem automatizada pelo Agentforce (Service Cloud — Agentforce Contact Center Enterprise, 50 licenças; Digital Engagement + Service Console). Transbordo — automático em falha de identificação, ou por preferência do cidadão, ou em suspeita de vítima — para fila humana única 24x7 (1 fila, roteamento simples sem skills, premissa a revalidar), sempre com contexto completo; a IA nunca decide a gravidade da vítima. O Agentforce cria a ordem de serviço e devolve o protocolo; o Field Service é responsável pelo Work Order e pelo encaminhamento/gestão de recursos de campo. Salesforce Voice/Native Telephony fora do MVP (decisions/0001) — \"WhatsApp voz\" é só áudio dentro do canal de mensageria. Complementa — nunca substitui — o 0800 como porta de entrada de voz.",
+    "epic_name": "Canal Digital de Atendimento ao Cidadão (WhatsApp + Telefonia via CTI + Agentforce)",
+    "description": "Abertura de chamado de socorro via WhatsApp (texto e áudio) e via telefonia através de integração CTI com a URA, com triagem automatizada pelo Agentforce (Service Cloud — Agentforce Contact Center Enterprise, número de licenças a revalidar à luz do canal de telefonia adicional; Digital Engagement + Omni-Channel + Service Console). Transbordo — automático em falha de identificação, ou por preferência do cidadão, ou em suspeita de vítima — para fila humana única 24x7 via Omni-Channel (1 fila, roteamento simples sem skills, premissa a revalidar), sempre com contexto completo — incluindo, no canal de telefonia, o screen-pop de CTI com o contexto da chamada; a IA nunca decide a gravidade da vítima. O Agentforce cria a ordem de serviço e devolve o protocolo; o Field Service é responsável pelo Work Order e pelo encaminhamento/gestão de recursos de campo. A integração CTI com a URA ENTRA no MVP (decisions/0003); ficam fora do MVP o Salesforce Voice (telefonia nativa) e a substituição da própria URA/0800 — projeto de infraestrutura de telefonia separado, ainda em viabilização entre DER e PRODESP (decisions/0003, decisions/0004). Complementa — nunca substitui — o 0800 como porta de entrada de voz.",
     "confidence": "Confirmed",
     "kb_sources": [
       "[KB:agentforce_contact_center_4-30-2026.md:26814-26939]",
-      "[KB:agentforce_contact_center_4-30-2026.md:633-730]"
+      "[KB:agentforce_contact_center_4-30-2026.md:633-730]",
+      "[KA-18817]",
+      "[KA-0188]"
     ],
     "depends_on": [
       "E02"
     ],
     "capabilities": [
-      "Abertura de chamado via WhatsApp (texto/áudio)",
+      "Abertura de chamado via WhatsApp (texto/áudio) e telefonia (CTI)",
       "Triagem automatizada pelo Agentforce",
-      "Transbordo garantido para fila humana com contexto completo",
+      "Transbordo garantido para fila humana via Omni-Channel, com contexto completo (incluindo screen-pop de CTI)",
       "Criação automática de ordem de serviço e protocolo"
     ],
     "outcome_ids": [
@@ -24,16 +26,15 @@
   {
     "epic_id": "E02",
     "epic_name": "Registro e Classificação da Ocorrência",
-    "description": "Criação do chamado a partir de qualquer canal (WhatsApp automatizado ou 0800 registrado manualmente pelo C2C, indistintamente pela tela nativa do Field Service ou pelo Service Console). Classificação pelo catálogo completo (100+ subtipos como Work Type; macro-tipo como picklist informativo, sem Record Type) desde o dia 1. Segunda viatura no mesmo chamado via dois slots de recursos no Work Order (sem Work Order Line Item). Relator registrado como Contact (não anônimo, não Person Account). Reclassificação de tipo permitida por C2C e equipe de campo, com trilha de auditoria (login individual por operador). Deduplicação por alerta manual ao C2C (raio geográfico + janela de tempo + tipo) — sem fusão automática; o objeto nativo Incident (Service Cloud CSIM) fica fora do MVP e vai para o Roadmap. Integração de sincronização com o legado SIGOR (dupla convivência) e com o SIGEO (correção de lat/long após ajuste manual de endereço) fazem parte do escopo.",
+    "description": "Criação do chamado a partir de qualquer canal (WhatsApp automatizado, telefonia via integração CTI com a URA, ou 0800 registrado manualmente pelo C2C, indistintamente pela tela nativa do Field Service ou pelo Service Console). Classificação pelo catálogo completo (100+ subtipos como Work Type; macro-tipo como picklist informativo, sem Record Type) desde o dia 1, com qualificação do chamado e da ordem de campo pelo Agentforce (canal digital/CTI) ou pelo atendente (canal manual). Segunda viatura no mesmo chamado via dois slots de recursos no Work Order (sem Work Order Line Item). Relator registrado como Contact (não anônimo, não Person Account). Reclassificação de tipo permitida por C2C e equipe de campo, coberta pela mesma trilha de auditoria do épico (login individual por operador). Deduplicação por alerta manual ao C2C (raio geográfico + janela de tempo + tipo) — sem fusão automática; o objeto nativo Incident (Service Cloud CSIM) fica fora do MVP e vai para o Roadmap. Integração de sincronização com o legado SIGOR (dupla convivência) e com o SIGEO (correção de lat/long após ajuste manual de endereço) fazem parte do escopo.",
     "confidence": "Confirmed",
     "kb_sources": [
       "[KB:field_service_dev.md:126-184]"
     ],
     "capabilities": [
-      "Registro do chamado multi-canal (WhatsApp/0800)",
+      "Registro do chamado multi-canal (WhatsApp/0800/CTI)",
       "Catálogo de classificação (100+ subtipos)",
-      "Segunda viatura no mesmo chamado",
-      "Reclassificação com trilha de auditoria",
+      "Qualificação do chamado e da ordem de campo pelo Agentforce/Atendente",
       "Deduplicação por alerta ao C2C",
       "Integração de sincronização SIGOR/SIGEO"
     ],
@@ -44,7 +45,7 @@
   {
     "epic_id": "E03",
     "epic_name": "Despacho Automatizado de Recursos de Campo",
-    "description": "Motor de despacho por aderência (Skills padrão do Field Service: Work Type → Skill Requirement × Service Resource Skill × território × disponibilidade) operando nas 14 CGRs. Sem pré-agendamento: despacho é 100% reativo em tempo real; a regra N/N-10 (N = 30min, valor de referência a validar) é um escalonamento de espera — se o tempo estimado exceder N, amplia o pool de recursos não-aderentes com teto N-10. Recusa exige motivo estruturado; reprocessamento automático imediato após recusa, sem intervenção do C2C. Segunda viatura herda o mesmo teto N/N-10 do chamado original. Escalonamento cross-CGR restrito a áreas de intersecção/fronteira entre CGRs (a confirmar); atribuição fora do limite contratual da UBA por CGR permanece gap aberto (G0309). Console do Dispatcher com 12 licenças individuais (6/turno × 4 turnos 12x36); despacho e cronômetros N/N-10 continuam sem interrupção na troca de turno. Alarme de 5 minutos direcionado ao programador responsável, com escalonamento ao supervisor da CGR se não reconhecido. Trilha de auditoria de overrides manuais (campos, retenção) permanece gap aberto — pergunta bloqueadora ao DER antes do build.",
+    "description": "Motor de agendamento e otimização do Field Service (regras de trabalho, Skills, território e disponibilidade — não apenas aderência por Skills) operando nas 14 CGRs. Sem pré-agendamento: despacho é 100% reativo em tempo real; a regra N/N-10 (N = 30min, valor de referência a validar) é um escalonamento de espera — se o tempo estimado exceder N, amplia o pool de recursos não-aderentes com teto N-10. Recusa exige motivo estruturado; reprocessamento automático imediato após recusa, sem intervenção do C2C. Segunda viatura herda o mesmo teto N/N-10 do chamado original. Escalonamento cross-CGR restrito a áreas de intersecção/fronteira entre CGRs (a confirmar); atribuição fora do limite contratual da UBA por CGR permanece gap aberto (G0309). Console do Dispatcher (Gantt/Mesa) com 12 licenças individuais (6/turno × 4 turnos 12x36); despacho e cronômetros N/N-10 continuam sem interrupção na troca de turno. Alarme de 5 minutos direcionado ao programador responsável, com escalonamento ao supervisor da CGR se não reconhecido. Trilha de auditoria (campos, retenção, cobrindo overrides manuais e reclassificações) permanece gap aberto — pergunta bloqueadora ao DER antes do build (G0305).",
     "confidence": "Confirmed",
     "kb_sources": [
       "[KB:field_service_dev.md:27168-27209]",
@@ -54,12 +55,11 @@
       "E02"
     ],
     "capabilities": [
-      "Motor de despacho por aderência (Skills)",
-      "Escalonamento de espera por tempo (regra N/N-10)",
+      "Motor de agendamento e otimização (Field Service)",
       "Reprocessamento automático em recusa",
-      "Console do Dispatcher",
+      "Console do Dispatcher (Gantt/Mesa)",
       "Alarme e escalonamento ao supervisor da CGR",
-      "Trilha de auditoria de overrides manuais"
+      "Trilha de auditoria"
     ],
     "outcome_ids": [
       "V3"
@@ -68,7 +68,7 @@
   {
     "epic_id": "E04",
     "epic_name": "Execução em Campo (App Mobile)",
-    "description": "Aplicativo único de Field Service Mobile (não apps distintos por perfil, permissões por Permission Set) para os 1.152 operadores de campo (recorte MVP das 14 CGRs; 1.292 é referência estadual mais ampla, fora do dimensionamento) das 14 empresas terceirizadas (UBAs), com licença Field Service Community (Partner License) — risco monitorado de known issue de Service Appointment com licença Community [KA/KB field_service_dev.md:27272-27273] — e login individual (mesma decisão de E02/G0212). Recebimento de despacho via push nativo do Field Service Mobile [KA-6541], com retry automático ao reconectar em trechos sem rede (sem fallback SMS no MVP). Alarme de 5 minutos cíclico visível na mesa (C2C); aviso local no app com confirmação de status fica fora do MVP (excede capacidade declarativa nativa). Offline: briefcase prima apenas a ocorrência em andamento (sem histórico encerrado, sem objeto Task); reprocessamento automático imediato após recusa, sem retorno de contexto ao operador que recusou (fora do MVP, vai para o Roadmap) e sem histórico da tentativa anterior visível ao segundo operador. Encerramento com 1 formulário base por macro-tipo (pane/sinistro/inspeção) e campos condicionais por subtipo; 3 travas de negócio confirmadas (recusa com motivo, foto obrigatória, check-in geolocalizado em 200m) — mas a ENFORCEMENT dessas travas quando offline fica fora do MVP (depende de LWC offline seasoned, vai para o Roadmap; premissa de redução de escopo a validar formalmente com o cliente). Sharing restrito à CGR de origem, exceto quando o operador é acionado por reforço cross-CGR.",
+    "description": "Aplicativo único de Field Service Mobile (não apps distintos por perfil, permissões por Permission Set) para os 1.152 operadores de campo (recorte MVP das 14 CGRs; 1.292 é referência estadual mais ampla, fora do dimensionamento) das 14 empresas terceirizadas (UBAs), com licença Field Service Community (Partner License) — risco monitorado de known issue de Service Appointment com licença Community [KA/KB field_service_dev.md:27272-27273] — e login individual (mesma decisão de E02/G0212). Recebimento de despacho via push nativo do Field Service Mobile [KA-6541], com retry automático ao reconectar em trechos sem rede (sem fallback SMS no MVP). Alarme de 5 minutos cíclico visível na mesa (C2C); aviso local no app com confirmação de status fica fora do MVP (excede capacidade declarativa nativa). Offline: briefcase prima apenas a ocorrência em andamento (sem histórico encerrado, sem objeto Task); reprocessamento automático imediato após recusa, sem retorno de contexto ao operador que recusou (fora do MVP, vai para o Roadmap) e sem histórico da tentativa anterior visível ao segundo operador. Encerramento com formulário por macro-tipo (pane/sinistro/inspeção), quando aplicável, com campos condicionais por subtipo; 3 travas de negócio confirmadas (recusa com motivo, foto obrigatória, check-in geolocalizado em 200m) — mas a ENFORCEMENT dessas travas quando offline fica fora do MVP (depende de LWC offline seasoned, vai para o Roadmap; premissa de redução de escopo a validar formalmente com o cliente). Sharing restrito à CGR de origem, exceto quando o operador é acionado por reforço cross-CGR — regra de plataforma, não uma capacidade nomeada separadamente.",
     "confidence": "Confirmed",
     "kb_sources": [
       "[KB:field_service_dev.md:28005-28245]"
@@ -80,9 +80,8 @@
       "Aplicativo único de Field Service Mobile",
       "Recebimento de despacho via push nativo",
       "Modo offline com fila de sincronização",
-      "Encerramento por checklist condicional por subtipo",
-      "Travas de negócio (recusa com motivo, foto, check-in geolocalizado)",
-      "Sharing restrito à CGR de origem"
+      "Encerramento com formulário, quando aplicável",
+      "Travas de negócio (recusa com motivo, foto, check-in geolocalizado)"
     ],
     "outcome_ids": [
       "V4"
@@ -91,20 +90,20 @@
   {
     "epic_id": "E05",
     "epic_name": "Rastreamento e Visibilidade em Tempo Real",
-    "description": "Protocolo único acompanhável do pedido ao encerramento. Cidadão: link enviado por SMS (exclusivo ao número que abriu a ocorrência, funcionando como controle de acesso) com token de uso único expirando após o encerramento (+buffer) — desenho do BSA a validar formalmente com o DER-SP; mostra apenas a primeira viatura quando há segunda viatura vinculada; tier P (GPS do app de campo, zero hardware/AVL); última posição conhecida com flag/timestamp quando o GPS perde sinal; sem fallback de canal quando o cidadão está sem sinal (risco aceito); site Experience Cloud com acesso guest + componente customizado (LWC/Apex) como capability de build, sem feature nativa de rastreamento público. C2C: mapa/Gantt com Aerial Routing nativo do Field Service (sem add-on; Street-Level Routing/ESO como upgrade de Roadmap). Gestores: painel padrão único (mesmo artefato do console C2C, gated por perfil — sem relatório à medida por CGR no MVP), com os 4 indicadores agregados (ocorrências, tempo de resposta, TMA, recusas) sem meta de SLA (decisão deliberada de fase; dono a nomear no Roadmap) e sem drill-down por protocolo individual. Governança dos dados de geolocalização: DER-SP como steward (mesma base de E02/G0211). Canal WhatsApp de entrega usa a mesma base de licenciamento de Service Cloud já decidida em decisions/0002 (E01). UX da experiência do cidadão já validada na PoC — não exige UX research formal adicional; em contrapartida, o DER solicitou explicitamente um workstream de Change Management, incluindo até 2 meses de Scale/Operação Assistida e treinamento personalizado por persona com foco nos técnicos de campo (UBAs) — a refletir no dimensionamento de esforço do programa, não restrito a E05. Portal Partner Community para terceiros (7ª superfície de visibilidade) fica fora do MVP, candidato a nova epic no Roadmap.",
+    "description": "Protocolo único acompanhável do pedido ao encerramento, entregue ao cidadão via o Appointment Assistant nativo do Field Service — extensão do mesmo template de Experience Cloud já embutido na licença de Field Service, sem build de site guest dedicado ([KA-6140], [KA-6156]). Link enviado por SMS (exclusivo ao número que abriu a ocorrência, funcionando como controle de acesso) com token de uso único expirando após o encerramento (+buffer) — desenho do BSA a validar formalmente com o DER-SP; mostra apenas a primeira viatura quando há segunda viatura vinculada; tier P (GPS do app de campo, zero hardware/AVL); última posição conhecida com flag/timestamp quando o GPS perde sinal; sem fallback de canal quando o cidadão está sem sinal (risco aceito). Gestores: painel padrão único (mesmo artefato do console C2C, gated por perfil — sem relatório à medida por CGR no MVP), com os 4 indicadores agregados (ocorrências, tempo de resposta, TMA, recusas), sem meta de SLA (decisão deliberada de fase; dono a nomear no Roadmap) e sem drill-down por protocolo individual. Mapa/Gantt do C2C com Aerial Routing nativo do Field Service é entregue como parte do Console do Dispatcher (E03), não deste épico. Governança dos dados de geolocalização (DER-SP como steward, mesma base de E02/G0211) e sharing entre CGRs (G0412) permanecem premissas de entrega documentadas em gaps.json, não capacidades nomeadas deste épico. Canal WhatsApp de entrega usa a mesma base de licenciamento de Service Cloud decidida em decisions/0004 (E01). UX da experiência do cidadão já validada na PoC — não exige UX research formal adicional; em contrapartida, o DER solicitou explicitamente um workstream de Change Management, incluindo até 2 meses de Scale/Operação Assistida e treinamento personalizado por persona com foco nos técnicos de campo (UBAs) — a refletir no dimensionamento de esforço do programa, não restrito a E05. Portal Partner Community para terceiros (7ª superfície de visibilidade) fica fora do MVP, candidato a nova epic no Roadmap.",
     "confidence": "Confirmed",
     "kb_sources": [
-      "[extends: modelo de status de Service Appointment/Work Order coberto em E02/E03]"
+      "[extends: modelo de status de Service Appointment/Work Order coberto em E02/E03]",
+      "[KA-6140]",
+      "[KA-6156]"
     ],
     "depends_on": [
       "E03",
       "E04"
     ],
     "capabilities": [
-      "Link de rastreamento para o cidadão (Experience Cloud guest)",
-      "Mapa/Gantt do C2C com Aerial Routing",
-      "Painel agregado para gestores (4 indicadores)",
-      "Governança de dados de geolocalização (DER-SP steward)"
+      "Rastreamento do cidadão via Appointment Assistant (Field Service)",
+      "Painel agregado para gestores (4 indicadores)"
     ],
     "outcome_ids": [
       "V1"

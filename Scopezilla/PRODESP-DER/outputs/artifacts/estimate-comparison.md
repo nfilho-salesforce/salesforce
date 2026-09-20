@@ -12,11 +12,13 @@ Escopo: 5 épicos (E01-E05), 100% entregue pela Salesforce PS (confirmado pelo u
 
 | Lane | Duração | Basis | Confiança |
 |---|---|---|---|
-| **Traditional** (âncora) | **16-30 semanas** | Derivada do formato do engagement (benchmark top-down), sem compressão | Assumed |
+| **Traditional** (âncora) | **16-31 semanas** | Derivada do formato do engagement (benchmark top-down), sem compressão | Assumed |
 | **Augmented** (metodologia tradicional + tooling de IA) | **14-25 semanas** | Faixa traditional comprimida por `efficiency.json.realized_band` (~10-18%) | Assumed |
-| **AI-native** (condicional) | **10-18 semanas** | Faixa traditional comprimida por `efficiency.json.native_band` (~35-40%) — gate de qualificação ainda não atendido | Assumed |
+| **AI-native** (condicional) | **10-19 semanas** | Faixa traditional comprimida por `efficiency.json.native_band` (~35-40%) — gate de qualificação ainda não atendido | Assumed |
 
-**Delta traditional → augmented**: ~2-5 semanas mais rápido, mesma equipe, tooling de IA sobre o modelo operacional inalterado.
+Faixa traditional re-derivada nesta revisão pelo resize E01 M→L (canal de telefonia via CTI) / E05 L→S (Appointment Assistant nativo substituindo o site guest customizado) — ver `data/roadmap.json` e `.project-metadata.json.timeline.derived`.
+
+**Delta traditional → augmented**: ~2-6 semanas mais rápido, mesma equipe, tooling de IA sobre o modelo operacional inalterado.
 
 **Delta traditional → AI-native**: ~6-12 semanas mais rápido, **mas condicional** a um compromisso operacional (decisão diária, product owner nomeado e disponível, mandato AI-first) que o DER/PRODESP ainda não assumiu. Hoje é um motivador — "se você se comprometer com este modelo de trabalho, esta seria a faixa" — nunca uma entrega alcançável sem nomear o compromisso.
 
@@ -38,7 +40,7 @@ A ferramenta de IA muda o ritmo de entrega dentro dos mesmos papéis e contagens
 | Functional Consultant (config crítica) | Sênior | Onshore | 1 | Full | 0-2 | PS |
 | Functional Consultant (volume) | Regular | Offshore | 1 | Full | 1-4 | PS |
 | Developer (caminho crítico) | Sênior | Onshore | 1 | Full | 1-3 | PS |
-| Developer (pod de build) | Regular | Offshore | 3 | Full | 1-4 | PS |
+| Developer (pod de build — E01/E02/E03/E04) | Regular | Offshore | 3 | Full | 1-4 | PS |
 | Quality Assurance (estratégia/auditoria) | Sênior | Onshore | 1 | Full | 1-4 | PS |
 | Quality Assurance (execução) | Regular | Offshore | 2 | Full | 2-4 | PS |
 | Change & Adoption | Regular | Onshore | 1 | Full | 3-4 | PS |
@@ -74,7 +76,7 @@ Piso presente: Program Lead ✓, Intent Architect ✓, Agent Orchestrator ✓ (T
 
 ## Leitura de equipe (sem FTE numérico)
 
-Não há `user_commitment` de semanas — apenas a faixa derivada (16-30 semanas) — e `derive-hours.py` corretamente se recusa a derivar horas/FTE de uma faixa, só de um compromisso. Inventar um número aqui violaria a mesma regra.
+Não há `user_commitment` de semanas — apenas a faixa derivada (16-31 semanas) — e `derive-hours.py` corretamente se recusa a derivar horas/FTE de uma faixa, só de um compromisso. Inventar um número aqui violaria a mesma regra.
 
 Leitura qualitativa aprovada pelo Solution Lead: lane traditional/augmented soma **10 papéis PS** (pico de ~7-8 pessoas simultâneas nas Fases 1-3, incluindo o pod de 3 Developers offshore) + **6 papéis client-side**. Lane AI-native cai para **8 papéis PS** (pico de ~5-6 pessoas) com o pod de Developers colapsado de 3 para 1 sênior amplificado por agentes. Um FTE numérico real fica disponível se/quando o DER/PRODESP comprometer um número de semanas (`roadmap` Step 0.6).
 
@@ -94,9 +96,9 @@ Rates fornecidas e validadas pelo usuário em 2026-09-17, a partir da tabela ofi
 
 | Lane | Duração | Faixa indicativa (BRL) |
 |---|---|---|
-| **Traditional** (âncora) | 16-30 semanas | **R$ 6.332.940,80 – R$ 11.874.264,00** |
+| **Traditional** (âncora) | 16-31 semanas | **R$ 6.332.940,80 – R$ 12.270.072,80** |
 | **Augmented** | 14-25 semanas | **R$ 5.541.323,20 – R$ 9.895.220,00** |
-| **AI-native** (condicional) | 10-18 semanas | **R$ 2.383.636,00 – R$ 4.290.544,80** |
+| **AI-native** (condicional) | 10-19 semanas | **R$ 2.383.636,00 – R$ 4.528.908,40** |
 
 > *Esta faixa é baseada nas rates de R$946,69/h (architect-class sênior onshore), R$715,66/h (entrega sênior onshore/qualquer offshore regular) e R$614,21/h (change & adoption regular onshore) que você forneceu e validou em 2026-09-17. Indicativo para planejamento apenas; a estrutura comercial final é confirmada através do acordo comercial aplicável.*
 

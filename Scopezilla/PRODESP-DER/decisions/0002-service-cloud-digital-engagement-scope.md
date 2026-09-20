@@ -1,6 +1,8 @@
 # 0002 — Service Cloud (Digital Engagement + Agentforce Contact Center Enterprise) entra no MVP, escopado ao canal WhatsApp
 
-**Data:** 2026-09-17 · **Status:** accepted · **Source:** scopezilla-recommended (ratificado pelo usuário na resolução de gaps de E01)
+**Data:** 2026-09-17 · **Status:** superseded-by-0004 · **Source:** scopezilla-recommended (ratificado pelo usuário na resolução de gaps de E01)
+
+> **Superseded em 2026-09-20 por [`0004-service-cloud-telefonia-whatsapp.md`](0004-service-cloud-telefonia-whatsapp.md).** A frase "A ADR 0001 permanece intacta e sem alteração" (linha 15 abaixo) ficou obsoleta quando `decisions/0001` foi superseded por `decisions/0003` (CTI entra no MVP).
 
 ## Context
 

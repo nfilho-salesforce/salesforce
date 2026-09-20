@@ -235,7 +235,7 @@
       <div class="sz-quickcard sz-quickcard--risk">
         <span class="sz-quick-icon" aria-hidden="true">🚧</span>
         <div class="sz-quick-label">Maior risco / incerteza</div>
-        <p>73 gaps abertos (7 conflitos de fonte) — dois bloqueiam decisão do DER antes do build: trilha de auditoria de despacho (G0305) e limite contratual das UBAs por CGR (G0309).</p>
+        <p>80 gaps abertos (7 conflitos de fonte) — dois bloqueiam decisão do DER antes do build: trilha de auditoria de despacho (G0305) e limite contratual das UBAs por CGR (G0309).</p>
       </div>
       <div class="sz-quickcard sz-quickcard--action">
         <span class="sz-quick-icon" aria-hidden="true">▶️</span>
@@ -248,10 +248,10 @@
     <div class="sz-stats" style="margin-top:var(--space-lg);">
       <div class="sz-stat"><div class="sz-stat-num">5</div><div class="sz-stat-lbl">Épicos</div></div>
       <div class="sz-stat"><div class="sz-stat-num">5</div><div class="sz-stat-lbl">Fases (incl. Fase 0)</div></div>
-      <div class="sz-stat"><div class="sz-stat-num">16–30</div><div class="sz-stat-lbl">Semanas (faixa benchmark)</div></div>
+      <div class="sz-stat"><div class="sz-stat-num">16–31</div><div class="sz-stat-lbl">Semanas (faixa benchmark)</div></div>
       <div class="sz-stat"><div class="sz-stat-num">14</div><div class="sz-stat-lbl">CGRs</div></div>
       <div class="sz-stat"><div class="sz-stat-num">1.152</div><div class="sz-stat-lbl">Operadores de campo</div></div>
-      <div class="sz-stat"><div class="sz-stat-num">73</div><div class="sz-stat-lbl">Gaps identificados</div></div>
+      <div class="sz-stat"><div class="sz-stat-num">80</div><div class="sz-stat-lbl">Gaps identificados</div></div>
     </div>
   </section>
 
@@ -327,7 +327,7 @@
     <div class="sz-section-eyebrow">Como e quando será entregue</div>
     <h2 class="sz-section-title">Abordagem de Implementação</h2>
     <div class="sz-card">
-      <p>O programa está sequenciado em 5 fases, com uma Fase 0 dedicada à resolução de discovery — recomendada porque o volume de gaps abertos (73, sendo 7 conflitos de fonte) excede os limiares que justificam essa fase dedicada antes do build.</p>
+      <p>O programa está sequenciado em 5 fases, com uma Fase 0 dedicada à resolução de discovery — recomendada porque o volume de gaps abertos (80, sendo 7 conflitos de fonte) excede os limiares que justificam essa fase dedicada antes do build.</p>
     </div>
 
     <div class="sz-timeline" style="margin-top:var(--space-md);" data-shot>
@@ -363,11 +363,11 @@
     </div>
 
     <div class="sz-stats" style="margin-top:var(--space-lg);">
-      <div class="sz-stat"><div class="sz-stat-num">16–30</div><div class="sz-stat-lbl">Semanas (faixa benchmark)</div></div>
+      <div class="sz-stat"><div class="sz-stat-num">16–31</div><div class="sz-stat-lbl">Semanas (faixa benchmark)</div></div>
       <div class="sz-stat"><div class="sz-stat-num">Média</div><div class="sz-stat-lbl">Complexidade multi-cloud</div></div>
     </div>
 
-    <p style="margin-top:var(--space-md);">A duração do programa é uma <b>faixa derivada do formato do engagement, não um compromisso</b>: <b>16 a 30 semanas</b>, classificada como multi-cloud de complexidade média (5 épicos, 1 M e 4 L, duas integrações ponto a ponto, sem migração de dados), com a ponta alta ampliada por dois fatores específicos deste projeto — a experiência mobile e o site de rastreamento não têm padrão nativo equivalente e exigem build customizado do zero, e há uma sobreposição de governança/auditoria ainda em aberto (trilha de auditoria de despacho, tratamento de dados de geolocalização sob LGPD).</p>
+    <p style="margin-top:var(--space-md);">A duração do programa é uma <b>faixa derivada do formato do engagement, não um compromisso</b>: <b>16 a 31 semanas</b>, classificada como multi-cloud de complexidade média, com a ponta alta ampliada por três fatores específicos deste projeto — a experiência mobile combina múltiplas travas de negócio customizadas sem padrão declarativo nativo equivalente (E04), há uma sobreposição de governança/auditoria ainda em aberto (trilha de auditoria de despacho, tratamento de dados de geolocalização sob LGPD), e o padrão técnico da integração CTI com a URA ainda não está fixado (G0524).</p>
 
     <div class="sz-tldr" style="margin-top:var(--space-md); border-left-color:var(--sf-text-weak);">
       <div class="sz-tldr-label">Nota de benchmark</div>
@@ -450,7 +450,7 @@
     <h2 class="sz-section-title">Premissas e Nível de Confiança</h2>
     <div class="sz-card">
       <p>O escopo dos 5 épicos está com confiança <span class="sz-tag sz-tag--low">Confirmed</span> — validado com o cliente. Os tamanhos T-shirt (M/L) que dimensionam o esforço de cada épico estão com confiança <span class="sz-tag sz-tag--medium">Assumed</span> em todos os cinco, o que amplia o risco realizado da faixa de duração para a ponta alta na prática, mesmo sem mover o piso mecanicamente.</p>
-      <p>O programa carrega <b>73 gaps identificados</b> na discovery, dos quais a maioria já tem uma premissa fixada e documentada (a base deste resumo) — mas 7 são conflitos de fonte e um conjunto menor permanece como pergunta bloqueadora aberta ao DER/Stefanini, principalmente em torno da trilha de auditoria de despacho e do modelo contratual das UBAs. Esse volume de gaps é o que justifica a Fase 0 dedicada, e recomenda uma sessão de validação com o cliente antes de finalizar o escopo para o build.</p>
+      <p>O programa carrega <b>80 gaps identificados</b> na discovery, dos quais a maioria já tem uma premissa fixada e documentada (a base deste resumo) — mas 7 são conflitos de fonte e um conjunto menor permanece como pergunta bloqueadora aberta ao DER/Stefanini, principalmente em torno da trilha de auditoria de despacho e do modelo contratual das UBAs. Esse volume de gaps é o que justifica a Fase 0 dedicada, e recomenda uma sessão de validação com o cliente antes de finalizar o escopo para o build.</p>
     </div>
   </section>
 

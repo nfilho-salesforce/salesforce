@@ -187,6 +187,21 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
 .hub-ext span{font-size:10px;color:var(--text-muted);display:block;margin-top:2px;}
 .hub-ext-label{text-align:center;font-size:10.5px;color:var(--text-muted);margin-top:8px;font-style:italic;}
 
+/* ── TELEPHONY FLOW DIAGRAM (Slide 3, Diagrama 2) ── */
+.tel-flow{display:flex;align-items:stretch;gap:8px;flex-wrap:wrap;margin:16px 0 10px;}
+.tel-step{background:#fff;border:1px solid var(--border);border-top:3px solid var(--blue-accent);border-radius:var(--r-md);
+  padding:12px 14px;box-shadow:var(--sh-sm);flex:1;min-width:150px;}
+.tel-step.wide{flex:1;min-width:220px;border-top-color:var(--purple);}
+.tel-step b{display:block;font-size:12px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+.tel-step span{font-size:10.5px;color:var(--text-muted);line-height:1.4;}
+.tel-arrow{display:flex;align-items:center;justify-content:center;color:var(--blue-mid);font-size:16px;font-weight:700;flex:0 0 auto;padding:0 2px;}
+.tel-branches{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:6px 0 16px;}
+.tel-branch{background:var(--gray-bg-2);border:1px solid var(--border);border-radius:var(--r-md);padding:12px 14px;}
+.tel-branch.hl{background:#eef8f0;border-color:var(--green);}
+.tel-branch b{display:block;font-size:11.5px;color:var(--navy);margin-bottom:4px;}
+.tel-branch p{font-size:11px;color:var(--text-main);line-height:1.5;margin:0;}
+@media(max-width:1024px){.tel-branches{grid-template-columns:1fr;} .tel-flow{flex-direction:column;} .tel-arrow{transform:rotate(90deg);}}
+
 /* ── CAPACITY GRID (Slide 4) ── */
 .cap-card{background:#fff;border:1px solid var(--border);border-top:3px solid var(--blue-accent);border-radius:var(--r-md);
   padding:14px 16px;box-shadow:var(--sh-sm);}
@@ -246,12 +261,12 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
 .wtl-legend i{width:14px;height:14px;border-radius:4px;display:inline-block;}
 .wtl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:14px;background:#fff;box-shadow:var(--sh-sm);}
 .wtl-inner{min-width:1400px;}
-.wtl-axis{display:grid;grid-template-columns:190px repeat(30,1fr);border-bottom:2px solid var(--border);}
+.wtl-axis{display:grid;grid-template-columns:190px repeat(31,1fr);border-bottom:2px solid var(--border);}
 .wtl-axis .corner{padding:8px 10px;font-size:10px;font-weight:800;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px;display:flex;align-items:flex-end;}
 .wtl-wk{padding:6px 1px;text-align:center;font-size:9px;font-weight:700;color:#fff;border-left:1px solid rgba(255,255,255,.2);}
 .wtl-wk.f0{background:var(--amber-dark);} .wtl-wk.f1{background:var(--blue-mid);} .wtl-wk.f2{background:var(--blue-accent);}
 .wtl-wk.f3{background:var(--teal);} .wtl-wk.f4{background:var(--purple);} .wtl-wk.f5{background:#9aa7b4;}
-.wtl-track{display:grid;grid-template-columns:190px repeat(30,1fr);align-items:start;border-bottom:1px solid var(--border);min-height:54px;position:relative;}
+.wtl-track{display:grid;grid-template-columns:190px repeat(31,1fr);align-items:start;border-bottom:1px solid var(--border);min-height:54px;position:relative;}
 .wtl-track:last-child{border-bottom:none;}
 .wtl-track .lbl{grid-column:1;padding:8px 10px;font-size:11.3px;font-weight:700;color:var(--text-main);}
 .wtl-track .lbl .sub{display:block;font-size:9.3px;color:var(--text-muted);font-weight:600;margin-top:2px;}
@@ -261,7 +276,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
 .wtl-bar.extended{margin-top:26px;opacity:.55;border:1px dashed rgba(255,255,255,.6);}
 .wtl-bar.p0{background:var(--amber-dark);} .wtl-bar.p1{background:var(--blue-mid);} .wtl-bar.p2{background:var(--blue-accent);}
 .wtl-bar.p3{background:var(--teal);} .wtl-bar.p4{background:var(--purple);}
-.wtl-mk{display:grid;grid-template-columns:190px repeat(30,1fr);border-top:2px solid var(--border);background:var(--gray-bg);}
+.wtl-mk{display:grid;grid-template-columns:190px repeat(31,1fr);border-top:2px solid var(--border);background:var(--gray-bg);}
 .wtl-mk .lbl{grid-column:1;padding:8px 10px;font-size:10px;font-weight:800;color:var(--text-muted);text-transform:uppercase;display:flex;align-items:center;}
 .wtl-mkcell{grid-row:1;text-align:center;padding:6px 1px;}
 .wtl-mkcell .flag{font-size:13px;}
@@ -318,8 +333,8 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
 <body>
 
 <div id="version-bar">
-  <span>ROM PRODESP-DER</span><span class="sep">·</span><b>v2.0</b><span class="sep">·</span>
-  <span>Gerado em 18/09/2026 às 01:40 (América/São Paulo, UTC-03:00) — gaps abertos, mapa de riscos, linha do tempo visual, roadmap de futuro, change management aprofundado, escopo fechado</span>
+  <span>ROM PRODESP-DER</span><span class="sep">·</span><b>v3.0</b><span class="sep">·</span>
+  <span>Gerado em 20/09/2026 às 16:05 (América/São Paulo, UTC-03:00)</span>
 </div>
 
 <aside id="sidebar">
@@ -330,8 +345,8 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
       <span class="logo-tag ps">PS</span>
     </div>
     <h2>PRODESP · DER-SP</h2>
-    <p>Rough Order of Magnitude — Field Service + Agentforce (Contact Center Enterprise), Service Cloud e Experience Cloud</p>
-    <span class="owner-line">v2.0 · 18/09/2026 · escopo fechado</span>
+    <p>Rough Order of Magnitude — Field Service, Agentforce, Service Cloud e WhatsApp, em org única Salesforce</p>
+    <span class="owner-line">v3.0 · 20/09/2026</span>
   </div>
   <nav>
     <div class="nav-group-title">Visão Executiva</div>
@@ -342,7 +357,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
     <div class="nav-group-title">Arquitetura &amp; Solução</div>
     <a class="nav-item" onclick="showSection('s3')"><span class="ico">◆</span><span class="lbl">Arquitetura da Solução</span></a>
     <a class="nav-item" onclick="showSection('s4')"><span class="ico">◆</span><span class="lbl">Alcance do MVP e Capacidades</span>
-      <span class="nav-badges"><span class="nav-badge blue">26 sub-capac.</span></span></a>
+      <span class="nav-badges"><span class="nav-badge blue">21 sub-capac.</span></span></a>
     <a class="nav-item" onclick="showSection('s5')"><span class="ico">◆</span><span class="lbl">Complexidade e Tecnologia</span></a>
 
     <div class="nav-group-title">Escopo &amp; Governança</div>
@@ -363,7 +378,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
     <div class="nav-group-title">Estimativa &amp; Entrega</div>
     <a class="nav-item" onclick="showSection('s11')"><span class="ico">◆</span><span class="lbl">Épicos e Casos de Uso</span>
       <span class="nav-badges"><span class="nav-badge default">5 capacidades</span></span></a>
-    <a class="nav-item" onclick="showSection('s12')"><span class="ico">◆</span><span class="lbl">Investimento: Escopo Fechado</span></a>
+    <a class="nav-item" onclick="showSection('s12')"><span class="ico">◆</span><span class="lbl">Investimento Indicativo e Entregáveis</span></a>
     <a class="nav-item" onclick="showSection('s13')"><span class="ico">◆</span><span class="lbl">Investimento (ROM)</span>
       <span class="nav-badges"><span class="nav-badge default">3 lanes</span><span class="nav-badge cond">IA condicional</span></span></a>
 
@@ -375,9 +390,9 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
 <div id="main">
   <div id="topbar">
     <div class="topbar-inner">
-      <h1>PRODESP · DER-SP — ROM de Escala Estadual</h1>
+      <h1>PRODESP · DER-SP · ROM</h1>
       <div class="topbar-right">
-        <span class="date-badge">v2.0 · 18/09/2026 01:40 · escopo fechado</span>
+        <span class="date-badge">v3.0 · 20/09/2026 16:05</span>
       </div>
     </div>
   </div>
@@ -387,23 +402,23 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
     <!-- ═══════════════════ S1 · CAPA ═══════════════════ -->
     <div id="s1" class="section active">
       <div class="hero">
-        <div class="eyebrow">ROM · Rough Order of Magnitude · Escopo/Preço Fechado</div>
+        <div class="eyebrow">ROM · Rough Order of Magnitude</div>
         <h1>Da PoC de Cubatão/Taubaté para uma nova fase de escala estadual</h1>
-        <p class="sub">Este projeto leva o DER a uma nova fase de escalabilidade e inovação: coloca a tecnologia em prol dos processos e, no fim da linha, do cidadão na pista. Este é um documento de escopo/preço <b>fechado</b> — não time &amp; material: cada seção de escopo é, em conjunto, a lista de entregáveis que sustenta a validação da proposta.</p>
+        <p class="sub">Este projeto leva o DER a uma nova fase de escalabilidade e inovação: coloca a tecnologia em prol dos processos e, no fim da linha, do cidadão na pista. Este é um documento de <b>validação da visão de solução, alcance, faseamento e esforço</b> — cada seção de escopo é, em conjunto, a lista de entregáveis que sustenta essa validação; o preço final e o modelo comercial são confirmados no acordo comercial aplicável, não fixados por este documento.</p>
         <div class="chip-row" style="margin-top:18px;">
           <span class="chip blue">DER-SP · PRODESP</span>
           <span class="chip green">Field Service</span>
-          <span class="chip green">Agentforce (Contact Center Enterprise)</span>
-          <span class="chip green">Service Cloud · canal WhatsApp</span>
-          <span class="chip green">Experience Cloud</span>
+          <span class="chip green">Agentforce</span>
+          <span class="chip green">Service Cloud</span>
+          <span class="chip green">WhatsApp</span>
         </div>
         <div class="hero-kpis">
           <div class="hkpi"><div class="n">14</div><div class="l">CGRs em produção</div></div>
           <div class="hkpi"><div class="n">298</div><div class="l">viaturas</div></div>
           <div class="hkpi"><div class="n">1.152</div><div class="l">operadores de campo</div></div>
-          <div class="hkpi"><div class="n">5</div><div class="l">capacidades entregues em org única</div></div>
+          <div class="hkpi"><div class="n">4</div><div class="l">frentes tecnológicas entregues em org única</div></div>
         </div>
-        <div class="stamp">v2.0 · Gerado em 18/09/2026 às 01:40 (América/São Paulo, UTC-03:00)</div>
+        <div class="stamp">v3.0 · Gerado em 20/09/2026 às 16:05 (América/São Paulo, UTC-03:00)</div>
       </div>
       <div class="card">
         <h2>Como usar este documento</h2>
@@ -474,16 +489,15 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
     <!-- ═══════════════════ S3 · ARQUITETURA ═══════════════════ -->
     <div id="s3" class="section">
       <div class="card">
-        <h2>Uma única arquitetura: o Field Service comanda o despacho, o Agentforce abre a porta do WhatsApp</h2>
-        <p class="lead">Uma organização Salesforce única sustenta as cinco capacidades da solução e as duas integrações com os sistemas legados do DER.</p>
+        <h2>Uma única arquitetura: o Field Service comanda o despacho, o Agentforce atende WhatsApp e telefonia via CTI</h2>
+        <p class="lead">Uma organização Salesforce única sustenta as capacidades da solução — incluindo os dois canais de entrada, WhatsApp e telefonia via CTI — e as duas integrações com os sistemas legados do DER. O Experience Cloud sai da lista de módulos independentes: não é um produto com licença própria neste desenho, é um template/capacidade que vive dentro da licença de Field Service (<code>[KA-6140]</code>), usado só onde o Field Service precisa de uma superfície externa (o link de rastreamento do cidadão, E05).</p>
         <div class="hub-wrap">
           <div class="hub-center"><b>Salesforce — Org Única</b><span>Plataforma comum a todas as capacidades</span></div>
-          <div class="hub-arrow">▾ ▾ ▾ ▾</div>
-          <div class="hub-modules">
-            <div class="hub-box"><b>Field Service</b><span>Motor central de despacho — Work Order, Service Appointment, Service Territory, modelo de Skills para aderência</span></div>
-            <div class="hub-box"><b>Agentforce</b><span>Contact Center Enterprise cobrindo o canal WhatsApp</span></div>
-            <div class="hub-box"><b>Service Cloud</b><span>Escopado a esse canal — não é atendimento amplo</span></div>
-            <div class="hub-box"><b>Experience Cloud</b><span>Link de rastreamento do cidadão</span></div>
+          <div class="hub-arrow">▾ ▾ ▾</div>
+          <div class="hub-modules" style="grid-template-columns:repeat(3,1fr);">
+            <div class="hub-box"><b>Field Service</b><span>Motor central de despacho — Work Order, Service Appointment, Service Territory, motor de agendamento e otimização. Origem do rastreamento do cidadão via <u>Experience Cloud (template embutido)</u> + Appointment Assistant nativo (E05).</span></div>
+            <div class="hub-box"><b>Agentforce</b><span>Contact Center Enterprise cobrindo os dois canais de entrada — WhatsApp e a integração CTI com a URA — com transbordo garantido via Omni-Channel (<code>[KA-18817]</code>), preservando contexto e, na CTI, o screen-pop da chamada.</span></div>
+            <div class="hub-box"><b>Service Cloud</b><span>Camada de atendimento que hospeda o console/fila (Digital Engagement + Service Console).</span></div>
           </div>
           <div class="hub-ext-row">
             <div class="hub-ext"><b>SIGOR</b><span>sincronização de ocorrências</span></div>
@@ -491,7 +505,34 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
           </div>
           <div class="hub-ext-label">Sistemas legados do DER — integrações ponto a ponto, fora da org Salesforce</div>
         </div>
+        <p style="font-size:11.5px;color:var(--text-muted);margin-top:8px;">O <b>Visual Remote Assistant</b> (<code>[KA-6156]</code>) é outra extensão nativa do mesmo pacote de Field Service — sem caso de uso mapeado neste discovery para o MVP, citado aqui só para deixar o inventário de capacidades completo e nomeado.</p>
       </div>
+
+      <div class="card">
+        <h2>Diagrama 2 — Fluxo de telefonia e atendimento, do 0800 ao Service Console</h2>
+        <p class="lead">Diagrama instrutivo, não técnico, para quem não conhece o fluxo de telefonia/atendimento. Sequência da esquerda para a direita, com dois ramos de derivação e um terceiro que segue ao Service Console.</p>
+        <div class="tel-flow">
+          <div class="tel-step"><b>1 · Cidadão liga 0800</b><span>A operadora de telefonia (hoje, linha 0800 055 5510, vendor Instinct) recebe a chamada.</span></div>
+          <div class="tel-arrow">→</div>
+          <div class="tel-step"><b>2 · PABX</b><span>On-premise ou virtual, a depender do fornecedor de telefonia vigente na hora do build (<code>data/gaps.json</code> G0524) — roteia à URA.</span></div>
+          <div class="tel-arrow">→</div>
+          <div class="tel-step"><b>3 · URA</b><span>Atende e apresenta o menu/fluxo de voz.</span></div>
+          <div class="tel-arrow">→</div>
+          <div class="tel-step"><b>4 · Agente de IA na URA</b><span>Conduz a conversa (linguagem natural ou menu) e tenta identificar a natureza do contato.</span></div>
+        </div>
+        <div class="tel-branches">
+          <div class="tel-branch"><b>(a) Resolvido na própria URA</b><p>O cidadão tem a resposta (ex.: confirmação de protocolo já aberto) e desliga, sem transbordo.</p></div>
+          <div class="tel-branch"><b>(b) Derivado a área interna do DER</b><p>Ex.: o cidadão liga sobre multas; a URA deriva ao departamento correto do DER — fora do fluxo de socorro emergencial e fora deste programa.</p></div>
+          <div class="tel-branch hl"><b>(c) Derivado ao fluxo emergencial</b><p>A URA identifica uma emergência (pane/sinistro na pista) e deriva a chamada a um agente especialista de emergência — primeira linha do socorro rodoviário.</p></div>
+        </div>
+        <div class="tel-flow" style="margin-top:4px;">
+          <div class="tel-step wide"><b>5 · CTI aciona o screen-pop</b><span>O agente especialista acopla a integração CTI (<code>decisions/0003</code>; padrão exato a confirmar — <code>data/gaps.json</code> G0524), que carrega no Service Console o contexto completo da chamada (número, transcrição/resumo da URA quando disponível, natureza identificada).</span></div>
+          <div class="tel-arrow">→</div>
+          <div class="tel-step wide"><b>6 · Service Console (Salesforce)</b><span>O atendente não repete perguntas já respondidas à URA. A partir daqui, o fluxo entra no processo da arquitetura em camadas acima: Service Cloud cria a ordem de serviço/protocolo, Field Service assume o despacho.</span></div>
+        </div>
+        <div class="disclaimer">Grounding: o mecanismo de screen-pop com contexto de chamada é um padrão documentado (<code>[KA-0188]</code> "Integrate Open CTI with Lightning Flow for Service"); o padrão técnico exato de CTI usado no build (Open CTI remanescente vs. um caminho equivalente) não é fixado nesta fase, consistente com <code>decisions/0003</code>.</div>
+      </div>
+
       <div class="sec-nav">
         <a class="sec-link" onclick="showSection('s2')">← Situação, Visão e Resultados</a>
         <a class="sec-link" onclick="showSection('s4')">Ver Alcance do MVP e Capacidades →</a>
@@ -501,66 +542,61 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
     <!-- ═══════════════════ S4 · ALCANCE DO MVP E MAPA DE CAPACIDADES ═══════════════════ -->
     <div id="s4" class="section">
       <div class="card">
-        <h2>O MVP cobre toda a produção estadual em 26 capacidades concretas</h2>
-        <p class="lead">14 CGRs, 298 viaturas, 1.152 operadores — o MVP já é a escala real do DER, não uma extensão futura do piloto. E não é só o nome do épico: é a lista nomeada do que é entregue.</p>
+        <h2>O MVP cobre toda a produção estadual em 21 capacidades concretas, organizadas em 4 frentes tecnológicas</h2>
+        <p class="lead">14 CGRs, 298 viaturas, 1.152 operadores — o MVP já é a escala real do DER, não uma extensão futura do piloto. 4 frentes tecnológicas (Field Service, Agentforce, Service Cloud, WhatsApp) entregues integralmente pela Salesforce PS, em org única. Não é só o nome do épico: é a lista nomeada do que é entregue.</p>
         <div class="kpi-wrap">
           <div class="kpi"><div class="n">14</div><div class="l">CGRs em produção</div></div>
           <div class="kpi green"><div class="n">298</div><div class="l">viaturas</div></div>
           <div class="kpi amber"><div class="n">1.152</div><div class="l">operadores de campo, em 14 empresas terceirizadas</div></div>
-          <div class="kpi purple"><div class="n">5 / 26</div><div class="l">capacidades / sub-capacidades nomeadas, em org única</div></div>
+          <div class="kpi purple"><div class="n">4 / 21</div><div class="l">frentes tecnológicas / sub-capacidades nomeadas, em org única</div></div>
         </div>
 
-        <h3>Grade capacidade × épico — as 26 sub-capacidades nomeadas</h3>
+        <h3>Grade capacidade × épico — as 21 sub-capacidades nomeadas</h3>
         <div class="grid-5">
           <div class="cap-card">
             <b>E01 — Canal Digital <span class="tshirt M" style="margin-left:4px;">M</span></b>
             <ul>
-              <li>Abertura via WhatsApp (texto/áudio)</li>
+              <li>Abertura via WhatsApp (texto/áudio) e telefonia (CTI)</li>
               <li>Triagem automatizada pelo Agentforce</li>
-              <li>Transbordo garantido para fila humana com contexto</li>
+              <li>Transbordo garantido via Omni-Channel, com contexto completo (incl. screen-pop de CTI)</li>
               <li>Criação automática de ordem de serviço e protocolo</li>
             </ul>
           </div>
           <div class="cap-card">
             <b>E02 — Registro e Classificação <span class="tshirt L" style="margin-left:4px;">L</span></b>
             <ul>
-              <li>Registro multi-canal (WhatsApp/0800)</li>
-              <li>Catálogo de 100+ subtipos</li>
-              <li>Segunda viatura no mesmo chamado</li>
-              <li>Reclassificação com trilha de auditoria</li>
+              <li>Registro multi-canal (WhatsApp/0800/CTI)</li>
+              <li>Catálogo de classificação (100+ subtipos)</li>
+              <li>Qualificação do chamado e da ordem de campo pelo Agentforce/Atendente</li>
               <li>Deduplicação por alerta ao C2C</li>
-              <li>Sincronização SIGOR/SIGEO</li>
+              <li>Integração de sincronização SIGOR/SIGEO</li>
             </ul>
           </div>
           <div class="cap-card">
             <b>E03 — Despacho Automatizado <span class="tshirt L" style="margin-left:4px;">L</span></b>
             <ul>
-              <li>Motor de despacho por aderência (Skills)</li>
-              <li>Escalonamento N/N-10</li>
+              <li>Motor de agendamento e otimização (Field Service)</li>
               <li>Reprocessamento automático em recusa</li>
-              <li>Console do Dispatcher</li>
-              <li>Alarme/escalonamento ao supervisor</li>
-              <li>Trilha de auditoria de overrides</li>
+              <li>Console do Dispatcher (Gantt/Mesa)</li>
+              <li>Alarme e escalonamento ao supervisor da CGR</li>
+              <li>Trilha de auditoria</li>
             </ul>
           </div>
           <div class="cap-card">
             <b>E04 — Execução em Campo <span class="tshirt L" style="margin-left:4px;">L</span></b>
             <ul>
               <li>App único de Field Service Mobile</li>
-              <li>Push nativo</li>
+              <li>Recebimento de despacho via push nativo</li>
               <li>Modo offline com fila de sincronização</li>
-              <li>Encerramento por checklist condicional</li>
-              <li>Travas de negócio (motivo, foto, check-in geolocalizado)</li>
-              <li>Sharing restrito à CGR de origem</li>
+              <li>Encerramento com formulário, quando aplicável</li>
+              <li>Travas de negócio (recusa com motivo, foto, check-in geolocalizado)</li>
             </ul>
           </div>
           <div class="cap-card">
             <b>E05 — Rastreamento e Visibilidade <span class="tshirt L" style="margin-left:4px;">L</span></b>
             <ul>
-              <li>Link de rastreamento (Experience Cloud guest)</li>
-              <li>Mapa/Gantt do C2C com Aerial Routing</li>
+              <li>Rastreamento do cidadão via Appointment Assistant (Field Service)</li>
               <li>Painel agregado para gestores (4 indicadores)</li>
-              <li>Governança de dados de geolocalização</li>
             </ul>
           </div>
         </div>
@@ -589,9 +625,9 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
             <tr><th>Capacidade</th><th>Tecnologia central</th></tr>
             <tr><td>Canal Digital de Atendimento</td><td>Agentforce Contact Center Enterprise + Digital Engagement, com triagem conversacional</td></tr>
             <tr><td>Registro e Classificação</td><td>Catálogo com mais de 100 subtipos, modelado como Work Type</td></tr>
-            <tr><td>Despacho Automatizado</td><td>Motor de aderência com Skills do Field Service</td></tr>
+            <tr><td>Despacho Automatizado</td><td>Motor de agendamento e otimização do Field Service — regras de trabalho e políticas do cliente</td></tr>
             <tr><td>Execução em Campo</td><td>App único de Field Service Mobile</td></tr>
-            <tr><td>Rastreamento em Tempo Real</td><td>Site de convidado no Experience Cloud</td></tr>
+            <tr><td>Rastreamento em Tempo Real</td><td>Appointment Assistant (Field Service)</td></tr>
           </table>
         </div>
       </div>
@@ -605,7 +641,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
     <div id="s6" class="section">
       <div class="hero" style="background:linear-gradient(135deg,#032D60,#0B5CAB);">
         <div class="eyebrow">Escopo &amp; Governança</div>
-        <h1>79 gaps mapeados — abrimos cada um, não só contamos</h1>
+        <h1>80 gaps mapeados — abrimos cada um, não só contamos</h1>
         <p class="sub">Duas decisões de arquitetura já ratificadas, cinco perguntas que ainda bloqueiam decisão do DER, sete premissas de entrega assumidas com o que muda se caírem, e seis itens deliberadamente fora do MVP, cada um com destino nomeado no Roadmap.</p>
       </div>
 
@@ -620,12 +656,12 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
       <div class="card">
         <h2>🏛️ Premissas de arquitetura — ratificadas <span class="chip green" style="margin-left:6px;">ADR</span></h2>
         <div class="gap-card green">
-          <h3>ADR 0001 — CTI/voz fica fora do MVP</h3>
-          <p>Salesforce Voice/Native Telephony vira fase dedicada de Roadmap, no maior nível de detalhe possível, antes do vencimento do contrato de URA (Instinct) em abril/2027 e da retirada do Open CTI legado em fevereiro/2028.</p>
+          <h3>ADR 0003 — CTI com a URA ENTRA no MVP</h3>
+          <p>Acionamento de chamada/caso a partir da URA (atual, vendor Instinct, ou uma futura substituta), com contexto/screen-pop ao atendente no Service Console. O padrão técnico exato não é fixado nesta ADR — a Open CTI clássica está em descontinuação pela Salesforce (retirada prevista fevereiro/2028), então o padrão a usar é premissa a validar (G0524), não fato assumido. Fica <b>fora</b> do MVP o Salesforce Voice (telefonia nativa) e a substituição da própria URA/0800 — projeto de infraestrutura de telefonia separado, ainda em viabilização entre DER e PRODESP.</p>
         </div>
         <div class="gap-card green">
-          <h3>ADR 0002 — Service Cloud entra no MVP, escopado ao WhatsApp</h3>
-          <p>Agentforce Contact Center Enterprise (50 licenças), 1 fila humana única 24x7, sem skills-based routing (premissa a revalidar). Não inclui Salesforce Voice — a ADR 0001 permanece intacta.</p>
+          <h3>ADR 0004 — Service Cloud ENTRA no MVP para WhatsApp e telefonia via CTI</h3>
+          <p>Agentforce Contact Center Enterprise cobrindo dois canais: WhatsApp (1 fila humana única 24x7, sem skills-based routing — premissa a revalidar) e telefonia via CTI (per ADR 0003), com screen-pop no transbordo. Não inclui Salesforce Voice.</p>
         </div>
       </div>
 
@@ -639,7 +675,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
             <tr><td><b>G0305</b></td><td>E03</td><td>Overrides manuais de despacho pelo C2C sem trilha de auditoria definida — o padrão nativo (Field History Tracking) tem limite de 20 campos e retenção de 18-24 meses; não confirmado se atende à exigência de prestação de contas do Estado.</td></tr>
             <tr><td><b>G0309</b></td><td>E03</td><td>Despacho por proximidade pode indicar viatura de CGR vizinha, mas cada UBA é contratada por CGR — não definido se o motor pode atribuir fora desse limite contratual.</td></tr>
             <tr><td><b>G0415</b></td><td>E02-E04</td><td>Premissa de DevOps assume Salesforce CLI + desenvolvimento versionado em Git para o build (2 integrações + LWC customizado + Apex de escalonamento) — a confirmar formalmente com o cliente.</td></tr>
-            <tr><td><b>G0517</b></td><td>E05</td><td>Mecanismo técnico do token de uso único/expirável do link de rastreamento do cidadão assume um token Apex assinado com TTL, expirando após encerramento do chamado + buffer — a confirmar na próxima rodada de DPIA.</td></tr>
+            <tr><td><b>G0524</b></td><td>E01-E03</td><td>Padrão técnico exato da integração CTI com a URA — a Open CTI clássica está descontinuada pela Salesforce (indisponível para orgs Agentforce Service recém-criados, retirada fev/2028); depende de (i) a data de criação do org do DER frente a esse corte e (ii) qual API de CTI o fornecedor de telefonia expõe.</td></tr>
           </table>
         </div>
       </div>
@@ -666,7 +702,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
         <h2>→ Fora do escopo do MVP <span class="chip purple" style="margin-left:6px;">com destino nomeado no Roadmap</span></h2>
         <p class="lead">Ver <a onclick="showSection('s9')" style="color:var(--blue-accent);cursor:pointer;">Visão de Futuro →</a> para o desenvolvimento completo de cada item.</p>
         <div class="grid-2">
-          <div class="gap-card purple"><h3>G0518 — Voz/CTI unificado</h3></div>
+          <div class="gap-card purple"><h3>G0518 — Salesforce Voice / substituição nativa da URA do 0800</h3></div>
           <div class="gap-card purple"><h3>G0519 — Objeto Incidente nativo com merge automático</h3></div>
           <div class="gap-card purple"><h3>G0520 — Enforcement offline das travas</h3></div>
           <div class="gap-card purple"><h3>G0521 — Portal de Parceiros para as 14 UBAs</h3></div>
@@ -746,7 +782,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
       <div class="hero" style="background:linear-gradient(135deg,#032D60,#1B96FF);">
         <div class="eyebrow">Roadmap</div>
         <h1>Cinco fases, ilustradas semana a semana — não só nomeadas</h1>
-        <p class="sub">Duas barras por fase — cenário compacto (16 semanas) e cenário estendido (30 semanas) — ilustrando a faixa derivada. A divisão semana-a-semana é <b>ilustrativa e proporcional</b> à complexidade relativa de cada fase, nunca uma data-compromisso.</p>
+        <p class="sub">Duas barras por fase — cenário compacto (16 semanas) e cenário estendido (31 semanas) — ilustrando a faixa derivada. A divisão semana-a-semana é <b>ilustrativa e proporcional</b> à complexidade relativa de cada fase, nunca uma data-compromisso.</p>
       </div>
 
       <div class="card">
@@ -759,7 +795,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
           <span><i style="background:var(--purple);"></i> Fase 4 — Rastreamento e Estabilização (E05)</span>
           <span><i style="background:#9aa7b4;"></i> Semanas somente no cenário estendido</span>
         </div>
-        <p style="font-size:11.5px;color:var(--text-muted);margin-bottom:10px;">Barra sólida = cenário compacto (16 sem.) · barra tracejada/mais clara = cenário estendido (30 sem.)</p>
+        <p style="font-size:11.5px;color:var(--text-muted);margin-bottom:10px;">Barra sólida = cenário compacto (16 sem.) · barra tracejada/mais clara = cenário estendido (31 sem.)</p>
 
         <div class="wtl-wrap">
           <div class="wtl-inner">
@@ -795,6 +831,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
               <div class="wtl-wk f5">S28</div>
               <div class="wtl-wk f5">S29</div>
               <div class="wtl-wk f5">S30</div>
+              <div class="wtl-wk f5">S31</div>
             </div>
 
             <div class="wtl-track">
@@ -820,7 +857,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
             <div class="wtl-track">
               <div class="lbl">Fase 4<span class="sub">Rastreamento + Estabilização · E05</span></div>
               <div class="wtl-bar compact p4" style="grid-column:13/18;">S12–S16</div>
-              <div class="wtl-bar extended p4" style="grid-column:22/32;">S21–S30</div>
+              <div class="wtl-bar extended p4" style="grid-column:22/33;">S21–S31</div>
             </div>
 
             <div class="wtl-mk">
@@ -844,18 +881,18 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
               <div class="wtl-mkcell"></div><div class="wtl-mkcell"></div><div class="wtl-mkcell"></div><div class="wtl-mkcell"></div>
               <div class="wtl-mkcell"></div><div class="wtl-mkcell"></div><div class="wtl-mkcell"></div><div class="wtl-mkcell"></div>
               <div class="wtl-mkcell"></div><div class="wtl-mkcell"></div><div class="wtl-mkcell"></div><div class="wtl-mkcell"></div>
-              <div class="wtl-mkcell"></div><div class="wtl-mkcell"></div>
+              <div class="wtl-mkcell"></div><div class="wtl-mkcell"></div><div class="wtl-mkcell"></div>
             </div>
           </div>
         </div>
 
-        <div class="disclaimer">A divisão semana-a-semana por fase é <b>ilustrativa e proporcional à complexidade relativa de cada fase</b> — não é uma data-compromisso. Só a faixa agregada (16-30 semanas) e os 3 range drivers nomeados (<code>.project-metadata.json.timeline.derived</code>) têm provenance direta; a alocação por fase distribui essa faixa de forma proporcional para visualização. Marcos M0-M4 posicionados no fim do cenário compacto de cada fase — no cenário estendido, o mesmo marco desloca junto com a barra tracejada.</div>
+        <div class="disclaimer">A divisão semana-a-semana por fase é <b>ilustrativa e proporcional à complexidade relativa de cada fase</b> — não é uma data-compromisso. Só a faixa agregada (16-31 semanas) e os 3 range drivers nomeados (<code>.project-metadata.json.timeline.derived</code>) têm provenance direta; a alocação por fase distribui essa faixa de forma proporcional para visualização. Marcos M0-M4 posicionados no fim do cenário compacto de cada fase — no cenário estendido, o mesmo marco desloca junto com a barra tracejada.</div>
 
         <h3>O que cada marco entrega</h3>
         <div class="dtable-wrap">
           <table class="dtable">
             <tr><th>Marco</th><th>Fim de fase</th><th>Entrega</th></tr>
-            <tr><td><b>M0</b></td><td>Fase 0</td><td>Gaps bloqueadores (G0305, G0309, G0517, G0415) respondidos; especificação SIGOR/SIGEO assinada; workstream de Change Management dimensionado.</td></tr>
+            <tr><td><b>M0</b></td><td>Fase 0</td><td>Gaps bloqueadores (G0107, G0305, G0309, G0415, G0524) respondidos; especificação SIGOR/SIGEO assinada; workstream de Change Management dimensionado.</td></tr>
             <tr><td><b>M1</b></td><td>Fase 1</td><td>Work Order criável a partir de qualquer canal; catálogo completo de Work Type; sincronização SIGOR validada; callout SIGEO testado.</td></tr>
             <tr><td><b>M2</b></td><td>Fase 2</td><td>Despacho aciona a viatura correta nas 14 CGRs; console do Dispatcher operacional nos 4 turnos; triagem WhatsApp cria Work Order de ponta a ponta.</td></tr>
             <tr><td><b>M3</b></td><td>Fase 3</td><td>App de campo em operação nas 14 UBAs, travas de negócio ativas, piloto concluído antes do rollout estadual.</td></tr>
@@ -889,9 +926,9 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
       <div class="grid-3">
         <div class="trail-card">
           <div class="tnum">1</div>
-          <span class="gapid">G0518 · ADR 0001</span>
-          <h4>Voz/CTI unificado</h4>
-          <p>Salesforce Voice/Native Telephony como canal de voz unificado ao WhatsApp e ao 0800. Decisão explícita do DER: preparar Open CTI vs. Salesforce Voice antes do vencimento do contrato de URA (abril/2027) e da retirada do Open CTI legado (fevereiro/2028) — fase própria do Roadmap, no maior detalhe possível.</p>
+          <span class="gapid">G0518 · ADR 0003</span>
+          <h4>Salesforce Voice / substituição da URA do 0800</h4>
+          <p>A integração CTI com a URA já entra no MVP (ver Arquitetura/Gaps Mapeados); o que fica de fora é a telefonia nativa (Salesforce Voice) e a substituição da própria URA/0800 — projeto de infraestrutura de telefonia ainda em viabilização entre DER e PRODESP, distinto deste programa. Janela relevante: contrato atual de URA (Instinct) expira abril/2027; retirada da Open CTI legada prevista para fevereiro/2028.</p>
         </div>
         <div class="trail-card">
           <div class="tnum">2</div>
@@ -981,56 +1018,56 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
         <p class="lead">Cada capacidade é descrita pelo que entrega, pela capacidade Salesforce que a sustenta e pelos casos de uso que ela habilita.</p>
 
         <div class="epic-card">
-          <div class="ehead"><h3>Canal Digital de Atendimento ao Cidadão (WhatsApp + Agentforce)</h3><span class="tshirt M">M</span></div>
-          <p><b class="lbl">O que entrega:</b> abertura de chamado de socorro via WhatsApp, em texto ou áudio, com triagem automatizada, sempre com transbordo garantido para a fila humana com contexto completo — a inteligência artificial nunca decide a gravidade da vítima. Complementa, sem substituir, o canal de voz do 0800.</p>
-          <p><b class="lbl">Capacidade Salesforce:</b> Service Cloud (Agentforce Contact Center Enterprise, 50 licenças), Digital Engagement e Service Console.</p>
-          <p><b class="lbl">Casos de uso habilitados:</b> abertura de chamado via WhatsApp; triagem automatizada pelo Agentforce; transbordo garantido para fila humana; criação automática de ordem de serviço e protocolo.</p>
+          <div class="ehead"><h3>Canal Digital de Atendimento ao Cidadão (WhatsApp + Telefonia via CTI + Agentforce)</h3><span class="tshirt M">M</span></div>
+          <p><b class="lbl">O que entrega:</b> abertura de chamado de socorro via WhatsApp (texto/áudio) e via telefonia (integração CTI com a URA) com triagem automatizada, sempre com transbordo garantido para fila humana via Omni-Channel, com contexto completo (incluindo screen-pop de CTI) — a IA nunca decide a gravidade da vítima. Complementa, nunca substitui, o 0800.</p>
+          <p><b class="lbl">Capacidade Salesforce:</b> Service Cloud (Agentforce Contact Center Enterprise — número de licenças a revalidar per <code>decisions/0004</code>) + Digital Engagement + Omni-Channel + Service Console + integração CTI (padrão a confirmar, <code>data/gaps.json</code> G0524).</p>
+          <p><b class="lbl">Casos de uso habilitados:</b> abertura de chamado via WhatsApp (texto/áudio) e telefonia (CTI) · triagem automatizada pelo Agentforce · transbordo garantido para fila humana via Omni-Channel, com contexto completo (incluindo screen-pop de CTI) · criação automática de ordem de serviço e protocolo.</p>
         </div>
 
         <div class="epic-card">
           <div class="ehead"><h3>Registro e Classificação da Ocorrência</h3><span class="tshirt L">L</span></div>
-          <p><b class="lbl">O que entrega:</b> criação do chamado a partir de qualquer canal, classificação por um catálogo com mais de 100 subtipos disponível desde o primeiro dia, com trilha de auditoria e integração com os sistemas legados SIGOR e SIGEO.</p>
-          <p><b class="lbl">Capacidade Salesforce:</b> Field Service (Work Order, Work Type), Service Console e integrações ponto a ponto.</p>
-          <p><b class="lbl">Casos de uso habilitados:</b> registro do chamado multi-canal (WhatsApp/0800); catálogo de classificação com mais de 100 subtipos; segunda viatura no mesmo chamado; reclassificação com trilha de auditoria; deduplicação por alerta ao C2C; sincronização com SIGOR e SIGEO.</p>
+          <p><b class="lbl">O que entrega:</b> criação do chamado a partir de qualquer canal, classificação por catálogo de 100+ subtipos desde o dia 1, qualificação do chamado e da ordem de campo, e integração com os sistemas legados SIGOR/SIGEO.</p>
+          <p><b class="lbl">Capacidade Salesforce:</b> Field Service (Work Order, Work Type) + Service Console + integrações ponto a ponto.</p>
+          <p><b class="lbl">Casos de uso habilitados:</b> registro do chamado multi-canal (WhatsApp/0800/CTI) · catálogo de classificação (100+ subtipos) · qualificação do chamado e da ordem de campo pelo Agentforce/Atendente · deduplicação por alerta ao C2C · integração de sincronização SIGOR/SIGEO.</p>
         </div>
 
         <div class="epic-card">
           <div class="ehead"><h3>Despacho Automatizado de Recursos de Campo</h3><span class="tshirt L">L</span></div>
-          <p><b class="lbl">O que entrega:</b> motor de despacho por aderência operando nas 14 CGRs, totalmente reativo em tempo real, com escalonamento de espera e reprocessamento automático em caso de recusa.</p>
-          <p><b class="lbl">Capacidade Salesforce:</b> Field Service (Skills, Service Territory, Console do Dispatcher).</p>
-          <p><b class="lbl">Casos de uso habilitados:</b> motor de despacho por aderência (Skills); escalonamento de espera por tempo (regra N/N-10); reprocessamento automático em recusa; console do Dispatcher; alarme e escalonamento ao supervisor da CGR; trilha de auditoria de overrides manuais.</p>
+          <p><b class="lbl">O que entrega:</b> motor de agendamento e otimização operando nas 14 CGRs, 100% reativo em tempo real, com reprocessamento automático em recusa e trilha de auditoria completa.</p>
+          <p><b class="lbl">Capacidade Salesforce:</b> Field Service (motor de agendamento e otimização, Service Territory, Console do Dispatcher).</p>
+          <p><b class="lbl">Casos de uso habilitados:</b> motor de agendamento e otimização (Field Service) · reprocessamento automático em recusa · console do Dispatcher (Gantt/Mesa) · alarme e escalonamento ao supervisor da CGR · trilha de auditoria.</p>
         </div>
 
         <div class="epic-card">
           <div class="ehead"><h3>Execução em Campo (App Mobile)</h3><span class="tshirt L">L</span></div>
-          <p><b class="lbl">O que entrega:</b> aplicativo único de Field Service Mobile para os 1.152 operadores de campo das 14 empresas terceirizadas, com recebimento de despacho via push nativo e encerramento por checklist condicional.</p>
-          <p><b class="lbl">Capacidade Salesforce:</b> Field Service Mobile, com licença Field Service Community.</p>
-          <p><b class="lbl">Casos de uso habilitados:</b> app único de Field Service Mobile; recebimento de despacho via push nativo; modo offline com fila de sincronização; encerramento por checklist condicional por subtipo; travas de negócio (recusa com motivo, foto, check-in geolocalizado); sharing restrito à CGR de origem.</p>
+          <p><b class="lbl">O que entrega:</b> aplicativo único de Field Service Mobile para os 1.152 operadores de campo das 14 UBAs, com recebimento de despacho via push nativo e encerramento com formulário, quando aplicável.</p>
+          <p><b class="lbl">Capacidade Salesforce:</b> Field Service Mobile (licença Field Service Community).</p>
+          <p><b class="lbl">Casos de uso habilitados:</b> aplicativo único de Field Service Mobile · recebimento de despacho via push nativo · modo offline com fila de sincronização · encerramento com formulário, quando aplicável · travas de negócio (recusa com motivo, foto, check-in geolocalizado).</p>
         </div>
 
         <div class="epic-card">
           <div class="ehead"><h3>Rastreamento e Visibilidade em Tempo Real</h3><span class="tshirt L">L</span></div>
-          <p><b class="lbl">O que entrega:</b> protocolo único acompanhável do pedido ao encerramento — link de rastreamento para o cidadão, mapa e Gantt para o C2C, e painel agregado para gestores.</p>
-          <p><b class="lbl">Capacidade Salesforce:</b> Experience Cloud (site guest, LWC/Apex) e Field Service (Aerial Routing nativo).</p>
-          <p><b class="lbl">Casos de uso habilitados:</b> link de rastreamento para o cidadão (Experience Cloud guest); mapa/Gantt do C2C com Aerial Routing; painel agregado para gestores, com 4 indicadores; governança de dados de geolocalização, com o DER-SP como steward.</p>
+          <p><b class="lbl">O que entrega:</b> protocolo único acompanhável do pedido ao encerramento — rastreamento do cidadão via Appointment Assistant e painel agregado para gestores.</p>
+          <p><b class="lbl">Capacidade Salesforce:</b> Field Service (template de Experience Cloud embutido + Appointment Assistant nativo, <code>[KA-6140]</code>) — sem build de site guest dedicado.</p>
+          <p><b class="lbl">Casos de uso habilitados:</b> rastreamento do cidadão via Appointment Assistant (Field Service) · painel agregado para gestores (4 indicadores).</p>
         </div>
       </div>
       <div class="sec-nav">
         <a class="sec-link" onclick="showSection('s10')">← Adoção e Change Management</a>
-        <a class="sec-link" onclick="showSection('s12')">Ver Investimento: Escopo Fechado →</a>
+        <a class="sec-link" onclick="showSection('s12')">Ver Investimento Indicativo e Entregáveis →</a>
       </div>
     </div>
 
     <!-- ═══════════════════ S12 · INVESTIMENTO: ESCOPO FECHADO ═══════════════════ -->
     <div id="s12" class="section">
       <div class="card">
-        <h2>Este é um preço fechado por escopo — não time &amp; material</h2>
-        <p class="lead">Cinco capacidades, uma fase de discovery e o workstream de change management, todos entregues integralmente. O que está incluído no preço precisa estar claro na validação da proposta, não apenas a faixa de investimento — ver <a onclick="showSection('s13')" style="color:var(--blue-accent);cursor:pointer;">Investimento (ROM) →</a> para as figuras completas.</p>
+        <h2>A faixa de investimento indicativo cobre um conjunto de entregáveis mapeado e nomeado</h2>
+        <p class="lead">Este ROM é um documento de validação da visão de solução, alcance, faseamento e esforço — o que está mapeado abaixo precisa estar claro na validação da proposta, não apenas a faixa de investimento. O preço final e o modelo comercial são confirmados no acordo comercial aplicável, não fixados por este documento. Ver <a onclick="showSection('s13')" style="color:var(--blue-accent);cursor:pointer;">Investimento (ROM) →</a> para as figuras completas.</p>
 
-        <h3>O que este preço fechado inclui</h3>
+        <h3>O que esta faixa de investimento indicativo cobre</h3>
         <ul class="check-list">
-          <li><b>Fase 0</b> — resolução das 5 perguntas bloqueadoras (G0107, G0305, G0309, G0415, G0517) e dimensionamento do workstream de Change Management.</li>
-          <li><b>5 capacidades (épicos)</b> — Canal Digital (E01), Registro e Classificação (E02), Despacho Automatizado (E03), Execução em Campo (E04), Rastreamento e Visibilidade (E05) — as 26 sub-capacidades nomeadas na seção Alcance do MVP, não uma lista aberta.</li>
+          <li><b>Fase 0</b> — resolução das 5 perguntas bloqueadoras (G0107, G0305, G0309, G0415, G0524) e dimensionamento do workstream de Change Management.</li>
+          <li><b>5 capacidades (épicos)</b> — Canal Digital (E01), Registro e Classificação (E02), Despacho Automatizado (E03), Execução em Campo (E04), Rastreamento e Visibilidade (E05) — as 21 sub-capacidades nomeadas na seção Alcance do MVP, não uma lista aberta.</li>
           <li><b>2 integrações</b> — SIGOR e SIGEO, ponto a ponto, especificadas e testadas.</li>
           <li><b>Workstream de Change Management</b> — até 2 meses de operação assistida + treinamento por persona para os 1.152 operadores das 14 UBAs.</li>
           <li><b>UAT estadual e hypercare</b> — validação nas 14 CGRs (298 viaturas, 1.152 operadores), não apenas no piloto.</li>
@@ -1039,7 +1076,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
         <h3>Entregáveis por fase (base de validação da proposta)</h3>
         <div class="dtable-wrap">
           <table class="dtable">
-            <tr><th>Fase</th><th>O que entra no preço fechado</th></tr>
+            <tr><th>Fase</th><th>O que está mapeado</th></tr>
             <tr><td><b>Fase 0</b></td><td>5 perguntas bloqueadoras respondidas pelo DER/Stefanini; especificação de payload SIGOR/SIGEO assinada; workstream de Change Management dimensionado.</td></tr>
             <tr><td><b>Fase 1</b></td><td>Work Order criável a partir da tela nativa; catálogo completo de Work Type; sincronização SIGOR validada; callout SIGEO testado; alerta de deduplicação manual funcionando.</td></tr>
             <tr><td><b>Fase 2</b></td><td>Despacho aciona a viatura correta nas 14 CGRs; escalonamento N/N-10 funciona; console do Dispatcher operacional nos 4 turnos; triagem WhatsApp cria Work Order de ponta a ponta.</td></tr>
@@ -1049,10 +1086,10 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
           </table>
         </div>
 
-        <h3>O que fica explicitamente fora deste preço fechado</h3>
+        <h3>O que não está mapeado</h3>
         <ul class="x-list">
-          <li>Voz/CTI unificado, Incidente nativo, enforcement offline, Portal de Parceiros, Street-Level Routing, relatório por CGR + SLA — os 6 itens de Roadmap futuro (ver <a onclick="showSection('s9')" style="color:var(--blue-accent);cursor:pointer;">Visão de Futuro →</a>).</li>
-          <li>Qualquer decisão de trazê-los para dentro do escopo é uma <b>mudança de escopo formal</b> a negociar separadamente — não uma reinterpretação das figuras de investimento.</li>
+          <li>Salesforce Voice/substituição da URA, Incidente nativo, enforcement offline, Portal de Parceiros, Street-Level Routing, relatório por CGR + SLA — os 6 itens de Roadmap futuro (ver <a onclick="showSection('s9')" style="color:var(--blue-accent);cursor:pointer;">Visão de Futuro →</a>).</li>
+          <li>Qualquer decisão de trazê-los para dentro deste alcance é uma <b>mudança de escopo a validar formalmente</b> — não uma reinterpretação da faixa indicativa.</li>
         </ul>
       </div>
       <div class="sec-nav">
@@ -1081,9 +1118,9 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
         <div class="dtable-wrap">
           <table class="dtable">
             <tr><th>Modelo de entrega</th><th>Duração</th><th>Sem imposto</th><th>Com imposto</th></tr>
-            <tr><td><b>Traditional</b> (âncora)</td><td>16–30 semanas</td><td>R$ 5.918.133,18 – R$ 11.096.499,71</td><td>R$ 6.332.940,80 – R$ 11.874.264,00</td></tr>
+            <tr><td><b>Traditional</b> (âncora)</td><td>16–31 semanas</td><td>R$ 5.918.133,18 – R$ 11.466.383,03</td><td>R$ 6.332.940,80 – R$ 12.270.072,80</td></tr>
             <tr><td><b>Augmented</b></td><td>14–25 semanas</td><td>R$ 5.178.366,53 – R$ 9.247.083,09</td><td>R$ 5.541.323,20 – R$ 9.895.220,00</td></tr>
-            <tr class="hl-row"><td><b>AI-native</b> (condicional)</td><td>10–18 semanas</td><td>R$ 2.227.507,84 – R$ 4.009.514,12</td><td>R$ 2.383.636,00 – R$ 4.290.544,80</td></tr>
+            <tr class="hl-row"><td><b>AI-native</b> (condicional)</td><td>10–19 semanas</td><td>R$ 2.227.507,84 – R$ 4.231.264,90</td><td>R$ 2.383.636,00 – R$ 4.528.908,40</td></tr>
           </table>
         </div>
 
@@ -1094,11 +1131,11 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
           <div><strong>A faixa AI-native é condicional.</strong> Ela permanece condicional ao gate de qualificação (nenhum sponsor executivo nomeado, mandato AI-first ainda não assumido) — é um motivador, nunca uma entrega comprometida sem nomear o compromisso.</div>
         </div>
 
-        <div class="disclaimer">Este é um preço indicativo, não custo/margem, e não uma proposta de fixed fee — a estrutura comercial final (incluindo o modelo de preço fechado por escopo) é confirmada através do acordo comercial aplicável.</div>
+        <div class="disclaimer">Este é um preço indicativo, não custo/margem, e não uma proposta de fixed fee — a estrutura comercial final (incluindo o modelo de precificação) é confirmada através do acordo comercial aplicável.</div>
         <div class="disclaimer">Esta comparação é benchmark-based, derivada dos dados de treinamento do modelo e padrões gerais de entrega (não validado pela Salesforce) — não é um compromisso. Faixas de duração e a faixa AI-native carregam a incerteza herdada de confidence: Assumed em todos os 5 épicos.</div>
       </div>
       <div class="sec-nav">
-        <a class="sec-link" onclick="showSection('s12')">← Investimento: Escopo Fechado</a>
+        <a class="sec-link" onclick="showSection('s12')">← Investimento Indicativo e Entregáveis</a>
         <a class="sec-link" onclick="showSection('s14')">Ver o Ask →</a>
       </div>
     </div>
@@ -1112,7 +1149,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
       <div class="card">
         <h2>O Ask, em três passos</h2>
         <ol>
-          <li>Aprovar o escopo fechado dos 5 épicos, Fase 0 e change management, e a faixa de roadmap apresentada.</li>
+          <li>Validar a visão de solução, o alcance dos 5 épicos, a Fase 0 e o change management apresentados.</li>
           <li>Validar com a Salesforce PS as 5 perguntas bloqueadoras (Gaps Mapeados) na sessão de Fase 0.</li>
           <li>Iniciar a Fase 0 com o roteiro já mapeado.</li>
         </ol>
@@ -1126,8 +1163,8 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
   </div>
 
   <footer id="page-footer">
-    <b>PRODESP · DER-SP</b> — ROM (Rough Order of Magnitude) · Field Service + Agentforce (Contact Center Enterprise) + Service Cloud + Experience Cloud<br/>
-    v2.0 · Gerado em 18/09/2026 às 01:40 (América/São Paulo, UTC-03:00) · Documento indicativo para planejamento — não constitui proposta comercial final. Escopo fechado, não time &amp; material.
+    <b>PRODESP · DER-SP</b> — ROM (Rough Order of Magnitude) · Field Service + Agentforce (Contact Center Enterprise) + Service Cloud + WhatsApp<br/>
+    v3.0 · Gerado em 20/09/2026 às 16:05 (América/São Paulo, UTC-03:00) · Documento indicativo para planejamento — validação da visão de solução, alcance, faseamento e esforço; não constitui proposta comercial final.
   </footer>
 </div>
 
