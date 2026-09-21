@@ -261,12 +261,12 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
 .wtl-legend i{width:14px;height:14px;border-radius:4px;display:inline-block;}
 .wtl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:14px;background:#fff;box-shadow:var(--sh-sm);}
 .wtl-inner{min-width:1400px;}
-.wtl-axis{display:grid;grid-template-columns:190px repeat(31,1fr);border-bottom:2px solid var(--border);}
+.wtl-axis{display:grid;grid-template-columns:190px repeat(14,1fr);border-bottom:2px solid var(--border);}
 .wtl-axis .corner{padding:8px 10px;font-size:10px;font-weight:800;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px;display:flex;align-items:flex-end;}
 .wtl-wk{padding:6px 1px;text-align:center;font-size:9px;font-weight:700;color:#fff;border-left:1px solid rgba(255,255,255,.2);}
 .wtl-wk.f0{background:var(--amber-dark);} .wtl-wk.f1{background:var(--blue-mid);} .wtl-wk.f2{background:var(--blue-accent);}
 .wtl-wk.f3{background:var(--teal);} .wtl-wk.f4{background:var(--purple);} .wtl-wk.f5{background:#9aa7b4;}
-.wtl-track{display:grid;grid-template-columns:190px repeat(31,1fr);align-items:start;border-bottom:1px solid var(--border);min-height:54px;position:relative;}
+.wtl-track{display:grid;grid-template-columns:190px repeat(14,1fr);align-items:start;border-bottom:1px solid var(--border);min-height:54px;position:relative;}
 .wtl-track:last-child{border-bottom:none;}
 .wtl-track .lbl{grid-column:1;padding:8px 10px;font-size:11.3px;font-weight:700;color:var(--text-main);}
 .wtl-track .lbl .sub{display:block;font-size:9.3px;color:var(--text-muted);font-weight:600;margin-top:2px;}
@@ -276,7 +276,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
 .wtl-bar.extended{margin-top:26px;opacity:.55;border:1px dashed rgba(255,255,255,.6);}
 .wtl-bar.p0{background:var(--amber-dark);} .wtl-bar.p1{background:var(--blue-mid);} .wtl-bar.p2{background:var(--blue-accent);}
 .wtl-bar.p3{background:var(--teal);} .wtl-bar.p4{background:var(--purple);}
-.wtl-mk{display:grid;grid-template-columns:190px repeat(31,1fr);border-top:2px solid var(--border);background:var(--gray-bg);}
+.wtl-mk{display:grid;grid-template-columns:190px repeat(14,1fr);border-top:2px solid var(--border);background:var(--gray-bg);}
 .wtl-mk .lbl{grid-column:1;padding:8px 10px;font-size:10px;font-weight:800;color:var(--text-muted);text-transform:uppercase;display:flex;align-items:center;}
 .wtl-mkcell{grid-row:1;text-align:center;padding:6px 1px;}
 .wtl-mkcell .flag{font-size:13px;}
@@ -333,8 +333,8 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
 <body>
 
 <div id="version-bar">
-  <span>ROM PRODESP-DER</span><span class="sep">·</span><b>v3.1</b><span class="sep">·</span>
-  <span>Gerado em 21/09/2026 às 15:20 (América/São Paulo, UTC-03:00)</span>
+  <span>ROM PRODESP-DER</span><span class="sep">·</span><b>v3.2</b><span class="sep">·</span>
+  <span>Gerado em 21/09/2026 às 15:50 (América/São Paulo, UTC-03:00)</span>
 </div>
 
 <aside id="sidebar">
@@ -346,7 +346,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
     </div>
     <h2>PRODESP · DER-SP</h2>
     <p>Rough Order of Magnitude — Field Service, Agentforce, Service Cloud e WhatsApp, em org única Salesforce</p>
-    <span class="owner-line">v3.1 · 21/09/2026</span>
+    <span class="owner-line">v3.2 · 21/09/2026</span>
   </div>
   <nav>
     <div class="nav-group-title">Visão Executiva</div>
@@ -392,7 +392,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
     <div class="topbar-inner">
       <h1>PRODESP · DER-SP · ROM</h1>
       <div class="topbar-right">
-        <span class="date-badge">v3.1 · 21/09/2026 15:20</span>
+        <span class="date-badge">v3.2 · 21/09/2026 15:50</span>
       </div>
     </div>
   </div>
@@ -418,7 +418,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
           <div class="hkpi"><div class="n">1.152</div><div class="l">operadores de campo</div></div>
           <div class="hkpi"><div class="n">4</div><div class="l">frentes tecnológicas entregues em org única</div></div>
         </div>
-        <div class="stamp">v3.1 · Gerado em 21/09/2026 às 15:20 (América/São Paulo, UTC-03:00)</div>
+        <div class="stamp">v3.2 · Gerado em 21/09/2026 às 15:50 (América/São Paulo, UTC-03:00)</div>
       </div>
       <div class="card">
         <h2>Como usar este documento</h2>
@@ -781,88 +781,64 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
     <div id="s8" class="section">
       <div class="hero" style="background:linear-gradient(135deg,#032D60,#1B96FF);">
         <div class="eyebrow">Roadmap</div>
-        <h1>Cinco fases, ilustradas semana a semana — não só nomeadas</h1>
-        <p class="sub">Duas barras por fase — cenário compacto (16 semanas) e cenário estendido (31 semanas) — ilustrando a faixa derivada. A divisão semana-a-semana é <b>ilustrativa e proporcional</b> à complexidade relativa de cada fase, nunca uma data-compromisso.</p>
+        <h1>Cinco fases, ilustradas semana a semana — cenário otimista da linha Augmented</h1>
+        <p class="sub">Este cronograma reflete o extremo mais rápido (14 semanas) da faixa Augmented — a mesma duração que sustenta a tabela de horas por papel em S13, não a duração mais provável e não uma data-compromisso. A faixa completa (Augmented 14–25 sem.; Traditional 16–31 sem.) está documentada em S13.</p>
       </div>
 
       <div class="card">
-        <h3 style="margin-top:0;">Cronograma visual · semana a semana</h3>
+        <h3 style="margin-top:0;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">Cronograma visual · semana a semana <span class="chip amber">Cenário: Augmented otimista · 14 semanas</span></h3>
         <div class="wtl-legend">
           <span><i style="background:var(--amber-dark);"></i> Fase 0 — Resolução de Discovery</span>
           <span><i style="background:var(--blue-mid);"></i> Fase 1 — Fundação (E02)</span>
           <span><i style="background:var(--blue-accent);"></i> Fase 2 — Despacho e Canal Digital (E03, E01)</span>
           <span><i style="background:var(--teal);"></i> Fase 3 — Execução em Campo (E04)</span>
           <span><i style="background:var(--purple);"></i> Fase 4 — Rastreamento e Estabilização (E05)</span>
-          <span><i style="background:#9aa7b4;"></i> Semanas somente no cenário estendido</span>
         </div>
-        <p style="font-size:11.5px;color:var(--text-muted);margin-bottom:10px;">Barra sólida = cenário compacto (16 sem.) · barra tracejada/mais clara = cenário estendido (31 sem.)</p>
+        <p style="font-size:11.5px;color:var(--text-muted);margin-bottom:10px;">Distribuição das 14 semanas do extremo inferior da faixa Augmented, proporcional à complexidade relativa de cada fase — mesmo critério de alocação já usado para a faixa Traditional (16–31 sem.), aplicado aqui à duração comprimida pela banda de eficiência.</p>
 
         <div class="wtl-wrap">
           <div class="wtl-inner">
             <div class="wtl-axis">
               <div class="corner">Fase</div>
               <div class="wtl-wk f0">S1</div>
-              <div class="wtl-wk f0">S2</div>
+              <div class="wtl-wk f1">S2</div>
               <div class="wtl-wk f1">S3</div>
               <div class="wtl-wk f1">S4</div>
-              <div class="wtl-wk f1">S5</div>
+              <div class="wtl-wk f2">S5</div>
               <div class="wtl-wk f2">S6</div>
               <div class="wtl-wk f2">S7</div>
-              <div class="wtl-wk f2">S8</div>
+              <div class="wtl-wk f3">S8</div>
               <div class="wtl-wk f3">S9</div>
               <div class="wtl-wk f3">S10</div>
-              <div class="wtl-wk f3">S11</div>
+              <div class="wtl-wk f4">S11</div>
               <div class="wtl-wk f4">S12</div>
               <div class="wtl-wk f4">S13</div>
               <div class="wtl-wk f4">S14</div>
-              <div class="wtl-wk f4">S15</div>
-              <div class="wtl-wk f4">S16</div>
-              <div class="wtl-wk f5">S17</div>
-              <div class="wtl-wk f5">S18</div>
-              <div class="wtl-wk f5">S19</div>
-              <div class="wtl-wk f5">S20</div>
-              <div class="wtl-wk f5">S21</div>
-              <div class="wtl-wk f5">S22</div>
-              <div class="wtl-wk f5">S23</div>
-              <div class="wtl-wk f5">S24</div>
-              <div class="wtl-wk f5">S25</div>
-              <div class="wtl-wk f5">S26</div>
-              <div class="wtl-wk f5">S27</div>
-              <div class="wtl-wk f5">S28</div>
-              <div class="wtl-wk f5">S29</div>
-              <div class="wtl-wk f5">S30</div>
-              <div class="wtl-wk f5">S31</div>
             </div>
 
             <div class="wtl-track">
               <div class="lbl">Fase 0<span class="sub">Resolução de Discovery</span></div>
-              <div class="wtl-bar compact p0" style="grid-column:2/4;">S1–S2</div>
-              <div class="wtl-bar extended p0" style="grid-column:2/5;">S1–S3</div>
+              <div class="wtl-bar compact p0" style="grid-column:2/3;">S1</div>
             </div>
             <div class="wtl-track">
               <div class="lbl">Fase 1<span class="sub">Fundação · E02</span></div>
-              <div class="wtl-bar compact p1" style="grid-column:4/7;">S3–S5</div>
-              <div class="wtl-bar extended p1" style="grid-column:5/11;">S4–S9</div>
+              <div class="wtl-bar compact p1" style="grid-column:3/6;">S2–S4</div>
             </div>
             <div class="wtl-track">
               <div class="lbl">Fase 2<span class="sub">Despacho + Canal · E03, E01</span></div>
-              <div class="wtl-bar compact p2" style="grid-column:7/10;">S6–S8</div>
-              <div class="wtl-bar extended p2" style="grid-column:11/17;">S10–S15</div>
+              <div class="wtl-bar compact p2" style="grid-column:6/9;">S5–S7</div>
             </div>
             <div class="wtl-track">
               <div class="lbl">Fase 3<span class="sub">Execução em Campo · E04</span></div>
-              <div class="wtl-bar compact p3" style="grid-column:10/13;">S9–S11</div>
-              <div class="wtl-bar extended p3" style="grid-column:17/22;">S16–S20</div>
+              <div class="wtl-bar compact p3" style="grid-column:9/12;">S8–S10</div>
             </div>
             <div class="wtl-track">
               <div class="lbl">Fase 4<span class="sub">Rastreamento + Estabilização · E05</span></div>
-              <div class="wtl-bar compact p4" style="grid-column:13/18;">S12–S16</div>
-              <div class="wtl-bar extended p4" style="grid-column:22/33;">S21–S31</div>
+              <div class="wtl-bar compact p4" style="grid-column:12/16;">S11–S14</div>
             </div>
 
             <div class="wtl-mk">
               <div class="lbl">Marcos</div>
-              <div class="wtl-mkcell"></div>
               <div class="wtl-mkcell"><span class="flag">🧩</span><span class="mt">M0 · Gaps bloq. respondidos</span></div>
               <div class="wtl-mkcell"></div>
               <div class="wtl-mkcell"></div>
@@ -876,17 +852,12 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
               <div class="wtl-mkcell"></div>
               <div class="wtl-mkcell"></div>
               <div class="wtl-mkcell"></div>
-              <div class="wtl-mkcell"></div>
               <div class="wtl-mkcell"><span class="flag">🚀</span><span class="mt">M4 · Go-live</span></div>
-              <div class="wtl-mkcell"></div><div class="wtl-mkcell"></div><div class="wtl-mkcell"></div><div class="wtl-mkcell"></div>
-              <div class="wtl-mkcell"></div><div class="wtl-mkcell"></div><div class="wtl-mkcell"></div><div class="wtl-mkcell"></div>
-              <div class="wtl-mkcell"></div><div class="wtl-mkcell"></div><div class="wtl-mkcell"></div><div class="wtl-mkcell"></div>
-              <div class="wtl-mkcell"></div><div class="wtl-mkcell"></div><div class="wtl-mkcell"></div>
             </div>
           </div>
         </div>
 
-        <div class="disclaimer">A divisão semana-a-semana por fase é <b>ilustrativa e proporcional à complexidade relativa de cada fase</b> — não é uma data-compromisso. Só a faixa agregada (16-31 semanas) e os 3 range drivers nomeados (<code>.project-metadata.json.timeline.derived</code>) têm provenance direta; a alocação por fase distribui essa faixa de forma proporcional para visualização. Marcos M0-M4 posicionados no fim do cenário compacto de cada fase — no cenário estendido, o mesmo marco desloca junto com a barra tracejada.</div>
+        <div class="disclaimer">Esta linha do tempo ilustra especificamente o <b>cenário otimista da linha Augmented</b> (14 semanas, extremo inferior da faixa 14–25 semanas derivada de benchmark, comprimida de 16–31 semanas pela banda de eficiência ~10–18% de <code>efficiency.json</code>) — não é uma duração comprometida pelo cliente. A divisão semana-a-semana por fase é <b>ilustrativa e proporcional à complexidade relativa de cada fase</b>, no mesmo critério de alocação usado para a faixa Traditional. Marcos M0-M4 posicionados no fim de cada fase. A faixa completa por linha de entrega (Traditional, Augmented, AI-native) e o detalhamento de horas/custo por papel para este mesmo cenário de 14 semanas estão em S13.</div>
 
         <h3>O que cada marco entrega</h3>
         <div class="dtable-wrap">
@@ -1237,7 +1208,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
 
   <footer id="page-footer">
     <b>PRODESP · DER-SP</b> — ROM (Rough Order of Magnitude) · Field Service + Agentforce (Contact Center Enterprise) + Service Cloud + WhatsApp<br/>
-    v3.1 · Gerado em 21/09/2026 às 15:20 (América/São Paulo, UTC-03:00) · Documento indicativo para planejamento — validação da visão de solução, alcance, faseamento e esforço; não constitui proposta comercial final.
+    v3.2 · Gerado em 21/09/2026 às 15:50 (América/São Paulo, UTC-03:00) · Documento indicativo para planejamento — validação da visão de solução, alcance, faseamento e esforço; não constitui proposta comercial final.
   </footer>
 </div>
 
