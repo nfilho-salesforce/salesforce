@@ -36,7 +36,11 @@
       "source": "Granola — Execução PoC (resumo colado pelo usuário, 2026-09-17)",
       "note": "Também relevante: contrato atual de URA (Instinct) ativo até abril/2027; contrato administrativo renova em 30/nov/2026 — pressiona a decisão Open CTI vs. Salesforce Voice."
     },
-    "user_commitment": null,
+    "user_commitment": {
+      "total_weeks": 14,
+      "rationale": "Cenário otimista da linha Augmented (extremo inferior da faixa derivada 14-25 semanas, comprimida da faixa Traditional 16-31 pela banda de eficiência) — mesmo cenário já refletido na linha do tempo do ROM (S8) e na tabela de horas por papel (S13). Comprometido para permitir a derivação de horas/datas por recurso e o carregamento de staffing no estimate Org62 (aH2ed000000XZ2DCAW, 'MVP DER v1').",
+      "set_by": "user"
+    },
     "derived": {
       "derived_low_weeks": 16,
       "derived_high_weeks": 31,

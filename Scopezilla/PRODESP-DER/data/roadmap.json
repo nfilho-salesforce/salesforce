@@ -7,7 +7,9 @@
     "success_criteria": "G0305, G0309, G0524, G0415 respondidos pelo DER/Stefanini; especificação de payload SIGOR/SIGEO assinada; workstream de Change Management dimensionado; nenhuma questão bloqueadora aberta antes do início da Fase 1.",
     "dependencies": "Nenhuma — ponto de partida do programa.",
     "risks": "Se G0305/G0309/G0524 não forem resolvidos a tempo, E03 entra em Fase 2 com premissa de auditoria não confirmada e E01/E02 avançam sem padrão técnico de CTI fixado — risco de retrabalho no console do Dispatcher e na integração de telefonia.",
-    "kb_sources": []
+    "kb_sources": [],
+    "duration_weeks": 1,
+    "duration_source": "user"
   },
   {
     "phase_number": 1,
@@ -17,7 +19,11 @@
     "success_criteria": "Work Order criável a partir da tela nativa do Field Service e do Service Console; catálogo completo de Work Type disponível; sincronização SIGOR validada em janela controlada; callout SIGEO testado; alerta de deduplicação manual funcionando.",
     "dependencies": "Depende da resolução de Fase 0 (especificação SIGOR/SIGEO).",
     "risks": "Divergência de dados entre SIGOR e Salesforce durante a dupla convivência — monitorar volume de conflitos nas primeiras semanas.",
-    "kb_sources": ["[KA-6240] Set Up Work Order Management precede Workforce/Dispatch na sequência recomendada de setup do Field Service — fundamenta Work Order como base antes do motor de despacho."]
+    "kb_sources": [
+      "[KA-6240] Set Up Work Order Management precede Workforce/Dispatch na sequência recomendada de setup do Field Service — fundamenta Work Order como base antes do motor de despacho."
+    ],
+    "duration_weeks": 3,
+    "duration_source": "user"
   },
   {
     "phase_number": 2,
@@ -27,7 +33,11 @@
     "success_criteria": "Despacho aciona a viatura correta nas 14 CGRs em cenários de teste; escalonamento N/N-10 funciona; console do Dispatcher operacional nos 4 turnos; triagem WhatsApp e telefonia via CTI criam Work Order de ponta a ponta; transbordo para fila humana preserva contexto, incluindo screen-pop no canal de voz.",
     "dependencies": "depends on: E02 (Fase 1) — modelo de Work Order e recursos de campo precisam existir antes do motor de despacho e da criação automatizada de chamados.",
     "risks": "G0305 (trilha de auditoria), G0309 (limite contratual da UBA) e G0524 (padrão técnico da integração CTI), se não resolvidos na Fase 0, forçam retrabalho no console do Dispatcher, no modelo de território e na integração de telefonia durante esta fase.",
-    "kb_sources": ["[KA-6240] Setor de Workforce/scheduling é configurado após Work Order Management na sequência recomendada de implementação do Field Service."]
+    "kb_sources": [
+      "[KA-6240] Setor de Workforce/scheduling é configurado após Work Order Management na sequência recomendada de implementação do Field Service."
+    ],
+    "duration_weeks": 3,
+    "duration_source": "user"
   },
   {
     "phase_number": 3,
@@ -37,7 +47,9 @@
     "success_criteria": "App recebe despacho e executa o ciclo completo até o encerramento com evidência; piloto com subconjunto de UBAs antes do rollout às 14 CGRs; travas de negócio bloqueiam encerramento sem os requisitos mínimos.",
     "dependencies": "depends on: E03 (Fase 2) — o app de campo recebe atribuições geradas pelo motor de despacho.",
     "risks": "Known issue de Service Appointment com licença Field Service Community — monitorar releases; enforcement offline das travas fica fora do MVP (risco de evidência incompleta em campo sem rede).",
-    "kb_sources": []
+    "kb_sources": [],
+    "duration_weeks": 3,
+    "duration_source": "user"
   },
   {
     "phase_number": 4,
@@ -47,6 +59,8 @@
     "success_criteria": "Appointment Assistant validado contra o comportamento com 2ª viatura vinculada e o canal de entrega por SMS ([KA-6140]/[KA-6156]); painel de gestores exibindo os 4 indicadores; UAT estadual assinado pelo DER; hypercare concluído sem bloqueadores críticos.",
     "dependencies": "depends on: E03, E04 (Fases 2 e 3) — o rastreamento consome o ciclo de vida do Work Order/Service Appointment gerado pelo despacho e pela execução em campo.",
     "risks": "Appointment Assistant ainda não validado em detalhe contra os requisitos específicos do DER (comportamento com 2ª viatura vinculada, canal de entrega por SMS) — risco de gap de comportamento descoberto tarde no template nativo.",
-    "kb_sources": []
+    "kb_sources": [],
+    "duration_weeks": 4,
+    "duration_source": "user"
   }
 ]
