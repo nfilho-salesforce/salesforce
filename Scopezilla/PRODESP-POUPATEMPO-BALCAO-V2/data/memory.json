@@ -1,0 +1,50 @@
+{
+  "sessions": [
+    {
+      "date": "2026-09-21",
+      "skills_used": ["discover"],
+      "summary": "Discovery completo a partir de 3 fontes em discovery-notes/ (BSA autoria própria do Heroku HTML, deck Jackson 'Poupatempo Balcão V2' / Slack no guichê, deck Vinicius 'Atendimento Poupatempo' / plataforma Headless). Investigou o canal Slack #prodesp-slack-reuniao-thiago-waltz e seus anexos no Google Drive para tentar identificar 'T7'; descobriu que esse canal trata de uma oportunidade distinta (Slack CSG interno — Approvals/RH), não da Balcão V2, e a excluiu do projeto por decisão do usuário. Conduziu entrevista adaptativa fechando lacunas prioritárias e escreveu o Discovery Brief (outputs/00-discovery-brief.md) com uma seção de Open Questions para o restante.",
+      "decisions": [
+        {
+          "decision": "Escopar este ciclo apenas a Fase 1 tática (Slack no guichê); Fase 2+ (plataforma Headless whole-house) é visão, fora deste SOW.",
+          "rationale": "Os dois decks de setembro/2026 são bets diferentes: um sem preço/cronograma mas 'no ar em semanas', outro com investimento/cronograma em branco no próprio material. O comitê interno da conta já sequencia Check-in/PPA antes do Headless.",
+          "rejected_alternatives": ["Escopar as duas fases juntas como um único SOW", "Assumir a Fase 2+ como próxima etapa automática da Fase 1"],
+          "recorded_as": "decisions/0001-phase1-tactical-vs-phase2-whole-house.md"
+        },
+        {
+          "decision": "Não importar o conteúdo do canal Slack #prodesp-slack-reuniao-thiago-waltz nem seus anexos (canvas, 2 Google Docs, Google Slides) para este projeto.",
+          "rationale": "Após acesso via Google Workspace, ficou claro que o canal e os documentos tratam de uma oportunidade distinta (Slack CSG interno, Org62 'Prodesp (Poupatempo) Slack CSG New' — Approvals de férias/reembolso/GIP, ~2.000 funcionários PRODESP), não do atendimento presencial ao cidadão (Balcão V2).",
+          "rejected_alternatives": ["Importar o material e tratar como contexto adicional da mesma conta"]
+        },
+        {
+          "decision": "Tratar os KPIs de tempo médio de espera (15/16/17 min) do deck de plataforma como ilustrativos, não validados pelo cliente.",
+          "rationale": "Confirmado explicitamente pelo usuário nesta sessão — nenhuma medição operacional real do Poupatempo respalda esses números.",
+          "rejected_alternatives": ["Apresentar os números como baseline real do cliente"]
+        }
+      ],
+      "open_threads": [
+        "T7 — sistema real com agente de IA próprio no diagrama de arquitetura-alvo, sem nome/sigla identificado. Deprioritizado pelo usuário.",
+        "Biometria, Sistema Semântico e 'Atendimento' — sistemas reais no mesmo diagrama, identidade/produto desconhecidos. Pergunta ao cliente.",
+        "Escopo real do piloto (posto, headcount, serviço) — totalmente aberto; Ana/Anderson/Felipe/Santo Amaro/CIN são storyboard.",
+        "Budget/valor comercial — sem SOW, sem número. Gate de precificação ativo.",
+        "Champion / patrocinador executivo da Balcão V2 no lado PRODESP — não identificado.",
+        "Documento de posicionamento LGPD/Trust sobre localização de inferência do Agentforce — existência confirmada pelo usuário, documento específico ainda não localizado/citável."
+      ],
+      "next_steps": [
+        "Rodar scopezilla-knowledge-curator (padrão automático desde 2026-09-21, sem perguntar).",
+        "Seguir para requirements com o escopo da Fase 1 (decisions/0001)."
+      ]
+    }
+  ],
+  "preferences": {
+    "terminology": {
+      "Poupinha": "Apelido do canal digital (WhatsApp + Portal) de nível 1 do Poupatempo — agendamento, triagem, FAQ.",
+      "Balcão V2": "Ambíguo na própria conta: o deck do Jackson usa esse nome para 'Slack no guichê' (posto de trabalho do atendente); a operação Poupinha usa o mesmo nome para o check-in de fila ('sua vez chegou'). São coisas diferentes — confirmar sempre a qual se refere.",
+      "Transbordo": "Escalonamento em tempo real do atendente para um especialista via huddle Slack, sem o atendente deixar a cadeira.",
+      "Frente A / Frente B": "Frente A = Slack corporativo/licenças (RH, Approvals, desde out/2025). Frente B = Slack no Poupatempo/Professional Services (desde CSG 13/07/2026). Relógios e donos diferentes na mesma conta.",
+      "Flex Credits": "Combustível de raciocínio do Agentforce (rate card: USD 500 por 100 mil créditos), separado do saldo de créditos de mensagem do WhatsApp.",
+      "T7": "Sistema real referenciado no diagrama de arquitetura-alvo com agente de IA próprio; nome/sigla completa não identificada em nenhuma fonte acessível."
+    }
+  },
+  "decision_log": []
+}
