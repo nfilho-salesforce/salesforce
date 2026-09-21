@@ -35,6 +35,17 @@
         "Seguir para requirements com o escopo da Fase 1 (decisions/0001)."
       ]
     }
+    ,
+    {
+      "date": "2026-09-21",
+      "skills_used": ["scopezilla-knowledge-curator"],
+      "summary": "Curadoria de conhecimento executada automaticamente após discover (padrão desde 2026-09-21). 3 arquivos knowledge/ pré-existentes confirmados (sem duplicação necessária). STAAR: caminho base do skill corrigido (jcarmo@salesforce.com não existe nesta máquina; usado GoogleDrive-nfilho@salesforce.com). Extraídos e escritos 3 novos arquivos a partir de fontes STAAR em 5.1/5.2 (Data Cloud + Generative & Agentic AI): staar-headless-360-doctrine.md (doutrina 'Headless 360' que fundamenta o termo 'Headless' usado sem definição no deck Vinicius Fase 2+), staar-data-360-headless.md (padrão Agent Persona sobre Data 360, suporta viabilidade técnica de Agentforce lendo contexto dentro do Slack), staar-agentforce-governance-guardrails.md (framework de governança/guardrails de agente, aplicável ao escopo de governança/adoção já confirmado dentro deste projeto). Source A (docs oficiais Salesforce): nenhuma ação necessária alem do salesforce-architect-fundamentals.md já existente — Field Service/Health Cloud não são relevantes a este projeto. Índice reconstruído: 61 seções em 6 arquivos de knowledge/.",
+      "decisions": [],
+      "open_threads": [],
+      "next_steps": [
+        "Seguir para requirements com o escopo da Fase 1 (decisions/0001), aproveitando os 6 arquivos de knowledge/ para grounding de claims de arquitetura (Slack+Agentforce+Data 360)."
+      ]
+    }
   ],
   "preferences": {
     "terminology": {
