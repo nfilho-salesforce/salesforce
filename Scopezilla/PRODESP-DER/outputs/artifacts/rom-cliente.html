@@ -333,8 +333,8 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
 <body>
 
 <div id="version-bar">
-  <span>ROM PRODESP-DER</span><span class="sep">·</span><b>v3.0</b><span class="sep">·</span>
-  <span>Gerado em 20/09/2026 às 16:05 (América/São Paulo, UTC-03:00)</span>
+  <span>ROM PRODESP-DER</span><span class="sep">·</span><b>v3.1</b><span class="sep">·</span>
+  <span>Gerado em 21/09/2026 às 15:20 (América/São Paulo, UTC-03:00)</span>
 </div>
 
 <aside id="sidebar">
@@ -346,7 +346,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
     </div>
     <h2>PRODESP · DER-SP</h2>
     <p>Rough Order of Magnitude — Field Service, Agentforce, Service Cloud e WhatsApp, em org única Salesforce</p>
-    <span class="owner-line">v3.0 · 20/09/2026</span>
+    <span class="owner-line">v3.1 · 21/09/2026</span>
   </div>
   <nav>
     <div class="nav-group-title">Visão Executiva</div>
@@ -392,7 +392,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
     <div class="topbar-inner">
       <h1>PRODESP · DER-SP · ROM</h1>
       <div class="topbar-right">
-        <span class="date-badge">v3.0 · 20/09/2026 16:05</span>
+        <span class="date-badge">v3.1 · 21/09/2026 15:20</span>
       </div>
     </div>
   </div>
@@ -418,7 +418,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
           <div class="hkpi"><div class="n">1.152</div><div class="l">operadores de campo</div></div>
           <div class="hkpi"><div class="n">4</div><div class="l">frentes tecnológicas entregues em org única</div></div>
         </div>
-        <div class="stamp">v3.0 · Gerado em 20/09/2026 às 16:05 (América/São Paulo, UTC-03:00)</div>
+        <div class="stamp">v3.1 · Gerado em 21/09/2026 às 15:20 (América/São Paulo, UTC-03:00)</div>
       </div>
       <div class="card">
         <h2>Como usar este documento</h2>
@@ -702,12 +702,12 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
         <h2>→ Fora do escopo do MVP <span class="chip purple" style="margin-left:6px;">com destino nomeado no Roadmap</span></h2>
         <p class="lead">Ver <a onclick="showSection('s9')" style="color:var(--blue-accent);cursor:pointer;">Visão de Futuro →</a> para o desenvolvimento completo de cada item.</p>
         <div class="grid-2">
-          <div class="gap-card purple"><h3>G0518 — Salesforce Voice / substituição nativa da URA do 0800</h3></div>
-          <div class="gap-card purple"><h3>G0519 — Objeto Incidente nativo com merge automático</h3></div>
-          <div class="gap-card purple"><h3>G0520 — Enforcement offline das travas</h3></div>
-          <div class="gap-card purple"><h3>G0521 — Portal de Parceiros para as 14 UBAs</h3></div>
-          <div class="gap-card purple"><h3>G0522 — Street-Level Routing (ESO)</h3></div>
-          <div class="gap-card purple"><h3>G0523 — Relatório por CGR + meta de SLA</h3></div>
+          <div class="gap-card purple"><h3>G0518 — Salesforce Voice / substituição nativa da URA do 0800</h3><p>A integração de CTI com a URA em uso está em escopo (Canal Digital, E01); a substituição da própria URA por telefonia nativa Salesforce é um projeto de infraestrutura de telefonia separado, com viabilidade ainda em definição entre DER-SP e PRODESP.</p></div>
+          <div class="gap-card purple"><h3>G0519 — Objeto Incidente nativo com merge automático</h3><p>O escopo cobre alerta manual de possível duplicidade ao operador do C2C (Registro e Classificação, E02); a fusão automática de registros duplicados não está incluída.</p></div>
+          <div class="gap-card purple"><h3>G0520 — Enforcement offline das travas</h3><p>O escopo cobre a captura de evidências (foto, confirmação de localização, motivo de recusa) em modo offline com sincronização ao reconectar (Execução em Campo, E04); o bloqueio automático de avanço sem rede não está incluído.</p></div>
+          <div class="gap-card purple"><h3>G0521 — Portal de Parceiros para as 14 UBAs</h3><p>O escopo cobre visibilidade para cidadão, C2C, gestores, operador de campo, dispatcher e Agentforce (E01 a E05); uma superfície de visibilidade dedicada para as empresas terceirizadas não está incluída.</p></div>
+          <div class="gap-card purple"><h3>G0522 — Street-Level Routing (ESO)</h3><p>O escopo cobre o recurso de roteamento aéreo nativo do Field Service no console do dispatcher (Despacho Automatizado, E03); um recurso de roteamento de precisão em nível de rua não está incluído.</p></div>
+          <div class="gap-card purple"><h3>G0523 — Relatório por CGR + meta de SLA</h3><p>O escopo cobre um painel único com indicadores agregados (Rastreamento e Visibilidade, E05); relatórios segmentados por CGR e uma meta formal de nível de serviço não estão incluídos.</p></div>
         </div>
       </div>
 
@@ -1092,6 +1092,59 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
           <li>Qualquer decisão de trazê-los para dentro deste alcance é uma <b>mudança de escopo a validar formalmente</b> — não uma reinterpretação da faixa indicativa.</li>
         </ul>
       </div>
+
+      <div class="card">
+        <h2>Escopo de serviços, papéis e premissas — a base do SOW</h2>
+        <p class="lead">O texto abaixo é a mesma linguagem que sobe para o pacote de escopo do SOW (Statement of Work): o que cada parte entrega, quem faz o quê, e as premissas que sustentam o alcance. O SOW final — partes, termos comerciais e assinatura — é gerado pelo template Ironclad, não por este documento.</p>
+
+        <h3>Escopo de Serviços — mapeado 1:1 aos 5 épicos</h3>
+        <ol class="check-list" style="list-style:none;">
+          <li><b>1. Canal Digital de Atendimento ao Cidadão.</b> Abertura de chamado via WhatsApp e telefonia por integração CTI, com triagem automatizada por Agentforce e transbordo para fila humana única em três condições: falha de identificação automatizada, preferência do cidadão, ou suspeita de vítima.</li>
+          <li><b>2. Registro e Classificação da Ocorrência.</b> Criação do chamado a partir de qualquer canal, classificação por catálogo de subtipos, qualificação pelo Agentforce ou atendente, alerta de duplicidade ao C2C, e sincronização com SIGOR/SIGEO.</li>
+          <li><b>3. Despacho Automatizado de Recursos de Campo.</b> Motor de agendamento e otimização nas 14 CGRs, escalonamento por parâmetro de tempo configurável, reprocessamento automático em recusa, console do dispatcher e trilha de auditoria do ciclo de despacho.</li>
+          <li><b>4. Execução em Campo.</b> Aplicativo único de Field Service Mobile, despacho por notificação nativa, modo offline com fila de sincronização, encerramento por formulário quando aplicável, e travas de negócio (recusa com motivo, foto, confirmação de localização).</li>
+          <li><b>5. Rastreamento e Visibilidade em Tempo Real.</b> Acompanhamento do atendimento pelo cidadão via Appointment Assistant nativo, e painel agregado de indicadores para gestores.</li>
+        </ol>
+
+        <h3>Papéis e Responsabilidades</h3>
+        <div class="grid-2">
+          <div class="gap-card blue">
+            <h3 style="margin-bottom:6px;">Fornecidos pela Salesforce Professional Services</h3>
+            <ul style="margin:0;">
+              <li>Gerenciamento de Projeto/Programa</li>
+              <li>Arquitetura de Solução</li>
+              <li>Arquitetura Técnica</li>
+              <li>Consultoria Funcional</li>
+              <li>Desenvolvimento</li>
+              <li>Garantia de Qualidade</li>
+              <li>Gestão de Mudança e Adoção</li>
+            </ul>
+          </div>
+          <div class="gap-card amber">
+            <h3 style="margin-bottom:6px;">Fornecidos pelo cliente (DER-SP/PRODESP)</h3>
+            <ul style="margin:0;">
+              <li>Product Owner / tomador de decisão do lado do cliente</li>
+              <li>Consultoria Funcional (especialistas de negócio do DER-SP)</li>
+              <li>Arquitetura Técnica (contraparte técnica da PRODESP/Stefanini)</li>
+              <li>Garantia de Qualidade (validação de aceite do lado do cliente)</li>
+              <li>Gestão de Mudança e Adoção (contraparte do lado do cliente)</li>
+            </ul>
+          </div>
+        </div>
+        <p style="font-size:11.5px;color:var(--text-muted);margin-top:6px;">Disciplinas apenas — sem contagem de pessoas nem alocação de horas; a composição do time de entrega está em <a onclick="showSection('s13')" style="color:var(--blue-accent);cursor:pointer;">Investimento (ROM) →</a>.</p>
+
+        <h3>Premissas e Dependências do Escopo</h3>
+        <ul>
+          <li><b>Padrão técnico de integração de telefonia.</b> O padrão de CTI entre o Salesforce e a URA em uso (atualmente Instinct) depende de confirmação técnica com o fornecedor antes do início do desenvolvimento do canal de atendimento.</li>
+          <li><b>Especificação de integração com sistemas legados.</b> As especificações de integração com SIGOR e SIGEO dependem de confirmação da PRODESP antes do desenvolvimento dessas integrações.</li>
+          <li><b>Parâmetro de escalonamento de despacho.</b> O valor do parâmetro de tempo que aciona o escalonamento é uma premissa inicial de referência, sujeita a validação com o DER-SP antes da entrada em operação.</li>
+          <li><b>Trilha de auditoria do ciclo de despacho.</b> O desenho detalhado (campos capturados e período de retenção) depende de definição conjunta com o DER-SP.</li>
+          <li><b>Consentimento e responsabilidade sobre dados da ocorrência.</b> O tratamento de dados pessoais e de geolocalização segue premissas de consentimento sujeitas a validação formal de privacidade de dados pelo DER-SP e pela PRODESP.</li>
+          <li><b>Ferramental de desenvolvimento e implantação.</b> O desenvolvimento assume Salesforce CLI e práticas orientadas a repositório de código-fonte, sujeito a confirmação da PRODESP.</li>
+          <li><b>Licenciamento do canal de atendimento.</b> A quantidade de licenças necessárias está sujeita a revalidação em função da adição do canal de telefonia.</li>
+        </ul>
+      </div>
+
       <div class="sec-nav">
         <a class="sec-link" onclick="showSection('s11')">← Épicos e Casos de Uso</a>
         <a class="sec-link" onclick="showSection('s13')">Ver Investimento (ROM) →</a>
@@ -1125,6 +1178,26 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
         </div>
 
         <div class="disclaimer">Esta faixa é baseada nas rates de R$946,69/h (architect-class sênior onshore), R$715,66/h (entrega sênior onshore/qualquer offshore regular) e R$614,21/h (change &amp; adoption regular onshore) que você forneceu e validou em 2026-09-17. Indicativo para planejamento apenas; a estrutura comercial final é confirmada através do acordo comercial aplicável.</div>
+
+        <h3>Detalhamento por papel — cenário otimista da linha Augmented (14 semanas)</h3>
+        <p class="lead">Abertura por papel do extremo inferior da faixa Augmented acima (14 semanas) — mesmo roster nomeado (<code>data/resource-plan.json</code>), mesmas rates validadas, mesma metodologia (equipe completa ao longo de toda a duração, sem desconto por fase — a "faixa honestamente larga" já documentada para uma duração sem compromisso semanal fechado). O total com imposto abaixo reconcilia exatamente com o extremo inferior da linha Augmented na tabela acima (R$ 5.541.323,20).</p>
+        <div class="dtable-wrap">
+          <table class="dtable">
+            <tr><th>Papel</th><th>Senioridade · local</th><th>Pessoas</th><th>Horas (14 sem.)</th><th>Rate sem imposto</th><th>Rate com imposto</th><th>Custo sem imposto</th><th>Custo com imposto</th></tr>
+            <tr><td>Gerente de Projeto/Programa</td><td>Sênior · onshore</td><td>1</td><td>560</td><td>R$ 884,68</td><td>R$ 946,69</td><td>R$ 495.420,80</td><td>R$ 530.146,40</td></tr>
+            <tr><td>Arquiteto de Solução</td><td>Sênior · onshore</td><td>1</td><td>560</td><td>R$ 884,68</td><td>R$ 946,69</td><td>R$ 495.420,80</td><td>R$ 530.146,40</td></tr>
+            <tr><td>Arquiteto Técnico</td><td>Sênior · onshore</td><td>1</td><td>560</td><td>R$ 884,68</td><td>R$ 946,69</td><td>R$ 495.420,80</td><td>R$ 530.146,40</td></tr>
+            <tr><td>Consultor Funcional</td><td>Sênior · onshore</td><td>1</td><td>560</td><td>R$ 668,78</td><td>R$ 715,66</td><td>R$ 374.516,80</td><td>R$ 400.769,60</td></tr>
+            <tr><td>Consultor Funcional</td><td>Regular · offshore</td><td>1</td><td>560</td><td>R$ 668,78</td><td>R$ 715,66</td><td>R$ 374.516,80</td><td>R$ 400.769,60</td></tr>
+            <tr><td>Desenvolvedor</td><td>Sênior · onshore</td><td>1</td><td>560</td><td>R$ 668,78</td><td>R$ 715,66</td><td>R$ 374.516,80</td><td>R$ 400.769,60</td></tr>
+            <tr><td>Desenvolvedor</td><td>Regular · offshore</td><td>3</td><td>1.680</td><td>R$ 668,78</td><td>R$ 715,66</td><td>R$ 1.123.550,40</td><td>R$ 1.202.308,80</td></tr>
+            <tr><td>Garantia de Qualidade</td><td>Sênior · onshore</td><td>1</td><td>560</td><td>R$ 668,78</td><td>R$ 715,66</td><td>R$ 374.516,80</td><td>R$ 400.769,60</td></tr>
+            <tr><td>Garantia de Qualidade</td><td>Regular · offshore</td><td>2</td><td>1.120</td><td>R$ 668,78</td><td>R$ 715,66</td><td>R$ 749.033,60</td><td>R$ 801.539,20</td></tr>
+            <tr><td>Gestão de Mudança e Adoção</td><td>Regular · onshore</td><td>1</td><td>560</td><td>R$ 573,98</td><td>R$ 614,21</td><td>R$ 321.428,80</td><td>R$ 343.957,60</td></tr>
+            <tr class="hl-row"><td><b>Total</b></td><td>—</td><td><b>13</b></td><td><b>7.280</b></td><td>—</td><td>—</td><td><b>R$ 5.178.342,40</b></td><td><b>R$ 5.541.323,20</b></td></tr>
+          </table>
+        </div>
+        <div class="disclaimer">As 14 semanas são o extremo inferior de uma faixa <b>derivada de benchmark</b> (14–25 semanas, comprimida de 16–31 semanas pela banda de eficiência ~10-18% de <code>efficiency.json</code>) — não é uma duração comprometida pelo cliente nem um compromisso de horas da plataforma. "Cenário otimista" significa o extremo mais rápido dessa faixa, não a duração esperada. As rates seguem a regra permanente PS LATAM (com imposto = sem imposto ÷ 0,9345), validada com você em 2026-09-17.</div>
 
         <div class="alert amber">
           <span class="ic">△</span>
@@ -1164,7 +1237,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
 
   <footer id="page-footer">
     <b>PRODESP · DER-SP</b> — ROM (Rough Order of Magnitude) · Field Service + Agentforce (Contact Center Enterprise) + Service Cloud + WhatsApp<br/>
-    v3.0 · Gerado em 20/09/2026 às 16:05 (América/São Paulo, UTC-03:00) · Documento indicativo para planejamento — validação da visão de solução, alcance, faseamento e esforço; não constitui proposta comercial final.
+    v3.1 · Gerado em 21/09/2026 às 15:20 (América/São Paulo, UTC-03:00) · Documento indicativo para planejamento — validação da visão de solução, alcance, faseamento e esforço; não constitui proposta comercial final.
   </footer>
 </div>
 
