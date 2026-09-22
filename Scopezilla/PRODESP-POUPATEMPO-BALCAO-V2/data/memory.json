@@ -274,6 +274,23 @@
         "Quando o owner de governanca de IA for nomeado pela Prodesp, re-avaliar native_qualification de conditional para qualified",
         "Considerar rodar commercials/validate/narratives se o usuario quiser avancar para proposta formal"
       ]
+    },
+    {
+      "date": "2026-09-22",
+      "skills_used": [
+        "validate"
+      ],
+      "summary": "Rodou validate-data.py + confidence-report.py sobre o estado atual (efficiency + estimate completos). Validator: FAIL (1 pricing-leak pré-existente e fora de escopo em 00-discovery-brief.md linha 50 — citação de case público Thames Valley Police com £1,4M, não é pricing próprio do projeto) + 2 WARN de staleness (gaps.json anterior a epics.json; roadmap.json anterior a estimates.json — timestamps consistentes com edições de sessões anteriores ao grill-me-on-scope/design, não deste ciclo). Confidence report: 25% Confirmed / 55% Assumed / 20% Unknown; 136 gaps (Phase 0 recomendado, já refletido no roadmap).",
+      "friction": [],
+      "decisions": [],
+      "open_threads": [
+        "Pricing-leak FAIL em 00-discovery-brief.md:50 continua sem correção — é citação de case-study público (£), não leak de commercial próprio; decidir se reformula o texto para não disparar o regex ou aceita como falso-positivo permanentemente documentado",
+        "gaps.json/roadmap.json staleness warnings — avaliar se epics.json (grill-me-on-scope rodada 2) e estimates.json mudaram de forma que afeta gaps/roadmap; rodar revise se sim"
+      ],
+      "next_steps": [
+        "Se quiser handoff limpo (export/quantum-leap), resolver o pricing-leak FAIL primeiro",
+        "narratives ou export são os próximos passos naturais do ciclo"
+      ]
     }
   ],
   "preferences": {
