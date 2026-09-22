@@ -45,6 +45,83 @@
       "next_steps": [
         "Seguir para requirements com o escopo da Fase 1 (decisions/0001), aproveitando os 6 arquivos de knowledge/ para grounding de claims de arquitetura (Slack+Agentforce+Data 360)."
       ]
+    },
+    {
+      "date": "2026-09-21",
+      "skills_used": ["discover"],
+      "summary": "Sessão de reconciliação: enquanto um processo em background executava discover+knowledge-curator de forma independente, o usuário foi entrevistado nesta sessão sobre o mesmo escopo. O ADR 0001 (gerado pelo background, sem confirmação direta do usuário) recomendava escopar só a Fase 1 tática. Perguntado diretamente, o usuário rejeitou essa limitação e pediu Corte 1 + Corte 2 completos, faseados na mesma SOW. decisions/0001 marcado como superseded; decisions/0002 registra a decisão vigente. Discovery Brief (outputs/00-discovery-brief.md) reescrito para refletir Fase 2 como escopo contratado (não visão), com achados de pesquisa web (Texas DPS, Thames Valley Police, Slack DDS/FIFA, LGPD Art. 20, PL 2338, sinal TCE-SP, correção de volumetria 244 postos + 900 totens) incorporados à seção de research findings.",
+      "decisions": [
+        {
+          "decision": "Superseder decisions/0001: ambos os cortes (Fase 1 tática + Fase 2 plataforma Headless completa) entram como escopo contratado desta mesma SOW, faseados — não Fase 2 como visão fora do SOW.",
+          "rationale": "Usuário rejeitou explicitamente a proposta de escopo parcial ('1-2 elementos do Headless') e pediu os dois cortes completos: 'tratar corte e corte 2 completo, nao apenas corte 1'.",
+          "rejected_alternatives": ["Manter ADR 0001 (só Fase 1)", "Híbrido faseado com apenas 1-2 elementos do Headless na Fase 2"],
+          "recorded_as": "decisions/0002-both-cuts-in-scope-phased.md"
+        }
+      ],
+      "open_threads": [
+        "T7, Biometria, Sistema Semântico e 'Atendimento' — identidades ainda não resolvidas, agora mais críticas pois a integração MuleSoft da Fase 2 é escopo confirmado, não visão.",
+        "Gap de dimensionamento de licenças Slack (1.800 validadas vs. headcount real dos 244 postos) — confirmado pelo usuário como ainda desconhecido.",
+        "Owner de governança de agentes de IA do lado Prodesp — confirmado pelo usuário como ainda não identificado.",
+        "Documento de posicionamento LGPD/Trust sobre localização de inferência do Agentforce — existência confirmada, documento ainda não localizado; pesquisa web não encontrou substituto público (ANPD/SGD/MGI).",
+        "Timeline e budget — nenhum valor discutido com o cliente ainda, confirmado pelo usuário nesta sessão.",
+        "Cronograma e Fase 2 vs Fase 1 dentro do contrato — sequenciamento interno da conta (Check-in/PPA antes de Slack Headless) ainda não conciliado com o novo escopo de duas fases no mesmo SOW."
+      ],
+      "next_steps": [
+        "Seguir para requirements escopando epics para AMBAS as fases (decisions/0002) — Fase 1 (Slack+Agentforce-in-channel+Data 360) e Fase 2 (WhatsApp pré-atendimento, validação remota, atendimento agentic 24/7, MuleSoft-gov.br/biometria/legado)."
+      ]
+    },
+    {
+      "date": "2026-09-21",
+      "skills_used": ["requirements"],
+      "summary": "Gap analysis executada para os 10 épicos aprovados (E01-E10), via agentes epic-analyst em paralelo, em modo gaps (sem user stories). 128 gaps salvos em data/gaps.json (G0101-G1011), CSVs regenerados. Distribuição por categoria: Missing Requirement 50, Potential Risk 24, Ambiguity 21, Logical Gap 17, Capability Gap 7, Assumption 5, Source Conflict 4. Cada agente cruzou gaps.json existente para evitar colisão de IDs e citou knowledge/ quando aplicável ([KB:...]/[extends:...]/[assumption:...]).",
+      "decisions": [],
+      "open_threads": [
+        "T7, Sistema Semântico, 'Atendimento' e Biometria — identidades ainda não resolvidas; agora bloqueiam diretamente o dimensionamento de E08/E09 (G0703, G0803, G0901-G0904).",
+        "Nenhum piloto (posto/serviço/headcount) combinado com a Prodesp para E06/E07 (G0601-ish, G0701) — storyboard apenas.",
+        "Sinal de capacidade ociosa em tempo real por posto — fonte/sistema não identificado, compartilhado entre E03 e E10 (G1003).",
+        "Owner de governança de agentes de IA do lado Prodesp — ainda não identificado; mais crítico agora que E08 (agentic 24/7) e E10 (analytics preditivo) precisam de dono de acurácia/guardrails (G0805, G0812, G1010).",
+        "Documento de posicionamento LGPD/Trust sobre inferência do Agentforce — existência confirmada pelo usuário, ainda não localizado; carga maior em E08/E09 por volume de PII processado (G0807, G0908, G0815).",
+        "KPIs de tempo de espera (15/16/17 min) seguem ilustrativos, não validados — repetido como gap em E06/E07/E10 (G0605-ish, G0710, G1001) para não vazar como baseline real em nenhum entregável.",
+        "Protocolo/volume de integração MuleSoft (gov.br, biometria, legado, Sistema Semântico, T7) totalmente indefinido — maior bloqueador de sizing de E09 (G0905).",
+        "Framing arquitetural de E09 (ponto-a-ponto vs. infraestrutura horizontal compartilhada per staar-headless-360-doctrine.md) ainda não escolhido — muda o perfil comercial, não só técnico (G0910).",
+        "Relação entre E06 (WhatsApp pré-atendimento) e E07 (validação remota) e entre E02 (huddle) e E07 (fila cross-posto) — possível sobreposição de escopo não resolvida (G0705, G0706).",
+        "Governança e Experience Design surgem como discipline gaps em quase todos os épicos (E01/E02/E03/E05/E06/E07/E08/E10) — nenhum owner confirmado para nenhum dos dois; agrupar na resposta ao usuário."
+      ],
+      "next_steps": [
+        "Apresentar Gap Summary consolidado ao usuário (>15 gaps → recomendar Fase 0), com destaque para gaps de governança/experience design no topo.",
+        "Marcar completion_status.requirements como complete em .project-metadata.json.",
+        "Seguir para design (ordem canônica) ou backlog/quantum-leap se um destino de handoff for escolhido depois."
+      ]
+    },
+    {
+      "date": "2026-09-22",
+      "skills_used": ["design"],
+      "summary": "Design completo para os 10 épicos (E01-E10), cobrindo Fase 1 + Fase 2 per decisions/0002. Shared-drive check copiou data_360_4-10-2026.md (pouco citável — dump bruto de 44k linhas; os 4 arquivos STAAR curados seguiram sendo a fonte primária). Central KB (doc_search MCP) indisponível nesta sessão — todo o skeleton foi fundamentado apenas na camada 1 (knowledge/), sinalizado explicitamente no cabeçalho de outputs/01-solution.md e no fork checkpoint. Esqueleto arquitetural aprovado (20 decisões tagueadas — 8 fundamentadas, 2 inferidas, 10 sinalizadas como suposição); 8 assunções persistidas em gaps.json (G0116, G0214, G0315, G0413, G0613, G0712, G0911, G1012 — total gaps.json sobe de 128 para 136), cada uma com size_if_assumption_breaks. outputs/01-solution.md escrito com Fundações de Arquitetura (org strategy, sharing/OWD, governança de agentes, DevOps) + Solução por Processo de Negócio (10 épicos em ordem de jornada de valor: E06→E08→E01→E02→E07→E03→E04→E05→E09→E10, não por ID). Estimativas: sizing direto por épico (sem user-stories.json) via rubric de 8 dimensões — distribuição S=2/M=5/L=2/XL=1; E09 (Plataforma MuleSoft) é XL com confiança Unknown, maior risco técnico do programa; E03/E10 compartilham a mesma fundação de dados não resolvida (sinal de ocupação por posto, G0315). data/estimates.json e data/csv/02-estimates.csv escritos após aprovação do usuário.",
+      "decisions": [
+        {
+          "decision": "Ordem de apresentação dos épicos no documento de solução segue a jornada de valor (pré-atendimento → atendimento → analytics), não a ordem de ID (E01...E10).",
+          "rationale": "O template de arquitetura do skill design exige ordenação por processo de negócio, não por ID técnico — E06/E08 (jornada da cidadã) abrem o documento antes de E01/E02 (jornada do atendente).",
+          "rejected_alternatives": ["Manter ordem E01→E10 por simplicidade"]
+        },
+        {
+          "decision": "E03 (capacidade ociosa entre postos) e E10 (analytics preditivo) compartilham a mesma fundação de dados não resolvida — sinal de ocupação/fila por posto — tratada como um único gap (G0315), não duplicada.",
+          "rationale": "Reflexo de cruzamento de consumo posterior: resolver essa fundação uma vez serve dois épicos; tratá-la como dois gaps separados mascararia a dependência real entre E03 e E10.",
+          "rejected_alternatives": ["Registrar gaps separados por épico, sem cross-reference"]
+        }
+      ],
+      "open_threads": [
+        "Central KB (doc_search MCP) esteve indisponível nesta sessão — recomendado /kb-sync ou DevBar antes de qualquer entrega final ao cliente que cite E01/E08/E09/E10 como padrão validado pela Salesforce como um todo, além deste corpus local.",
+        "G0315 — sinal de ocupação/fila em tempo real por posto: nenhum sistema de origem identificado; bloqueia dimensionamento fino de E03 e E10.",
+        "G0911 — identidades de Sistema Semântico/'Atendimento'/T7/Biometria ainda não confirmadas; E09 permanece Unknown e é o maior risco técnico do programa (XL).",
+        "G0613 — evento de gatilho de agendamento para E06 (pré-atendimento WhatsApp) ainda não identificado.",
+        "G0712 — tratamento de residência/retenção LGPD para imagens de documento (E07) ainda não validado.",
+        "Owner de governança de agentes de IA do lado Prodesp (ver E05) — ainda não identificado; mencionado repetidamente como pré-requisito antes do início da Fase 2."
+      ],
+      "next_steps": [
+        "Rodar roadmap para obter uma faixa de cronograma benchmark-based (top-down) a partir da distribuição de tamanhos.",
+        "Rodar commercials quando houver uma rate validada pelo usuário para precificação indicativa.",
+        "Considerar grill-me-on-scope antes de export, dado o volume de gaps Unknown/Assumed acumulado (136 gaps totais)."
+      ]
     }
   ],
   "preferences": {
@@ -54,8 +131,17 @@
       "Transbordo": "Escalonamento em tempo real do atendente para um especialista via huddle Slack, sem o atendente deixar a cadeira.",
       "Frente A / Frente B": "Frente A = Slack corporativo/licenças (RH, Approvals, desde out/2025). Frente B = Slack no Poupatempo/Professional Services (desde CSG 13/07/2026). Relógios e donos diferentes na mesma conta.",
       "Flex Credits": "Combustível de raciocínio do Agentforce (rate card: USD 500 por 100 mil créditos), separado do saldo de créditos de mensagem do WhatsApp.",
-      "T7": "Sistema real referenciado no diagrama de arquitetura-alvo com agente de IA próprio; nome/sigla completa não identificada em nenhuma fonte acessível."
+      "T7": "Sistema real referenciado no diagrama de arquitetura-alvo com agente de IA próprio; nome/sigla completa não identificada em nenhuma fonte acessível.",
+      "Corte 1 / Corte 2": "Os dois desenhos de setembro/2026 dentro da Frente B (Poupatempo PS): Corte 1 = deck Jackson Ulisses, 'Slack no guichê', tático. Corte 2 = deck Vinicius Ferraz, 'Atendimento Poupatempo', plataforma Headless completa. Por decisão do usuário (decisions/0002), ambos são escopo desta mesma SOW, faseados — não mais um corte único nem Corte 2 como visão fora de escopo."
     }
   },
-  "decision_log": []
+  "decision_log": [
+    {
+      "date": "2026-09-21",
+      "area": "scope",
+      "decision": "Esqueleto de 10 épicos aprovado sem alterações: E01 Posto de Trabalho do Atendente no Slack, E02 Escalonamento em Tempo Real (Transbordo via Huddle), E03 Roteamento de Capacidade Ociosa Entre Postos, E04 Workflow de Contingência, E05 Governança/Adoção/Change Management (Fase 1), E06 Pré-Atendimento Digital via WhatsApp, E07 Validação Remota de Documentos por Atendente Ocioso, E08 Atendimento Agêntico 24/7 HITL, E09 Plataforma de Integração MuleSoft (Gov.br/Biometria/Legado/Sistema Semântico/T7), E10 Analytics e Previsibilidade de Atendimento.",
+      "rationale": "Cobre Fase 1 (Corte 1) e Fase 2 (Corte 2) completas, faseadas na mesma SOW, per decisions/0002. E09 marcado Unknown pela identidade não resolvida de T7/Sistema Semântico/Atendimento.",
+      "rejected": []
+    }
+  ]
 }
