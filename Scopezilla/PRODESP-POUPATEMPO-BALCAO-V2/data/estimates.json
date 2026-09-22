@@ -44,9 +44,9 @@
       "ui": {"tier": "S", "signal": "painel de capacidade para atendente/operação."}
     },
     "size_rationale": "M — dimensionado conservadoramente para cima por causa da dimensão Integration ser Unknown (nenhuma fonte de sinal de ocupação identificada); pode subir para L se instrumentação nova (check-in/totem) for necessária.",
-    "complexity_drivers": "G0315 — fundação de dados compartilhada com E10: nenhum sistema de registro de ocupação em tempo real por posto foi identificado; resolver esse sinal uma única vez serve os dois épicos.",
+    "complexity_drivers": "G0315 — fundação de dados compartilhada com E10: nenhum sistema de registro de ocupação em tempo real por posto foi identificado; resolver esse sinal uma única vez serve os dois épicos. PROPRIEDADE RESOLVIDA em grill 2026-09-22 (user-endorsed): E03 assume a propriedade de construir esse sinal — E10 é puro consumidor, não constrói nem compartilha o custo de build.",
     "skills_needed": "Solution Architect, Integration Developer (contingente à fonte do sinal)",
-    "risks": "Dimensão de maior incerteza do programa junto com E09 — sem confirmação do que já existe (mesmo fora do Salesforce) para ocupação/fila por posto, o esforço real só se conhece após a validação com a Prodesp.",
+    "risks": "Dimensão de maior incerteza do programa junto com E09 — sem confirmação do que já existe (mesmo fora do Salesforce) para ocupação/fila por posto, o esforço real só se conhece após a validação com a Prodesp. E03 é o dono designado dessa fundação (grill 2026-09-22); E10 depende dela mas não a constrói.",
     "confidence": "Unknown",
     "solution_approach": "Objeto de sinal de ocupação por posto (fonte a confirmar) alimentando lógica de roteamento entre os 244 postos + 900 totens.",
     "size_if_assumption_breaks": "M; L se exigir instrumentação nova (integração com totens/check-in) para gerar o sinal de ocupação do zero."
@@ -156,9 +156,9 @@
       "data_model": {"tier": "S", "signal": "depende do sinal de capacidade ociosa compartilhado com E03 (G0315) — não é um custo de build novo deste épico, mas uma dependência de dados."}
     },
     "size_rationale": "L — impulsionado pela dimensão de Analytics & Insights (modelo preditivo + retroalimentação); dependente da resolução da fundação de dados compartilhada com E03.",
-    "complexity_drivers": "Os KPIs de exemplo (15/16/17 min) são ilustrativos, não uma métrica existente — isto é build novo, não exposição de dado já validado. G1012 — direção de integração (nativo Salesforce vs. BI externo) ainda não confirmada.",
+    "complexity_drivers": "Os KPIs de exemplo (15/16/17 min) são ilustrativos, não uma métrica existente — isto é build novo, não exposição de dado já validado. G1012 — direção de integração (nativo Salesforce vs. BI externo) ainda não confirmada. PROPRIEDADE RESOLVIDA em grill 2026-09-22 (user-endorsed): E03 é dono da construção do sinal de capacidade (ver G0315/estimate E03); E10 permanece puro consumidor — confirmado, sem mudança no tier desta dimensão.",
     "skills_needed": "Data Cloud/Data 360 Architect, Einstein/AI Consultant",
-    "risks": "Sem o sinal de capacidade de E03 resolvido, o modelo preditivo não tem dado de entrada confiável para treinar — dependência direta entre os dois épicos.",
+    "risks": "Sem o sinal de capacidade de E03 resolvido, o modelo preditivo não tem dado de entrada confiável para treinar — dependência direta entre os dois épicos. E10 não constrói essa fundação; a dependência é de dado, não de esforço de build compartilhado.",
     "confidence": "Assumed",
     "solution_approach": "Data 360 como camada de dados cruzados em tempo real, alimentando um modelo preditivo de tempo de espera com retroalimentação dos agentes de IA.",
     "size_if_assumption_breaks": "L; XL se exigir integração de saída para BI externo da Prodesp além do modelo nativo Salesforce, ou se o sinal de capacidade de E03 não for resolvido a tempo de alimentar o treinamento."

@@ -35,6 +35,8 @@ Abordagem declarativa-primeiro (Flow/configuração antes de Apex) para toda aut
 
 O owner de governança de agentes de IA do lado Prodesp ainda não foi identificado — item já registrado no Discovery Brief como mais crítico agora que a Fase 2 (atendimento agêntico 24/7) é escopo confirmado, não visão. Este documento assume que esse papel será nomeado antes do início da Fase 2; não resolve a lacuna.
 
+**Consolidado em grill 2026-09-22 (user-endorsed):** esta mesma lacuna reaparece isoladamente em 9 gaps espalhados por 7 épicos — G0411 (E04), G0501 e G0502 (E05), G0610 (E06), G0708 (E07), G0805 e G0812 (E08), G0909 (E09), G1010 (E10). Tratando como um único risco estrutural do programa, não nove riscos de épico separados: a ausência de um owner de governança do lado Prodesp é o item de maior exposição do programa como um todo, porque toca todo agente Agentforce em produção (Fase 1 e Fase 2), não apenas um épico isolado. Recomendo levar isso ao cliente como uma pré-condição de programa, não como uma lacuna a resolver épico por épico.
+
 ---
 
 ## Solução por Processo de Negócio
@@ -47,7 +49,7 @@ Ordem: jornada da cidadã e do atendente, do pré-atendimento até a analítica 
 
 **Abordagem de solução**: Um agente Agentforce conversa com a cidadã pelo WhatsApp Business API — já contratado e quase ocioso na conta (4,9 bilhões de créditos WhatsApp válidos até maio/2027) — para triagem e preparação antes da visita presencial.
 
-**Arquitetura de suporte**: O mesmo padrão "Agent Persona" documentado para Data 360 sobre Slack se aplica ao WhatsApp — ambos são superfícies conversacionais sobre o mesmo núcleo Data 360 headless. `[extends: padrão Agent Persona documentado para Slack em staar-data-360-headless.md:16-22, estendido para WhatsApp]` A dependência real de gating não é o canal WhatsApp (já disponível) — é ter um evento de gatilho confiável ("cidadã tem visita agendada") vindo de um sistema de agendamento. `[assumption: G0613 — identificar qual sistema agenda hoje as visitas ao Poupatempo e se ele pode emitir esse evento]`
+**Arquitetura de suporte**: O mesmo padrão "Agent Persona" documentado para Data 360 sobre Slack se aplica ao WhatsApp — ambos são superfícies conversacionais sobre o mesmo núcleo Data 360 headless. `[extends: padrão Agent Persona documentado para Slack em staar-data-360-headless.md:16-22, estendido para WhatsApp]` A dependência real de gating não é o canal WhatsApp (já disponível) — é ter um evento de gatilho confiável ("cidadã tem visita agendada") vindo de um sistema de agendamento. `[assumption: G0613 — identificar qual sistema agenda hoje as visitas ao Poupatempo e se ele pode emitir esse evento]` `[assumption: G0608/G0705, resolvido em grill 2026-09-22 — tratado como fluxo conectado: o documento coletado nesta triagem por WhatsApp alimenta diretamente a validação remota do atendente ocioso em E07 (abaixo), em vez de serem dois intakes de documento independentes. Aposta de design a validar com a Prodesp.]`
 
 ### Atendimento Agêntico 24/7 — Human-in-the-Loop (Fase 2)
 
@@ -71,7 +73,7 @@ Ordem: jornada da cidadã e do atendente, do pré-atendimento até a analítica 
 
 **Abordagem de solução**: O atendente aciona um huddle Slack com um especialista diretamente do canal de serviço, sem sair do fluxo de atendimento.
 
-**Arquitetura de suporte**: Recomendo Slack User Groups estáticos por especialidade para a Fase 1 — build simples, alinhado ao ritmo tático do piloto. Roteamento decidido por Agentforce (o agente identifica a especialidade certa e sugere/inicia o huddle) fica como caminho de evolução para Fase 2+, apoiado no mesmo padrão de decisão de agente usado em E08. `[assumption: G0214 — User Group estático é suficiente na escala do piloto; validar cobertura real de especialistas por tema/turno]`
+**Arquitetura de suporte**: Recomendo Slack User Groups estáticos por especialidade para a Fase 1 — build simples, alinhado ao ritmo tático do piloto. Roteamento decidido por Agentforce (o agente identifica a especialidade certa e sugere/inicia o huddle) fica como caminho de evolução para Fase 2+, apoiado no mesmo padrão de decisão de agente usado em E08. `[assumption: G0214 — User Group estático é suficiente na escala do piloto; validar cobertura real de especialistas por tema/turno]` `[assumption: G0706, resolvido em grill 2026-09-22 — tratado como fluxo conectado: a validação remota de documentos por atendente ocioso (E07, Fase 2) reutiliza este mesmo padrão de roteamento/escalonamento por huddle, em vez de construir um mecanismo de fila cross-posto paralelo. Aposta de design a validar com a Prodesp.]`
 
 ### Validação Remota de Documentos por Atendente Ocioso (Fase 2)
 
@@ -79,7 +81,7 @@ Ordem: jornada da cidadã e do atendente, do pré-atendimento até a analítica 
 
 **Abordagem de solução**: O atendente ocioso valida documentos à distância via Slack, usando o mesmo posto de trabalho de E01 como superfície.
 
-**Arquitetura de suporte**: Reutiliza o mesmo sinal de capacidade ociosa por posto que E03 precisa (ver E03, abaixo) — é o terceiro consumidor dessa mesma fundação de dados junto com E10. O transporte da imagem do documento via Slack carrega um risco de LGPD mais alto do que a coordenação em texto do huddle (E02), porque a imagem em si é dado sensível, distinto do caso já resolvido de "sem biometria bruta em texto". `[assumption: G0712 — validar tratamento de residência/retenção de dados especificamente para imagens de documento em thread do Slack]`
+**Arquitetura de suporte**: Reutiliza o mesmo sinal de capacidade ociosa por posto que E03 precisa (ver E03, abaixo) — é o terceiro consumidor dessa mesma fundação de dados junto com E10. O transporte da imagem do documento via Slack carrega um risco de LGPD mais alto do que a coordenação em texto do huddle (E02), porque a imagem em si é dado sensível, distinto do caso já resolvido de "sem biometria bruta em texto". `[assumption: G0712 — validar tratamento de residência/retenção de dados especificamente para imagens de documento em thread do Slack]` `[assumption: G0608/G0705/G0706, resolvido em grill 2026-09-22 — tratado como fluxo conectado em ambas as pontas: o documento recebe seu intake na triagem por WhatsApp de E06 (acima) e a validação em si reutiliza o padrão de roteamento/escalonamento por huddle de E02 (acima), em vez de três mecanismos independentes. Aposta de design a validar com a Prodesp.]`
 
 ### Roteamento de Capacidade Ociosa Entre Postos (Fase 1)
 

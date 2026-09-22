@@ -122,6 +122,38 @@
         "Rodar commercials quando houver uma rate validada pelo usuário para precificação indicativa.",
         "Considerar grill-me-on-scope antes de export, dado o volume de gaps Unknown/Assumed acumulado (136 gaps totais)."
       ]
+    },
+    {
+      "date": "2026-09-22",
+      "skills_used": ["grill-me-on-scope"],
+      "summary": "Grill parcial sobre o escopo persistido (design completo, 136 gaps). Auto-exposição levantou 6 itens ranqueados por raio de impacto: (1) E09 identidade/infra de integração ainda em aberto — pergunta feita ao usuário, sem resposta nesta sessão; (2) propriedade não resolvida do sinal de capacidade ociosa compartilhado entre E03/E10 (G0301/G1003/G0315); (3) owner de governança de IA repetido isoladamente em 9 gaps/7 épicos sem consolidação; (4) sobreposição de fronteira E06→E07 (handoff de documento) e E02↔E07 (mecanismo de fila/roteamento) tratada como três gaps desconectados; (5) possível sub-dimensionamento de E08 (primeiro caso de atendimento agêntico 24/7 no setor público LATAM, sem size_if_assumption_breaks); (6) nenhuma atividade de PM/QA/release management cross-cutting definida para um programa de 10 épicos, 2 fases, 4 produtos. Rodada de 4 perguntas pareadas ao usuário resolveu (2), (3) e (4) — todas no valor recomendado — e redirecionou (6) para uma decisão de resourcing interna (não gap.json). Write-backs aplicados: gaps.json (G0315, G0301, G0608, G0705, G0706 com notas de resolução), estimates.json (E03/E10 risks/complexity_drivers atualizados para refletir a propriedade resolvida — nenhum t_shirt_size mudou), outputs/01-solution.md (seção Owner de Governança consolidada citando os 9 gap IDs; anotações [assumption:] adicionadas em E06/E02/E07 sobre o fluxo conectado). Itens (1) e (5) permanecem abertos, conscientemente não fechados nesta sessão.",
+      "decisions": [
+        {
+          "decision": "E03 assume a propriedade de construir o sinal de capacidade ociosa por posto; E10 é puro consumidor, não constrói nem compartilha o custo de build.",
+          "rationale": "Resolve a ambiguidade de propriedade entre G0301 (E03) e G1003 (E10), ambos flagando o mesmo sinal sem dono — usuário confirmou a recomendação (E03 assume a propriedade) na rodada de grill.",
+          "rejected_alternatives": ["E10 assume a propriedade", "Propriedade compartilhada/split entre E03 e E10"]
+        },
+        {
+          "decision": "E06 (triagem WhatsApp) → E07 (validação remota) e E02 (huddle) ↔ E07 (fila cross-posto) são tratados como um fluxo de design conectado — E07 reutiliza o documento triado em E06 e o padrão de roteamento/escalonamento de E02 — em vez de três mecanismos independentes.",
+          "rationale": "Usuário confirmou a recomendação na rodada de grill; evita risco de scope gap (mecanismo nunca construído) ou double-count (dois épicos resolvendo o mesmo problema em paralelo). Registrado como aposta de design a validar com a Prodesp, não como fato confirmado.",
+          "rejected_alternatives": ["Manter E06/E07/E02 como três capacidades independentes, sizadas separadamente"]
+        },
+        {
+          "decision": "Este programa precisa de PM e QA dedicados — não é uma lacuna do cliente (gaps.json), é uma decisão de resourcing interna para a skill `estimate` incluir no roster.",
+          "rationale": "Resposta explícita do usuário à pergunta sobre cobertura de PM/QA/release management cross-cutting: 'Nao deve ser um gap, precisa considerar PM/QA dedicado para este projeto' — o usuário rejeitou a moldura de gap.json e determinou que isso é uma necessidade de equipe conhecida, não uma pergunta aberta ao cliente.",
+          "rejected_alternatives": ["Registrar como gap.json (Missing Requirement) para o cliente resolver", "Assumir que a equipe de entrega existente absorve PM/QA sem role dedicado"]
+        }
+      ],
+      "open_threads": [
+        "E09 — identidade dos sistemas (T7, Sistema Semântico, 'Atendimento', Biometria, G0901-G0904) e maturidade de integração Anypoint/API-led já existente na Prodesp (G0906) permanecem sem resposta do usuário; pode mudar o sizing XL de E09 em mais de uma faixa T-shirt em qualquer direção.",
+        "E08 — possível sub-dimensionamento: primeiro caso de atendimento agêntico 24/7 citizen-facing sem referência pública no setor público LATAM (G0806); carrega 3 gaps de compliance/profundidade de UX (G0801, G0808, G0813, G0814) não refletidos no size_if_assumption_breaks (ausente para este épico, diferente da maioria dos outros).",
+        "Decisão de PM/QA dedicado (acima) precisa ser lida pela skill `estimate` na hora de montar o roster — não é uma linha em resource-plan.json ainda, só a decisão registrada aqui."
+      ],
+      "next_steps": [
+        "Retomar grill (E09/E08) se o usuário quiser fechar os dois itens ainda abertos, ou seguir para roadmap/estimate com esses dois riscos conscientemente deferidos.",
+        "Quando `estimate` rodar, incluir PM + QA dedicados no roster com justificativa citando a decisão de 2026-09-22 acima (decisions/0026 exige count com justificativa).",
+        "Checkpoint git dos arquivos tocados (gaps.json, estimates.json, outputs/01-solution.md, memory.json)."
+      ]
     }
   ],
   "preferences": {

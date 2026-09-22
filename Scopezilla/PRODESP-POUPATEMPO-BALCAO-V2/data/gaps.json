@@ -93,7 +93,7 @@
     "gap_id": "G0301",
     "category": "Capability Gap",
     "gap_or_question": "No real-time capacity signal source has been identified for any of the 244 postos or 900 totens. Discovery describes the desired outcome (\"Redirecionamento dinâmico: elimine filas em postos superlotados utilizando a capacidade ociosa de retaguarda de outras unidades\") but names no system, feed, or manual process that reports which postos/attendants/totens are idle right now. The epic's kb_sources field already flags this as an assumption — no KB document covers a workforce-availability or queue-state data source for this account.",
-    "impact_or_notes": "This is the load-bearing dependency for the entire epic: without a capacity signal, there is nothing to route against. Until a source is named (existing SF/PRODESP system, new instrumentation, or manual self-report in Slack), E03 cannot be designed, sized, or built — it can only be assumed. Should be treated as a pre-build blocker for Fase 1, not a detail to resolve during build."
+    "impact_or_notes": "This is the load-bearing dependency for the entire epic: without a capacity signal, there is nothing to route against. Until a source is named (existing SF/PRODESP system, new instrumentation, or manual self-report in Slack), E03 cannot be designed, sized, or built — it can only be assumed. Should be treated as a pre-build blocker for Fase 1, not a detail to resolve during build. OWNERSHIP RESOLVED in grill 2026-09-22 (user-endorsed, see G0315/G1003): E03 owns building this foundation, not E10. The underlying technical question — whether any occupancy/queue signal already exists anywhere at Prodesp, even outside Salesforce — remains Unknown, pending client confirmation."
   },
   {
     "gap_id": "G0302",
@@ -369,7 +369,7 @@
     "gap_id": "G0608",
     "category": "Logical Gap",
     "gap_or_question": "E06 (WhatsApp pre-service triage) and E07 (remote document validation by an idle attendant) are described in the epics data as two separate epics, but the deck frames them as sequential journeys (Jornada 02 → Jornada 01/03 extension). No source defines whether a document a citizen submits during E06's triage feeds directly into E07's validation workflow, or whether the two are functionally disconnected.",
-    "impact_or_notes": "Risk of either a scope gap (no handoff mechanism ever gets built) or double-counted scope (both epics separately re-solve the same document-intake step) — needs resolution before `design` sizes either epic independently."
+    "impact_or_notes": "Risk of either a scope gap (no handoff mechanism ever gets built) or double-counted scope (both epics separately re-solve the same document-intake step) — needs resolution before `design` sizes either epic independently. RESOLVED em grill 2026-09-22 (user-endorsed): tratado como fluxo conectado — o documento triado em E06 alimenta diretamente a validação em E07, não são fluxos independentes. Esta é uma aposta de design a validar com o cliente, não um fato confirmado; ver anotação [assumption:] em `outputs/01-solution.md`."
   },
   {
     "gap_id": "G0609",
@@ -513,13 +513,13 @@
     "gap_id": "G0705",
     "category": "Logical Gap",
     "gap_or_question": "E06 is framed as Jornada 02 (WhatsApp pre-service triage) and E07 as an 'extensão das Jornadas 01/03.' No source states whether the document E07's idle attendant validates is the same document a citizen submitted during E06's pre-triage (i.e., E07 is the receiving/validation side of E06's intake), or whether E07 operates independently on documents presented in real time at the counter, unconnected to E06 entirely.",
-    "impact_or_notes": "Unresolved, this risks either a scope gap (E06 collects a document that nothing downstream ever validates) or duplicated scope (both epics separately build a document-intake/validation step). Related to G0608 already logged under E06, but framed here from E07's validation-side view — resolve once, not twice, in `design`."
+    "impact_or_notes": "Unresolved, this risks either a scope gap (E06 collects a document that nothing downstream ever validates) or duplicated scope (both epics separately build a document-intake/validation step). Related to G0608 already logged under E06, but framed here from E07's validation-side view — resolve once, not twice, in `design`. RESOLVIDO em grill 2026-09-22 (mesma resolução de G0608): fluxo conectado — documento de E06 alimenta E07. Aposta de design, a validar com o cliente."
   },
   {
     "gap_id": "G0706",
     "category": "Logical Gap",
     "gap_or_question": "It is unclear whether E07's remote-validation interaction reuses E02's huddle/ticket escalation UX (specialist joins a huddle on a case) or is a structurally different 'pull a case from a virtual queue' flow — closer to the Jackson deck's move 02 ('Transbordo Inteligente de Demanda Entre Postos') and the Felipe storyboard's 'fila virtual que a rede inteira vê.' If E07 and that cross-posto load-balancing move are the same underlying capability, it is not clear whether that scope lives inside E07, inside E02, or is split/duplicated across both.",
-    "impact_or_notes": "Without reconciling this, `design`/`roadmap` risk sizing E02 and E07 as if they were fully independent when they may share (or compete for) the same routing/queue mechanism — a double-count or a silent gap either way."
+    "impact_or_notes": "Without reconciling this, `design`/`roadmap` risk sizing E02 and E07 as if they were fully independent when they may share (or compete for) the same routing/queue mechanism — a double-count or a silent gap either way. RESOLVIDO em grill 2026-09-22 (user-endorsed): tratado como fluxo conectado — E07 reutiliza/conecta com o padrão de roteamento e escalonamento de huddle de E02, em vez de construir um mecanismo de fila paralelo. Aposta de design a validar com o cliente; ver anotação [assumption:] em `outputs/01-solution.md`."
   },
   {
     "gap_id": "G0707",
@@ -783,7 +783,7 @@
     "gap_id": "G0315",
     "category": "Assumption",
     "gap_or_question": "[assumption: E03/E10 — fundação de dados compartilhada] Um sinal de ocupação/fila em tempo real por posto precisa ser construído do zero (provável objeto Data 360 alimentado por check-in/check-out do atendente ou estado de sessão dos totens) — nenhum sistema de registro existente foi identificado no discovery.",
-    "impact_or_notes": "Este é o gap de fundação de dados mais carregado do programa: tanto E03 (roteamento de capacidade ociosa) quanto E10 (previsibilidade de atendimento, Fase 2) dependem do mesmo sinal. Validar com a Prodesp se já existe qualquer sistema de fila/ocupação hoje (mesmo que não-Salesforce) antes de desenhar do zero. Se não existir nada, E03 sobe de S para M (precisa instrumentar check-in/check-out) e E10 sobe de M para L (modelo preditivo sem dado de entrada confiável é maior risco/esforço)."
+    "impact_or_notes": "Este é o gap de fundação de dados mais carregado do programa: tanto E03 (roteamento de capacidade ociosa) quanto E10 (previsibilidade de atendimento, Fase 2) dependem do mesmo sinal. Validar com a Prodesp se já existe qualquer sistema de fila/ocupação hoje (mesmo que não-Salesforce) antes de desenhar do zero. Se não existir nada, E03 sobe de S para M (precisa instrumentar check-in/check-out) e E10 sobe de M para L (modelo preditivo sem dado de entrada confiável é maior risco/esforço). RESOLVIDO PARCIALMENTE em grill 2026-09-22 (user-endorsed): E03 assume a propriedade de construir essa fundação; E10 passa a ser puro consumidor, não dono. A questão técnica de fundo — se algum sistema de fila/ocupação já existe (mesmo fora do Salesforce) — permanece Unknown, pendente de confirmação com a Prodesp."
   },
   {
     "gap_id": "G0413",
