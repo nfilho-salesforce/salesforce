@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<!--
+  SCOPEZILLA BRAND KIT — DECK SHELL (present, arrow-key 16:9 slides)
+  Use for: a deck you present or screen-share.
+  For a scrollable page to share as a link, use shells/doc.html instead.
+  This is the generic/ad-hoc deck starter. The RFP finalist proposal deck keeps its
+  own specialized, on-brand template (skills/rfp/templates/slides-template.html) — its ~40
+  proposal-specific slide types are bespoke layout, the same way the report templates
+  keep theirs. Use THIS shell for every other deck.
+
+  This shell is SELF-CONTAINED: brand tokens, component CSS, the slide engine, and
+  the copy-as-image control are already inlined. You do NOT paste CSS — just fill.
+
+  canonical source: the :root tokens + component CSS below are brand-guidelines.md
+  Section 2 + Section 12, and the copy-as-image block is shells/copy-as-image.html.
+  Keep them in sync by hand if the kit changes; do not hardcode a hex here.
+
+  HOW TO USE
+  1. Set --client-primary / --client-dark from the project's co_brand (Section 5) — the ONLY color edit.
+     For a client-facing deck, also fill the co-brand lockup on the cover (Section 8); delete it otherwise.
+  2. Duplicate the <section class="slide"> block per slide; fill with components (see components.md).
+  3. Mark any visual block a viewer would lift into another deck with data-shot.
+  4. Save as ONE self-contained file.
+
+  BEHAVIOR (built in — don't re-implement):
+  • Fills the screen: the fixed 1280×720 canvas scales to the window, letterboxed to 16:9.
+  • Nav: arrow keys / space navigate; the nav bar auto-hides after 2.5s idle, wakes on mouse move.
+  • PDF: Cmd/Ctrl-P → one clean landscape page per slide (print CSS forces exact page size).
+  • Light composition by default (white / Cloud Blue surfaces, navy for text/accents). For a
+    strong-gravitas hero, swap the .cover background to the navy gradient (see the .cover rule).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PRODESP · Poupatempo Balcão V2</title>
+<style>
+  :root {
+    /* ── Core blues (everyday palette) ─────────────────────────────── */
+    --sf-navy:        #001E5B;   /* Electric Blue 15 — heritage navy, hero backgrounds */
+    --sf-type:        #002775;   /* Electric Blue 20 — body/heading type on light */
+    --sf-container:   #022AC0;   /* Electric Blue 30 — filled containers, table headers */
+    --sf-blue:        #066AFE;   /* Electric Blue 50 — secondary elements, highlights, CTAs */
+    --sf-cloud:       #00B3FF;   /* Cloud Blue 68 — "Salesforce Blue" accent */
+    --sf-cloud-80:    #90D0FE;   /* Cloud Blue 80 — tints, borders */
+    --sf-bg:          #CFE9FE;   /* Cloud Blue 90 — slide background */
+    --sf-light-bg:    #EAF5FE;   /* Cloud Blue 95 — white-adjacent bg, alt rows */
+    --sf-text:        #002775;   /* default text = Electric Blue 20 */
+    --sf-text-weak:   #4A5578;   /* muted metadata — passes AA on white/light-bg */
+
+    /* ── Extended palette (categorical / data-viz / severity accents) ── */
+    --ext-teal:       #06A59A;  --ext-teal-80: #04E1CB;  --ext-teal-95:   #DEF9F3;
+    --ext-yellow:     #FCC003;  --ext-yellow-70: #E4A201; --ext-yellow-95: #FBF3E0;
+    --ext-pink:       #FF538A;  --ext-pink-40: #B60554;  --ext-pink-95:   #FEF0F3;
+    --ext-violet:     #D17DFE;  --ext-violet-30: #730394; --ext-violet-95: #F9F0FF;
+
+    /* ── Semantic status (traffic-light: scope in/at-risk/out, on-track/late).
+       Distinct from the severity .sz-tag family above — always pair with a label. */
+    --sf-ok:      #2E844A;  --sf-ok-bg:      #EAFCE9;
+    --sf-warn:    #DD7A01;  --sf-warn-bg:    #FFF7E6;
+    --sf-bad:     #BA0517;  --sf-bad-bg:     #FDECEB;
+    --sf-neutral: #94A3B3;  --sf-neutral-bg: #F3F6FA;
+
+    /* ── Client co-brand accent (override per Section 5) ───────────── */
+    --client-primary: #066AFE;   /* default = Electric Blue 50; override with client brand color */
+    --client-dark:    #022AC0;   /* darker shade for gradients/hover */
+
+    /* ── Typography ────────────────────────────────────────────────── */
+    --font-heading: 'ITC Avant Garde Gothic Demi', 'Avant Garde', 'Century Gothic',
+                    'Salesforce Sans', 'Source Sans 3', Arial, sans-serif;
+    --font-body:    'Salesforce Sans', 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+    --fs-title: 54px; --fs-subtitle: 36px; --fs-l1: 30px; --fs-cat: 26px;
+    --fs-l2: 24px; --fs-desc: 22px; --fs-body: 16px;
+
+    /* ── Spacing / radius / shadow ─────────────────────────────────── */
+    --space-xs: 4px;  --space-sm: 8px;  --space-md: 16px;
+    --space-lg: 24px; --space-xl: 32px; --space-2xl: 48px;
+    --radius-sm: 4px; --radius-md: 8px; --radius-lg: 16px;
+    --shadow-brand: 2.6px 9.7px 25px rgba(6,106,254,0.15);
+  }
+
+  /* ── Base ─────────────────────────────────────────────────────────── */
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:var(--font-body); color:var(--sf-text);
+         -webkit-font-smoothing:antialiased; line-height:1.55; }
+  h1,h2,h3,.sz-title,.sz-stat-num { font-family:var(--font-heading); color:var(--sf-navy); line-height:1.15; }
+  a { color:var(--sf-blue); }
+  :focus-visible { outline:3px solid var(--sf-blue); outline-offset:2px; border-radius:2px; }
+  @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none !important; transition:none !important; scroll-behavior:auto !important; } }
+
+  /* ── Components (shared with doc/report — brand-guidelines.md Section 12) ── */
+  .sz-card { background:#fff; border-radius:var(--radius-md); padding:var(--space-lg); box-shadow:var(--shadow-brand); }
+  .sz-stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:var(--space-md); }
+  .sz-stat { background:#fff; border-radius:var(--radius-md); padding:var(--space-lg) var(--space-md); text-align:center; box-shadow:var(--shadow-brand); }
+  .sz-stat-num { font-size:var(--fs-title); color:var(--client-primary); }
+  .sz-stat-lbl { font-size:14px; color:var(--sf-text-weak); margin-top:var(--space-xs); }
+  .sz-table { width:100%; border-collapse:collapse; background:#fff; border-radius:var(--radius-md); overflow:hidden; box-shadow:var(--shadow-brand); }
+  .sz-table th { background:var(--sf-container); color:#fff; font-family:var(--font-heading); text-align:left; padding:var(--space-sm) var(--space-md); font-size:14px; }
+  .sz-table td { padding:var(--space-sm) var(--space-md); border-top:1px solid var(--sf-light-bg); }
+  .sz-table tbody tr:nth-child(even) { background:var(--sf-light-bg); }
+  .sz-tag { display:inline-block; font-size:12px; font-weight:700; padding:2px 10px; border-radius:999px; line-height:1.6; }
+  .sz-tag--critical { background:var(--ext-pink-95); color:var(--ext-pink-40); }
+  .sz-tag--high     { background:var(--ext-yellow-95); color:var(--ext-yellow-70); }
+  .sz-tag--medium   { background:var(--ext-yellow-95); color:var(--ext-yellow-70); }
+  .sz-tag--low      { background:var(--ext-teal-95); color:var(--ext-teal); }
+  .sz-tag--info     { background:var(--sf-light-bg); color:var(--sf-blue); }
+  .sz-tag--sz-s  { background:var(--sf-light-bg); color:var(--sf-blue); }
+  .sz-tag--sz-m  { background:#DCEBFF; color:var(--sf-blue); }
+  .sz-tag--sz-l  { background:var(--sf-cloud); color:var(--sf-navy); }
+  .sz-tag--sz-xl { background:var(--sf-container); color:#fff; }
+  .sz-timeline { display:flex; gap:2px; border-radius:var(--radius-sm); overflow:hidden; box-shadow:var(--shadow-brand); }
+  .sz-phase { flex:1; padding:var(--space-md); color:#fff; text-align:center; font-size:14px; }
+  .sz-phase:nth-child(1){background:var(--sf-navy);} .sz-phase:nth-child(2){background:var(--sf-container);}
+  .sz-phase:nth-child(3){background:var(--sf-blue);} .sz-phase:nth-child(4){background:var(--sf-cloud);}
+  .sz-phase-name { font-family:var(--font-heading); }
+  .sz-phase-dur { opacity:.85; font-size:12px; }
+  .sz-chips { display:flex; flex-wrap:wrap; gap:var(--space-xs); }
+  .sz-chip { background:var(--sf-light-bg); color:var(--sf-container); border:1px solid var(--sf-cloud-80); border-radius:999px; padding:4px 12px; font-size:13px; }
+  .sz-panorama { position:relative; background:var(--sf-cloud); color:var(--sf-navy); padding:var(--space-2xl) var(--space-xl); text-align:center; border-radius:var(--radius-lg); box-shadow:var(--shadow-brand); overflow:hidden; }
+  .sz-panorama--navy { background:linear-gradient(135deg,var(--sf-navy),var(--sf-container)); color:#fff; }
+  .sz-panorama h2 { color:inherit; }
+
+  /* ── Copy-as-image control (canonical: shells/copy-as-image.html) ──── */
+  .shot-btn{position:absolute;top:14px;right:16px;font-size:11px;font-weight:600;color:var(--sf-blue);background:#fff;border:1px solid var(--sf-cloud-80);border-radius:5px;padding:4px 9px;cursor:pointer;z-index:2}
+  .shot-btn:hover{background:var(--sf-light-bg)}
+  [data-shot]{background:#fff;position:relative}
+  @media print{ .shot-btn{display:none} }
+
+  /* ── Deck-shell layout (specific to this format) ──────────────────── */
+  html,body { height:100%; }
+  body { background:var(--sf-navy); overflow:hidden;
+    display:flex; align-items:center; justify-content:center; }
+  /* Slides are authored at a fixed 1280×720 so composition never reflows, then
+     scaled to fill the viewport (letterboxed to 16:9 — the navy body shows as
+     bars). Set --scale from JS on load/resize. */
+  .slide { width:1280px; height:720px; background:var(--sf-light-bg); position:relative;
+    display:none; flex-direction:column; padding:56px 72px; overflow:hidden;
+    transform:scale(var(--scale,1)); transform-origin:center center; }
+  .slide.active { display:flex; }
+  .slide::before { content:''; position:absolute; top:0; left:0; right:0; height:4px;
+    background:linear-gradient(90deg,var(--client-primary),var(--sf-cloud)); }
+  .slide-eyebrow { font-family:var(--font-heading); font-size:13px; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--sf-blue); }
+  .slide-title { font-size:var(--fs-subtitle); margin:var(--space-xs) 0 var(--space-lg); }
+  .slide-num { position:absolute; bottom:24px; right:32px; font-size:12px; color:var(--sf-text-weak); }
+  /* Light composition: build surfaces light (white / Cloud Blue 90–95), reserve
+     navy for TEXT and thin accents. For a strong-gravitas hero, swap the cover
+     background to `linear-gradient(135deg,var(--sf-navy),var(--sf-container))`
+     and its text to #fff. */
+  .cover { justify-content:center; background:linear-gradient(135deg,#fff,var(--sf-bg)); }
+  .cover .slide-title { font-size:var(--fs-title); color:var(--sf-navy); }
+  .cover .slide-eyebrow { color:var(--sf-blue); }
+  /* Co-brand lockup (client-facing cover only — Section 5/8): Salesforce + inline client logo. */
+  .sz-cobrand { display:flex; align-items:center; gap:var(--space-md); margin-bottom:var(--space-xl); }
+  .sz-cobrand svg, .sz-cobrand img { height:36px; width:auto; }
+  .sz-cobrand .sz-cobrand-x { color:var(--sf-text-weak); font-size:20px; }
+  /* Nav auto-hides after 2.5s of mouse stillness (JS toggles .idle). */
+  .nav { position:fixed; bottom:20px; left:50%; transform:translateX(-50%); display:flex;
+    gap:8px; align-items:center; background:rgba(0,30,91,.9); border-radius:999px; padding:8px 16px;
+    z-index:50; transition:opacity .4s ease; }
+  .nav.idle { opacity:0; pointer-events:none; }
+  .nav button { background:var(--sf-blue); color:#fff; border:none; border-radius:999px;
+    padding:6px 14px; cursor:pointer; font-family:var(--font-heading); }
+  .nav span { color:#fff; font-size:13px; padding:0 8px; }
+  @media print {
+    /* One landscape page per slide, sized exactly to the 1280×720 canvas. */
+    @page { size:1280px 720px; margin:0; }
+    html,body { background:#fff; width:1280px; height:auto; display:block; overflow:visible; }
+    .slide { display:flex !important; page-break-after:always; box-shadow:none; transform:none !important; }
+    .slide:last-of-type { page-break-after:auto; }
+    .nav, .slide-num { display:none; }
+  }
+
+  /* ── Deck-specific layout helpers (this file only) ──────────────────── */
+  .split { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-lg); flex:1; align-items:stretch; }
+  .split .sz-card { display:flex; flex-direction:column; gap:var(--space-sm); }
+  .split .sz-card h3 { font-size:var(--fs-l1); }
+  .split .sz-card ul { padding-left:20px; font-size:var(--fs-body); color:var(--sf-text); }
+  .split .sz-card li { margin-bottom:6px; }
+  .split .sz-card--now { border-top:4px solid var(--sf-neutral); }
+  .split .sz-card--next { border-top:4px solid var(--client-primary); }
+  .layer-stack { display:flex; flex-direction:column; gap:6px; flex:1; }
+  .layer { flex:1; display:flex; align-items:center; gap:var(--space-lg); background:#fff; border-radius:var(--radius-md); box-shadow:var(--shadow-brand); padding:var(--space-md) var(--space-lg); border-left:6px solid var(--sf-cloud); }
+  .layer-label { font-family:var(--font-heading); font-size:var(--fs-l2); color:var(--sf-navy); min-width:220px; }
+  .layer-body { font-size:15px; color:var(--sf-text); }
+  .hub-wrap { display:flex; align-items:center; justify-content:center; gap:var(--space-2xl); flex:1; }
+  .hub-center { background:linear-gradient(135deg,var(--sf-navy),var(--sf-container)); color:#fff; border-radius:var(--radius-lg); padding:var(--space-xl); text-align:center; font-family:var(--font-heading); font-size:var(--fs-l1); box-shadow:var(--shadow-brand); min-width:220px; }
+  .hub-spokes { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-md); }
+  .hub-spoke { background:#fff; border-radius:var(--radius-md); padding:var(--space-md); box-shadow:var(--shadow-brand); font-size:14px; border-left:4px solid var(--ext-yellow); }
+  .hub-spoke b { display:block; font-family:var(--font-heading); color:var(--sf-navy); font-size:15px; margin-bottom:2px; }
+  .checklist { display:flex; flex-direction:column; gap:10px; flex:1; }
+  .check-row { display:flex; gap:var(--space-md); align-items:flex-start; background:#fff; border-radius:var(--radius-md); padding:var(--space-md) var(--space-lg); box-shadow:var(--shadow-brand); }
+  .check-row .chip { flex:0 0 220px; }
+  .check-row .body { font-size:15px; color:var(--sf-text); }
+  .range-bar { position:relative; height:56px; background:var(--sf-light-bg); border-radius:var(--radius-md); overflow:hidden; box-shadow:var(--shadow-brand); }
+  .range-bar-fill { position:absolute; top:0; bottom:0; left:8%; width:84%; background:linear-gradient(90deg,var(--sf-container),var(--sf-cloud)); border-radius:var(--radius-md); display:flex; align-items:center; justify-content:space-between; padding:0 var(--space-lg); color:#fff; font-family:var(--font-heading); font-size:15px; }
+  .disclaimer { font-size:13px; color:var(--sf-text-weak); border-top:1px solid var(--sf-cloud-80); padding-top:var(--space-sm); margin-top:auto; font-style:italic; }
+  .numbered-asks { display:flex; flex-direction:column; gap:var(--space-lg); flex:1; justify-content:center; }
+  .numbered-ask { display:flex; gap:var(--space-lg); align-items:flex-start; }
+  .numbered-ask .num { font-family:var(--font-heading); font-size:40px; color:var(--client-primary); min-width:56px; }
+  .numbered-ask .txt { font-size:var(--fs-desc); color:var(--sf-navy); padding-top:4px; }
+</style>
+</head>
+<body>
+
+  <section class="slide cover active">
+    <div class="slide-eyebrow">PRODESP · Poupatempo Balcão V2 · 22 de setembro de 2026</div>
+    <h1 class="slide-title">Poupatempo Balcão V2: do WhatsApp pessoal ao posto de trabalho institucional</h1>
+  </section>
+
+  <section class="slide">
+    <div class="slide-eyebrow">A ideia central</div>
+    <h2 class="slide-title">O posto de trabalho do atendente ainda falta no balcão do Poupatempo</h2>
+    <p style="font-size:var(--fs-desc); color:var(--sf-text); margin-bottom:var(--space-lg); max-width:900px;">A cidadã já fala com o Estado no WhatsApp. Quando o caso foge do script — uma digital que não entra, um documento divergente, um sistema fora do ar — o atendente hoje levanta, usa o celular pessoal ou pede para a pessoa voltar.</p>
+    <div class="split">
+      <div class="sz-card sz-card--now">
+        <h3>Hoje</h3>
+        <ul>
+          <li>Atendente levanta do posto</li>
+          <li>Recorre ao celular pessoal</li>
+          <li>Ou pede para a cidadã voltar depois</li>
+        </ul>
+      </div>
+      <div class="sz-card sz-card--next">
+        <h3>Proposto</h3>
+        <ul>
+          <li>Posto de trabalho institucional no Slack</li>
+          <li>Conhecimento do serviço à mão</li>
+          <li>Especialista a um huddle de distância</li>
+        </ul>
+      </div>
+    </div>
+    <span class="slide-num"></span>
+  </section>
+
+  <section class="slide">
+    <div class="slide-eyebrow">Validação de negócio</div>
+    <h2 class="slide-title">Casos fora do script ainda são resolvidos por WhatsApp pessoal, fora do alcance da LGPD</h2>
+    <div class="checklist">
+      <div class="check-row"><span class="sz-tag sz-tag--info chip">Hoje</span><div class="body">Biometria que falha, documento divergente, sistema fora do ar — coordenação informal entre postos, sem histórico auditável.</div></div>
+      <div class="check-row"><span class="sz-tag sz-tag--medium chip">Exposição</span><div class="body">Serviço de alto volume e alta visibilidade institucional, sob risco crescente de um achado de controle externo.</div></div>
+      <div class="check-row"><span class="sz-tag sz-tag--critical chip">Pergunta à sala</span><div class="body">Isso reflete o que vocês vivem no balcão hoje?</div></div>
+    </div>
+    <span class="slide-num"></span>
+  </section>
+
+  <section class="slide">
+    <div class="slide-eyebrow">A escala do problema</div>
+    <h2 class="slide-title">244 postos e 900 totens operam hoje sem visibilidade de capacidade ociosa entre si</h2>
+    <div class="sz-stats" style="margin-bottom:var(--space-lg);">
+      <div class="sz-stat"><div class="sz-stat-num">244</div><div class="sz-stat-lbl">postos de atendimento</div></div>
+      <div class="sz-stat"><div class="sz-stat-num">900</div><div class="sz-stat-lbl">totens de autoatendimento</div></div>
+      <div class="sz-stat"><div class="sz-stat-num">0</div><div class="sz-stat-lbl">fonte de sinal de ocupação identificada hoje</div></div>
+    </div>
+    <p style="font-size:15px; color:var(--sf-text-weak);">Objetivo: redirecionar atendimento entre postos sem contratar. A fonte do sinal de ocupação por posto é uma pergunta aberta para a Prodesp responder na Fase 0.</p>
+    <span class="slide-num"></span>
+  </section>
+
+  <section class="slide">
+    <div class="slide-eyebrow">Validação técnica</div>
+    <h2 class="slide-title">Quatro camadas cobrem o posto de trabalho, a operação, a cidadã e a integração multissistema</h2>
+    <div class="layer-stack">
+      <div class="layer"><div class="layer-label">1 · Posto de trabalho</div><div class="layer-body">Canais Slack por serviço, Canvas lastreado em Salesforce Knowledge, agente Agentforce de tópico único grounded em Data 360.</div></div>
+      <div class="layer"><div class="layer-label">2 · Operação</div><div class="layer-body">Sinal de ocupação/fila por posto, escalonamento por huddle, contingência para sistema fora do ar.</div></div>
+      <div class="layer"><div class="layer-label">3 · Cidadã</div><div class="layer-body">Pré-atendimento antes da visita, validação remota de documentos, agente disponível 24 horas com humano por trás de qualquer decisão sobre documentos.</div></div>
+      <div class="layer"><div class="layer-label">4 · Integração</div><div class="layer-body">Camada MuleSoft ligando a plataforma Salesforce Headless aos sistemas-alvo da Prodesp.</div></div>
+    </div>
+    <p style="font-size:14px; color:var(--sf-text-weak); margin-top:var(--space-sm);">Decisão de arquitetura: quem constrói o sinal de ocupação não é quem só o consome — evita duplicar a mesma base de dados.</p>
+    <span class="slide-num"></span>
+  </section>
+
+  <section class="slide">
+    <div class="slide-eyebrow">Escopo completo</div>
+    <h2 class="slide-title">Dez frentes de trabalho, com dois picos de risco: o atendimento por agente de IA e a integração de cinco sistemas</h2>
+    <table class="sz-table">
+      <thead><tr><th>Frente</th><th>Grupo</th><th>Porte</th></tr></thead>
+      <tbody>
+        <tr><td>Posto de trabalho no Slack</td><td>Tática</td><td><span class="sz-tag sz-tag--sz-m">M</span></td></tr>
+        <tr><td>Escalonamento por huddle</td><td>Tática</td><td><span class="sz-tag sz-tag--sz-s">S</span></td></tr>
+        <tr><td>Contingência de sistema fora do ar</td><td>Tática</td><td><span class="sz-tag sz-tag--sz-s">S</span></td></tr>
+        <tr><td>Governança de adoção</td><td>Tática</td><td><span class="sz-tag sz-tag--sz-m">M</span></td></tr>
+        <tr><td>Sinal de capacidade ociosa</td><td>Capacidade/plataforma</td><td><span class="sz-tag sz-tag--sz-m">M</span></td></tr>
+        <tr><td>Pré-atendimento por WhatsApp</td><td>Capacidade/plataforma</td><td><span class="sz-tag sz-tag--sz-m">M</span></td></tr>
+        <tr><td>Validação remota de documentos</td><td>Capacidade/plataforma</td><td><span class="sz-tag sz-tag--sz-m">M</span></td></tr>
+        <tr><td>Atendimento por agente de IA 24/7</td><td>Capacidade/plataforma</td><td><span class="sz-tag sz-tag--sz-l">L</span></td></tr>
+        <tr><td>Integração multissistema (MuleSoft)</td><td>Capacidade/plataforma</td><td><span class="sz-tag sz-tag--sz-xl">XL</span></td></tr>
+        <tr><td>Analytics e modelo preditivo</td><td>Capacidade/plataforma</td><td><span class="sz-tag sz-tag--sz-l">L</span></td></tr>
+      </tbody>
+    </table>
+    <span class="slide-num"></span>
+  </section>
+
+  <section class="slide">
+    <div class="slide-eyebrow">O maior risco técnico</div>
+    <h2 class="slide-title">A integração com cinco sistemas ainda não tem identidade nem protocolo confirmados</h2>
+    <div class="hub-wrap">
+      <div class="hub-center">Integração<br>MuleSoft</div>
+      <div class="hub-spokes">
+        <div class="hub-spoke"><b>Gov.br</b>identidade pendente</div>
+        <div class="hub-spoke"><b>Biometria estadual</b>identidade pendente</div>
+        <div class="hub-spoke"><b>Sistema Semântico</b>protocolo pendente</div>
+        <div class="hub-spoke"><b>T7</b>protocolo pendente</div>
+        <div class="hub-spoke" style="grid-column:1/-1;"><b>Legado Prodesp</b>identidade e protocolo pendentes</div>
+      </div>
+    </div>
+    <p style="font-size:14px; color:var(--sf-text-weak); margin-top:var(--space-sm);">O ambiente de integração já maduro na conta reduz parte do risco de construir do zero, não todo.</p>
+    <span class="slide-num"></span>
+  </section>
+
+  <section class="slide">
+    <div class="slide-eyebrow">Sequenciamento</div>
+    <h2 class="slide-title">Quatro fases formam o caminho crítico: atraso em qualquer uma atrasa a validação remota de documentos</h2>
+    <div class="sz-timeline" style="flex:0 0 100px;">
+      <div class="sz-phase"><div class="sz-phase-name">Fase 0</div><div class="sz-phase-dur">Fechar lacunas</div></div>
+      <div class="sz-phase"><div class="sz-phase-name">Fase 1</div><div class="sz-phase-dur">Fundação do posto de trabalho</div></div>
+      <div class="sz-phase"><div class="sz-phase-name">Fase 2</div><div class="sz-phase-dur">Operação tática do balcão</div></div>
+      <div class="sz-phase"><div class="sz-phase-name">Fase 3</div><div class="sz-phase-dur">Integração (trilha paralela)</div></div>
+    </div>
+    <p style="font-size:15px; color:var(--sf-text); margin-top:var(--space-lg);">Caminho crítico: fundação → escalonamento → validação de documentos. A Fase 3 (integração) corre em paralelo — não bloqueia as fases baseadas em Slack. Fase 4 (experiência da cidadã) e Fase 5 (analytics) seguem depois.</p>
+    <span class="slide-num"></span>
+  </section>
+
+  <section class="slide">
+    <div class="slide-eyebrow">Linha de tempo</div>
+    <h2 class="slide-title">15 a 30 semanas de referência: a Fase 0 fecha as lacunas antes de travar qualquer prazo</h2>
+    <div class="range-bar" style="margin-top:var(--space-lg);">
+      <div class="range-bar-fill"><span>15 semanas</span><span>30 semanas</span></div>
+    </div>
+    <p style="font-size:15px; color:var(--sf-text); margin-top:var(--space-lg);">Faixa derivada da forma do programa — classificação multi-cloud de porte médio — com acréscimo por overlay regulatório de LGPD/setor público. O teto é alargado por três frentes ainda com confiança baixa: integração, sinal de ocupação e gatilho de pré-atendimento.</p>
+    <p class="disclaimer">Esta faixa é benchmark-based, derivada dos dados de treinamento do modelo e padrões gerais de entrega (não validado pela Salesforce) — não é um compromisso. Números finais são confirmados através do acordo comercial aplicável.</p>
+    <span class="slide-num"></span>
+  </section>
+
+  <section class="slide">
+    <div class="slide-eyebrow">Investimento</div>
+    <h2 class="slide-title">Faixa indicativa de R$ 4,39 a R$ 9,42 milhões, ancorada na trilha com o mesmo time acelerado por IA</h2>
+    <table class="sz-table">
+      <thead><tr><th>Trilha</th><th>Duração</th><th>Faixa indicativa (BRL)</th></tr></thead>
+      <tbody>
+        <tr><td>Tradicional</td><td>15–30 semanas</td><td>R$ 4.708.080,15 – R$ 9.416.160,30</td></tr>
+        <tr style="background:var(--sf-light-bg); font-weight:700;"><td>Augmented — âncora (mesmo time, acelerado por IA)</td><td>14–25 semanas</td><td>R$ 4.394.208,14 – R$ 7.846.800,25</td></tr>
+        <tr><td>AI-native (condicional)</td><td>10–18 semanas</td><td>R$ 1.781.807,60 – R$ 3.207.253,68</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:13px; color:var(--sf-text-weak); margin-top:var(--space-sm);">A trilha AI-native depende de a Prodesp nomear o owner de governança de agentes de IA — é um motivador condicional, não uma oferta em aberto.</p>
+    <p class="disclaimer">Esta faixa é baseada nas rates de R$ 946,69/h (architect-class sênior onshore), R$ 715,66/h (entrega sênior onshore/qualquer offshore regular) e R$ 614,21/h (change &amp; adoption regular onshore) validadas em 2026-09-17 no projeto PRODESP-DER e reutilizadas aqui por decisão do usuário. Indicativo para planejamento apenas; a estrutura comercial final é confirmada através do acordo comercial aplicável.</p>
+    <span class="slide-num"></span>
+  </section>
+
+  <section class="slide">
+    <div class="slide-eyebrow">O que fecha antes do kick-off</div>
+    <h2 class="slide-title">Cinco lacunas fecham na Fase 0, antes do kick-off técnico</h2>
+    <div class="checklist">
+      <div class="check-row"><span class="sz-tag sz-tag--info chip">Integração</span><div class="body">Identidades dos cinco sistemas-alvo (Gov.br, biometria estadual, Sistema Semântico, T7, legado Prodesp).</div></div>
+      <div class="check-row"><span class="sz-tag sz-tag--info chip">Operação</span><div class="body">Fonte do sinal de ocupação por posto.</div></div>
+      <div class="check-row"><span class="sz-tag sz-tag--info chip">Cidadã</span><div class="body">Sistema que dispara o pré-atendimento.</div></div>
+      <div class="check-row"><span class="sz-tag sz-tag--info chip">Governança</span><div class="body">Owner de governança de agentes de IA do lado Prodesp.</div></div>
+      <div class="check-row"><span class="sz-tag sz-tag--info chip">Licenciamento</span><div class="body">Dimensionamento real de licenças para 244 postos e 900 totens.</div></div>
+    </div>
+    <span class="slide-num"></span>
+  </section>
+
+  <section class="slide">
+    <div class="slide-eyebrow">Fechamento</div>
+    <h2 class="slide-title">Aprovar a Fase 0 hoje mantém a faixa de 15–30 semanas em pé</h2>
+    <div class="numbered-asks">
+      <div class="numbered-ask"><span class="num">1</span><span class="txt">Validar o entendimento da dor e do desenho apresentados.</span></div>
+      <div class="numbered-ask"><span class="num">2</span><span class="txt">Confirmar a leitura técnica da arquitetura e do risco de integração.</span></div>
+      <div class="numbered-ask"><span class="num">3</span><span class="txt">Aprovar a Fase 0 e a faixa indicativa de prazo e investimento.</span></div>
+    </div>
+    <span class="slide-num"></span>
+  </section>
+
+<div class="nav">
+  <button onclick="go(-1)">← Prev</button>
+  <span id="count"></span>
+  <button onclick="go(1)">Next →</button>
+</div>
+
+<script>
+  const slides = [...document.querySelectorAll('.slide')];
+  let i = 0;
+  // Scale the fixed 1280×720 canvas to fill the window, letterboxed to 16:9.
+  function fit(){ document.documentElement.style.setProperty('--scale',
+    Math.min(innerWidth/1280, innerHeight/720)); }
+  addEventListener('resize', fit); fit();
+  // Auto-hide the nav after 2.5s of mouse stillness; wake it on movement.
+  const nav = document.querySelector('.nav'); let idleTimer;
+  function wake(){ nav.classList.remove('idle'); clearTimeout(idleTimer);
+    idleTimer = setTimeout(()=>nav.classList.add('idle'), 2500); }
+  ['mousemove','keydown','touchstart'].forEach(ev=>addEventListener(ev, wake)); wake();
+  function show(n){ i = Math.max(0, Math.min(slides.length-1, n));
+    slides.forEach((s,k)=>s.classList.toggle('active', k===i));
+    document.getElementById('count').textContent = (i+1)+' / '+slides.length;
+    slides.forEach((s,k)=>{const n=s.querySelector('.slide-num'); if(n) n.textContent=k+1;});
+  }
+  function go(d){ show(i+d); }
+  addEventListener('keydown', e=>{
+    if(['ArrowRight','ArrowDown',' '].includes(e.key)){e.preventDefault(); go(1);}
+    if(['ArrowLeft','ArrowUp'].includes(e.key)){e.preventDefault(); go(-1);}
+  });
+  addEventListener('beforeprint', ()=>slides.forEach(s=>s.classList.add('active')));
+  addEventListener('afterprint', ()=>show(i));
+  show(0);
+</script>
+<!-- canonical source: shells/copy-as-image.html — copy-as-image control (verbatim) -->
+<script>
+  async function nodeToPngBlob(node){
+    var r = node.getBoundingClientRect(), w = Math.ceil(r.width), h = Math.ceil(r.height), scale = 2;
+    var clone = node.cloneNode(true), src = node.querySelectorAll('*'), dst = clone.querySelectorAll('*');
+    inlineStyle(node, clone);
+    for (var i=0;i<src.length;i++) inlineStyle(src[i], dst[i]);
+    clone.style.margin = '0';
+    var xml = new XMLSerializer().serializeToString(clone);
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'">'
+            + '<foreignObject width="100%" height="100%">'
+            + '<div xmlns="http://www.w3.org/1999/xhtml">'+xml+'</div>'
+            + '</foreignObject></svg>';
+    var img = new Image();
+    await new Promise(function(res,rej){
+      img.onload = res; img.onerror = rej;
+      img.src = 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+    });
+    var c = document.createElement('canvas'); c.width = w*scale; c.height = h*scale;
+    var ctx = c.getContext('2d'); ctx.scale(scale,scale);
+    ctx.fillStyle = '#fff'; ctx.fillRect(0,0,w,h); ctx.drawImage(img,0,0);
+    return await new Promise(function(res){ c.toBlob(res,'image/png'); });
+  }
+  function inlineStyle(from,to){
+    var cs = getComputedStyle(from), s = '';
+    for (var i=0;i<cs.length;i++){ var p = cs[i]; s += p+':'+cs.getPropertyValue(p)+';'; }
+    to.setAttribute('style', s);
+  }
+  async function copyShot(node,btn){
+    var label = btn.textContent;
+    try{
+      var blob = await nodeToPngBlob(node);
+      if (navigator.clipboard && window.ClipboardItem){
+        await navigator.clipboard.write([new ClipboardItem({'image/png':blob})]);
+        btn.textContent = '✓ Copied';
+      } else { throw new Error('no clipboard-image'); }
+    }catch(e){
+      try{
+        var blob2 = await nodeToPngBlob(node), a = document.createElement('a');
+        a.href = URL.createObjectURL(blob2); a.download = 'scopezilla-chart.png'; a.click();
+        btn.textContent = '✓ Downloaded';
+      }catch(e2){ btn.textContent = '✗ Try screenshot'; }
+    }
+    setTimeout(function(){ btn.textContent = label; }, 2200);
+  }
+  document.querySelectorAll('[data-shot]').forEach(function(node){
+    var btn = document.createElement('button');
+    btn.className = 'shot-btn'; btn.textContent = '⧉ Copy as image';
+    btn.addEventListener('click', function(){ copyShot(node, btn); });
+    node.appendChild(btn);
+  });
+</script>
+</body>
+</html>
