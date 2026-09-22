@@ -356,6 +356,21 @@
         "export empacota os deliverables no workbook Excel/Word cliente-pronto",
         "slides se um deck também for necessário"
       ]
+    },
+    {
+      "date": "2026-09-22",
+      "skills_used": [
+        "export"
+      ],
+      "summary": "Empacotamento completo: openpyxl presente, workbook Excel gerado (não zip fallback). validate-data.py rodado antes do export — PASS limpo, mesmos 2 WARNs de staleness já investigados e aceitos (não substantivos, sem revise necessário), sem leak de pricing. CSVs re-sincronizados via json-to-csv.py (7 arquivos, incluindo estimate-comparison.csv de 3 linhas). Sem data/rfp.json — revisão adversarial de RFP-cycle (Step 1.5) pulada, não aplicável a este projeto. outputs/scoping-deliverables.xlsx escrito com 7 abas: Epics, Gap Analysis, Estimates, Roadmap Phases, Roles & Skills, Efficiency, Estimate Comparison.",
+      "friction": [],
+      "decisions": [],
+      "open_threads": [],
+      "next_steps": [
+        "slides se um deck também for necessário",
+        "quantum-leap se o usuário quiser um pacote de build-handoff para um agente construir no Salesforce (Slack + Agentforce + MuleSoft + Data 360 em escopo)",
+        "share se quiser publicar um único deliverable como link do Drive em vez do pacote inteiro"
+      ]
     }
   ],
   "preferences": {
