@@ -1,0 +1,205 @@
+{
+  "strategic_context": {
+    "current_state_challenges": [
+      {
+        "challenge": "Atendentes do balcão recorrem a grupos pessoais de WhatsApp para coordenar casos que a triagem digital não resolve (biometria falha, documento divergente, sistema fora do ar) — fora de qualquer canal institucional auditável.",
+        "source": "discovery",
+        "confidence": "Confirmed"
+      },
+      {
+        "challenge": "Não existe sinal de ocupação/fila por posto hoje — a capacidade ociosa entre os 244 postos e 900 totens é invisível a qualquer sistema, mesmo fora do Salesforce.",
+        "source": "discovery",
+        "confidence": "Assumed"
+      },
+      {
+        "challenge": "A cidadã que chega ao balcão sem pré-atendimento só recebe orientação de 'volte depois' quando falta documentação — não há etapa digital anterior à fila física.",
+        "source": "discovery",
+        "confidence": "Assumed"
+      },
+      {
+        "challenge": "Quando um sistema cai, não existe workflow de contingência formal — a resposta hoje é a mesma coordenação informal por WhatsApp que cobre os outros casos fora do script.",
+        "source": "discovery",
+        "confidence": "Confirmed"
+      },
+      {
+        "challenge": "A camada de integração com os 5 sistemas-alvo (gov.br, biometria estadual, Sistema Semântico, T7, legado Prodesp) ainda não tem identidades nem protocolos confirmados — é o gap mais amplo do programa.",
+        "source": "discovery",
+        "confidence": "Unknown"
+      },
+      {
+        "challenge": "Nenhum owner de governança de agentes de IA foi nomeado do lado Prodesp, e a Fase 4 já contratada inclui atendimento agêntico 24/7.",
+        "source": "discovery",
+        "confidence": "Assumed"
+      }
+    ],
+    "business_impacts": [
+      {
+        "impact": "Coordenação de casos sensíveis (documento, biometria) por WhatsApp pessoal sem histórico expõe a Prodesp a risco de não conformidade com a LGPD sobre dado de cidadão.",
+        "affected_area": "Compliance / LGPD",
+        "severity": "high"
+      },
+      {
+        "impact": "Capacidade ociosa não aproveitada entre postos gera filas desiguais e tempo de espera maior do que o necessário, sem custo adicional de headcount para corrigir.",
+        "affected_area": "Eficiência operacional",
+        "severity": "medium"
+      },
+      {
+        "impact": "Ausência de pré-atendimento digital transfere para o balcão físico problemas que poderiam ser resolvidos antes da visita, sobrecarregando o atendente presencial.",
+        "affected_area": "Experiência da cidadã",
+        "severity": "medium"
+      },
+      {
+        "impact": "Sem workflow de contingência formal, uma queda de sistema interrompe o atendimento sem plano de resposta documentado — risco de continuidade de serviço público.",
+        "affected_area": "Continuidade operacional",
+        "severity": "high"
+      },
+      {
+        "impact": "Coordenação informal sem trilha de auditoria é exatamente o tipo de achado que atrai escrutínio de órgãos de controle (TCE-SP) sobre a gestão de um serviço público de grande volume.",
+        "affected_area": "Risco institucional",
+        "severity": "high"
+      }
+    ],
+    "industry_context": {
+      "summary": "O setor público paulista opera sob pressão crescente por digitalização de atendimento presencial ao mesmo tempo em que a regulação sobre dado pessoal e decisão automatizada se torna mais explícita. O Poupatempo é um serviço de alto volume e alta visibilidade institucional, o que amplia tanto o valor de uma modernização bem-sucedida quanto o risco de uma lacuna de compliance exposta publicamente.",
+      "trends": [
+        "Migração de atendimento presencial de governo para modelos híbridos com pré-atendimento digital (WhatsApp/portal) antes da visita física",
+        "Adoção de IA agêntica em atendimento ao cidadão ainda incipiente no setor público brasileiro — poucos cases de referência direta na América Latina para atendimento presencial de balcão"
+      ],
+      "regulatory_factors": [
+        "LGPD Art. 20 — direito à revisão de decisão automatizada, relevante para qualquer fluxo de validação de documento ou biometria com IA",
+        "PL 2338/2023 (marco regulatório de IA) em tramitação — eleva a régua de governança esperada para qualquer agente de IA em atendimento ao cidadão"
+      ],
+      "competitive_pressures": [
+        "Ausência de caso de referência LATAM para 'Slack + Agentforce em balcão presencial de setor público' posiciona o programa como first-mover, não como adoção de padrão já provado na região"
+      ]
+    },
+    "value_drivers": [
+      {
+        "driver": "Roteamento de capacidade ociosa entre postos",
+        "category": "efficiency",
+        "description": "Tornar visível e acionável a capacidade ociosa entre os 244 postos e 900 totens reduz tempo de espera sem exigir contratação adicional."
+      },
+      {
+        "driver": "Coordenação auditável por desenho",
+        "category": "risk",
+        "description": "Substituir a coordenação informal por WhatsApp pessoal por canais institucionais com histórico reduz exposição a não conformidade LGPD e a achados de controle externo."
+      },
+      {
+        "driver": "Pré-atendimento e atendimento agêntico 24/7 com humano no circuito",
+        "category": "experience",
+        "description": "Resolver parte da jornada da cidadã antes da visita física e estender atendimento fora do horário de balcão, sempre com escalonamento humano genuíno em qualquer decisão sobre documentos."
+      },
+      {
+        "driver": "Evitar expansão física para absorver volume",
+        "category": "efficiency",
+        "description": "Ganhos de roteamento e pré-atendimento digital absorvem parte do crescimento de demanda sem exigir novos postos físicos ou totens."
+      }
+    ],
+    "strategic_priorities": [
+      {
+        "priority": "Formalizar a integração multissistema (MuleSoft, E09) para desbloquear o caminho crítico do programa",
+        "rank": 1,
+        "rationale": "E09 é o épico de maior risco técnico (XL/Unknown) e trava tanto a validação remota de documentos quanto o atendimento agêntico — resolver identidades e protocolos primeiro evita que a incerteza se propague para as fases seguintes."
+      },
+      {
+        "priority": "Substituir a coordenação informal do balcão por um canal institucional auditável",
+        "rank": 2,
+        "rationale": "É a dor mais concreta hoje (WhatsApp pessoal fora da LGPD) e a base sobre a qual as demais frentes de valor se apoiam — sem isso, o restante do programa entrega capacidade sobre uma fundação não conforme."
+      },
+      {
+        "priority": "Nomear a governança de agentes de IA antes de qualquer fluxo agêntico entrar em produção",
+        "rank": 3,
+        "rationale": "A Fase 4 (atendimento agêntico 24/7) já é escopo contratado, não visão futura — sem um owner definido, o programa entrega uma capacidade sem dono de política de uso e revisão de escalonamento."
+      },
+      {
+        "priority": "Instrumentar o sinal de capacidade ociosa entre postos e totens",
+        "rank": 4,
+        "rationale": "Sem uma fonte de dado de ocupação, o roteamento em tempo real e o modelo preditivo de E10 não têm o que consumir — é pré-condição de dado, não só de tecnologia."
+      },
+      {
+        "priority": "Estender o atendimento digital à cidadã antes e além da visita física",
+        "rank": 5,
+        "rationale": "Depende das três prioridades anteriores estarem resolvidas (integração, canal auditável, governança) para ser entregue com o mesmo padrão de confiabilidade do restante do programa."
+      }
+    ]
+  },
+  "transformation_strategy": {
+    "vision_statement": "Em vez de o atendente do Poupatempo recorrer a grupos pessoais de WhatsApp para resolver o que a triagem digital não consegue, ele passa a trabalhar dentro de um posto de trabalho institucional — com o conhecimento do serviço à mão e um especialista a um huddle de distância — enquanto a cidadã que hoje só ouve 'volte depois' recebe pré-atendimento antes de chegar ao balcão e, quando precisar, é atendida por um agente de IA disponível 24 horas, sempre com um humano por trás de qualquer decisão sobre seus documentos. A coordenação hoje informal e sem histórico se torna auditável por desenho; a capacidade ociosa entre 244 postos e 900 totens, hoje invisível, se torna um dado que orienta o roteamento em tempo real.",
+    "strategic_objectives": [
+      {
+        "objective": "Formalizar o posto de trabalho institucional no Slack, encerrando a dependência de WhatsApp pessoal para coordenação entre postos",
+        "success_criteria": "100% dos atendentes migrados para canais Slack por serviço, com Canvas de conhecimento e huddle de escalonamento em uso",
+        "timeline_horizon": "short"
+      },
+      {
+        "objective": "Nomear a governança de agentes de IA do lado Prodesp antes de qualquer fluxo agêntico entrar em produção",
+        "success_criteria": "Owner nomeado e política de uso/guardrails publicada antes do início da Fase 2",
+        "timeline_horizon": "short"
+      },
+      {
+        "objective": "Formalizar identidades e protocolos dos 5 sistemas-alvo da integração MuleSoft",
+        "success_criteria": "5 de 5 sistemas com contrato de integração (identidade + protocolo) confirmado no kick-off técnico",
+        "timeline_horizon": "medium"
+      },
+      {
+        "objective": "Instrumentar o sinal de capacidade ociosa entre postos e alimentar o roteamento em tempo real",
+        "success_criteria": "Fonte de dado de ocupação por posto ativa e consumida pelo roteamento de E03, com E10 lendo o mesmo dado sem duplicar a construção",
+        "timeline_horizon": "medium"
+      },
+      {
+        "objective": "Lançar o pré-atendimento digital e o atendimento agêntico 24/7 com escalonamento humano genuíno",
+        "success_criteria": "Agente em produção cobrindo pré-atendimento e dúvidas de fluxo, sem decisão automática de emissão de documento e com escalonamento humano mensurável",
+        "timeline_horizon": "long"
+      }
+    ],
+    "principles": [
+      {
+        "principle": "Nenhuma decisão sobre documento ou identidade da cidadã sem humano no circuito",
+        "rationale": "O atendimento agêntico 24/7 é o primeiro fluxo do tipo no setor público sem case de referência direto na América Latina — o risco de erro em dado sensível exige HITL não negociável, coerente com a LGPD Art. 20."
+      },
+      {
+        "principle": "Configurar antes de customizar",
+        "rationale": "Slack, Agentforce e Data 360 chegam com capacidade nativa suficiente para a maior parte do escopo — customização é a exceção a justificar, não o padrão de entrega."
+      },
+      {
+        "principle": "Auditabilidade por desenho, não por retrofit",
+        "rationale": "Cada canal que substitui a coordenação informal por WhatsApp precisa nascer com histórico rastreável — corrigir isso depois de ir ao ar custa mais do que desenhar certo na Fase 1."
+      },
+      {
+        "principle": "Instrumentar antes de prometer",
+        "rationale": "As três maiores incertezas do programa (identidades de E09, sinal de capacidade de E03, gatilho de agendamento de E06) alargam o teto de qualquer estimativa até serem resolvidas — nenhum compromisso de cronograma final antes da Fase 0."
+      },
+      {
+        "principle": "Adoção dimensionada para o volume real do rollout",
+        "rationale": "244 postos e 900 totens não se beneficiam de um plano de change management genérico — o rollout por onda precisa de contraparte nomeada do lado Prodesp desde a Fase 1."
+      }
+    ]
+  },
+  "business_case": {
+    "why_salesforce": "A plataforma cobre as duas frentes do programa com uma única base: Slack como posto de trabalho do atendente e Agentforce grounded em Data 360 para o atendimento à cidadã, apoiados por um ambiente Anypoint já maduro na conta Prodesp para a camada MuleSoft — o que reduz o risco de construir a integração do zero, ainda que não resolva por si só as identidades dos sistemas-alvo.",
+    "why_now": "A regulação sobre dado pessoal e decisão automatizada (LGPD Art. 20, PL 2338/2023 em tramitação) já eleva a régua para qualquer fluxo agêntico em atendimento ao cidadão, enquanto a coordenação informal por WhatsApp pessoal continua sem histórico auditável — cada mês de atraso é mais exposição a um achado de controle externo (TCE-SP) sobre um serviço de alto volume e alta visibilidade institucional.",
+    "expected_outcomes": [
+      {
+        "outcome": "Coordenação de casos fora do script migrada de WhatsApp pessoal para canal institucional com histórico rastreável",
+        "category": "risk",
+        "timeframe": "curto prazo — Fase 1"
+      },
+      {
+        "outcome": "Redução do tempo de espera percebido pela cidadã via roteamento de capacidade ociosa entre postos",
+        "category": "efficiency",
+        "timeframe": "médio prazo — Fase 2/5"
+      },
+      {
+        "outcome": "Parte da jornada da cidadã resolvida antes da visita física, reduzindo sobrecarga do atendente presencial",
+        "category": "experience",
+        "timeframe": "médio-longo prazo — Fase 4"
+      },
+      {
+        "outcome": "Atendimento disponível 24/7 fora do horário de balcão, sempre com escalonamento humano genuíno",
+        "category": "experience",
+        "timeframe": "longo prazo — Fase 4"
+      }
+    ],
+    "differentiation": "O programa sequencia uma Fase 0 dedicada a resolver as incertezas de discovery antes de qualquer build começar — em vez de herdar identidades de sistema e sinais de dado não confirmados para dentro do cronograma. O ambiente Anypoint já maduro na conta Prodesp encurta a curva de entrada da camada de integração. E a ausência de um case de referência direto de atendimento agêntico presencial no setor público LATAM é assumida como posicionamento first-mover, não escondida como se fosse padrão já provado."
+  }
+}

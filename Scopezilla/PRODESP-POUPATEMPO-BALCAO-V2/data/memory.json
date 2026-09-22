@@ -323,6 +323,25 @@
         "export empacota os deliverables no workbook Excel/Word cliente-pronto",
         "slides se um deck também for necessário"
       ]
+    },
+    {
+      "date": "2026-09-22",
+      "skills_used": [
+        "strategy"
+      ],
+      "summary": "Rodada completa de strategy — pulou a fase de pesquisa web porque outputs/00-discovery-brief.md já carregava especificidade suficiente (volumetria oficial 244 postos/900 totens, achados de LGPD Art. 20/PL 2338/2023, casos análogos internacionais Texas DPS/Thames Valley Police/DDS/FIFA, sinal de cautela institucional TCE-SP). Draft de strategic_context (6 desafios tagueados por confiança, 5 impactos de negócio, contexto de indústria, 4 value drivers, 5 prioridades estratégicas ranqueadas) e transformation_strategy (vision statement + 5 objetivos + 5 princípios-guia) apresentado via AskUserQuestion com duas perguntas no mesmo gate (vision statement + framework). Vision statement aprovado verbatim sem edição do usuário; framework aprovado sem ajustes. Business case (why_salesforce, why_now, 4 expected_outcomes, differentiation) escrito após aprovação. business_outcomes[] (Value Map, Step 5a) não escrito — nenhum capability-map planejado nesta rodada. data/strategy.json gravado.",
+      "friction": [],
+      "decisions": [
+        {
+          "decision": "Vision statement aprovado exatamente como redigido, sem wordsmith do usuário",
+          "rationale": "Usuário selecionou 'Aprovar como está' no AskUserQuestion — texto usado verbatim em strategy.json"
+        }
+      ],
+      "open_threads": [],
+      "next_steps": [
+        "narratives pode ser re-rodado para incorporar vision_statement/strategic_priorities/value_drivers/business_case de strategy.json ao executive-summary.md existente (escrito antes de strategy.json existir)",
+        "export ou slides seguem como próximos passos naturais do ciclo"
+      ]
     }
   ],
   "preferences": {
