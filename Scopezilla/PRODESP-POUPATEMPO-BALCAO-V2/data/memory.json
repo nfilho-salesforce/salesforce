@@ -291,6 +291,24 @@
         "Se quiser handoff limpo (export/quantum-leap), resolver o pricing-leak FAIL primeiro",
         "narratives ou export são os próximos passos naturais do ciclo"
       ]
+    },
+    {
+      "date": "2026-09-22",
+      "skills_used": [
+        "validate"
+      ],
+      "summary": "Corrigido o falso-positivo de pricing-leak em 00-discovery-brief.md:50 — reescrito \"£1,4M de economia\" (case público Thames Valley Police) para \"economia de 1,4 milhão de libras esterlinas\", evitando os padrões de moeda do validator ($/€/£/USD/EUR/GBP + dígito). validate-data.py agora PASS limpo. Investigadas as 2 WARN de staleness via git log/diff: (1) epics.json pós-gaps.json — único change foi o write-back de depends_on do roadmap (metadado de sequenciamento, sem gap novo/resolvido); (2) roadmap.json pós-estimates.json — único change foi correção de sintaxe JSON (chave de fechamento faltante), sem alteração de conteúdo/sizing. Nenhum dos dois exige revise — ambos são não-substantivos. revise não foi executado por não haver mudança de escopo real para propagar.",
+      "friction": [],
+      "decisions": [
+        {
+          "decision": "Não rodar revise para as 2 WARN de staleness",
+          "rationale": "Diff-by-diff confirmou que nenhuma mudança pós-timestamp foi substantiva (write-back de dependência + fix de sintaxe JSON) — revise não teria nada de scope-shaping para propagar"
+        }
+      ],
+      "open_threads": [],
+      "next_steps": [
+        "narratives ou export são os próximos passos naturais do ciclo"
+      ]
     }
   ],
   "preferences": {
