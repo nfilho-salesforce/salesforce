@@ -1,0 +1,194 @@
+{
+  "anchor": "augmented",
+  "rate_basis": "per-resource-hourly",
+  "ownership_split": {
+    "sf_ps_owned_pct": 100,
+    "client_owned_pct": 0
+  },
+  "rates": [
+    {
+      "bucket": "architect-class-onshore-senior",
+      "rate_brl_hour_com_imposto": 946.69,
+      "roles": [
+        "Program Manager",
+        "Solution Architect",
+        "Technical Architect",
+        "Program Lead (AI-native)",
+        "Intent Architect (AI-native)",
+        "Agent Orchestrator (AI-native)"
+      ],
+      "validated_by": "user",
+      "validated_at": "2026-09-17",
+      "source": "PRODESP-DER/data/estimate-comparison.json, reused per instrução do usuário 2026-09-22"
+    },
+    {
+      "bucket": "delivery-onshore-senior-or-offshore-regular",
+      "rate_brl_hour_com_imposto": 715.66,
+      "roles": [
+        "Functional Consultant",
+        "Developer",
+        "QA"
+      ],
+      "validated_by": "user",
+      "validated_at": "2026-09-17",
+      "source": "PRODESP-DER/data/estimate-comparison.json, reused per instrução do usuário 2026-09-22"
+    },
+    {
+      "bucket": "change-adoption-onshore-regular",
+      "rate_brl_hour_com_imposto": 614.21,
+      "roles": [
+        "Change & Adoption",
+        "Adoption Architect (AI-native)"
+      ],
+      "validated_by": "user",
+      "validated_at": "2026-09-17",
+      "source": "PRODESP-DER/data/estimate-comparison.json, reused per instrução do usuário 2026-09-22"
+    }
+  ],
+  "team_shape_note": "Sem user_commitment (timeline.user_commitment é null) — nenhum FTE numérico exato computado por semana; leitura qualitativa de forma de time: traditional/augmented usam o mesmo roster de 10 papéis PS (pico ~10 FTE médio-programa, ~12-13 concorrentes nas Fases 1-4) + 6 papéis client-side; AI-native usa roster próprio de 7 papéis PS mais sênior/enxuto (pod de build 3→1 senior, pod de QA offshore 2→1) + os mesmos 6 papéis client-side.",
+  "duration_provenance_note": "Traditional = benchmark top-down do roadmap (.project-metadata.json.timeline.derived), sem compressão. Augmented = mesma faixa comprimida por efficiency.json.project_level.realized_band (~10-18%). AI-native = mesma faixa comprimida por efficiency.json.project_level.native_band (~35-40%, condicional).",
+  "lanes": {
+    "traditional": {
+      "label": "Traditional",
+      "basis": "derived",
+      "duration_provenance": "benchmark top-down do roadmap (Multi-Cloud/Médio, 10 épicos, overlay LGPD/setor público +15%, E03/E06/E09 Unknown), sem compressão",
+      "roster_ref": "data/resource-plan.json (PS-01…PS-10 + CL-01…CL-06)",
+      "price_note": "Roster de resource-plan.json × rates validados × faixa de duração, com fração de fases por papel (ver team_shape_note) — sem hora/FTE exato por semana (sem user_commitment).",
+      "duration_weeks_range": {
+        "low": 15,
+        "high": 30
+      },
+      "indicative_price_range": {
+        "low_brl": 4708080.15,
+        "high_brl": 9416160.30
+      }
+    },
+    "augmented": {
+      "label": "Augmented",
+      "basis": "derived",
+      "duration_provenance": "traditional comprimido por efficiency.json.project_level.realized_band (~10-18%)",
+      "roster_ref": "data/resource-plan.json (mesmo roster do traditional — PS-01…PS-10 + CL-01…CL-06)",
+      "price_note": "Mesmo roster e mesmos rates do traditional; único driver de redução é a duração comprimida — número a defender (anchor).",
+      "duration_weeks_range": {
+        "low": 14,
+        "high": 25
+      },
+      "indicative_price_range": {
+        "low_brl": 4394208.14,
+        "high_brl": 7846800.25
+      }
+    },
+    "quantum-leap": {
+      "label": "AI-native",
+      "basis": "derived",
+      "duration_provenance": "traditional comprimido por efficiency.json.project_level.native_band (~35-40%, gated/provisório — decisions/0033)",
+      "native_qualification": "conditional",
+      "qualification_rationale": "Owner de governança de agentes de IA do lado Prodesp ainda não nomeado (gap consolidado em 9 gaps/7 épicos); nenhuma evidência de discovery sobre mandato AI-first ou decisor de negócio disponível diariamente. Mesmo padrão de gap identificado no DER — apresentado como motivador, não como número alcançável sem esse compromisso.",
+      "roster_ref": "roster próprio abaixo (AN-01…AN-07) + os mesmos 6 papéis client-side de resource-plan.json (CL-01…CL-06)",
+      "roster": [
+        {
+          "role": "Program Lead",
+          "seniority": "senior",
+          "location": "onshore",
+          "count": 1,
+          "allocation": "full",
+          "phases_active": "0-5",
+          "side": "ps",
+          "justification": "Piso de core-accountability — substitui o PM tradicional; governança do programa mantida integralmente.",
+          "resource_id": "AN-01"
+        },
+        {
+          "role": "Intent Architect",
+          "seniority": "senior",
+          "location": "onshore",
+          "count": 1,
+          "allocation": "full",
+          "phases_active": "0-5",
+          "side": "ps",
+          "justification": "Piso de core-accountability — traduz escopo em intents/specs de agente para os épicos Agentforce (E01, E06, E08).",
+          "resource_id": "AN-02"
+        },
+        {
+          "role": "Agent Orchestrator",
+          "seniority": "senior",
+          "location": "onshore",
+          "count": 1,
+          "allocation": "full",
+          "phases_active": "1-5",
+          "side": "ps",
+          "justification": "Piso de core-accountability, preenchido por Technical Architect — E09 (MuleSoft XL/Unknown) é o domínio de problema-difícil dominante do programa.",
+          "resource_id": "AN-03"
+        },
+        {
+          "role": "Adoption Architect",
+          "seniority": "regular",
+          "location": "onshore",
+          "count": 1,
+          "allocation": "half",
+          "phases_active": "1,4",
+          "side": "ps",
+          "justification": "Piso de core-accountability, comprado fracionalmente — escopo de adoção é real (E05, 244 postos + 900 totens) mas não contínuo; adjustment 5.",
+          "resource_id": "AN-04"
+        },
+        {
+          "role": "Developer",
+          "seniority": "senior",
+          "location": "onshore",
+          "count": 1,
+          "allocation": "full",
+          "phases_active": "1-5",
+          "side": "ps",
+          "justification": "Adjustment 1 — builder humano retido no caminho crítico/alta integridade (E07 LGPD/imagem de documento, E09 integração); pod offshore de 3 do traditional colapsa a 1 senior dirigindo agentes.",
+          "resource_id": "AN-05"
+        },
+        {
+          "role": "QA",
+          "seniority": "senior",
+          "location": "onshore",
+          "count": 1,
+          "allocation": "full",
+          "phases_active": "1-5",
+          "side": "ps",
+          "justification": "Adjustment 2 — QA é agent-amplificado, nunca agent-substituído; surge no risco de LGPD (E07) e no primeiro fluxo agêntico 24/7 do setor público sem case LATAM (E08).",
+          "resource_id": "AN-06"
+        },
+        {
+          "role": "QA",
+          "seniority": "regular",
+          "location": "offshore",
+          "count": 1,
+          "allocation": "full",
+          "phases_active": "2-5",
+          "side": "ps",
+          "justification": "Pod de execução offshore reduzido de 2 para 1 — agent-amplificado, escala menor porque o fleet de agentes absorve volume de execução de teste repetitivo.",
+          "resource_id": "AN-07"
+        }
+      ],
+      "price_note": "Roster próprio (mais sênior/enxuto) × rates validados × faixa de duração comprimida — condicional ao gate de qualificação acima; não citar ao cliente sem nomear esse compromisso.",
+      "duration_weeks_range": {
+        "low": 10,
+        "high": 18
+      },
+      "indicative_price_range": {
+        "low_brl": 1781807.60,
+        "high_brl": 3207253.68
+      }
+    }
+  },
+  "delta_decomposition": {
+    "traditional_to_augmented": {
+      "duration_change_pct": "~7-17% mais curto",
+      "price_change_pct": "~7-17% menor",
+      "driver": "Único driver: duração comprimida por realized_band. Mesmo roster, mesmos rates — nenhuma mudança de forma de time."
+    },
+    "traditional_to_quantum_leap": {
+      "duration_change_pct": "~33-40% mais curto",
+      "price_change_pct": "~62-66% menor",
+      "driver": "Dois drivers combinados: (1) duração comprimida por native_band (~35-40%) e (2) roster reformatado — mais sênior e mais enxuto (run-rate semanal ~43% menor que o traditional/augmented) via os 5 adjustments do core-accountability floor. A redução de preço supera a redução de duração porque o roster também muda de forma, não só de tamanho no tempo."
+    }
+  },
+  "core_accountability_check": "Piso AI-native (Program Lead, Intent Architect, Agent Orchestrator, Adoption Architect) presente e nomeado em AN-01…AN-04 — nenhuma accountability core omitida.",
+  "staffing_integrity_self_check": "W=1 (workstream único, Prodesp é o único decisor de governança nomeável) — nenhum fold de papel de volume aplicado incorretamente; papéis de volume (Developer, QA) foram reduzidos por adjustment explícito (1 e 2), não por fold indiscriminado. Client-side (CL-01…CL-06) idêntico nas 3 trilhas — não staffar isso é risco do cliente, não do roster PS.",
+  "validated_by": "user",
+  "disclaimer_class": "input-derived"
+}

@@ -1,0 +1,117 @@
+{
+  "fidelity": "category-only",
+  "generated_from": {
+    "epics_count": 10,
+    "estimates_count": 10,
+    "has_roadmap": true,
+    "has_resource_plan": false
+  },
+  "task_level": {
+    "blended_band": "~30-45%",
+    "basis": "Mix predominante M (5) com dois L (E08, E10) e um XL (E09/Unknown) — coding usa a linha enterprise/legacy (integração com T7, Sistema Semântico, Atendimento, Biometria), não greenfield; trabalho de design de agente (E01/E06/E08) e documentação/governança (E05) empurram o topo da faixa.",
+    "sources": ["[1]", "[2]", "[3]", "[4]", "[5]", "[8]"]
+  },
+  "realization_factor": {
+    "value_range": "0.30-0.40",
+    "rationale": "Puxado para a linha de indústria regulada em vez do mixed-enterprise puro: overlay LGPD/setor público explícito + risco de integração XL/Unknown em E09, parcialmente compensado por conteúdo real de config/Agentforce.",
+    "drivers": ["Overlay regulatório LGPD/setor público (biometria estadual, identidade federada gov.br, PII de cidadã)", "Integração com sistemas legados de confiança Unknown (E09 XL, E03 M, E06 M)", "Conteúdo real de config/Agentforce (E01, E06, E08) puxando para o meio da faixa"]
+  },
+  "project_level": {
+    "realized_band": "~10-18%",
+    "basis": "task-level ~30-45% × fator de realização 0.30-0.40, antes da modulação por readiness.",
+    "confidence": "Assumed",
+    "native_band": "~35-40%",
+    "native_basis": "task-level × fator de realização AI-native (0.55-0.75), aplicável somente atrás do gate de qualificação. Provisório — magnitude não calibrada (decisions/0033).",
+    "native_qualification": "conditional"
+  },
+  "readiness": {
+    "signals": [
+      {"signal": "AI tooling posture", "score": 0, "evidence": "Nenhuma evidência de discovery sobre postura de ferramentas de IA aprovadas para uso interno da Prodesp; owner de governança de agentes de IA do lado Prodesp ainda não identificado (gap consolidado em 9 gaps espalhados por 7 épicos, ver 01-solution.md)."},
+      {"signal": "Delivery velocity / speed bias", "score": 0, "evidence": "Agência de setor público, coordenação entre 5 sistemas-alvo (T7, Sistema Semântico, Atendimento, Biometria, Legado) e overlay regulatório que já adiciona +15% ao teto do benchmark — sinal de ritmo empresarial padrão a lento, não fast-moving."},
+      {"signal": "Data & environment hygiene", "score": 1, "evidence": "Fundação Salesforce bem especificada em E01 (Slack + Canvas + Knowledge), mas identidades/protocolos dos 5 sistemas-alvo do MuleSoft (G0901-G0905) e a fonte do sinal de capacidade por posto (G0315) permanecem não confirmados — mistura de higiene alta no core e baixa nas integrações."},
+      {"signal": "Legal / security / compliance posture", "score": 0, "evidence": "Overlay regulatório LGPD/setor público explícito (biometria estadual, identidade federada gov.br, PII de cidadã cruzando E07/E08/E09); nenhuma política de tratamento de dados por IA registrada nas fontes de discovery."}
+    ],
+    "total_score": 1,
+    "scenarios": [
+      {
+        "scenario": "Low readiness",
+        "score_range": "0-2",
+        "realized_band": "~8-12%",
+        "narrative": "Estado atual do programa — piso da faixa reduzido em ~20%: governança de IA não nomeada, ritmo de decisão de setor público e integrações ainda não confirmadas mantêm o ganho modesto.",
+        "unlock_to_move_up": ["Nomear o owner de governança de agentes de IA do lado Prodesp", "Confirmar identidades/protocolos dos 5 sistemas-alvo do MuleSoft (G0901-G0905)", "Publicar postura/política de uso de ferramentas de IA"]
+      },
+      {
+        "scenario": "Mid readiness",
+        "score_range": "3-5",
+        "realized_band": "~12-16%",
+        "narrative": "Com a governança nomeada e as integrações formalizadas na Fase 0, o programa capta o meio da faixa de forma defensável.",
+        "unlock_to_move_up": ["Formalizar política de tratamento de dados por IA cobrindo LGPD/biometria", "Confirmar fonte do sinal de capacidade por posto (G0315)"]
+      },
+      {
+        "scenario": "High readiness",
+        "score_range": "6-8",
+        "realized_band": "~20-24%",
+        "narrative": "Condições favorecem o topo da faixa apenas se o setor público remover as travas regulatórias e de governança de IA — cenário não observado hoje neste programa.",
+        "unlock_to_move_up": []
+      }
+    ],
+    "current_scenario": "Low readiness"
+  },
+  "by_category": [
+    {
+      "category": "Technical Engineering & QA",
+      "task_level_band": "~20-35%",
+      "realized_band": "~7-13%",
+      "driving_tasks": ["Create Code (realistic enterprise/legacy)", "Analyze Code & Fix Defects"],
+      "driving_epics": ["E09", "E03", "E06", "E08"],
+      "sources": ["[1]", "[4]", "[5]", "[8]"],
+      "narrative": "A integração MuleSoft de E09 (XL, 5 sistemas-alvo) e os workflows de E03/E06 domin am o esforço técnico; ganho tratado pela linha enterprise/legacy porque os sistemas de destino são legados, não greenfield."
+    },
+    {
+      "category": "Analysis & Design",
+      "task_level_band": "~30-50%",
+      "realized_band": "~10-18%",
+      "driving_tasks": ["Discovery Preparation", "Agent Topic & Action Design"],
+      "driving_epics": ["E01", "E06", "E08"],
+      "sources": ["[2]", "[11]"],
+      "narrative": "O desenho de tópicos/ações do Agentforce em E01/E06/E08 é o trabalho de design mais repetido do programa, puxando esta categoria para o meio-alto da faixa."
+    },
+    {
+      "category": "Documentation & Knowledge Management",
+      "task_level_band": "~35-55%",
+      "realized_band": "~12-20%",
+      "driving_tasks": ["Generate/Update Documentation", "Training Curriculum Drafting"],
+      "driving_epics": ["E05"],
+      "sources": ["[7]", "[11]"],
+      "narrative": "E05 concentra currículo de treinamento e política de canal — trabalho de documentação denso que historicamente captura o ganho mais alto de qualquer categoria, mesmo sob o overlay regulatório."
+    },
+    {
+      "category": "Project Management & Operations",
+      "task_level_band": "~20-35%",
+      "realized_band": "~7-13%",
+      "driving_tasks": ["Status Reporting & Coordination"],
+      "driving_epics": ["E09", "E05"],
+      "sources": ["[7]", "[11]"],
+      "narrative": "Coordenação entre Prodesp/Slack/MuleSoft/Data 360 e potenciais donos externos dos 5 sistemas-alvo mantém esta categoria no meio da faixa — trabalho de alinhamento multi-organização resiste mais à automação."
+    }
+  ],
+  "by_role_type": [],
+  "human_barriers": [
+    {"activity": "Project Pulse Reports", "why_no_gain": "Trabalho de construção de confiança que a IA pode resumir, mas não facilitar."},
+    {"activity": "Stakeholder Alignment", "why_no_gain": "Negociação humano-a-humano; a IA rascunha posições, pessoas decidem."},
+    {"activity": "Conflict Resolution", "why_no_gain": "Julgamento humano."},
+    {"activity": "Coordenação com os 5 donos de sistema externos de E09 (T7, Sistema Semântico, Atendimento, Biometria, Legado)", "why_no_gain": "Negociação de identidade/protocolo entre organizações — depende de relacionamento e autoridade, não de ferramenta."},
+    {"activity": "Revisão jurídica/compliance LGPD sobre biometria e identidade federada gov.br", "why_no_gain": "Sign-off regulatório em dado sensível de cidadã permanece humano por desenho."}
+  ],
+  "assumptions": [
+    "Benchmarks extraídos de dados publicados 2022-2026 (Peng et al./GitHub 2022, Paradis et al./Google 2024, METR 2025, BCG×Harvard, DORA 2024-2025, McKinsey 2025, GitClear 2025, Stanford HAI AI Index 2026) mais observações internas.",
+    "Bandas task-level convertidas a project-level via fator de realização que contabiliza a lei de Amdahl + overhead de revisão/AI-tax.",
+    "Fidelidade category-only — não existe data/resource-plan.json ainda; a leitura por role-type virá quando o roster for autorado no skill estimate."
+  ],
+  "caveats": [
+    "Bandas são qualitativas e específicas do projeto, não garantias.",
+    "Nenhuma hora, FTE ou implicação de custo é computada ou implícita.",
+    "O gap de percepção é real — equipes costumam se sentir mais rápidas do que os ganhos medidos confirmam (per METR 2025).",
+    "A banda AI-native (~35-40%) é condicional e provisória — depende da Prodesp nomear um owner de governança de agentes de IA e comprometer-se com o modelo operacional AI-native; não é um número a citar sem essa qualificação."
+  ]
+}

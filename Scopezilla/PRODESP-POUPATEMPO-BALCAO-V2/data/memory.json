@@ -2,24 +2,33 @@
   "sessions": [
     {
       "date": "2026-09-21",
-      "skills_used": ["discover"],
+      "skills_used": [
+        "discover"
+      ],
       "summary": "Discovery completo a partir de 3 fontes em discovery-notes/ (BSA autoria própria do Heroku HTML, deck Jackson 'Poupatempo Balcão V2' / Slack no guichê, deck Vinicius 'Atendimento Poupatempo' / plataforma Headless). Investigou o canal Slack #prodesp-slack-reuniao-thiago-waltz e seus anexos no Google Drive para tentar identificar 'T7'; descobriu que esse canal trata de uma oportunidade distinta (Slack CSG interno — Approvals/RH), não da Balcão V2, e a excluiu do projeto por decisão do usuário. Conduziu entrevista adaptativa fechando lacunas prioritárias e escreveu o Discovery Brief (outputs/00-discovery-brief.md) com uma seção de Open Questions para o restante.",
       "decisions": [
         {
           "decision": "Escopar este ciclo apenas a Fase 1 tática (Slack no guichê); Fase 2+ (plataforma Headless whole-house) é visão, fora deste SOW.",
           "rationale": "Os dois decks de setembro/2026 são bets diferentes: um sem preço/cronograma mas 'no ar em semanas', outro com investimento/cronograma em branco no próprio material. O comitê interno da conta já sequencia Check-in/PPA antes do Headless.",
-          "rejected_alternatives": ["Escopar as duas fases juntas como um único SOW", "Assumir a Fase 2+ como próxima etapa automática da Fase 1"],
+          "rejected_alternatives": [
+            "Escopar as duas fases juntas como um único SOW",
+            "Assumir a Fase 2+ como próxima etapa automática da Fase 1"
+          ],
           "recorded_as": "decisions/0001-phase1-tactical-vs-phase2-whole-house.md"
         },
         {
           "decision": "Não importar o conteúdo do canal Slack #prodesp-slack-reuniao-thiago-waltz nem seus anexos (canvas, 2 Google Docs, Google Slides) para este projeto.",
           "rationale": "Após acesso via Google Workspace, ficou claro que o canal e os documentos tratam de uma oportunidade distinta (Slack CSG interno, Org62 'Prodesp (Poupatempo) Slack CSG New' — Approvals de férias/reembolso/GIP, ~2.000 funcionários PRODESP), não do atendimento presencial ao cidadão (Balcão V2).",
-          "rejected_alternatives": ["Importar o material e tratar como contexto adicional da mesma conta"]
+          "rejected_alternatives": [
+            "Importar o material e tratar como contexto adicional da mesma conta"
+          ]
         },
         {
           "decision": "Tratar os KPIs de tempo médio de espera (15/16/17 min) do deck de plataforma como ilustrativos, não validados pelo cliente.",
           "rationale": "Confirmado explicitamente pelo usuário nesta sessão — nenhuma medição operacional real do Poupatempo respalda esses números.",
-          "rejected_alternatives": ["Apresentar os números como baseline real do cliente"]
+          "rejected_alternatives": [
+            "Apresentar os números como baseline real do cliente"
+          ]
         }
       ],
       "open_threads": [
@@ -34,11 +43,12 @@
         "Rodar scopezilla-knowledge-curator (padrão automático desde 2026-09-21, sem perguntar).",
         "Seguir para requirements com o escopo da Fase 1 (decisions/0001)."
       ]
-    }
-    ,
+    },
     {
       "date": "2026-09-21",
-      "skills_used": ["scopezilla-knowledge-curator"],
+      "skills_used": [
+        "scopezilla-knowledge-curator"
+      ],
       "summary": "Curadoria de conhecimento executada automaticamente após discover (padrão desde 2026-09-21). 3 arquivos knowledge/ pré-existentes confirmados (sem duplicação necessária). STAAR: caminho base do skill corrigido (jcarmo@salesforce.com não existe nesta máquina; usado GoogleDrive-nfilho@salesforce.com). Extraídos e escritos 3 novos arquivos a partir de fontes STAAR em 5.1/5.2 (Data Cloud + Generative & Agentic AI): staar-headless-360-doctrine.md (doutrina 'Headless 360' que fundamenta o termo 'Headless' usado sem definição no deck Vinicius Fase 2+), staar-data-360-headless.md (padrão Agent Persona sobre Data 360, suporta viabilidade técnica de Agentforce lendo contexto dentro do Slack), staar-agentforce-governance-guardrails.md (framework de governança/guardrails de agente, aplicável ao escopo de governança/adoção já confirmado dentro deste projeto). Source A (docs oficiais Salesforce): nenhuma ação necessária alem do salesforce-architect-fundamentals.md já existente — Field Service/Health Cloud não são relevantes a este projeto. Índice reconstruído: 61 seções em 6 arquivos de knowledge/.",
       "decisions": [],
       "open_threads": [],
@@ -48,13 +58,18 @@
     },
     {
       "date": "2026-09-21",
-      "skills_used": ["discover"],
+      "skills_used": [
+        "discover"
+      ],
       "summary": "Sessão de reconciliação: enquanto um processo em background executava discover+knowledge-curator de forma independente, o usuário foi entrevistado nesta sessão sobre o mesmo escopo. O ADR 0001 (gerado pelo background, sem confirmação direta do usuário) recomendava escopar só a Fase 1 tática. Perguntado diretamente, o usuário rejeitou essa limitação e pediu Corte 1 + Corte 2 completos, faseados na mesma SOW. decisions/0001 marcado como superseded; decisions/0002 registra a decisão vigente. Discovery Brief (outputs/00-discovery-brief.md) reescrito para refletir Fase 2 como escopo contratado (não visão), com achados de pesquisa web (Texas DPS, Thames Valley Police, Slack DDS/FIFA, LGPD Art. 20, PL 2338, sinal TCE-SP, correção de volumetria 244 postos + 900 totens) incorporados à seção de research findings.",
       "decisions": [
         {
           "decision": "Superseder decisions/0001: ambos os cortes (Fase 1 tática + Fase 2 plataforma Headless completa) entram como escopo contratado desta mesma SOW, faseados — não Fase 2 como visão fora do SOW.",
           "rationale": "Usuário rejeitou explicitamente a proposta de escopo parcial ('1-2 elementos do Headless') e pediu os dois cortes completos: 'tratar corte e corte 2 completo, nao apenas corte 1'.",
-          "rejected_alternatives": ["Manter ADR 0001 (só Fase 1)", "Híbrido faseado com apenas 1-2 elementos do Headless na Fase 2"],
+          "rejected_alternatives": [
+            "Manter ADR 0001 (só Fase 1)",
+            "Híbrido faseado com apenas 1-2 elementos do Headless na Fase 2"
+          ],
           "recorded_as": "decisions/0002-both-cuts-in-scope-phased.md"
         }
       ],
@@ -72,7 +87,9 @@
     },
     {
       "date": "2026-09-21",
-      "skills_used": ["requirements"],
+      "skills_used": [
+        "requirements"
+      ],
       "summary": "Gap analysis executada para os 10 épicos aprovados (E01-E10), via agentes epic-analyst em paralelo, em modo gaps (sem user stories). 128 gaps salvos em data/gaps.json (G0101-G1011), CSVs regenerados. Distribuição por categoria: Missing Requirement 50, Potential Risk 24, Ambiguity 21, Logical Gap 17, Capability Gap 7, Assumption 5, Source Conflict 4. Cada agente cruzou gaps.json existente para evitar colisão de IDs e citou knowledge/ quando aplicável ([KB:...]/[extends:...]/[assumption:...]).",
       "decisions": [],
       "open_threads": [
@@ -95,18 +112,24 @@
     },
     {
       "date": "2026-09-22",
-      "skills_used": ["design"],
+      "skills_used": [
+        "design"
+      ],
       "summary": "Design completo para os 10 épicos (E01-E10), cobrindo Fase 1 + Fase 2 per decisions/0002. Shared-drive check copiou data_360_4-10-2026.md (pouco citável — dump bruto de 44k linhas; os 4 arquivos STAAR curados seguiram sendo a fonte primária). Central KB (doc_search MCP) indisponível nesta sessão — todo o skeleton foi fundamentado apenas na camada 1 (knowledge/), sinalizado explicitamente no cabeçalho de outputs/01-solution.md e no fork checkpoint. Esqueleto arquitetural aprovado (20 decisões tagueadas — 8 fundamentadas, 2 inferidas, 10 sinalizadas como suposição); 8 assunções persistidas em gaps.json (G0116, G0214, G0315, G0413, G0613, G0712, G0911, G1012 — total gaps.json sobe de 128 para 136), cada uma com size_if_assumption_breaks. outputs/01-solution.md escrito com Fundações de Arquitetura (org strategy, sharing/OWD, governança de agentes, DevOps) + Solução por Processo de Negócio (10 épicos em ordem de jornada de valor: E06→E08→E01→E02→E07→E03→E04→E05→E09→E10, não por ID). Estimativas: sizing direto por épico (sem user-stories.json) via rubric de 8 dimensões — distribuição S=2/M=5/L=2/XL=1; E09 (Plataforma MuleSoft) é XL com confiança Unknown, maior risco técnico do programa; E03/E10 compartilham a mesma fundação de dados não resolvida (sinal de ocupação por posto, G0315). data/estimates.json e data/csv/02-estimates.csv escritos após aprovação do usuário.",
       "decisions": [
         {
           "decision": "Ordem de apresentação dos épicos no documento de solução segue a jornada de valor (pré-atendimento → atendimento → analytics), não a ordem de ID (E01...E10).",
           "rationale": "O template de arquitetura do skill design exige ordenação por processo de negócio, não por ID técnico — E06/E08 (jornada da cidadã) abrem o documento antes de E01/E02 (jornada do atendente).",
-          "rejected_alternatives": ["Manter ordem E01→E10 por simplicidade"]
+          "rejected_alternatives": [
+            "Manter ordem E01→E10 por simplicidade"
+          ]
         },
         {
           "decision": "E03 (capacidade ociosa entre postos) e E10 (analytics preditivo) compartilham a mesma fundação de dados não resolvida — sinal de ocupação/fila por posto — tratada como um único gap (G0315), não duplicada.",
           "rationale": "Reflexo de cruzamento de consumo posterior: resolver essa fundação uma vez serve dois épicos; tratá-la como dois gaps separados mascararia a dependência real entre E03 e E10.",
-          "rejected_alternatives": ["Registrar gaps separados por épico, sem cross-reference"]
+          "rejected_alternatives": [
+            "Registrar gaps separados por épico, sem cross-reference"
+          ]
         }
       ],
       "open_threads": [
@@ -125,23 +148,33 @@
     },
     {
       "date": "2026-09-22",
-      "skills_used": ["grill-me-on-scope"],
+      "skills_used": [
+        "grill-me-on-scope"
+      ],
       "summary": "Grill parcial sobre o escopo persistido (design completo, 136 gaps). Auto-exposição levantou 6 itens ranqueados por raio de impacto: (1) E09 identidade/infra de integração ainda em aberto — pergunta feita ao usuário, sem resposta nesta sessão; (2) propriedade não resolvida do sinal de capacidade ociosa compartilhado entre E03/E10 (G0301/G1003/G0315); (3) owner de governança de IA repetido isoladamente em 9 gaps/7 épicos sem consolidação; (4) sobreposição de fronteira E06→E07 (handoff de documento) e E02↔E07 (mecanismo de fila/roteamento) tratada como três gaps desconectados; (5) possível sub-dimensionamento de E08 (primeiro caso de atendimento agêntico 24/7 no setor público LATAM, sem size_if_assumption_breaks); (6) nenhuma atividade de PM/QA/release management cross-cutting definida para um programa de 10 épicos, 2 fases, 4 produtos. Rodada de 4 perguntas pareadas ao usuário resolveu (2), (3) e (4) — todas no valor recomendado — e redirecionou (6) para uma decisão de resourcing interna (não gap.json). Write-backs aplicados: gaps.json (G0315, G0301, G0608, G0705, G0706 com notas de resolução), estimates.json (E03/E10 risks/complexity_drivers atualizados para refletir a propriedade resolvida — nenhum t_shirt_size mudou), outputs/01-solution.md (seção Owner de Governança consolidada citando os 9 gap IDs; anotações [assumption:] adicionadas em E06/E02/E07 sobre o fluxo conectado). Itens (1) e (5) permanecem abertos, conscientemente não fechados nesta sessão.",
       "decisions": [
         {
           "decision": "E03 assume a propriedade de construir o sinal de capacidade ociosa por posto; E10 é puro consumidor, não constrói nem compartilha o custo de build.",
           "rationale": "Resolve a ambiguidade de propriedade entre G0301 (E03) e G1003 (E10), ambos flagando o mesmo sinal sem dono — usuário confirmou a recomendação (E03 assume a propriedade) na rodada de grill.",
-          "rejected_alternatives": ["E10 assume a propriedade", "Propriedade compartilhada/split entre E03 e E10"]
+          "rejected_alternatives": [
+            "E10 assume a propriedade",
+            "Propriedade compartilhada/split entre E03 e E10"
+          ]
         },
         {
           "decision": "E06 (triagem WhatsApp) → E07 (validação remota) e E02 (huddle) ↔ E07 (fila cross-posto) são tratados como um fluxo de design conectado — E07 reutiliza o documento triado em E06 e o padrão de roteamento/escalonamento de E02 — em vez de três mecanismos independentes.",
           "rationale": "Usuário confirmou a recomendação na rodada de grill; evita risco de scope gap (mecanismo nunca construído) ou double-count (dois épicos resolvendo o mesmo problema em paralelo). Registrado como aposta de design a validar com a Prodesp, não como fato confirmado.",
-          "rejected_alternatives": ["Manter E06/E07/E02 como três capacidades independentes, sizadas separadamente"]
+          "rejected_alternatives": [
+            "Manter E06/E07/E02 como três capacidades independentes, sizadas separadamente"
+          ]
         },
         {
           "decision": "Este programa precisa de PM e QA dedicados — não é uma lacuna do cliente (gaps.json), é uma decisão de resourcing interna para a skill `estimate` incluir no roster.",
           "rationale": "Resposta explícita do usuário à pergunta sobre cobertura de PM/QA/release management cross-cutting: 'Nao deve ser um gap, precisa considerar PM/QA dedicado para este projeto' — o usuário rejeitou a moldura de gap.json e determinou que isso é uma necessidade de equipe conhecida, não uma pergunta aberta ao cliente.",
-          "rejected_alternatives": ["Registrar como gap.json (Missing Requirement) para o cliente resolver", "Assumir que a equipe de entrega existente absorve PM/QA sem role dedicado"]
+          "rejected_alternatives": [
+            "Registrar como gap.json (Missing Requirement) para o cliente resolver",
+            "Assumir que a equipe de entrega existente absorve PM/QA sem role dedicado"
+          ]
         }
       ],
       "open_threads": [
@@ -157,7 +190,9 @@
     },
     {
       "date": "2026-09-22",
-      "skills_used": ["grill-me-on-scope"],
+      "skills_used": [
+        "grill-me-on-scope"
+      ],
       "summary": "Segunda rodada do grill, fechando os dois itens deixados abertos na rodada anterior (E09 e E08). E09: usuário confirmou não ter a identidade de T7 (permanece gap, a formalizar no kick-off) mas confirmou, por conhecimento de conta próprio, que a Prodesp já opera um ambiente MuleSoft/Anypoint maduro — Confirmed em G0906, escrito em gaps.json e estimates.json. Isto reduz o risco de 'greenfield' na camada API-led, mas não resolve G0901-G0905 (identidades e protocolo/volume dos 5 sistemas-alvo), que continuam sendo o bloqueador dominante — E09 permanece XL/Unknown, sem resize, porque a redução de risco cobre apenas um dos cinco gaps que travam o sizing fino. E08: usuário optou explicitamente por manter o L atual sem adicionar `size_if_assumption_breaks` — risco de execução (G0806, G0808, G0813) permanece só como nota qualitativa em gaps.json, não como sensibilidade formal de sizing. Com isso, os 6 itens de auto-exposição da sessão de grill (rodada 1 + rodada 2) estão todos resolvidos ou conscientemente fechados — nenhum item de auto-exposição permanece aberto.",
       "decisions": [],
       "open_threads": [
@@ -170,7 +205,9 @@
     },
     {
       "date": "2026-09-22",
-      "skills_used": ["roadmap"],
+      "skills_used": [
+        "roadmap"
+      ],
       "summary": "Roadmap executado: 6 fases (Fase 0 discovery + 5 de build) sobre os 10 épicos aprovados. Fase 0 sem épicos, gatilhada pelos 136 gaps/4 conflitos de fonte (>15). Fase 1 (E01,E05) fundação/governança; Fase 2 (E02,E03,E04) operação tática, depende de E01; Fase 3 (E09) plataforma MuleSoft como trilha paralela (parallel_track), sem dependências, por ter o maior lead time/risco do programa; Fase 4 (E06,E07,E08) experiência agêntica cidadã, E07 converge E01+E02+E03+E06; Fase 5 (E10) analítica, depende de E03. Escrevi depends_on em epics.json: E02→E01, E07→[E01,E02,E03,E06], E10→E03. Caminho crítico: E01→E02→E07 (E03/E06 também convergem em E07). Timeline: usuário escolheu 'faixa benchmark derivada' (não client_target, não user_commitment) — sem análogo comparável disponível. Derivei 15–30 semanas: linha de base Multi-Cloud/Médio 16–24 (10 épicos, mix M dominante + 2L + 1XL) +15% por overlay regulatório LGPD/setor público → 16–28, + alargamento modesto pelas 3 dimensões Unknown (E03, E06, E09) → 15–30 final. Gravado em .project-metadata.json.timeline.derived com range_drivers (E09, E03, E06) e basis. Corrigi de passagem um bug de JSON pré-existente em estimates.json (E09.size_drivers.integration faltava um '},' de fechamento, herdado da edição do grill 2026-09-22 anterior) — sem essa correção json-to-csv.py pulava o arquivo inteiro.",
       "decisions": [
         {
@@ -186,6 +223,56 @@
         "Rodar `estimate` para o roster nomeado (incluindo PM+QA dedicado, per decisão de 2026-09-21) por fase/lane.",
         "Rodar `commercials` quando houver rate validada pelo usuário.",
         "Checkpoint git dos arquivos tocados (epics.json, estimates.json — fix de bug, roadmap.json, csv/, outputs/02-delivery-plan.md, .project-metadata.json, memory.json)."
+      ]
+    },
+    {
+      "date": "2026-09-22",
+      "skills_used": [
+        "efficiency"
+      ],
+      "summary": "Rodou efficiency (category-only, sem resource-plan.json). Blend task-level ~30-45%, fator de realizacao 0.30-0.40 (linha de industria regulada por overlay LGPD/setor publico + risco de integracao XL/Unknown em E09). Realized band ~10-18%, readiness Baixa (score 1/8). Native band ~35-40%, qualificacao condicional (mesmo padrao de gap de governanca de IA nao nomeada do DER).",
+      "friction": [],
+      "decisions": [
+        {
+          "decision": "Bandas de efficiency computadas a partir dos sinais proprios do POUPATEMPO, nao herdadas do DER",
+          "rationale": "Usuario pediu reuso dos parametros de roles/rates do DER para o estimate, nao das bandas de efficiency — essas sao especificas de cada projeto por design do skill"
+        }
+      ],
+      "open_threads": [
+        "Autorar data/resource-plan.json (3 lanes) usando rates/roster-shaping do DER",
+        "Confirmar anchor=augmented em estimate-comparison.json",
+        "Rodar estimate ate o fim (roster + pricing + sign-off SSSL)"
+      ],
+      "next_steps": [
+        "estimate: Step 2 (lanes/anchor/qualification ja confirmados) -> Step 3 (derivar roster+duracao por lane)"
+      ]
+    },
+    {
+      "date": "2026-09-22",
+      "skills_used": [
+        "estimate"
+      ],
+      "summary": "Rodou estimate ate o fim: 3 lanes (traditional/augmented/quantum-leap='AI-native'), anchor=augmented, ownership 100% PS-owned, rates e metodologia de roster reutilizados do PRODESP-DER (validados 2026-09-17). Traditional 15-30sem R$4,71M-9,42M (roster compartilhado 10 PS+6 client-side). Augmented (ANCHOR) 14-25sem R$4,39M-7,85M (mesmo roster, comprimido por efficiency.realized_band). AI-native 10-18sem R$1,78M-3,21M, condicional (owner de governanca de IA nao nomeado) — roster proprio 7 PS mais senior/enxuto via core-accountability floor + 5 adjustments. Sem user_commitment — pricing/FTE calculados qualitativamente por fracao de fases (nao via derive-hours.py). Ambos data/resource-plan.json e data/estimate-comparison.json PASS em validate-data.py.",
+      "friction": [
+        "validate-data.py exigiu resource_id (nao role_id) em resource-plan.json e duration_weeks_range/indicative_price_range em objeto (nao campos flat) em estimate-comparison.json — corrigido via jq apos ler o validator"
+      ],
+      "decisions": [
+        {
+          "decision": "Rates e metodologia de forma de roster (fold/time-box/fraction, core-accountability floor + 5 adjustments) reutilizados verbatim do PRODESP-DER; bandas de efficiency computadas frescas para o POUPATEMPO",
+          "rationale": "Instrucao explicita do usuario: mesma conta Prodesp, mesmo rate card institucional; efficiency e especifico de cada projeto por design do skill"
+        },
+        {
+          "decision": "anchor=augmented (nao traditional)",
+          "rationale": "Usuario escolheu augmented como o numero a defender; mecanicamente nao exige gross-up pois augmented e definido como traditional comprimido"
+        }
+      ],
+      "open_threads": [
+        "outputs/00-discovery-brief.md linha 50 tem falso-positivo de pricing-leak (citacao de case study Thames Valley Police, pre-existente) — deixado como esta, fora do escopo desta sessao",
+        "CL-01 (Product Owner/decision-maker do lado Prodesp) ainda nao nomeado — gap consolidado, condiciona a trilha AI-native"
+      ],
+      "next_steps": [
+        "Quando o owner de governanca de IA for nomeado pela Prodesp, re-avaliar native_qualification de conditional para qualified",
+        "Considerar rodar commercials/validate/narratives se o usuario quiser avancar para proposta formal"
       ]
     }
   ],

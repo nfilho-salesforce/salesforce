@@ -1,0 +1,178 @@
+[
+  {
+    "role": "Program Manager",
+    "seniority": "senior",
+    "location": "onshore",
+    "count": 1,
+    "allocation": "full",
+    "phases_active": "0-5",
+    "side": "ps",
+    "justification": "PM dedicado exigido por decisao de resourcing padrao do projeto (memory.json, 2026-09-21/22) — nao e gap, nem absorvido pelo time existente. Governanca do programa inteiro (6 fases) e coordenacao com stakeholders de setor publico.",
+    "resource_id": "PS-01"
+  },
+  {
+    "role": "Solution Architect",
+    "seniority": "senior",
+    "location": "onshore",
+    "count": 1,
+    "allocation": "full",
+    "phases_active": "0-5",
+    "side": "ps",
+    "justification": "Arquitetura de solucao atravessando Slack + Agentforce + MuleSoft + Data 360 — 4 produtos em escopo exigem um dono unico de coerencia arquitetural do inicio ao fim.",
+    "resource_id": "PS-02"
+  },
+  {
+    "role": "Technical Architect",
+    "seniority": "senior",
+    "location": "onshore",
+    "count": 1,
+    "allocation": "full",
+    "phases_active": "1-5",
+    "side": "ps",
+    "justification": "E09 (MuleSoft, XL/Unknown) e o epico de maior risco tecnico do programa — camada de integracao com 5 sistemas-alvo (T7, Sistema Semantico, Atendimento, Biometria, gov.br) exige supervisao tecnica senior onshore continua.",
+    "resource_id": "PS-03"
+  },
+  {
+    "role": "Functional Consultant",
+    "seniority": "senior",
+    "location": "onshore",
+    "count": 1,
+    "allocation": "full",
+    "phases_active": "1-3",
+    "side": "ps",
+    "justification": "Configuracao de posto de trabalho Slack + huddle/escalonamento (E01, E02, E04) — trabalho tatico do balcao que se beneficia de proximidade onshore com o atendente.",
+    "resource_id": "PS-04"
+  },
+  {
+    "role": "Functional Consultant",
+    "seniority": "regular",
+    "location": "offshore",
+    "count": 1,
+    "allocation": "full",
+    "phases_active": "2-5",
+    "side": "ps",
+    "justification": "Configuracao Data 360/analitica (E03 sinal de capacidade, E10 modelo preditivo) — trabalho de config escalavel offshore, mesmo padrao do roster do DER.",
+    "resource_id": "PS-05"
+  },
+  {
+    "role": "Developer",
+    "seniority": "senior",
+    "location": "onshore",
+    "count": 1,
+    "allocation": "full",
+    "phases_active": "1-4",
+    "side": "ps",
+    "justification": "Build de caminho critico com dado sensivel: E07 (validacao remota de documento, risco de LGPD mais alto que o huddle em texto) e E08 (primeiro fluxo agentico 24/7 do setor publico sem case LATAM) exigem um senior onshore no critical path.",
+    "resource_id": "PS-06"
+  },
+  {
+    "role": "Developer",
+    "seniority": "regular",
+    "location": "offshore",
+    "count": 3,
+    "allocation": "full",
+    "phases_active": "1-5",
+    "side": "ps",
+    "justification": "Pod de build offshore escalado ao volume do programa — configuracao/build de topicos e acoes do Agentforce (E01, E06, E08) e suporte de build da camada MuleSoft (E09). Mesmo dimensionamento do pod offshore validado no DER para escopo Multi-Cloud/Medio comparavel.",
+    "resource_id": "PS-07"
+  },
+  {
+    "role": "QA",
+    "seniority": "senior",
+    "location": "onshore",
+    "count": 1,
+    "allocation": "full",
+    "phases_active": "1-5",
+    "side": "ps",
+    "justification": "QA dedicado exigido por decisao de resourcing padrao do projeto (memory.json, 2026-09-21/22). Risco de LGPD/imagem de documento (E07) e guardrails de escalonamento humano genuino (E08) exigem lideranca de QA senior onshore, nao apenas execucao offshore.",
+    "resource_id": "PS-08"
+  },
+  {
+    "role": "QA",
+    "seniority": "regular",
+    "location": "offshore",
+    "count": 2,
+    "allocation": "full",
+    "phases_active": "2-5",
+    "side": "ps",
+    "justification": "Pod de execucao de teste offshore escalado ao volume do programa (244 postos + 900 totens, rollout por onda) — mesmo padrao de dimensionamento do DER.",
+    "resource_id": "PS-09"
+  },
+  {
+    "role": "Change & Adoption",
+    "seniority": "regular",
+    "location": "onshore",
+    "count": 1,
+    "allocation": "full",
+    "phases_active": "1-5",
+    "side": "ps",
+    "justification": "Curriculo de treinamento (E05), politica de canal e adocao incremental por atendente conforme novos canais entram (E06/E07/E08) — cobertura de adocao continua ate o go-live final.",
+    "resource_id": "PS-10"
+  },
+  {
+    "role": "Product Owner / Decision-maker",
+    "seniority": "regular",
+    "location": "onshore",
+    "count": 1,
+    "allocation": "quarter",
+    "phases_active": "0-5",
+    "side": "client",
+    "justification": "GAP — owner de governanca de agentes de IA do lado Prodesp ainda nao nomeado (risco consolidado da Fase 0/1, ver 02-delivery-plan.md). Linha registrada para tornar o gap visivel no roster, nao para assumir que ja esta staffada.",
+    "resource_id": "CL-01"
+  },
+  {
+    "role": "Functional SME",
+    "seniority": "regular",
+    "location": "onshore",
+    "count": 2,
+    "allocation": "half",
+    "phases_active": "1-4",
+    "side": "client",
+    "justification": "SMEs de processo de atendimento/balcao para validar huddle, contingencia e pre-atendimento digital (E02, E04, E06).",
+    "resource_id": "CL-02"
+  },
+  {
+    "role": "Functional SME",
+    "seniority": "regular",
+    "location": "onshore",
+    "count": 1,
+    "allocation": "quarter",
+    "phases_active": "3-4",
+    "side": "client",
+    "justification": "SME de biometria estadual/identidade federada gov.br — compliance LGPD sobre dado sensivel de cidadao cruzando E07/E08/E09.",
+    "resource_id": "CL-03"
+  },
+  {
+    "role": "Change & Adoption",
+    "seniority": "regular",
+    "location": "onshore",
+    "count": 1,
+    "allocation": "half",
+    "phases_active": "1-5",
+    "side": "client",
+    "justification": "Data steward/coordenador de treinamento do lado Prodesp para os 244 postos + 900 totens — dimensionamento real de licenciamento e rollout por onda dependem de um contraparte nomeado.",
+    "resource_id": "CL-04"
+  },
+  {
+    "role": "Technical Architect",
+    "seniority": "regular",
+    "location": "onshore",
+    "count": 1,
+    "allocation": "quarter",
+    "phases_active": "0,3",
+    "side": "client",
+    "justification": "Coordenacao tecnica com os 5 sistemas-alvo do MuleSoft (T7, Sistema Semantico, Atendimento, Biometria, Legado) — formalizar identidades/protocolos (G0901-G0905) e o bloqueador dominante da Fase 0/3.",
+    "resource_id": "CL-05"
+  },
+  {
+    "role": "QA",
+    "seniority": "regular",
+    "location": "onshore",
+    "count": 1,
+    "allocation": "quarter",
+    "phases_active": "2-5",
+    "side": "client",
+    "justification": "Amostra de UAT do lado Prodesp por posto/totem antes de cada onda de rollout.",
+    "resource_id": "CL-06"
+  }
+]

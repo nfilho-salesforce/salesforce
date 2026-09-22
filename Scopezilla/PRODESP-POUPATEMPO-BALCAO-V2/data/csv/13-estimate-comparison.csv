@@ -1,0 +1,4 @@
+Lane,Anchor,Basis,Duration Weeks Range,Indicative Price Low,Indicative Price High,Currency,Roster,Capacity Summary,Delta vs Other Lane,Validated By,Disclaimer Class
+traditional,,derived,"{'low': 15, 'high': 30}",,,,,,,user,input-derived
+augmented,yes,derived,"{'low': 14, 'high': 25}",,,,,,,user,input-derived
+quantum-leap,,derived,"{'low': 10, 'high': 18}",,,,1x Program Lead (senior onshore); 1x Intent Architect (senior onshore); 1x Agent Orchestrator (senior onshore); 1x Adoption Architect (regular onshore); 1x Developer (senior onshore); 1x QA (senior onshore); 1x QA (regular offshore),,,user,input-derived
