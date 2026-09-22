@@ -309,6 +309,20 @@
       "next_steps": [
         "narratives ou export são os próximos passos naturais do ciclo"
       ]
+    },
+    {
+      "date": "2026-09-22",
+      "skills_used": [
+        "narratives"
+      ],
+      "summary": "Gerado outputs/artifacts/executive-summary.md — audiência mista executiva/técnica (usuário pediu \"misto de executivo e tecnico\" em resposta ao AskUserQuestion de audiência). Documento segue a estrutura padrão do skill (At a Glance, Overview, Scope, Solution highlights, Implementation approach, Effort summary, Risks, Assumptions/confidence, Next steps) mas retém profundidade de arquitetura (MuleSoft/Anypoint, Data 360, Agentforce grounding, dono do sinal E03/E10) nas seções Solution highlights e Effort summary, em vez de estripar detalhe técnico como uma audiência puramente executiva pediria. Sem strategy.json/rfp.json — seções derivadas dessas fontes foram omitidas. Confidence report re-rodado: 25% Confirmed/55% Assumed/20% Unknown, 136 gaps, Phase 0 recomendada — inalterado desde a sessão de validate. Validador re-rodado após escrever o artefato: PASS limpo, sem leak de pricing, mesmos 2 WARNs de staleness já investigados e aceitos na sessão anterior (sem revise necessário).",
+      "friction": [],
+      "decisions": [],
+      "open_threads": [],
+      "next_steps": [
+        "export empacota os deliverables no workbook Excel/Word cliente-pronto",
+        "slides se um deck também for necessário"
+      ]
     }
   ],
   "preferences": {
