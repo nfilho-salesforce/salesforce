@@ -1,12 +1,12 @@
 # Resumo Executivo — PRODESP · Poupatempo Balcão V2
 
-*Gerado em 22/09/2026 · Scopezilla `narratives` · Audiência: executiva e técnica combinada*
+*Gerado em 22/09/2026 · atualizado em 22/09/2026 com `data/strategy.json` · Scopezilla `narratives` · Audiência: executiva e técnica combinada*
 
 ## Visão Geral Rápida
 
 - **Dor atual**: casos que fogem do script no balcão (biometria falha, documento divergente, sistema fora do ar) ainda dependem de coordenação informal entre postos por WhatsApp pessoal, fora da LGPD.
-- **Visão de transformação**: o atendente passa a trabalhar dentro do Slack — canal por serviço, Canvas de conhecimento, Agentforce em contexto — enquanto a cidadã ganha pré-atendimento por WhatsApp e atendimento agêntico 24/7 com escalonamento humano genuíno.
-- **Principais direcionadores de valor**: reduzir o tempo de "preciso de ajuda" até a cidadã atendida; substituir a coordenação informal por canais auditáveis; dar visibilidade de capacidade ociosa entre os 244 postos e 900 totens sem contratar gente nova.
+- **Visão de transformação**: em vez de o atendente recorrer a WhatsApp pessoal, ele trabalha num posto de trabalho institucional com o conhecimento do serviço à mão e um especialista a um huddle de distância, enquanto a cidadã recebe pré-atendimento antes da visita e, quando precisa, é atendida por um agente de IA 24 horas com humano por trás de qualquer decisão sobre seus documentos.
+- **Principais direcionadores de valor**: substituir a coordenação informal por canais auditáveis; dar visibilidade de capacidade ociosa entre os 244 postos e 900 totens sem contratar gente nova; evitar expansão física de atendimento via canais digitais.
 - **Maior risco/incerteza**: a camada de integração MuleSoft com 5 sistemas-alvo (gov.br, biometria estadual, Sistema Semântico, T7, legado Prodesp) ainda não tem identidades nem protocolos confirmados — é o épico de maior risco técnico do programa.
 - **Primeiro passo recomendado**: uma Fase 0 de resolução de discovery, fechando as lacunas que travam o kick-off técnico antes de qualquer build começar.
 
@@ -15,6 +15,18 @@
 ## Visão do Programa
 
 A Prodesp busca colocar o Slack como posto de trabalho do atendente do Poupatempo para os casos que a triagem digital (WhatsApp/Portal) não resolve, ao mesmo tempo em que expande o atendimento digital à cidadã com pré-atendimento, validação remota de documentos e um agente conversacional 24/7. As duas frentes — tática no balcão e plataforma completa de atendimento agêntico — entram no mesmo contrato, faseadas: a operação ganha uma base auditável de coordenação já na Fase 1, e a plataforma Headless completa segue em fases subsequentes, sem depender de uma segunda negociação.
+
+Em vez de o atendente do Poupatempo recorrer a grupos pessoais de WhatsApp para resolver o que a triagem digital não consegue, ele passa a trabalhar dentro de um posto de trabalho institucional — com o conhecimento do serviço à mão e um especialista a um huddle de distância — enquanto a cidadã que hoje só ouve "volte depois" recebe pré-atendimento antes de chegar ao balcão e, quando precisar, é atendida por um agente de IA disponível 24 horas, sempre com um humano por trás de qualquer decisão sobre seus documentos. A coordenação hoje informal e sem histórico se torna auditável por desenho; a capacidade ociosa entre 244 postos e 900 totens, hoje invisível, se torna um dado que orienta o roteamento em tempo real.
+
+**Por que agora**: a regulação sobre dado pessoal e decisão automatizada (LGPD Art. 20, PL 2338/2023 em tramitação) já eleva a régua para qualquer fluxo agêntico em atendimento ao cidadão, enquanto a coordenação informal por WhatsApp pessoal continua sem histórico auditável — cada mês de atraso é mais exposição a um achado de controle externo (TCE-SP) sobre um serviço de alto volume e alta visibilidade institucional. **Por que Salesforce**: a plataforma cobre as duas frentes com uma única base — Slack como posto de trabalho, Agentforce grounded em Data 360 para o atendimento à cidadã — apoiada num ambiente Anypoint já maduro na conta Prodesp, o que reduz o risco de construir a integração MuleSoft do zero, ainda que não resolva por si só as identidades dos sistemas-alvo.
+
+### Prioridades estratégicas
+
+1. **Formalizar a integração multissistema (E09)** para desbloquear o caminho crítico do programa — é o épico de maior risco técnico (XL/Unknown) e trava tanto a validação remota de documentos quanto o atendimento agêntico.
+2. **Substituir a coordenação informal do balcão por um canal institucional auditável** — a dor mais concreta hoje e a base sobre a qual as demais frentes de valor se apoiam.
+3. **Nomear a governança de agentes de IA** antes de qualquer fluxo agêntico entrar em produção — a Fase 4 já é escopo contratado, não visão futura.
+4. **Instrumentar o sinal de capacidade ociosa** entre postos e totens — pré-condição de dado para o roteamento em tempo real e o modelo preditivo de E10.
+5. **Estender o atendimento digital à cidadã** antes e além da visita física — depende das quatro prioridades anteriores estarem resolvidas.
 
 ## Resumo do Escopo
 
@@ -67,7 +79,7 @@ Não há, publicamente, um caso de referência direto de "Slack + Agentforce num
 4. **Tratar E09 como a trilha de maior lead time** e iniciar sua formalização de identidades em paralelo à Fase 1, para não ficar no caminho crítico do restante do programa.
 
 ---
-*Este resumo consolida `data/epics.json`, `data/estimates.json`, `data/roadmap.json`, `data/resource-plan.json`, `data/efficiency.json`, `data/gaps.json` e os documentos-espinha (`00-discovery-brief.md`, `02-delivery-plan.md`). Não contém valores de investimento — o preço indicativo por trilha está em `outputs/artifacts/estimate-comparison.md`, disponível separadamente sob o gate de precificação validado.*
+*Este resumo consolida `data/epics.json`, `data/estimates.json`, `data/roadmap.json`, `data/resource-plan.json`, `data/efficiency.json`, `data/gaps.json`, `data/strategy.json` e os documentos-espinha (`00-discovery-brief.md`, `02-delivery-plan.md`). Não contém valores de investimento — o preço indicativo por trilha está em `outputs/artifacts/estimate-comparison.md`, disponível separadamente sob o gate de precificação validado.*
 
 ## Deliverables
 - `/Users/nfilho/claude/Scopezilla/PRODESP-POUPATEMPO-BALCAO-V2/outputs/artifacts/executive-summary.md`

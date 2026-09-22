@@ -342,6 +342,20 @@
         "narratives pode ser re-rodado para incorporar vision_statement/strategic_priorities/value_drivers/business_case de strategy.json ao executive-summary.md existente (escrito antes de strategy.json existir)",
         "export ou slides seguem como próximos passos naturais do ciclo"
       ]
+    },
+    {
+      "date": "2026-09-22",
+      "skills_used": [
+        "narratives"
+      ],
+      "summary": "Re-rodada de narratives para incorporar data/strategy.json (gravado nesta mesma sessão) ao executive-summary.md já existente. Audiência mantida consistente com a sessão anterior (mista executiva/técnica, sem re-perguntar). At a Glance atualizado com a linguagem do vision_statement; Visão do Programa ganhou o parágrafo integral do vision_statement + subseção 'Por que agora'/'Por que Salesforce' (business_case.why_now/why_salesforce) + as 5 strategic_priorities ranqueadas. Rodapé e cabeçalho de geração atualizados para citar data/strategy.json como fonte. Confidence report re-confirmado inalterado (25/55/20, 136 gaps). validate-data.py PASS limpo pós-edição, mesmos 2 WARNs de staleness já aceitos.",
+      "friction": [],
+      "decisions": [],
+      "open_threads": [],
+      "next_steps": [
+        "export empacota os deliverables no workbook Excel/Word cliente-pronto",
+        "slides se um deck também for necessário"
+      ]
     }
   ],
   "preferences": {
