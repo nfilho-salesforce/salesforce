@@ -167,6 +167,26 @@
         "Grill-me-on-scope encerrado nesta sessão — escopo pronto para roadmap (faixa de cronograma benchmark-based) e depois estimate (roster, incluindo PM+QA dedicado) / commercials (quando houver rate validada).",
         "Checkpoint git dos arquivos tocados (gaps.json, estimates.json, memory.json)."
       ]
+    },
+    {
+      "date": "2026-09-22",
+      "skills_used": ["roadmap"],
+      "summary": "Roadmap executado: 6 fases (Fase 0 discovery + 5 de build) sobre os 10 épicos aprovados. Fase 0 sem épicos, gatilhada pelos 136 gaps/4 conflitos de fonte (>15). Fase 1 (E01,E05) fundação/governança; Fase 2 (E02,E03,E04) operação tática, depende de E01; Fase 3 (E09) plataforma MuleSoft como trilha paralela (parallel_track), sem dependências, por ter o maior lead time/risco do programa; Fase 4 (E06,E07,E08) experiência agêntica cidadã, E07 converge E01+E02+E03+E06; Fase 5 (E10) analítica, depende de E03. Escrevi depends_on em epics.json: E02→E01, E07→[E01,E02,E03,E06], E10→E03. Caminho crítico: E01→E02→E07 (E03/E06 também convergem em E07). Timeline: usuário escolheu 'faixa benchmark derivada' (não client_target, não user_commitment) — sem análogo comparável disponível. Derivei 15–30 semanas: linha de base Multi-Cloud/Médio 16–24 (10 épicos, mix M dominante + 2L + 1XL) +15% por overlay regulatório LGPD/setor público → 16–28, + alargamento modesto pelas 3 dimensões Unknown (E03, E06, E09) → 15–30 final. Gravado em .project-metadata.json.timeline.derived com range_drivers (E09, E03, E06) e basis. Corrigi de passagem um bug de JSON pré-existente em estimates.json (E09.size_drivers.integration faltava um '},' de fechamento, herdado da edição do grill 2026-09-22 anterior) — sem essa correção json-to-csv.py pulava o arquivo inteiro.",
+      "decisions": [
+        {
+          "decision": "Fase de MuleSoft (E09) como trilha paralela (parallel_track: true), não sequenciada atrás dos épicos Slack",
+          "rationale": "E09 é o épico de maior lead time e risco técnico do programa (XL/Unknown); nenhum épico descrito no solution.md faz chamada síncrona a gov.br/biometria em tempo real, então não há dependência dura que a obrigue a esperar ou bloquear E01-E08."
+        }
+      ],
+      "open_threads": [
+        "Faixa de 15-30 semanas é benchmark, não compromisso — se o usuário quiser comprometer um total, roadmap pode realocar por fase proporcionalmente ao peso de complexidade.",
+        "G0901-G0905 (identidades/protocolo de E09) e G0613 (gatilho de agendamento de E06) seguem sem resposta — são exatamente os range_drivers que travam o piso/teto da faixa derivada."
+      ],
+      "next_steps": [
+        "Rodar `estimate` para o roster nomeado (incluindo PM+QA dedicado, per decisão de 2026-09-21) por fase/lane.",
+        "Rodar `commercials` quando houver rate validada pelo usuário.",
+        "Checkpoint git dos arquivos tocados (epics.json, estimates.json — fix de bug, roadmap.json, csv/, outputs/02-delivery-plan.md, .project-metadata.json, memory.json)."
+      ]
     }
   ],
   "preferences": {

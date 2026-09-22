@@ -1,0 +1,75 @@
+[
+  {
+    "epic_id": "E01",
+    "epic_name": "Posto de Trabalho do Atendente no Slack",
+    "description": "O atendente do guichê passa a trabalhar dentro do Slack: canais dedicados por serviço, Canvas fixado com a regra/conhecimento vigente (substitui o conhecimento isolado hoje disperso entre atendentes), e Agentforce disponível em contexto para dúvidas do próprio fluxo de atendimento.",
+    "confidence": "Confirmed",
+    "kb_sources": ["[KB: staar-data-360-headless.md] — pilar de roadmap 'Slack-first, MCP-powered conversations' sustenta Slack como superfície primária de interação com o agente", "[assumption: modelo de propriedade/estrutura de conteúdo do Canvas — a definir em design]"]
+  },
+  {
+    "epic_id": "E02",
+    "epic_name": "Escalonamento em Tempo Real (Transbordo via Huddle)",
+    "description": "Quando o caso foge do script (falha biométrica, documento divergente, dúvida fora do Canvas), o atendente aciona um huddle Slack com um especialista sem deixar a cadeira — substitui a coordenação hoje feita em grupos pessoais de WhatsApp, fora da governança institucional.",
+    "confidence": "Confirmed",
+    "kb_sources": ["[assumption: lógica de roteamento para o especialista certo / diretório de especialistas por tema — a definir em design]"],
+    "depends_on": ["E01"]
+  },
+  {
+    "epic_id": "E03",
+    "epic_name": "Roteamento de Capacidade Ociosa Entre Postos",
+    "description": "Visibilidade e roteamento de casos entre os 244 postos físicos + 900 totens de autoatendimento, direcionando demanda para onde há capacidade ociosa, sem necessidade de contratar mais atendentes.",
+    "confidence": "Assumed",
+    "kb_sources": ["[assumption: sinal de capacidade em tempo real por posto — sistema/fonte de dados ainda não identificado nas fontes de discovery]"]
+  },
+  {
+    "epic_id": "E04",
+    "epic_name": "Workflow de Contingência (Sistema Fora do Ar)",
+    "description": "Workflow Builder dispara aviso automático aos atendentes/postos quando um sistema crítico cai (ex.: sistema do Detran), evitando atendimento sem visibilidade do problema.",
+    "confidence": "Confirmed",
+    "kb_sources": []
+  },
+  {
+    "epic_id": "E05",
+    "epic_name": "Governança, Adoção e Change Management (Fase 1)",
+    "description": "Papéis e responsabilidades, treinamento dos atendentes, política de canais e critérios de adoção do Slack como posto de trabalho — confirmado explicitamente em escopo pelo usuário na sessão de discovery.",
+    "confidence": "Confirmed",
+    "kb_sources": ["[KB: latam-agentic-governance-services.md] — 5 linhas de serviço de governança de agentes, aplicáveis ao dimensionamento deste épico", "[KB: staar-agentforce-governance-guardrails.md] — 5 atributos do agente (Role/Data/Actions/Channel/Guardrails) como checklist de design"]
+  },
+  {
+    "epic_id": "E06",
+    "epic_name": "Pré-Atendimento Digital via WhatsApp",
+    "description": "A cidadã recebe convite de triagem/pré-atendimento pelo WhatsApp antes do dia marcado no posto, reduzindo o volume de casos que chegam ao balcão sem preparo prévio (Jornada 02 do deck de plataforma).",
+    "confidence": "Assumed",
+    "kb_sources": ["[assumption: piloto/posto/serviço específico ainda não combinado com a Prodesp — jornada descrita no deck, sem escopo operacional fechado]"]
+  },
+  {
+    "epic_id": "E07",
+    "epic_name": "Validação Remota de Documentos por Atendente Ocioso",
+    "description": "Um atendente ocioso em outro posto valida documentos à distância via Slack para acelerar o atendimento presencial em curso em outro balcão (extensão das Jornadas 01/03).",
+    "confidence": "Assumed",
+    "kb_sources": ["[assumption: mesma lacuna de piloto/escopo operacional de E06]"],
+    "depends_on": ["E01", "E02", "E03", "E06"]
+  },
+  {
+    "epic_id": "E08",
+    "epic_name": "Atendimento Agêntico 24/7 (Human-in-the-Loop)",
+    "description": "Um agente de IA atende pelo WhatsApp 24 horas por dia, com supervisão humana, escalando para um atendente humano quando o caso exige (Jornada 04 do deck de plataforma).",
+    "confidence": "Assumed",
+    "kb_sources": ["[KB: staar-agentforce-governance-guardrails.md] — framework de guardrails (Role/Data/Actions/Channel/Guardrails) diretamente aplicável a este agente", "[KB: staar-headless-360-doctrine.md] — doutrina 'humanos direcionam, agentes executam, a plataforma governa' fundamenta o modelo de supervisão"]
+  },
+  {
+    "epic_id": "E09",
+    "epic_name": "Plataforma de Integração MuleSoft (Gov.br, Biometria, Legado, Sistema Semântico, T7)",
+    "description": "Camada de integração MuleSoft ligando a Plataforma Salesforce Headless a gov.br, biometria estadual, sistemas legados da Prodesp, 'Sistema Semântico' e 'T7' — confirmada visualmente no diagrama de arquitetura do deck de plataforma. Identidades exatas de Sistema Semântico, 'Atendimento' e T7 permanecem abertas (ver Open Questions no Discovery Brief).",
+    "confidence": "Unknown",
+    "kb_sources": ["[KB: staar-headless-360-doctrine.md] — infraestrutura horizontal de agente (auth, permissões, políticas) cruzando fronteiras de cloud, incluindo MuleSoft"]
+  },
+  {
+    "epic_id": "E10",
+    "epic_name": "Analytics e Previsibilidade de Atendimento",
+    "description": "Cruzamento de dados em tempo real via Data 360, algoritmo preditivo de tempo de espera, e retroalimentação analítica dos agentes de IA para melhoria contínua do atendimento. Os KPIs de exemplo (15/16/17 minutos) são ilustrativos e não validados pelo cliente.",
+    "confidence": "Assumed",
+    "kb_sources": ["[KB: staar-data-360-headless.md] — padrão 'Agent Persona' sobre Data 360 sustenta viabilidade técnica da retroalimentação analítica"],
+    "depends_on": ["E03"]
+  }
+]

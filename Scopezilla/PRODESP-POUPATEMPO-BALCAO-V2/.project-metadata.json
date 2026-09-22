@@ -13,7 +13,7 @@
     "strategy": "not-started",
     "requirements": "complete",
     "design": "complete",
-    "roadmap": "not-started",
+    "roadmap": "complete",
     "efficiency": "not-started",
     "estimate": "not-started",
     "commercials": "not-started",
@@ -32,7 +32,19 @@
   },
   "timeline": {
     "client_target": null,
-    "user_commitment": null
+    "user_commitment": null,
+    "derived": {
+      "derived_low_weeks": 15,
+      "derived_high_weeks": 30,
+      "derivation_source": "top-down-shape",
+      "basis": "Classificado como Multi-Cloud/Médio: 10 épicos, mix predominante M (5) com dois L (E08, E10) e um XL (E09) — Slack + Agentforce + MuleSoft + Data 360 em escopo — linha de base 16–24 semanas; +15% no limite superior por overlay regulatório LGPD/setor público (biometria estadual, identidade federada gov.br, PII de cidadã em E07/E08/E09) → 16–28; alargamento adicional modesto (E03, E06 e E09 — este último o épico de maior risco do programa — seguem com confiança Unknown em dimensões de sizing que travam o piso/teto) → 15–30 semanas finais.",
+      "ai_native_compressed": false,
+      "range_drivers": [
+        {"epic_id": "E09", "driver": "XL/Unknown — hub de integração MuleSoft; identidades de Sistema Semântico/Atendimento/T7/Biometria (G0901-G0904) e protocolo/volume por sistema (G0905) ainda não confirmados", "tighten_with": "formalizar as identidades e protocolos dos 5 sistemas-alvo com a Prodesp no kick-off técnico"},
+        {"epic_id": "E03", "driver": "M/Unknown — nenhum sistema de sinal de ocupação/fila por posto identificado no discovery (G0315); pode subir para L se exigir instrumentação nova", "tighten_with": "confirmar com a Prodesp se já existe qualquer sinal de fila/ocupação hoje, mesmo fora do Salesforce"},
+        {"epic_id": "E06", "driver": "M/Unknown — evento de gatilho de agendamento da visita da cidadã ainda não identificado (G0613)", "tighten_with": "confirmar qual sistema agenda hoje as visitas ao Poupatempo e se pode emitir esse evento"}
+      ]
+    }
   },
   "products_in_scope": ["Slack", "Agentforce", "MuleSoft", "Data 360"],
   "products_with_overlay": [],

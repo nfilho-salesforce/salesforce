@@ -135,7 +135,7 @@
     "item_type": "epic",
     "t_shirt_size": "XL",
     "size_drivers": {
-      "integration": {"tier": "XL", "signal": "hub de orquestração multi-sistema (gov.br, biometria estadual, legado Prodesp, Sistema Semântico, T7), com identidades de vários sistemas ainda não confirmadas (G0901-G0910). [KB: staar-headless-360-doctrine.md:21-23] CONFIRMADO em grill 2026-09-22 (conhecimento de conta do usuário): a Prodesp já tem ambiente MuleSoft/Anypoint operando com alto nível de maturidade — reduz o risco de construir a camada API-led do zero (G0906), mas não resolve as identidades de T7/Sistema Semântico/Atendimento/Biometria (G0901-G0904) nem protocolo/volume por sistema (G0905), que continuam sendo o bloqueador dominante do tier XL."
+      "integration": {"tier": "XL", "signal": "hub de orquestração multi-sistema (gov.br, biometria estadual, legado Prodesp, Sistema Semântico, T7), com identidades de vários sistemas ainda não confirmadas (G0901-G0910). [KB: staar-headless-360-doctrine.md:21-23] CONFIRMADO em grill 2026-09-22 (conhecimento de conta do usuário): a Prodesp já tem ambiente MuleSoft/Anypoint operando com alto nível de maturidade — reduz o risco de construir a camada API-led do zero (G0906), mas não resolve as identidades de T7/Sistema Semântico/Atendimento/Biometria (G0901-G0904) nem protocolo/volume por sistema (G0905), que continuam sendo o bloqueador dominante do tier XL."},
       "sharing_security": {"tier": "L", "signal": "integração com gov.br implica autenticação/identidade federada; biometria estadual implica overlay de compliance regulado."},
       "data_model": {"tier": "M", "signal": "modelo de dados exato depende das identidades ainda abertas — tratado como Unknown, dimensionado para M como piso conservador."}
     },

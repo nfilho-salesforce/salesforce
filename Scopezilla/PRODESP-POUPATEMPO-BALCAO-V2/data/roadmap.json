@@ -1,0 +1,62 @@
+[
+  {
+    "phase_number": 0,
+    "phase_name": "Resolução de Discovery e Pré-Kickoff",
+    "objectives": "Fechar as lacunas que travam o kick-off técnico antes de qualquer build começar: identidades e protocolos dos 5 sistemas-alvo de E09 (G0901-G0905), fonte do sinal de ocupação/fila por posto que E03/E07/E10 consomem (G0315), sistema de agendamento que dispara E06 (G0613), nomeação do owner de governança de agentes do lado Prodesp (lacuna consolidada em 9 gaps espalhados por 7 épicos), e dimensionamento real de licenças Slack para 244 postos + 900 totens (hoje só as 1.800 licenças da Sala de Situação estão validadas).",
+    "epics_included": "",
+    "success_criteria": "As 4 lacunas de sistema (T7, Sistema Semântico, Atendimento, Biometria) têm identidade e protocolo confirmados; fonte do sinal de capacidade por posto identificada (existente ou a construir); owner de governança nomeado; licenciamento Slack dimensionado para o headcount real de atendentes.",
+    "dependencies": "Nenhuma — é o pré-requisito das demais fases.",
+    "risks": "Gatilho: 136 gaps / 4 conflitos de fonte no gap analysis — acima do limiar de >15 gaps que recomenda uma fase de resolução dedicada em vez de herdar a incerteza para o build."
+  },
+  {
+    "phase_number": 1,
+    "phase_name": "Fundação do Posto de Trabalho e Governança",
+    "objectives": "Colocar o atendente para trabalhar dentro do Slack (canais por serviço, Canvas fixado, Agentforce em contexto) com papéis, treinamento e política de canal definidos desde o primeiro dia de rollout — não retrofitados depois.",
+    "epics_included": "E01,E05",
+    "success_criteria": "Atendente resolve dúvidas de fluxo sem saltar para conhecimento disperso; Canvas lastreado em Salesforce Knowledge; papéis/responsabilidades e critérios de adoção publicados antes do go-live.",
+    "dependencies": "Depende da Fase 0 (owner de governança nomeado, licenciamento dimensionado).",
+    "risks": "Risco carregado do design: as 1.800 licenças já validadas cobrem a Sala de Situação, não o headcount real dos 244 postos + 900 totens.",
+    "kb_sources": ["[KB: staar-data-360-headless.md:24-26] — pilar 'Slack-first, MCP-powered conversations' sustenta E01 como fundação de workspace antes dos demais épicos baseados em Slack.", "[KB: staar-agentforce-governance-guardrails.md:42-45] — papéis de CoE/governança sustentam E05 correndo junto com E01, não depois."]
+  },
+  {
+    "phase_number": 2,
+    "phase_name": "Operação Tática do Balcão",
+    "objectives": "Escalonamento em tempo real por huddle a partir do posto de trabalho de E01; sinal de ocupação/fila por posto entre 244 postos + 900 totens (a maior incerteza técnica da Fase 1, endereçada com antecedência porque E07 e E10 dependem dela); workflow de contingência para sistema fora do ar.",
+    "epics_included": "E02,E03,E04",
+    "success_criteria": "Atendente aciona huddle sem sair da cadeira; sinal de capacidade por posto disponível e confiável (fonte confirmada na Fase 0); aviso automático de sistema fora do ar chega antes do boca a boca informal.",
+    "dependencies": "depends on: E01 (posto de trabalho onde o huddle é acionado).",
+    "risks": "E03 é dimensionado com confiança Unknown — pode subir de M para L se exigir instrumentação nova (integração com totens/check-in) para gerar o sinal de ocupação do zero; resolver isso aqui evita que o risco se propague para E07/E10 na Fase 4/5.",
+    "kb_sources": []
+  },
+  {
+    "phase_number": 3,
+    "phase_name": "Plataforma de Integração MuleSoft",
+    "objectives": "Construir a camada de integração API-led ligando a Plataforma Salesforce Headless a gov.br, biometria estadual, legado Prodesp, Sistema Semântico e T7 — o épico de maior risco técnico do programa (XL, confiança Unknown).",
+    "epics_included": "E09",
+    "success_criteria": "Camadas de API de Sistema/Processo/Experiência entregues para os 5 sistemas-alvo, com protocolos e mecanismos de autenticação confirmados por sistema (não apenas o formato API-led).",
+    "dependencies": "Nenhuma dependência de outro épico — corre em paralelo às Fases 2–4 por ter o maior lead time do programa; não bloqueia os épicos baseados em Slack.",
+    "risks": "Ambiente MuleSoft/Anypoint já maduro na conta (confirmado em grill 2026-09-22) reduz o risco de construção da camada do zero, mas as identidades de T7/Sistema Semântico/Atendimento/Biometria e o protocolo/volume por sistema continuam sendo o bloqueador dominante enquanto não formalizados no kick-off (Fase 0).",
+    "parallel_track": true,
+    "kb_sources": ["[KB: staar-headless-360-doctrine.md:21-23] — MuleSoft citado como infraestrutura horizontal de agente que atravessa fronteiras de cloud, sustentando E09 como trilha independente em vez de sequenciado atrás dos épicos Slack."]
+  },
+  {
+    "phase_number": 4,
+    "phase_name": "Experiência Agêntica Cidadã",
+    "objectives": "Pré-atendimento digital por WhatsApp antes da visita (E06); validação remota de documentos por atendente ocioso, reutilizando o posto de trabalho de E01, o padrão de huddle de E02, o sinal de capacidade de E03 e o intake de documento de E06 como um fluxo conectado (E07); atendimento agêntico 24/7 com escalonamento human-in-the-loop (E08).",
+    "epics_included": "E06,E07,E08",
+    "success_criteria": "Cidadã recebe triagem antes do dia marcado; atendente ocioso valida documento à distância sem duplicar intake; agente de WhatsApp atende fora do horário e escala genuinamente quando o caso exige.",
+    "dependencies": "depends on: E01, E02, E03, E06 (E07 converge as quatro dependências — atraso em qualquer uma atrasa E07).",
+    "risks": "E06 depende de um evento de gatilho de agendamento ainda não confirmado (G0613, a resolver na Fase 0); E07 carrega risco de LGPD mais alto que o huddle em texto por transportar imagem de documento; E08 é o primeiro fluxo agêntico 24/7 do setor público sem case de referência LATAM — mantido em L sem sensibilidade formal de sizing, por decisão explícita do usuário no grill 2026-09-22.",
+    "kb_sources": ["[extends: staar-data-360-headless.md:16-22] — padrão 'Agent Persona' sobre Data 360, já fundamentando E01, estendido para sequenciar E06 e E08 juntos nesta fase, ambos consumindo a mesma camada de grounding."]
+  },
+  {
+    "phase_number": 5,
+    "phase_name": "Analítica e Fechamento",
+    "objectives": "Cruzamento de dados em tempo real via Data 360, modelo preditivo de tempo de espera e retroalimentação analítica dos agentes de IA para melhoria contínua.",
+    "epics_included": "E10",
+    "success_criteria": "Modelo preditivo de espera treinado com dado real do sinal de capacidade da Fase 2; retroalimentação dos agentes de IA operando.",
+    "dependencies": "depends on: E03 (sinal de capacidade por posto — dependência de dado, não de esforço de build compartilhado).",
+    "risks": "Sem o sinal de capacidade de E03 resolvido a tempo, o modelo preditivo não tem dado de entrada confiável para treinar — por isso sequenciado por último, não em paralelo com E03.",
+    "kb_sources": ["[extends: staar-data-360-headless.md:16-22] — mesmo padrão 'Agent Persona' fundamenta o cruzamento de dados em tempo real de E10."]
+  }
+]
