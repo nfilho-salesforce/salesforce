@@ -645,7 +645,7 @@
     "gap_id": "G0901",
     "category": "Ambiguity",
     "gap_or_question": "T7 is named in the architecture diagram with its own AI agent (\"utiliza agente do T7 algumas dúvidas\"), and in the diagram's text layout it sits adjacent to the \"IA\"/\"Agentes de IA\" cluster rather than the \"Atendimento/Biometria/Autenticação/Gov.br\" systems cluster. Is T7 (a) a legacy business system that needs a MuleSoft connector like the other four targets, or (b) an AI agent/bot platform that sits at the Agentforce orchestration layer as a peer system, not an integration target MuleSoft calls into? These have completely different implications for E09's connector count and architecture.",
-    "impact_or_notes": "User already deprioritized resolving T7 for discovery, but design cannot size E09 without knowing if T7 is inside or outside the MuleSoft integration boundary. If T7 turns out to be agent-to-agent orchestration rather than a system-of-record call, E09's scope shrinks by one integration target but potentially gains an agent-interop requirement instead."
+    "impact_or_notes": "User already deprioritized resolving T7 for discovery, but design cannot size E09 without knowing if T7 is inside or outside the MuleSoft integration boundary. If T7 turns out to be agent-to-agent orchestration rather than a system-of-record call, E09's scope shrinks by one integration target but potentially gains an agent-interop requirement instead. RECONFIRMADO em grill 2026-09-22: usuário não tem essa identidade ('eu nao sei a identidade de T7'); permanece gap, a formalizar como pergunta ao cliente no kick-off."
   },
   {
     "gap_id": "G0902",
@@ -675,7 +675,7 @@
     "gap_id": "G0906",
     "category": "Capability Gap",
     "gap_or_question": "MuleSoft and Data 360 are contracted on the account but \"hoje quase não usados por este recorte específico.\" Is there an existing Anypoint Platform runtime (CloudHub vs. on-premises Mule Runtime/RTF) or any existing API-led layer (System/Process/Experience APIs) built for other Prodesp initiatives that E09 could reuse, or is this greenfield Mule architecture work for all five integration targets?",
-    "impact_or_notes": "Reusing an existing System API layer is a materially smaller build than designing System/Process/Experience API tiers from scratch for five new targets — this swings E09's size by more than one T-shirt bracket and needs to be confirmed with Prodesp's integration/platform team, not assumed either way."
+    "impact_or_notes": "Reusing an existing System API layer is a materially smaller build than designing System/Process/Experience API tiers from scratch for five new targets — this swings E09's size by more than one T-shirt bracket and needs to be confirmed with Prodesp's integration/platform team, not assumed either way. CONFIRMED em grill 2026-09-22 (basis: conhecimento de conta do usuário — 'o cliente já tem ambiente Mulesoft operando e com alto nível de maturidade'): a Prodesp já roda um ambiente Anypoint maduro. Isto reduz o risco de construir a camada API-led do zero, mas não resolve por si só G0901-G0905 (identidades e protocolos dos 5 sistemas-alvo), que continuam sendo o maior bloqueador de sizing fino de E09."
   },
   {
     "gap_id": "G0907",

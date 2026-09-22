@@ -154,6 +154,19 @@
         "Quando `estimate` rodar, incluir PM + QA dedicados no roster com justificativa citando a decisão de 2026-09-22 acima (decisions/0026 exige count com justificativa).",
         "Checkpoint git dos arquivos tocados (gaps.json, estimates.json, outputs/01-solution.md, memory.json)."
       ]
+    },
+    {
+      "date": "2026-09-22",
+      "skills_used": ["grill-me-on-scope"],
+      "summary": "Segunda rodada do grill, fechando os dois itens deixados abertos na rodada anterior (E09 e E08). E09: usuário confirmou não ter a identidade de T7 (permanece gap, a formalizar no kick-off) mas confirmou, por conhecimento de conta próprio, que a Prodesp já opera um ambiente MuleSoft/Anypoint maduro — Confirmed em G0906, escrito em gaps.json e estimates.json. Isto reduz o risco de 'greenfield' na camada API-led, mas não resolve G0901-G0905 (identidades e protocolo/volume dos 5 sistemas-alvo), que continuam sendo o bloqueador dominante — E09 permanece XL/Unknown, sem resize, porque a redução de risco cobre apenas um dos cinco gaps que travam o sizing fino. E08: usuário optou explicitamente por manter o L atual sem adicionar `size_if_assumption_breaks` — risco de execução (G0806, G0808, G0813) permanece só como nota qualitativa em gaps.json, não como sensibilidade formal de sizing. Com isso, os 6 itens de auto-exposição da sessão de grill (rodada 1 + rodada 2) estão todos resolvidos ou conscientemente fechados — nenhum item de auto-exposição permanece aberto.",
+      "decisions": [],
+      "open_threads": [
+        "G0901-G0905 (identidades de T7/Sistema Semântico/Atendimento/Biometria e protocolo/volume) seguem sem resposta — únicos itens que ainda travam o sizing fino de E09; formalizar como pergunta ao cliente no kick-off técnico."
+      ],
+      "next_steps": [
+        "Grill-me-on-scope encerrado nesta sessão — escopo pronto para roadmap (faixa de cronograma benchmark-based) e depois estimate (roster, incluindo PM+QA dedicado) / commercials (quando houver rate validada).",
+        "Checkpoint git dos arquivos tocados (gaps.json, estimates.json, memory.json)."
+      ]
     }
   ],
   "preferences": {
