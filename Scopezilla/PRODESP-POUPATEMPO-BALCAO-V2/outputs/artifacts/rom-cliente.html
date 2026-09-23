@@ -1,4 +1,4 @@
-<!-- DECK-VERSION: 1.0 | GENERATED: 2026-09-22T13:34:00-03:00 -->
+<!-- DECK-VERSION: 1.1 | GENERATED: 2026-09-23T09:06:00-03:00 -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -115,6 +115,9 @@
   .phase .pdesc{font-size:12.5px;color:var(--ink-soft);margin-top:3px;}
   .phase .pepics{margin-top:6px;}
   .track{margin-top:2px;font-size:11px;font-weight:700;color:var(--purple);}
+  .phase.open{background:var(--amber-bg);}
+  .phase.open .pnum{background:var(--amber);}
+  .opentag{font-size:10px;font-weight:800;color:#9a5b12;text-transform:uppercase;letter-spacing:.3px;margin-left:8px;}
 
   .rangebar-wrap{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:20px 24px;margin-top:14px;}
   .rangebar{position:relative;height:34px;background:var(--gray-bg);border-radius:20px;margin:18px 0 8px;}
@@ -157,7 +160,7 @@
 </head>
 <body>
 
-<div class="versionbar">Documento controlado por versão · <strong>v1.0</strong> · Gerado em 22/09/2026 13:34 (BRT) · Scopezilla</div>
+<div class="versionbar">Documento controlado por versão · <strong>v1.1</strong> · Gerado em 23/09/2026 09:06 (BRT) · Scopezilla</div>
 
 <div class="sidebar">
   <div class="brand">
@@ -177,6 +180,8 @@
     <a href="#equipe">Equipe</a>
     <a href="#investimento">Investimento Indicativo</a>
     <a href="#proximos">Próximos Passos</a>
+    <div class="navlabel">Exploração Isolada</div>
+    <a href="#atendimento-digital">Atendimento Digital</a>
   </nav>
 </div>
 
@@ -413,9 +418,50 @@
     </div>
   </div>
 
+  <div class="section" id="atendimento-digital">
+    <div class="kicker">Exploração Isolada · Sync Interno Salesforce 22/09/2026</div>
+    <h2>Atendimento Digital — caso de uso e desenho de solução</h2>
+    <p class="lede">Consolidação de uma reunião interna do time Salesforce (22/09/2026) sobre um canal de atendimento digital para o Poupatempo — antecipação de agendamento via WhatsApp, roteamento entre postos e atendimento pelo posto de trabalho no Slack. Leitura isolada: ainda não reconciliada com o escopo formal deste programa (<code>data/epics.json</code>, <code>data/gaps.json</code>) nem com as 10 frentes descritas acima — mantida separada por decisão do time até o fechamento do desenho de solução.</p>
+
+    <div class="disclaimer">Esta seção reflete a interpretação de uma reunião interna de alinhamento (não uma decisão fechada com a Prodesp) e não altera nenhuma frente, estimativa, lacuna ou faixa de investimento já registrada no restante deste documento.</div>
+
+    <div class="frentelabel">Fluxo de processo e informação</div>
+    <div class="phases">
+      <div class="phase"><div class="pnum">1</div><div><div class="pname">Cidadã possui agendamento ativo</div><div class="pdesc">Ponto de partida sempre é um agendamento já existente — mesma API externa que o Agentforce já consulta hoje para agendar visitas. Sem agendamento prévio, não há antecipação digital (fora de escopo por ora).</div><div class="pepics"><span class="phasepill">Sistema externo de agendamento</span></div></div></div>
+      <div class="phase open"><div class="pnum">2</div><div><div class="pname">Motor de notificação identifica janela de antecipação<span class="opentag">Em aberto</span></div><div class="pdesc">Duas soluções técnicas distintas estão em avaliação em paralelo — uma já apresentada, outra propondo uma camada intermediária adicional entre Slack e o back-end — ainda não reconciliadas. Maior dúvida da sync: estabilidade do disparo proativo.</div><div class="pepics"><span class="phasepill">Motor de disparo proativo</span></div></div></div>
+      <div class="phase"><div class="pnum">3</div><div><div class="pname">WhatsApp institucional oferece antecipação</div><div class="pdesc">Canal dedicado, somente recepção — 100% da demanda digital, sem transbordo para atendimento tradicional nesse número.</div><div class="pepics"><span class="phasepill">WhatsApp institucional</span></div></div></div>
+      <div class="phase"><div class="pnum">4</div><div><div class="pname">Cidadã aceita → caso entra na fila de roteamento</div><div class="pdesc">O caso passa a ser gerenciado pelo motor de roteamento do Service Cloud, desacoplado da unidade física de origem.</div><div class="pepics"><span class="phasepill">Service Cloud</span></div></div></div>
+      <div class="phase open"><div class="pnum">5</div><div><div class="pname">Sinal de disponibilidade do atendente<span class="opentag">Em aberto</span></div><div class="pdesc">Duas alternativas em discussão: Omni-Channel padrão (atendente fica "online") ou fluxo customizado no Slack (atendente se declara disponível). Uma camada de modelo preditivo foi sugerida para pré-atribuir o caso a uma fila em vez de depender do bom senso do atendente — fica para o discovery formal.</div><div class="pepics"><span class="phasepill">Presença — Omni-Channel ou Slack</span></div></div></div>
+      <div class="phase"><div class="pnum">6</div><div><div class="pname">Roteamento entre postos</div><div class="pdesc">Um atendente ocioso em outra unidade (ex.: Santo Amaro) pode assumir virtualmente o caso de uma cidadã agendada numa unidade sobrecarregada (ex.: Sé). O agendamento original permanece amarrado à unidade de origem para fins de registro.</div><div class="pepics"><span class="phasepill">Motor de roteamento cross-posto</span></div></div></div>
+      <div class="phase"><div class="pnum">7</div><div><div class="pname">Atendimento no posto de trabalho</div><div class="pdesc">O atendente conduz o atendimento pelo Slack (front-end); o Service Cloud sustenta o back-end de caso e fila — a cidadã nunca vê Service Cloud diretamente.</div><div class="pepics"><span class="phasepill">Slack (front) + Service Cloud (back)</span></div></div></div>
+      <div class="phase open"><div class="pnum">8</div><div><div class="pname">Encerramento e indicadores<span class="opentag">Em aberto</span></div><div class="pdesc">O caso é fechado e o registro é atualizado. Indicadores cross-sistema (WhatsApp + Slack + Service Cloud + agendamento externo) ainda não têm fonte da verdade definida — risco levantado na própria sync pela liderança técnica presente.</div><div class="pepics"><span class="phasepill">Analytics / Tableau</span></div></div></div>
+    </div>
+
+    <div class="frentelabel" style="margin-top:28px;">Arquitetura da solução</div>
+    <p class="lede">Mesma leitura em camadas do restante do programa, aplicada só a este fluxo: o motor de notificação e roteamento é o núcleo de decisão, e dois dos três componentes centrais dessa camada ainda não foram fechados.</p>
+    <div class="layers">
+      <div class="layer l1"><div class="num">1</div><div class="body"><div class="lname">Canal da cidadã</div><div class="ldesc">WhatsApp institucional, dedicado e somente recepção — inicia a oferta de antecipação e não atende demanda tradicional nesse número.</div></div></div>
+      <div class="layer l2"><div class="num">2</div><div class="body"><div class="lname">Motor de notificação e roteamento</div><div class="ldesc">Disparo proativo (2 soluções técnicas em avaliação), sinal de disponibilidade do atendente (Omni-Channel ou Slack) e roteamento cross-posto — o núcleo de decisão do fluxo, com 2 dos 3 componentes ainda em aberto.</div></div></div>
+      <div class="layer l3"><div class="num">3</div><div class="body"><div class="lname">Posto de trabalho do atendente</div><div class="ldesc">Slack como front-end de atendimento; Service Cloud como back-end de caso e fila — o atendente nunca opera Service Cloud diretamente.</div></div></div>
+      <div class="layer l4"><div class="num">4</div><div class="body"><div class="lname">Sistemas externos & indicadores</div><div class="ldesc">API externa de agendamento (sistema de registro, fora do Salesforce) e Tableau para indicadores cross-sistema — fonte da verdade ainda em discussão entre Service Cloud e os sistemas externos.</div></div></div>
+    </div>
+
+    <div class="frentelabel" style="margin-top:28px;">Pontos em aberto desta sync</div>
+    <div class="gapgrid">
+      <div class="gapcard red"><div class="gtag">Estabilidade · Camada 2</div><b>Motor de disparo proativo</b>Duas soluções técnicas em avaliação em paralelo, ainda não reconciliadas — maior dúvida levantada na própria sync sobre risco de mensagem não chegar.</div>
+      <div class="gapcard"><div class="gtag">Design · Camada 2</div><b>Modelo de disponibilidade do atendente</b>Omni-Channel padrão vs. flow customizado no Slack; camada preditiva sugerida, não decidida — fica para o discovery formal.</div>
+      <div class="gapcard"><div class="gtag">Analytics · Camada 4</div><b>Fonte da verdade dos indicadores</b>Agendamento é externo ao Service Cloud; ainda não definido quem é a fonte de verdade cross-sistema para relatórios e SLA.</div>
+      <div class="gapcard purple"><div class="gtag">Arquitetura · Camada 4</div><b>Scheduler nativo do Service Cloud</b>Proposto para internalizar agendamentos e melhorar visibilidade, mas a agenda hoje é 100% controlada por sistema externo — discussão parada para fórum futuro.</div>
+      <div class="gapcard"><div class="gtag">Entrega · Camada 4</div><b>Granularidade de dashboards/Tableau</b>Risco de repetir um esforço custoso já observado em outro projeto — dados fragmentados entre sistemas, parte só disponível na Meta.</div>
+      <div class="gapcard red"><div class="gtag">Fundação de dado · Camada 2</div><b>Sinal de ocupação/fila por posto</b>Ainda sem fonte identificada — mesmo gap já mapeado no escopo formal deste programa (G0315).</div>
+    </div>
+
+    <p style="margin-top:16px;font-size:12.5px;color:var(--ink-soft);"><strong>Modelo comercial mencionado na sync:</strong> capacidade fixa por nuvem (Service/SLC, Omni, Tableau), paga por entrega — não escopo fixo, revisada a cada detalhamento. Consistente com a leitura de esforço qualitativa já usada no restante deste documento, ainda não formalizada em <code>data/commercials.json</code>.</p>
+  </div>
+
   <footer>
-    <span class="vstamp">v1.0</span> · Gerado em 22/09/2026 13:34 (BRT) · Documento controlado por versão · Scopezilla — PRODESP · Poupatempo Balcão V2<br>
-    Consolida <code>data/epics.json</code>, <code>data/estimates.json</code>, <code>data/roadmap.json</code>, <code>data/resource-plan.json</code>, <code>data/gaps.json</code>, <code>data/strategy.json</code>, <code>outputs/artifacts/executive-summary.md</code> e <code>outputs/artifacts/estimate-comparison.md</code>. Snapshot assinado pelo time — não um renderizador ao vivo; toda cifra client-facing carrega o disclaimer correspondente acima.
+    <span class="vstamp">v1.1</span> · Gerado em 23/09/2026 09:06 (BRT) · Documento controlado por versão · Scopezilla — PRODESP · Poupatempo Balcão V2<br>
+    Consolida <code>data/epics.json</code>, <code>data/estimates.json</code>, <code>data/roadmap.json</code>, <code>data/resource-plan.json</code>, <code>data/gaps.json</code>, <code>data/strategy.json</code>, <code>outputs/artifacts/executive-summary.md</code> e <code>outputs/artifacts/estimate-comparison.md</code>. A seção "Atendimento Digital" é exploração isolada de uma sync interna (22/09/2026), não reconciliada com os dados acima. Snapshot assinado pelo time — não um renderizador ao vivo; toda cifra client-facing carrega o disclaimer correspondente acima.
   </footer>
 
 </div>
