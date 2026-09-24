@@ -438,5 +438,13 @@
     "impact_or_notes": "Dimensionamento de E01 (Integração = L) assume um comportamento padrão de canal WhatsApp Business e um nível de confiança gov.br moderado. Se o fallback de gov.br exigir jornada alternativa completa (ex.: biometria presencial), o épico sobe para XL — ver size_if_assumption_breaks em estimates.json.",
     "status": "open",
     "resolution": null
+  },
+  {
+    "gap_id": "G0110",
+    "category": "Assumption",
+    "gap_or_question": "Confirmação formal de jurídico/DPO da PRODESP de que o fluxo de E01 (antecipação via WhatsApp + autenticação gov.br + fallback biométrico) foi revisado sob o framework LGPD já existente no cliente — distinto da maturidade organizacional geral do framework, que o account owner confirma existir.",
+    "impact_or_notes": "Sem essa confirmação específica, o risco R01 do risk-review (data/risks.json) permanece com residual Medium em vez de Low — dado pessoal de cidadão em contexto de serviço público é a exposição mais sensível do programa. Levantado no risk-review de 2026-09-24, não no requirements original.",
+    "status": "open-client-only",
+    "resolution": null
   }
 ]

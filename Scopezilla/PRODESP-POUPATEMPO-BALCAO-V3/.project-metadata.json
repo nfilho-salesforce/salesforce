@@ -55,6 +55,9 @@
       ]
     }
   },
+  "overall_risk_rating": "High",
+  "overall_risk_rating_recommended": "High",
+  "commercial_structure": "fixed-fee",
   "salesforce_link": {
     "status": "linked",
     "opportunity_id": "006ed00000gaWPPAA2",

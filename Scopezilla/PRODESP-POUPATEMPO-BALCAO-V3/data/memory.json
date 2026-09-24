@@ -115,6 +115,31 @@
         "validate — checagem cruzada antes de export.",
         "Considerar risk-review dado o risco de compliance/LGPD ainda não mitigado (mesmo flag desde design)."
       ]
+    },
+    {
+      "date": "2026-09-24",
+      "skills_used": [
+        "risk-review"
+      ],
+      "summary": "Risk-review completo: register de 13 riscos em data/risks.json (categorias A/C/E/F da taxonomia RBS), categoria D (Staffing) deliberadamente deferida — resource-plan.json ainda não existe. Grill com o usuário resolveu 4 dimensões: LGPD (framework maduro do cliente citado, mas aplicação ao fluxo específico de E01 ainda não confirmada — novo gap G0110), estrutura comercial confirmada como Fixed Fee, governança/velocidade de decisão da PRODESP como unknown genuíno (sem base V1/V2), e expectativa (não compromisso contratual) de resposta aos gaps client-only G0401/G0501/G0508 na Fase 0. Counter-case independente (subagente sem acesso à minha leitura) recomendou Not Recommended especificamente contra travar Fixed Fee antes da Fase 0 fechar o caminho crítico; usuário comprometeu Overall Risk Rating = High (minha recomendação), não o counter-case.",
+      "friction": [],
+      "decisions": [
+        {
+          "decision": "Overall Risk Rating comprometido em High",
+          "rationale": "Usuário escolheu a recomendação do risk-review sobre a leitura mais cautelosa (Not Recommended) do counter-case independente"
+        }
+      ],
+      "open_threads": [
+        "R02/R03 (Fixed Fee vs. faixa não travada; governança/velocidade de decisão desconhecida) permanecem High sem mitigação de escopo — só alavancas comerciais/contratuais (Fase 0 com dentes contratuais, ou T&M parcial) resolvem, e isso é decisão de deal, não de scoping.",
+        "G0110 (novo) — confirmação formal de jurídico/DPO sobre o fluxo específico de E01 sob LGPD, ainda aberta.",
+        "Categoria D (Staffing) do risk register não avaliada — sem resource-plan.json; revisitar quando `estimate` rodar.",
+        "R04/R05 (G0501/G0508, G0401) residual Medium depende do gate de Fase 0 ganhar dentes contratuais — hoje é só expectativa."
+      ],
+      "next_steps": [
+        "Rodar `deal-review` para leitura do deal completo (incorpora risks.json)",
+        "Considerar `estimate` para o roster nomeado e reabrir a categoria Staffing do risk register",
+        "Levar R02/R03 e o gate de Fase 0 com dentes contratuais para a conversa comercial/jurídica antes de fechar Fixed Fee"
+      ]
     }
   ],
   "preferences": {
@@ -253,6 +278,23 @@
       "decision": "Esqueleto de 5 fases aprovado sem ajustes: Fase 0 (resolução de gaps, sem épicos) → Fase 1 (E03+E05, fundação) → Fase 2 (E01+E04, Jornada 1) → Fase 3 (E02+E07, Jornada 2) → Fase 4 (E06, observabilidade).",
       "rationale": "Fundação-primeiro (integração legado + provisionamento de atendentes são pré-requisito técnico das duas jornadas); E01+E04 e E02+E07 mantidos juntos por acoplamento funcional direto (trigger de Presence Status / infraestrutura de canal compartilhada); E06 por último por consumir dados instrumentados nas fases anteriores; Fase 0 justificada pelo volume de gaps (55 > limiar de 15).",
       "rejected": []
+    },
+    {
+      "date": "2026-09-24",
+      "area": "commercials",
+      "decision": "Estrutura comercial confirmada como Fixed Fee (label, sem rate) — registrada em .project-metadata.json.commercial_structure",
+      "rationale": "Resposta explícita do usuário ao grill do risk-review — necessária para avaliar exposição de Schedule/Financials (categoria E) contra a faixa de duração 18-34 semanas ainda não travada",
+      "rejected": []
+    },
+    {
+      "date": "2026-09-24",
+      "area": "risk-review",
+      "decision": "Overall Risk Rating comprometido em High (não o Not Recommended do counter-case independente)",
+      "rationale": "Usuário considerou High suficiente para refletir a exposição atual (Fixed Fee + caminho crítico com épicos Unknown + gaps client-only sem gate contratual + governança de decisão desconhecida) sem chegar ao patamar de recomendar não seguir. Counter-case (subagente sem acesso à minha leitura, seedado só com evidência) argumentou Not Recommended especificamente contra travar o preço Fixed Fee antes da Fase 0 fechar o caminho crítico — registrado no artefato para visibilidade do reviewer, não adotado.",
+      "rejected": [
+        "Not Recommended (leitura do counter-case independente)",
+        "Medium (não escolhido)"
+      ]
     }
   ]
 }
