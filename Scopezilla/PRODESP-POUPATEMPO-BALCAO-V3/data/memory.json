@@ -338,6 +338,36 @@
         "Se o usuário quiser grillar o novo escopo antes de levar ao cliente, considerar grill-me-on-scope só sobre a slice tocada (E08/E09/Fase 5/roster novo) — não uma rodada completa.",
         "export — para empacotar o pacote atualizado quando o usuário decidir."
       ]
+    },
+    {
+      "date": "2026-09-24",
+      "skills_used": [
+        "grill-me-on-scope"
+      ],
+      "summary": "Grill focado na slice tocada pelo revise mais recente: E08 (Operação Assistida), E09 (Change Management/Capacitação por Persona), a nova Fase 5 do roadmap.json, e o roster novo/alterado em resource-plan.json (R02 estendido, R09 expandido, R11/R12 novos). Quatro perguntas resolvidas com o usuário: (1) estender R01 (PM) e C01 (Product Owner/Decision-Maker do cliente) até a Fase 5, já que nenhum dos dois estava coberto no roster da nova fase apesar de serem os papéis lógicos para conduzir/assinar o handover; (2) isso fecha G0801 (owner nomeado do lado do cliente para o handover) porque C01 passa a cobrir a Fase 5; (3) manter E08=S e E09=M como estavam, sem resize — o usuário endossou o sizing existente sem trazer informação nova; (4) manter a premissa condicional explícita em size_if_assumption_breaks para ambos, sem promover a Confirmed além do que já valia.",
+      "friction": [],
+      "decisions": [
+        {
+          "decision": "R01 e C01 estendidos para phases_active 0-5",
+          "rationale": "Nenhum dos dois estava coberto no roster novo da Fase 5, apesar de serem os papéis lógicos de condução (PM) e assinatura (Product Owner cliente) do handover formal"
+        },
+        {
+          "decision": "G0801 marcado resolved em gaps.json",
+          "rationale": "Fechado pela extensão de C01 à Fase 5 — owner nomeado do lado do cliente agora coberto; modelo/SLA de suporte pós-handover em si não foi redefinido, permanece com o time de sustentação"
+        },
+        {
+          "decision": "E08 e E09 mantidos sem resize (S e M)",
+          "rationale": "Grill não trouxe informação nova que justificasse mudar o T-shirt size; usuário endossou o sizing existente (user-endorsed in grill 2026-09-24), sem promover confidence além do que já estava"
+        }
+      ],
+      "open_threads": [
+        "G0901 continua aberto — formato de entrega da capacitação de E09 (presencial/remoto/self-service) e volume de train-the-trainers ainda não confirmados pelo cliente",
+        "roadmap.json e commercials.json foram flagados como possivelmente stale por validate-data.py (mtime apenas — nenhuma mudança de valor foi feita neste grill, só phases_active/justificativas/notas; considerar rodar revise se o próximo passo exigir recomputar timeline/preço)"
+      ],
+      "next_steps": [
+        "Se o usuário quiser seguir para requirements (transformar G0901 em pergunta formal ao cliente) ou para export (empacotar o pacote atualizado)",
+        "Timeline HTML (timeline-proposta.html/.png) já reflete a Fase 5 de uma sessão anterior — não precisou de novo ajuste visual neste grill"
+      ]
     }
   ],
   "preferences": {
@@ -583,6 +613,16 @@
       "rejected": [
         "Tratar como mero ajuste de detalhe sem passar pelo revise completo (rejeitado — o próprio usuário pediu explicitamente a validação/propagação via revise)",
         "Criar headcount novo de Change & Adoption para a capacitação por persona em vez de expandir R09 em vigor (rejeitado via grill prévio — 'Expandir R09 em vigor' foi a opção escolhida)"
+      ]
+    },
+    {
+      "date": "2026-09-24",
+      "area": "scope",
+      "decision": "R01 (PM) e C01 (Product Owner/Decision-Maker do cliente) estendidos para phases_active 0-5, fechando G0801 (owner nomeado do lado do cliente para o handover de E08).",
+      "rationale": "Grill da slice da Fase 5 revelou que nenhum dos dois papéis de condução/assinatura estava coberto no roster novo (R11/R12 cobrem só suporte funcional/técnico). Hard-to-reverse: fecha formalmente um gap de discovery (G0801) com base na extensão de um papel já existente, em vez de abrir headcount novo ou deixar o gap aberto para o cliente resolver.",
+      "rejected": [
+        "Deixar G0801 aberto e criar um novo papel dedicado só para assinar o handover (rejeitado — redundante com C01, que já é o decision-maker do cliente em todo o programa)",
+        "Resize de E08/E09 durante o grill (rejeitado — nenhuma informação nova surgiu; usuário apenas endossou o sizing já existente)"
       ]
     }
   ]

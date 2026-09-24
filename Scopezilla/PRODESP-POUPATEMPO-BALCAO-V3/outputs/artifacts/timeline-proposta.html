@@ -40,7 +40,7 @@
   .legend-item { display:flex; align-items:center; gap:8px; font-size: 12.5px; color: var(--sf-text); }
   .swatch { width: 14px; height: 14px; border-radius: 4px; flex: 0 0 auto; }
 
-  .chart { position: relative; padding-top: 70px; }
+  .chart { position: relative; padding-top: 108px; }
 
   .week-ruler { display:flex; align-items:stretch; gap: 14px; margin-bottom: 10px; }
   .ruler-spacer { flex: 0 0 190px; }
@@ -89,6 +89,7 @@
   .milestone--purple .milestone-flag::after { border-top-color: var(--ext-purple); }
 
   .milestone-flag--row2 { top: -64px; }
+  .milestone-flag--row3 { top: -94px; }
 </style>
 </head>
 <body>
@@ -157,10 +158,13 @@
             <div class="milestone-flag">Fundação pronta — legados integrados</div>
           </div>
           <div class="milestone milestone--navy" style="left:63.16%;">
-            <div class="milestone-flag">Jornada 1 em produção — oferta por WhatsApp</div>
+            <div class="milestone-flag">Agente WhatsApp entregue (E01)</div>
+          </div>
+          <div class="milestone milestone--navy" style="left:78.95%;">
+            <div class="milestone-flag milestone-flag--row2">Tableau Next entregue (E06)</div>
           </div>
           <div class="milestone milestone--purple" style="left:78.95%;">
-            <div class="milestone-flag milestone-flag--row2">Capacitação reforçada — atendentes (train-the-trainers)</div>
+            <div class="milestone-flag milestone-flag--row3">Capacitação reforçada — atendentes (train-the-trainers)</div>
           </div>
           <div class="milestone milestone--slate" style="left:99%;">
             <div class="milestone-flag">Handover concluído — sustentação assumida</div>
@@ -183,7 +187,9 @@
             <div class="bar" style="flex:0 0 26.32%; background:var(--ext-teal);">
               <div class="bar-name">Jornada 2: Apoio Presencial</div><div class="bar-dur">5 sem</div>
             </div>
-            <div class="bar spacer" style="flex:0 0 26.32%;"></div>
+            <div class="bar spacer" style="flex:0 0 26.32%;">
+              <div class="bar-name" style="color:var(--sf-text-weak); font-size:10px; font-weight:400; opacity:.85;">Aguardando Jornada 1 + Observabilidade concluírem</div>
+            </div>
             <div class="bar" style="flex:0 0 21.05%; background:var(--ext-slate);">
               <div class="bar-name">Operação Assistida</div>
               <div class="bar-detail">Handover para sustentação</div>
@@ -194,7 +200,7 @@
             <div class="milestone-flag">Legados prontos para o Slack</div>
           </div>
           <div class="milestone" style="left:52.63%;">
-            <div class="milestone-flag">Jornada 2 em produção — apoio via Slack</div>
+            <div class="milestone-flag">Slackbot entregue — apoio presencial (E02)</div>
           </div>
           <div class="milestone milestone--purple" style="left:78.95%;">
             <div class="milestone-flag">Capacitação reforçada — supervisores (train-the-trainers)</div>

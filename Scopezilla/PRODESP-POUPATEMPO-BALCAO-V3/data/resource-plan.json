@@ -8,8 +8,8 @@
     "side": "ps",
     "count": 1,
     "allocation": "full",
-    "phases_active": "0-4",
-    "justification": "Único fio condutor client-facing num programa de 5 fases com dois caminhos críticos em paralelo (E05→E01→E06 e E03→E02→E07); reporta status, facilita a Fase 0 de resolução de gaps e é o ponto de escalonamento para o gap de product owner do lado cliente."
+    "phases_active": "0-5",
+    "justification": "Único fio condutor client-facing num programa de 6 fases com dois caminhos críticos em paralelo (E05→E01→E06 e E03→E02→E07); reporta status, facilita a Fase 0 de resolução de gaps e é o ponto de escalonamento para o gap de product owner do lado cliente. Estendido à Fase 5 (Operação Assistida) — grillado e confirmado pelo usuário em 2026-09-24: o PM é quem conduz e assina o handover formal para a sustentação do cliente, fechando G0801 (owner nomeado do lado do cliente para o handover)."
   },
   {
     "resource_id": "R02",
@@ -153,8 +153,8 @@
     "side": "client",
     "count": 1,
     "allocation": "half",
-    "phases_active": "0-4",
-    "justification": "GAP — não nomeado ainda (confirmado pelo usuário nesta sessão, 2026-09-24). Governança rotulada 'Unknown' no dossiê de discovery (linha 248); sem este papel, G0309/G0501/G0508/G0703 e o sponsor ausente de E06 seguem bloqueados. Também é o sinal-chave testado pelo gate de qualificação do lane AI-native (decision-maker empoderado, cadência de decisão rápida)."
+    "phases_active": "0-5",
+    "justification": "GAP — não nomeado ainda (confirmado pelo usuário nesta sessão, 2026-09-24). Governança rotulada 'Unknown' no dossiê de discovery (linha 248); sem este papel, G0309/G0501/G0508/G0703 e o sponsor ausente de E06 seguem bloqueados. Também é o sinal-chave testado pelo gate de qualificação do lane AI-native (decision-maker empoderado, cadência de decisão rápida). Estendido à Fase 5 (Operação Assistida) — grillado e confirmado pelo usuário em 2026-09-24: este papel é quem assina o handover formal do lado cliente, o que fecha G0801 (owner nomeado do lado do cliente); o modelo/SLA de suporte pós-handover em si permanece aberto (ver G0801 em gaps.json, resolvido só quanto ao owner)."
   },
   {
     "resource_id": "C02",

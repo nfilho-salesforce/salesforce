@@ -194,8 +194,8 @@
     "size_rationale": "S — dirigido por duração fixa e headcount mínimo já confirmado pelo usuário, não por complexidade técnica; nenhuma automação, integração ou modelo de dados novo entra neste épico.",
     "complexity_drivers": "Cobertura simultânea de duas jornadas em produção real (WhatsApp/Antecipação e Slack/Apoio Presencial) por um time pequeno; handover formal com critério de saída explícito para o time de sustentação do cliente — hoje sem owner nomeado (G0801).",
     "skills_needed": "Arquiteto de Solução (0.5 FTE, continuidade arquitetural do handover), Solution Consultant (1 FTE, suporte funcional à operação e documentação), Technical Consultant (1 FTE, suporte técnico a incidentes e transferência de conhecimento).",
-    "risks": "G0801 aberto — sem responsável nomeado do lado do cliente nem modelo/SLA de suporte definido para depois das 4 semanas, o critério de saída do handover fica indefinido.",
-    "size_if_assumption_breaks": "S; M se o cliente não nomear um responsável de sustentação antes do início da fase, obrigando o time de projeto a estender suporte informal além das 4 semanas.",
+    "risks": "G0801 resolvido em 2026-09-24 — C01 (owner do cliente) estendido à Fase 5 fecha o responsável nomeado do handover; modelo/SLA de suporte pós-handover em si segue como responsabilidade do time de sustentação, não redimensionando este épico.",
+    "size_if_assumption_breaks": "S; M se o cliente não nomear um responsável de sustentação antes do início da fase, obrigando o time de projeto a estender suporte informal além das 4 semanas. Sizing e premissa condicional grillados e confirmados pelo usuário em 2026-09-24 — user-endorsed in grill 2026-09-24, sem base nova que justifique promover a Confirmed além do que já estava.",
     "solution_approach": "Acompanhamento assistido pós-go-live das duas jornadas em produção, com o time mínimo definido cobrindo monitoramento, suporte a incidentes/dúvidas da operação (atendentes e supervisores) e ajustes finos de configuração identificados apenas no uso real — sem build de nova funcionalidade — encerrando com handover formal e documentado (transferência de conhecimento, documentação operacional, critérios de saída) ao time de sustentação do cliente.",
     "confidence": "Confirmed"
   },
@@ -213,7 +213,7 @@
     "complexity_drivers": "Expande a justificativa original de R09 (Change & Adoption) para cobrir a persona supervisor, não coberta antes desta revisão; atravessa as fases de build de Jornada 1 e Jornada 2 e reforça durante a Operação Assistida (E08) no momento do handover.",
     "skills_needed": "Change & Adoption (Human Centered Change Consultant) — expande a role R09 já existente no roster; sem headcount novo dedicado a este épico.",
     "risks": "G0901 aberto — formato de entrega (presencial/remoto/self-service) e volume de sessões de train-the-trainers ainda não definidos pelo cliente; T-shirt assume o cenário mais leve (material + sessões remotas).",
-    "size_if_assumption_breaks": "M; L se o cliente exigir entrega presencial multi-turno em vez de material + sessões remotas, ou um número alto de multiplicadores de train-the-trainers.",
+    "size_if_assumption_breaks": "M; L se o cliente exigir entrega presencial multi-turno em vez de material + sessões remotas, ou um número alto de multiplicadores de train-the-trainers. Sizing e premissa condicional grillados e confirmados pelo usuário em 2026-09-24 — user-endorsed in grill 2026-09-24, sem base nova que justifique promover a Confirmed além do que já estava.",
     "solution_approach": "Trilha de capacitação por persona (atendente e supervisor) cobrindo o uso das duas jornadas, com material de treinamento, sessões de capacitação e um programa de train-the-trainers para o cliente escalar internamente — expande a role R09 já presente no roster em vez de criar headcount novo.",
     "confidence": "Confirmed"
   }

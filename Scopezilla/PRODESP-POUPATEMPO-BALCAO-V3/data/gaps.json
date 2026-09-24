@@ -460,8 +460,8 @@
     "category": "Missing Requirement",
     "gap_or_question": "Quem é o responsável nomeado do lado do cliente para receber o handover de sustentação de E08, e qual é o modelo/SLA de suporte que assume a operação após as 4 semanas de Operação Assistida (nível 1/2/3, canal de abertura de chamado, horário de cobertura)?",
     "impact_or_notes": "Sem um owner nomeado e um modelo de suporte definido, o critério de saída da Operação Assistida fica indefinido — risco de a fase se estender informalmente sem escopo adicional contratado, ou de o cliente ficar sem cobertura no dia seguinte ao handover.",
-    "status": "open-client-only",
-    "resolution": null
+    "status": "resolved",
+    "resolution": "Grillado e resolvido pelo usuário em 2026-09-24: C01 (Product Owner/Decision-Maker do cliente) estende sua atuação até a Fase 5 (phases_active 0-5 em resource-plan.json) e é o owner nomeado que recebe e assina o handover formal de sustentação. Fecha a lacuna de responsável nomeado do lado do cliente; modelo/SLA operacional pós-handover em si não é redefinido aqui — segue como responsabilidade do time de sustentação a partir do handover."
   },
   {
     "gap_id": "G0901",
