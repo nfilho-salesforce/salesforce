@@ -247,6 +247,23 @@
         "Revisitar a coluna AI-native quando o gap de product owner do cliente fechar.",
         "export — para empacotar quando o usuário decidir."
       ]
+    },
+    {
+      "date": "2026-09-24",
+      "skills_used": [
+        "commercials"
+      ],
+      "summary": "Commercials rodado para o lane Aumentada (ANCHOR). Desvio explícito do grid onshore/offshore padrão da skill, a pedido do usuário: rates por role PS LATAM (padrão que o usuário usa em todos os projetos), rates do contrato DATAPREV como fonte, de/para por nome mais semelhante entre as 10 roles do roster (resource-plan.json R01-R10) e o vocabulário PS LATAM (Project Manager, Senior Solution Architect, Senior Technical Architect, Developer/Mulesoft-TC, Quality Assurance Consultant, Solution Consultant ×2, Experience Architect). Regra de imposto aplicada em todos os valores: com_imposto = sem_imposto ÷ 0,9345. Sem cronograma comprometido — banda de preço indicativa calculada via Σ(count × fração de alocação × semanas da faixa × 40h × rate) sobre a faixa de duração do lane Aumentada (15-34 semanas, estimate-comparison.json): R$ 3.195.105,00-7.241.958,00 sem imposto / R$ 3.419.053,00-7.749.554,00 com imposto. De/para apresentado ao usuário via AskUserQuestion e validado (\"Sim — usar estas rates\"). Self-gate inicial FAIL (rate_basis fora do enum da skill; indicative_range sem low/high numéricos) — corrigido (rate_basis: per-resource-hourly; low/high = valores sem imposto, com_imposto como campos suplementares); validate-data.py final: PASS. Escritos data/commercials.json, outputs/artifacts/commercials.md (sob heading ## Approved Commercials), data/csv/11-commercials.csv.",
+      "open_threads": [
+        "Rates client-side (C01-C03) não precificadas — custeadas pelo cliente, fora deste range.",
+        "Banda ampla por design (reflete a faixa de 15-34 semanas, sem cronograma comprometido) — re-rodar commercials quando timeline.user_commitment fechar para banda mais estreita via derive-hours.py.",
+        "Lanes Tradicional e AI-native ainda sem preço indicativo — Tradicional é piso contextual (não comprometido); AI-native é condicional (gate não atendido)."
+      ],
+      "next_steps": [
+        "Considerar reforçar reference_ps_rates_tax_latam.md com PRODESP como mais um projeto confirmado usando o padrão de rates PS LATAM + regra de imposto ÷0,9345.",
+        "narratives/slides — usar a faixa Aumentada precificada na história para o cliente.",
+        "export — quando o usuário decidir empacotar."
+      ]
     }
   ],
   "preferences": {
@@ -472,6 +489,16 @@
       "rejected": [
         "Anchor = traditional (modo default/pitch documentado, não escolhido pelo usuário)",
         "Anchor = quantum-leap/AI-native comprometido (não aplicável — gate de qualificação não atendido)"
+      ]
+    },
+    {
+      "date": "2026-09-24",
+      "area": "commercials",
+      "decision": "Base de rate para o lane Aumentada = rates PS LATAM por role (contrato DATAPREV), não o grid onshore/offshore padrão da skill commercials. De/para por nome mais semelhante entre as 10 roles do roster e o vocabulário PS LATAM; todo valor exibido com e sem imposto (com_imposto = sem_imposto ÷ 0,9345).",
+      "rationale": "Instrução explícita do usuário: 'seguindo o padrao que uso nos meus projetos, nao utilizar o criterio de on/offshore e sim as roles de PS que comumente usamos em LATAM e nos meus projetos, fazer o de/para e aplicar as taxas do contrato dataprev como padrao, trazer valor com e sem impostos'. Consistente com a diretriz permanente já registrada em memória global (reference_ps_rates_tax_latam) de outros projetos do usuário (ex.: DATAPREV).",
+      "rejected": [
+        "Grid onshore-senior/onshore-regular/offshore-senior/offshore-regular padrão da skill commercials (rejeitado pelo usuário nesta sessão)",
+        "Rate genérica/de mercado em vez da rate do contrato DATAPREV (não usada — usuário pediu explicitamente o contrato DATAPREV como padrão)"
       ]
     }
   ]

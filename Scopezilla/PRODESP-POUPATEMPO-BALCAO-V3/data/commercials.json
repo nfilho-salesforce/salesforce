@@ -1,0 +1,37 @@
+{
+  "rate_basis": "per-resource-hourly",
+  "lane": "augmented",
+  "currency": "BRL",
+  "rate_source": "Contrato DATAPREV (rates PS LATAM sem imposto) — desvio explícito do grid onshore/offshore padrão desta skill, a pedido do usuário nesta sessão (2026-09-24); mapeamento de/para por role, nome mais semelhante (ver decision_log em data/memory.json)",
+  "tax_rule": "valor_com_imposto = valor_sem_imposto / 0.9345",
+  "rates": [
+    {"roster_row": "R01", "role_roster": "Project / Program Manager (regular, onshore)", "role_latam_ps": "Project Manager", "rate_sem_imposto": 789.88, "rate_com_imposto": 845.24, "currency": "BRL", "validated_by": "user", "validated_at": "2026-09-24"},
+    {"roster_row": "R02", "role_roster": "Solution Architect (senior, onshore)", "role_latam_ps": "Senior Solution Architect", "rate_sem_imposto": 884.68, "rate_com_imposto": 946.69, "currency": "BRL", "validated_by": "user", "validated_at": "2026-09-24"},
+    {"roster_row": "R03", "role_roster": "Technical Architect (senior, onshore)", "role_latam_ps": "Senior Technical Architect", "rate_sem_imposto": 884.68, "rate_com_imposto": 946.69, "currency": "BRL", "validated_by": "user", "validated_at": "2026-09-24"},
+    {"roster_row": "R04", "role_roster": "Developer — integração MuleSoft (senior, offshore)", "role_latam_ps": "Mulesoft - TC / Developer", "rate_sem_imposto": 668.78, "rate_com_imposto": 715.66, "currency": "BRL", "validated_by": "user", "validated_at": "2026-09-24"},
+    {"roster_row": "R05", "role_roster": "Developer (regular, offshore)", "role_latam_ps": "Developer", "rate_sem_imposto": 668.78, "rate_com_imposto": 715.66, "currency": "BRL", "validated_by": "user", "validated_at": "2026-09-24"},
+    {"roster_row": "R06", "role_roster": "Developer — Slack (regular, offshore)", "role_latam_ps": "Developer", "rate_sem_imposto": 668.78, "rate_com_imposto": 715.66, "currency": "BRL", "validated_by": "user", "validated_at": "2026-09-24"},
+    {"roster_row": "R07", "role_roster": "Quality Assurance (regular, offshore)", "role_latam_ps": "Quality Assurance Consultant", "rate_sem_imposto": 573.98, "rate_com_imposto": 614.21, "currency": "BRL", "validated_by": "user", "validated_at": "2026-09-24"},
+    {"roster_row": "R08", "role_roster": "Functional Consultant (regular, offshore)", "role_latam_ps": "Solution Consultant (nome mais semelhante)", "rate_sem_imposto": 573.98, "rate_com_imposto": 614.21, "currency": "BRL", "validated_by": "user", "validated_at": "2026-09-24"},
+    {"roster_row": "R09", "role_roster": "Change & Adoption (regular, onshore)", "role_latam_ps": "Solution Consultant (papel advisory/change)", "rate_sem_imposto": 573.98, "rate_com_imposto": 614.21, "currency": "BRL", "validated_by": "user", "validated_at": "2026-09-24"},
+    {"roster_row": "R10", "role_roster": "Experience Design (regular, offshore)", "role_latam_ps": "Experience Architect", "rate_sem_imposto": 789.88, "rate_com_imposto": 845.24, "currency": "BRL", "validated_by": "user", "validated_at": "2026-09-24"}
+  ],
+  "effort_basis": {
+    "source": "top-down-shape",
+    "duration_weeks_range": "15-34",
+    "roster_summary": "10 papéis PS (R01-R10) do lane Aumentada — mesmo roster do lane Tradicional (data/resource-plan.json), ritmo acelerado por tooling de IA, sem redução de headcount",
+    "derivation_note": "Sem cronograma comprometido (.project-metadata.json timeline.user_commitment=null) — banda de preço indicativa calculada como Σ(count × fração_alocação × semanas_faixa × 40h × rate) por linha do roster, sobre a faixa de duração do lane Aumentada (15-34 semanas, data/estimate-comparison.json). fração_alocação: full=1.0, half=0.5, quarter=0.25 (allocation_by_phase de R07 não aplicado nesta simplificação de faixa — ver nota de honestidade ampla). Rates: contrato DATAPREV, mapeadas por nome mais semelhante às roles PS LATAM (de/para em rates[]) — desvio do grid onshore/offshore padrão da skill commercials, a pedido explícito do usuário nesta sessão."
+  },
+  "indicative_range": {
+    "low": 3195105.00,
+    "high": 7241958.00,
+    "low_sem_imposto": 3195105.00,
+    "high_sem_imposto": 7241958.00,
+    "low_com_imposto": 3419053.00,
+    "high_com_imposto": 7749554.00,
+    "currency": "BRL",
+    "confidence": "Assumed"
+  },
+  "disclaimer_class": "input-derived",
+  "approved_commercials": true
+}
