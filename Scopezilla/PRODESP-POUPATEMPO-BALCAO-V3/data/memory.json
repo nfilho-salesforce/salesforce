@@ -294,6 +294,33 @@
         "quantum-leap — pointer oferecido (Service Cloud/Agentforce em products_in_scope, quantum-leap ainda not-started) caso o usuário queira um bundle de build-handoff.",
         "share — pointer oferecido caso o usuário queira publicar um único deliverable (ex.: o exec summary) como link do Drive em vez do pacote inteiro."
       ]
+    },
+    {
+      "date": "2026-09-24",
+      "skills_used": [
+        "slides"
+      ],
+      "summary": "Rodou o skill slides (Creation Mode) e produziu outputs/artifacts/presentation-outline.md — 10 slides + capa, arco Resposta->Por que->Como->Prova, tom Autoritativo, audiencia mista executiva+tecnica (parcialmente fluente), Big Idea: duas jornadas (WhatsApp + Slack) sobre uma arquitetura. Nomes de produto travados: Slack, Service Cloud, Agentforce, MuleSoft, Data 360, Tableau Next (resolvendo a discrepancia Tableau vs Tableau Next a favor do nome usado no KB e em 01-solution.md). Outline aprovado pelo usuario sem ajustes. Sweeps de Fase 5 aplicados: IDs internos de epico/gap/papel/cliente traduzidos para linguagem simples no conteudo (mantidos so na coluna Fonte de Dados), titulos reescritos para uma afirmacao por slide sem em-dash/paralelismo negativo, nenhum numero novo introduzido (todos rastreiam a executive-summary.md ou data/*.json), nenhuma triade/simetria decorativa forcada.",
+      "friction": [],
+      "decisions": [
+        {
+          "decision": "Product naming: usar \"Tableau Next\", nao \"Tableau\" solto",
+          "rationale": "KB (tableau_next_4-10-2026.md) e outputs/01-solution.md usam Tableau Next; .project-metadata.json.products_in_scope ainda lista o nome desatualizado"
+        },
+        {
+          "decision": "Deck de 10 slides + capa, sem slide de FTE/headcount/preco",
+          "rationale": "Guardrail padrao do skill slides — so T-shirt sizes, fases, papeis (sem contagem)"
+        }
+      ],
+      "open_threads": [
+        ".project-metadata.json.products_in_scope ainda lista \"Tableau\" em vez de \"Tableau Next\" — nao corrigido nesta sessao (fora do escopo do skill slides)",
+        "data/gaps.json permanece parcialmente lido (linhas 1-337 de 459) — nao bloqueou este run, mas segue pendente para uma leitura completa futura"
+      ],
+      "next_steps": [
+        "Se o usuario quiser renderizar em HTML (nao so outline), usar o brand kit shell (brand/shells/deck.html)",
+        "Se quiser prompts para Gemini/Google Slides a partir deste outline, rodar slides novamente em Gemini Delivery Mode",
+        "validate ja foi solicitado por um ARGUMENTS de sistema para esta sessao — ainda nao executado; considerar rodar antes de fechar o projeto"
+      ]
     }
   ],
   "preferences": {
