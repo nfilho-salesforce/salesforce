@@ -669,6 +669,16 @@
         "Manter o bloco único sincronizado e só corrigir o desenho visual (rejeitado — geraria divergência entre o HTML e roadmap.json/estimates.json, que ainda descreveriam a Operação Assistida como dependente do caminho crítico completo)",
         "Ajustar resource-plan.json (R11/R12) nesta mesma passada, assumindo que o mesmo time cobre as duas janelas (rejeitado — decisão de resourcing não tem base própria ainda; deixado como flag aberto para o usuário)"
       ]
+    },
+    {
+      "date": "2026-09-24",
+      "area": "resourcing",
+      "decision": "R11/R12 (Solution Consultant + Technical Consultant onshore, Fase 5) mobilizados continuamente da semana 11 à semana 19 (9 semanas de calendário), cobrindo as duas janelas escalonadas de Operação Assistida (Jornada 2: semana 11-14; Jornada 1: semana 16-19) sem desmobilizar no intervalo ocioso da semana 15 — essa semana passa a intensidade reduzida para preparação/documentação do cutover da Jornada 1.",
+      "rationale": "Fecha o flag deixado aberto na correção de timing anterior (mesma sessão): desmobilizar e remobilizar a mesma dupla para um intervalo de apenas 1 semana custaria mais em overhead de transição do que mantê-la engajada em intensidade reduzida nessa semana. Sem headcount adicional — mesmo 1 FTE por role. Hard-to-reverse: fixa o modelo de resourcing da Fase 5 (contínuo, não duas mobilizações) que resource-plan.json, roadmap.json e estimates.json (E08) agora refletem de forma consistente.",
+      "rejected": [
+        "Duas mobilizações separadas (semana 11-14 e semana 16-19) com desmobilização formal na semana 15 (rejeitado — overhead de reinício maior que o custo de manter a mesma dupla em intensidade reduzida por 1 semana)",
+        "Time duplicado (um par R11/R12 por jornada, correndo em paralelo) (rejeitado — dobra headcount sem justificativa nova; o trabalho das duas janelas não é simultâneo, é sequencial com folga de 1 semana)"
+      ]
     }
   ]
 }

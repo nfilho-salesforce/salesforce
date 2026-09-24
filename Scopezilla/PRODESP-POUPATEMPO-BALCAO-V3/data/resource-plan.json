@@ -130,7 +130,7 @@
     "count": 1,
     "allocation": "full",
     "phases_active": "5",
-    "justification": "Escopo novo, adicionado pelo usuário nesta sessão (2026-09-24) — time mínimo definido diretamente pelo usuário para a Fase 5 (Operação Assistida). Solution Consultant onshore 1 FTE cobrindo o suporte funcional à operação assistida das duas jornadas e a produção da documentação de handover — onshore por decisão do usuário (grill do revise, 2026-09-24), dado o contato direto com a operação do cliente nas 4 semanas de acompanhamento."
+    "justification": "Escopo novo, adicionado pelo usuário nesta sessão (2026-09-24) — time mínimo definido diretamente pelo usuário para a Fase 5 (Operação Assistida). Solution Consultant onshore 1 FTE cobrindo o suporte funcional à operação assistida das duas jornadas e a produção da documentação de handover — onshore por decisão do usuário (grill do revise, 2026-09-24), dado o contato direto com a operação do cliente nas 4 semanas de acompanhamento. Resourcing do timing resolvido em 2026-09-24: mesma dupla R11/R12 mobilizada continuamente da semana 11 à semana 19 (9 semanas de calendário), cobrindo as duas janelas escalonadas e não sobrepostas (Jornada 2: semanas 11-14; Jornada 1: semanas 16-19) sem desmobilizar no intervalo da semana 15 — essa semana é usada em intensidade reduzida para preparação/documentação do cutover da Jornada 1, evitando o custo de uma segunda mobilização para 4 semanas adicionais. Sem headcount adicional; mesmo 1 FTE."
   },
   {
     "resource_id": "R12",
@@ -142,7 +142,7 @@
     "count": 1,
     "allocation": "full",
     "phases_active": "5",
-    "justification": "Escopo novo, adicionado pelo usuário nesta sessão (2026-09-24) — time mínimo definido diretamente pelo usuário para a Fase 5 (Operação Assistida). Technical Consultant onshore 1 FTE cobrindo suporte técnico a incidentes das duas jornadas em produção e a transferência de conhecimento técnico ao time de sustentação do cliente — onshore por decisão do usuário (grill do revise, 2026-09-24), dado o contato direto com a operação do cliente nas 4 semanas de acompanhamento."
+    "justification": "Escopo novo, adicionado pelo usuário nesta sessão (2026-09-24) — time mínimo definido diretamente pelo usuário para a Fase 5 (Operação Assistida). Technical Consultant onshore 1 FTE cobrindo suporte técnico a incidentes das duas jornadas em produção e a transferência de conhecimento técnico ao time de sustentação do cliente — onshore por decisão do usuário (grill do revise, 2026-09-24), dado o contato direto com a operação do cliente nas 4 semanas de acompanhamento. Resourcing do timing resolvido em 2026-09-24: mesma dupla R11/R12 mobilizada continuamente da semana 11 à semana 19 (9 semanas de calendário), cobrindo as duas janelas escalonadas e não sobrepostas (Jornada 2: semanas 11-14; Jornada 1: semanas 16-19) sem desmobilizar no intervalo da semana 15 — essa semana é usada em intensidade reduzida para preparação/documentação do cutover da Jornada 1, evitando o custo de uma segunda mobilização para 4 semanas adicionais. Sem headcount adicional; mesmo 1 FTE."
   },
   {
     "resource_id": "C01",
