@@ -10,23 +10,23 @@
       },
       "integration": {
         "tier": "L",
-        "signal": "Dois canais externos com sessão/auth próprios: WhatsApp Business (janela de sessão, custo por disparo, confirmado linha 72) + gov.br (nível de confiança/fallback ainda não confirmado) [assumption: ver Discovery Brief, Perguntas Abertas #2]."
+        "signal": "Três superfícies: WhatsApp Business (janela de sessão, custo por disparo, confirmado linha 72) + gov.br (nível de confiança/fallback ainda não confirmado) [assumption: ver Discovery Brief, Perguntas Abertas #2] + a ponte Apex↔Slack via Platform Events (classe Apex a construir monitorando Platform Events, com base em PoC já validado pelo time de licenças com o cliente) — Service Console deixa de ser o frontend do atendente nesta jornada. Governada pela Publishing Allocation (250k/hora), não pela Delivery Allocation (mais restritiva, 50k/24h) — desde que o mecanismo seja trigger-based, não listener [ata bloqueio-slack 2026-09-23; docs:https://developer.salesforce.com/docs/platform/platform-events/guide/platform-events-limits-default.html]."
       },
       "ui": {
         "tier": "S",
-        "signal": "Configuração de canal Digital Engagement/WhatsApp + Routing Configuration nativa — sem LWC customizado."
+        "signal": "Configuração de canal Digital Engagement/WhatsApp + Routing Configuration nativa — sem LWC customizado. Interface do atendente passa a ser 100% Slack (canal pessoal, thread por atendimento), não Service Console."
       },
       "data_model": {
         "tier": "XS",
         "signal": "Usa Case/Omni-Channel padrão; nenhum objeto customizado novo identificado no inventário."
       }
     },
-    "size_rationale": "L — dominado pela integração de dois canais externos com auth própria + pela densidade de automação/instrumentação de causa-frequência; UI e modelo de dados ficam baixos porque o gatilho passou a ser nativo (Presence Status + Routing Configuration).",
-    "complexity_drivers": "Dois canais externos (WhatsApp + gov.br) com comportamento próprio; instrumentação de causa/frequência de encerramento alimentando E06; tensão aberta sobre redundância do contador customizado com métricas nativas de Idle/%Idle.",
-    "skills_needed": "Arquiteto de Solução (Service Cloud/Omni-Channel), Desenvolvedor (Flow + Apex de instrumentação), Especialista em Digital Engagement/WhatsApp Business, UX/Acessibilidade (fluxo WhatsApp+gov.br), Change Management (rotina de autodeclaração de ociosidade).",
-    "risks": "Comportamento de canal WhatsApp Business e nível de confiança gov.br exigido ainda são [assumption]. Tensão não resolvida entre o contador customizado de fila-vazia (decisions/0002) e a métrica nativa Idle/%Idle do Omni-Channel Command Center — pode reduzir esforço se a métrica nativa bastar.",
-    "size_if_assumption_breaks": "L; XL se o fallback de autenticação gov.br exigir uma jornada alternativa completa (ex.: biometria presencial) em vez de apenas redirecionar ao atendimento tradicional.",
-    "solution_approach": "Autodeclaração de ociosidade via Slack altera Presence Status no Omni-Channel; Routing Configuration nativa do canal WhatsApp entrega a antecipação quando a fila viva está vazia; cidadão autentica via gov.br e é roteado à fila; atendente conduz via Slack.",
+    "size_rationale": "L — dominado pela integração de três superfícies externas (WhatsApp, gov.br, ponte Apex/Platform Events↔Slack) com auth/mecanismo próprios + pela densidade de automação/instrumentação de causa-frequência; UI e modelo de dados ficam baixos porque o gatilho passou a ser nativo (Presence Status + Routing Configuration) e a ponte já tem PoC validado.",
+    "complexity_drivers": "Três canais externos (WhatsApp + gov.br + bridge Apex/Platform Events↔Slack) com comportamento próprio; instrumentação de causa/frequência de encerramento alimentando E06; tensão aberta sobre redundância do contador customizado com métricas nativas de Idle/%Idle; thread-por-caso no Slack pessoal do atendente; cancelamento automático do agendamento presencial no sistema externo de agendamento quando a resolução remota é 100% bem-sucedida, dependente da nova via de escrita construída em E03 (fallback: intervenção manual se a chamada falhar).",
+    "skills_needed": "Arquiteto de Solução (Service Cloud/Omni-Channel), Desenvolvedor (Flow + Apex de instrumentação + Apex de Platform Events), Especialista em Digital Engagement/WhatsApp Business, Desenvolvedor Slack (API/Bolt para o flow de retorno), UX/Acessibilidade (fluxo WhatsApp+gov.br), Change Management (rotina de autodeclaração de ociosidade + mudança de frontend do atendente).",
+    "risks": "Comportamento de canal WhatsApp Business e nível de confiança gov.br exigido ainda são [assumption]. Tensão não resolvida entre o contador customizado de fila-vazia (decisions/0002) e a métrica nativa Idle/%Idle do Omni-Channel Command Center. G0111/R14 — o limite de Platform Events que rege a ponte depende do mecanismo real (trigger-based vs. listener-based) ainda não confirmado em design; se listener-based, o teto passa a ser a Delivery Allocation, bem mais restritiva.",
+    "size_if_assumption_breaks": "L; XL se o fallback de autenticação gov.br exigir uma jornada alternativa completa (ex.: biometria presencial); XL também se o bridge Apex/Platform Events precisar ser listener-based (CometD/Pub-Sub) em vez de trigger-based, sujeitando-se à Delivery Allocation em vez da Publishing Allocation.",
+    "solution_approach": "Autodeclaração de ociosidade via Slack altera Presence Status no Omni-Channel; Routing Configuration nativa do canal WhatsApp entrega a antecipação quando a fila viva está vazia; cidadão autentica via gov.br e é roteado à fila; Omni-Channel roteia ao atendente ativo, que atende 100% dentro do Slack (canal pessoal, uma thread por atendimento) — Service Console não é mais o frontend desta jornada. Uma classe Apex (baseada em PoC já validado com o cliente) monitora Platform Events e retransmite cada mensagem da sessão WhatsApp do cidadão para a thread correta; o caminho de volta usa um flow/automação no Slack. Quando a resolução remota é 100% bem-sucedida, cancela automaticamente o agendamento presencial no sistema externo via a nova via de escrita de E03.",
     "confidence": "Confirmed"
   },
   {
@@ -58,7 +58,7 @@
     "size_drivers": {
       "integration": {
         "tier": "L",
-        "signal": "Dois alvos de integração distintos (CRM legado + ServiceDesk legado) via MuleSoft, com retry/backoff e fila de erro por caminho [fonte: discovery-notes/00-inventario-de-solucao-poupatempo.md linhas 69, 105, 113, 132, 134, 149]. G0309 (1 vs. 2 deployments reais) ainda aberto."
+        "signal": "Três alvos de integração via MuleSoft: CRM legado + ServiceDesk legado (retry/backoff e fila de erro por caminho) [fonte: discovery-notes/00-inventario-de-solucao-poupatempo.md linhas 69, 105, 113, 132, 134, 149], mais um terceiro alvo de escrita novo — cancelamento do agendamento presencial no sistema externo de agendamento quando a resolução remota (E01) é 100% bem-sucedida. Esse mesmo sistema já é consultado (leitura) por E04 como fonte de verdade; coordenar para não duplicar a integração. G0309 (1 vs. 2 deployments reais dos legados) ainda aberto."
       },
       "automation": {
         "tier": "M",
@@ -69,12 +69,12 @@
         "signal": "Campos/objetos de controle de integração (log de erro, chave de idempotência) — sem modelo transacional novo."
       }
     },
-    "size_rationale": "L — dominado pela integração dupla-sistema com tratamento de erro por caminho; sobe para XL se G0309 confirmar dois deployments genuinamente separados (2 Named Credentials, 2 conjuntos de retry/degradado independentes).",
-    "complexity_drivers": "Dois sistemas legados anonimizados (decisions/0001) com contratos de erro próprios; zero-migração implica zero-lookback (decisions/0003) — sem consulta retroativa.",
-    "skills_needed": "Arquiteto de Integração (MuleSoft), Desenvolvedor Apex (retry/degradado), Arquiteto de Solução para reconciliar com E01/E02.",
-    "risks": "G0309 não resolvido — muda o dimensionamento real deste épico, não a lógica de integração. Plataformas reais anonimizadas por instrução do cliente (decisions/0001) — nunca referenciar pelo nome do produto.",
-    "size_if_assumption_breaks": "L; XL se G0309 confirmar dois deployments genuinamente separados, dobrando o conjunto de Named Credentials/retry/degradado.",
-    "solution_approach": "MuleSoft orquestra chamadas a dois sistemas legados distintos — CRM legado (protocolo do cidadão, bloqueante) e ServiceDesk legado (ticket de especialidade, não-bloqueante) — com Named Credential/OAuth, retry com backoff e fila de erro por caminho.",
+    "size_rationale": "L — dominado pela integração multi-sistema com tratamento de erro por caminho; sobe para XL se G0309 confirmar dois deployments genuinamente separados dos legados (2 Named Credentials, 2 conjuntos de retry/degradado independentes) ou se o novo caminho de cancelamento de agendamento precisar de sua própria infraestrutura de retry/degradado em vez de reusar o padrão já construído.",
+    "complexity_drivers": "Dois sistemas legados anonimizados (decisions/0001) com contratos de erro próprios; zero-migração implica zero-lookback (decisions/0003) — sem consulta retroativa; novo terceiro alvo de escrita (cancelamento de agendamento) com fallback de intervenção manual se a chamada falhar.",
+    "skills_needed": "Arquiteto de Integração (MuleSoft), Desenvolvedor Apex (retry/degradado), Arquiteto de Solução para reconciliar com E01/E02/E04.",
+    "risks": "G0309 não resolvido — muda o dimensionamento real deste épico, não a lógica de integração. Plataformas reais anonimizadas por instrução do cliente (decisions/0001) — nunca referenciar pelo nome do produto. Falha na chamada de cancelamento de agendamento exige intervenção manual — sem essa rede de segurança, um agendamento presencial já resolvido remotamente ficaria erroneamente ativo.",
+    "size_if_assumption_breaks": "L; XL se G0309 confirmar dois deployments genuinamente separados dos legados, dobrando o conjunto de Named Credentials/retry/degradado, ou se o cancelamento de agendamento não puder reusar o padrão de retry/fila de erro já construído para os dois legados.",
+    "solution_approach": "MuleSoft orquestra chamadas a dois sistemas legados distintos — CRM legado (protocolo do cidadão, bloqueante) e ServiceDesk legado (ticket de especialidade, não-bloqueante) — com Named Credential/OAuth, retry com backoff e fila de erro por caminho. Um terceiro caminho de escrita cancela o agendamento presencial no sistema externo de agendamento quando E01 confirma resolução remota 100% bem-sucedida, com fallback de intervenção manual em caso de falha.",
     "confidence": "Unknown"
   },
   {
@@ -106,27 +106,27 @@
   {
     "item_id": "E05",
     "item_type": "epic",
-    "t_shirt_size": "L",
+    "t_shirt_size": "XL",
     "size_drivers": {
       "integration": {
-        "tier": "L",
-        "signal": "Integração com sistema de dados de funcionários da PRODESP ainda não identificado (premissa de API exposta); evento de gatilho (G0502) e mapeamento de atributos RH→Salesforce (G0507) não definidos."
+        "tier": "XL",
+        "signal": "Duas superfícies de integração reais: (1) sistema de dados de funcionários da PRODESP ainda não identificado (premissa de API exposta); evento de gatilho (G0502) e mapeamento de atributos RH→Salesforce (G0507) não definidos; (2) NOVO — provisionamento do canal pessoal de Slack por atendente via Slack API, revertendo G0509 (antes tratado como fora do épico). Onboarding-time é o caminho primário; exceção on-demand no momento do roteamento se o atendente ainda não tiver canal criado."
       },
       "automation": {
         "tier": "M",
-        "signal": "Cadeia de criação/desativação de User + Profile + Permission Set + licença + Service Resource + skills + capacidade + vínculo a fila/Routing Configuration — provavelmente Apex, dado que provisionamento de User exige API elevada."
+        "signal": "Cadeia de criação/desativação de User + Profile + Permission Set + licença + Service Resource + skills + capacidade + vínculo a fila/Routing Configuration — provavelmente Apex, dado que provisionamento de User exige API elevada. Mais a chamada à Slack API para criar o canal pessoal, com o fluxo de exceção on-demand disparado no roteamento."
       },
       "data_model": {
         "tier": "S",
         "signal": "Usa objetos padrão (User, Service Resource, Skill) — sem modelo customizado novo."
       }
     },
-    "size_rationale": "L — dominado pela incerteza de integração (sistema de origem não identificado, gatilho e mapeamento indefinidos); a cadeia de automação em si é padrão Service Cloud.",
-    "complexity_drivers": "Fronteira de escopo com o provisionamento do canal de Slack (R-05/L-13, G0509) mantida fora do épico; o que ocorre com atendente desativado em Case aberto/fila viva é gap aberto (G0503).",
-    "skills_needed": "Arquiteto de Integração, Desenvolvedor Apex (User Provisioning), Especialista em Service Cloud/Omni-Channel (skills/capacidade).",
-    "risks": "G0501/G0502/G0503/G0507/G0508 abertos — sistema de origem, gatilho, mapeamento e comportamento em desligamento com Case aberto, todos pendentes de confirmação.",
-    "size_if_assumption_breaks": "L; XL se o sistema de RH não expuser API e exigir integração via arquivo/batch com reconciliação manual.",
-    "solution_approach": "Integração com o sistema de dados de funcionários para provisionar/desprovisionar User, Profile, Permission Set, licença, Service Resource, skills e capacidade, vinculando o atendente à fila/Routing Configuration correta.",
+    "size_rationale": "L → XL — a incerteza original do sistema de RH já dominava o dimensionamento em L; a reversão do G0509 soma uma segunda superfície de integração real e distinta (Slack API), com um fluxo de exceção on-demand no roteamento além do caminho de onboarding — dobra a superfície de integração do épico, justificando o salto para XL.",
+    "complexity_drivers": "Duas integrações de proveniência distinta (sistema de RH não identificado + Slack API) rodando no mesmo épico; o fluxo de exceção on-demand no roteamento (atendente sem canal ainda) é um segundo caminho de criação, não só onboarding; o que ocorre com atendente desativado em Case aberto/fila viva — incluindo o que fazer com o canal Slack nesse desligamento — é gap aberto (G0503).",
+    "skills_needed": "Arquiteto de Integração, Desenvolvedor Apex (User Provisioning), Desenvolvedor Slack (API de criação de canal), Especialista em Service Cloud/Omni-Channel (skills/capacidade).",
+    "risks": "G0501/G0502/G0503/G0507/G0508 abertos — sistema de origem, gatilho, mapeamento e comportamento em desligamento com Case aberto, todos pendentes de confirmação. G0503 agora também cobre o que ocorre com o canal Slack de um atendente desligado.",
+    "size_if_assumption_breaks": "XL; mantém-se XL mesmo se o sistema de RH expuser API limpa, porque a superfície Slack é um driver independente; sobe ainda mais se a criação de canal exigir aprovação manual (não via API) ou se o sistema de RH exigir integração via arquivo/batch com reconciliação manual.",
+    "solution_approach": "Integração com o sistema de dados de funcionários para provisionar/desprovisionar User, Profile, Permission Set, licença, Service Resource, skills e capacidade, vinculando o atendente à fila/Routing Configuration correta. Em paralelo, cria o canal pessoal de Slack do atendente — no onboarding como caminho primário, ou sob demanda no momento do roteamento se o canal ainda não existir.",
     "confidence": "Unknown"
   },
   {

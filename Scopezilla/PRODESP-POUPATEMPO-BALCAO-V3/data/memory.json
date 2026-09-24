@@ -159,6 +159,24 @@
         "Rodar `validate` (Step 6 do revise) antes de considerar a propagação concluída.",
         "Checkpoint git desta rodada (epics.json, gaps.json, risks.json, memory.json)."
       ]
+    },
+    {
+      "date": "2026-09-24",
+      "skills_used": [
+        "revise"
+      ],
+      "summary": "Propagação (Step 5 do revise) da mudança de arquitetura Slack/E01 confirmada na sessão anterior. Avaliada a staleness de estimates.json/roadmap.json contra epics.json/gaps.json/risks.json já atualizados — E05 ainda dizia que o provisionamento do canal Slack ficava fora do épico, contradição direta com a reversão de G0509 já aprovada. Perguntado ao usuário via AskUserQuestion: (1) fazer push do commit 66fd4c7 para origin agora? → 'Não, deixar só local por ora'; (2) propagar a mudança para estimates.json e roadmap.json (E01/E03/E05 + Fases 1/2)? → 'Sim'. Redimensionamento proposto e aprovado como está ('Aprovar como está', sem ajuste): E01 mantém L (novo terceiro alvo de integração nomeado — ponte Apex/Platform Events governada por Publishing Allocation, não Delivery; UI 100% Slack, Service Console excluído); E03 mantém L (novo terceiro alvo de escrita — cancelamento de agendamento presencial, coordenado com a leitura já existente de E04 sobre o mesmo sistema externo); E05 sobe de L para XL (segunda superfície de integração real — provisionamento do canal Slack por atendente, onboarding-time + exceção on-demand no roteamento — soma-se à incerteza já existente do sistema de RH, dobrando a superfície de integração do épico). Roadmap Fases 1 (E03/E05) e 2 (E01/E04) tiveras objectives/success_criteria/dependencies/risks atualizados para refletir a ponte Slack, a exclusão da Service Console, o cancelamento automático de agendamento e o novo G0111/R14. Propagação executada em 4 camadas de artefato, mantidas consistentes entre si: data/estimates.json, data/roadmap.json, outputs/01-solution.md (seções E01/E03/E05 + 'O que mudou' + riscos técnicos principais), outputs/02-delivery-plan.md (Fase 0/1/2 + tabela de riscos consolidados). CSVs regenerados via json-to-csv.py (7/57/7/5 linhas). validate-data.py executado — todos os checks de cross-reference/knowledge-grounding/pricing-leak/benchmark-provenance PASS; único FAIL é o já conhecido e aceito como débito legado do schema de risks.json (rbs_category/owner/status não-canônicos nas 14 linhas), não é regressão desta rodada nem foi endereçado. Faixa de duração top-down do engagement (.project-metadata.json.timeline.derived, '18-34 semanas') deliberadamente NÃO re-derivada nesta rodada — exigiria rodar de novo a metodologia completa de benchmark, fora do escopo explicitamente aprovado ('atualizar Fases 1/2', não re-derivar a duração do engagement). Entrada de decision_log adicionada separadamente para o redimensionamento L→XL de E05.",
+      "open_threads": [
+        "R13 (risks.json — ainda descreve a fronteira antiga de G0509, hoje revertida) não foi revisitado nesta rodada — considerar atualização na próxima passagem por risk-review, per instrução do usuário de não repetir risk-review nesta rodada.",
+        "risk-review.md (outputs/artifacts/) permanece com a leitura antiga (pré-G0111/R14) — deliberadamente não re-executado nesta rodada, per instrução explícita do usuário.",
+        "Faixa de duração top-down do engagement (18-34 semanas) não foi re-derivada apesar do bump L→XL de E05 — avaliar na próxima passagem por roadmap se isso desloca a faixa.",
+        "E02/E04/E06/E07 e Fases 0/3/4 do roadmap deliberadamente não tocados nesta rodada — fora da slice de mudança confirmada (E01/E03/E05)."
+      ],
+      "next_steps": [
+        "Checkpoint git desta rodada (estimates.json, roadmap.json, CSVs, outputs/01-solution.md, outputs/02-delivery-plan.md, memory.json) — sem push, per preferência do usuário nesta sessão.",
+        "Na próxima passagem por risk-review, revisitar R13 e considerar se a faixa de duração top-down precisa de re-derivação.",
+        "Se o usuário quiser prosseguir a propagação, os próximos pontos naturais são estimate (roster/horas) e depois commercials — não iniciados nesta rodada por instrução explícita do usuário."
+      ]
     }
   ],
   "preferences": {
@@ -365,6 +383,15 @@
       "rejected": [
         "Criar novo gap 'Service Signal' Ambiguity (superseded pelo esclarecimento do usuário)",
         "Fechar G0309 como resolvido (rejeitado — o usuário hedged a resposta, não confirmou; gap permanece open-with-provisional-premise)"
+      ]
+    },
+    {
+      "date": "2026-09-24",
+      "area": "E05 (tamanho)",
+      "decision": "E05 (Autoprovisionamento de Atendentes) sobe de L para XL — a reversão do G0509 soma uma segunda superfície de integração real (Slack API, onboarding + exceção on-demand no roteamento) sobre a incerteza já existente do sistema de RH da PRODESP, dobrando a superfície de integração do épico.",
+      "rationale": "Consequência direta da propagação (revise Step 5) do sinal de arquitetura desta rodada — não uma nova pergunta ao cliente, mas a leitura de sizing do arquiteto sobre uma mudança de escopo já aprovada. Usuário aprovou a proposta de resize como apresentada.",
+      "rejected": [
+        "Manter E05 em L, só atualizando drivers/riscos sem subir o tamanho (oferecido como opção, não escolhido)"
       ]
     }
   ]

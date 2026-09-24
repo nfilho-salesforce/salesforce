@@ -11,20 +11,20 @@
   {
     "phase_number": 1,
     "phase_name": "Fundação — Integração de Legados + Autoprovisionamento de Atendentes",
-    "objectives": "Estabelecer a camada de integração MuleSoft com os dois sistemas legados (CRM + ServiceDesk) e o pipeline de autoprovisionamento de atendentes (User → Service Resource → Queue/Skill → Routing Configuration) — pré-requisito técnico comum às duas jornadas de negócio.",
+    "objectives": "Estabelecer a camada de integração MuleSoft com os dois sistemas legados (CRM + ServiceDesk) e o pipeline de autoprovisionamento de atendentes (User → Service Resource → Queue/Skill → Routing Configuration), agora incluindo a criação do canal pessoal de Slack por atendente (onboarding-time primário + exceção on-demand no roteamento, revertendo G0509) — pré-requisito técnico comum às duas jornadas de negócio.",
     "epics_included": "E03,E05",
-    "success_criteria": "Named Credential/OAuth 2.0 client credentials ativos e testados para os dois sistemas legados (com contrato de erro/retry por caminho); um atendente de teste provisionado ponta a ponta e visível na fila/Routing Configuration do Omni-Channel.",
+    "success_criteria": "Named Credential/OAuth 2.0 client credentials ativos e testados para os dois sistemas legados (com contrato de erro/retry por caminho); um atendente de teste provisionado ponta a ponta, com canal pessoal de Slack criado, e visível na fila/Routing Configuration do Omni-Channel.",
     "dependencies": "Nenhuma — fase de fundação.",
-    "risks": "G0309 (1 vs 2 deployments legados) ainda aberto — muda a contagem de Named Credentials/contratos de erro deste épico. G0501/G0508 (sistema de RH da PRODESP não identificado, exposição de API não confirmada) pode bloquear E05 até resolução na Fase 0."
+    "risks": "G0309 (1 vs 2 deployments legados) ainda aberto — muda a contagem de Named Credentials/contratos de erro deste épico. G0501/G0508 (sistema de RH da PRODESP não identificado, exposição de API não confirmada) pode bloquear E05 até resolução na Fase 0. Nova superfície de integração (Slack API para criação de canal) soma complexidade a E05 (subiu de L para XL) — o fluxo de exceção on-demand no roteamento ainda não foi testado de ponta a ponta."
   },
   {
     "phase_number": 2,
     "phase_name": "Jornada 1 — Antecipação Digital de Atendimento",
-    "objectives": "Entregar a jornada de antecipação via WhatsApp + gov.br (E01) junto com o serviço de seleção (E04) que decide qual cidadão/agendamento ofertar — os dois epics são funcionalmente inseparáveis: o gatilho de Presence Status de E01 chama o serviço de E04 a cada oferta.",
+    "objectives": "Entregar a jornada de antecipação via WhatsApp + gov.br (E01) junto com o serviço de seleção (E04) que decide qual cidadão/agendamento ofertar — os dois epics são funcionalmente inseparáveis: o gatilho de Presence Status de E01 chama o serviço de E04 a cada oferta. Inclui a ponte Apex/Platform Events que leva 100% da interação do atendente para o Slack (canal pessoal, thread por caso) — Service Console deixa de ser o frontend desta jornada — e o cancelamento automático do agendamento presencial (via E03) quando a resolução remota é 100% bem-sucedida.",
     "epics_included": "E01,E04",
-    "success_criteria": "Fluxo ponta a ponta funcionando: autodeclaração de ociosidade no Slack → Presence Status → Routing Configuration nativa (fila vazia) → serviço de seleção decide o agendamento → oferta por WhatsApp → autenticação gov.br → Case roteado à fila; instrumentação de causa/frequência (E-24 retrabalhado) alimentando E06.",
-    "dependencies": "depends on: E03, E05 (Fase 1) — protocolo do CRM legado e atendente já provisionado na fila são pré-requisitos.",
-    "risks": "R-07 (fila raramente vazia) — a antecipação pode nunca se realizar na frequência esperada; medir antes de dimensionar o ganho de negócio. Tensão ainda não resolvida entre o contador customizado de fila-vazia e as métricas nativas de Idle/%Idle do Command Center (afeta o esforço de build de E01 e E06)."
+    "success_criteria": "Fluxo ponta a ponta funcionando: autodeclaração de ociosidade no Slack → Presence Status → Routing Configuration nativa (fila vazia) → serviço de seleção decide o agendamento → oferta por WhatsApp → autenticação gov.br → Case roteado à fila → atendente conduz 100% no Slack via a ponte Apex/Platform Events (baseada em PoC já validado com o cliente) → agendamento presencial cancelado automaticamente se a resolução remota for completa; instrumentação de causa/frequência (E-24 retrabalhado) alimentando E06.",
+    "dependencies": "depends on: E03, E05 (Fase 1) — protocolo do CRM legado, canal pessoal de Slack do atendente e atendente já provisionado na fila são pré-requisitos.",
+    "risks": "R-07 (fila raramente vazia) — a antecipação pode nunca se realizar na frequência esperada; medir antes de dimensionar o ganho de negócio. Tensão ainda não resolvida entre o contador customizado de fila-vazia e as métricas nativas de Idle/%Idle do Command Center (afeta o esforço de build de E01 e E06). G0111/R14 — limite de Platform Events que rege a ponte Apex↔Slack ainda não confirmado como trigger-based (Publishing Allocation, 250k/hora) vs. listener-based (Delivery Allocation, mais restritiva); se atingido, novas antecipações não podem acontecer."
   },
   {
     "phase_number": 3,
