@@ -1,0 +1,98 @@
+# Solução Arquitetural — PRODESP · Poupatempo Balcão (V3)
+
+**Projeto:** PRODESP - Poupatempo Balcão V3 · **Data:** 2026-09-24 · **Conta:** Prodesp - Empresa de TI do Estado de São Paulo
+
+---
+
+## O que mudou desde o Discovery Brief
+
+O desenho arquitetural foi validado épico a épico nesta sessão, com duas correções materiais em relação à primeira leitura do inventário:
+
+1. **Dois sistemas legados, não um.** O "Sistema de CRM legado" e o "Sistema de ServiceDesk legado" (nomes anonimizados por instrução do cliente — `decisions/0001`) são dois sistemas distintos, confirmado diretamente pelo account owner nesta sessão — não duas leitura de uma única plataforma ServiceNow, como o inventário original sugeria. O primeiro serve o cidadão (Jornada 1); o segundo serve o atendente (Jornada 2). Se são dois deployments realmente separados ou o mesmo produto acessado como dois alvos lógicos permanece aberto (`G0309`) — muda o dimensionamento de E03, não a arquitetura lógica.
+2. **Antecipação por configuração nativa, não por Flow customizado.** O gatilho da Jornada 1 é uma mudança de Presence Status do atendente no Omni-Channel — nativo do Service Cloud — em vez de um Flow customizado consultando fila vazia. Menos código, mais configuração.
+
+Este documento reflete o desenho já corrigido; consultar `data/gaps.json` para as questões que permanecem em aberto.
+
+---
+
+## Arquitetura — Fundamentos Transversais
+
+**Estratégia de organização.** Org único. Nenhuma fonte de discovery aponta necessidade de isolamento regulatório, unidades de negócio distintas ou fusão/aquisição — os únicos dois sinais de segregação (dois sistemas legados, filas por especialidade) são resolvidos dentro de um único org via integração e configuração de fila, não via múltiplos orgs `[assumption: padrão default de arquitetura Salesforce; confirmar ausência de exigência regulatória específica de São Paulo/PRODESP na descoberta técnica]`.
+
+**Anonimização de sistemas legados — restrição transversal única deste projeto.** Por instrução direta do cliente, o nome real da plataforma que sustenta "Sistema de CRM legado" e "Sistema de ServiceDesk legado" nunca aparece em nenhum artefato — Discovery Brief, épicos, este documento, propostas, slides (`decisions/0001`). Toda referência à integração, diagrama ou nomenclatura de objeto/Named Credential downstream deve respeitar essa regra.
+
+**Modelo de compartilhamento e segurança (OWD).** Não abordado em nenhuma fonte de discovery — nenhum épico define OWD de Case, Service Resource ou dos objetos que sustentam E03/E04/E05. Dado que o atendimento é 1:1 cidadão-atendente sem colaboração cross-team visível no material, a recomendação de partida é OWD restritivo (Private) em Case e liberação por Queue/fila conforme o Omni-Channel já exige — mas isso não foi confirmado com o cliente e não há gap registrado para isso ainda `[assumption: nenhuma fonte discute modelo de compartilhamento; recomendação técnica padrão, a validar]`.
+
+**Conformidade e LGPD.** O próprio inventário marca conformidade como "Unknown, com alerta" (linha 240) — há dado pessoal do cidadão trafegando por WhatsApp, autenticação de identidade via gov.br e biometria, com um provável requisito jurídico de opt-out (L-12) não explorado. Nenhuma decisão de arquitetura de dados (residência, criptografia de campo, Shield Platform Encryption) foi tomada — isto é um risco de compliance não mitigado, não uma lacuna técnica menor, e deveria ser levado à conversa comercial antes do fechamento do MVP `[fonte: discovery-notes/00-inventario-de-solucao-poupatempo.md linha 240]`.
+
+**DevOps e sandbox.** Não abordado em nenhuma fonte de discovery. Nenhuma decisão sobre estratégia de sandbox, pipeline de deploy ou CoE foi tomada nesta rodada — recomendação padrão (source-driven development via Salesforce CLI, dado o número de integrações e o time provavelmente multi-pessoa) fica registrada aqui como ponto a fechar em design detalhado, não como decisão `[assumption: nenhuma fonte discute DevOps; recomendação técnica padrão Salesforce PS, a validar com o cliente]`.
+
+---
+
+## Solução por Processo de Negócio
+
+### Autoprovisionamento de Atendentes
+
+**Contexto de negócio:** hoje não há processo formal descrito para habilitar um atendente novo (admissão) ou desativá-lo (desligamento/licença) nas ferramentas de atendimento — pré-requisito operacional para que qualquer atendente participe das Jornadas 1 e 2.
+
+**Abordagem de solução:** integração com o sistema de dados de funcionários da PRODESP (ainda não identificado — premissa de API exposta, `G0501`/`G0508`) para criar/desativar o User, atribuir Profile + Permission Set + licença, criar o Service Resource, definir habilidades (skills) e capacidade de atendimento no Omni-Channel, e vincular o atendente à fila/Routing Configuration correta.
+
+**Arquitetura de suporte:** o evento de gatilho (push do RH, solicitação manual, ou carga/sincronização) não está definido (`G0502`); o mapeamento de atributos do RH para construções do Salesforce (Queue, skills, capacidade) também não (`G0507`). O que ocorre com um atendente desativado em meio a um Case aberto ou dentro de uma fila viva é gap aberto (`G0503`). **Fronteira de escopo explícita:** o inventário trata a gestão do canal de Slack por admissão/desligamento (RN R-05) como preocupação separada, com uma pergunta aberta do próprio cliente sobre quem a provisiona (L-13) — recomendação é manter isso fora deste épico, como processo do lado do cliente (TI/administração do Slack), não assumir que o Salesforce automatiza `[fonte: discovery-notes/00-inventario-de-solucao-poupatempo.md linhas 167, 217]` (`G0509`). Este provisionamento é a ponte de elegibilidade para as ofertas de antecipação que E01/E04 despacham — um atendente só recebe uma oferta se este processo o colocou na fila/skill certa `[extends: knowledge/service_cloud_3-27-2026.md — grounding geral de Service Cloud/Omni-Channel, sem seção específica sobre automação de setup de Service Resource]`.
+
+### Antecipação de Atendimento Agendado (Jornada 1)
+
+**Contexto de negócio:** hoje um agendamento futuro só é atendido na data marcada, mesmo quando um atendente fica ocioso e a fila viva está vazia — capacidade desperdiçada que a antecipação digital via WhatsApp busca capturar.
+
+**Abordagem de solução:** o atendente autodeclara ociosidade via Slack (RN-01 — sem detecção automática); essa autodeclaração muda o Presence Status do atendente no Omni-Channel, tornando-o disponível na fila. Quando a fila viva está vazia (RN-17/RN-20 — o roteamento nunca administra a fila, apenas consulta), a Routing Configuration nativa do canal WhatsApp entrega a antecipação. O cidadão é contatado por WhatsApp, autentica via gov.br, e o Case é roteado para a fila; o atendente conduz o atendimento pelo Slack.
+
+**Arquitetura de suporte:** o gatilho de Presence Status substitui, nesta sessão, uma proposta anterior de Flow customizado consultando fila vazia — menos build customizado, mais configuração nativa de Routing `[KB: knowledge/service_cloud_3-27-2026.md:18783-44374]`. O fluxo de encerramento é instrumentado (E-24 retrabalhado — `decisions/0002`) em ramos distintos por causa de término (gov.br indisponível, falha de autenticação, desistência, timeout) e um contador de frequência de fila-vazia-na-ociosidade, ambos alimentando o relatório executivo de E06. **Tensão em aberto:** esse contador customizado pode ser parcial ou totalmente redundante com as métricas nativas de Idle/%Idle do Omni-Channel Command Center, já que o gatilho acima passou a usar o mecanismo nativo de Presence — a decidir em design detalhado se o contador customizado ainda se justifica. O comportamento de canal WhatsApp Business (janela de sessão, custo por disparo, sem garantia de resposta) é confirmado pelo cliente (linha 72) mas sua implementação técnica fica `[assumption: sem doc de Digital Engagement na knowledge base]`; o nível de confiança gov.br exigido e o fallback para cidadão sem conta também ficam `[assumption: ver Discovery Brief, Perguntas Abertas #2]`. Inclui atividade formal de UX/acessibilidade (fluxo WhatsApp+gov.br) e de change management (rotina de autodeclaração de ociosidade), por decisão do cliente.
+
+### Serviço de Seleção de Antecipação
+
+**Contexto de negócio:** decidir *qual* pessoa, contato e agendamento oferecer para antecipação — o motor de decisão por trás da Jornada 1, que não pode contradizer o sistema de agendamento externo, dono da lógica de seleção real.
+
+**Abordagem de solução:** uma API/serviço com regras definidas pelo cliente (com nosso apoio de especificação), disparada pela mudança de Presence Status de E01. O sistema de agendamento externo mantém sua própria lógica de seleção como fonte de verdade (Confirmed via ata, F2.3) — em caso de conflito, a resposta dele prevalece; este épico cobre a API que consulta/alimenta esse sistema, não a autoridade de decisão dele.
+
+**Arquitetura de suporte:** a fila viva sempre vence sobre uma oferta em voo (`decisions/0004`) — entrada na fila viva cancela a oferta pendente; o status do agendamento é reconsultado no momento da oferta, com staleness residual aceito como risco conhecido do MVP. Registro de disparo por ID de agendamento + timestamp serve de chave de idempotência (RN-07). Cancelamento cross-channel permanece manual no MVP (RN-16). Falha de API usa retry com backoff — a oportunidade retorna à seleção no próximo ciclo em vez de ser descartada, substituindo a política original de tentativa única `[fonte: discovery-notes/00-inventario-de-solucao-poupatempo.md linhas 70, 109, 123, 137, 140]`. As regras de seleção pessoa/contato/agendamento em si ainda não foram especificadas pelo cliente — a construir em conjunto `[assumption: arquitetura de implementação Apex/Flow/MuleSoft não decidida]`.
+
+### Apoio ao Atendimento Presencial via Slack (Jornada 2)
+
+**Contexto de negócio:** hoje, quando um atendente de guichê trava num procedimento, não há caminho formal de apoio — ele se levanta, procura o supervisor pessoalmente, ou usa workarounds informais (grupos pessoais de WhatsApp).
+
+**Abordagem de solução:** o atendente consulta um Slackbot sem saída do lugar; se necessário, escala para um canal de especialidade com mecânica first-to-claim (bot-mediated) para evitar duplicidade, com fallback a canal geral e depois a supervisor se ninguém responder (RN-04). O fluxo roda inteiramente dentro do Slack — sem Case nem fila do Omni-Channel no Service Cloud; a única pegada do Salesforce nesta jornada é a camada de conhecimento/IA (E07).
+
+**Arquitetura de suporte:** cobre a experiência de Slack do atendente (canal, huddle, escalonamento) — não a camada de conhecimento que o alimenta, tratada em E07. O registro durável da consulta de especialista é escrito no Sistema de ServiceDesk legado (E03), disparado quando a thread do Slack é marcada como resolvida — um caminho de escrita novo e distinto do par protocolo/histórico de E01. Inclui atividade formal de change management para a rotina de consulta ao Slackbot e para o decommissioning dos workarounds informais existentes `[assumption: Slack como interface única do atendente — nenhum documento de produto Slack na knowledge base; grounding em conhecimento geral de integração Slack-Service Cloud]`.
+
+### Base de Conhecimento e Apoio de IA no Slackbot
+
+**Contexto de negócio:** o Slackbot da Jornada 2 precisa de uma base de conhecimento estruturada por especialidade para responder ao atendente sem escalar sempre a um humano — e o histórico do atendimento (para o resumo que o Agentforce entrega) não pode depender de dados que não existem no go-live.
+
+**Abordagem de solução:** estruturação da base de conhecimento por especialidade e configuração do Agentforce para resumir o histórico de atendimento e apoiar a dúvida do atendente. Guardrail de design: o Slackbot exige confiança mínima + citação da fonte + confirmação do atendente antes de repassar qualquer resposta ao cidadão.
+
+**Arquitetura de suporte:** zero-migração implica zero-lookback (`decisions/0003`) — o Agentforce resume apenas histórico gerado nativamente no Salesforce pós-go-live; "sem histórico disponível" é comportamento esperado e normal nos primeiros meses, a comunicar no enablement, não a esconder. Inclui a modelagem/schema do Data 360 (perfil unificado do cidadão, segmentos, identidade) como pré-requisito de retrieval confiável — não configuração já pronta; uso restrito a suporte do Agentforce, não como plataforma de dados própria (confirmado pelo cliente, Q1) `[KB: knowledge/staar-agentforce-governance-guardrails.md]` `[extends: knowledge/staar-data-360-headless.md — doutrina geral, não confirma o desenho específico deste projeto]`. A relação entre o Slackbot e o Agente do T7 (IA de FAQ já em adoção interna da PRODESP) permanece indefinida: RN-22 posiciona o Slackbot como porta única das dúvidas do atendente, encaminhando FAQ ao T7 por integração — mas o próprio inventário rotula isso como nosso posicionamento, não resposta fechada (L-13/J2, L-34) `[fonte: discovery-notes/00-inventario-de-solucao-poupatempo.md linhas 75, 107, 121, 193, 215]` `[assumption: contrato de integração Slackbot ↔ Agente do T7 — ver Discovery Brief, Perguntas Abertas #14]`. Governança de conteúdo da base de conhecimento por especialidade fica deliberadamente fora do escopo formal desta rodada — risco de degradação silenciosa pós-go-live registrado, não mitigado (decisão do cliente).
+
+### Observabilidade e Analytics (Tableau Next)
+
+**Contexto de negócio:** o negócio precisa medir se a antecipação digital realmente reduz a sobrecarga dos guichês — sem instrumentação, o business case da Jornada 1 nunca se valida.
+
+**Abordagem de solução:** relatório executivo formal e client-facing em Tableau Next — não apenas a exposição operacional nativa do Command Center — com camada histórica/trend própria e cadência de atualização recorrente (decisão do cliente pela opção de maior escopo em ambas as perguntas, `decisions/0005`).
+
+**Arquitetura de suporte:** cobre instrumentação de custo/resposta do canal WhatsApp (volume, custo, taxa de resposta — confirmado linha 72), o funil de causa/frequência de fila-vazia e de autenticação por estágio (alimentado pelo retrabalho de E-24, `decisions/0002`) e ociosidade/disponibilidade de atendentes nas filas do Omni-Channel `[KB: knowledge/tableau_next_4-10-2026.md:7303-7393]` `[KB: knowledge/service_cloud_3-27-2026.md:18783-44374]`. **Mesma tensão flagada em E01:** o contador customizado de fila-vazia pode ser parcialmente redundante com as métricas nativas de Idle/%Idle do Command Center — a resolver em design detalhado, pois afeta o esforço de build de ambos os épicos. Mantido no escopo com risco sinalizado: não há sponsor/decisão nomeado para E06 como existe para os demais épicos (decisão do cliente).
+
+### Integração com Sistemas Legados (CRM + ServiceDesk)
+
+**Contexto de negócio:** as duas jornadas dependem de dois sistemas legados distintos que hoje seguram o protocolo do cidadão e os chamados de suporte ao atendente — nenhum dos dois está sendo substituído ou migrado.
+
+**Abordagem de solução:** o Sistema de CRM legado sustenta o cidadão — protocolo de atendimento buscado uma vez e persistido no Case (bloqueante, RN-13), transcrição/histórico assíncrono no fechamento, e sinalização de falha de entrega do WhatsApp como saída independente com contrato de erro próprio (RN-11). O Sistema de ServiceDesk legado sustenta o atendente — registro da consulta de especialidade de E02 (RN-02, "de service desk apenas"), disparado quando a thread do Slack é marcada como resolvida, não-bloqueante (RN-06) `[fonte: discovery-notes/00-inventario-de-solucao-poupatempo.md linhas 69, 105, 113, 132, 134, 149]`.
+
+**Arquitetura de suporte:** chamadas orquestradas pelo MuleSoft com Named Credential/OAuth 2.0 client credentials, modo degradado por retry com backoff e fila de erro por caminho `[assumption: padrão de integração MuleSoft — conhecimento geral de arquitetura de integração Salesforce, sem doc de produto MuleSoft na knowledge base]`. **Aberto (`G0309`):** se os dois sistemas são deployments realmente separados (2 Named Credentials, 2 contratos de erro/modo degradado independentes) ou o mesmo produto acessado como 2 alvos logicamente distintos dentro de uma única instância — muda o dimensionamento deste épico, não a lógica de integração. Zero-migração implica zero-lookback para o CRM legado (`decisions/0003`) — sem consulta retroativa ao histórico; carga histórica inicia do zero. Plataformas reais anonimizadas por instrução do cliente — nunca referenciar pelo nome do produto em nenhum artefato (`decisions/0001`).
+
+---
+
+## Riscos técnicos principais
+
+- **LGPD/compliance não endereçada** — dado pessoal em WhatsApp, autenticação de identidade, biometria, sem decisão de residência/criptografia ainda tomada.
+- **Tensão contador customizado vs. métrica nativa** (E01/E06) — pode reduzir esforço de build se a métrica nativa do Command Center bastar.
+- **G0309** — 1 vs. 2 deployments legados, afeta dimensionamento de E03.
+- **R-07** (fila raramente vazia) — a antecipação pode nunca se realizar se a fila viva não esvaziar com frequência suficiente; medir antes de dimensionar o ganho.
+- **Fronteira de escopo do provisionamento de canal Slack** (E05/G0509) — risco de expectativa do cliente de que o Salesforce automatiza algo que está sendo recomendado como processo separado.
