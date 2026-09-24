@@ -430,5 +430,13 @@
     "impact_or_notes": "Se o cliente esperar que E05 automatize tambem o Slack, o escopo do épico cresce para incluir a API/admin do Slack workspace, nao so Service Cloud. Recomendacao de design: tratar como processo separado do lado do cliente, a confirmar.",
     "status": "open",
     "resolution": null
+  },
+  {
+    "gap_id": "G0109",
+    "category": "Assumption",
+    "gap_or_question": "A implementação técnica do comportamento de canal WhatsApp Business (janela de sessão, custo por disparo, sem garantia de resposta — confirmado linha 72) e o nível de confiança gov.br exigido para a antecipação, com fallback para cidadão sem conta, ainda não têm doc de Digital Engagement na knowledge base nem confirmação do cliente (ver Discovery Brief, Perguntas Abertas #2).",
+    "impact_or_notes": "Dimensionamento de E01 (Integração = L) assume um comportamento padrão de canal WhatsApp Business e um nível de confiança gov.br moderado. Se o fallback de gov.br exigir jornada alternativa completa (ex.: biometria presencial), o épico sobe para XL — ver size_if_assumption_breaks em estimates.json.",
+    "status": "open",
+    "resolution": null
   }
 ]

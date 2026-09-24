@@ -1,0 +1,180 @@
+[
+  {
+    "item_id": "E01",
+    "item_type": "epic",
+    "t_shirt_size": "L",
+    "size_drivers": {
+      "automation": {
+        "tier": "L",
+        "signal": "Fluxo de 53 elementos (BPMN 23/09) com ramos distintos por causa de encerramento (E-24 retrabalhado, decisions/0002) + contador de frequência de fila-vazia; Presence Status nativo reduz custom, mas a instrumentação segue hybrid Flow+Apex."
+      },
+      "integration": {
+        "tier": "L",
+        "signal": "Dois canais externos com sessão/auth próprios: WhatsApp Business (janela de sessão, custo por disparo, confirmado linha 72) + gov.br (nível de confiança/fallback ainda não confirmado) [assumption: ver Discovery Brief, Perguntas Abertas #2]."
+      },
+      "ui": {
+        "tier": "S",
+        "signal": "Configuração de canal Digital Engagement/WhatsApp + Routing Configuration nativa — sem LWC customizado."
+      },
+      "data_model": {
+        "tier": "XS",
+        "signal": "Usa Case/Omni-Channel padrão; nenhum objeto customizado novo identificado no inventário."
+      }
+    },
+    "size_rationale": "L — dominado pela integração de dois canais externos com auth própria + pela densidade de automação/instrumentação de causa-frequência; UI e modelo de dados ficam baixos porque o gatilho passou a ser nativo (Presence Status + Routing Configuration).",
+    "complexity_drivers": "Dois canais externos (WhatsApp + gov.br) com comportamento próprio; instrumentação de causa/frequência de encerramento alimentando E06; tensão aberta sobre redundância do contador customizado com métricas nativas de Idle/%Idle.",
+    "skills_needed": "Arquiteto de Solução (Service Cloud/Omni-Channel), Desenvolvedor (Flow + Apex de instrumentação), Especialista em Digital Engagement/WhatsApp Business, UX/Acessibilidade (fluxo WhatsApp+gov.br), Change Management (rotina de autodeclaração de ociosidade).",
+    "risks": "Comportamento de canal WhatsApp Business e nível de confiança gov.br exigido ainda são [assumption]. Tensão não resolvida entre o contador customizado de fila-vazia (decisions/0002) e a métrica nativa Idle/%Idle do Omni-Channel Command Center — pode reduzir esforço se a métrica nativa bastar.",
+    "size_if_assumption_breaks": "L; XL se o fallback de autenticação gov.br exigir uma jornada alternativa completa (ex.: biometria presencial) em vez de apenas redirecionar ao atendimento tradicional.",
+    "solution_approach": "Autodeclaração de ociosidade via Slack altera Presence Status no Omni-Channel; Routing Configuration nativa do canal WhatsApp entrega a antecipação quando a fila viva está vazia; cidadão autentica via gov.br e é roteado à fila; atendente conduz via Slack.",
+    "confidence": "Confirmed"
+  },
+  {
+    "item_id": "E02",
+    "item_type": "epic",
+    "t_shirt_size": "M",
+    "size_drivers": {
+      "automation": {
+        "tier": "M",
+        "signal": "Escalonamento first-to-claim mediado por bot + fallback canal geral → supervisor (RN-04) — ramificação moderada, roda inteiramente fora do Salesforce."
+      },
+      "integration": {
+        "tier": "M",
+        "signal": "Integração com a API do Slack (canais, threads, reações) para o mecanismo first-to-claim; sem Case/Queue do Service Cloud nesta jornada."
+      }
+    },
+    "size_rationale": "M — a complexidade está no bot Slack (escalonamento + first-to-claim), não em objetos ou UI do Salesforce, que este épico não toca.",
+    "complexity_drivers": "Mecânica first-to-claim para evitar duplicidade de resposta; cadeia de fallback (especialidade → geral → supervisor) com timeout.",
+    "skills_needed": "Desenvolvedor de bot Slack (Bolt/API), Arquiteto de Solução para o contrato de escrita em E03 (registro do ServiceDesk legado), Change Management (decommissioning de workarounds informais).",
+    "risks": "Slack como interface única do atendente é [assumption] — nenhum documento de produto Slack na knowledge base; grounding em conhecimento geral de integração Slack-Service Cloud.",
+    "size_if_assumption_breaks": "M; L se o mecanismo first-to-claim precisar de estado persistido no Salesforce (Case/Queue) em vez de ficar inteiramente no Slack.",
+    "solution_approach": "Slackbot responde à dúvida do atendente; quando necessário, escala para canal de especialidade com first-to-claim; fallback a canal geral e depois supervisor se ninguém responder.",
+    "confidence": "Assumed"
+  },
+  {
+    "item_id": "E03",
+    "item_type": "epic",
+    "t_shirt_size": "L",
+    "size_drivers": {
+      "integration": {
+        "tier": "L",
+        "signal": "Dois alvos de integração distintos (CRM legado + ServiceDesk legado) via MuleSoft, com retry/backoff e fila de erro por caminho [fonte: discovery-notes/00-inventario-de-solucao-poupatempo.md linhas 69, 105, 113, 132, 134, 149]. G0309 (1 vs. 2 deployments reais) ainda aberto."
+      },
+      "automation": {
+        "tier": "M",
+        "signal": "Lógica de retry/backoff e modo degradado por caminho de integração — provavelmente Queueable Apex/Platform Events."
+      },
+      "data_model": {
+        "tier": "S",
+        "signal": "Campos/objetos de controle de integração (log de erro, chave de idempotência) — sem modelo transacional novo."
+      }
+    },
+    "size_rationale": "L — dominado pela integração dupla-sistema com tratamento de erro por caminho; sobe para XL se G0309 confirmar dois deployments genuinamente separados (2 Named Credentials, 2 conjuntos de retry/degradado independentes).",
+    "complexity_drivers": "Dois sistemas legados anonimizados (decisions/0001) com contratos de erro próprios; zero-migração implica zero-lookback (decisions/0003) — sem consulta retroativa.",
+    "skills_needed": "Arquiteto de Integração (MuleSoft), Desenvolvedor Apex (retry/degradado), Arquiteto de Solução para reconciliar com E01/E02.",
+    "risks": "G0309 não resolvido — muda o dimensionamento real deste épico, não a lógica de integração. Plataformas reais anonimizadas por instrução do cliente (decisions/0001) — nunca referenciar pelo nome do produto.",
+    "size_if_assumption_breaks": "L; XL se G0309 confirmar dois deployments genuinamente separados, dobrando o conjunto de Named Credentials/retry/degradado.",
+    "solution_approach": "MuleSoft orquestra chamadas a dois sistemas legados distintos — CRM legado (protocolo do cidadão, bloqueante) e ServiceDesk legado (ticket de especialidade, não-bloqueante) — com Named Credential/OAuth, retry com backoff e fila de erro por caminho.",
+    "confidence": "Unknown"
+  },
+  {
+    "item_id": "E04",
+    "item_type": "epic",
+    "t_shirt_size": "M",
+    "size_drivers": {
+      "automation": {
+        "tier": "M",
+        "signal": "Serviço de decisão com idempotência (ID+timestamp), retry com backoff, reconsulta de status no momento da oferta — arquitetura Apex/Flow/MuleSoft ainda não decidida."
+      },
+      "integration": {
+        "tier": "M",
+        "signal": "Chamada síncrona ao sistema de agendamento externo, que mantém a lógica de seleção real como fonte de verdade (Confirmed via ata, F2.3) — este serviço consulta/alimenta, não decide."
+      },
+      "data_model": {
+        "tier": "XS",
+        "signal": "Chave de idempotência por ID de agendamento + timestamp — sem modelo novo relevante."
+      }
+    },
+    "size_rationale": "M — a complexidade está na orquestração de decisão (fila-viva-vence, retry, idempotência), não no volume de dados; sobe se as regras de seleção do cliente (ainda não especificadas) resultarem em lógica de negócio extensa.",
+    "complexity_drivers": "Fila viva sempre vence sobre oferta em voo (decisions/0004); staleness residual aceito como risco conhecido do MVP; retry com backoff substitui a política original de tentativa única (RN-07/E-06).",
+    "skills_needed": "Desenvolvedor Apex/integração, Arquiteto de Solução para co-definir as regras de seleção com o cliente.",
+    "risks": "Regras de seleção pessoa/contato/agendamento ainda não especificadas pelo cliente — a construir em conjunto.",
+    "size_if_assumption_breaks": "M; L se as regras de seleção do cliente exigirem lógica de negócio complexa (múltiplos critérios ponderados) em vez de um critério simples.",
+    "solution_approach": "API/serviço disparado pela mudança de Presence Status de E01; consulta o sistema de agendamento externo (fonte de verdade); cancela oferta em voo se a fila viva ganhar; retry com backoff em falha.",
+    "confidence": "Unknown"
+  },
+  {
+    "item_id": "E05",
+    "item_type": "epic",
+    "t_shirt_size": "L",
+    "size_drivers": {
+      "integration": {
+        "tier": "L",
+        "signal": "Integração com sistema de dados de funcionários da PRODESP ainda não identificado (premissa de API exposta); evento de gatilho (G0502) e mapeamento de atributos RH→Salesforce (G0507) não definidos."
+      },
+      "automation": {
+        "tier": "M",
+        "signal": "Cadeia de criação/desativação de User + Profile + Permission Set + licença + Service Resource + skills + capacidade + vínculo a fila/Routing Configuration — provavelmente Apex, dado que provisionamento de User exige API elevada."
+      },
+      "data_model": {
+        "tier": "S",
+        "signal": "Usa objetos padrão (User, Service Resource, Skill) — sem modelo customizado novo."
+      }
+    },
+    "size_rationale": "L — dominado pela incerteza de integração (sistema de origem não identificado, gatilho e mapeamento indefinidos); a cadeia de automação em si é padrão Service Cloud.",
+    "complexity_drivers": "Fronteira de escopo com o provisionamento do canal de Slack (R-05/L-13, G0509) mantida fora do épico; o que ocorre com atendente desativado em Case aberto/fila viva é gap aberto (G0503).",
+    "skills_needed": "Arquiteto de Integração, Desenvolvedor Apex (User Provisioning), Especialista em Service Cloud/Omni-Channel (skills/capacidade).",
+    "risks": "G0501/G0502/G0503/G0507/G0508 abertos — sistema de origem, gatilho, mapeamento e comportamento em desligamento com Case aberto, todos pendentes de confirmação.",
+    "size_if_assumption_breaks": "L; XL se o sistema de RH não expuser API e exigir integração via arquivo/batch com reconciliação manual.",
+    "solution_approach": "Integração com o sistema de dados de funcionários para provisionar/desprovisionar User, Profile, Permission Set, licença, Service Resource, skills e capacidade, vinculando o atendente à fila/Routing Configuration correta.",
+    "confidence": "Unknown"
+  },
+  {
+    "item_id": "E06",
+    "item_type": "epic",
+    "t_shirt_size": "L",
+    "size_drivers": {
+      "analytics": {
+        "tier": "L",
+        "signal": "Relatório executivo formal em Tableau Next com camada histórica/trend própria (decisions/0005), não apenas exposição nativa do Command Center [KB: knowledge/tableau_next_4-10-2026.md:7303-7393]."
+      },
+      "integration": {
+        "tier": "M",
+        "signal": "Conectores de dados entre Omni-Channel (Idle/%Idle, filas) e Tableau Next, mais a instrumentação de causa/frequência de E01 (decisions/0002) [KB: knowledge/service_cloud_3-27-2026.md:18783-44374]."
+      }
+    },
+    "size_rationale": "L — dominado pela profundidade do relatório executivo (histórico/trend, não só operacional); pode reduzir para M se a métrica nativa Idle/%Idle bastar e o contador customizado de E01 for descartado.",
+    "complexity_drivers": "Cadência de atualização recorrente e camada histórica/trend; instrumentação de custo/resposta do canal WhatsApp; funil de causa/frequência de fila-vazia e autenticação por estágio.",
+    "skills_needed": "Especialista em Tableau Next, Arquiteto de Dados (Omni-Channel → Tableau), Desenvolvedor (instrumentação compartilhada com E01).",
+    "risks": "Mesma tensão de E01 entre contador customizado e métrica nativa do Command Center. Sem sponsor/decisão nomeado para E06 como existe para os demais épicos (decisão do cliente).",
+    "size_if_assumption_breaks": "L; M se a métrica nativa Idle/%Idle do Command Center substituir o contador customizado, reduzindo a instrumentação a construir.",
+    "solution_approach": "Tableau Next consumindo métricas do Omni-Channel (ociosidade/disponibilidade) e a instrumentação de causa/frequência de E01, entregando relatório executivo client-facing com cadência recorrente.",
+    "confidence": "Assumed"
+  },
+  {
+    "item_id": "E07",
+    "item_type": "epic",
+    "t_shirt_size": "L",
+    "size_drivers": {
+      "intelligence_ai": {
+        "tier": "L",
+        "signal": "Agente Agentforce multi-tópico (dúvida do atendente + resumo de histórico) com estratégia de grounding customizada (Data 360) e guardrails de confiança/citação/confirmação [KB: knowledge/staar-agentforce-governance-guardrails.md]."
+      },
+      "integration": {
+        "tier": "M",
+        "signal": "Relação Slackbot ↔ Agente do T7 (FAQ interno) indefinida — contrato de integração não confirmado [assumption: ver Discovery Brief, Perguntas Abertas #14]."
+      },
+      "data_model": {
+        "tier": "M",
+        "signal": "Modelagem/schema do Data 360 (perfil unificado do cidadão, segmentos, identidade) como pré-requisito de retrieval confiável [extends: knowledge/staar-data-360-headless.md]."
+      }
+    },
+    "size_rationale": "L — dominado pelo desenho do agente (grounding + guardrails), amplificado pela indefinição do contrato Slackbot↔T7.",
+    "complexity_drivers": "Zero-migração implica zero-lookback (decisions/0003) — 'sem histórico disponível' é comportamento esperado no MVP, a comunicar no enablement; governança de conteúdo da base de conhecimento por especialidade fora de escopo formal.",
+    "skills_needed": "Especialista Agentforce (prompt/grounding/guardrails), Arquiteto de Dados (Data 360), Desenvolvedor de integração (contrato Slackbot↔T7, se confirmado).",
+    "risks": "Contrato Slackbot↔Agente do T7 indefinido (L-13/J2, L-34). Governança de conteúdo da base de conhecimento por especialidade fica fora do escopo formal — risco de degradação silenciosa pós-go-live, não mitigado.",
+    "size_if_assumption_breaks": "L; XL se o Agente do T7 não expuser integração e o Slackbot precisar replicar toda a base de FAQ internamente.",
+    "solution_approach": "Base de conhecimento estruturada por especialidade + Agentforce configurado para resumir histórico de atendimento pós-go-live e apoiar a dúvida do atendente, com guardrails de confiança mínima, citação de fonte e confirmação humana antes de repassar ao cidadão.",
+    "confidence": "Unknown"
+  }
+]
