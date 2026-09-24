@@ -368,6 +368,41 @@
         "Se o usuário quiser seguir para requirements (transformar G0901 em pergunta formal ao cliente) ou para export (empacotar o pacote atualizado)",
         "Timeline HTML (timeline-proposta.html/.png) já reflete a Fase 5 de uma sessão anterior — não precisou de novo ajuste visual neste grill"
       ]
+    },
+    {
+      "date": "2026-09-24",
+      "skills_used": [
+        "revise"
+      ],
+      "summary": "Correção de timing na Fase 5 (Operação Assistida), apontada pelo usuário direto na timeline visual: o modelo anterior tratava a Operação Assistida como um bloco único de 4 semanas sincronizado ao final do caminho crítico completo (semana 15-19), fazendo a Jornada 2 esperar a Jornada 1 terminar mesmo já estando em produção desde a semana 11 do cenário piso. Usuário corrigiu: a janela de Operação Assistida da Jornada 2 começa imediatamente após o próprio deploy em produção (semana 11) e corre em paralelo ao desenvolvimento remanescente da Jornada 1 (Fases 2-4), sem esperar por ela; a janela da Jornada 1 permanece no fim, após seu próprio go-live + E06 (semana 15-19). As duas janelas de 4 semanas não se sobrepõem no calendário (semana 11-14 e semana 16-19, com um intervalo ocioso na semana 15).",
+      "friction": [
+        "Playwright/Chrome MCP indisponível neste ambiente (DevTools remote debugging bloqueado por policy do sistema) — não foi possível regenerar outputs/artifacts/timeline-proposta.png automaticamente; PNG ficou desatualizado em relação ao HTML corrigido, usuário precisa re-exportar manualmente (abrir o HTML no navegador e tirar print, ou reabrir em ferramenta de design)."
+      ],
+      "decisions": [
+        {
+          "decision": "timeline-proposta.html: trilha Jornada 2 reordenada — Operação Assistida logo após o bar de deploy (semana 11-14), spacer de sustentação movido para o final (semana 15-19); milestones de capacitação de supervisores e handover da Jornada 2 realinhados para 73.68% (fim da janela, semana 14)",
+          "rationale": "Refletir que a Jornada 2 não espera a Jornada 1 para iniciar sua própria Operação Assistida"
+        },
+        {
+          "decision": "roadmap.json Fase 5: objectives/dependencies/risks reescritos para descrever duas janelas escalonadas e não sobrepostas em vez de um bloco único pós-caminho-crítico; texto stale sobre G0801 (já resolvido no grill anterior) corrigido no mesmo passo",
+          "rationale": "Manter roadmap.json consistente com o artefato de timeline corrigido — dados e visual não podem divergir"
+        },
+        {
+          "decision": "estimates.json E08: complexity_drivers/solution_approach/risks reescritos para o modelo de duas janelas escalonadas",
+          "rationale": "Mesmo motivo — o texto anterior assumia cobertura simultânea das duas jornadas"
+        }
+      ],
+      "open_threads": [
+        "Flag explícito, não resolvido: resource-plan.json ainda não foi ajustado para o modelo de duas janelas — não está confirmado se R11/R12 (Solution/Technical Consultant, 1 FTE cada) cobrem as duas janelas escalonadas (semana 11-14 e semana 16-19) com o mesmo time, ou se o intervalo ocioso da semana 15 exige uma decisão de resourcing própria antes de fechar o dimensionamento. Não decidido nesta sessão — deliberadamente deixado em aberto (nunca inventar contagem/duração sem base).",
+        "outputs/artifacts/timeline-proposta.png está desatualizado em relação ao HTML — precisa ser re-exportado manualmente pelo usuário (Playwright indisponível neste ambiente)",
+        "G0901 continua aberto — formato de entrega da capacitação de E09 e volume de train-the-trainers ainda não confirmados pelo cliente",
+        "validate-data.py sinalizou roadmap.json/resource-plan.json/commercials.json como possivelmente stale (mtime) — resource-plan.json e commercials.json realmente ainda não foram revisados à luz desta correção de timing (ver open thread acima); roadmap.json e estimates.json já foram atualizados nesta sessão"
+      ],
+      "next_steps": [
+        "Perguntar ao usuário sobre o resourcing de R11/R12 nas duas janelas escalonadas antes de considerar a Fase 5 fechada",
+        "Usuário re-exportar o PNG da timeline manualmente, ou tentar novamente com Playwright em outro ambiente",
+        "Seguir para requirements (G0901) ou export quando o usuário confirmar"
+      ]
     }
   ],
   "preferences": {
@@ -623,6 +658,16 @@
       "rejected": [
         "Deixar G0801 aberto e criar um novo papel dedicado só para assinar o handover (rejeitado — redundante com C01, que já é o decision-maker do cliente em todo o programa)",
         "Resize de E08/E09 durante o grill (rejeitado — nenhuma informação nova surgiu; usuário apenas endossou o sizing já existente)"
+      ]
+    },
+    {
+      "date": "2026-09-24",
+      "area": "scope",
+      "decision": "Operação Assistida (Fase 5) deixa de ser um bloco único de 4 semanas sincronizado ao fim do caminho crítico e passa a ser duas janelas de 4 semanas escalonadas por jornada: Jornada 2 inicia no próprio go-live (semana 11), em paralelo ao desenvolvimento remanescente da Jornada 1; Jornada 1 inicia depois, no fim do caminho crítico (semana 15-19).",
+      "rationale": "Correção direta do usuário sobre a timeline visual: a Jornada 2 já está em produção desde a semana 11 e não deveria ficar ociosa aguardando a Jornada 1 terminar para receber acompanhamento assistido. Hard-to-reverse: muda a lógica de dependência da Fase 5 em roadmap.json (de \"depende do caminho crítico completo\" para \"depende só da própria jornada\"), com implicação aberta sobre se R11/R12 precisam de ajuste de resourcing para cobrir as duas janelas escalonadas.",
+      "rejected": [
+        "Manter o bloco único sincronizado e só corrigir o desenho visual (rejeitado — geraria divergência entre o HTML e roadmap.json/estimates.json, que ainda descreveriam a Operação Assistida como dependente do caminho crítico completo)",
+        "Ajustar resource-plan.json (R11/R12) nesta mesma passada, assumindo que o mesmo time cobre as duas janelas (rejeitado — decisão de resourcing não tem base própria ainda; deixado como flag aberto para o usuário)"
       ]
     }
   ]
