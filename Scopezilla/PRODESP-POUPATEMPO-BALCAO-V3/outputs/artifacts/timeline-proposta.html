@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>PRODESP · Poupatempo Balcão V3 — Timeline Proposta</title>
+<style>
+  :root {
+    --sf-navy:      #001E5B;
+    --sf-type:      #002775;
+    --sf-container: #022AC0;
+    --sf-blue:      #066AFE;
+    --sf-cloud:     #00B3FF;
+    --sf-cloud-80:  #90D0FE;
+    --sf-bg:        #CFE9FE;
+    --sf-light-bg:  #EAF5FE;
+    --sf-text:      #002775;
+    --sf-text-weak: #4A5578;
+    --ext-teal:     #06A59A;
+    --ext-teal-95:  #DEF9F3;
+    --font-heading: 'ITC Avant Garde Gothic Demi', 'Avant Garde', 'Century Gothic', 'Salesforce Sans', 'Source Sans 3', Arial, sans-serif;
+    --font-body:    'Salesforce Sans', 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+    --radius-md: 10px; --radius-lg: 18px;
+    --shadow-brand: 0 10px 34px rgba(6,106,254,0.14);
+  }
+  * { box-sizing: border-box; margin:0; padding:0; }
+  body {
+    font-family: var(--font-body);
+    background: linear-gradient(135deg, #fff, var(--sf-bg));
+    color: var(--sf-text);
+    padding: 56px;
+    display:flex; justify-content:center;
+  }
+  .page { width: 1500px; background:#fff; border-radius: var(--radius-lg); box-shadow: var(--shadow-brand);
+    padding: 56px 64px 48px; }
+  .eyebrow { font-family: var(--font-heading); font-size: 14px; letter-spacing: .12em; text-transform: uppercase; color: var(--sf-blue); }
+  h1 { font-family: var(--font-heading); color: var(--sf-navy); font-size: 34px; margin: 6px 0 4px; line-height:1.2; }
+  .subtitle { font-size: 17px; color: var(--sf-text-weak); margin-bottom: 36px; }
+
+  .legend { display:flex; gap: 22px; flex-wrap:wrap; margin-bottom: 34px; padding: 16px 20px;
+    background: var(--sf-light-bg); border-radius: var(--radius-md); }
+  .legend-item { display:flex; align-items:center; gap:8px; font-size: 13px; color: var(--sf-text); }
+  .swatch { width: 14px; height: 14px; border-radius: 4px; flex: 0 0 auto; }
+
+  .scenario { margin-bottom: 40px; }
+  .scenario:last-of-type { margin-bottom: 8px; }
+  .scenario-head { display:flex; align-items:baseline; gap: 12px; margin-bottom: 16px; }
+  .scenario-title { font-family: var(--font-heading); font-size: 20px; color: var(--sf-navy); }
+  .scenario-badge { font-size: 12px; font-weight:700; color:#fff; background: var(--sf-container);
+    padding: 3px 12px; border-radius: 999px; }
+
+  .track-row { display:flex; align-items:stretch; gap: 14px; margin-bottom: 10px; }
+  .track-label { flex: 0 0 190px; display:flex; align-items:center; font-size: 13px; font-weight:700;
+    color: var(--sf-navy); line-height:1.3; }
+  .track-panel { flex: 1; position: relative; }
+  .bar-track { display:flex; height: 74px; border-radius: var(--radius-md); overflow: hidden;
+    box-shadow: var(--shadow-brand); }
+  .bar { display:flex; flex-direction:column; align-items:center; justify-content:center;
+    color:#fff; text-align:center; padding: 6px 8px; font-size: 12.5px; line-height:1.25;
+    border-right: 1.5px solid rgba(255,255,255,.35); }
+  .bar:last-child { border-right:none; }
+  .bar-name { font-family: var(--font-heading); font-weight:600; }
+  .bar-dur { opacity:.85; font-size: 11px; margin-top: 2px; }
+  .spacer { background: repeating-linear-gradient(135deg, var(--sf-light-bg) 0 8px, #fff 8px 16px); }
+
+  .milestone { position:absolute; top: -10px; bottom: -10px; width: 0; border-left: 2.5px dashed var(--ext-teal);
+    z-index: 3; }
+  .milestone-flag { position:absolute; top: -34px; transform: translateX(-50%); background: var(--ext-teal);
+    color:#fff; font-size: 11.5px; font-weight:700; padding: 5px 10px; border-radius: 999px; white-space: nowrap;
+    box-shadow: var(--shadow-brand); }
+  .milestone-flag::after { content:''; position:absolute; bottom:-5px; left:50%; transform: translateX(-50%);
+    width:0; height:0; border-left:5px solid transparent; border-right:5px solid transparent;
+    border-top:5px solid var(--ext-teal); }
+
+  .footer-note { font-size: 12.5px; color: var(--sf-text-weak); font-style: italic; margin-top: 30px;
+    border-top: 1px solid var(--sf-light-bg); padding-top: 16px; }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="eyebrow">Prodesp - Empresa de TI do Estado de São Paulo · 24 de setembro de 2026</div>
+    <h1>Timeline Proposta — Lane Aumentada</h1>
+    <div class="subtitle">Jornada 1 (WhatsApp) e Jornada 2 (Slack) iniciam em paralelo após a Fase 0 — a Jornada 2 chega antes à produção.</div>
+
+    <div class="legend">
+      <div class="legend-item"><span class="swatch" style="background:var(--sf-navy)"></span>Fase 0 — Resolução de Gaps</div>
+      <div class="legend-item"><span class="swatch" style="background:var(--sf-container)"></span>Fundação (legados + provisionamento)</div>
+      <div class="legend-item"><span class="swatch" style="background:var(--sf-blue)"></span>Jornada 1 — Antecipação Digital</div>
+      <div class="legend-item"><span class="swatch" style="background:var(--sf-cloud)"></span>Observabilidade e Analytics</div>
+      <div class="legend-item"><span class="swatch" style="background:var(--ext-teal)"></span>Jornada 2 — Apoio Presencial (paralela)</div>
+    </div>
+
+    <div class="scenario">
+      <div class="scenario-head">
+        <div class="scenario-title">Cenário Piso</div>
+        <div class="scenario-badge">15 semanas</div>
+      </div>
+      <div class="track-row">
+        <div class="track-label">Jornada 1<br><span style="color:var(--sf-text-weak); font-weight:400;">caminho crítico</span></div>
+        <div class="track-panel">
+          <div class="bar-track">
+            <div class="bar" style="flex:0 0 13.33%; background:var(--sf-navy);">
+              <div class="bar-name">Fase 0</div><div class="bar-dur">2 sem</div>
+            </div>
+            <div class="bar" style="flex:0 0 33.33%; background:var(--sf-container);">
+              <div class="bar-name">Fundação</div><div class="bar-dur">5 sem</div>
+            </div>
+            <div class="bar" style="flex:0 0 33.33%; background:var(--sf-blue);">
+              <div class="bar-name">Jornada 1: Antecipação Digital</div><div class="bar-dur">5 sem</div>
+            </div>
+            <div class="bar" style="flex:0 0 20%; background:var(--sf-cloud);">
+              <div class="bar-name">Observabilidade</div><div class="bar-dur">3 sem</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="track-row">
+        <div class="track-label">Jornada 2<br><span style="color:var(--sf-text-weak); font-weight:400;">paralela, mais rápida</span></div>
+        <div class="track-panel">
+          <div class="bar-track">
+            <div class="bar" style="flex:0 0 13.33%; background:var(--sf-navy);">
+              <div class="bar-name">Fase 0</div><div class="bar-dur">2 sem</div>
+            </div>
+            <div class="bar" style="flex:0 0 20%; background:var(--ext-teal);">
+              <div class="bar-name">Integração Legados</div><div class="bar-dur">3 sem</div>
+            </div>
+            <div class="bar" style="flex:0 0 33.33%; background:var(--ext-teal);">
+              <div class="bar-name">Jornada 2: Apoio Presencial</div><div class="bar-dur">5 sem</div>
+            </div>
+            <div class="bar spacer" style="flex:0 0 33.34%;"></div>
+          </div>
+          <div class="milestone" style="left:66.66%;">
+            <div class="milestone-flag">Jornada 2 em produção — sem 10</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scenario">
+      <div class="scenario-head">
+        <div class="scenario-title">Cenário Teto</div>
+        <div class="scenario-badge">34 semanas</div>
+      </div>
+      <div class="track-row">
+        <div class="track-label">Jornada 1<br><span style="color:var(--sf-text-weak); font-weight:400;">caminho crítico</span></div>
+        <div class="track-panel">
+          <div class="bar-track">
+            <div class="bar" style="flex:0 0 11.76%; background:var(--sf-navy);">
+              <div class="bar-name">Fase 0</div><div class="bar-dur">4 sem</div>
+            </div>
+            <div class="bar" style="flex:0 0 32.35%; background:var(--sf-container);">
+              <div class="bar-name">Fundação</div><div class="bar-dur">11 sem</div>
+            </div>
+            <div class="bar" style="flex:0 0 32.35%; background:var(--sf-blue);">
+              <div class="bar-name">Jornada 1: Antecipação Digital</div><div class="bar-dur">11 sem</div>
+            </div>
+            <div class="bar" style="flex:0 0 23.53%; background:var(--sf-cloud);">
+              <div class="bar-name">Observabilidade</div><div class="bar-dur">8 sem</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="track-row">
+        <div class="track-label">Jornada 2<br><span style="color:var(--sf-text-weak); font-weight:400;">paralela, mais rápida</span></div>
+        <div class="track-panel">
+          <div class="bar-track">
+            <div class="bar" style="flex:0 0 11.76%; background:var(--sf-navy);">
+              <div class="bar-name">Fase 0</div><div class="bar-dur">4 sem</div>
+            </div>
+            <div class="bar" style="flex:0 0 20.59%; background:var(--ext-teal);">
+              <div class="bar-name">Integração Legados</div><div class="bar-dur">7 sem</div>
+            </div>
+            <div class="bar" style="flex:0 0 32.35%; background:var(--ext-teal);">
+              <div class="bar-name">Jornada 2: Apoio Presencial</div><div class="bar-dur">11 sem</div>
+            </div>
+            <div class="bar spacer" style="flex:0 0 35.3%;"></div>
+          </div>
+          <div class="milestone" style="left:64.7%;">
+            <div class="milestone-flag">Jornada 2 em produção — sem 22</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      Larguras proporcionais à complexidade relativa dos blocos de escopo (T-shirt sizes) — ilustrativo, não um compromisso de cronograma. Faixa indicativa de duração (lane Aumentada): 15 a 34 semanas. A duração da Fase 0 depende de quão rápido o cliente resolve os quatro pontos de dimensionamento em aberto.
+    </div>
+  </div>
+</body>
+</html>
