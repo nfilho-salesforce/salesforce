@@ -1,0 +1,47 @@
+[
+  {
+    "phase_number": 0,
+    "phase_name": "Resolução de Gaps Críticos de Discovery",
+    "objectives": "Resolver, com o cliente, os gaps que hoje deixam E01/E03/E04/E05/E07 com dimensionamento Unknown antes de travar o design em profundidade — G0309 (1 vs 2 sistemas legados), G0501/G0508 (sistema de RH da PRODESP não identificado), G0109 (comportamento WhatsApp/gov.br), G0703 (contrato Slackbot↔Agente do T7), G0509 (fronteira de provisionamento do canal Slack) e as regras de seleção de E04 ainda não especificadas.",
+    "epics_included": "",
+    "success_criteria": "Gaps bloqueantes listados acima resolvidos ou formalmente aceitos como premissa pelo cliente; T-shirt sizes hoje Unknown (E03, E04, E05, E07) revalidados à luz das respostas.",
+    "dependencies": "Nenhuma — ponto de partida do programa.",
+    "risks": "55 gaps registrados (limiar de Fase 0 é >15) — inclui a decisão do cliente sobre LGPD/compliance (dado pessoal via WhatsApp, autenticação gov.br, biometria) ainda não endereçada em nenhuma fonte de discovery. Se os gaps não resolverem a tempo, o build segue com as premissas assumidas hoje e risco de resize fica aberto (ver `size_if_assumption_breaks` em estimates.json)."
+  },
+  {
+    "phase_number": 1,
+    "phase_name": "Fundação — Integração de Legados + Autoprovisionamento de Atendentes",
+    "objectives": "Estabelecer a camada de integração MuleSoft com os dois sistemas legados (CRM + ServiceDesk) e o pipeline de autoprovisionamento de atendentes (User → Service Resource → Queue/Skill → Routing Configuration) — pré-requisito técnico comum às duas jornadas de negócio.",
+    "epics_included": "E03,E05",
+    "success_criteria": "Named Credential/OAuth 2.0 client credentials ativos e testados para os dois sistemas legados (com contrato de erro/retry por caminho); um atendente de teste provisionado ponta a ponta e visível na fila/Routing Configuration do Omni-Channel.",
+    "dependencies": "Nenhuma — fase de fundação.",
+    "risks": "G0309 (1 vs 2 deployments legados) ainda aberto — muda a contagem de Named Credentials/contratos de erro deste épico. G0501/G0508 (sistema de RH da PRODESP não identificado, exposição de API não confirmada) pode bloquear E05 até resolução na Fase 0."
+  },
+  {
+    "phase_number": 2,
+    "phase_name": "Jornada 1 — Antecipação Digital de Atendimento",
+    "objectives": "Entregar a jornada de antecipação via WhatsApp + gov.br (E01) junto com o serviço de seleção (E04) que decide qual cidadão/agendamento ofertar — os dois epics são funcionalmente inseparáveis: o gatilho de Presence Status de E01 chama o serviço de E04 a cada oferta.",
+    "epics_included": "E01,E04",
+    "success_criteria": "Fluxo ponta a ponta funcionando: autodeclaração de ociosidade no Slack → Presence Status → Routing Configuration nativa (fila vazia) → serviço de seleção decide o agendamento → oferta por WhatsApp → autenticação gov.br → Case roteado à fila; instrumentação de causa/frequência (E-24 retrabalhado) alimentando E06.",
+    "dependencies": "depends on: E03, E05 (Fase 1) — protocolo do CRM legado e atendente já provisionado na fila são pré-requisitos.",
+    "risks": "R-07 (fila raramente vazia) — a antecipação pode nunca se realizar na frequência esperada; medir antes de dimensionar o ganho de negócio. Tensão ainda não resolvida entre o contador customizado de fila-vazia e as métricas nativas de Idle/%Idle do Command Center (afeta o esforço de build de E01 e E06)."
+  },
+  {
+    "phase_number": 3,
+    "phase_name": "Jornada 2 — Apoio Presencial + Base de Conhecimento/IA",
+    "objectives": "Entregar o Slackbot de apoio ao atendente de guichê (E02) e, em seguida, a camada de conhecimento/IA que o alimenta (E07 — base de conhecimento por especialidade + Agentforce + Data 360) — E07 constrói sobre a infraestrutura de canal/escalonamento que E02 já entrega.",
+    "epics_included": "E02,E07",
+    "success_criteria": "Slackbot em produção com mecânica first-to-claim e fallback a supervisor; registro de consulta de especialidade gravado no ServiceDesk legado ao resolver a thread; Agentforce resumindo histórico pós-go-live (zero-lookback aceito, decisions/0003) com guardrail de confiança mínima + citação + confirmação do atendente ativo.",
+    "dependencies": "depends on: E03 (Fase 1) — registro no ServiceDesk legado.",
+    "risks": "G0703 (contrato de integração Slackbot ↔ Agente do T7 indefinido) — RN-22 posiciona o Slackbot como porta única, mas isso é nosso posicionamento, não resposta fechada do cliente. Governança de conteúdo da base de conhecimento por especialidade está fora do escopo formal — risco de degradação silenciosa pós-go-live, registrado e não mitigado."
+  },
+  {
+    "phase_number": 4,
+    "phase_name": "Observabilidade e Analytics (Tableau Next)",
+    "objectives": "Instrumentar e publicar o relatório executivo client-facing em Tableau Next (E06), consumindo os dados de causa/frequência de fila-vazia, autenticação por estágio e ociosidade/disponibilidade de atendentes que a Fase 2 instrumenta.",
+    "epics_included": "E06",
+    "success_criteria": "Relatório executivo em Tableau Next publicado, com camada histórica/trend própria e cadência de atualização recorrente (decisions/0005) — não apenas a exposição operacional nativa do Command Center.",
+    "dependencies": "depends on: E01, E05 (Fases 1-2) — dados de instrumentação e de fila/atendentes já provisionados.",
+    "risks": "Sem sponsor/decisão nomeado para E06 como existe para os demais épicos — risco sinalizado, não mitigado (decisão do cliente). Mesma tensão contador-customizado-vs-métrica-nativa de E01 pode reduzir o esforço de build se resolvida a favor da métrica nativa do Command Center."
+  }
+]

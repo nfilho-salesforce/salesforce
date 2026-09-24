@@ -98,6 +98,23 @@
         "validate — antes de export, para checagem cruzada dos dados.",
         "Considerar risk-review dado o risco de compliance/LGPD não mitigado flagado em outputs/01-solution.md."
       ]
+    },
+    {
+      "date": "2026-09-24",
+      "skills_used": [
+        "roadmap"
+      ],
+      "summary": "Timeline: usuário escolheu 'Derivar faixa top-down' (client_target e user_commitment ambos null). Faixa derivada 18–34 semanas — tabela Multi-Cloud + Integração de Dados, straddle Média/Alta (7 épicos perto do piso de Média, mas mix de tamanho dominado por L mais próximo do perfil de Alta); +15% risk adder por LGPD/gov.br/biometria não endereçada; alargamento por mistura de confiança (4/7 épicos Unknown: E03/E04/E05/E07). Gravado em .project-metadata.json.timeline.derived com range_drivers (E03/G0309, E05/G0501-G0508, E07/G0703). KB search para phasing/sequencing (5 queries) retornou hits finos/fora de alvo (majoritariamente boilerplate de licenciamento Tableau Next) — sequenciamento das fases foi fundamentado nas próprias descrições dos épicos e ADRs do projeto (RN-13, RN-02, decisions/0002, decisions/0004), não em citações knowledge/. Esqueleto de 5 fases (Fase 0-4) aprovado sem ajustes: Fase 0 (resolução de gaps, sem épicos, 55 gaps > limiar de 15), Fase 1 (E03+E05, fundação), Fase 2 (E01+E04, Jornada 1), Fase 3 (E02+E07, Jornada 2), Fase 4 (E06, observabilidade). depends_on gravado em epics.json: E01←[E03,E04,E05], E02←[E03], E06←[E01,E05], E07←[E02]. Caminho crítico: E05→E01→E06 (paralelo: E03→E02→E07). data/roadmap.json + outputs/02-delivery-plan.md escritos; nenhuma duração por fase (sem user_commitment) — só sequência + faixa de engajamento. CSVs regenerados (03-roadmap-phases.csv novo).",
+      "open_threads": [
+        "Faixa derivada (18-34 sem.) não é compromisso — tighten-it questions abertas: G0309 (E03), G0501/G0508 (E05), G0703 (E07) — resolvê-las estreita a faixa, não o esforço.",
+        "Nenhum novo assumption bracket introduzido no esqueleto de fases — dependências epic→epic derivadas diretamente das descrições já existentes em epics.json (RN-13 bloqueante para E01←E03; trigger de Presence Status para E01←E04), não gaps novos a registrar."
+      ],
+      "next_steps": [
+        "estimate — para o roster nomeado por fase (papéis/senioridade/localização), antes de qualquer commercials.",
+        "commercials — pricing só após estimate, com taxa validada pelo usuário.",
+        "validate — checagem cruzada antes de export.",
+        "Considerar risk-review dado o risco de compliance/LGPD ainda não mitigado (mesmo flag desde design)."
+      ]
     }
   ],
   "preferences": {
@@ -219,6 +236,23 @@
         "Cortar E06 do MVP por falta de sponsor",
         "Pausar E06 até que um sponsor seja identificado"
       ]
+    },
+    {
+      "date": "2026-09-24",
+      "area": "timeline",
+      "decision": "Faixa de duração derivada top-down (18-34 semanas) em vez de compromisso do usuário ou match a client_target — nenhum dos dois estava disponível (ambos null em .project-metadata.json.timeline).",
+      "rationale": "Usuário escolheu explicitamente 'Derivar faixa top-down pela forma do engagement' na AskUserQuestion de Timeline Input (Step 0.6 do roadmap).",
+      "rejected": [
+        "Comprometer um total de semanas (não escolhido)",
+        "Sem compromisso — só sequência, sem números (não escolhido)"
+      ]
+    },
+    {
+      "date": "2026-09-24",
+      "area": "roadmap",
+      "decision": "Esqueleto de 5 fases aprovado sem ajustes: Fase 0 (resolução de gaps, sem épicos) → Fase 1 (E03+E05, fundação) → Fase 2 (E01+E04, Jornada 1) → Fase 3 (E02+E07, Jornada 2) → Fase 4 (E06, observabilidade).",
+      "rationale": "Fundação-primeiro (integração legado + provisionamento de atendentes são pré-requisito técnico das duas jornadas); E01+E04 e E02+E07 mantidos juntos por acoplamento funcional direto (trigger de Presence Status / infraestrutura de canal compartilhada); E06 por último por consumir dados instrumentados nas fases anteriores; Fase 0 justificada pelo volume de gaps (55 > limiar de 15).",
+      "rejected": []
     }
   ]
 }

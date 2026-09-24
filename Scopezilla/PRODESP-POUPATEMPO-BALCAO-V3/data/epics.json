@@ -8,7 +8,8 @@
       "[KB: knowledge/service_cloud_3-27-2026.md:18783-44374]",
       "[assumption: comportamento de canal WhatsApp Business (janela de sessão, custo por mensagem ativa) — sem doc de Digital Engagement na knowledge base]",
       "[assumption: nível de confiança gov.br exigido e fallback sem conta — ver Discovery Brief, Perguntas Abertas #2]"
-    ]
+    ],
+    "depends_on": ["E03", "E04", "E05"]
   },
   {
     "epic_id": "E02",
@@ -17,7 +18,8 @@
     "confidence": "Confirmed",
     "kb_sources": [
       "[assumption: Slack como interface única do atendente — nenhum documento de produto Slack na knowledge base do projeto; grounding em conhecimento geral de integração Slack-Service Cloud]"
-    ]
+    ],
+    "depends_on": ["E03"]
   },
   {
     "epic_id": "E03",
@@ -57,7 +59,8 @@
     "kb_sources": [
       "[KB: knowledge/tableau_next_4-10-2026.md:7303-7393]",
       "[KB: knowledge/service_cloud_3-27-2026.md:18783-44374]"
-    ]
+    ],
+    "depends_on": ["E01", "E05"]
   },
   {
     "epic_id": "E07",
@@ -69,6 +72,7 @@
       "[KB: knowledge/staar-agentforce-governance-guardrails.md]",
       "[extends: knowledge/staar-data-360-headless.md — doutrina geral de Data 360 'headless' para persona de agente; não confirma o desenho específico deste projeto]",
       "[assumption: contrato de integração Slackbot ↔ Agente do T7 — ver Discovery Brief, Perguntas Abertas #14]"
-    ]
+    ],
+    "depends_on": ["E02"]
   }
 ]
