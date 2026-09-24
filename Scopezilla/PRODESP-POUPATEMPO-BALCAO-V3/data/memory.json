@@ -140,6 +140,25 @@
         "Considerar `estimate` para o roster nomeado e reabrir a categoria Staffing do risk register",
         "Levar R02/R03 e o gate de Fase 0 com dentes contratuais para a conversa comercial/jurídica antes de fechar Fixed Fee"
       ]
+    },
+    {
+      "date": "2026-09-24",
+      "skills_used": [
+        "revise"
+      ],
+      "summary": "Revise executado sobre um novo sinal de arquitetura: duas atas novas em discovery-notes/ (23/09 10h28 e 14h00) relataram que o atendimento da Jornada 1 (E01) passa a ser 100% via Slack para o atendente — não mais via Service Console — com um PoC Apex/Platform Events já validado com o cliente como base técnica. Grill em 3 rodadas de AskUserQuestion resolveu 4 candidatos de mudança confirmados: (1) G0509 revertido — E05 passa a provisionar o canal pessoal de Slack do atendente, onboarding-time como caminho primário e criação on-demand no roteamento como fluxo de exceção explícito; (2) CTI/Service Console explicitamente excluído do escopo — nenhum canal além de WhatsApp no Omni-Channel; (3) pesquisa de limites de Platform Events resolvida via WebFetch direto na documentação oficial da Salesforce (doc_search/Salesforce-Docs-MCP indisponíveis nesta sessão) — confirmou os 250.000 eventos/hora citados na ata (Event Publishing Allocation) e revelou a distinção com Event Delivery Allocation (50.000/24h, aplica-se só a listener externo) como um gap novo (G0111) e risco novo (R14); (4) cancelamento automático do agendamento presencial no sistema legado de agendamento (Detran) quando a pré-atendência remota resolve o caso, como novo item de escopo em E01/E03. Dois esclarecimentos adicionais via mensagem livre do usuário: 'Service Signal' (termo das atas) é o ServiceNow, já anonimizado neste projeto como 'CRM legado' — cancela a proposta original de um novo gap de ambiguidade, resolvido via memory.json preferences.terminology; e G0309 (1 vs. 2 deployments legados) permanece aberto mas passa a carregar a premissa de trabalho explícita do usuário de que são deployments diferentes, pendente de confirmação com o cliente ('não sei mas vamos assumir que são diferentes e fica o gap a confirmar com o cliente'). Um batch de ~11 regras operacionais menores 'Alinhada' das atas (retry único em falha de API, log de opt-out, limite de 3 retornos à fila, corte de roteamento 1h antes do fim do turno, verificação de fila antes de nova consulta, fallback de baixa confiança do Slackbot, gaps de KB não-bloqueantes, sem ticket automático fora de turno, discrição do atendente em troubleshooting guiado falho, transferência preserva histórico atualizado, biometria condicional por motivo de atendimento) dobrado em E01/E03/E04 como refinamento de detalhe, sem reabrir gate de aprovação (decididas ao vivo pelo usuário nas reuniões, per regra Confirmed da persona). Todas as mudanças gravadas em data/epics.json (E01/E03/E05), data/gaps.json (G0509 resolved, G0309 open-with-provisional-premise, G0111 novo), data/risks.json (R14 novo) e data/memory.json somente após aprovação explícita do usuário ('pode gravar') — nenhuma gravação silenciosa, per instrução original do usuário.",
+      "open_threads": [
+        "G0111/R14 (mecanismo trigger Apex vs. listener externo da ponte WhatsApp↔Slack) — premissa de trabalho assume trigger Apex nativo, a confirmar em design contra a implementação real do PoC.",
+        "G0309 permanece aberto com premissa de trabalho ('deployments diferentes') — pendente de confirmação com o cliente/TI, não promover a Confirmed.",
+        "R13 (risks.json — G0509 'fronteira de provisionamento do canal Slack, risco de scope-creep', Low) não foi revisitado nesta rodada apesar de G0509 ter sido resolvido em sentido oposto ao que R13 assumia — considerar atualização na próxima passagem por risk-review, não decidido nesta sessão.",
+        "Propagação (Step 5 do revise) ainda não executada: requirements/design/roadmap não foram re-invocados sobre a slice tocada (E01/E03/E05) — decisão do usuário foi parar a execução no mesmo ponto do estimate, sem prosseguir; avaliar com o usuário se/quando propagar para estimates.json e roadmap.json.",
+        "validate (Step 6 do revise) ainda não executado sobre este conjunto de mudanças."
+      ],
+      "next_steps": [
+        "Confirmar com o usuário se deseja propagar a mudança para `design`/`roadmap` (Step 5 do revise) ou se a sessão para aqui, no mesmo ponto anterior ao estimate.",
+        "Rodar `validate` (Step 6 do revise) antes de considerar a propagação concluída.",
+        "Checkpoint git desta rodada (epics.json, gaps.json, risks.json, memory.json)."
+      ]
     }
   ],
   "preferences": {
@@ -148,7 +167,8 @@
       "ociosidade": "capacidade não utilizada de um atendente ou posto, usada para balanceamento de carga entre unidades e pré-atendimento digital",
       "transbordo": "encaminhamento de um atendimento presencial para canal remoto/virtual quando o serviço permite",
       "recorte MVP": "escopo mínimo viável desta rodada — 2 jornadas BPMN + autoprovisionamento + Tableau, mais estreito que o recorte faseado da iniciativa-irmã V2",
-      "premissa de arquitetura": "decisão de solução tomada por nós (Nelson) em 23/09, não validada com o cliente — ver banner de proveniência do inventário"
+      "premissa de arquitetura": "decisão de solução tomada por nós (Nelson) em 23/09, não validada com o cliente — ver banner de proveniência do inventário",
+      "Service Signal": "termo usado nas atas de 23/09 — é na verdade o ServiceNow, que este projeto anonimiza e rotula como 'Sistema de CRM legado' (E03). Esclarecido pelo usuário em 2026-09-24; não é um sistema novo nem distinto."
     }
   },
   "decision_log": [
@@ -294,6 +314,57 @@
       "rejected": [
         "Not Recommended (leitura do counter-case independente)",
         "Medium (não escolhido)"
+      ]
+    },
+    {
+      "date": "2026-09-24",
+      "area": "E01",
+      "decision": "Mudança de arquitetura: o frontend do atendente na Jornada 1 (E01) passa a ser 100% Slack — a Service Console deixa de ser usada pelo atendente neste fluxo. Ponte WhatsApp↔Slack via classe Apex a construir (baseada em PoC já validada com o cliente) monitorando Platform Events; caminho de volta via flow/automação no Slack.",
+      "rationale": "Relatado pelo usuário via revise (atas de 23/09 10h28 e 14h00), com PoC de demo já funcional feita pelo time de licenças com o cliente. Reverte a premissa original de design de que o atendente conduziria via Service Console.",
+      "rejected": []
+    },
+    {
+      "date": "2026-09-24",
+      "area": "E05/G0509",
+      "decision": "G0509 revertido: E05 passa a cobrir também o provisionamento do canal pessoal de Slack do atendente (antes recomendado como processo separado, fora do escopo Salesforce). Onboarding-time é o caminho primário; criação on-demand no momento do roteamento é um fluxo de exceção explícito.",
+      "rationale": "Consequência direta da mudança de arquitetura de E01 (frontend 100% Slack) — o atendente precisa ter um canal pessoal antes de receber qualquer atendimento roteado. Decisão do usuário: 'a opção 1 é a correta mas consideramos como fluxo de exceção o on-demand'.",
+      "rejected": [
+        "Manter provisionamento do canal Slack como processo separado do cliente (recomendação original de G0509, revertida)"
+      ]
+    },
+    {
+      "date": "2026-09-24",
+      "area": "scope",
+      "decision": "CTI/Service Console excluído do escopo deste projeto — nenhum canal além de WhatsApp no Omni-Channel está em escopo.",
+      "rationale": "Instrução explícita do usuário: 'CTI não faz parte deste projeto, desconsiderar qualquer outro canal que não seja WhatsApp no Omni-Channel'. O conteúdo de CTI/screen-pop presente na ata das 14h foi discutido na reunião mas fica registrado como descartado, não incorporado como escopo.",
+      "rejected": [
+        "Incorporar CTI/screen-pop como escopo adicional (discutido na ata, descartado pelo usuário)"
+      ]
+    },
+    {
+      "date": "2026-09-24",
+      "area": "E01/E03",
+      "decision": "Novo item de escopo: quando a pré-atendência remota (E01) resolve integralmente o caso do cidadão, o agendamento presencial correspondente é cancelado automaticamente no sistema de agendamento externo legado (Detran) — estende a integração de E03 (que hoje só lê protocolo no início e escreve transcrição no fechamento) com uma terceira escrita.",
+      "rationale": "Resposta do usuário via AskUserQuestion: 'Entra como novo item de escopo em E01/E03 (recomendado)'. Risco de necessidade de intervenção manual como fallback se o caminho automatizado não se mostrar confiável no início, registrado nas descrições dos épicos.",
+      "rejected": [
+        "Deixar cancelamento do agendamento presencial como processo manual/fora de escopo"
+      ]
+    },
+    {
+      "date": "2026-09-24",
+      "area": "E01 (risco técnico)",
+      "decision": "Limites de Platform Events pesquisados e grounded via documentação oficial da Salesforce, confirmando a figura de 250.000 eventos/hora citada pelo usuário na ata — mas revelando uma distinção arquitetural não antecipada (Event Publishing Allocation vs. Event Delivery Allocation) que determina qual limite realmente governa a ponte WhatsApp↔Slack. Novo gap G0111 e risco R14 registrados.",
+      "rationale": "Pedido explícito do usuário: pesquisar limites de Platform Events antes de seguir, dado o risco de interrupção da ponte demo/PoC. `doc_search`/Salesforce-Docs-MCP não disponíveis nesta sessão — pesquisa feita via WebFetch direto na documentação oficial (https://developer.salesforce.com/docs/platform/platform-events/guide/platform-events-limits-default.html).",
+      "rejected": []
+    },
+    {
+      "date": "2026-09-24",
+      "area": "terminology/G0309",
+      "decision": "'Service Signal' (termo das atas) esclarecido como sendo o ServiceNow, já anonimizado neste projeto como 'Sistema de CRM legado' — não um sistema novo. G0309 (1 vs. 2 deployments legados) permanece aberto, mas passa a carregar uma premissa de trabalho explícita: assumir que CRM legado e ServiceDesk legado são deployments diferentes, pendente de confirmação com o cliente/TI.",
+      "rationale": "Esclarecimento direto do usuário ('o Service Signal é na verdade o ServiceNow que anonimizamos e passamos a chamar de sistema de CRM legado') cancelou a proposta original de criar um novo gap de ambiguidade 'Service Signal'. Sobre G0309, o usuário respondeu de forma hedged ('não sei mas vamos assumir que são diferentes') — por isso o gap permanece aberto com uma premissa anotada, não fechado/Confirmed.",
+      "rejected": [
+        "Criar novo gap 'Service Signal' Ambiguity (superseded pelo esclarecimento do usuário)",
+        "Fechar G0309 como resolvido (rejeitado — o usuário hedged a resposta, não confirmou; gap permanece open-with-provisional-premise)"
       ]
     }
   ]

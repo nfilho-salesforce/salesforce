@@ -245,5 +245,24 @@
     "gap_ids": ["G0509"],
     "source": "data/gaps.json G0509",
     "confidence": "Unknown"
+  },
+  {
+    "risk_id": "R14",
+    "rbs_category": "A - Technology & Product",
+    "rbs_type": "Platform allocation limit risk on a to-be-built integration bridge",
+    "recommended_level": "Medium",
+    "level": "Medium",
+    "override_reason": null,
+    "likelihood": "Baixa a Média — o PoC já validado com o cliente demonstrou o mecanismo, mas a implementação real (classe Apex de E01) ainda não foi construída; a folga é confortável (WhatsApp ≈2% do volume total citado na ata contra um limite de 250.000 eventos/hora) SE a inscrição for via trigger Apex, mas a implementação real (trigger vs. listener externo) ainda não está confirmada — ver G0111.",
+    "impact": "High se o limite for atingido — a ponte WhatsApp↔Slack (E01) é interrompida, novas antecipações não podem ser roteadas até o reset do período; eventos em trânsito no momento da interrupção são retidos 72h e recuperáveis via Replay ID, mas a experiência do cidadão/atendente é degradada enquanto isso.",
+    "rationale": "Pesquisa de limites de Platform Events feita nesta sessão (2026-09-24), grounded via documentação oficial da Salesforce, confirmando a figura de 250.000 eventos/hora já citada pelo usuário na ata das 14h — mas revelando uma distinção não antecipada: o limite de Publishing (250k/hora, folgado) só se aplica se a ponte for um trigger Apex; um listener externo (CometD/Pub-Sub API) estaria sujeito ao limite de Delivery, muito mais apertado (50.000/24h). Essa distinção arquitetural ainda não está confirmada contra a implementação real do PoC.",
+    "mitigation": "Confirmar em design se a classe Apex da ponte se inscreve via trigger Apex nativo (sujeito só ao limite de Publishing, folgado) ou via listener externo (sujeito também ao limite de Delivery, apertado) — ver G0111. Monitorar volume real de mensagens WhatsApp contra o limite aplicável após confirmação.",
+    "residual_level": "Medium",
+    "status": "open-with-provisional-premise",
+    "owner": "PS (design)",
+    "epic_ids": ["E01"],
+    "gap_ids": ["G0111"],
+    "source": "[docs:https://developer.salesforce.com/docs/platform/platform-events/guide/platform-events-limits-default.html]; data/gaps.json G0111; grill revise 2026-09-24",
+    "confidence": "Assumed"
   }
 ]
