@@ -264,6 +264,22 @@
         "narratives/slides — usar a faixa Aumentada precificada na história para o cliente.",
         "export — quando o usuário decidir empacotar."
       ]
+    },
+    {
+      "date": "2026-09-24",
+      "skills_used": [
+        "narratives"
+      ],
+      "summary": "Executive summary produzido para audiência mista Executivo+Técnico (resposta explícita do usuário: 'misto de Executivo e Tecnico'). Sem strategy.json/rfp.json neste projeto — Overview sintetizado diretamente de epics/gaps/roadmap, sem vision_statement/win-themes. Vertical pack 'public-sector' referenciado em .project-metadata.json mas o arquivo verticals/public-sector.md não existe na versão instalada da skill (1.25.6) — proof points vertical-specific não disponíveis; optou-se por NÃO usar os proof points padrão genéricos da PS (229% ROI etc.) para evitar estatística não verificada num artefato client-facing, e por registrar a lacuna aqui em vez de no documento. Estrutura seguida: At a Glance (5 bullets) + Overview + Scope (tabela dos 7 épicos com T-shirt+confidence) + Solution highlights (3 decisões arquiteturais da rodada + risco Platform Events) + Implementation approach (5 fases + caminho crítico + faixas de duração dual-track SEM preço) + Effort summary (nomeando R10 Experience Design/E01 e R09 Change & Adoption como sinais de risco de retrabalho/adoção, não headcount) + Risks (R02 Fixed-Fee-vs-Unknown como headline, R04/R05/R14/R01) + Assumptions/confidence (43% Confirmed/29% Assumed/29% Unknown, 4 épicos Unknown com seus gaps nominais G0309/G0401/G0501-08/G0703) + Next steps (nomear C01 PO, Fase 0, LGPD à mesa comercial, confirmar mecanismo Platform Events). Nenhum valor de commercials.json (R$ 3,2M-7,7M) vazou para o documento — confirmado via validate-data.py PASS (pricing/rate leak check limpo, 8 arquivos escaneados). Escrito outputs/artifacts/executive-summary.md.",
+      "open_threads": [
+        "public-sector.md vertical pack ausente do disco (só _template.md/pace.md/README.md em verticals/) — se o usuário quiser proof points setoriais reais no exec summary, alguém precisa autorar esse arquivo primeiro.",
+        "gaps.json lido apenas parcialmente nesta sessão (linhas 1-337 de 459, truncado por limite de tokens) — E07 gaps G0701+ não foram relidos linha a linha; G0703 já é conhecido via epics.json/roadmap, então não bloqueou o resumo, mas uma leitura completa não foi feita."
+      ],
+      "next_steps": [
+        "export — quando o usuário quiser empacotar os deliverables em Excel/Word.",
+        "slides — se o usuário quiser um deck a partir deste resumo.",
+        "validate — rodar o diagnóstico completo (já parcialmente coberto pelo self-gate desta rodada) antes de export, se o usuário quiser uma checagem formal."
+      ]
     }
   ],
   "preferences": {
