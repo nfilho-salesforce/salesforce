@@ -2,7 +2,10 @@
   "sessions": [
     {
       "date": "2026-09-23",
-      "skills_used": ["discover", "requirements"],
+      "skills_used": [
+        "discover",
+        "requirements"
+      ],
       "summary": "Projeto V3 criado como versão independente do BALCAO-V2 (mesmos discovery-notes/knowledge, data/outputs/decisions zerados). Oportunidade Salesforce vinculada (006ed00000gaWPPAA2, licenciamento 006ed00000ZNFjnAAH); Org62 Enrich rodado — único estimate ligado é Draft com 0h/US$0, sem baseline aproveitável. Knowledge base copiada do V2 e reindexada (71 seções, 7 arquivos). Discover concluído: extração de 4 fontes (deck Vinicius 69 slides, ata 22/09 via Gemini, inventário BPMN próprio de 23/09, deck tático Jackson V2), 4 rodadas de AskUserQuestion resolvendo produtos/escopo MVP/ETL/anonimização ServiceNow, ADR 0001 (ServiceNow anonymization) registrado, outputs/00-discovery-brief.md produzido e aprovado no Approval Gate. completion_status.discover = complete. Requirements concluído: 7 épicos definidos e aprovados (E01-E07, data/epics.json), gap analysis completa via fan-out de 7 agentes epic-analyst (2 batches paralelos) — 52 gaps salvos em data/gaps.json (G0101-G0708), CSVs regenerados. Recomendação de Fase 0 pelo volume (52 > limiar de 15). completion_status.requirements = complete.",
       "open_threads": [
         "STAAR folder not accessible: ~/Library/CloudStorage/GoogleDrive-jcarmo@salesforce.com/... — conta Google diferente da montada nesta máquina, pulado silenciosamente pelo knowledge-curator.",
@@ -39,7 +42,9 @@
     },
     {
       "date": "2026-09-24",
-      "skills_used": ["requirements"],
+      "skills_used": [
+        "requirements"
+      ],
       "summary": "A pedido do usuário, rodada de resolução de premissas sobre os 52 gaps antes de avançar para `design` — objetivo: fechar o máximo de gaps possível via premissas de arquitetura/escopo, sem forçar os que são genuinamente do cliente. Classificação de todos os 52 gaps em 6 status: resolved (35), open-with-provisional-premise (8), open-client-only (4), open-deferred-by-user (2: G0505, G0701), open-action-item (2: G0205, G0506), open-internal-validation (1: G0103) — status/resolution gravados diretamente em cada gap de data/gaps.json. 4 ADRs novos escritos (decisions/0002 retrabalho de instrumentação E-24; decisions/0003 zero-migração⇒zero-lookback; decisions/0004 fila viva sempre prioritária; decisions/0005 E06 = Tableau Next + relatório executivo formal, decisão do próprio usuário via AskUserQuestion). data/epics.json atualizado: E01 (autodeclaração de ociosidade + instrumentação E-24 + UX/change mgmt), E02 (escalonamento + first-to-claim + change mgmt), E03 (terceiro caminho de escrita RN-11 + padrão de integração + zero-lookback), E04 (prioridade de fila viva + idempotência + retry com backoff), E06 (Tableau Next + relatório executivo formal + risco sinalizado sem sponsor), E07 (Data 360 modelagem/schema + guardrail Slackbot + governança de conteúdo deliberadamente fora de escopo). Usuário respondeu 4 perguntas de fork via AskUserQuestion: produto Tableau = Tableau Next; profundidade/audiência E06 = relatório executivo formal (maior escopo, não o default recomendado); E06 sem sponsor = mantido no escopo com risco sinalizado (não cortado); disciplinas trazidas a escopo formal = UX/acessibilidade (E01) + change management (E01+E02) — LGPD-funcionário (E05/G0505) e governança de conteúdo (E07/G0701) permanecem deliberadamente fora, não descartadas.",
       "open_threads": [
         "E02↔E07 (G0206/G0703/G0706) RESOLVIDO por premissa provisória compartilhada: Slackbot e Agente do T7 como corpora distintos, Slackbot classifica a pergunta antes de decidir 'não sei' — mas L-13(J2)/L-34 seguem como pergunta formal ao cliente para confirmar o critério real de classificação.",
@@ -56,6 +61,42 @@
         "CSVs (data/csv/01-epics.csv, 01-gap-analysis.csv) a regenerar via json-to-csv.py para refletir os status/resolution novos em gaps.json e as descrições atualizadas de epics.json.",
         "Checkpoint git da rodada de resolução de premissas (gaps.json, epics.json, memory.json, decisions/0002-0005).",
         "Reportar ao usuário o breakdown consolidado resolved/aberto e confirmar avanço para `design` — usuário pediu explicitamente para não rodar design antes desta resolução."
+      ]
+    },
+    {
+      "date": "2026-09-24",
+      "skills_used": [
+        "design"
+      ],
+      "summary": "Rodada de design executada em três passos, cada épico validado individualmente antes de avançar (loop épico-a-épico pedido pelo usuário, não o gate único nativo da skill). Passo 1 (esqueleto arquitetural): E01-E07 apresentados um a um; correções auto-identificadas (E01: Presence Status + Routing Configuration nativos substituindo Flow customizado de fila vazia, stale desde a sessão anterior; E05: fronteira de escopo do provisionamento de canal Slack, G0509 novo) e reforços de grounding (E04, E07) — todos aprovados (\"confirmo\"/\"aprovado\"). doc_search central KB indisponível nesta sessão — arquitetura-fork checkpoint (E01/E04 Presence Status vs Flow; E06 Tableau Next) só com grounding de camada 1, sem confirmação de camada 2. Passo 2: outputs/01-solution.md escrito (Fundamentos Transversais + mapa por processo de negócio na ordem E05→E01→E04→E02→E07→E06→E03) e aprovado sem ajustes. Passo 3: data/estimates.json gravado — E01=L, E02=M, E03=L, E04=M, E05=L, E06=L, E07=L, via rubrica dimensional (8 dimensões, dominant-driver+breadth-bump); G0109 novo (assumption WhatsApp/gov.br) persistido em gaps.json. 3 commits git (nenhum push — sem remote de deploy compartilhado avaliado como apropriado nesta sessão).",
+      "friction": [
+        "doc_search MCP (central KB) indisponível nesta sessão — architecture-fork checkpoint ficou só em camada 1 (knowledge/), sem confirmação de camada 2 para os forks E01/E04 (Presence Status vs Flow) e E06 (Tableau Next).",
+        "Edit tool falhou por mismatch de string exata em epics.json (E05) — contornado com script Python json.load/mutate/json.dump; padrão adotado para os demais ajustes de epics.json/gaps.json nesta sessão."
+      ],
+      "decisions": [
+        {
+          "decision": "Loop de validação épico-a-épico em vez do gate único nativo da skill design",
+          "rationale": "Pedido explícito do usuário no início da sessão — recomendação apresentada e validada/ajustada épico a épico, não em bloco."
+        },
+        {
+          "decision": "Ordem do mapa de processo de negócio: E05→E01→E04→E02→E07→E06→E03",
+          "rationale": "E05 é base de elegibilidade para as jornadas; E01+E04 e E02+E07 são pares acoplados por jornada; E06 é analítico cross-jornada; E03 é horizontal (integração), fica por último por convenção do próprio architecture-template.md."
+        }
+      ],
+      "open_threads": [
+        "G0309 — 1 vs. 2 deployments legados reais (E03), afeta dimensionamento direto (L vs. XL).",
+        "G0109 — comportamento WhatsApp Business + nível de confiança gov.br (E01), load-bearing para o sizing.",
+        "Tensão contador customizado de fila-vazia (decisions/0002) vs. métrica nativa Idle/%Idle do Command Center — afeta E01 e E06 simultaneamente, ainda não resolvida em design detalhado.",
+        "G0509 — fronteira de escopo do provisionamento de canal Slack em E05, ainda sem confirmação do cliente.",
+        "G0703 — contrato Slackbot↔Agente do T7 (E07) indefinido.",
+        "Fundamentos Transversais (org strategy, OWD/sharing, DevOps/sandbox, LGPD) permanecem genuinamente não endereçados em nenhuma fonte de discovery — flagados como abertos em outputs/01-solution.md, não inventados."
+      ],
+      "next_steps": [
+        "roadmap — para faixa de duração top-down ou alocação de um total comprometido pelo cliente.",
+        "estimate — para o roster nomeado (papéis/senioridade/localização) antes de qualquer commercials.",
+        "commercials — pricing só após roadmap, com taxa validada pelo usuário.",
+        "validate — antes de export, para checagem cruzada dos dados.",
+        "Considerar risk-review dado o risco de compliance/LGPD não mitigado flagado em outputs/01-solution.md."
       ]
     }
   ],
@@ -81,14 +122,18 @@
       "area": "scope",
       "decision": "MVP = as 2 jornadas do BPMN (J1 antecipação de atendimento agendado + J2 apoio ao atendimento presencial via Slack) + novo épico Autoprovisionamento de usuários + novo escopo Tableau (observabilidade WhatsApp + ociosidade/disponibilidade em filas Omni-Channel)",
       "rationale": "Resposta explícita do usuário à AskUserQuestion Q2 — ampliou o MVP além do que qualquer fonte de discovery original continha",
-      "rejected": ["MVP restrito às 2 jornadas do BPMN sem os itens adicionais"]
+      "rejected": [
+        "MVP restrito às 2 jornadas do BPMN sem os itens adicionais"
+      ]
     },
     {
       "date": "2026-09-23",
       "area": "data",
       "decision": "Sem ETL/transformação complexa de dados nesta fase — apenas réplica direta via Platform Events",
       "rationale": "Resolve contradição Osvaldo/Larisse ('não precisa') vs. Juliane Lopes ('precisa de estruturação') levantada na reunião de 22/09; usuário resolveu a favor de 'sem ETL' via AskUserQuestion Q3",
-      "rejected": ["Uso de ferramenta de ETL (ex.: Informatica) nesta fase"]
+      "rejected": [
+        "Uso de ferramenta de ETL (ex.: Informatica) nesta fase"
+      ]
     },
     {
       "date": "2026-09-23",
@@ -102,7 +147,10 @@
       "area": "discovery-brief",
       "decision": "Discovery Brief (outputs/00-discovery-brief.md) aprovado como está no Approval Gate — segue para requirements",
       "rationale": "Usuário escolheu 'Approve and move to requirements' sem pedir ajustes; brief cobre as 6 seções do spec do discover mais Perguntas Abertas roteadas do inventário §7.1-7.3",
-      "rejected": ["Adjust summary before proceeding", "Start over"]
+      "rejected": [
+        "Adjust summary before proceeding",
+        "Start over"
+      ]
     },
     {
       "date": "2026-09-23",
@@ -116,7 +164,10 @@
       "area": "scope",
       "decision": "E04 (Serviço de Seleção de Antecipação) escopado como: cliente define as regras/lógica/sistemas envolvidos; nós construímos a API/serviço que as implementa, com apoio do cliente na especificação. Sistema de agendamento externo mantém a decisão final.",
       "rationale": "O inventário confirma via ata (F2.3) que a lógica de seleção de qual agendamento antecipar pertence ao sistema externo, não a nós — contradição direta com o pedido inicial do usuário de que E04 cobrisse 'a lógica que determina pessoa/contato/agendamento'. Sinalizado ao usuário; ele resolveu preservando a autoridade de decisão do cliente mas confirmando que a construção técnica da API é nosso escopo.",
-      "rejected": ["E04 como integração simples, sem regras de seleção (versão original antes do pedido de start-over)", "E04 substituindo a lógica de seleção do sistema externo (override que contradiria a ata)"]
+      "rejected": [
+        "E04 como integração simples, sem regras de seleção (versão original antes do pedido de start-over)",
+        "E04 substituindo a lógica de seleção do sistema externo (override que contradiria a ata)"
+      ]
     },
     {
       "date": "2026-09-23",
@@ -130,7 +181,10 @@
       "area": "requirements",
       "decision": "Rodada de resolução de premissas sobre os 52 gaps antes de `design`: 35 resolved, 8 open-with-provisional-premise, 4 open-client-only, 2 open-deferred-by-user, 2 open-action-item, 1 open-internal-validation. 4 ADRs novos (decisions/0002-0005) capturam as premissas cross-épico load-bearing; premissas single-epic (padrões de integração de E03, regras de reconciliação/idempotência de E04) ficam neste decision_log, não como ADR.",
       "rationale": "Pedido explícito do usuário: 'antes do design quero repassar os gaps na tentativa de definir premissas o melhor possível para resolver a maior qtde de gaps possível' — evita carregar os 52 gaps intactos para design quando muitos são fecháveis por premissa de arquitetura/escopo nossa, sem inventar fatos exclusivos do cliente (G0304/G0401/G0501/G0508 permanecem client-only).",
-      "rejected": ["Forçar premissa também nos 4 gaps client-only (rejeitado — violaria a regra de grounding contra inventar especificação de sistema de terceiro)", "Fechar G0505/G0701 silenciosamente por conveniência (rejeitado — usuário optou por não trazê-los a escopo formal, mas devem seguir visíveis como abertos, não removidos)"]
+      "rejected": [
+        "Forçar premissa também nos 4 gaps client-only (rejeitado — violaria a regra de grounding contra inventar especificação de sistema de terceiro)",
+        "Fechar G0505/G0701 silenciosamente por conveniência (rejeitado — usuário optou por não trazê-los a escopo formal, mas devem seguir visíveis como abertos, não removidos)"
+      ]
     },
     {
       "date": "2026-09-24",
@@ -151,14 +205,20 @@
       "area": "scope",
       "decision": "Disciplinas trazidas a escopo formal nesta rodada: UX/acessibilidade (E01, G0107) e change management (E01+E02, G0108/G0204/G0207). LGPD-funcionário (E05, G0505) e governança de conteúdo por especialidade (E07, G0701) permanecem deliberadamente fora do escopo formal, registradas como risco em gaps.json.",
       "rationale": "Resposta do usuário via AskUserQuestion (2026-09-23): das 4 disciplinas sinalizadas pelo gap analysis, apenas 2 foram escolhidas para escopo formal desta rodada.",
-      "rejected": ["Trazer LGPD-funcionário (E05) a escopo formal", "Trazer governança de conteúdo (E07) a escopo formal"]
+      "rejected": [
+        "Trazer LGPD-funcionário (E05) a escopo formal",
+        "Trazer governança de conteúdo (E07) a escopo formal"
+      ]
     },
     {
       "date": "2026-09-24",
       "area": "E06",
       "decision": "E06 mantido no escopo mesmo sem sponsor/decisão nomeado (G0607) — risco de scope-creep/corte sinalizado no roadmap/estimate, não removido nem pausado.",
       "rationale": "Resposta explícita do usuário via AskUserQuestion (2026-09-23): 'Manter no escopo, risco sinalizado' — diferente do tratamento de E05, que ao menos mapeia para uma necessidade nomeada.",
-      "rejected": ["Cortar E06 do MVP por falta de sponsor", "Pausar E06 até que um sponsor seja identificado"]
+      "rejected": [
+        "Cortar E06 do MVP por falta de sponsor",
+        "Pausar E06 até que um sponsor seja identificado"
+      ]
     }
   ]
 }
