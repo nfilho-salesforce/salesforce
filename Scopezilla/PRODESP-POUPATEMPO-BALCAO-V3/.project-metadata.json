@@ -1,0 +1,50 @@
+{
+  "project_name": "PRODESP - Poupatempo Balc\u00e3o V3",
+  "created_at": "2026-09-23",
+  "depth_mode": "epic-level",
+  "vertical": "public-sector",
+  "rfp_tier": null,
+  "engagement_type": "standard",
+  "benchmark_source": "model-training-data",
+  "products_in_scope": ["Slack", "Service Cloud", "Agentforce", "MuleSoft", "Data 360", "Tableau"],
+  "products_with_overlay": [],
+  "completion_status": {
+    "setup": "not-started",
+    "tutorial": "not-started",
+    "discover": "complete",
+    "strategy": "not-started",
+    "requirements": "complete",
+    "design": "not-started",
+    "roadmap": "not-started",
+    "efficiency": "not-started",
+    "estimate": "not-started",
+    "commercials": "not-started",
+    "validate": "not-started",
+    "narratives": "not-started",
+    "export": "not-started",
+    "backlog": "not-started",
+    "quantum-leap": "not-started",
+    "slides": "not-started",
+    "rfp": "not-started",
+    "illuminate": "not-started",
+    "cleanup": "not-started",
+    "wrapup": "not-started",
+    "help": "not-started",
+    "contribute": "not-started"
+  },
+  "timeline": {
+    "client_target": null,
+    "user_commitment": null
+  },
+  "salesforce_link": {
+    "status": "linked",
+    "opportunity_id": "006ed00000gaWPPAA2",
+    "opportunity_url": "https://org62.lightning.force.com/lightning/r/Opportunity/006ed00000gaWPPAA2/view",
+    "licensing_opportunity_id": "006ed00000ZNFjnAAH",
+    "dsr_id": null,
+    "dsr_url": null,
+    "account_name": "Prodesp - Empresa de TI do Estado de S\u00e3o Paulo_PPT",
+    "linked_at": "2026-09-23",
+    "last_nudged_at": null
+  }
+}

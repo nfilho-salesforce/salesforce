@@ -1,0 +1,164 @@
+{
+  "sessions": [
+    {
+      "date": "2026-09-23",
+      "skills_used": ["discover", "requirements"],
+      "summary": "Projeto V3 criado como versão independente do BALCAO-V2 (mesmos discovery-notes/knowledge, data/outputs/decisions zerados). Oportunidade Salesforce vinculada (006ed00000gaWPPAA2, licenciamento 006ed00000ZNFjnAAH); Org62 Enrich rodado — único estimate ligado é Draft com 0h/US$0, sem baseline aproveitável. Knowledge base copiada do V2 e reindexada (71 seções, 7 arquivos). Discover concluído: extração de 4 fontes (deck Vinicius 69 slides, ata 22/09 via Gemini, inventário BPMN próprio de 23/09, deck tático Jackson V2), 4 rodadas de AskUserQuestion resolvendo produtos/escopo MVP/ETL/anonimização ServiceNow, ADR 0001 (ServiceNow anonymization) registrado, outputs/00-discovery-brief.md produzido e aprovado no Approval Gate. completion_status.discover = complete. Requirements concluído: 7 épicos definidos e aprovados (E01-E07, data/epics.json), gap analysis completa via fan-out de 7 agentes epic-analyst (2 batches paralelos) — 52 gaps salvos em data/gaps.json (G0101-G0708), CSVs regenerados. Recomendação de Fase 0 pelo volume (52 > limiar de 15). completion_status.requirements = complete.",
+      "open_threads": [
+        "STAAR folder not accessible: ~/Library/CloudStorage/GoogleDrive-jcarmo@salesforce.com/... — conta Google diferente da montada nesta máquina, pulado silenciosamente pelo knowledge-curator.",
+        "Proveniência não explicada: discovery-notes/00-inventario-de-solucao-poupatempo.md e research-log.md apareceram em V3 mas estão ausentes do discovery-notes atual do V2 — não foram copiados por este agente nesta sessão; origem desconhecida, ainda não reportado ao usuário.",
+        "Discrepância de produto CONFIRMADA (levar ao Step 3.5 Product Overlay, perguntar ao usuário): brief da transcrição Gemini (reunião 22/09) registra como 'decisão alinhada' que Service Cloud é o motor de backend, Slack o frontend único — mas PRODESP-Slack-Balcao-BSA.md (17/09) classifica Service Cloud como 'já na conta · fora do núcleo deste caso' (irmão técnico da Sala de Situação, outro contrato). Duas fontes internas discordam sobre se Service Cloud é core scope. Resolver via AskUserQuestion antes de gravar products_in_scope.",
+        "Gap não resolvido levantado por Renata Vendramini na reunião 22/09: viabilidade dos indicadores propostos dado o esforço de desenvolvimento — risco técnico ainda em aberto.",
+        "Contradição não resolvida na reunião 22/09: necessidade de ETL/estruturação de dados — Osvaldo/Larisse dizem que não precisa 'nesta fase', Juliane Lopes discorda.",
+        "Achado do deck Vinicius (69 slides, lido visualmente): ServiceNow NÃO aparece em nenhuma página nem no diagrama de arquitetura (pág. 63) — contraria expectativa do briefing anterior; confirmar com cliente se ServiceNow está mesmo fora ou se é lacuna do deck.",
+        "Diagrama de arquitetura (pág. 63) nomeia 7 sistemas integrados via camada API/MuleSoft: Atendimento, Biometria, Gov.br, T7, Agentes de IA, API de terceiros e 'Sistema Semântico' (não mapeado antes — possível camada de busca semântica/RAG distinta do Agente T7); esclarecer no discovery.",
+        "3 seções do deck Vinicius estão vazias (placeholders de template, sem conteúdo real): Jornada 5 'Gestão de Comunicação', 'Cronograma: Entrega por Jornadas', 'Investimentos: Produtos e Serviços' — sem datas/fases/valores/produtos. São stubs a levantar com o cliente, não escopo confirmado.",
+        "Deck Vinicius usa nomenclatura de jornadas diferente do briefing anterior: J1 Atendimento Presencial c/ Slack, J2 Pré-Atendimento Digital, J3 Atendimento Digital, J4 Atendimento Agêntico, J5 Gestão de Comunicação (ordem invertida vs. suposição anterior de J1=antecipar agendado/J2=apoio presencial) — crosswalk com J1/J2 do inventário BPMN (nomenclatura invertida) ainda precisa entrar no Discovery Brief.",
+        "Proveniência de 00-inventario-de-solucao-poupatempo.md e research-log.md RESOLVIDA (raciocínio interno, não confirmado explicitamente com o usuário): datados de 23/09 (hoje), citam 'ata da reunião de 23/09' como fonte — batem com o action item da reunião de 22/09 em que Nelson bloqueou a própria agenda no dia seguinte (23/09) para desenhar a solução. Quase certamente são produto de trabalho do próprio Nelson desta sessão de design, não uma anomalia.",
+        "Discrepância Service Cloud RESOLVIDA via AskUserQuestion Q1 (23/09): usuário confirmou produtos em escopo = Slack + Service Cloud + Agentforce + MuleSoft + Data 360 (apenas suporte ao Agentforce) + Tableau. 'Omni-Channel' no inventário e 'Service Cloud' na reunião Gemini são a mesma capacidade. Gravado em .project-metadata.json.products_in_scope.",
+        "ETL/estruturação de dados RESOLVIDA via AskUserQuestion Q3 (23/09): sem ETL/transformação complexa nesta fase — contradição Osvaldo/Larisse vs. Juliane Lopes encerrada a favor de 'sem ETL'.",
+        "ServiceNow RESOLVIDO via AskUserQuestion Q4 (23/09) + ADR decisions/0001-servicenow-anonymization.md: confirmado como plataforma real de CRM/ServiceDesk legado, mas o nome do produto nunca deve aparecer em nenhum deliverable — usar apenas 'Sistema de CRM legado' / 'Sistema de ServiceDesk legado'.",
+        "Escopo MVP AMPLIADO via AskUserQuestion Q2 (23/09), além das 2 jornadas do BPMN (inventário J1 antecipação + J2 apoio presencial via Slack): (a) NOVO ÉPICO 'Autoprovisionamento de usuários' — integração com sistema de dados de funcionários (não identificado, premissa de API exposta) para criação, habilitação/inativação, perfil, permission set, licença, Service Resource, habilidade, capacidade de atendimento e vínculo a fila/papel — todo o setup base para habilitar atendente no Service Cloud/Omni-Channel; (b) NOVO ESCOPO Tableau — observabilidade do canal WhatsApp + ociosidade/disponibilidade dos atendentes nas filas do Omni-Channel. Nenhum dos dois existia nas 4 fontes de discovery originais — são scope novo, ainda não capturados em epics/gaps.",
+        "Rotear ao invés de perguntar ao usuário: as perguntas client-only do inventário §7.1 (L-35 lógica de decisão de biometria, L-33 nível de auth gov.br, L-13(J2) relação T7 vs Slackbot, L-03, L-02, L-32, L-14, L-31, L-27) e §7.2/§7.3 (prazos faltantes, LGPD/opt-out L-12, etc.) NÃO devem ser perguntadas a Nelson como se ele fosse o cliente — vão direto para a seção de perguntas abertas ao cliente no Discovery Brief.",
+        "Discovery Brief produzido e aprovado por Nelson via Approval Gate (23/09) — outputs/00-discovery-brief.md. Reabre 20 perguntas ao cliente (§7.1/7.2/7.3 do inventário, roteadas — nunca perguntadas a Nelson), 3 jornadas do deck do cliente não especificadas nesta rodada, e os stubs (Plataforma Salesforce genérica, Serviço de biometria, Agente do T7, subprocessos 14/9 colapsados) — todos ainda abertos para o próximo skill (requirements).",
+        "Nota para requirements: checar com o usuário se o MVP de V3 (recorte estreito: 2 jornadas BPMN + autoprovisionamento + Tableau) deve permanecer assim ou absorver o faseamento mais amplo já decidido em V2 (ADR 0002-both-cuts-in-scope-phased) — mencionado no Discovery Brief como achado de mercado, não decidido nesta sessão.",
+        "Dependência cruzada E02↔E07 (G0206/G0703/G0706): o gatilho de escalonamento de E02 e o contrato Slackbot↔Agente do T7 de E07 não podem ser fechados independentemente — mesma pergunta aberta (L-13/J2, L-34) reaparece nos dois épicos sob ângulos distintos (fluxo de escalonamento vs. classificação de pergunta/roteamento). Resolver como uma decisão única, não duas.",
+        "Fio de instrumentação cruzando E01/E04/E06 (G0104, G0102, G0605, G0606): a métrica crítica de R-07 (frequência de fila vazia) e R-08 (taxa de conclusão de auth gov.br) exigem retrabalho do fluxo E-24 (separar as 4 causas de falha colapsadas) como pré-requisito — nenhum épico atual cobre esse retrabalho, e sem ele E06 não consegue produzir a métrica que valida o business case da Jornada 1.",
+        "Contradição E03↔E07 (G0704): E07 assume que Agentforce resume histórico de atendimento (RN-05) mas E03 confirma 'carga histórica inicia do zero, sem migração' — no go-live não há histórico prévio para resumir; falta decisão explícita de comportamento em regime de transição, a comunicar como limitação temporária do MVP.",
+        "Ambiguidade de produto em E06 (G0601): 'Tableau' citado sem especificar classic Tableau vs. CRM Analytics vs. Tableau Next (só este último tem doc na knowledge base) — são SKUs/arquiteturas de licenciamento distintas; bloqueia sizing até decisão do account owner.",
+        "E05 (Autoprovisionamento) tem lacuna de identidade do sistema fonte (G0501/G0508): sistema de RH da PRODESP não identificado, premissa de API exposta não confirmada — maior bloqueador de E05, distinto e não coberto pela LGPD já mapeada para dados do cidadão (G0505 abre um ângulo LGPD próprio para dados de identidade de funcionário).",
+        "E06 sem precedente/sponsor (G0607): adicionado em sessão (Q2) sem decisão ou stakeholder nomeado, diferente de E05 que ao menos mapeia para uma necessidade nomeada — risco de scope creep aberto se não for ancorado antes do estimate.",
+        "Gap analysis (Step 4 requirements) concluída com 52 gaps — ver data/gaps.json e data/csv/01-gap-analysis.csv. Breakdown: Missing Requirement 17, Logical Gap 10, Ambiguity 9, Potential Risk 6, Capability Gap 5, Source Conflict 3, Assumption 2. Discipline gaps (UX/governança) sinalizados: G0107 (UX/acessibilidade E01), G0108 (change management E01), G0207 (change management E02), G0505 (LGPD/governança dados de funcionário E05), G0701 (governança de conteúdo E07)."
+      ],
+      "next_steps": [
+        "Rodar `design` para desenhar a solução técnica sobre os 7 épicos e 52 gaps, ou `backlog` se um time de delivery for assumir a partir daqui.",
+        "Recomendar Fase 0 ao usuário dado o volume de gaps (52 > limiar de 15) — sugerir levar a lista de gaps ao cliente como perguntas de esclarecimento antes de precificar.",
+        "Resolver ambiguidade de produto Tableau/CRM Analytics/Tableau Next (G0601) com o account owner antes de qualquer sizing de E06.",
+        "Confirmar sponsor/decisão que ancora E06 (G0607) e identificar o sistema de RH fonte para E05 (G0501) — ambos bloqueadores de sizing."
+      ]
+    },
+    {
+      "date": "2026-09-24",
+      "skills_used": ["requirements"],
+      "summary": "A pedido do usuário, rodada de resolução de premissas sobre os 52 gaps antes de avançar para `design` — objetivo: fechar o máximo de gaps possível via premissas de arquitetura/escopo, sem forçar os que são genuinamente do cliente. Classificação de todos os 52 gaps em 6 status: resolved (35), open-with-provisional-premise (8), open-client-only (4), open-deferred-by-user (2: G0505, G0701), open-action-item (2: G0205, G0506), open-internal-validation (1: G0103) — status/resolution gravados diretamente em cada gap de data/gaps.json. 4 ADRs novos escritos (decisions/0002 retrabalho de instrumentação E-24; decisions/0003 zero-migração⇒zero-lookback; decisions/0004 fila viva sempre prioritária; decisions/0005 E06 = Tableau Next + relatório executivo formal, decisão do próprio usuário via AskUserQuestion). data/epics.json atualizado: E01 (autodeclaração de ociosidade + instrumentação E-24 + UX/change mgmt), E02 (escalonamento + first-to-claim + change mgmt), E03 (terceiro caminho de escrita RN-11 + padrão de integração + zero-lookback), E04 (prioridade de fila viva + idempotência + retry com backoff), E06 (Tableau Next + relatório executivo formal + risco sinalizado sem sponsor), E07 (Data 360 modelagem/schema + guardrail Slackbot + governança de conteúdo deliberadamente fora de escopo). Usuário respondeu 4 perguntas de fork via AskUserQuestion: produto Tableau = Tableau Next; profundidade/audiência E06 = relatório executivo formal (maior escopo, não o default recomendado); E06 sem sponsor = mantido no escopo com risco sinalizado (não cortado); disciplinas trazidas a escopo formal = UX/acessibilidade (E01) + change management (E01+E02) — LGPD-funcionário (E05/G0505) e governança de conteúdo (E07/G0701) permanecem deliberadamente fora, não descartadas.",
+      "open_threads": [
+        "E02↔E07 (G0206/G0703/G0706) RESOLVIDO por premissa provisória compartilhada: Slackbot e Agente do T7 como corpora distintos, Slackbot classifica a pergunta antes de decidir 'não sei' — mas L-13(J2)/L-34 seguem como pergunta formal ao cliente para confirmar o critério real de classificação.",
+        "E01↔E04↔E06 instrumentação de causa/frequência (G0102/G0104/G0605/G0606) RESOLVIDO via decisions/0002 (retrabalho de E-24) — sem validação do cliente ainda; é premissa nossa a confirmar em design.",
+        "E03↔E07 zero-migração/histórico (G0303/G0704) RESOLVIDO via decisions/0003 (zero-lookback) — comportamento 'sem histórico' nos primeiros meses precisa ser comunicado ao cliente como limitação do MVP, não corrigido.",
+        "Ambiguidade de produto Tableau (G0601) RESOLVIDA pelo usuário: Tableau Next, com escopo ampliado para relatório executivo formal (ver decisions/0005) — maior que a recomendação original.",
+        "E06 sem sponsor/decisão nomeado (G0607) NÃO removido — usuário decidiu manter no escopo com risco sinalizado no roadmap/estimate, a monitorar, não a resolver agora.",
+        "G0505 (LGPD/governança dados de funcionário, E05) permanece ABERTO deliberadamente — usuário optou por não formalizar como atividade de escopo nesta rodada; risco jurídico/DPO registrado, não mitigado.",
+        "G0701 (governança de conteúdo da base de conhecimento por especialidade, E07) permanece ABERTO deliberadamente — mesmo motivo; risco de degradação silenciosa pós-go-live registrado, não mitigado.",
+        "Gaps genuinamente client-only permanecem abertos e sem premissa forçada: G0304 (mapeamento campo a campo do legado), G0401 (critérios de elegibilidade/priorização de E04), G0501 (sistema de RH fonte de E05), G0508 (premissa de API exposta do RH — strawman, não confirmação).",
+        "Gaps de ação interna (não são decisão de premissa): G0205 (buscar doc de produto Slack for Service Cloud), G0506 (validar automação de provisionamento contra doc de admin/API do Salesforce). G0103 é validação técnica a fazer em design (comportamento de fila do Omni-Channel sem gesto de aceite)."
+      ],
+      "next_steps": [
+        "CSVs (data/csv/01-epics.csv, 01-gap-analysis.csv) a regenerar via json-to-csv.py para refletir os status/resolution novos em gaps.json e as descrições atualizadas de epics.json.",
+        "Checkpoint git da rodada de resolução de premissas (gaps.json, epics.json, memory.json, decisions/0002-0005).",
+        "Reportar ao usuário o breakdown consolidado resolved/aberto e confirmar avanço para `design` — usuário pediu explicitamente para não rodar design antes desta resolução."
+      ]
+    }
+  ],
+  "preferences": {
+    "terminology": {
+      "atendente de mesa": "atendente presencial nos postos Poupatempo, usuário primário do Slack",
+      "ociosidade": "capacidade não utilizada de um atendente ou posto, usada para balanceamento de carga entre unidades e pré-atendimento digital",
+      "transbordo": "encaminhamento de um atendimento presencial para canal remoto/virtual quando o serviço permite",
+      "recorte MVP": "escopo mínimo viável desta rodada — 2 jornadas BPMN + autoprovisionamento + Tableau, mais estreito que o recorte faseado da iniciativa-irmã V2",
+      "premissa de arquitetura": "decisão de solução tomada por nós (Nelson) em 23/09, não validada com o cliente — ver banner de proveniência do inventário"
+    }
+  },
+  "decision_log": [
+    {
+      "date": "2026-09-23",
+      "area": "products",
+      "decision": "Produtos em escopo: Slack, Service Cloud, Agentforce, MuleSoft, Data 360 (apenas suporte ao Agentforce), Tableau",
+      "rationale": "Reconciliação de discrepância entre BSA doc (Service Cloud 'fora do núcleo') e reunião Gemini (Service Cloud = motor) — usuário confirmou via AskUserQuestion Q1; Data 360 tem uso restrito explicitamente declarado",
+      "rejected": []
+    },
+    {
+      "date": "2026-09-23",
+      "area": "scope",
+      "decision": "MVP = as 2 jornadas do BPMN (J1 antecipação de atendimento agendado + J2 apoio ao atendimento presencial via Slack) + novo épico Autoprovisionamento de usuários + novo escopo Tableau (observabilidade WhatsApp + ociosidade/disponibilidade em filas Omni-Channel)",
+      "rationale": "Resposta explícita do usuário à AskUserQuestion Q2 — ampliou o MVP além do que qualquer fonte de discovery original continha",
+      "rejected": ["MVP restrito às 2 jornadas do BPMN sem os itens adicionais"]
+    },
+    {
+      "date": "2026-09-23",
+      "area": "data",
+      "decision": "Sem ETL/transformação complexa de dados nesta fase — apenas réplica direta via Platform Events",
+      "rationale": "Resolve contradição Osvaldo/Larisse ('não precisa') vs. Juliane Lopes ('precisa de estruturação') levantada na reunião de 22/09; usuário resolveu a favor de 'sem ETL' via AskUserQuestion Q3",
+      "rejected": ["Uso de ferramenta de ETL (ex.: Informatica) nesta fase"]
+    },
+    {
+      "date": "2026-09-23",
+      "area": "documentation",
+      "decision": "ServiceNow confirmado como plataforma real, mas anonimizado em todo deliverable como 'Sistema de CRM legado' / 'Sistema de ServiceDesk legado' — ver decisions/0001-servicenow-anonymization.md",
+      "rationale": "Instrução explícita do cliente/usuário via AskUserQuestion Q4",
+      "rejected": []
+    },
+    {
+      "date": "2026-09-23",
+      "area": "discovery-brief",
+      "decision": "Discovery Brief (outputs/00-discovery-brief.md) aprovado como está no Approval Gate — segue para requirements",
+      "rationale": "Usuário escolheu 'Approve and move to requirements' sem pedir ajustes; brief cobre as 6 seções do spec do discover mais Perguntas Abertas roteadas do inventário §7.1-7.3",
+      "rejected": ["Adjust summary before proceeding", "Start over"]
+    },
+    {
+      "date": "2026-09-23",
+      "area": "scope",
+      "decision": "Estrutura de 7 épicos aprovada (E01 Antecipação J1, E02 Apoio presencial J2, E03 Integração CRM/ServiceDesk legado, E04 Serviço de Seleção de Antecipação, E05 Autoprovisionamento de Atendentes, E06 Observabilidade Tableau, E07 Base de Conhecimento e IA no Slackbot)",
+      "rationale": "Fronteiras mapeadas 1:1 das duas jornadas BPMN + 2 itens novos (Q2) + 3 workstreams de integração/conhecimento que a análise de discovery separou por responsabilidade (CRM legado / seleção de antecipação / provisionamento / IA). Usuário pediu 'Start over' na primeira apresentação sem objeção estrutural — motivo real era só o escopo do E04 (ver decisão seguinte); aprovou a estrutura completa na segunda rodada.",
+      "rejected": []
+    },
+    {
+      "date": "2026-09-23",
+      "area": "scope",
+      "decision": "E04 (Serviço de Seleção de Antecipação) escopado como: cliente define as regras/lógica/sistemas envolvidos; nós construímos a API/serviço que as implementa, com apoio do cliente na especificação. Sistema de agendamento externo mantém a decisão final.",
+      "rationale": "O inventário confirma via ata (F2.3) que a lógica de seleção de qual agendamento antecipar pertence ao sistema externo, não a nós — contradição direta com o pedido inicial do usuário de que E04 cobrisse 'a lógica que determina pessoa/contato/agendamento'. Sinalizado ao usuário; ele resolveu preservando a autoridade de decisão do cliente mas confirmando que a construção técnica da API é nosso escopo.",
+      "rejected": ["E04 como integração simples, sem regras de seleção (versão original antes do pedido de start-over)", "E04 substituindo a lógica de seleção do sistema externo (override que contradiria a ata)"]
+    },
+    {
+      "date": "2026-09-23",
+      "area": "requirements",
+      "decision": "Gap analysis dos 7 épicos concluída com 52 gaps; recomendação de Fase 0 (levar gaps ao cliente como perguntas de esclarecimento antes de estimar) dado o volume (52 > limiar de 15 do processo padrão)",
+      "rationale": "Fan-out de 7 agentes epic-analyst (gaps mode) identificou múltiplas dependências cruzadas entre épicos (E02↔E07, E01↔E04↔E06) e bloqueadores de sizing (Tableau ambíguo em E06, sistema de RH não identificado em E05) que tornam estimativa direta prematura",
+      "rejected": []
+    },
+    {
+      "date": "2026-09-24",
+      "area": "requirements",
+      "decision": "Rodada de resolução de premissas sobre os 52 gaps antes de `design`: 35 resolved, 8 open-with-provisional-premise, 4 open-client-only, 2 open-deferred-by-user, 2 open-action-item, 1 open-internal-validation. 4 ADRs novos (decisions/0002-0005) capturam as premissas cross-épico load-bearing; premissas single-epic (padrões de integração de E03, regras de reconciliação/idempotência de E04) ficam neste decision_log, não como ADR.",
+      "rationale": "Pedido explícito do usuário: 'antes do design quero repassar os gaps na tentativa de definir premissas o melhor possível para resolver a maior qtde de gaps possível' — evita carregar os 52 gaps intactos para design quando muitos são fecháveis por premissa de arquitetura/escopo nossa, sem inventar fatos exclusivos do cliente (G0304/G0401/G0501/G0508 permanecem client-only).",
+      "rejected": ["Forçar premissa também nos 4 gaps client-only (rejeitado — violaria a regra de grounding contra inventar especificação de sistema de terceiro)", "Fechar G0505/G0701 silenciosamente por conveniência (rejeitado — usuário optou por não trazê-los a escopo formal, mas devem seguir visíveis como abertos, não removidos)"]
+    },
+    {
+      "date": "2026-09-24",
+      "area": "E03",
+      "decision": "Padrões de integração de E03 definidos: chamada síncrona para busca de protocolo + escrita assíncrona no fechamento, orquestração via MuleSoft; modo degradado por retry com backoff + fila de erro; autenticação via Named Credential/OAuth 2.0 client credentials; terceiro caminho de escrita para falha de entrega do WhatsApp (RN-11).",
+      "rationale": "G0301/G0302/G0305/G0307/G0308 eram lacunas de padrão técnico dentro de um único épico (E03), não uma premissa cross-épico — não qualifica para ADR pelo teste do persona (single-epic/point-in-time).",
+      "rejected": []
+    },
+    {
+      "date": "2026-09-24",
+      "area": "E04",
+      "decision": "Regras de reconciliação/idempotência de E04 definidas: sistema externo de agendamento é fonte de verdade em caso de conflito (F2.3); retry com backoff substitui tentativa única, sem descarte silencioso; idempotência via ID de agendamento + timestamp (RN-07).",
+      "rationale": "G0402/G0403/G0404 são regras técnicas internas a E04, distintas da premissa cross-épico de prioridade de fila viva (essa foi para decisions/0004) — não qualificam para ADR isoladamente.",
+      "rejected": []
+    },
+    {
+      "date": "2026-09-24",
+      "area": "scope",
+      "decision": "Disciplinas trazidas a escopo formal nesta rodada: UX/acessibilidade (E01, G0107) e change management (E01+E02, G0108/G0204/G0207). LGPD-funcionário (E05, G0505) e governança de conteúdo por especialidade (E07, G0701) permanecem deliberadamente fora do escopo formal, registradas como risco em gaps.json.",
+      "rationale": "Resposta do usuário via AskUserQuestion (2026-09-23): das 4 disciplinas sinalizadas pelo gap analysis, apenas 2 foram escolhidas para escopo formal desta rodada.",
+      "rejected": ["Trazer LGPD-funcionário (E05) a escopo formal", "Trazer governança de conteúdo (E07) a escopo formal"]
+    },
+    {
+      "date": "2026-09-24",
+      "area": "E06",
+      "decision": "E06 mantido no escopo mesmo sem sponsor/decisão nomeado (G0607) — risco de scope-creep/corte sinalizado no roadmap/estimate, não removido nem pausado.",
+      "rationale": "Resposta explícita do usuário via AskUserQuestion (2026-09-23): 'Manter no escopo, risco sinalizado' — diferente do tratamento de E05, que ao menos mapeia para uma necessidade nomeada.",
+      "rejected": ["Cortar E06 do MVP por falta de sponsor", "Pausar E06 até que um sponsor seja identificado"]
+    }
+  ]
+}
