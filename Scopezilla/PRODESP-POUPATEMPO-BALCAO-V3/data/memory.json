@@ -434,6 +434,34 @@
         "Considerar grill-me-on-scope na slice tocada (E07 redimensionado) antes do próximo export",
         "Decidir se o mix de tamanhos revisado justifica refazer roadmap/efficiency"
       ]
+    },
+    {
+      "date": "2026-09-24",
+      "skills_used": [
+        "grill-me-on-scope (slice E07/G0703)"
+      ],
+      "summary": "Grill escopado à slice tocada pela revisão de escopo do mesmo dia (T7 como fonte única de resposta a dúvida). Reground pós-compactação no discovery-notes revelou um erro de proveniência: RN-22 ('Slackbot como porta única') tinha sido citada como premissa da Ata do cliente em decisions/0006/roadmap.json/gaps.json, quando na verdade é F2.8 — posicionamento nosso, nunca validado, com o próprio L-13(J2) do inventário já dizendo isso. Corrigido nos 5 arquivos (decisions/0006, roadmap.json, gaps.json G0703/G0706, epics.json, estimates.json). Sizing de E07 (M, com sensibilidade L-if-assumption-breaks) confirmado como correto pelo usuário — sem resize.",
+      "friction": [
+        "Erro de grounding próprio identificado e corrigido dentro da mesma sessão — a ADR original citou RN-22 como 'Ata do cliente' sem reconferir a legenda de proveniência do inventário (F2.2/F2.3 = cliente; F2.4+ = nosso, não validado)."
+      ],
+      "decisions": [
+        {
+          "decision": "RN-22 reclassificada de 'Ata do cliente/confirmado' para 'posicionamento nosso, F2.8, não validado'",
+          "rationale": "Correção de grounding — a fonte primária contradiz a citação anterior."
+        },
+        {
+          "decision": "E07 mantém tamanho M, sem resize",
+          "rationale": "A sensibilidade L-if-assumption-breaks já cobre o risco de indisponibilidade (G0703b); o novo item G0703(c) é risco de desenho, não de tamanho — usuário confirmou essa leitura."
+        }
+      ],
+      "open_threads": [
+        "G0703 agora com 3 frentes formais para o cliente: (a) síncrono/assíncrono, (b) tratamento de indisponibilidade do T7, (c) Slackbot como porta única vs. canal direto atendente↔T7 (L-34) — nenhuma delas fechada, todas bloqueiam a especificação técnica de build.",
+        "G0703(c), se o cliente responder 'canal direto', reabre o desenho de E07 (não só o tamanho) — o passo 16 do BPMN mudaria."
+      ],
+      "next_steps": [
+        "Considerar formalizar G0703(a/b/c) como perguntas de cliente via requirements",
+        "export quando o pacote de entrega precisar ser atualizado com o E07 revisado"
+      ]
     }
   ],
   "preferences": {
@@ -718,6 +746,15 @@
       "rationale": "Instrução direta do usuário: 'o slackbot vai integrar com o T7 que já é essa inteligencia criada pela PRODESP/POUPATEMPO que já tem esse conhecimento de oferecer as resposta/opcoes de resolucao de duvidas ou acionamento de especialistas' — resolve definitivamente a favor de RN-22/Ata do cliente (linha 121) a ambiguidade que G0706 já havia identificado contra a proposta Assumed da linha 89 do inventário (Agentforce respondendo dúvida).",
       "rejected": [
         "Premissa provisória anterior (fechamento de gaps 23/09): dois corpora distintos (base por especialidade Salesforce + FAQ do T7) com classificação de intenção pelo Slackbot — descartada."
+      ]
+    },
+    {
+      "date": "2026-09-24",
+      "area": "grounding",
+      "decision": "Corrigida a proveniência de RN-22 (\"Slackbot é a porta única das dúvidas do atendente ao T7\") em decisions/0006, roadmap.json e gaps.json: RN-22 não é premissa da Ata do cliente — é posicionamento nosso (F2.8, inventário seção 5.2 'decisão nossa'), nunca validado com o cliente, como o próprio L-13(J2) do inventário já registrava (\"nosso posicionamento é RN-22, mas é posicionamento, não resposta\"). A direção principal de decisions/0006 (T7 responde dúvida, não uma KB Salesforce) permanece Confirmed, com base na instrução direta do usuário — só a mecânica 'porta única' foi reclassificada.",
+      "rationale": "Grill de 2026-09-24 sobre a slice E07/G0703, com reground obrigatório pós-compactação: releitura do discovery-notes/00-inventario-de-solucao-poupatempo.md mostrou que a ADR anterior e sua propagação citavam RN-22 como 'Ata do cliente (F2.3)' quando na verdade é F2.8 (decisão nossa, nunca validada) — um erro de grounding meu na sessão de revise anterior. O usuário confirmou em grill que a mecânica de porta única segue como posicionamento nosso, não confirmação do cliente.",
+      "rejected": [
+        "Manter a citação anterior 'RN-22 confirmado, não mais posicionamento' — descartada por contradizer a própria fonte (L-13/J2) e a legenda do inventário (linha 9-11)."
       ]
     }
   ]
