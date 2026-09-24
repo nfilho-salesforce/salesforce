@@ -177,6 +177,32 @@
         "Na próxima passagem por risk-review, revisitar R13 e considerar se a faixa de duração top-down precisa de re-derivação.",
         "Se o usuário quiser prosseguir a propagação, os próximos pontos naturais são estimate (roster/horas) e depois commercials — não iniciados nesta rodada por instrução explícita do usuário."
       ]
+    },
+    {
+      "date": "2026-09-24",
+      "skills_used": [
+        "validate"
+      ],
+      "summary": "Rodado validate-data.py + confidence-report.py após o commit b42e69c (propagação E01/E03/E05 + roadmap Fases 1/2). Resultado: FAIL — mas o único FAIL é o débito de schema já conhecido e aceito em risks.json (14 linhas com rbs_category/status/owner fora do enum canônico), não uma regressão desta rodada. Todos os cross-reference checks (epics↔estimates, epics↔roadmap, depends_on, risk epic_ids/gap_ids, ausência de rate fields em estimates/roadmap/risks), o knowledge-grounding check e o pricing/rate-leak check em outputs/ passaram. Confidence report: 43% Confirmed / 29% Assumed / 29% Unknown no geral; em estimates.json especificamente só 14% Confirmed e 57% Unknown (E03/E04/E05/E07, já rastreado — não é novo). 57 gaps, Fase 0 recomendada (limiar >15, inalterado desde antes desta sessão).",
+      "open_threads": [
+        "risks.json — schema não-canônico nas 14 linhas (rbs_category/status/owner) segue sem correção; requer decisão do usuário sobre migrar para os enums canônicos ou aceitar como formato definitivo deste projeto."
+      ],
+      "next_steps": [
+        "Se o usuário quiser destravar o FAIL, propor o mapeamento de rbs_category/status/owner para os valores canônicos do schema e pedir aprovação antes de gravar risks.json.",
+        "Caso contrário, seguir com os próximos passos já registrados na sessão anterior (R13, faixa de duração, estimate/commercials quando o usuário decidir avançar)."
+      ]
+    },
+    {
+      "date": "2026-09-24",
+      "skills_used": [
+        "validate"
+      ],
+      "summary": "Normalizado o débito de schema de risks.json flagado na passagem de validate anterior. Mapeamento apresentado ao usuário em tabela (14 linhas × rbs_category/owner/status) e aprovado como está ('Gravar como está'): rbs_category perde o prefixo de letra (ex.: 'F - Customer & Governance' → 'Customer & Governance'); owner colapsa para customer/shared/us (ex.: 'PS deal team + customer sponsor' → 'shared', 'customer (TI)' → 'customer'); status colapsa para accepted/mitigated/open (R06/R08/R14 'open-*' → 'open'; R10/R11 'open-deferred-by-user' → 'accepted', lido como risco deliberadamente aceito pelo usuário, não pendência de ação; R12 'resolved' → 'mitigated', guardrail de design já aplicado). Nenhum texto de rationale/mitigation alterado — o detalhe qualitativo perdido no enum já estava redundantemente narrado nesses campos. Re-executado validate-data.py: RESULT PASS — all checks clean (era o único FAIL restante).",
+      "open_threads": [],
+      "next_steps": [
+        "Checkpoint git desta normalização (data/risks.json, data/memory.json) — sem push, per preferência do usuário nesta sessão.",
+        "Retomar os threads já registrados: R13 (fronteira antiga do G0509), faixa de duração top-down (18-34 semanas) dado o bump de E05, e estimate/commercials quando o usuário decidir avançar a propagação."
+      ]
     }
   ],
   "preferences": {

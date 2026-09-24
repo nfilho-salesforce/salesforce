@@ -1,7 +1,7 @@
 [
   {
     "risk_id": "R01",
-    "rbs_category": "F - Customer & Governance",
+    "rbs_category": "Customer & Governance",
     "rbs_type": "Regulatory/compliance exposure (LGPD, gov.br, biometria)",
     "recommended_level": "Medium",
     "level": "Medium",
@@ -12,15 +12,19 @@
     "mitigation": "Obter confirmação por escrito de jurídico/DPO da PRODESP de que o fluxo WhatsApp+gov.br+biometria de E01 foi revisado sob o framework LGPD existente, antes do build da Fase 2.",
     "residual_level": "Medium",
     "status": "open",
-    "owner": "customer (jurídico/DPO PRODESP)",
-    "epic_ids": ["E01"],
-    "gap_ids": ["G0110"],
+    "owner": "customer",
+    "epic_ids": [
+      "E01"
+    ],
+    "gap_ids": [
+      "G0110"
+    ],
     "source": "outputs/02-delivery-plan.md risco consolidado; outputs/01-solution.md; grill risk-review 2026-09-24",
     "confidence": "Assumed"
   },
   {
     "risk_id": "R02",
-    "rbs_category": "E - Financials & Contract",
+    "rbs_category": "Financials & Contract",
     "rbs_type": "Pricing-model exposure vs. unresolved scope",
     "recommended_level": "High",
     "level": "High",
@@ -31,15 +35,23 @@
     "mitigation": "Nenhuma mitigação de escopo disponível — é exposição estrutural do modelo de precificação. Alavancas possíveis: apertar a faixa via os 3 range-drivers antes de assinar; ou negociar T&M/híbrido para a Fase 0 e travar Fixed Fee só a partir da Fase 1, quando o caminho crítico estiver Confirmed.",
     "residual_level": "High",
     "status": "open",
-    "owner": "PS deal team",
-    "epic_ids": ["E01", "E02", "E03", "E04", "E05", "E06", "E07"],
+    "owner": "us",
+    "epic_ids": [
+      "E01",
+      "E02",
+      "E03",
+      "E04",
+      "E05",
+      "E06",
+      "E07"
+    ],
     "gap_ids": [],
     "source": "grill risk-review 2026-09-24; .project-metadata.json timeline.derived",
     "confidence": "Confirmed"
   },
   {
     "risk_id": "R03",
-    "rbs_category": "F - Customer & Governance",
+    "rbs_category": "Customer & Governance",
     "rbs_type": "Governance / decision-velocity track record",
     "recommended_level": "High",
     "level": "High",
@@ -50,7 +62,7 @@
     "mitigation": "Recomendo um check-in de cadência de governança com o sponsor da PRODESP na Fase 0, antes de comprometer o cronograma Fixed Fee.",
     "residual_level": "High",
     "status": "open",
-    "owner": "PS deal team + customer sponsor",
+    "owner": "shared",
     "epic_ids": [],
     "gap_ids": [],
     "source": "grill risk-review 2026-09-24",
@@ -58,7 +70,7 @@
   },
   {
     "risk_id": "R04",
-    "rbs_category": "C - Scope",
+    "rbs_category": "Scope",
     "rbs_type": "Client-only unresolved gap on critical path",
     "recommended_level": "High",
     "level": "High",
@@ -69,15 +81,22 @@
     "mitigation": "Fase 0 como gate de resolução; recomendo formalizar como critério de saída da Fase 0, não apenas expectativa.",
     "residual_level": "Medium",
     "status": "open",
-    "owner": "customer (TI/RH PRODESP)",
-    "epic_ids": ["E05", "E01", "E06"],
-    "gap_ids": ["G0501", "G0508"],
+    "owner": "customer",
+    "epic_ids": [
+      "E05",
+      "E01",
+      "E06"
+    ],
+    "gap_ids": [
+      "G0501",
+      "G0508"
+    ],
     "source": "data/gaps.json G0501/G0508; outputs/02-delivery-plan.md range_drivers",
     "confidence": "Unknown"
   },
   {
     "risk_id": "R05",
-    "rbs_category": "C - Scope",
+    "rbs_category": "Scope",
     "rbs_type": "Client-only unresolved gap, functionally coupled epic",
     "recommended_level": "High",
     "level": "High",
@@ -89,14 +108,19 @@
     "residual_level": "Medium",
     "status": "open",
     "owner": "customer",
-    "epic_ids": ["E04", "E01"],
-    "gap_ids": ["G0401"],
+    "epic_ids": [
+      "E04",
+      "E01"
+    ],
+    "gap_ids": [
+      "G0401"
+    ],
     "source": "data/gaps.json G0401; outputs/02-delivery-plan.md range_drivers",
     "confidence": "Unknown"
   },
   {
     "risk_id": "R06",
-    "rbs_category": "A - Technology & Product",
+    "rbs_category": "Technology & Product",
     "rbs_type": "Third-party integration contract unconfirmed",
     "recommended_level": "Medium",
     "level": "Medium",
@@ -106,16 +130,21 @@
     "rationale": "Risco técnico já mitigado por design (premissa provisória coerente com G0702/G0706), mas depende de confirmação externa (T7) fora do nosso controle.",
     "mitigation": "L-34 permanece como pergunta formal ao cliente para confirmar contra a integração real do T7.",
     "residual_level": "Medium",
-    "status": "open-with-provisional-premise",
-    "owner": "customer (dono do T7) + PS",
-    "epic_ids": ["E07"],
-    "gap_ids": ["G0703", "G0706"],
+    "status": "open",
+    "owner": "shared",
+    "epic_ids": [
+      "E07"
+    ],
+    "gap_ids": [
+      "G0703",
+      "G0706"
+    ],
     "source": "data/gaps.json G0703/G0706",
     "confidence": "Assumed"
   },
   {
     "risk_id": "R07",
-    "rbs_category": "C - Scope",
+    "rbs_category": "Scope",
     "rbs_type": "Undecided integration architecture (legacy system topology)",
     "recommended_level": "Medium",
     "level": "Medium",
@@ -126,15 +155,19 @@
     "mitigation": "Confirmar com TI do cliente se os dois sistemas legados são deployments realmente separados ou um único produto com dois alvos lógicos, na Fase 0/1.",
     "residual_level": "Medium",
     "status": "open",
-    "owner": "customer (TI)",
-    "epic_ids": ["E03"],
-    "gap_ids": ["G0309"],
+    "owner": "customer",
+    "epic_ids": [
+      "E03"
+    ],
+    "gap_ids": [
+      "G0309"
+    ],
     "source": "data/gaps.json G0309",
     "confidence": "Unknown"
   },
   {
     "risk_id": "R08",
-    "rbs_category": "C - Scope",
+    "rbs_category": "Scope",
     "rbs_type": "Third-party schema/field mapping cannot be assumed",
     "recommended_level": "Medium",
     "level": "Medium",
@@ -144,16 +177,20 @@
     "rationale": "Genuína lacuna de terceiro, não pode ser assumida — mas delimitada ao nível de detalhe de integração.",
     "mitigation": "Levantar com TI do cliente durante o build da Fase 1.",
     "residual_level": "Medium",
-    "status": "open-client-only",
-    "owner": "customer (TI)",
-    "epic_ids": ["E03"],
-    "gap_ids": ["G0304"],
+    "status": "open",
+    "owner": "customer",
+    "epic_ids": [
+      "E03"
+    ],
+    "gap_ids": [
+      "G0304"
+    ],
     "source": "data/gaps.json G0304",
     "confidence": "Unknown"
   },
   {
     "risk_id": "R09",
-    "rbs_category": "F - Customer & Governance",
+    "rbs_category": "Customer & Governance",
     "rbs_type": "No named executive sponsor for an in-scope epic",
     "recommended_level": "Medium",
     "level": "Medium",
@@ -165,14 +202,18 @@
     "residual_level": "Medium",
     "status": "open",
     "owner": "customer",
-    "epic_ids": ["E06"],
-    "gap_ids": ["G0607"],
+    "epic_ids": [
+      "E06"
+    ],
+    "gap_ids": [
+      "G0607"
+    ],
     "source": "data/memory.json decision_log 2026-09-24 (área E06)",
     "confidence": "Confirmed"
   },
   {
     "risk_id": "R10",
-    "rbs_category": "F - Customer & Governance",
+    "rbs_category": "Customer & Governance",
     "rbs_type": "Deliberately deferred data-governance obligation",
     "recommended_level": "Medium",
     "level": "Medium",
@@ -182,16 +223,20 @@
     "rationale": "Usuário decidiu deliberadamente (2026-09-23) não trazer isso a escopo formal nesta rodada — risco fica registrado, não mitigado, por escolha consciente.",
     "mitigation": "Nenhuma — deliberadamente fora do escopo formal; registrado como risco jurídico/DPO para o cliente.",
     "residual_level": "Medium",
-    "status": "open-deferred-by-user",
-    "owner": "customer (jurídico/DPO)",
-    "epic_ids": ["E05"],
-    "gap_ids": ["G0505"],
+    "status": "accepted",
+    "owner": "customer",
+    "epic_ids": [
+      "E05"
+    ],
+    "gap_ids": [
+      "G0505"
+    ],
     "source": "data/gaps.json G0505",
     "confidence": "Confirmed"
   },
   {
     "risk_id": "R11",
-    "rbs_category": "F - Customer & Governance",
+    "rbs_category": "Customer & Governance",
     "rbs_type": "Deliberately deferred content-governance obligation",
     "recommended_level": "Medium",
     "level": "Medium",
@@ -201,16 +246,20 @@
     "rationale": "Usuário decidiu deliberadamente (2026-09-23) não formalizar governança de conteúdo por especialidade nesta rodada.",
     "mitigation": "Nenhuma — deliberadamente fora do escopo formal; registrado como risco operacional pós-go-live.",
     "residual_level": "Medium",
-    "status": "open-deferred-by-user",
+    "status": "accepted",
     "owner": "customer",
-    "epic_ids": ["E07"],
-    "gap_ids": ["G0701"],
+    "epic_ids": [
+      "E07"
+    ],
+    "gap_ids": [
+      "G0701"
+    ],
     "source": "data/gaps.json G0701",
     "confidence": "Confirmed"
   },
   {
     "risk_id": "R12",
-    "rbs_category": "A - Technology & Product",
+    "rbs_category": "Technology & Product",
     "rbs_type": "AI accuracy/hallucination risk in a public-sector service context",
     "recommended_level": "Medium",
     "level": "Medium",
@@ -220,16 +269,20 @@
     "rationale": "Nível bruto Medium/High dado o contexto de serviço público, mas a mitigação de design já reduz o residual para Low.",
     "mitigation": "Guardrail já desenhado: Slackbot exige nível de confiança mínimo + citação da fonte + confirmação explícita do atendente antes de repassar ao cidadão.",
     "residual_level": "Low",
-    "status": "resolved",
-    "owner": "PS (design já aplicado)",
-    "epic_ids": ["E07"],
-    "gap_ids": ["G0702"],
+    "status": "mitigated",
+    "owner": "us",
+    "epic_ids": [
+      "E07"
+    ],
+    "gap_ids": [
+      "G0702"
+    ],
     "source": "data/gaps.json G0702",
     "confidence": "Confirmed"
   },
   {
     "risk_id": "R13",
-    "rbs_category": "C - Scope",
+    "rbs_category": "Scope",
     "rbs_type": "Scope-boundary ambiguity, client-expectation risk",
     "recommended_level": "Low",
     "level": "Low",
@@ -241,14 +294,18 @@
     "residual_level": "Low",
     "status": "open",
     "owner": "customer",
-    "epic_ids": ["E05"],
-    "gap_ids": ["G0509"],
+    "epic_ids": [
+      "E05"
+    ],
+    "gap_ids": [
+      "G0509"
+    ],
     "source": "data/gaps.json G0509",
     "confidence": "Unknown"
   },
   {
     "risk_id": "R14",
-    "rbs_category": "A - Technology & Product",
+    "rbs_category": "Technology & Product",
     "rbs_type": "Platform allocation limit risk on a to-be-built integration bridge",
     "recommended_level": "Medium",
     "level": "Medium",
@@ -258,10 +315,14 @@
     "rationale": "Pesquisa de limites de Platform Events feita nesta sessão (2026-09-24), grounded via documentação oficial da Salesforce, confirmando a figura de 250.000 eventos/hora já citada pelo usuário na ata das 14h — mas revelando uma distinção não antecipada: o limite de Publishing (250k/hora, folgado) só se aplica se a ponte for um trigger Apex; um listener externo (CometD/Pub-Sub API) estaria sujeito ao limite de Delivery, muito mais apertado (50.000/24h). Essa distinção arquitetural ainda não está confirmada contra a implementação real do PoC.",
     "mitigation": "Confirmar em design se a classe Apex da ponte se inscreve via trigger Apex nativo (sujeito só ao limite de Publishing, folgado) ou via listener externo (sujeito também ao limite de Delivery, apertado) — ver G0111. Monitorar volume real de mensagens WhatsApp contra o limite aplicável após confirmação.",
     "residual_level": "Medium",
-    "status": "open-with-provisional-premise",
-    "owner": "PS (design)",
-    "epic_ids": ["E01"],
-    "gap_ids": ["G0111"],
+    "status": "open",
+    "owner": "us",
+    "epic_ids": [
+      "E01"
+    ],
+    "gap_ids": [
+      "G0111"
+    ],
     "source": "[docs:https://developer.salesforce.com/docs/platform/platform-events/guide/platform-events-limits-default.html]; data/gaps.json G0111; grill revise 2026-09-24",
     "confidence": "Assumed"
   }
