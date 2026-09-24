@@ -283,25 +283,26 @@
   {
     "risk_id": "R13",
     "rbs_category": "Scope",
-    "rbs_type": "Scope-boundary ambiguity, client-expectation risk",
+    "rbs_type": "Scope-boundary ambiguity — invertida após reversão do G0509 (risco de over-scope para administração ampla do workspace Slack, não mais de under-scope)",
     "recommended_level": "Low",
     "level": "Low",
     "override_reason": null,
-    "likelihood": "Baixa — recomendação de design já é tratar como processo separado do cliente.",
-    "impact": "Medium se o cliente esperar que Salesforce automatize também o Slack — escopo de E05 cresceria para incluir API/admin do workspace Slack.",
-    "rationale": "Risco de scope-creep bem delimitado, com recomendação de tratamento já registrada em gaps.json.",
-    "mitigation": "Tratar provisionamento do canal Slack como processo separado do lado do cliente (TI/administração do Slack), a confirmar.",
+    "likelihood": "Baixa — o design já delimita o escopo de E05 no Slack: criação/desprovisionamento do canal pessoal do atendente (onboarding-time + exceção on-demand no roteamento, G0509; desprovisionamento no desligamento, G0503) — não inclui administração do workspace, políticas de segurança, SSO do Slack ou outros canais/apps.",
+    "impact": "Medium se o cliente esperar que o épico cubra administração mais ampla do workspace Slack além da criação/desprovisionamento do canal pessoal — escopo cresceria para além do que foi dimensionado no bump L→XL.",
+    "rationale": "G0509 foi revertido em 2026-09-24: E05 agora inclui a criação do canal, ao contrário da leitura original. O risco de fronteira não desapareceu — inverteu de direção: antes era 'podemos deixar de cobrir o que o cliente espera'; agora é 'cobrimos criação/desprovisionamento do canal e o cliente pode esperar mais'.",
+    "mitigation": "Manter e comunicar ao cliente o limite explícito do escopo Slack de E05: criação do canal pessoal (onboarding-time + exceção on-demand) e desprovisionamento no desligamento (G0503) — nada além disso (sem administração de workspace, políticas de segurança, SSO do Slack, ou outros canais/apps).",
     "residual_level": "Low",
     "status": "open",
-    "owner": "customer",
+    "owner": "us",
     "epic_ids": [
       "E05"
     ],
     "gap_ids": [
-      "G0509"
+      "G0509",
+      "G0503"
     ],
     "source": "data/gaps.json G0509",
-    "confidence": "Unknown"
+    "confidence": "Confirmed"
   },
   {
     "risk_id": "R14",

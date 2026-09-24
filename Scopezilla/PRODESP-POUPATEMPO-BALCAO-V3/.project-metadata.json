@@ -44,14 +44,26 @@
     "user_commitment": null,
     "derived": {
       "derived_low_weeks": 18,
-      "derived_high_weeks": 34,
+      "derived_high_weeks": 37,
       "derivation_source": "top-down-shape",
-      "basis": "Multi-Cloud + Data Integration table, Medium/High straddle (7 epics — near Medium's low end — but 5 of 7 estimates are L, an L-dominant mix closer to High's profile): baseline 18-28 weeks. +15% regulated-data/compliance risk adder (LGPD, gov.br identity, biometria — flagged unaddressed in outputs/01-solution.md) widens the upper bound to ~32. Confidence-mix widening (4 of 7 epics — E03, E04, E05, E07 — rated Unknown) nudges the upper bound to 34.",
+      "basis": "Multi-Cloud + Data Integration table, Medium/High straddle (7 epics — near Medium's low end by count — but the size mix is now L/XL-dominant: 4 L + 1 XL + 2 M, after the E05 L→XL resize on 2026-09-24, vs. the prior 5 L + 2 M — pulls harder toward High's profile than before): baseline widened from 18-28 to 18-30 weeks (low end held on the epic-count floor; high end +2 for the XL's appearance). +15% regulated-data/compliance risk adder (LGPD, gov.br identity, biometria — flagged unaddressed in outputs/01-solution.md) widens the upper bound to ~35. Confidence-mix widening (4 of 7 epics — E03, E04, E05, E07 — rated Unknown, unchanged) nudges the upper bound to 37.",
       "ai_native_compressed": false,
       "range_drivers": [
-        {"epic_id": "E03", "driver": "G0309 — 1 vs 2 legacy-system deployments undecided, changes Named Credential/error-contract count", "tighten_with": "confirm com o cliente se os dois sistemas legados são deployments realmente separados ou um único produto com dois alvos lógicos"},
-        {"epic_id": "E05", "driver": "G0501/G0508 — sistema de dados de funcionários da PRODESP não identificado, exposição de API não confirmada", "tighten_with": "identificar o sistema de RH/funcionários e confirmar se expõe API"},
-        {"epic_id": "E07", "driver": "G0703 — contrato de integração Slackbot ↔ Agente do T7 indefinido", "tighten_with": "confirmar com o cliente o contrato Slackbot↔T7 (quem responde o quê)"}
+        {
+          "epic_id": "E03",
+          "driver": "G0309 — 1 vs 2 legacy-system deployments undecided, changes Named Credential/error-contract count",
+          "tighten_with": "confirm com o cliente se os dois sistemas legados são deployments realmente separados ou um único produto com dois alvos lógicos"
+        },
+        {
+          "epic_id": "E05",
+          "driver": "G0501/G0508 — sistema de dados de funcionários da PRODESP não identificado, exposição de API não confirmada",
+          "tighten_with": "identificar o sistema de RH/funcionários e confirmar se expõe API"
+        },
+        {
+          "epic_id": "E07",
+          "driver": "G0703 — contrato de integração Slackbot ↔ Agente do T7 indefinido",
+          "tighten_with": "confirmar com o cliente o contrato Slackbot↔T7 (quem responde o quê)"
+        }
       ]
     }
   },

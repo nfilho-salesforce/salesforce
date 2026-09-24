@@ -203,6 +203,18 @@
         "Checkpoint git desta normalização (data/risks.json, data/memory.json) — sem push, per preferência do usuário nesta sessão.",
         "Retomar os threads já registrados: R13 (fronteira antiga do G0509), faixa de duração top-down (18-34 semanas) dado o bump de E05, e estimate/commercials quando o usuário decidir avançar a propagação."
       ]
+    },
+    {
+      "date": "2026-09-24",
+      "skills_used": [
+        "revise"
+      ],
+      "summary": "Concluídos os dois itens escolhidos pelo usuário (\"as opcoes 1 e 2 primeiro\") dos três threads restantes da propagação Slack/E01/E05: (1) R13 em data/risks.json reescrito — inverte a framing de fronteira de escopo pós-reversão do G0509: antes o risco era \"podemos deixar de cobrir o que o cliente espera\" (fronteira estreita demais); agora é \"cobrimos criação/desprovisionamento do canal pessoal de Slack e o cliente pode esperar administração mais ampla do workspace\" (fronteira agora concreta, risco de over-scope). rbs_type, likelihood, impact, rationale e mitigation reescritos; owner mudou de customer para us (a mitigação deixou de ser \"confirmar com o cliente\" e passou a ser \"comunicar e sustentar o limite já assentado\", ação nossa); gap_ids expandido para [G0509, G0503]; confidence promovido para Confirmed. Aprovado pelo usuário como proposto. (2) Faixa de duração top-down re-derivada seguindo timeline-methodology.md Steps 1-4: o bump de E05 de L para XL (mix mudou de 5L+2M para 4L+1XL+2M) pesa mais forte para o perfil da tabela Multi-Cloud+Integração de Dados faixa Alta do que antes — baseline subiu de 18-28 para 18-30 semanas (piso mantido pelo teto de contagem de épicos, teto +2 pela aparição do XL); os mesmos risk adders (LGPD/compliance +15%, mix de confiança) reaplicados sobre a nova baseline elevam o teto final de 34 para 37 semanas. Escrito em .project-metadata.json (timeline.derived: 18-37, basis atualizado) e outputs/02-delivery-plan.md (parágrafo de duração reescrito). validate-data.py re-executado após as três edições: RESULT PASS — all checks clean, nenhuma referência cruzada ou disclaimer quebrados.",
+      "open_threads": [],
+      "next_steps": [
+        "Opção 3 do menu anterior ainda deferida por pedido explícito do usuário: rodar estimate para autorar o roster/horas nomeado do E01/E03/E05 revisado — só ao pedido explícito do usuário, não assumir.",
+        "outputs/artifacts/risk-review.md permanece deliberadamente desatualizado (pré-G0111/R14, pré-reescrita de R13, pré-re-derivação de duração) — não re-rodar risk-review nesta rodada de revise; revisitar na próxima vez que risk-review for explicitamente invocado."
+      ]
     }
   ],
   "preferences": {
