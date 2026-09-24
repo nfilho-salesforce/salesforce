@@ -454,5 +454,21 @@
     "impact_or_notes": "Sem essa confirmação específica, o risco R01 do risk-review (data/risks.json) permanece com residual Medium em vez de Low — dado pessoal de cidadão em contexto de serviço público é a exposição mais sensível do programa. Levantado no risk-review de 2026-09-24, não no requirements original.",
     "status": "open-client-only",
     "resolution": null
+  },
+  {
+    "gap_id": "G0801",
+    "category": "Missing Requirement",
+    "gap_or_question": "Quem é o responsável nomeado do lado do cliente para receber o handover de sustentação de E08, e qual é o modelo/SLA de suporte que assume a operação após as 4 semanas de Operação Assistida (nível 1/2/3, canal de abertura de chamado, horário de cobertura)?",
+    "impact_or_notes": "Sem um owner nomeado e um modelo de suporte definido, o critério de saída da Operação Assistida fica indefinido — risco de a fase se estender informalmente sem escopo adicional contratado, ou de o cliente ficar sem cobertura no dia seguinte ao handover.",
+    "status": "open-client-only",
+    "resolution": null
+  },
+  {
+    "gap_id": "G0901",
+    "category": "Missing Requirement",
+    "gap_or_question": "O treinamento por persona de E09 (atendente e supervisor) será entregue presencial, remoto/live, ou como material self-service? Quantas sessões de train-the-trainers são esperadas e para quantos multiplicadores do lado do cliente?",
+    "impact_or_notes": "O formato de entrega muda o dimensionamento do material de capacitação e o cronograma de sessões — presencial multi-turno tem esforço de produção e logística distinto de um pacote self-service assíncrono. Sem essa definição, o T-shirt size de E09 assume o cenário mais leve (material + sessões remotas).",
+    "status": "open-client-only",
+    "resolution": null
   }
 ]

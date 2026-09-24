@@ -321,6 +321,23 @@
         "Se quiser prompts para Gemini/Google Slides a partir deste outline, rodar slides novamente em Gemini Delivery Mode",
         "validate ja foi solicitado por um ARGUMENTS de sistema para esta sessao — ainda nao executado; considerar rodar antes de fechar o projeto"
       ]
+    },
+    {
+      "date": "2026-09-24",
+      "skills_used": [
+        "revise"
+      ],
+      "summary": "Propagação de escopo novo pedido diretamente pelo usuário: uma Fase 5 'Operação Assistida e Handover para Sustentação' de 4 semanas (semanas 15-19 do cenário piso), cobrindo acompanhamento pós-go-live das duas jornadas em produção + reforço de capacitação por persona + handover formal ao time de sustentação do cliente, com time mínimo definido pelo próprio usuário (1 Arquiteto 0.5 FTE, 1 Solution Consultant 1 FTE, 1 Technical Consultant 1 FTE, todos onshore). Grill prévio (3 perguntas AskUserQuestion, já resolvidas antes desta sessão) confirmou: ambos os dois novos papéis onshore; capacitação por persona expande R09 (Change & Adoption) em vigor em vez de criar headcount novo de change management; e 'Atualizar tudo' como blast radius a propagar (epics/gaps já tinham E08/E09 e G0801/G0901 de uma rodada anterior — esta sessão propagou o restante: estimates/roadmap/resource-plan/timeline). Propagação executada: data/estimates.json ganhou E08 (S — janela fixa, headcount mínimo já definido, dimensão custom 'operational_transition') e E09 (M — 2 personas × 2 jornadas + train-the-trainers, dimensão custom 'change_management'); data/roadmap.json ganhou Fase 5 (phase_number 5, epics_included E08+E09); data/resource-plan.json: R02 (Solution Architect) estendido para phases_active 0-5 com justificativa de continuidade; R09 (Change & Adoption) expandido em vigor (allocation quarter→half, phases_active 2-3→2-3,5, justificativa reescrita para cobrir a persona supervisor + train-the-trainers); duas linhas novas R11 (Functional Consultant/Solution Consultant onshore, full, fase 5) e R12 (Developer/Technical Consultant onshore, full, fase 5). outputs/artifacts/timeline-proposta.html ganhou barra 'Operação Assistida' nas duas trilhas + 2 marcos roxos (Change Management) + variável CSS --ext-purple + item de legenda; bug visual de colisão entre marcos (3 flags de milestone se sobrepondo horizontalmente na Trilha 1 perto do fim da timeline) corrigido via segunda linha vertical de flags (.milestone-flag--row2, top:-64px, .chart padding-top 38px→70px) — regenerado timeline-proposta.png via Chrome headless e verificado visualmente, sem sobreposição/corte de texto. CSVs resincronizados 2x (json-to-csv.py). validate-data.py final: PASS — único WARN não-bloqueante é commercials.json potencialmente desatualizado (resource-plan.json mudou depois do último commercials — R09 subiu de quarter para half e ganhou 2 linhas novas de roster), não corrigido nesta sessão pois re-precificar exige uma taxa validada, fora do escopo já aprovado pelo usuário para esta rodada.",
+      "open_threads": [
+        "commercials.json não foi re-rodado apesar da mudança de resource-plan.json (R09 allocation + R11/R12 novos) — a faixa precificada da lane Aumentada (R$ 3,2M-7,7M) não reflete o roster atual; re-rodar commercials quando o usuário quiser refletir a Fase 5 no preço indicativo.",
+        ".project-metadata.json.timeline.derived (benchmark top-down, 18-37 semanas) NÃO foi re-derivado para incluir a Fase 5 — decisão deliberada de escopo desta sessão: a Fase 5 é pós-caminho-crítico com duração fixa definida pelo usuário (4 semanas), não faz parte do range top-down do engagement principal; se o usuário quiser um range que inclua a Fase 5, precisa pedir explicitamente.",
+        "G0801 (owner/SLA de sustentação do cliente não nomeado) e G0901 (formato de entrega/volume de train-the-trainers não confirmado) permanecem abertos como perguntas client-only — não foram fechados nesta sessão, propositalmente."
+      ],
+      "next_steps": [
+        "Se o usuário quiser o preço indicativo da Fase 5 refletido, rodar commercials novamente sobre o resource-plan.json atualizado.",
+        "Se o usuário quiser grillar o novo escopo antes de levar ao cliente, considerar grill-me-on-scope só sobre a slice tocada (E08/E09/Fase 5/roster novo) — não uma rodada completa.",
+        "export — para empacotar o pacote atualizado quando o usuário decidir."
+      ]
     }
   ],
   "preferences": {
@@ -556,6 +573,16 @@
       "rejected": [
         "Grid onshore-senior/onshore-regular/offshore-senior/offshore-regular padrão da skill commercials (rejeitado pelo usuário nesta sessão)",
         "Rate genérica/de mercado em vez da rate do contrato DATAPREV (não usada — usuário pediu explicitamente o contrato DATAPREV como padrão)"
+      ]
+    },
+    {
+      "date": "2026-09-24",
+      "area": "scope",
+      "decision": "Fase 5 'Operação Assistida e Handover para Sustentação' (4 semanas, E08+E09) adicionada como escopo formal do projeto, com time mínimo definido diretamente pelo usuário (1 Arquiteto 0.5 FTE, 1 Solution Consultant 1 FTE, 1 Technical Consultant 1 FTE, todos onshore) e propagada para estimates/roadmap/resource-plan/timeline via revise.",
+      "rationale": "Pedido explícito do usuário ('inclua estas 4 semanas no projeto como escopo do projeto com um time minimo...') seguido de instrução para propagar a mudança em todas as linhas de estimativa. Hard-to-reverse: adiciona uma fase inteira pós-caminho-crítico com roster dedicado, afeta o total de semanas do timeline visual e a composição do roster onshore do projeto.",
+      "rejected": [
+        "Tratar como mero ajuste de detalhe sem passar pelo revise completo (rejeitado — o próprio usuário pediu explicitamente a validação/propagação via revise)",
+        "Criar headcount novo de Change & Adoption para a capacitação por persona em vez de expandir R09 em vigor (rejeitado via grill prévio — 'Expandir R09 em vigor' foi a opção escolhida)"
       ]
     }
   ]

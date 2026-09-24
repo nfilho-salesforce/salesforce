@@ -78,5 +78,25 @@
       "[assumption: contrato de integração Slackbot ↔ Agente do T7 — ver Discovery Brief, Perguntas Abertas #14]"
     ],
     "depends_on": ["E02"]
+  },
+  {
+    "epic_id": "E08",
+    "epic_name": "Operação Assistida e Handover para Sustentação",
+    "description": "Escopo novo, adicionado pelo usuário/account owner nesta sessão (2026-09-24) via revisão de escopo pós-construção — decisão de negócio direta, não inferência. Acompanhamento assistido pós-go-live de ambas as jornadas do programa (Jornada 1 — Antecipação Digital via WhatsApp/E01, e Jornada 2 — Apoio Presencial via Slack/E02), por 4 semanas imediatamente após a conclusão do caminho crítico do cenário piso de 15 semanas (semana 15→19 do cronograma ilustrativo). Cobre: monitoramento ativo das duas jornadas em produção real, suporte a incidentes e dúvidas da operação (atendentes e supervisores), ajustes finos de configuração identificados apenas no uso real (não build de nova funcionalidade), e handover formal e documentado para o time de sustentação do cliente — transferência de conhecimento, documentação operacional, e critérios de saída explícitos. Diferença deliberada frente a E09: E08 é operação/suporte técnico pós-go-live; E09 é capacitação humana/adoção. As duas se reforçam na mesma janela de tempo (semanas 15-19) mas não se sobrepõem em conteúdo.",
+    "confidence": "Confirmed",
+    "kb_sources": [
+      "[fonte: decisão direta do usuário/account owner em sessão de chat, 2026-09-24 — escopo de negócio, sem doc de discovery ou KB de produto por não ser uma capacidade Salesforce e sim um processo de entrega]"
+    ],
+    "depends_on": ["E01", "E02", "E06"]
+  },
+  {
+    "epic_id": "E09",
+    "epic_name": "Capacitação e Change Management por Persona",
+    "description": "Escopo novo, adicionado pelo usuário nesta sessão (2026-09-24) via revisão de escopo pós-construção. Expande o trabalho de Change & Adoption já presente no roster (R09) para incluir construção formal de trilha de capacitação por persona — duas populações-alvo: atendente (populações de guichê e antecipação, já cobertas pela justificativa original de R09) e supervisor (persona nova, não coberta antes desta revisão) — cobrindo o uso das duas jornadas (WhatsApp para antecipação/E01, Slack para apoio presencial/E02). Inclui: material de treinamento por persona, sessões de capacitação, e um programa de train-the-trainers para que o cliente escale a capacitação internamente sem depender do time de projeto após o encerramento. Atravessa as fases de build de Jornada 1 e Jornada 2 e reforça durante a Operação Assistida (E08) no momento do handover — mesma janela de tempo que E08, conteúdo distinto (capacitação humana, não suporte técnico).",
+    "confidence": "Confirmed",
+    "kb_sources": [
+      "[fonte: decisão direta do usuário em sessão de chat, 2026-09-24 — expande a justificativa original de R09 em data/resource-plan.json, sem doc de discovery novo]"
+    ],
+    "depends_on": ["E01", "E02"]
   }
 ]

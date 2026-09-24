@@ -20,8 +20,8 @@
     "side": "ps",
     "count": 1,
     "allocation": "half",
-    "phases_active": "0-4",
-    "justification": "Owns o *o quê* através de 6 clouds/produtos (Slack, Service Cloud, Agentforce, MuleSoft, Data 360, Tableau) e 7 épicos; dono da tradução da decisão de compliance/LGPD (ainda 'Unknown, com alerta') em requisitos de arquitetura e do desenho conceitual da ponte Apex/Platform Events↔Slack (G0111/R14)."
+    "phases_active": "0-5",
+    "justification": "Owns o *o quê* através de 6 clouds/produtos (Slack, Service Cloud, Agentforce, MuleSoft, Data 360, Tableau) e 9 épicos; dono da tradução da decisão de compliance/LGPD (ainda 'Unknown, com alerta') em requisitos de arquitetura e do desenho conceitual da ponte Apex/Platform Events↔Slack (G0111/R14). Estende-se à Fase 5 (Operação Assistida) a 0.5 FTE para dar continuidade arquitetural ao handover de sustentação — mesmo papel, sem troca de pessoa no meio do encerramento do programa."
   },
   {
     "resource_id": "R03",
@@ -104,9 +104,9 @@
     "practice": "core",
     "side": "ps",
     "count": 1,
-    "allocation": "quarter",
-    "phases_active": "2-3",
-    "justification": "Change management é a maior barreira só-humana específica deste projeto (efficiency.json, human_barriers): migração de rotina do atendente de Service Console para Slack, para duas populações de atendentes (guichê e antecipação)."
+    "allocation": "half",
+    "phases_active": "2-3,5",
+    "justification": "Change management é a maior barreira só-humana específica deste projeto (efficiency.json, human_barriers): migração de rotina do atendente de Service Console para Slack, para duas populações de atendentes (guichê e antecipação). Expandido nesta sessão (2026-09-24, escopo E09) para construir a trilha de capacitação formal por persona — agora incluindo supervisor, persona não coberta antes desta revisão — e um programa de train-the-trainers, reforçando na Fase 5 (Operação Assistida) no momento do handover; alocação sobe de quarter para half para cobrir o volume de conteúdo/sessões novo."
   },
   {
     "resource_id": "R10",
@@ -119,6 +119,30 @@
     "allocation": "quarter",
     "phases_active": "2",
     "justification": "Net-new UX real e nomeada: jornada cidadã WhatsApp+gov.br de antecipação de atendimento (E01), incluindo acessibilidade da autenticação de identidade/biometria."
+  },
+  {
+    "resource_id": "R11",
+    "role": "Functional Consultant",
+    "seniority": "regular",
+    "location": "onshore",
+    "practice": "core",
+    "side": "ps",
+    "count": 1,
+    "allocation": "full",
+    "phases_active": "5",
+    "justification": "Escopo novo, adicionado pelo usuário nesta sessão (2026-09-24) — time mínimo definido diretamente pelo usuário para a Fase 5 (Operação Assistida). Solution Consultant onshore 1 FTE cobrindo o suporte funcional à operação assistida das duas jornadas e a produção da documentação de handover — onshore por decisão do usuário (grill do revise, 2026-09-24), dado o contato direto com a operação do cliente nas 4 semanas de acompanhamento."
+  },
+  {
+    "resource_id": "R12",
+    "role": "Developer",
+    "seniority": "regular",
+    "location": "onshore",
+    "practice": "operations",
+    "side": "ps",
+    "count": 1,
+    "allocation": "full",
+    "phases_active": "5",
+    "justification": "Escopo novo, adicionado pelo usuário nesta sessão (2026-09-24) — time mínimo definido diretamente pelo usuário para a Fase 5 (Operação Assistida). Technical Consultant onshore 1 FTE cobrindo suporte técnico a incidentes das duas jornadas em produção e a transferência de conhecimento técnico ao time de sustentação do cliente — onshore por decisão do usuário (grill do revise, 2026-09-24), dado o contato direto com a operação do cliente nas 4 semanas de acompanhamento."
   },
   {
     "resource_id": "C01",
