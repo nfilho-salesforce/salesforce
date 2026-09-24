@@ -29,11 +29,11 @@
   {
     "phase_number": 3,
     "phase_name": "Jornada 2 — Apoio Presencial + Base de Conhecimento/IA",
-    "objectives": "Entregar o Slackbot de apoio ao atendente de guichê (E02) e, em seguida, a camada de conhecimento/IA que o alimenta (E07 — base de conhecimento por especialidade + Agentforce + Data 360) — E07 constrói sobre a infraestrutura de canal/escalonamento que E02 já entrega.",
+    "objectives": "Entregar o Slackbot de apoio ao atendente de guichê (E02) e, em seguida, a integração com o Agente do T7 que alimenta suas respostas de dúvida (E07 — integração Slackbot↔T7 + Agentforce restrito ao resumo de histórico, decisions/0006) — E07 constrói sobre a infraestrutura de canal/escalonamento que E02 já entrega.",
     "epics_included": "E02,E07",
     "success_criteria": "Slackbot em produção com mecânica first-to-claim e fallback a supervisor; registro de consulta de especialidade gravado no ServiceDesk legado ao resolver a thread; Agentforce resumindo histórico pós-go-live (zero-lookback aceito, decisions/0003) com guardrail de confiança mínima + citação + confirmação do atendente ativo.",
     "dependencies": "depends on: E03 (Fase 1) — registro no ServiceDesk legado.",
-    "risks": "G0703 (contrato de integração Slackbot ↔ Agente do T7 indefinido) — RN-22 posiciona o Slackbot como porta única, mas isso é nosso posicionamento, não resposta fechada do cliente. Governança de conteúdo da base de conhecimento por especialidade está fora do escopo formal — risco de degradação silenciosa pós-go-live, registrado e não mitigado."
+    "risks": "G0703 (contrato de integração Slackbot ↔ Agente do T7) — direção resolvida em 2026-09-24 (decisions/0006): T7 é a fonte única de resposta a dúvidas e de decisão de acionamento de especialista (RN-22 confirmado, não mais posicionamento); os detalhes técnicos do contrato (síncrono/assíncrono, tratamento de indisponibilidade) permanecem abertos como especificação de build. Sai de escopo a base de conhecimento por especialidade e sua governança (G0701 fechado) — o conteúdo do T7 é mantido e governado pela PRODESP/POUPATEMPO, fora do nosso controle e do nosso escopo formal."
   },
   {
     "phase_number": 4,

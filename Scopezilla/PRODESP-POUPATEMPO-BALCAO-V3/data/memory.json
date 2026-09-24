@@ -403,6 +403,37 @@
         "Usuário re-exportar o PNG da timeline manualmente, ou tentar novamente com Playwright em outro ambiente",
         "Seguir para requirements (G0901) ou export quando o usuário confirmar"
       ]
+    },
+    {
+      "date": "2026-09-24",
+      "skills_used": [
+        "revise (manual, seguindo a estrutura do skill)"
+      ],
+      "summary": "Propagou a decisão do usuário de remover do escopo a base de conhecimento por especialidade + Agentforce respondendo dúvida, substituindo por integração do Slackbot com o Agente do T7 (inteligência já existente do cliente). Blast radius mapeado e escrito: epics.json (E02 wording, E07 reescrito), estimates.json (E07 L→M, drivers/skills/riscos reescritos), gaps.json (G0701/G0705/G0706 fechados, G0702/G0703 reformulados), roadmap.json (Fase 3 objetivos/riscos), resource-plan.json (R06/R08), estimate-comparison.json (R06/R08 nos dois lanes; Q07 removido do lane Quantum Leap — perdeu a justificativa de Data 360; capacity_summary/delta atualizados), risks.json (R06), efficiency.json (narrativa de Documentation & Knowledge Management), outputs/01-solution.md (seções E02 e E07 reescritas). Nova ADR decisions/0006 (premissa de arquitetura, T7 como fonte única de resposta a dúvidas).",
+      "friction": [],
+      "decisions": [
+        {
+          "decision": "E07 redimensionado de L para M",
+          "rationale": "Sai o driver de intelligence_ai alto (agente+guardrails+Data 360 para retrieval); fica o contrato de integração externo (M) como driver dominante."
+        },
+        {
+          "decision": "Data 360 removido do escopo de E07",
+          "rationale": "Sua única justificativa (retrieval confiável para a dúvida respondida via Agentforce) desapareceu com a saída dessa capacidade; G0705 fecha."
+        },
+        {
+          "decision": "Q07 (especialista Data 360/retrieval, lane Quantum Leap) removido do roster",
+          "rationale": "Mesma raiz — a capacidade que justificava essa linha fracionária de recurso não existe mais no épico."
+        }
+      ],
+      "open_threads": [
+        "G0703 permanece aberto: contrato técnico Slackbot↔T7 (síncrono/assíncrono, tratamento de indisponibilidade) — L-34 é pergunta formal ao cliente, ainda sem resposta.",
+        "Não recalculado: se a mudança de E07 (L→M) altera o mix de tamanhos usado como basis em efficiency.json (4 L + 1 XL + 2 M) e, por consequência, os benchmark ranges de roadmap.json/estimate-comparison.json — não propagado nesta rodada; avaliar se compensa refazer roadmap/efficiency antes do próximo export ao cliente."
+      ],
+      "next_steps": [
+        "Rodar json-to-csv.py e validate-data.py",
+        "Considerar grill-me-on-scope na slice tocada (E07 redimensionado) antes do próximo export",
+        "Decidir se o mix de tamanhos revisado justifica refazer roadmap/efficiency"
+      ]
     }
   ],
   "preferences": {
@@ -678,6 +709,15 @@
       "rejected": [
         "Duas mobilizações separadas (semana 11-14 e semana 16-19) com desmobilização formal na semana 15 (rejeitado — overhead de reinício maior que o custo de manter a mesma dupla em intensidade reduzida por 1 semana)",
         "Time duplicado (um par R11/R12 por jornada, correndo em paralelo) (rejeitado — dobra headcount sem justificativa nova; o trabalho das duas janelas não é simultâneo, é sequencial com folga de 1 semana)"
+      ]
+    },
+    {
+      "date": "2026-09-24",
+      "area": "scope",
+      "decision": "E07 redefinido: o Slackbot integra com o Agente do T7 (inteligência já existente da PRODESP/POUPATEMPO) para responder dúvidas do atendente e decidir acionamento de especialista — não há mais base de conhecimento por especialidade Salesforce nem Agentforce respondendo dúvida por retrieval. Agentforce mantém só o resumo de histórico (RN-05, decisions/0003), inalterado. Formalizado como decisions/0006 (premissa de arquitetura, não conclusão pontual, dado o alcance de gaps/estimativa/resourcing que reverte).",
+      "rationale": "Instrução direta do usuário: 'o slackbot vai integrar com o T7 que já é essa inteligencia criada pela PRODESP/POUPATEMPO que já tem esse conhecimento de oferecer as resposta/opcoes de resolucao de duvidas ou acionamento de especialistas' — resolve definitivamente a favor de RN-22/Ata do cliente (linha 121) a ambiguidade que G0706 já havia identificado contra a proposta Assumed da linha 89 do inventário (Agentforce respondendo dúvida).",
+      "rejected": [
+        "Premissa provisória anterior (fechamento de gaps 23/09): dois corpora distintos (base por especialidade Salesforce + FAQ do T7) com classificação de intenção pelo Slackbot — descartada."
       ]
     }
   ]

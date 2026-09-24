@@ -372,8 +372,8 @@
     "category": "Missing Requirement",
     "gap_or_question": "Quem é o dono e mantenedor, ao longo do tempo, do conteúdo da base de conhecimento por especialidade que alimenta o Slackbot — não a estrutura técnica (já Confirmed, F2.3), mas a governança de conteúdo: quem escreve/atualiza os artigos por especialidade, com que cadência, com que processo de revisão antes de publicar, e quem decide quando um artigo está desatualizado?",
     "impact_or_notes": "Sem um dono de conteúdo definido, a base degrada silenciosamente após o go-live — o Slackbot passa a responder com informação obsoleta sem que ninguém seja acionado para corrigir. Nenhuma fonte de discovery nomeia um responsável; é distinto da questão de estrutura (L-01/J2, L-14) e nenhuma épica cobre esse papel operacional.",
-    "status": "open-deferred-by-user",
-    "resolution": "Gap permanece deliberadamente aberto — usuário optou por não formalizar governança de conteúdo da base de conhecimento por especialidade como atividade de escopo nesta rodada (decisão de 2026-09-23). Risco de degradação silenciosa pós-go-live permanece registrado, não mitigado por escopo."
+    "status": "resolved",
+    "resolution": "Superado por decisions/0006 (2026-09-24): não há mais base de conhecimento por especialidade Salesforce a governar — o Slackbot integra com o Agente do T7, cujo conteúdo é mantido e governado pela própria PRODESP/POUPATEMPO, fora do nosso controle e do nosso escopo formal."
   },
   {
     "gap_id": "G0702",
@@ -381,7 +381,7 @@
     "gap_or_question": "RN-05 garante que o agente entrega resumo (nunca transcrição completa) e RN-12 garante que a ausência do resumo não bloqueia o atendimento — mas nenhuma regra endereça o resumo ou a resposta de apoio à dúvida estarem simplesmente errados (alucinação) enquanto o atendente já está com o cidadão no guichê. RN-24/J2 RN-08 cobrem o 'não sei' explícito do Slackbot, não uma resposta incorreta apresentada com confiança.",
     "impact_or_notes": "O framework STAAR de governança Agentforce nomeia 'Inaccuracy/hallucination' como categoria de risco que, em contexto de serviço público sensível, 'poderia resultar em negação de serviço/direitos ou dano físico' se o atendente confiar sem checagem [KB: knowledge/staar-agentforce-governance-guardrails.md:31-36] — mas isso é doutrina geral de PS, não um guardrail desenhado para este projeto. Falta decidir: o Slackbot expõe nível de confiança, exige citação da fonte na base por especialidade, ou impõe que o atendente sempre confirme antes de repassar ao cidadão? Sem isso, o RN-05 controla o formato da resposta, não a sua confiabilidade.",
     "status": "resolved",
-    "resolution": "Guardrail de design definido: Slackbot exige nível de confiança mínimo + citação da fonte na base por especialidade + confirmação explícita do atendente antes de repassar ao cidadão — mitigação do risco de alucinação nomeado pelo framework STAAR."
+    "resolution": "Guardrail de design definido, reformulado por decisions/0006: o atendente confirma explicitamente a resposta do Agente do T7 antes de repassá-la ao cidadão — mitigação do risco de alucinação/erro, agora inteiramente dependente da qualidade do T7 (fora do nosso controle)."
   },
   {
     "gap_id": "G0703",
@@ -389,7 +389,7 @@
     "gap_or_question": "Sharpening de L-34/L-13(J2) em perguntas fecháveis pelo time de build: (a) o contrato Slackbot↔Agente do T7 é uma chamada síncrona, um evento assíncrono, ou as duas bases de conhecimento são unificadas? (b) quando o T7 está indisponível, isso cai no mesmo desfecho 'não sei' de RN-24/J2 RN-08, ou precisa de um caminho de erro próprio (timeout vs resposta vazia são estados diferentes)? (c) quem/o que classifica uma pergunta do atendente como 'FAQ → T7' vs 'contexto do caso → Agentforce + base por especialidade' — RN-22 diz que o Slackbot decide, mas a lógica de classificação não está especificada; (d) a base de FAQ do T7 e a base por especialidade do Salesforce são corpora distintos que podem divergir com o tempo, ou uma delas é a fonte única?",
     "impact_or_notes": "Sem essas respostas, o time de build não tem interface, SLA de resposta, nem regra de roteamento para implementar — o desenho hoje é só um posicionamento (RN-22), não uma especificação. Reabre diretamente o Discovery Brief Pergunta #14 e L-34, mas em forma de decisão técnica, não de pergunta aberta genérica.",
     "status": "open-with-provisional-premise",
-    "resolution": "Premissa provisória de arquitetura (compartilhada com G0206/G0706): contrato Slackbot↔Agente do T7 assumido como evento assíncrono com classificação de intenção feita pelo Slackbot (FAQ conhecida → T7; contexto de caso → Agentforce); indisponibilidade do T7 cai no mesmo 'não sei' de RN-24/J2 RN-08. Corpora tratados como distintos por ora. L-34 permanece pergunta formal ao cliente para confirmar contra a integração real do T7."
+    "resolution": "Direção resolvida por decisions/0006 (2026-09-24): T7 é a fonte única de resposta a dúvidas de FAQ e de decisão de acionamento de especialista — não há mais classificação de intenção entre dois corpora distintos. Em aberto, como especificação técnica de build: (a) contrato síncrono ou assíncrono; (b) tratamento de indisponibilidade do T7 (mesmo 'não sei' de RN-24/J2 RN-08, ou caminho de erro próprio). L-34 permanece pergunta formal ao cliente para confirmar esse desenho contra a integração real do T7."
   },
   {
     "gap_id": "G0704",
@@ -405,15 +405,15 @@
     "gap_or_question": "O papel restrito do Data 360 ('apenas suporte ao Agentforce, não como plataforma de dados própria' — confirmado pelo usuário, Q1) tem, hoje, volume e estrutura de dados suficientes para sustentar retrieval de qualidade nas respostas do Agentforce? A única fonte que aproxima esse desenho é doutrina geral do padrão 'Headless Data 360 / Agent Persona' [extends: knowledge/staar-data-360-headless.md] — que descreve a arquitetura em abstrato e, ela mesma, nota que a configuração de Data 360 (CI, segmentos, identidade, schema) 'leva semanas' e exige especialização — não confirma que a instância deste projeto tenha esse trabalho de modelagem dimensionado ou escopado.",
     "impact_or_notes": "Risco de a capacidade de apoio à dúvida do atendente (RN-05/RN-22) ser entregue sobre um Data 360 ainda sem schema/CI/segmentação suficientes para retrieval confiável — o que devolveria o problema de acurácia do G0702 por causa raiz de dados, não de modelo. Nenhuma fonte confirma o esforço de modelagem de dados do Data 360 como item de escopo explícito em nenhuma épica.",
     "status": "resolved",
-    "resolution": "Modelagem/schema do Data 360 (CI, segmentos, identidade) adicionada explicitamente ao escopo de E07 como pré-requisito de retrieval confiável — não tratada como configuração já pronta."
+    "resolution": "Superado por decisions/0006 (2026-09-24): a capacidade de apoio à dúvida via retrieval do Agentforce sobre Data 360 foi descartada — o T7 responde as dúvidas, não o Agentforce. Data 360 perde a única justificativa de escopo que tinha em E07; removido do escopo do épico."
   },
   {
     "gap_id": "G0706",
     "category": "Ambiguity",
     "gap_or_question": "No mesmo ponto de fluxo (J1 passo 16 / J2 passo 3), duas fontes descrevem sistemas diferentes respondendo à mesma dúvida do atendente: a tabela de mapeamento de produtos diz que é o Agentforce que dá 'apoio à dúvida do atendente' (linha 89 do inventário), enquanto RN-22 diz que o Slackbot roteia dúvida de FAQ ao Agente do T7. L-13(J2) já pergunta se T7 e Slackbot 'fazem a mesma coisa'; sem resolução, a mesma pergunta do atendente pode receber respostas diferentes dependendo de qual sistema a classifica.",
     "impact_or_notes": "Sem uma fonte única de verdade por tipo de pergunta, o atendente não tem garantia de consistência — a mesma dúvida pode ser respondida pela base por especialidade (Agentforce) numa ocasião e pelo FAQ do T7 noutra, com respostas potencialmente conflitantes. Isso é pré-requisito para fechar G0703 (o contrato de integração), não pode ser resolvido só no nível técnico sem primeiro decidir o critério de classificação.",
-    "status": "open-with-provisional-premise",
-    "resolution": "Coberto pela mesma premissa provisória de G0703/G0206: critério de classificação do Slackbot decide qual sistema responde a cada pergunta, evitando respostas divergentes para a mesma dúvida — L-13(J2) segue como pergunta ao cliente."
+    "status": "resolved",
+    "resolution": "Resolvido definitivamente por decisions/0006 (2026-09-24), a favor de RN-22/linha 121 (Ata do cliente): o Agente do T7 responde a dúvida de FAQ do atendente; a proposta da linha 89 do inventário (Agentforce configurado para 'apoio à dúvida', estado Assumed) é descartada. O Agentforce mantém só o resumo de histórico (RN-05), sem ambiguidade remanescente."
   },
   {
     "gap_id": "G0309",

@@ -125,10 +125,10 @@
     "recommended_level": "Medium",
     "level": "Medium",
     "override_reason": null,
-    "likelihood": "Medium — existe premissa arquitetural provisória (evento assíncrono, classificação pelo Slackbot), mas RN-22 é nosso posicionamento, não resposta fechada do cliente.",
+    "likelihood": "Medium — direção resolvida (T7 como fonte única de resposta, RN-22 confirmado via decisions/0006 em 2026-09-24), mas o desenho técnico do contrato (síncrono/assíncrono, tratamento de indisponibilidade) ainda não está especificado.",
     "impact": "Medium — sem interface/SLA/regra de roteamento confirmados, o time de build não tem especificação, só um posicionamento.",
-    "rationale": "Risco técnico já mitigado por design (premissa provisória coerente com G0702/G0706), mas depende de confirmação externa (T7) fora do nosso controle.",
-    "mitigation": "L-34 permanece como pergunta formal ao cliente para confirmar contra a integração real do T7.",
+    "rationale": "Risco técnico mitigado por design pela resolução do usuário (decisions/0006, 2026-09-24): T7 é a fonte única de resposta a dúvidas e de acionamento de especialista; mas os detalhes do contrato ainda dependem de confirmação externa (T7), fora do nosso controle.",
+    "mitigation": "L-34 permanece como pergunta formal ao cliente para confirmar o desenho técnico (síncrono/assíncrono, tratamento de indisponibilidade) contra a integração real do T7.",
     "residual_level": "Medium",
     "status": "open",
     "owner": "shared",
@@ -136,10 +136,9 @@
       "E07"
     ],
     "gap_ids": [
-      "G0703",
-      "G0706"
+      "G0703"
     ],
-    "source": "data/gaps.json G0703/G0706",
+    "source": "data/gaps.json G0703; decisions/0006",
     "confidence": "Assumed"
   },
   {

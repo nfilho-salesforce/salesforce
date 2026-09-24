@@ -69,7 +69,7 @@
     "count": 1,
     "allocation": "full",
     "phases_active": "3",
-    "justification": "Domínio de capacidade distinto do pod de integração — Slackbot de apoio presencial (E02), base de conhecimento por especialidade e schema de Data 360 para o Agentforce (E07)."
+    "justification": "Domínio de capacidade distinto do pod de integração — Slackbot de apoio presencial (E02) e a integração com o Agente do T7 que alimenta suas respostas de dúvida (E07, decisions/0006)."
   },
   {
     "resource_id": "R07",
@@ -80,7 +80,9 @@
     "side": "ps",
     "count": 1,
     "allocation": "half",
-    "allocation_by_phase": {"2": "full"},
+    "allocation_by_phase": {
+      "2": "full"
+    },
     "phases_active": "1-4",
     "justification": "QA amplificado por IA, nunca substituído — surge para full na Fase 2 para validar o fluxo citizen-facing WhatsApp+gov.br e o comportamento da ponte Apex/Platform Events sob o limite ainda não confirmado (G0111/R14)."
   },
@@ -94,7 +96,7 @@
     "count": 1,
     "allocation": "full",
     "phases_active": "0-3",
-    "justification": "Fecha com o cliente as regras de seleção de E04 e o contrato Slackbot↔Agente do T7 de E07 (G0703) — 2 dos 4 épicos ainda de confiança Unknown; facilita a resolução de gaps na Fase 0 junto ao PM."
+    "justification": "Fecha com o cliente as regras de seleção de E04 e os detalhes técnicos do contrato de integração Slackbot↔Agente do T7 de E07 (G0703: síncrono/assíncrono, tratamento de indisponibilidade) — 2 dos 4 épicos ainda de confiança Unknown; facilita a resolução de gaps na Fase 0 junto ao PM."
   },
   {
     "resource_id": "R09",

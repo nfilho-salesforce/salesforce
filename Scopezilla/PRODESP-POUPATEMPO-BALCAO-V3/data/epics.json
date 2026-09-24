@@ -11,17 +11,23 @@
       "[fonte: discovery-notes/\"bloqueio slack - prodesp - 2026_09_23 10_28\" e discovery-notes/\"14_00 GMT-03_00 - Anotações do Gemini.pdf\" — mudança de arquitetura Slack-frontend, PoC Apex/Platform Events, cancelamento automático de agendamento]",
       "[docs:https://developer.salesforce.com/docs/platform/platform-events/guide/platform-events-limits-default.html]"
     ],
-    "depends_on": ["E03", "E04", "E05"]
+    "depends_on": [
+      "E03",
+      "E04",
+      "E05"
+    ]
   },
   {
     "epic_id": "E02",
     "epic_name": "Apoio ao Atendimento Presencial via Slack (Jornada 2)",
-    "description": "O atendente de guichê consulta um Slackbot sem sair do lugar e, se necessário, escala para um canal de especialidade — com mecânica first-to-claim (bot-mediated) para evitar duplicidade e escalonamento a supervisor/fila geral se nem o canal de especialidade nem o fallback geral responderem (RN-04). Inclui atividade formal de change management para a rotina de consulta ao Slackbot durante atendimento presencial e para o decommissioning dos workarounds informais existentes (grupos pessoais de WhatsApp) (decisão do usuário, 2026-09-23). 18 elementos de fluxo mapeados. Cobre a experiência de Slack do atendente (canal, huddle, escalonamento) — não a camada de conhecimento/IA que o alimenta (ver E07).",
+    "description": "O atendente de guichê consulta um Slackbot sem sair do lugar e, se necessário, escala para um canal de especialidade — com mecânica first-to-claim (bot-mediated) para evitar duplicidade e escalonamento a supervisor/fila geral se nem o canal de especialidade nem o fallback geral responderem (RN-04). Inclui atividade formal de change management para a rotina de consulta ao Slackbot durante atendimento presencial e para o decommissioning dos workarounds informais existentes (grupos pessoais de WhatsApp) (decisão do usuário, 2026-09-23). 18 elementos de fluxo mapeados. Cobre a experiência de Slack do atendente (canal, huddle, escalonamento) — não a integração com o Agente do T7 que alimenta suas respostas de dúvida (ver E07).",
     "confidence": "Confirmed",
     "kb_sources": [
       "[assumption: Slack como interface única do atendente — nenhum documento de produto Slack na knowledge base do projeto; grounding em conhecimento geral de integração Slack-Service Cloud]"
     ],
-    "depends_on": ["E03"]
+    "depends_on": [
+      "E03"
+    ]
   },
   {
     "epic_id": "E03",
@@ -64,20 +70,24 @@
       "[KB: knowledge/tableau_next_4-10-2026.md:7303-7393]",
       "[KB: knowledge/service_cloud_3-27-2026.md:18783-44374]"
     ],
-    "depends_on": ["E01", "E05"]
+    "depends_on": [
+      "E01",
+      "E05"
+    ]
   },
   {
     "epic_id": "E07",
     "epic_name": "Base de Conhecimento e Apoio de IA no Slackbot",
-    "description": "Estruturação da base de conhecimento por especialidade que alimenta o Slackbot da Jornada 2, e configuração do Agentforce para resumir o histórico de atendimento e apoiar a dúvida do atendente (RN-05, sem lookback ao legado — ver decisions/0003, comportamento 'sem histórico disponível' esperado nos primeiros meses pós-go-live). Inclui a modelagem/schema do Data 360 (perfil unificado do cidadão, segmentos, identidade) como pré-requisito explícito de retrieval confiável, não configuração já pronta. Guardrail de design: Slackbot exige confiança mínima + citação da fonte + confirmação do atendente antes de repassar ao cidadão. Cobre também a relação (ainda indefinida) entre o Slackbot e o Agente do T7 — premissa provisória de corpora distintos com classificação de intenção pelo Slackbot, a confirmar contra a integração real do T7 — a IA de FAQ já em adoção interna da PRODESP, hoje um stub: papel definido, nenhum contrato de integração formal. Data 360 tem uso restrito a suporte do Agentforce, não como plataforma de dados própria (confirmado pelo usuário, Q1). Governança de conteúdo da base de conhecimento por especialidade permanece deliberadamente fora do escopo formal desta rodada (decisão do usuário, 2026-09-23) — risco de degradação silenciosa pós-go-live registrado, não mitigado.",
+    "description": "Integração do Slackbot (E02) com o Agente do T7 — a IA de FAQ já em adoção interna na PRODESP/POUPATEMPO — para responder às dúvidas do atendente e decidir o acionamento de especialista (RN-22, Slackbot como porta única). Decisão do usuário, 2026-09-24 (ver decisions/0006): o T7 é a fonte única de resposta a dúvidas; não há mais uma base de conhecimento por especialidade Salesforce nem um Agentforce configurado para responder dúvida por retrieval sobre conteúdo próprio — essa capacidade, proposta no inventário como Assumed (linha 89), é descartada. Mantém, sem alteração, a configuração do Agentforce para resumir o histórico de atendimento do cidadão (RN-05, sem lookback ao legado — ver decisions/0003, comportamento 'sem histórico disponível' esperado nos primeiros meses pós-go-live) — capacidade distinta da dúvida de FAQ, não afetada por esta mudança. Guardrail de design reformulado: o atendente confirma a resposta do T7 recebida via Slackbot antes de repassá-la ao cidadão — a mitigação do risco de resposta incorreta agora depende inteiramente da qualidade do T7, fora do nosso controle. O contrato de integração Slackbot↔Agente do T7 (síncrono/assíncrono, tratamento de indisponibilidade) permanece indefinido e é o gap técnico central de E07 (G0703) — o T7 tem papel definido e nenhum contrato de integração formal confirmado. A governança de conteúdo do T7 é do cliente, fora do nosso controle e do nosso escopo formal.",
     "confidence": "Assumed",
     "kb_sources": [
       "[fonte: discovery-notes/00-inventario-de-solucao-poupatempo.md linhas 75, 107, 121, 193, 215 — Agente do T7/RN-05/RN-22/L-13(J2)/L-34]",
-      "[KB: knowledge/staar-agentforce-governance-guardrails.md]",
-      "[extends: knowledge/staar-data-360-headless.md — doutrina geral de Data 360 'headless' para persona de agente; não confirma o desenho específico deste projeto]",
-      "[assumption: contrato de integração Slackbot ↔ Agente do T7 — ver Discovery Brief, Perguntas Abertas #14]"
+      "[assumption: contrato de integração Slackbot ↔ Agente do T7 — ver Discovery Brief, Perguntas Abertas #14; L-34]",
+      "[KB: knowledge/staar-agentforce-governance-guardrails.md — guardrail de confirmação humana, aplicado agora à resposta do T7]"
     ],
-    "depends_on": ["E02"]
+    "depends_on": [
+      "E02"
+    ]
   },
   {
     "epic_id": "E08",
@@ -87,7 +97,11 @@
     "kb_sources": [
       "[fonte: decisão direta do usuário/account owner em sessão de chat, 2026-09-24 — escopo de negócio, sem doc de discovery ou KB de produto por não ser uma capacidade Salesforce e sim um processo de entrega]"
     ],
-    "depends_on": ["E01", "E02", "E06"]
+    "depends_on": [
+      "E01",
+      "E02",
+      "E06"
+    ]
   },
   {
     "epic_id": "E09",
@@ -97,6 +111,9 @@
     "kb_sources": [
       "[fonte: decisão direta do usuário em sessão de chat, 2026-09-24 — expande a justificativa original de R09 em data/resource-plan.json, sem doc de discovery novo]"
     ],
-    "depends_on": ["E01", "E02"]
+    "depends_on": [
+      "E01",
+      "E02"
+    ]
   }
 ]

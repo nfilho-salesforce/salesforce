@@ -154,27 +154,23 @@
   {
     "item_id": "E07",
     "item_type": "epic",
-    "t_shirt_size": "L",
+    "t_shirt_size": "M",
     "size_drivers": {
       "intelligence_ai": {
-        "tier": "L",
-        "signal": "Agente Agentforce multi-tópico (dúvida do atendente + resumo de histórico) com estratégia de grounding customizada (Data 360) e guardrails de confiança/citação/confirmação [KB: knowledge/staar-agentforce-governance-guardrails.md]."
+        "tier": "S",
+        "signal": "Agentforce restrito a resumo de histórico (RN-05, decisions/0003) — a capacidade de apoio à dúvida via retrieval/grounding sobre base própria foi descartada (decisions/0006); guardrail remanescente é confirmação humana da resposta do T7, não desenho de grounding."
       },
       "integration": {
         "tier": "M",
-        "signal": "Relação Slackbot ↔ Agente do T7 (FAQ interno) indefinida — contrato de integração não confirmado [assumption: ver Discovery Brief, Perguntas Abertas #14]."
-      },
-      "data_model": {
-        "tier": "M",
-        "signal": "Modelagem/schema do Data 360 (perfil unificado do cidadão, segmentos, identidade) como pré-requisito de retrieval confiável [extends: knowledge/staar-data-360-headless.md]."
+        "signal": "Contrato Slackbot ↔ Agente do T7 (RN-22/L-34/L-13-J2) ainda indefinido — síncrono/assíncrono, tratamento de indisponibilidade [fonte: discovery-notes/00-inventario-de-solucao-poupatempo.md linhas 121, 193, 215]. Agora o driver dominante do épico."
       }
     },
-    "size_rationale": "L — dominado pelo desenho do agente (grounding + guardrails), amplificado pela indefinição do contrato Slackbot↔T7.",
-    "complexity_drivers": "Zero-migração implica zero-lookback (decisions/0003) — 'sem histórico disponível' é comportamento esperado no MVP, a comunicar no enablement; governança de conteúdo da base de conhecimento por especialidade fora de escopo formal.",
-    "skills_needed": "Especialista Agentforce (prompt/grounding/guardrails), Arquiteto de Dados (Data 360), Desenvolvedor de integração (contrato Slackbot↔T7, se confirmado).",
-    "risks": "Contrato Slackbot↔Agente do T7 indefinido (L-13/J2, L-34). Governança de conteúdo da base de conhecimento por especialidade fica fora do escopo formal — risco de degradação silenciosa pós-go-live, não mitigado.",
-    "size_if_assumption_breaks": "L; XL se o Agente do T7 não expuser integração e o Slackbot precisar replicar toda a base de FAQ internamente.",
-    "solution_approach": "Base de conhecimento estruturada por especialidade + Agentforce configurado para resumir histórico de atendimento pós-go-live e apoiar a dúvida do atendente, com guardrails de confiança mínima, citação de fonte e confirmação humana antes de repassar ao cidadão.",
+    "size_rationale": "M — dominado pelo contrato de integração Slackbot↔Agente do T7, ainda indefinido; a capacidade de Agentforce que resta (resumo de histórico) é estreita e já simplificada por zero-lookback (decisions/0003). Cai de L para M com a saída da base de conhecimento por especialidade e do Data 360 (decisions/0006).",
+    "complexity_drivers": "Contrato de integração externo (T7) fora do nosso controle — sem interface/SLA/tratamento de erro confirmados. Zero-migração implica zero-lookback (decisions/0003) para o resumo de histórico remanescente.",
+    "skills_needed": "Desenvolvedor de integração (contrato Slackbot↔T7), Especialista Agentforce (configuração de resumo de histórico, escopo estreito).",
+    "risks": "Contrato Slackbot↔Agente do T7 indefinido (L-13/J2, L-34) — T7 é stub: papel definido, nenhum contrato formal. Qualidade da resposta ao cidadão passa a depender inteiramente do T7, fora do nosso controle; guardrail de confirmação do atendente mitiga, não elimina o risco.",
+    "size_if_assumption_breaks": "M; L se o T7 não expuser integração formal e o Slackbot precisar de um caminho de fallback/erro mais complexo do que o 'não sei' padrão de RN-24/J2 RN-08.",
+    "solution_approach": "Integração do Slackbot com o Agente do T7 para responder dúvidas de FAQ e decidir acionamento de especialista, com confirmação do atendente antes de repassar ao cidadão; Agentforce configurado separadamente para resumir o histórico de atendimento pós-go-live.",
     "confidence": "Unknown"
   },
   {
