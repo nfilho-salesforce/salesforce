@@ -215,6 +215,38 @@
         "Opção 3 do menu anterior ainda deferida por pedido explícito do usuário: rodar estimate para autorar o roster/horas nomeado do E01/E03/E05 revisado — só ao pedido explícito do usuário, não assumir.",
         "outputs/artifacts/risk-review.md permanece deliberadamente desatualizado (pré-G0111/R14, pré-reescrita de R13, pré-re-derivação de duração) — não re-rodar risk-review nesta rodada de revise; revisitar na próxima vez que risk-review for explicitamente invocado."
       ]
+    },
+    {
+      "date": "2026-09-24",
+      "skills_used": [
+        "efficiency"
+      ],
+      "summary": "Rodado efficiency (fidelidade category-only — resource-plan.json ainda não existe). Task-level blend ~25-45% (perfil integration-heavy, mix L/XL-dominante); realization factor 0.30-0.40 (entre config+custom dev e legado/regulado, por causa dos 2 sistemas legados + ponte Apex/Platform Events + LGPD não endereçada). realized_band (augmented) ~8-18%; native_band (AI-native, condicional) ~20-32% — abaixo do ~35-40% típico por causa da carga de legado/compliance deste projeto especificamente. Readiness score 3/8 (Mid): AI tooling posture=1 (Claude usado no discovery para desenho de jornada), delivery velocity=1 (Unknown), data/env hygiene=1 (Unknown), compliance=0 (LGPD \"Unknown, com alerta\"). Aprovado sem ajustes pelo usuário (\"Aprovar e gravar\"). Escritos data/efficiency.json + outputs/artifacts/efficiency-analysis.md.",
+      "open_threads": [
+        "Duas leituras de prontidão ficaram Unknown (cadência de release; higiene de sandbox/dados dos legados) — clarificação a buscar com o cliente se o efficiency for re-rodado com mais evidência."
+      ],
+      "next_steps": [
+        "Continuar o estimate em andamento: 3 lanes (traditional/augmented/AI-native), anchor = \"Augmented\" (escolha explícita do usuário, fora do modelo binário documentado do skill — a reconciliar), ownership 100% PS, qualificação AI-native = conditional. Usar realized_band/native_band deste run para derivar as 3 faixas de duração e autorar os rosters.",
+        "Re-rodar efficiency (upgrade para category+role-type) depois que estimate autorar data/resource-plan.json."
+      ]
+    },
+    {
+      "date": "2026-09-24",
+      "skills_used": [
+        "estimate"
+      ],
+      "summary": "Estimate concluído — comparação dual-track de 3 lanes (traditional/augmented/AI-native), ownership 100% PS-delivered (sem exclusão de escopo cliente). Anchor reconciliado como \"augmented\" (terceiro modo, fora do binário documentado traditional/quantum-leap do skill — estruturalmente legal porque anchor precisa apenas ∈ lanes keys): traditional fica piso contextual sem compressão (18-37 sem., de roadmap.timeline.derived), augmented é o comprometido/real comprimido por efficiency.realized_band (18×(1-0,18)=15 a 37×(1-0,08)=34 → 15-34 sem.), AI-native é upside condicional comprimido por native_band (18×(1-0,32)=12 a 37×(1-0,20)=30 → 12-30 sem.). Qualificação AI-native = conditional — gate (product owner do cliente nomeado/empoderado) não atendido; motivador, não número comprometido. 3 perguntas de prontidão client-side batched via AskUserQuestion: product owner não nomeado (gap), acesso/credenciais de TI do cliente não confirmados (gap), UAT/testers de atendente confirmados disponíveis. Roster traditional/augmented autorado com 10 linhas PS (~8,5 FTE nominal/peak) via disciplina fold/time-box/fraction; roster AI-native com 7 linhas (~4,25 FTE, piso de responsabilidade contínua + 3 especialistas fracionais) via método core-accountability-floor + 5 ajustes. 3 linhas client-side (side:client) vivem uma única vez em resource-plan.json. Sign-off SSSL aprovado via AskUserQuestion (\"Aprovar e gravar\"). Escritos data/resource-plan.json (13 linhas), data/estimate-comparison.json (3 lanes + notes.anchor_reconciliation/client_side_coverage), outputs/artifacts/estimate-comparison.md. Self-gate (Step 6.5) inicial FAIL — 13 linhas de resource-plan.json sem resource_id e phases_active como array JSON em vez de string range; corrigido (resource_id R01-R10/C01-C03, phases_active convertido para \"N-M\"); CSVs regenerados; validate-data.py final: PASS — all checks clean. Org62 give-back (decisions/0041) ainda pendente de exibir ao usuário nesta sessão.",
+      "open_threads": [
+        "Cobertura client-side com 2 de 3 papéis como gap confirmado (product owner não nomeado; acesso/credenciais de TI não confirmado) — bloqueiam G0309/G0501/G0508/G0703/sponsor de E06 e são o sinal-chave do gate de qualificação AI-native.",
+        "Pricing indicativo por lane segue deferido — nenhuma taxa validada no dossiê; commercials pode rodar por lane assim que houver rate validada pelo usuário.",
+        "efficiency roda hoje em fidelidade category-only; re-rodar agora que data/resource-plan.json existe sobe a fidelidade para category+role-type."
+      ],
+      "next_steps": [
+        "commercials — por lane, quando houver taxa validada pelo usuário.",
+        "narratives/slides — para transformar a comparação em história para o cliente (a história de valor do lane AI-native vem de efficiency).",
+        "Revisitar a coluna AI-native quando o gap de product owner do cliente fechar.",
+        "export — para empacotar quando o usuário decidir."
+      ]
     }
   ],
   "preferences": {
@@ -430,6 +462,16 @@
       "rationale": "Consequência direta da propagação (revise Step 5) do sinal de arquitetura desta rodada — não uma nova pergunta ao cliente, mas a leitura de sizing do arquiteto sobre uma mudança de escopo já aprovada. Usuário aprovou a proposta de resize como apresentada.",
       "rejected": [
         "Manter E05 em L, só atualizando drivers/riscos sem subir o tamanho (oferecido como opção, não escolhido)"
+      ]
+    },
+    {
+      "date": "2026-09-24",
+      "area": "estimate",
+      "decision": "Anchor da comparação dual-track = \"augmented\" — um terceiro modo fora do binário traditional-anchored/quantum-leap-anchored narrado na prosa do skill (mas legal pelo schema, que só exige anchor ∈ lanes keys). Traditional fica piso contextual sem compressão; augmented é o lane comprometido/real (comprimido por efficiency.realized_band); AI-native é upside condicional (comprimido por native_band, gate não atendido).",
+      "rationale": "Resposta explícita do usuário à pergunta batched de reconciliação de anchor/duração (\"Aprovar como calculado\"). Nenhum lane é gross-up notório de outro — cada faixa carrega sua própria proveniência de compressão, evitando o mismatch de rótulo/matemática que decisions/0033 existe para prevenir.",
+      "rejected": [
+        "Anchor = traditional (modo default/pitch documentado, não escolhido pelo usuário)",
+        "Anchor = quantum-leap/AI-native comprometido (não aplicável — gate de qualificação não atendido)"
       ]
     }
   ]

@@ -1,0 +1,115 @@
+{
+  "fidelity": "category-only",
+  "generated_from": {
+    "epics_count": 7,
+    "estimates_count": 7,
+    "has_roadmap": true,
+    "has_resource_plan": false
+  },
+  "task_level": {
+    "blended_band": "~25-45%",
+    "basis": "Perfil integration-heavy (2 sistemas legados + sistema externo de agendamento + ponte Apex/Platform Events↔Slack) com mix de tamanho L/XL-dominante (4 L + 1 XL + 2 M) amplia a faixa de Technical Engineering & QA; sinal de compliance (LGPD) e a governança ainda não endereçada empurram Documentation & Knowledge para cima.",
+    "sources": ["[1]", "[2]", "[4]", "[5]", "[8]"]
+  },
+  "realization_factor": {
+    "value_range": "0.30-0.40",
+    "rationale": "Entre 'mixed config + custom dev' e 'regulated industry, heavy legacy integration' — a integração real com dois sistemas legados anonimizados + a ponte de Platform Events e a exposição LGPD/biometria não endereçada pesam para o lado regulado/legado do intervalo.",
+    "drivers": ["2 integrações legadas + ponte Apex/Platform Events em tempo real (E01/E03)", "LGPD/compliance não endereçada — provável sobrecarga de revisão obrigatória", "4 de 7 épicos ainda Unknown de confiança (E03/E04/E05/E07) — alarga a faixa realizada, não só a de tarefa"]
+  },
+  "project_level": {
+    "realized_band": "~8-18%",
+    "basis": "task-level (~25-45%) × realization factor (0.30-0.40), antes da modulação por prontidão.",
+    "confidence": "Assumed",
+    "native_band": "~20-32%",
+    "native_basis": "task-level (~25-45%) × fator de realização AI-native (0.55-0.75) — abaixo do intervalo típico de ~35-40% citado na metodologia porque o mix de tarefa deste projeto já parte mais baixo por causa da carga de integração legada e da exposição de compliance ainda não endereçada. Provisório — magnitude não calibrada (decisions/0033).",
+    "native_qualification": "conditional"
+  },
+  "readiness": {
+    "signals": [
+      {"signal": "AI tooling posture", "score": 1, "evidence": "A ata de discovery registra o próprio grupo usando o Claude para desenhar a jornada (.discovery-context.md linhas 4710/4937) — sinal de adoção de IA generativa no processo de scoping, mas nenhuma política formal de ferramentas de IA para o time de build foi declarada."},
+      {"signal": "Delivery velocity / speed bias", "score": 1, "evidence": "Unknown — nenhuma fonte de discovery descreve cadência de release, sprints ou pipeline de deploy da PRODESP."},
+      {"signal": "Data & environment hygiene", "score": 1, "evidence": "Unknown — outputs/01-solution.md registra que a estratégia de sandbox/DevOps 'não foi abordada em nenhuma fonte de discovery'; mesma lacuna para a higiene de dados dos dois sistemas legados anonimizados."},
+      {"signal": "Legal / security / compliance posture", "score": 0, "evidence": "O próprio inventário rotula conformidade como 'Unknown, com alerta' (.discovery-context.md linha 242) — dado pessoal via WhatsApp, biometria e autenticação gov.br, sem decisão de residência/criptografia e sem política de dados de IA declarada."}
+    ],
+    "total_score": 3,
+    "scenarios": [
+      {
+        "scenario": "Low readiness",
+        "score_range": "0-2",
+        "realized_band": "~6-10%",
+        "narrative": "Ganhos ficam no piso enquanto a postura de compliance (LGPD ainda 'Unknown, com alerta') e a cadência de release não são esclarecidas — cenário mais conservador dado o que falta confirmar hoje.",
+        "unlock_to_move_up": ["Aprovar ferramentas de IA para o time de build (não só discovery)", "Publicar política de tratamento de dados de IA/LGPD", "Confirmar cadência de release da PRODESP"]
+      },
+      {
+        "scenario": "Mid readiness",
+        "score_range": "3-5",
+        "realized_band": "~8-18%",
+        "narrative": "Cenário atual (score 3/8) — uso pontual de IA já existe no processo de discovery, mas sem política formal nem cadência de entrega confirmada, o ganho fica no meio da faixa.",
+        "unlock_to_move_up": ["Confirmar postura de segurança/compliance (política de dados de IA publicada, LGPD endereçada)", "Confirmar disciplina de sandbox/DevOps dos dois sistemas legados", "Padronizar cadência de entrega rápida (sprints/deploys frequentes)"]
+      },
+      {
+        "scenario": "High readiness",
+        "score_range": "6-8",
+        "realized_band": "~15-22%",
+        "narrative": "Com política de dados de IA publicada e cadência de release mais rápida confirmada, o teto da faixa fica ao alcance — mas isso exige decisões hoje em aberto (LGPD, governança — gap de governança #16).",
+        "unlock_to_move_up": []
+      }
+    ],
+    "current_scenario": "Mid readiness"
+  },
+  "by_category": [
+    {
+      "category": "Technical Engineering & QA",
+      "task_level_band": "~20-40%",
+      "realized_band": "~6-16%",
+      "driving_tasks": ["Create Code (realistic enterprise / legacy)", "Analyze Code & Fix Defects", "Generate Test Data", "Write Test Classes"],
+      "driving_epics": ["E01", "E03", "E05"],
+      "sources": ["[1]", "[4]", "[8]"],
+      "narrative": "E03 (MuleSoft contra dois sistemas legados) e E01 (ponte Apex/Platform Events WhatsApp↔Slack) concentram o maior esforço — e a maior taxa de IA, com os contratos de erro legados e o limite de Platform Events (G0111/R14) fora do caso de tela-limpa que gera os ganhos maiores [4]."
+    },
+    {
+      "category": "Analysis & Design",
+      "task_level_band": "~25-45%",
+      "realized_band": "~8-18%",
+      "driving_tasks": ["Write User Stories & Epics", "Discovery Preparation", "Generation of Analysis Models"],
+      "driving_epics": ["E04", "E07"],
+      "sources": ["[2]"],
+      "narrative": "As regras de seleção de E04 e o contrato Slackbot↔Agente do T7 de E07 (G0703) ainda não foram fechadas pelo cliente — a IA acelera o rascunho, mas a decisão que fecha esses gaps continua totalmente humana [2]."
+    },
+    {
+      "category": "Documentation & Knowledge Management",
+      "task_level_band": "~30-50%",
+      "realized_band": "~10-20%",
+      "driving_tasks": ["Generate Documents", "Knowledge Transfer"],
+      "driving_epics": ["E07", "E06"],
+      "sources": ["[7]"],
+      "narrative": "Estruturar a base de conhecimento por especialidade de E07 e o relatório executivo de E06 são os ganhos mais confiáveis do projeto, mas a postura de compliance ainda não endereçada (sem política de dados no dossiê) limita até onde a documentação pode avançar sem revisão adicional [7]."
+    },
+    {
+      "category": "Project Management & Operations",
+      "task_level_band": "~20-35%",
+      "realized_band": "~6-14%",
+      "driving_tasks": ["Project Status Reports", "Coordination Meeting Time"],
+      "driving_epics": ["E01", "E05"],
+      "sources": ["[7]"],
+      "narrative": "Relato de status e coordenação cruzada no caminho crítico E05→E01→E06 ganham um pouco de ritmo com IA, mas o alinhamento de stakeholders sobre os gaps de governança e compliance ainda abertos segue no ritmo humano [7]."
+    }
+  ],
+  "by_role_type": [],
+  "human_barriers": [
+    {"activity": "Project Pulse Reports", "why_no_gain": "Trabalho de construção de confiança que a IA pode resumir, não facilitar."},
+    {"activity": "Stakeholder Alignment", "why_no_gain": "Negociação humano-a-humano; a IA rascunha posições, as pessoas decidem."},
+    {"activity": "Conflict Resolution", "why_no_gain": "Julgamento humano."},
+    {"activity": "Decisão de compliance/LGPD", "why_no_gain": "Residência de dados, criptografia e a exigência de opt-out (L-12) exigem decisão jurídica/de governança — hoje registrada como Unknown, com alerta, sem política no dossiê que a IA possa rascunhar sozinha."},
+    {"activity": "Change management da mudança de frontend do atendente (Service Console → Slack)", "why_no_gain": "Adoção de rotina nova por duas populações de atendentes é mudança de comportamento, não tarefa de rascunho — a IA produz o material de treinamento, não a adesão."}
+  ],
+  "assumptions": [
+    "Benchmarks vêm de dados publicados 2022-2026 (Peng et al./GitHub 2022, Paradis et al./Google 2024, METR 2025, BCG×Harvard, DORA 2024-2025, McKinsey 2025, GitClear 2025, Faros AI 2026, MSR 2026, Stanford HAI AI Index 2026) mais observações internas.",
+    "Bandas de tarefa convertidas em bandas de projeto via um fator de realização que reflete a lei de Amdahl + a sobrecarga de revisão/'taxa de IA'."
+  ],
+  "caveats": [
+    "Bandas são qualitativas e específicas deste projeto, não garantias.",
+    "Nenhuma implicação de horas, FTE ou custo é computada ou sugerida.",
+    "O gap de percepção é real — times costumam se sentir mais rápidos do que os ganhos medidos confirmam (per METR 2025)."
+  ]
+}
