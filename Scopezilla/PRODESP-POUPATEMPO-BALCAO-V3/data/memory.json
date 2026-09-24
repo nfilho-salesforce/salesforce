@@ -280,6 +280,20 @@
         "slides — se o usuário quiser um deck a partir deste resumo.",
         "validate — rodar o diagnóstico completo (já parcialmente coberto pelo self-gate desta rodada) antes de export, se o usuário quiser uma checagem formal."
       ]
+    },
+    {
+      "date": "2026-09-24",
+      "skills_used": [
+        "export"
+      ],
+      "summary": "Export rodado no modo padrão (pacote completo). openpyxl presente — workbook Excel gerado, sem fallback de zip. validate-data.py pré-export: PASS (sem leak de pricing/rate, sem placeholder de disclaimer não substituído). CSVs resincronizados via json-to-csv.py (01-epics 7, 01-gap-analysis 57, 02-estimates 7, 03-roadmap-phases 5, 04-roles 13, 08-efficiency 18, 11-commercials 10, 13-estimate-comparison 3). Workbook final: outputs/scoping-deliverables.xlsx com sheets Epics, Gap Analysis, Estimates, Roadmap Phases, Roles & Skills, Efficiency, Commercials, Estimate Comparison. Sem data/rfp.json — pulado o passo 1.5 (artifact review via reviewer agent), aplicável só a ciclos RFP.",
+      "open_threads": [
+        "A sheet Commercials do workbook carrega as rates PS LATAM validadas (contrato DATAPREV) — decisão de o que é seguro enviar ao cliente é do usuário, não da ferramenta (decisions/0017); o workbook completo é um artefato interno por padrão."
+      ],
+      "next_steps": [
+        "quantum-leap — pointer oferecido (Service Cloud/Agentforce em products_in_scope, quantum-leap ainda not-started) caso o usuário queira um bundle de build-handoff.",
+        "share — pointer oferecido caso o usuário queira publicar um único deliverable (ex.: o exec summary) como link do Drive em vez do pacote inteiro."
+      ]
     }
   ],
   "preferences": {
