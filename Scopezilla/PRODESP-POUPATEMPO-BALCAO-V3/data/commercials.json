@@ -14,21 +14,23 @@
     {"roster_row": "R07", "role_roster": "Quality Assurance (regular, offshore)", "role_latam_ps": "Quality Assurance Consultant", "rate_sem_imposto": 573.98, "rate_com_imposto": 614.21, "currency": "BRL", "validated_by": "user", "validated_at": "2026-09-24"},
     {"roster_row": "R08", "role_roster": "Functional Consultant (regular, offshore)", "role_latam_ps": "Solution Consultant (nome mais semelhante)", "rate_sem_imposto": 573.98, "rate_com_imposto": 614.21, "currency": "BRL", "validated_by": "user", "validated_at": "2026-09-24"},
     {"roster_row": "R09", "role_roster": "Change & Adoption (regular, onshore)", "role_latam_ps": "Solution Consultant (papel advisory/change)", "rate_sem_imposto": 573.98, "rate_com_imposto": 614.21, "currency": "BRL", "validated_by": "user", "validated_at": "2026-09-24"},
-    {"roster_row": "R10", "role_roster": "Experience Design (regular, offshore)", "role_latam_ps": "Experience Architect", "rate_sem_imposto": 789.88, "rate_com_imposto": 845.24, "currency": "BRL", "validated_by": "user", "validated_at": "2026-09-24"}
+    {"roster_row": "R10", "role_roster": "Experience Design (regular, offshore)", "role_latam_ps": "Experience Architect", "rate_sem_imposto": 789.88, "rate_com_imposto": 845.24, "currency": "BRL", "validated_by": "user", "validated_at": "2026-09-24"},
+    {"roster_row": "R11", "role_roster": "Functional Consultant — Operação Assistida (regular, onshore)", "role_latam_ps": "Solution Consultant (nome mais semelhante)", "rate_sem_imposto": 573.98, "rate_com_imposto": 614.21, "currency": "BRL", "validated_by": "user", "validated_at": "2026-09-24"},
+    {"roster_row": "R12", "role_roster": "Developer — Operação Assistida (regular, onshore)", "role_latam_ps": "Technical Consultant / Developer", "rate_sem_imposto": 668.78, "rate_com_imposto": 715.66, "currency": "BRL", "validated_by": "user", "validated_at": "2026-09-24"}
   ],
   "effort_basis": {
     "source": "top-down-shape",
-    "duration_weeks_range": "15-34",
-    "roster_summary": "10 papéis PS (R01-R10) do lane Aumentada — mesmo roster do lane Tradicional (data/resource-plan.json), ritmo acelerado por tooling de IA, sem redução de headcount",
-    "derivation_note": "Sem cronograma comprometido (.project-metadata.json timeline.user_commitment=null) — banda de preço indicativa calculada como Σ(count × fração_alocação × semanas_faixa × 40h × rate) por linha do roster, sobre a faixa de duração do lane Aumentada (15-34 semanas, data/estimate-comparison.json). fração_alocação: full=1.0, half=0.5, quarter=0.25 (allocation_by_phase de R07 não aplicado nesta simplificação de faixa — ver nota de honestidade ampla). Rates: contrato DATAPREV, mapeadas por nome mais semelhante às roles PS LATAM (de/para em rates[]) — desvio do grid onshore/offshore padrão da skill commercials, a pedido explícito do usuário nesta sessão."
+    "duration_weeks_range": "19-38",
+    "roster_summary": "12 papéis PS (R01-R12) do lane Aumentada — roster estendido em 2026-09-24 com a Fase 5 (Operação Assistida e Handover para Sustentação): R11 Functional Consultant e R12 Developer, par onshore dedicado full-time só na Fase 5 (data/resource-plan.json). R09 (Change & Adoption) sobe de quarter para half nesta mesma revisão, reforçando no handover.",
+    "derivation_note": "Sem cronograma comprometido (.project-metadata.json timeline.user_commitment=null) — banda de preço indicativa calculada em duas componentes somadas, espelhando a decomposição de duração de data/estimate-comparison.json (Fases 0-4 comprimidas + Fase 5 aditiva/fixa): (1) Fases 0-4 — Σ(count × fração_alocação × semanas_faixa × 40h × rate) para R01-R10 sobre a faixa comprimida de 15-34 semanas; (2) Fase 5 — mesmo somatório para as linhas ativas na Fase 5 (R01, R02, R09, R11, R12) sobre as 4 semanas fixas de handover (não comprimíveis por IA, tempo humano). As duas componentes são somadas para low (15+4=19 sem.) e high (34+4=38 sem.). fração_alocação: full=1.0, half=0.5, quarter=0.25 (allocation_by_phase de R07 não aplicado nesta simplificação de faixa). Rates: contrato DATAPREV, mapeadas por nome mais semelhante às roles PS LATAM (de/para em rates[]) — desvio do grid onshore/offshore padrão da skill commercials, a pedido explícito do usuário nesta sessão."
   },
   "indicative_range": {
-    "low": 3195105.00,
-    "high": 7241958.00,
-    "low_sem_imposto": 3195105.00,
-    "high_sem_imposto": 7241958.00,
-    "low_com_imposto": 3419053.00,
-    "high_com_imposto": 7749554.00,
+    "low": 3723117.20,
+    "high": 7879306.40,
+    "low_sem_imposto": 3723117.20,
+    "high_sem_imposto": 7879306.40,
+    "low_com_imposto": 3984074.07,
+    "high_com_imposto": 8431574.75,
     "currency": "BRL",
     "confidence": "Assumed"
   },

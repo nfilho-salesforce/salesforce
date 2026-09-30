@@ -462,6 +462,76 @@
         "Considerar formalizar G0703(a/b/c) como perguntas de cliente via requirements",
         "export quando o pacote de entrega precisar ser atualizado com o E07 revisado"
       ]
+    },
+    {
+      "date": "2026-09-24",
+      "skills_used": [
+        "requirements (client-question formalization, gaps->brief mode)"
+      ],
+      "summary": "Formalizadas as tres frentes de G0703 (contrato Slackbot<->Agente do T7, epic E07) como perguntas fechaveis ao cliente, escritas em linguagem client-facing dentro de outputs/00-discovery-brief.md, secao 'Perguntas abertas', item 14 (agora 14a/14b/14c): (a) chamada sincrona vs assincrona vs unificacao de bases; (b) tratamento de indisponibilidade do T7 (mesmo desfecho nao-sei padrao ou caminho de erro proprio); (c) Slackbot como porta unica (RN-22/F2.8, posicionamento nosso nao validado) vs canal direto atendente-T7, com o aviso de que canal direto reabre o desenho do passo 16 e o escopo de E07. Nao foram tocados epics.json/gaps.json/estimates.json nesta sessao - so o brief.",
+      "friction": [],
+      "decisions": [],
+      "open_threads": [
+        "G0703(a/b/c) aguardando resposta do cliente na proxima rodada de discovery com a PRODESP/POUPATEMPO.",
+        "G0703(c) continua a maior: se o cliente responder canal direto, reabre o desenho de E07, nao so o tamanho."
+      ],
+      "next_steps": [
+        "Levar outputs/00-discovery-brief.md secao Perguntas abertas (item 14a/b/c) para a proxima rodada de discovery com a PRODESP/POUPATEMPO.",
+        "Se/quando o cliente responder, rodar revise para propagar a resposta (pode fechar G0703, pode reabrir E07 se for canal direto)."
+      ]
+    },
+    {
+      "date": "2026-09-24",
+      "skills_used": [
+        "revise (scoped patch: propagate grill correction to outputs)",
+        "design (surgical patch, not full re-run)"
+      ],
+      "summary": "Revise rodado sobre o confirmed change set ja validado na sessao anterior (correcao de proveniencia RN-22 + G0703 com 3 frentes). Raio de impacto calculado por grep de conteudo (nao so timestamp) em todos os outputs client-facing: 01-solution.md (E07), 02-delivery-plan.md, executive-summary.md, commercials.md, estimate-comparison.json/md, presentation-outline.md, presentation-gemini-prompts.md, presentation-deck.html, timeline-proposta.html. Unico artefato de fato stale quanto a essa correcao especifica: outputs/01-solution.md, secao E07 (gerado 10:17, antes da correcao final de 10:38) - faltava a frente (c) de G0703 e a distincao entre 'T7 e a fonte (Confirmed)' vs 'Slackbot porta unica via RN-22 (posicionamento nosso, nao validado)'. 02-delivery-plan.md ja tinha a frase correta sobre RN-22 de uma correcao anterior; os demais nao mencionam RN-22/o contrato tecnico de forma dependente da premissa corrigida - nao estavam de fato stale, apesar de datados antes de 10:38.",
+      "friction": [],
+      "decisions": [],
+      "open_threads": [
+        "validate-data.py apos o patch reporta 5 WARNs de staleness por timestamp (gaps/epics->roadmap/resource-plan/commercials) - checados por conteudo e nao materialmente afetados pela correcao de hoje (E07 nao teve resize); WARNs remanescentes de heuristica de mtime, nao de conteudo.",
+        "G0703(a/b/c) ainda aguardando resposta do cliente - proxima rodada de discovery."
+      ],
+      "next_steps": [
+        "Quando o cliente responder G0703, rodar revise de novo para propagar a resposta (pode fechar o gap ou reabrir o desenho de E07 se for canal direto)."
+      ]
+    },
+    {
+      "date": "2026-09-24",
+      "skills_used": [
+        "validate"
+      ],
+      "summary": "Validacao formal (validate-data.py + confidence-report.py) rodada sobre o estado pos-revise. validate-data.py: PASS, 5 WARNs de staleness por timestamp (gaps/epics->roadmap/resource-plan/commercials) - ja verificados por conteudo em sessao anterior de hoje, confirmados como falsos positivos (E07 nao teve resize, nenhum desses arquivos referencia a correcao RN-22/G0703 de forma dependente). confidence-report.py: 56% Confirmed, 22% Assumed, 22% Unknown (18 itens epics+estimates); 4 epicos com sizing Unknown (E03, E04, E05, E07); 59 gaps registrados, Fase 0 recomendada (ja refletido no roadmap). Sinal geral: vermelho para handoff formal (Unknown load-bearing + gaps acima do limiar), mas o proprio roadmap.json ja modela Fase 0 para isso - nao e uma surpresa nova.",
+      "friction": [],
+      "decisions": [],
+      "open_threads": [
+        "E03/E04/E05/E07 permanecem Unknown - aguardando respostas de discovery (G0309, G0501/G0508, regras de E04, G0703 a/b/c).",
+        "G0703(a/b/c) e o mais recente e mais formalizado (outputs/00-discovery-brief.md item 14) - proximo a ser levado ao cliente."
+      ],
+      "next_steps": [
+        "Nada de novo requerido internamente agora - proximo avanco real depende da resposta da PRODESP as perguntas do brief (14a/b/c e as demais perguntas bloqueantes de arquitetura)."
+      ]
+    },
+    {
+      "date": "2026-09-24",
+      "skills_used": [
+        "commercials"
+      ],
+      "summary": "Re-rodado commercials para o lane Aumentada apos a extensao do roster com a Fase 5 (Operacao Assistida e Handover para Sustentacao). Roster passou de 10 para 12 papeis PS: R11 (Functional Consultant - Operacao Assistida) e R12 (Developer - Operacao Assistida) novos, full-time onshore, dedicados so na Fase 5; R09 (Change & Adoption) sobe de quarter para half no handover. Rate basis mantido per-resource-hourly, rates do contrato DATAPREV mapeadas por role PS LATAM (de/para por nome mais semelhante), validadas pelo usuario nesta sessao (mesma tabela de 2026-09-24 usada nas sessoes anteriores, com R11/R12 mapeados: Solution Consultant e Technical Consultant/Developer respectivamente). Regra de imposto permanente aplicada (com imposto = sem imposto / 0,9345). Duracao recalculada em duas componentes somadas: Fases 0-4 (15-34 sem, comprimida por IA) + Fase 5 (4 sem fixas, handover humano nao comprimivel) = faixa total 19-38 semanas. Indicative_range: R$ 3.723.117,20-7.879.306,40 sem imposto; R$ 3.984.074,07-8.431.574,75 com imposto (subiu da faixa anterior de R$ 3.195.105-7.241.958 sem imposto, que nao incluia a Fase 5). Persistido em data/commercials.json e outputs/artifacts/commercials.md.",
+      "friction": [],
+      "decisions": [
+        {
+          "decision": "Rate basis per-resource-hourly usando o contrato DATAPREV (desvio do grid onshore/offshore padrao da skill commercials) estendido ao roster de 12 papeis, incluindo R11/R12 novos da Fase 5",
+          "rationale": "Preferencia permanente do usuario de usar as rates PS LATAM do contrato DATAPREV em todos os projetos, mapeadas por role de nome mais semelhante - ja validada em sessoes anteriores hoje; R11/R12 mapeados na mesma logica (Solution Consultant / Technical Consultant-Developer)"
+        }
+      ],
+      "open_threads": [
+        "timeline.user_commitment ainda null - banda de preco permanece indicativa e ampla (19-38 sem); quando o cronograma for comprometido, re-rodar commercials via derive-hours.py para uma banda mais fechada"
+      ],
+      "next_steps": [
+        "Nenhuma acao interna adicional requerida agora - proximo avanco depende do cronograma ser comprometido ou de o cliente validar o escopo da Fase 5"
+      ]
     }
   ],
   "preferences": {

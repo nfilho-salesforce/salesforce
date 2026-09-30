@@ -131,7 +131,10 @@ Estas são lacunas que **só a PRODESP pode responder**. Não devem ser respondi
 
 ### Técnicas e de conformidade
 
-14. Contrato da integração Slackbot ↔ agente do T7 — interface, dono da base de conhecimento, critério de FAQ, comportamento quando o T7 está indisponível (L-34).
+14. Contrato da integração Slackbot ↔ agente do T7 (L-34) — já está decidido que o T7 é quem responde às dúvidas do atendente, não uma base de conhecimento própria da Salesforce; faltam três decisões para fechar o desenho técnico:
+    - **14a. Tipo de chamada.** Quando o Slackbot consulta o T7, a resposta deve vir em tempo real (o atendente espera na hora) ou pode chegar depois, de forma assíncrona? Ou as duas bases de conhecimento devem ser unificadas em uma só? Essa resposta define a interface técnica da integração — muda o desenho de como o componente é construído.
+    - **14b. Tratamento de indisponibilidade.** Se o T7 estiver fora do ar ou não responder a tempo, o atendente deve ver o mesmo "não sei, é preciso acionar um especialista" que já existe hoje para quando o Slackbot não sabe responder — ou essa situação precisa de um tratamento próprio, diferenciando "o T7 não respondeu a tempo" de "o T7 respondeu vazio"? Essa resposta define o que precisa ser construído para lidar com falhas.
+    - **14c. Slackbot como porta única, ou canal direto?** O desenho hoje assume que o atendente só fala com o T7 através do Slackbot — nunca diretamente com o T7. Essa é uma premissa nossa, que a PRODESP ainda não validou. A PRODESP confirma essa mecânica, ou prefere que o atendente tenha uma via direta com o T7, sem o Slackbot no meio? Se for via direta, o passo do processo muda de desenho e o tamanho/escopo do componente de integração muda com ele — não é só um ajuste técnico, é uma mudança de arquitetura.
 15. Opt-out do cidadão — como é capturado, onde armazenado, quem o respeita nos ciclos seguintes; provável exigência jurídica (L-12).
 16. Quem provisiona/desprovisiona o canal de Slack do atendente, e o que ocorre com casos abertos no desligamento (L-13/J1).
 17. Como funciona a integração nativa do Slack com o objeto de caso e o acesso ao histórico (L-06/J1).

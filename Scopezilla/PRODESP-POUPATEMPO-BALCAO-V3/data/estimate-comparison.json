@@ -2,10 +2,10 @@
   "anchor": "augmented",
   "lanes": {
     "traditional": {
-      "duration_weeks_range": "18-37",
+      "duration_weeks_range": "22-41",
       "basis": "derived",
-      "duration_provenance": "Baseline benchmark top-down do formato do engagement (7 épicos, mix L/XL-dominante — 4 L + 1 XL + 2 M — 2 integrações com sistemas legados + ponte Apex/Platform Events↔Slack, 6 clouds/produtos: Slack, Service Cloud, Agentforce, MuleSoft, Data 360, Tableau), sem compressão — .project-metadata.json.timeline.derived. Contextual: NÃO é o lane comprometido (anchor = augmented) — serve de piso de comparação ('o que custaria sem tooling de IA').",
-      "capacity_summary": "~8,5 FTE nominal/peak (ignora o time-box de fase; picos mais altos na Fase 1-2 com integração+build concorrentes) — núcleo full-time (PM, SA, TA) + pod de build offshore time-boxed + cauda fracionária (Change & Adoption, Experience Design). Mesma composição de equipe do lane Aumentada — apenas o ritmo/duração muda.",
+      "duration_provenance": "Fases 0-4: baseline benchmark top-down do formato do engagement (7 épicos, mix L/XL-dominante — 4 L + 1 XL + 2 M — 2 integrações com sistemas legados + ponte Apex/Platform Events↔Slack, 6 clouds/produtos: Slack, Service Cloud, Agentforce, MuleSoft, Data 360, Tableau), sem compressão: 18-37 semanas — .project-metadata.json.timeline.derived. + Fase 5 (Operação Assistida e Handover para Sustentação), 4 semanas fixas de acompanhamento pós-go-live, não sujeitas a compressão de IA (tempo humano de handover, não build): total 22-41 semanas — persistido em data/roadmap.json, confirmado pelo usuário em 2026-09-24. Contextual: NÃO é o lane comprometido (anchor = augmented) — serve de piso de comparação ('o que custaria sem tooling de IA').",
+      "capacity_summary": "~8,5 FTE nominal/peak nas Fases 0-4 (ignora o time-box de fase; picos mais altos na Fase 1-2 com integração+build concorrentes) — núcleo full-time (PM, SA, TA) + pod de build offshore time-boxed + cauda fracionária (Change & Adoption, Experience Design). Fase 5 (Operação Assistida) roda com um par onshore dedicado full-time ao handover (R11 Functional Consultant + R12 Developer, 2 FTE), além da continuidade parcial de PM/SA/Change & Adoption. Mesma composição de equipe do lane Aumentada — apenas o ritmo/duração muda.",
       "roster": [
         {
           "resource_id": "R01",
@@ -13,9 +13,9 @@
           "seniority": "regular",
           "location": "onshore",
           "count": 1,
-          "phases_active": "0-4",
+          "phases_active": "0-5",
           "allocation": "full",
-          "justification": "Único fio condutor client-facing num programa de 5 fases com dois caminhos críticos em paralelo (E05→E01→E06 e E03→E02→E07)."
+          "justification": "Único fio condutor client-facing num programa de 6 fases com dois caminhos críticos em paralelo (E05→E01→E06 e E03→E02→E07). Estendido à Fase 5 (Operação Assistida) — grillado e confirmado pelo usuário em 2026-09-24: o PM é quem conduz e assina o handover formal para a sustentação do cliente, fechando G0801 (owner nomeado do lado do cliente para o handover)."
         },
         {
           "resource_id": "R02",
@@ -23,9 +23,9 @@
           "seniority": "senior",
           "location": "onshore",
           "count": 1,
-          "phases_active": "0-4",
+          "phases_active": "0-5",
           "allocation": "half",
-          "justification": "Owns o quê através de 6 clouds/produtos e 7 épicos; dono da tradução da decisão LGPD ainda 'Unknown, com alerta' e do desenho conceitual da ponte Apex/Platform Events."
+          "justification": "Owns o quê através de 6 clouds/produtos e 9 épicos; dono da tradução da decisão LGPD ainda 'Unknown, com alerta' e do desenho conceitual da ponte Apex/Platform Events. Estende-se à Fase 5 (Operação Assistida) a 0,5 FTE para dar continuidade arquitetural ao handover de sustentação — mesmo papel, sem troca de pessoa no encerramento do programa."
         },
         {
           "resource_id": "R03",
@@ -93,9 +93,9 @@
           "seniority": "regular",
           "location": "onshore",
           "count": 1,
-          "phases_active": "2-3",
-          "allocation": "quarter",
-          "justification": "Maior barreira só-humana específica deste projeto (efficiency.json) — migração de rotina do atendente para Slack."
+          "phases_active": "2-3,5",
+          "allocation": "half",
+          "justification": "Maior barreira só-humana específica deste projeto (efficiency.json) — migração de rotina do atendente para Slack, para duas populações (guichê e antecipação). Expandido nesta sessão (2026-09-24) para a trilha de capacitação formal por persona (incluindo supervisor) e train-the-trainers, reforçando na Fase 5 (Operação Assistida) no momento do handover; alocação sobe de quarter para half."
         },
         {
           "resource_id": "R10",
@@ -106,6 +106,26 @@
           "phases_active": "2",
           "allocation": "quarter",
           "justification": "UX/acessibilidade real e nomeada da jornada cidadã WhatsApp+gov.br (E01)."
+        },
+        {
+          "resource_id": "R11",
+          "role": "Functional Consultant",
+          "seniority": "regular",
+          "location": "onshore",
+          "count": 1,
+          "phases_active": "5",
+          "allocation": "full",
+          "justification": "Escopo novo, adicionado pelo usuário nesta sessão (2026-09-24) — par mínimo definido diretamente pelo usuário para a Fase 5 (Operação Assistida). Suporte funcional às duas jornadas em operação assistida e produção da documentação de handover — onshore por decisão do usuário, dado o contato direto com a operação do cliente nas 4 semanas de acompanhamento."
+        },
+        {
+          "resource_id": "R12",
+          "role": "Developer",
+          "seniority": "regular",
+          "location": "onshore",
+          "count": 1,
+          "phases_active": "5",
+          "allocation": "full",
+          "justification": "Escopo novo, adicionado pelo usuário nesta sessão (2026-09-24) — par mínimo definido diretamente pelo usuário para a Fase 5 (Operação Assistida). Suporte técnico a incidentes das duas jornadas em produção e transferência de conhecimento técnico ao time de sustentação do cliente — onshore por decisão do usuário, dado o contato direto com a operação do cliente nas 4 semanas de acompanhamento."
         }
       ],
       "indicative_price_range": {
@@ -116,10 +136,10 @@
       "confidence": "Assumed"
     },
     "augmented": {
-      "duration_weeks_range": "15-34",
+      "duration_weeks_range": "19-38",
       "basis": "derived",
-      "duration_provenance": "Baseline tradicional (18-37 sem.) comprimido pelo realized_band do cenário Mid readiness de efficiency.json (~8-18%): compressed_low = 18×(1-0.18) = 14,76 → 15; compressed_high = 37×(1-0.08) = 34,04 → 34. LANE COMPROMETIDO/ANCHOR — escolhido pelo usuário em 2026-09-24 (não é um dos dois modos padrão do schema — tradicional fica como piso contextual, não um gross-up notional; ver estimate-comparison notes).",
-      "capacity_summary": "~8,5 FTE nominal/peak — mesma composição de equipe do lane Tradicional; o tooling de IA acelera o ritmo dentro do mesmo formato de time (per efficiency.json: 'não redução de headcount, não input de preço').",
+      "duration_provenance": "Fases 0-4: baseline tradicional (18-37 sem.) comprimido pelo realized_band do cenário Mid readiness de efficiency.json (~8-18%): compressed_low = 18×(1-0.18) = 14,76 → 15; compressed_high = 37×(1-0.08) = 34,04 → 34. + Fase 5 (Operação Assistida e Handover para Sustentação), 4 semanas fixas, não sujeitas a compressão de IA (tempo humano de handover, não build): total 19-38 semanas. LANE COMPROMETIDO/ANCHOR — escolhido pelo usuário em 2026-09-24 (não é um dos dois modos padrão do schema — tradicional fica como piso contextual, não um gross-up notional; ver estimate-comparison notes).",
+      "capacity_summary": "~8,5 FTE nominal/peak nas Fases 0-4 — mesma composição de equipe do lane Tradicional; o tooling de IA acelera o ritmo dentro do mesmo formato de time (per efficiency.json: 'não redução de headcount, não input de preço'). Fase 5 (Operação Assistida) segue com o mesmo par onshore dedicado (R11 Functional Consultant + R12 Developer, 2 FTE) — tempo humano de handover, sem aceleração de IA.",
       "roster": [
         {
           "resource_id": "R01",
@@ -127,9 +147,9 @@
           "seniority": "regular",
           "location": "onshore",
           "count": 1,
-          "phases_active": "0-4",
+          "phases_active": "0-5",
           "allocation": "full",
-          "justification": "Único fio condutor client-facing num programa de 5 fases com dois caminhos críticos em paralelo (E05→E01→E06 e E03→E02→E07)."
+          "justification": "Único fio condutor client-facing num programa de 6 fases com dois caminhos críticos em paralelo (E05→E01→E06 e E03→E02→E07). Estendido à Fase 5 (Operação Assistida) — grillado e confirmado pelo usuário em 2026-09-24: o PM é quem conduz e assina o handover formal para a sustentação do cliente, fechando G0801 (owner nomeado do lado do cliente para o handover)."
         },
         {
           "resource_id": "R02",
@@ -137,9 +157,9 @@
           "seniority": "senior",
           "location": "onshore",
           "count": 1,
-          "phases_active": "0-4",
+          "phases_active": "0-5",
           "allocation": "half",
-          "justification": "Owns o quê através de 6 clouds/produtos e 7 épicos; dono da tradução da decisão LGPD ainda 'Unknown, com alerta' e do desenho conceitual da ponte Apex/Platform Events."
+          "justification": "Owns o quê através de 6 clouds/produtos e 9 épicos; dono da tradução da decisão LGPD ainda 'Unknown, com alerta' e do desenho conceitual da ponte Apex/Platform Events. Estende-se à Fase 5 (Operação Assistida) a 0,5 FTE para dar continuidade arquitetural ao handover de sustentação — mesmo papel, sem troca de pessoa no encerramento do programa."
         },
         {
           "resource_id": "R03",
@@ -207,9 +227,9 @@
           "seniority": "regular",
           "location": "onshore",
           "count": 1,
-          "phases_active": "2-3",
-          "allocation": "quarter",
-          "justification": "Maior barreira só-humana específica deste projeto (efficiency.json) — migração de rotina do atendente para Slack; permanece só-humana mesmo no lane aumentado."
+          "phases_active": "2-3,5",
+          "allocation": "half",
+          "justification": "Maior barreira só-humana específica deste projeto (efficiency.json) — migração de rotina do atendente para Slack, para duas populações (guichê e antecipação); permanece só-humana mesmo no lane aumentado. Expandido nesta sessão (2026-09-24) para a trilha de capacitação formal por persona (incluindo supervisor) e train-the-trainers, reforçando na Fase 5 (Operação Assistida) no momento do handover; alocação sobe de quarter para half."
         },
         {
           "resource_id": "R10",
@@ -220,6 +240,26 @@
           "phases_active": "2",
           "allocation": "quarter",
           "justification": "UX/acessibilidade real e nomeada da jornada cidadã WhatsApp+gov.br (E01)."
+        },
+        {
+          "resource_id": "R11",
+          "role": "Functional Consultant",
+          "seniority": "regular",
+          "location": "onshore",
+          "count": 1,
+          "phases_active": "5",
+          "allocation": "full",
+          "justification": "Escopo novo, adicionado pelo usuário nesta sessão (2026-09-24) — par mínimo definido diretamente pelo usuário para a Fase 5 (Operação Assistida). Suporte funcional às duas jornadas em operação assistida e produção da documentação de handover — onshore por decisão do usuário, dado o contato direto com a operação do cliente nas 4 semanas de acompanhamento."
+        },
+        {
+          "resource_id": "R12",
+          "role": "Developer",
+          "seniority": "regular",
+          "location": "onshore",
+          "count": 1,
+          "phases_active": "5",
+          "allocation": "full",
+          "justification": "Escopo novo, adicionado pelo usuário nesta sessão (2026-09-24) — par mínimo definido diretamente pelo usuário para a Fase 5 (Operação Assistida). Suporte técnico a incidentes das duas jornadas em produção e transferência de conhecimento técnico ao time de sustentação do cliente — onshore por decisão do usuário, dado o contato direto com a operação do cliente nas 4 semanas de acompanhamento."
         }
       ],
       "indicative_price_range": {
@@ -230,10 +270,10 @@
       "confidence": "Assumed"
     },
     "quantum-leap": {
-      "duration_weeks_range": "12-30",
+      "duration_weeks_range": "16-34",
       "basis": "derived",
-      "duration_provenance": "Baseline tradicional (18-37 sem.) comprimido pelo native_band de efficiency.json (~20-32%, gated + provisório): compressed_low = 18×(1-0.32) = 12,24 → 12; compressed_high = 37×(1-0.20) = 29,6 → 30. CONDICIONAL — motivador, não o lane comprometido: o gate de qualificação AI-native não foi atendido (product owner do cliente confirmado como não nomeado nesta sessão).",
-      "capacity_summary": "~4 FTE nominal/peak — piso de responsabilidade contínua (Program Lead + Intent Architect + Agent Orchestrator + Adoption Architect) + 2 especialistas fracionais (QA amplificado, Experience Design), agent-amplificado, não agent-substituído. Especialista fracional de Data 360/retrieval do Agentforce removido em 2026-09-24 (decisions/0006) — essa capacidade saiu do escopo de E07.",
+      "duration_provenance": "Fases 0-4: baseline tradicional (18-37 sem.) comprimido pelo native_band de efficiency.json (~20-32%, gated + provisório): compressed_low = 18×(1-0.32) = 12,24 → 12; compressed_high = 37×(1-0.20) = 29,6 → 30. + Fase 5 (Operação Assistida e Handover para Sustentação), 4 semanas fixas, não sujeitas a compressão de IA (tempo humano de handover, não build): total 16-34 semanas. Extensão aditiva confirmada pelo usuário em 2026-09-24 — sem par dedicado adicional (Q07/Q08); o núcleo já magro por design absorve o handover. CONDICIONAL — motivador, não o lane comprometido: o gate de qualificação AI-native não foi atendido (product owner do cliente confirmado como não nomeado nesta sessão).",
+      "capacity_summary": "~4 FTE nominal/peak nas Fases 0-4 — piso de responsabilidade contínua (Program Lead + Intent Architect + Agent Orchestrator + Adoption Architect) + 2 especialistas fracionais (QA amplificado, Experience Design), agent-amplificado, não agent-substituído. Fase 5 (Operação Assistida) absorvida pelo núcleo (Program Lead + Intent Architect + Adoption Architect) sem headcount dedicado adicional — decisão do usuário em 2026-09-24. Especialista fracional de Data 360/retrieval do Agentforce removido em 2026-09-24 (decisions/0006) — essa capacidade saiu do escopo de E07.",
       "roster": [
         {
           "resource_id": "Q01",
@@ -241,9 +281,9 @@
           "seniority": "senior",
           "location": "onshore",
           "count": 1,
-          "phases_active": "0-4",
+          "phases_active": "0-5",
           "allocation": "full",
-          "justification": "Program Lead — relacionamento com o cliente, decisões de gate, o plano; piso de responsabilidade contínua dado o duplo caminho crítico do programa."
+          "justification": "Program Lead — relacionamento com o cliente, decisões de gate, o plano; piso de responsabilidade contínua dado o duplo caminho crítico do programa. Estendido à Fase 5 (Operação Assistida) nesta revisão (2026-09-24) — o núcleo absorve o handover sem headcount dedicado adicional, decisão do usuário."
         },
         {
           "resource_id": "Q02",
@@ -251,9 +291,9 @@
           "seniority": "senior",
           "location": "onshore",
           "count": 1,
-          "phases_active": "0-4",
+          "phases_active": "0-5",
           "allocation": "full",
-          "justification": "Intent Architect — owns o intent/guardrails através de E01/E03/E04/E05/E07, os domínios com ambiguidade real (G0309, G0501/G0508, G0703, regras de E04); coach do product owner do cliente."
+          "justification": "Intent Architect — owns o intent/guardrails através de E01/E03/E04/E05/E07, os domínios com ambiguidade real (G0309, G0501/G0508, G0703, regras de E04); coach do product owner do cliente. Estendido à Fase 5 (Operação Assistida) nesta revisão (2026-09-24) — o núcleo absorve o handover sem headcount dedicado adicional, decisão do usuário."
         },
         {
           "resource_id": "Q03",
@@ -271,9 +311,9 @@
           "seniority": "regular",
           "location": "onshore",
           "count": 1,
-          "phases_active": "2-3",
+          "phases_active": "2-3,5",
           "allocation": "half",
-          "justification": "Adoption Architect — presente porque a adoção é escopo real e nomeado: mudança de frontend do atendente (Service Console→Slack), já a maior barreira só-humana do projeto; escopo limitado a 2 populações de atendentes."
+          "justification": "Adoption Architect — presente porque a adoção é escopo real e nomeado: mudança de frontend do atendente (Service Console→Slack), já a maior barreira só-humana do projeto; escopo limitado a 2 populações de atendentes. Reforça na Fase 5 (Operação Assistida) no momento do handover, mesmo padrão de extensão do R09 no lane tradicional/aumentada — sem headcount dedicado adicional."
         },
         {
           "resource_id": "Q05",
@@ -310,7 +350,7 @@
     }
   },
   "delta": {
-    "summary": "Aumentada (anchor) comprime o piso tradicional de 18-37 para 15-34 semanas via tooling de IA (~8-18%, cenário Mid), mesma equipe (~8,5 FTE nominal). AI-native comprimiria a 12-30 semanas (~20-32%) com um núcleo ~2× mais magro (~4 FTE: Program Lead + Intent Architect + Agent Orchestrator + Adoption Architect + 2 especialistas fracionais) — mas depende de um product owner do cliente nomeado e empoderado, hoje um gap confirmado, não um gate atendido; mostrado como motivador condicional, não como número comprometido."
+    "summary": "Aumentada (anchor) comprime o piso tradicional de 22-41 para 19-38 semanas via tooling de IA nas Fases 0-4 (~8-18%, cenário Mid), mesma equipe (~8,5 FTE nominal); a Fase 5 (Operação Assistida, 4 semanas, par dedicado R11/R12) é aditiva e idêntica nos dois lanes — tempo humano de handover, não sujeito a compressão de IA. AI-native comprimiria a 16-34 semanas (~20-32% nas Fases 0-4) com um núcleo ~2× mais magro (~4 FTE: Program Lead + Intent Architect + Agent Orchestrator + Adoption Architect + 2 especialistas fracionais), absorvendo a Fase 5 sem par dedicado adicional — mas depende de um product owner do cliente nomeado e empoderado, hoje um gap confirmado, não um gate atendido; mostrado como motivador condicional, não como número comprometido."
   },
   "currency": "USD",
   "validated_by": "user",
