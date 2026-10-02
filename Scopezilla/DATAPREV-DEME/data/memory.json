@@ -18,6 +18,22 @@
         "Considerar diligência com Luis Gabriel Fernandes (SE, autor da hipótese de arquitetura) para confirmar item 🔴 de Experience Cloud + Revenue Cloud sem Digital Commerce.",
         "Reconciliar MCP search@aisuite (ENDPOINT_NOT_FOUND) para reabilitar grounding via KB central Scopezilla."
       ]
+    },
+    {
+      "date": "2026-10-02",
+      "skill": "setup",
+      "skills_used": ["setup", "wrapup"],
+      "summary": "Reabertura do projeto. Conforme pedido registrado no fechamento anterior, o gate de aprovação do Discovery Brief ('aprovar e encerrar / ajustar o brief / seguir para strategy') foi refeito antes de qualquer ação — usuário reconfirmou 'aprovar e encerrar'. Nenhum dado novo chegou do cliente (volumetria e as 5 decisões de arquitetura continuam pendentes). Depois, a pedido do usuário, foi produzido um resumo curto de handoff (em chat, não persistido em outputs/) para o colega que cobre o projeto durante as férias do usuário — cobrindo status, bloqueador de volumetria, as 5 decisões abertas e o que não fazer na ausência dele.",
+      "friction": [],
+      "open_threads": [
+        "Volumetria (produtos, transações, clientes, contratos, usuários) ainda pendente — comprometida por Hildegard Paulino Barbosa (DEME), ainda não recebida.",
+        "5 decisões abertas sem posição do BSA: (1) SoR pós-assinatura Salesforce vs. ERP; (2) loja cobre só prateleira, exclusivo, ou os dois; (3) onda de PF/chatbot; (4) assinatura ICP-Brasil/A3 vs. registro simples; (5) volumetria + Org (mesmo Org do programa de previdência/agentes ou Org próprio do DEME)."
+      ],
+      "next_steps": [
+        "Projeto permanece encerrado no estado parcial — ao reabrir novamente, só retomar discover/strategy se a volumetria ou respostas às 5 decisões já tiverem chegado do cliente (checar com o usuário antes de assumir).",
+        "Colega está cobrindo o projeto durante férias do usuário — não assumir volumetria nem posição nas 5 decisões para gerar ROM/proposta; aguardar resposta do cliente.",
+        "Considerar diligência com Luis Gabriel Fernandes (SE) para confirmar item 🔴 de Experience Cloud + Revenue Cloud sem Digital Commerce, quando o projeto retomar."
+      ]
     }
   ],
   "preferences": {
