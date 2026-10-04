@@ -547,6 +547,18 @@
         "Usuário confirmou Operação Assistida = 6 semanas (SOW, atualizado 02/out) — reconciliar com roadmap.json/metadata que ainda dizem 8 semanas/22 total; rodar revise para propagar.",
         "Decidir tratamento do pricing-leak no sow-scope.md antes de reexecutar validate."
       ]
+    },
+    {
+      "date": "2026-10-04",
+      "skill": "revise",
+      "summary": "Propagado o ajuste confirmado pelo usuário: Fase 5 (Operação Assistida/Hypercare) 8→6 semanas, total do programa 22→20 semanas. Blast radius completo (opção 'Propagar tudo') via AskUserQuestion: data/roadmap.json (Fase 5 duration_weeks + texto de objectives/risks), .project-metadata.json (timeline.user_commitment.total_weeks + rationale), data/resource-plan.json (justificativas PS-10/PS-12, '2 meses pós-go-live'→'6 semanas pós-go-live'), data/gaps.json (resolution de G0515), outputs/02-delivery-plan.md (header + seção Fase 5), outputs/build_timeline_chart.py (phase bar 15-23→15-21, TOTAL_WEEKS 23→21, legenda) + der-timeline.png regenerado via venv temporário (matplotlib instalado em /tmp/der_chart_venv, não no sistema), outputs/artifacts/rom-cliente.html (v3.4→v3.5, Gantt S15-S22→S15-S20, removida coluna/marcador extra, todas as 11 menções textuais de '8 semanas'/'22 semanas' atualizadas), outputs/artifacts/rom-gemini-prompt.md (header de revisão, title do slide 9, FAIXAS/CONTEÚDO/CAMINHO CRÍTICO, slides 12/13, eixo de semanas S39→S37). Regenerados data/csv/03-roadmap-phases.csv e data/csv/04-roles.csv via json-to-csv.py. Decision_log atualizado (scope-shaping, hard-to-reverse). Nenhuma figura de preço recalculada nesta rodada — sow-scope.md (fonte da confirmação de 6 semanas) já tinha sido atualizado em 02/out em sessão anterior, antes da propagação aos dados canônicos; esta rodada só alinhou roadmap/metadata/resource-plan/gaps/outputs restantes a essa confirmação já existente. Pricing-leak de sow-scope.md tratado: aceito conscientemente (G0526), não é mais item aberto.",
+      "open_threads": [
+        "Readiness Low (2/8) é estrutural ao setor público — reabrir só se LGPD/auditoria (G0305) ou política de IA do DER mudarem.",
+        "AI-native qualification nunca foi avaliada para este projeto — rodar se o cliente mostrar interesse no modelo AI-native."
+      ],
+      "next_steps": [
+        "Rodar validate periodicamente para confirmar que a propagação da Fase 5 (6 semanas/20 total) não deixou referência pendente a 8/22 semanas em novos deliverables."
+      ]
     }
   ],
   "preferences": {
@@ -710,6 +722,22 @@
       "rejected": [
         "Tratar a Operação Assistida como extensão informal da Fase 4 sem fase própria nem roster nomeado",
         "Abrir um segundo workstream de sustentação técnica desvinculado de G0515, duplicando a narrativa de 'operação assistida' em dois lugares do plano"
+      ]
+    },
+    {
+      "date": "2026-10-04",
+      "area": "delivery-scope",
+      "decision": "Duração da Fase 5 (Operação Assistida/Hypercare e Handover à Sustentação) ajustada de 8 para 6 semanas; duração total comprometida do programa passa de 22 para 20 semanas (14 build + 6 Fase 5). Roster técnico da Fase 5 (0,5 FTE Technical Architect + 1 FTE Developer + toque leve de PM) não muda — só a janela de calendário encolhe.",
+      "rationale": "Compromisso direto do usuário em 2026-10-04, já refletido no SOW client-facing atualizado em 02/out (outputs/artifacts/sow-scope.md) antes mesmo da propagação aos dados canônicos. Propagado via `revise`: data/roadmap.json (Fase 5 duration_weeks 8→6), .project-metadata.json (user_commitment.total_weeks 22→20), data/resource-plan.json (texto de justificativa PS-10/PS-12), data/gaps.json (G0515), outputs/02-delivery-plan.md, outputs/build_timeline_chart.py + der-timeline.png regenerado, outputs/artifacts/rom-cliente.html (v3.4→v3.5), outputs/artifacts/rom-gemini-prompt.md.",
+      "rejected": []
+    },
+    {
+      "date": "2026-10-04",
+      "area": "validate",
+      "decision": "Aceito conscientemente o FAIL de pricing/rate-leak do validate-data.py em outputs/artifacts/sow-scope.md (tabela de cronograma de pagamento, Mês 1-13). O arquivo permanece em outputs/artifacts/ sem alteração.",
+      "rationale": "sow-scope.md é um SOW client-facing cujo propósito é apresentar o cronograma de pagamento — os valores R$ são conteúdo intencional, não um vazamento acidental de rate interna. Registrado como item disclosed em gaps.json (G0526) para que a divergência viaje documentada em vez de ficar como lacuna silenciosa.",
+      "rejected": [
+        "Mover sow-scope.md para fora de outputs/ até revisão Ironclad — descartado para não interromper o fluxo de envio do SOW já em curso."
       ]
     }
   ]

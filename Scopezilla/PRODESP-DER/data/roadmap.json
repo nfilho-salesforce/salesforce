@@ -54,13 +54,25 @@
   {
     "phase_number": 4,
     "phase_name": "Rastreamento, Visibilidade e Estabilização",
-    "objectives": "Rastreamento do cidadão via Appointment Assistant nativo do Field Service (sem build de site guest dedicado), painel único de gestores com 4 indicadores agregados — o mapa/Gantt do C2C com Aerial Routing nativo já é entregue na Fase 2 como parte do Console do Dispatcher. Fecha o programa com UAT em escala estadual (298 viaturas, 1.152 operadores, 14 CGRs) e um período de hypercare/Operação Assistida antes do go-live pleno.",
+    "objectives": "Rastreamento do cidadão via Appointment Assistant nativo do Field Service (sem build de site guest dedicado), painel único de gestores com 4 indicadores agregados — o mapa/Gantt do C2C com Aerial Routing nativo já é entregue na Fase 2 como parte do Console do Dispatcher. Fecha o build do programa com UAT em escala estadual (298 viaturas, 1.152 operadores, 14 CGRs) e estabilização pré-go-live. O hypercare formal pós-go-live é a Fase 5, não esta fase (revisão 2026-09-24 — evita duas fases reivindicando o mesmo marco).",
     "epics_included": "E05",
-    "success_criteria": "Appointment Assistant validado contra o comportamento com 2ª viatura vinculada e o canal de entrega por SMS ([KA-6140]/[KA-6156]); painel de gestores exibindo os 4 indicadores; UAT estadual assinado pelo DER; hypercare concluído sem bloqueadores críticos.",
+    "success_criteria": "Appointment Assistant validado contra o comportamento com 2ª viatura vinculada e o canal de entrega por SMS ([KA-6140]/[KA-6156]); painel de gestores exibindo os 4 indicadores; UAT estadual assinado pelo DER; go-live pleno sem bloqueadores críticos.",
     "dependencies": "depends on: E03, E04 (Fases 2 e 3) — o rastreamento consome o ciclo de vida do Work Order/Service Appointment gerado pelo despacho e pela execução em campo.",
     "risks": "Appointment Assistant ainda não validado em detalhe contra os requisitos específicos do DER (comportamento com 2ª viatura vinculada, canal de entrega por SMS) — risco de gap de comportamento descoberto tarde no template nativo.",
     "kb_sources": [],
     "duration_weeks": 4,
+    "duration_source": "user"
+  },
+  {
+    "phase_number": 5,
+    "phase_name": "Operação Assistida (Hypercare) e Handover para Sustentação",
+    "objectives": "Workstream pós-go-live de 6 semanas, acrescentado ao programa por decisão do usuário em 2026-09-24 e fundido com o workstream de Change Management/Scale-Operação-Assistida já solicitado pelo DER (G0515) — treinamento personalizado por persona, foco nos técnicos de campo (UBAs), somado a uma cobertura técnica dedicada (sustentação de arquitetura e suporte técnico direto) durante a estabilização em produção. Fecha com handover formal e documentado ao time de Sustentação do DER-SP/PRODESP.",
+    "epics_included": "",
+    "success_criteria": "Canal de suporte dedicado ativo desde o go-live; cadência diária de acompanhamento nas primeiras semanas; escalonamento técnico definido; treinamento por persona (com foco nos técnicos de campo) concluído; runbook e conhecimento transferidos e aceitos pela Sustentação — handover assinado.",
+    "dependencies": "depends on: Fase 4 — só inicia após o go-live pleno (fim da Fase 4).",
+    "risks": "Sem um critério de saída formal, hypercare pode se estender indefinidamente sem transição real de accountability para a Sustentação; roster técnico (Arquiteto + Technical Consultant) dimensionado por comprometimento direto do usuário, não derivado do volume de incidentes esperado — reavaliar se o volume real de chamados pós-go-live divergir da premissa. Revisado em grill 2026-09-24: usuário confirmou manter o roster como aposta consciente (sem gatilho de reforço por volume) e manter o encerramento por calendário (S20) + handover assinado, sem gate operacional adicional — endosso sem base independente nova (user-endorsed), ambos os riscos permanecem, agora como escolha explícita, não lacuna silenciosa.",
+    "kb_sources": [],
+    "duration_weeks": 6,
     "duration_source": "user"
   }
 ]

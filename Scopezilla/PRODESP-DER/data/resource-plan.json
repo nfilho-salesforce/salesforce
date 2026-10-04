@@ -6,9 +6,9 @@
     "location": "onshore",
     "count": 1,
     "allocation": "full",
-    "phases_active": "0-4",
+    "phases_active": "0-5",
     "side": "ps",
-    "justification": "Relacionamento com DER/PRODESP/Stefanini, decisões de gate, governança de escopo através de 3 organizações — cadeia de decisão complexa exige presença onshore sênior contínua."
+    "justification": "Relacionamento com DER/PRODESP/Stefanini, decisões de gate, governança de escopo através de 3 organizações — cadeia de decisão complexa exige presença onshore sênior contínua. Toque na Fase 5 (Operação Assistida) é leve — ~10h totais no período, governança do handover à Sustentação (comprometimento direto do usuário, 2026-09-24) — não full-time nessa fase."
   },
   {
     "resource_id": "PS-02",
@@ -105,9 +105,31 @@
     "location": "onshore",
     "count": 1,
     "allocation": "full",
-    "phases_active": "3-4",
+    "phases_active": "3-5",
     "side": "ps",
-    "justification": "Workstream de Change Management/Scale-Operação Assistida explicitamente solicitado pelo DER (G0515) — até 2 meses de operação assistida e treinamento personalizado por persona, foco nos técnicos de campo das 14 UBAs."
+    "justification": "Workstream de Change Management/Scale-Operação Assistida explicitamente solicitado pelo DER (G0515) — até 2 meses de operação assistida e treinamento personalizado por persona, foco nos técnicos de campo das 14 UBAs. Estende-se à Fase 5 (Operação Assistida/Hypercare) por decisão do usuário em 2026-09-24 — o treinamento por persona e o acompanhamento de adoção continuam durante as 6 semanas pós-go-live, fundidos ao mesmo workstream G0515."
+  },
+  {
+    "resource_id": "PS-11",
+    "role": "Technical Architect",
+    "seniority": "regular",
+    "location": "onshore",
+    "count": 1,
+    "allocation": "half",
+    "phases_active": "5",
+    "side": "ps",
+    "justification": "Roster de sustentação técnica pós-go-live (Fase 5, Operação Assistida) comprometido diretamente pelo usuário em 2026-09-24 — 0,5 FTE para cobrir a estabilização da arquitetura técnica (integrações SIGOR/SIGEO, motor de despacho) durante o hypercare, antes do handover pleno à Sustentação. Contagem definida pelo comprometimento do usuário, não derivada do volume de incidentes esperado (ver risco na Fase 5 de `roadmap.json`)."
+  },
+  {
+    "resource_id": "PS-12",
+    "role": "Developer",
+    "seniority": "regular",
+    "location": "onshore",
+    "count": 1,
+    "allocation": "full",
+    "phases_active": "5",
+    "side": "ps",
+    "justification": "Roster de sustentação técnica pós-go-live (Fase 5, Operação Assistida) comprometido diretamente pelo usuário em 2026-09-24 como '1 FTE de Technical Consultant' — mapeado para a função Developer, cujas base roles do Org62 incluem 'Developer / Technical Consultant / MuleSoft Developer' (`resourcing-roles.md`). Cobertura técnica direta de suporte (correções, ajustes finos) durante as 6 semanas de hypercare, antes do handover pleno à Sustentação."
   },
   {
     "resource_id": "CL-01",

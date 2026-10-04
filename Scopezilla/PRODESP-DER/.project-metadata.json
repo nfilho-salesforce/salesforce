@@ -37,9 +37,9 @@
       "note": "Também relevante: contrato atual de URA (Instinct) ativo até abril/2027; contrato administrativo renova em 30/nov/2026 — pressiona a decisão Open CTI vs. Salesforce Voice."
     },
     "user_commitment": {
-      "total_weeks": 22,
+      "total_weeks": 20,
       "total_weeks_build_only": 14,
-      "rationale": "14 semanas de build (cenário otimista da linha Augmented, comprimida da faixa Traditional 16-31 pela banda de eficiência — mesmo cenário já refletido na linha do tempo do ROM/S8 e na tabela de horas por papel/S13) + 8 semanas de Fase 5 (Operação Assistida/Hypercare pós-go-live) + Handover à Sustentação, acrescentadas por decisão do usuário em 2026-09-24 (revise). Total comprometido fim-a-fim: 22 semanas. `total_weeks_build_only` preserva o valor original de 14 semanas para reconciliação com o staffing já carregado no estimate Org62 (aH2ed000000XZ2DCAW, 'MVP DER v1'), que não inclui a Fase 5.",
+      "rationale": "14 semanas de build (cenário otimista da linha Augmented, comprimida da faixa Traditional 16-31 pela banda de eficiência — mesmo cenário já refletido na linha do tempo do ROM/S8 e na tabela de horas por papel/S13) + 6 semanas de Fase 5 (Operação Assistida/Hypercare pós-go-live) + Handover à Sustentação, acrescentadas por decisão do usuário em 2026-09-24 (revise), ajustada para 6 semanas em 2026-10-04 (revise, confirmado no SOW atualizado 02/out). Total comprometido fim-a-fim: 20 semanas. `total_weeks_build_only` preserva o valor original de 14 semanas para reconciliação com o staffing já carregado no estimate Org62 (aH2ed000000XZ2DCAW, 'MVP DER v1'), que não inclui a Fase 5.",
       "set_by": "user"
     },
     "derived": {

@@ -123,6 +123,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
 /* ── CHIPS ── */
 .tshirt{display:inline-flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:800;padding:3px 9px;
   border-radius:20px;letter-spacing:.4px;}
+.tshirt.S{background:#e8f5e9;color:var(--green-dark, #1b5e20);}
 .tshirt.M{background:#fff3e0;color:var(--amber-dark);}
 .tshirt.L{background:#fde8e8;color:var(--red-dark);}
 .chip-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px;}
@@ -260,13 +261,13 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
 .wtl-legend span{display:inline-flex;align-items:center;gap:6px;}
 .wtl-legend i{width:14px;height:14px;border-radius:4px;display:inline-block;}
 .wtl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:14px;background:#fff;box-shadow:var(--sh-sm);}
-.wtl-inner{min-width:1400px;}
-.wtl-axis{display:grid;grid-template-columns:190px repeat(14,1fr);border-bottom:2px solid var(--border);}
+.wtl-inner{min-width:2200px;}
+.wtl-axis{display:grid;grid-template-columns:190px repeat(22,1fr);border-bottom:2px solid var(--border);}
 .wtl-axis .corner{padding:8px 10px;font-size:10px;font-weight:800;color:var(--text-muted);text-transform:uppercase;letter-spacing:.4px;display:flex;align-items:flex-end;}
 .wtl-wk{padding:6px 1px;text-align:center;font-size:9px;font-weight:700;color:#fff;border-left:1px solid rgba(255,255,255,.2);}
 .wtl-wk.f0{background:var(--amber-dark);} .wtl-wk.f1{background:var(--blue-mid);} .wtl-wk.f2{background:var(--blue-accent);}
-.wtl-wk.f3{background:var(--teal);} .wtl-wk.f4{background:var(--purple);} .wtl-wk.f5{background:#9aa7b4;}
-.wtl-track{display:grid;grid-template-columns:190px repeat(14,1fr);align-items:start;border-bottom:1px solid var(--border);min-height:54px;position:relative;}
+.wtl-wk.f3{background:var(--teal);} .wtl-wk.f4{background:var(--purple);} .wtl-wk.f5{background:#3B4859;}
+.wtl-track{display:grid;grid-template-columns:190px repeat(22,1fr);align-items:start;border-bottom:1px solid var(--border);min-height:54px;position:relative;}
 .wtl-track:last-child{border-bottom:none;}
 .wtl-track .lbl{grid-column:1;padding:8px 10px;font-size:11.3px;font-weight:700;color:var(--text-main);}
 .wtl-track .lbl .sub{display:block;font-size:9.3px;color:var(--text-muted);font-weight:600;margin-top:2px;}
@@ -275,8 +276,8 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
 .wtl-bar.compact{margin-top:6px;box-shadow:0 2px 5px -2px rgba(0,0,0,.3);}
 .wtl-bar.extended{margin-top:26px;opacity:.55;border:1px dashed rgba(255,255,255,.6);}
 .wtl-bar.p0{background:var(--amber-dark);} .wtl-bar.p1{background:var(--blue-mid);} .wtl-bar.p2{background:var(--blue-accent);}
-.wtl-bar.p3{background:var(--teal);} .wtl-bar.p4{background:var(--purple);}
-.wtl-mk{display:grid;grid-template-columns:190px repeat(14,1fr);border-top:2px solid var(--border);background:var(--gray-bg);}
+.wtl-bar.p3{background:var(--teal);} .wtl-bar.p4{background:var(--purple);} .wtl-bar.p5{background:#3B4859;}
+.wtl-mk{display:grid;grid-template-columns:190px repeat(22,1fr);border-top:2px solid var(--border);background:var(--gray-bg);}
 .wtl-mk .lbl{grid-column:1;padding:8px 10px;font-size:10px;font-weight:800;color:var(--text-muted);text-transform:uppercase;display:flex;align-items:center;}
 .wtl-mkcell{grid-row:1;text-align:center;padding:6px 1px;}
 .wtl-mkcell .flag{font-size:13px;}
@@ -333,8 +334,8 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
 <body>
 
 <div id="version-bar">
-  <span>ROM PRODESP-DER</span><span class="sep">·</span><b>v3.2</b><span class="sep">·</span>
-  <span>Gerado em 21/09/2026 às 15:50 (América/São Paulo, UTC-03:00)</span>
+  <span>ROM PRODESP-DER</span><span class="sep">·</span><b>v3.5</b><span class="sep">·</span>
+  <span>Gerado em 04/10/2026 às 10:00 (América/São Paulo, UTC-03:00)</span>
 </div>
 
 <aside id="sidebar">
@@ -346,7 +347,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
     </div>
     <h2>PRODESP · DER-SP</h2>
     <p>Rough Order of Magnitude — Field Service, Agentforce, Service Cloud e WhatsApp, em org única Salesforce</p>
-    <span class="owner-line">v3.2 · 21/09/2026</span>
+    <span class="owner-line">v3.5 · 04/10/2026</span>
   </div>
   <nav>
     <div class="nav-group-title">Visão Executiva</div>
@@ -368,7 +369,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
 
     <div class="nav-group-title">Roadmap</div>
     <a class="nav-item" onclick="showSection('s8')"><span class="ico">◆</span><span class="lbl">Linha do Tempo Visual</span>
-      <span class="nav-badges"><span class="nav-badge default">5 fases</span></span></a>
+      <span class="nav-badges"><span class="nav-badge default">6 fases</span></span></a>
     <a class="nav-item" onclick="showSection('s9')"><span class="ico">◆</span><span class="lbl">Visão de Futuro</span>
       <span class="nav-badges"><span class="nav-badge purple">6 itens</span></span></a>
 
@@ -392,7 +393,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
     <div class="topbar-inner">
       <h1>PRODESP · DER-SP · ROM</h1>
       <div class="topbar-right">
-        <span class="date-badge">v3.2 · 21/09/2026 15:50</span>
+        <span class="date-badge">v3.5 · 04/10/2026 10:00</span>
       </div>
     </div>
   </div>
@@ -418,7 +419,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
           <div class="hkpi"><div class="n">1.152</div><div class="l">operadores de campo</div></div>
           <div class="hkpi"><div class="n">4</div><div class="l">frentes tecnológicas entregues em org única</div></div>
         </div>
-        <div class="stamp">v3.2 · Gerado em 21/09/2026 às 15:50 (América/São Paulo, UTC-03:00)</div>
+        <div class="stamp">v3.5 · Gerado em 04/10/2026 às 10:00 (América/São Paulo, UTC-03:00)</div>
       </div>
       <div class="card">
         <h2>Como usar este documento</h2>
@@ -554,7 +555,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
         <h3>Grade capacidade × épico — as 21 sub-capacidades nomeadas</h3>
         <div class="grid-5">
           <div class="cap-card">
-            <b>E01 — Canal Digital <span class="tshirt M" style="margin-left:4px;">M</span></b>
+            <b>E01 — Canal Digital <span class="tshirt L" style="margin-left:4px;">L</span></b>
             <ul>
               <li>Abertura via WhatsApp (texto/áudio) e telefonia (CTI)</li>
               <li>Triagem automatizada pelo Agentforce</li>
@@ -593,7 +594,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
             </ul>
           </div>
           <div class="cap-card">
-            <b>E05 — Rastreamento e Visibilidade <span class="tshirt L" style="margin-left:4px;">L</span></b>
+            <b>E05 — Rastreamento e Visibilidade <span class="tshirt S" style="margin-left:4px;">S</span></b>
             <ul>
               <li>Rastreamento do cidadão via Appointment Assistant (Field Service)</li>
               <li>Painel agregado para gestores (4 indicadores)</li>
@@ -611,19 +612,19 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
     <div id="s5" class="section">
       <div class="card">
         <h2>Quatro das cinco capacidades concentram alta complexidade</h2>
-        <p class="lead">O despacho e a mobilidade de campo puxam o esforço do programa. Esta distribuição mostra onde o esforço real está — sem inflar nem esconder.</p>
+        <p class="lead">O canal digital (com a integração de telefonia via CTI), o despacho e a mobilidade de campo puxam o esforço do programa. Esta distribuição mostra onde o esforço real está — sem inflar nem esconder.</p>
         <div class="gap-bars">
-          <div class="gap-bar-row"><span class="lbl">Canal Digital (M)</span><div class="gap-bar-track"><div class="gap-bar-fill" style="width:40%"></div></div><span class="val">M</span></div>
+          <div class="gap-bar-row"><span class="lbl">Canal Digital (L)</span><div class="gap-bar-track"><div class="gap-bar-fill hl" style="width:100%"></div></div><span class="val">L</span></div>
           <div class="gap-bar-row"><span class="lbl">Registro e Classificação (L)</span><div class="gap-bar-track"><div class="gap-bar-fill hl" style="width:100%"></div></div><span class="val">L</span></div>
           <div class="gap-bar-row"><span class="lbl">Despacho Automatizado (L)</span><div class="gap-bar-track"><div class="gap-bar-fill hl" style="width:100%"></div></div><span class="val">L</span></div>
           <div class="gap-bar-row"><span class="lbl">Execução em Campo (L)</span><div class="gap-bar-track"><div class="gap-bar-fill hl" style="width:100%"></div></div><span class="val">L</span></div>
-          <div class="gap-bar-row"><span class="lbl">Rastreamento em Tempo Real (L)</span><div class="gap-bar-track"><div class="gap-bar-fill hl" style="width:100%"></div></div><span class="val">L</span></div>
+          <div class="gap-bar-row"><span class="lbl">Rastreamento em Tempo Real (S)</span><div class="gap-bar-track"><div class="gap-bar-fill" style="width:40%"></div></div><span class="val">S</span></div>
         </div>
         <h3>Tecnologia por capacidade</h3>
         <div class="dtable-wrap">
           <table class="dtable">
             <tr><th>Capacidade</th><th>Tecnologia central</th></tr>
-            <tr><td>Canal Digital de Atendimento</td><td>Agentforce Contact Center Enterprise + Digital Engagement, com triagem conversacional</td></tr>
+            <tr><td>Canal Digital de Atendimento</td><td>Agentforce Contact Center Enterprise + Digital Engagement, com triagem conversacional + integração CTI para o canal de telefonia</td></tr>
             <tr><td>Registro e Classificação</td><td>Catálogo com mais de 100 subtipos, modelado como Work Type</td></tr>
             <tr><td>Despacho Automatizado</td><td>Motor de agendamento e otimização do Field Service — regras de trabalho e políticas do cliente</td></tr>
             <tr><td>Execução em Campo</td><td>App único de Field Service Mobile</td></tr>
@@ -781,20 +782,21 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
     <div id="s8" class="section">
       <div class="hero" style="background:linear-gradient(135deg,#032D60,#1B96FF);">
         <div class="eyebrow">Roadmap</div>
-        <h1>Cinco fases, ilustradas semana a semana — cenário otimista da linha Augmented</h1>
-        <p class="sub">Este cronograma reflete o extremo mais rápido (14 semanas) da faixa Augmented — a mesma duração que sustenta a tabela de horas por papel em S13, não a duração mais provável e não uma data-compromisso. A faixa completa (Augmented 14–25 sem.; Traditional 16–31 sem.) está documentada em S13.</p>
+        <h1>Seis fases, ilustradas semana a semana — build (cenário otimista da linha Augmented) + Operação Assistida comprometida</h1>
+        <p class="sub">As primeiras 14 semanas refletem o extremo mais rápido da faixa Augmented para o build (Fases 0-4) — a mesma duração que sustenta a tabela de horas por papel em S13, não a duração mais provável e não uma data-compromisso. As 6 semanas finais (Fase 5) são um <b>compromisso direto do usuário</b> (24/09/2026, ajustado de 8 para 6 semanas em 04/10/2026), não uma faixa de benchmark. A faixa completa de build (Augmented 14–25 sem.; Traditional 16–31 sem.) está documentada em S13.</p>
       </div>
 
       <div class="card">
-        <h3 style="margin-top:0;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">Cronograma visual · semana a semana <span class="chip amber">Cenário: Augmented otimista · 14 semanas</span></h3>
+        <h3 style="margin-top:0;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">Cronograma visual · semana a semana <span class="chip amber">Build: Augmented otimista · 14 semanas</span><span class="chip purple">+ Fase 5 comprometida · 6 semanas</span></h3>
         <div class="wtl-legend">
           <span><i style="background:var(--amber-dark);"></i> Fase 0 — Resolução de Discovery</span>
           <span><i style="background:var(--blue-mid);"></i> Fase 1 — Fundação (E02)</span>
           <span><i style="background:var(--blue-accent);"></i> Fase 2 — Despacho e Canal Digital (E03, E01)</span>
           <span><i style="background:var(--teal);"></i> Fase 3 — Execução em Campo (E04)</span>
           <span><i style="background:var(--purple);"></i> Fase 4 — Rastreamento e Estabilização (E05)</span>
+          <span><i style="background:#3B4859;"></i> Fase 5 — Operação Assistida e Handover (comprometida — não é faixa)</span>
         </div>
-        <p style="font-size:11.5px;color:var(--text-muted);margin-bottom:10px;">Distribuição das 14 semanas do extremo inferior da faixa Augmented, proporcional à complexidade relativa de cada fase — mesmo critério de alocação já usado para a faixa Traditional (16–31 sem.), aplicado aqui à duração comprimida pela banda de eficiência.</p>
+        <p style="font-size:11.5px;color:var(--text-muted);margin-bottom:10px;">Fases 0-4: distribuição das 14 semanas do extremo inferior da faixa Augmented, proporcional à complexidade relativa de cada fase — mesmo critério de alocação já usado para a faixa Traditional (16–31 sem.), aplicado aqui à duração comprimida pela banda de eficiência. Fase 5: 6 semanas fixas comprometidas pelo usuário, sem faixa — inicia só após o go-live pleno (fim da Fase 4).</p>
 
         <div class="wtl-wrap">
           <div class="wtl-inner">
@@ -814,6 +816,12 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
               <div class="wtl-wk f4">S12</div>
               <div class="wtl-wk f4">S13</div>
               <div class="wtl-wk f4">S14</div>
+              <div class="wtl-wk f5">S15</div>
+              <div class="wtl-wk f5">S16</div>
+              <div class="wtl-wk f5">S17</div>
+              <div class="wtl-wk f5">S18</div>
+              <div class="wtl-wk f5">S19</div>
+              <div class="wtl-wk f5">S20</div>
             </div>
 
             <div class="wtl-track">
@@ -836,44 +844,54 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
               <div class="lbl">Fase 4<span class="sub">Rastreamento + Estabilização · E05</span></div>
               <div class="wtl-bar compact p4" style="grid-column:12/16;">S11–S14</div>
             </div>
+            <div class="wtl-track">
+              <div class="lbl">Fase 5<span class="sub">Operação Assistida + Handover</span></div>
+              <div class="wtl-bar compact p5" style="grid-column:16/22;">S15–S20 · comprometido</div>
+            </div>
 
             <div class="wtl-mk">
               <div class="lbl">Marcos</div>
-              <div class="wtl-mkcell"><span class="flag">🧩</span><span class="mt">M0 · Gaps bloq. respondidos</span></div>
+              <div class="wtl-mkcell"><span class="flag">🧩</span><span class="mt">M0 · Discovery resolvido</span></div>
               <div class="wtl-mkcell"></div>
               <div class="wtl-mkcell"></div>
-              <div class="wtl-mkcell"><span class="flag">🧱</span><span class="mt">M1 · Registro+integrações</span></div>
+              <div class="wtl-mkcell"><span class="flag">🧱</span><span class="mt">M1 · Fundação pronta</span></div>
               <div class="wtl-mkcell"></div>
               <div class="wtl-mkcell"></div>
-              <div class="wtl-mkcell"><span class="flag">📡</span><span class="mt">M2 · Despacho+canal ativos</span></div>
+              <div class="wtl-mkcell"><span class="flag">📡</span><span class="mt">M2 · Despacho + Canal Digital ativos</span></div>
               <div class="wtl-mkcell"></div>
               <div class="wtl-mkcell"></div>
-              <div class="wtl-mkcell"><span class="flag">📱</span><span class="mt">M3 · App campo em operação</span></div>
+              <div class="wtl-mkcell"><span class="flag">📱</span><span class="mt">M3 · Execução em campo em produção</span></div>
               <div class="wtl-mkcell"></div>
               <div class="wtl-mkcell"></div>
               <div class="wtl-mkcell"></div>
-              <div class="wtl-mkcell"><span class="flag">🚀</span><span class="mt">M4 · Go-live</span></div>
+              <div class="wtl-mkcell"><span class="flag">🚀</span><span class="mt">M4 · Go-live estadual pleno</span></div>
+              <div class="wtl-mkcell"></div>
+              <div class="wtl-mkcell"></div>
+              <div class="wtl-mkcell"></div>
+              <div class="wtl-mkcell"></div>
+              <div class="wtl-mkcell"><span class="flag">🤝</span><span class="mt">M5 · Handover p/ Sustentação</span></div>
             </div>
           </div>
         </div>
 
-        <div class="disclaimer">Esta linha do tempo ilustra especificamente o <b>cenário otimista da linha Augmented</b> (14 semanas, extremo inferior da faixa 14–25 semanas derivada de benchmark, comprimida de 16–31 semanas pela banda de eficiência ~10–18% de <code>efficiency.json</code>) — não é uma duração comprometida pelo cliente. A divisão semana-a-semana por fase é <b>ilustrativa e proporcional à complexidade relativa de cada fase</b>, no mesmo critério de alocação usado para a faixa Traditional. Marcos M0-M4 posicionados no fim de cada fase. A faixa completa por linha de entrega (Traditional, Augmented, AI-native) e o detalhamento de horas/custo por papel para este mesmo cenário de 14 semanas estão em S13.</div>
+        <div class="disclaimer">As <b>Fases 0-4</b> ilustram especificamente o <b>cenário otimista da linha Augmented</b> (14 semanas, extremo inferior da faixa 14–25 semanas derivada de benchmark, comprimida de 16–31 semanas pela banda de eficiência ~10–18% de <code>efficiency.json</code>) — não é uma duração comprometida pelo cliente. A divisão semana-a-semana dessas fases é <b>ilustrativa e proporcional à complexidade relativa de cada fase</b>, no mesmo critério de alocação usado para a faixa Traditional. A <b>Fase 5</b> (S15–S20) é diferente: 6 semanas comprometidas diretamente pelo usuário em 24/09/2026 (ajustado de 8 para 6 em 04/10/2026), não uma faixa de benchmark — só inicia após o go-live pleno. Marcos M0-M4 posicionados no fim de cada fase de build; M5 encerra a Fase 5. A faixa completa por linha de entrega (Traditional, Augmented, AI-native) e o detalhamento de horas/custo por papel para o build de 14 semanas estão em S13 — essas figuras <b>não incluem</b> a Fase 5.</div>
 
         <h3>O que cada marco entrega</h3>
         <div class="dtable-wrap">
           <table class="dtable">
             <tr><th>Marco</th><th>Fim de fase</th><th>Entrega</th></tr>
-            <tr><td><b>M0</b></td><td>Fase 0</td><td>Gaps bloqueadores (G0107, G0305, G0309, G0415, G0524) respondidos; especificação SIGOR/SIGEO assinada; workstream de Change Management dimensionado.</td></tr>
-            <tr><td><b>M1</b></td><td>Fase 1</td><td>Work Order criável a partir de qualquer canal; catálogo completo de Work Type; sincronização SIGOR validada; callout SIGEO testado.</td></tr>
-            <tr><td><b>M2</b></td><td>Fase 2</td><td>Despacho aciona a viatura correta nas 14 CGRs; console do Dispatcher operacional nos 4 turnos; triagem WhatsApp cria Work Order de ponta a ponta.</td></tr>
-            <tr><td><b>M3</b></td><td>Fase 3</td><td>App de campo em operação nas 14 UBAs, travas de negócio ativas, piloto concluído antes do rollout estadual.</td></tr>
-            <tr><td><b>M4 (Go-live)</b></td><td>Fase 4</td><td>Link de rastreamento e painel de gestores ativos; UAT estadual (298 viaturas, 1.152 operadores, 14 CGRs) assinado; hypercare concluído.</td></tr>
+            <tr><td><b>M0</b></td><td>Fase 0</td><td>Gaps bloqueadores resolvidos e escopo de Change Management dimensionado.</td></tr>
+            <tr><td><b>M1</b></td><td>Fase 1</td><td>Registro da ocorrência e integrações SIGOR/SIGEO operacionais.</td></tr>
+            <tr><td><b>M2</b></td><td>Fase 2</td><td>Despacho automatizado nas 14 CGRs e canal digital (WhatsApp + CTI) ativos.</td></tr>
+            <tr><td><b>M3</b></td><td>Fase 3</td><td>App de campo em produção nas 14 CGRs — 1.152 operadores.</td></tr>
+            <tr><td><b>M4 (Go-live pleno)</b></td><td>Fase 4</td><td>UAT estadual assinado e go-live pleno.</td></tr>
+            <tr><td><b>M5 (Handover)</b></td><td>Fase 5</td><td>Hypercare de 6 semanas com handover formal à Sustentação.</td></tr>
           </table>
         </div>
 
         <div class="alert blue">
           <span class="ic">🎯</span>
-          <div><b>Caminho crítico:</b> E02 → E03 → E04 → E05, com E01 correndo em paralelo a partir da Fase 2 — atraso em qualquer ponto do caminho se propaga às fases seguintes. As 5 fases seguem a sequência recomendada de setup do Field Service (Work Order Management → Workforce/Scheduling → execução em campo → visibilidade) — não uma estrutura genérica de projeto. <span class="chip gray" style="margin-left:4px;">[KA-6240]</span></div>
+          <div><b>Caminho crítico:</b> E02 → E03 → E04 → E05, com E01 correndo em paralelo a partir da Fase 2 — atraso em qualquer ponto do caminho se propaga às fases seguintes. As Fases 0-4 seguem a sequência recomendada de setup do Field Service (Work Order Management → Workforce/Scheduling → execução em campo → visibilidade) — não uma estrutura genérica de projeto. <span class="chip gray" style="margin-left:4px;">[KA-6240]</span> A Fase 5 só inicia após o go-live pleno (fim da Fase 4) e foi acrescentada por decisão direta do usuário — sem grounding de KB, não se aplica.</div>
         </div>
         <div class="alert amber">
           <span class="ic">⏱</span>
@@ -947,15 +965,16 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
     <!-- ═══════════════════ S10 · ADOÇÃO E CHANGE MANAGEMENT ═══════════════════ -->
     <div id="s10" class="section">
       <div class="card">
-        <h2>1.152 operadores em 14 empresas terceirizadas — por isso o DER pediu, por escrito, até dois meses de operação assistida</h2>
+        <h2>1.152 operadores em 14 empresas terceirizadas — por isso o DER pediu, por escrito, até dois meses de operação assistida, agora com handover formal à Sustentação</h2>
         <div class="kpi-wrap">
           <div class="kpi"><div class="n">1.152</div><div class="l">operadores de campo</div></div>
           <div class="kpi green"><div class="n">14</div><div class="l">empresas terceirizadas (UBAs)</div></div>
-          <div class="kpi amber"><div class="n">≤ 2 meses</div><div class="l">de operação assistida (hypercare/Scale)</div></div>
+          <div class="kpi amber"><div class="n">6 semanas</div><div class="l">de Operação Assistida comprometidas (Fase 5)</div></div>
+          <div class="kpi purple"><div class="n">0,5 + 1 FTE</div><div class="l">roster técnico de sustentação na Fase 5</div></div>
         </div>
 
         <h3>Origem e escopo</h3>
-        <p>O gap <b>G0515</b> nasceu de uma necessidade de pesquisa de UX para a experiência de rastreamento do cidadão — dispensada porque a PoC (20/08) já validou essa experiência. Mas na mesma resolução, o DER trouxe um pedido mais amplo e explícito: até <b>2 meses de operação assistida (hypercare/Scale)</b> pós-go-live, mais <b>treinamento personalizado por persona</b>, com foco específico nos técnicos de campo das 14 UBAs — não uma adição do time de entrega, é uma linha de esforço nomeada pelo cliente, refletida no dimensionamento do programa inteiro, não apenas do épico de rastreamento (E05).</p>
+        <p>O gap <b>G0515</b> nasceu de uma necessidade de pesquisa de UX para a experiência de rastreamento do cidadão — dispensada porque a PoC (20/08) já validou essa experiência. Mas na mesma resolução, o DER trouxe um pedido mais amplo e explícito: até <b>2 meses de operação assistida (hypercare/Scale)</b> pós-go-live, mais <b>treinamento personalizado por persona</b>, com foco específico nos técnicos de campo das 14 UBAs. Em <b>24/09/2026</b>, o usuário comprometeu esse período em <b>8 semanas fechadas (Fase 5)</b>, ajustado para <b>6 semanas em 04/10/2026</b>, e adicionou um roster técnico dedicado — <b>0,5 FTE Technical Architect + 1 FTE Developer ("Technical Consultant")</b> — fundido a este mesmo workstream, mais um <b>handover formal e documentado</b> ao time de Sustentação do DER-SP/PRODESP ao final. Não é uma adição do time de entrega — é uma linha de esforço nomeada e comprometida pelo cliente/usuário, refletida no dimensionamento do programa inteiro, não apenas do épico de rastreamento (E05).</p>
 
         <h3>Por que este escopo, e não outro</h3>
         <p>O risco de adoção é estrutural, não incidental — 1.152 operadores terceirizados, de 14 empresas distintas, precisam adotar um único aplicativo e um único fluxo de trabalho no lugar de processos hoje fragmentados por empresa. O canal digital (WhatsApp) é complemento à voz, não substituto — reduz o risco de excluir o cidadão que só confia na ligação, mesma lógica aplicada à adoção interna: nenhuma mudança de processo é "só tecnologia".</p>
@@ -964,12 +983,13 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
         <div class="grid-4">
           <div class="cm-card"><span class="ic2">🎓</span><h4>Currículo por persona</h4><p>Trilhas distintas para o operador de campo (app, travas de negócio, evidência), o programador/dispatcher (console, escalonamento N/N-10) e o gestor (painel de indicadores) — não um treinamento genérico único.</p></div>
           <div class="cm-card"><span class="ic2">📣</span><h4>Plano de comunicação e prontidão</h4><p>Antecipa resistência nas 14 empresas terceirizadas antes do rollout estadual, não depois dele.</p></div>
-          <div class="cm-card"><span class="ic2">🛟</span><h4>Modelo de hypercare</h4><p>Canal de suporte dedicado, escalonamento definido, cadência diária nas primeiras semanas pós-go-live, por até 2 meses.</p></div>
+          <div class="cm-card"><span class="ic2">🛟</span><h4>Modelo de hypercare (Fase 5, 6 semanas)</h4><p>Canal de suporte dedicado, escalonamento técnico definido, cadência diária nas primeiras semanas pós-go-live, com cobertura técnica de 0,5 FTE Technical Architect + 1 FTE Developer.</p></div>
+          <div class="cm-card"><span class="ic2">🤝</span><h4>Handover formal à Sustentação</h4><p>Runbook e conhecimento transferidos e aceitos pelo time de Sustentação do DER-SP/PRODESP, encerrando a Fase 5.</p></div>
           <div class="cm-card"><span class="ic2">📊</span><h4>Acompanhamento de adoção</h4><p>Usa o próprio painel de gestores (E05) como instrumento de leitura de adesão — não um relatório paralelo.</p></div>
         </div>
 
         <h3>Metodologia e dimensionamento</h3>
-        <p>O workstream é dimensionado na <b>Fase 0</b> (junto aos demais gaps bloqueadores) e sua execução atravessa as <b>Fases 3-4</b> — exatamente o período em que o app de campo entra em operação e o programa vai a produção estadual. No roster, aparece como a função <b>Change &amp; Adoption</b> (lane traditional) / <b>Adoption Architect</b> (lane AI-native) — 1 pessoa, regular, onshore, ativa nas fases 3-4, com a justificativa citando <b>G0515</b> explicitamente: é headcount central <i>por causa</i> deste pedido nomeado, não um papel padrão que entraria de qualquer forma.</p>
+        <p>O workstream é dimensionado na <b>Fase 0</b> (junto aos demais gaps bloqueadores) e sua execução atravessa as <b>Fases 3-5</b> — o período em que o app de campo entra em operação, o programa vai a produção estadual, e a operação assistida pós-go-live acontece. No roster, aparece como a função <b>Change &amp; Adoption</b> (lane traditional) / <b>Adoption Architect</b> (lane AI-native) — 1 pessoa, regular, onshore, ativa nas Fases 3-5, com a justificativa citando <b>G0515</b> explicitamente: é headcount central <i>por causa</i> deste pedido nomeado, não um papel padrão que entraria de qualquer forma. Na Fase 5, soma-se um roster técnico dedicado — <b>0,5 FTE Technical Architect + 1 FTE Developer/"Technical Consultant"</b>, ambos regular/onshore — comprometido diretamente pelo usuário em 24/09/2026, não derivado do volume de incidentes esperado.</p>
 
         <div class="alert green">
           <span class="ic">✓</span>
@@ -989,7 +1009,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
         <p class="lead">Cada capacidade é descrita pelo que entrega, pela capacidade Salesforce que a sustenta e pelos casos de uso que ela habilita.</p>
 
         <div class="epic-card">
-          <div class="ehead"><h3>Canal Digital de Atendimento ao Cidadão (WhatsApp + Telefonia via CTI + Agentforce)</h3><span class="tshirt M">M</span></div>
+          <div class="ehead"><h3>Canal Digital de Atendimento ao Cidadão (WhatsApp + Telefonia via CTI + Agentforce)</h3><span class="tshirt L">L</span></div>
           <p><b class="lbl">O que entrega:</b> abertura de chamado de socorro via WhatsApp (texto/áudio) e via telefonia (integração CTI com a URA) com triagem automatizada, sempre com transbordo garantido para fila humana via Omni-Channel, com contexto completo (incluindo screen-pop de CTI) — a IA nunca decide a gravidade da vítima. Complementa, nunca substitui, o 0800.</p>
           <p><b class="lbl">Capacidade Salesforce:</b> Service Cloud (Agentforce Contact Center Enterprise — número de licenças a revalidar per <code>decisions/0004</code>) + Digital Engagement + Omni-Channel + Service Console + integração CTI (padrão a confirmar, <code>data/gaps.json</code> G0524).</p>
           <p><b class="lbl">Casos de uso habilitados:</b> abertura de chamado via WhatsApp (texto/áudio) e telefonia (CTI) · triagem automatizada pelo Agentforce · transbordo garantido para fila humana via Omni-Channel, com contexto completo (incluindo screen-pop de CTI) · criação automática de ordem de serviço e protocolo.</p>
@@ -1017,7 +1037,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
         </div>
 
         <div class="epic-card">
-          <div class="ehead"><h3>Rastreamento e Visibilidade em Tempo Real</h3><span class="tshirt L">L</span></div>
+          <div class="ehead"><h3>Rastreamento e Visibilidade em Tempo Real</h3><span class="tshirt S">S</span></div>
           <p><b class="lbl">O que entrega:</b> protocolo único acompanhável do pedido ao encerramento — rastreamento do cidadão via Appointment Assistant e painel agregado para gestores.</p>
           <p><b class="lbl">Capacidade Salesforce:</b> Field Service (template de Experience Cloud embutido + Appointment Assistant nativo, <code>[KA-6140]</code>) — sem build de site guest dedicado.</p>
           <p><b class="lbl">Casos de uso habilitados:</b> rastreamento do cidadão via Appointment Assistant (Field Service) · painel agregado para gestores (4 indicadores).</p>
@@ -1040,8 +1060,9 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
           <li><b>Fase 0</b> — resolução das 5 perguntas bloqueadoras (G0107, G0305, G0309, G0415, G0524) e dimensionamento do workstream de Change Management.</li>
           <li><b>5 capacidades (épicos)</b> — Canal Digital (E01), Registro e Classificação (E02), Despacho Automatizado (E03), Execução em Campo (E04), Rastreamento e Visibilidade (E05) — as 21 sub-capacidades nomeadas na seção Alcance do MVP, não uma lista aberta.</li>
           <li><b>2 integrações</b> — SIGOR e SIGEO, ponto a ponto, especificadas e testadas.</li>
-          <li><b>Workstream de Change Management</b> — até 2 meses de operação assistida + treinamento por persona para os 1.152 operadores das 14 UBAs.</li>
-          <li><b>UAT estadual e hypercare</b> — validação nas 14 CGRs (298 viaturas, 1.152 operadores), não apenas no piloto.</li>
+          <li><b>Workstream de Change Management</b> — até 2 meses de operação assistida + treinamento por persona para os 1.152 operadores das 14 UBAs, atravessando as Fases 3-5 com pico durante a Operação Assistida (Fase 5).</li>
+          <li><b>UAT estadual</b> — validação nas 14 CGRs (298 viaturas, 1.152 operadores), não apenas no piloto — encerra o build (Fase 4).</li>
+          <li><b>Fase 5 — Operação Assistida (6 semanas) e Handover à Sustentação</b> — mapeada e comprometida (roster: 0,5 FTE Technical Architect + 1 FTE Developer/"Technical Consultant"), mas <b>fora da faixa de investimento desta tabela</b> — ver nota em <a onclick="showSection('s13')" style="color:var(--blue-accent);cursor:pointer;">Investimento (ROM) →</a>.</li>
         </ul>
 
         <h3>Entregáveis por fase (base de validação da proposta)</h3>
@@ -1052,8 +1073,9 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
             <tr><td><b>Fase 1</b></td><td>Work Order criável a partir da tela nativa; catálogo completo de Work Type; sincronização SIGOR validada; callout SIGEO testado; alerta de deduplicação manual funcionando.</td></tr>
             <tr><td><b>Fase 2</b></td><td>Despacho aciona a viatura correta nas 14 CGRs; escalonamento N/N-10 funciona; console do Dispatcher operacional nos 4 turnos; triagem WhatsApp cria Work Order de ponta a ponta.</td></tr>
             <tr><td><b>Fase 3</b></td><td>App recebe despacho e executa o ciclo completo até o encerramento com evidência; piloto antes do rollout às 14 CGRs; travas de negócio bloqueiam encerramento sem os requisitos mínimos.</td></tr>
-            <tr><td><b>Fase 4</b></td><td>Link guest ativo e protegido por token com expiração; mapa/Gantt operacional; painel de gestores com os 4 indicadores; UAT estadual assinado; hypercare concluído sem bloqueadores críticos.</td></tr>
-            <tr><td><b>Change Management</b></td><td>Atravessa Fases 3-4, dimensionado na Fase 0: até 2 meses de operação assistida + treinamento por persona para os 1.152 operadores das 14 UBAs.</td></tr>
+            <tr><td><b>Fase 4</b></td><td>Link guest ativo e protegido por token com expiração; mapa/Gantt operacional; painel de gestores com os 4 indicadores; UAT estadual assinado; go-live pleno sem bloqueadores críticos.</td></tr>
+            <tr><td><b>Fase 5</b></td><td>Operação Assistida (6 semanas, comprometida em 24/09/2026, ajustada de 8 para 6 em 04/10/2026) com roster técnico de 0,5 FTE Technical Architect + 1 FTE Developer; handover formal e documentado à Sustentação do DER-SP/PRODESP — fora da faixa de investimento desta tabela.</td></tr>
+            <tr><td><b>Change Management</b></td><td>Atravessa Fases 3-5, dimensionado na Fase 0: até 2 meses de operação assistida + treinamento por persona para os 1.152 operadores das 14 UBAs, fundido ao roster técnico da Fase 5.</td></tr>
           </table>
         </div>
 
@@ -1149,9 +1171,10 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
         </div>
 
         <div class="disclaimer">Esta faixa é baseada nas rates de R$946,69/h (architect-class sênior onshore), R$715,66/h (entrega sênior onshore/qualquer offshore regular) e R$614,21/h (change &amp; adoption regular onshore) que você forneceu e validou em 2026-09-17. Indicativo para planejamento apenas; a estrutura comercial final é confirmada através do acordo comercial aplicável.</div>
+        <div class="disclaimer"><b>Aviso — Fase 5 fora desta faixa.</b> Estas faixas cobrem só o build (Fases 0-4, 16-31 semanas conforme o modelo). A Fase 5 — Operação Assistida (6 semanas) e Handover à Sustentação, comprometida em 24/09/2026 (ajustada de 8 para 6 em 04/10/2026) — ainda não passou por um ciclo próprio de <code>commercials</code>/<code>estimate</code> e não está incluída em nenhum dos valores acima ou abaixo.</div>
 
         <h3>Detalhamento por papel — cenário otimista da linha Augmented (14 semanas)</h3>
-        <p class="lead">Abertura por papel do extremo inferior da faixa Augmented acima (14 semanas) — mesmo roster nomeado (<code>data/resource-plan.json</code>), mesmas rates validadas, mesma metodologia (equipe completa ao longo de toda a duração, sem desconto por fase — a "faixa honestamente larga" já documentada para uma duração sem compromisso semanal fechado). O total com imposto abaixo reconcilia exatamente com o extremo inferior da linha Augmented na tabela acima (R$ 5.541.323,20).</p>
+        <p class="lead">Abertura por papel do extremo inferior da faixa Augmented acima (14 semanas) — mesmo roster nomeado (<code>data/resource-plan.json</code>), mesmas rates validadas, mesma metodologia (equipe completa ao longo de toda a duração, sem desconto por fase — a "faixa honestamente larga" já documentada para uma duração sem compromisso semanal fechado). O total com imposto abaixo reconcilia exatamente com o extremo inferior da linha Augmented na tabela acima (R$ 5.541.323,20). <b>Cobre só o build (14 semanas) — o roster técnico da Fase 5 (0,5 FTE Technical Architect + 1 FTE Developer, comprometido em 24/09/2026) não está incluído neste detalhamento.</b></p>
         <div class="dtable-wrap">
           <table class="dtable">
             <tr><th>Papel</th><th>Senioridade · local</th><th>Pessoas</th><th>Horas (14 sem.)</th><th>Rate sem imposto</th><th>Rate com imposto</th><th>Custo sem imposto</th><th>Custo com imposto</th></tr>
@@ -1208,7 +1231,7 @@ body{font-family:var(--font-body);background:var(--gray-bg);color:var(--text-mai
 
   <footer id="page-footer">
     <b>PRODESP · DER-SP</b> — ROM (Rough Order of Magnitude) · Field Service + Agentforce (Contact Center Enterprise) + Service Cloud + WhatsApp<br/>
-    v3.2 · Gerado em 21/09/2026 às 15:50 (América/São Paulo, UTC-03:00) · Documento indicativo para planejamento — validação da visão de solução, alcance, faseamento e esforço; não constitui proposta comercial final.
+    v3.5 · Gerado em 04/10/2026 às 10:00 (América/São Paulo, UTC-03:00) · Documento indicativo para planejamento — validação da visão de solução, alcance, faseamento e esforço; não constitui proposta comercial final.
   </footer>
 </div>
 

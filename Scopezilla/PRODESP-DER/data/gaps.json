@@ -625,8 +625,8 @@
     "category": "Missing Requirement",
     "gap_or_question": "[Discipline gap — design de experiência] O discovery brief (item 15) já registra sinais de design de experiência como 'Assumed, raso — sem UX research formal'. Aplicado a E05 especificamente: o mecanismo de rastreamento do cidadão (link estilo Uber) é uma premissa do BSA, nunca testada com usuário real, e toca o momento mais sensível de toda a jornada — um motorista em situação de vulnerabilidade na pista.",
     "impact_or_notes": "Recomendo, antes de comprometer o design, ao menos uma validação leve de service design/UX com o DER (mesmo que informal) sobre essa experiência específica — é o ponto de maior risco reputacional do programa, não um detalhe de tela.",
-    "status": "Resolved - Scope Clarified (new workstream surfaced)",
-    "resolution": "Gap de UX dispensado: a experiência de rastreamento do cidadão já foi testada na PoC (20/08), não exigindo serviço formal de UX research adicional. Porém, o usuário surfou um item de escopo novo e mais amplo: o DER solicita explicitamente um serviço de Change Management no projeto, incluindo até 2 meses de Scale/Operação Assistida e treinamento personalizado por persona, com foco nos técnicos de campo (UBAs). Este item extrapola o E05 (rastreamento) — é um workstream de adoção/change management transversal ao programa, a ser refletido no dimensionamento de esforço/Estimate, não apenas como nota de gap.",
+    "status": "Resolved - Scope Clarified and Propagated",
+    "resolution": "Gap de UX dispensado: a experiência de rastreamento do cidadão já foi testada na PoC (20/08), não exigindo serviço formal de UX research adicional. Porém, o usuário surfou um item de escopo novo e mais amplo: o DER solicita explicitamente um serviço de Change Management no projeto, incluindo até 2 meses de Scale/Operação Assistida e treinamento personalizado por persona, com foco nos técnicos de campo (UBAs). Este item extrapola o E05 (rastreamento) — é um workstream de adoção/change management transversal ao programa, a ser refletido no dimensionamento de esforço/Estimate, não apenas como nota de gap. ATUALIZAÇÃO 2026-09-24 (revise): propagado. O usuário comprometeu diretamente o escopo pós-go-live — 6 semanas de Operação Assistida/Hypercare + Handover formal à Sustentação, formalizadas como Fase 5 em `roadmap.json` (timeline comprometido 14→20 semanas (ajustado de 22 para 20 em 2026-10-04, revise) em `.project-metadata.json`). Roster técnico de sustentação (0,5 FTE Technical Architect + 1 FTE Developer/'Technical Consultant', ambos Fase 5) fundido a este mesmo workstream por decisão explícita do usuário — não tratado como item de escopo separado — junto da extensão do PM (toque leve, ~10h) e do Change & Adoption (PS-10) já resourced aqui, agora estendido de Fase 3-4 para 3-5. Ver `data/resource-plan.json` (PS-01, PS-10, PS-11, PS-12).",
     "resolved_date": "2026-09-17"
   },
   {
@@ -718,5 +718,14 @@
     "status": "Open - Design assumption to validate",
     "resolution": "",
     "resolved_date": ""
+  },
+  {
+    "gap_id": "G0526",
+    "category": "Potential Risk",
+    "gap_or_question": "O validate-data.py reporta FAIL de pricing/rate leak em outputs/artifacts/sow-scope.md — a tabela de cronograma de pagamento e marcos (Mês 1-13) expõe valores em R$ por marco e os totais do SOW.",
+    "impact_or_notes": "O guardrail do validator trata qualquer R$ em outputs/ como vazamento, mas aqui o conteúdo é intencional: sow-scope.md é um SOW client-facing cujo propósito é justamente apresentar o cronograma de pagamento. Decisão consciente do usuário em 2026-10-04: aceitar o FAIL como item disclosed, não mover o arquivo para fora de outputs/ nem suprimir a tabela.",
+    "status": "Resolved - Premise Accepted",
+    "resolution": "Usuário optou por 'aceitar o FAIL conscientemente' (2026-10-04) — a tabela de pagamento permanece em outputs/artifacts/sow-scope.md como está. O FAIL de pricing-leak continua a aparecer em toda execução de validate daqui em diante; é esperado e não bloqueia o handoff — ver confirmação da decisão em data/memory.json (decision_log, 2026-10-04).",
+    "resolved_date": "2026-10-04"
   }
 ]

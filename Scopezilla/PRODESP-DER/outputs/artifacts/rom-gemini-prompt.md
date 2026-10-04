@@ -1,6 +1,6 @@
 # Prompts Gemini — ROM PRODESP-DER (geração de deck PPTX/Google Slides)
 
-*Gerado em 2026-09-18. Revisado em 2026-09-20 (CTI entra no MVP — ADR 0003/0004 —, capacidades recontadas de 26 para 21 em 4 frentes tecnológicas, arquitetura de telefonia detalhada com novo diagrama 0800→PABX→URA→agente de IA→Service Console, documento reclassificado de escopo/preço fechado para validação da visão de solução, alcance, faseamento e esforço). Fonte única de conteúdo: `outputs/artifacts/presentation-outline.md`. Todo número (R$, semanas, contagens) foi copiado verbatim dessa fonte — nenhum valor foi recalculado ou arredondado.*
+*Gerado em 2026-09-18. Revisado em 2026-09-20 (CTI entra no MVP — ADR 0003/0004 —, capacidades recontadas de 26 para 21 em 4 frentes tecnológicas, arquitetura de telefonia detalhada com novo diagrama 0800→PABX→URA→agente de IA→Service Console, documento reclassificado de escopo/preço fechado para validação da visão de solução, alcance, faseamento e esforço). Revisado novamente em 2026-09-23 (tamanhos recalculados: E01 · Canal Digital de M para L — o canal de telefonia via CTI passa a puxar Integration e UI para o tier M; E05 · Rastreamento e Visibilidade de L para S — a troca de arquitetura para o Appointment Assistant nativo do Field Service dispensa o build de site guest customizado no Experience Cloud). Revisado novamente em 2026-09-24 (revise): timeline comprometido estendido de 14 para 22 semanas — acrescentada a Fase 5 (Operação Assistida/Hypercare, 8 semanas) e Handover formal à Sustentação, fundida ao workstream de Change Management já solicitado pelo DER (G0515). Revisado novamente em 2026-10-04 (revise): Fase 5 ajustada de 8 para 6 semanas (confirmado no SOW atualizado 02/out) — timeline comprometido passa de 22 para 20 semanas. Roster de sustentação técnica (0,5 FTE Technical Architect + 1 FTE Developer/"Technical Consultant") comprometido diretamente pelo usuário para essa fase — ver `data/roadmap.json` e `data/resource-plan.json`. As figuras de investimento (Slides 12-13) ainda cobrem só o build de 14 semanas — o custo da Fase 5 depende de um novo ciclo de `commercials`/`estimate`, ainda não executado; não incluído nas figuras abaixo. Revisado novamente em 2026-09-24 (Slide 9): conteúdo dos marcos M0-M5 simplificado para uma entrega-manchete por marco (mesmo nível de detalhe do PNG `outputs/artifacts/der-timeline.png`) — a granularidade anterior (listas de sub-entregas por marco) foi consolidada a pedido do usuário. Fonte única de conteúdo: `outputs/artifacts/presentation-outline.md` e `data/estimates.json`. Todo número (R$, semanas, contagens) foi copiado verbatim dessas fontes — nenhum valor foi recalculado ou arredondado.*
 
 ## Como usar
 
@@ -221,7 +221,7 @@ STAT TILES (5 blocos em linha)
 - 4 / frentes tecnológicas entregues em org única
 - 21 / sub-capacidades nomeadas
 
-CARTÃO 1 — E01 · Canal Digital (M)
+CARTÃO 1 — E01 · Canal Digital (L)
 - Abertura de chamado via WhatsApp (texto/áudio) e telefonia (CTI)
 - Triagem automatizada pelo Agentforce
 - Transbordo garantido para fila humana via Omni-Channel, com contexto completo (incluindo screen-pop de CTI)
@@ -248,7 +248,7 @@ CARTÃO 4 — E04 · Execução em Campo (L)
 - Encerramento com formulário, quando aplicável
 - Travas de negócio (recusa com motivo, foto, check-in geolocalizado)
 
-CARTÃO 5 — E05 · Rastreamento e Visibilidade (L)
+CARTÃO 5 — E05 · Rastreamento e Visibilidade (S)
 - Rastreamento do cidadão via Appointment Assistant (Field Service)
 - Painel agregado para gestores (4 indicadores)
 
@@ -276,7 +276,7 @@ TITLE: Cinco épicos entregam o MVP completo — do canal digital (WhatsApp e te
 
 LAYOUT: Grid de 5 cartões, um por épico, em sequência (E01→E05). Cada cartão tem um cabeçalho (nome do épico + tamanho como badge) e 3 campos de corpo, cada um em seu próprio parágrafo/linha dentro do cartão — nunca concatenados em um único bloco de texto: "O que entrega", "Capacidade Salesforce", "Casos de uso habilitados". Se o grid de 5 cartões ficar denso demais em um único slide, renderize como uma tabela real (Insert > Table) com 6 linhas (1 cabeçalho + 5 conteúdo) e 5 colunas (Épico / Tamanho / O que entrega / Capacidade Salesforce / Casos de uso habilitados) — cada campo em sua própria célula, nunca concatenado.
 
-CARTÃO 1 — Canal Digital de Atendimento ao Cidadão (WhatsApp + Telefonia via CTI + Agentforce) · Tamanho M
+CARTÃO 1 — Canal Digital de Atendimento ao Cidadão (WhatsApp + Telefonia via CTI + Agentforce) · Tamanho L
 - O que entrega: abertura de chamado de socorro via WhatsApp (texto/áudio) e via telefonia (integração CTI com a URA) com triagem automatizada, sempre com transbordo garantido para fila humana via Omni-Channel, com contexto completo (incluindo screen-pop de CTI) — a IA nunca decide a gravidade da vítima. Complementa, nunca substitui, o 0800.
 - Capacidade Salesforce: Service Cloud (Agentforce Contact Center Enterprise — número de licenças a revalidar per decisions/0004) + Digital Engagement + Omni-Channel + Service Console + integração CTI (padrão a confirmar, data/gaps.json G0524).
 - Casos de uso habilitados: abertura de chamado via WhatsApp (texto/áudio) e telefonia (CTI) · triagem automatizada pelo Agentforce · transbordo garantido para fila humana via Omni-Channel, com contexto completo (incluindo screen-pop de CTI) · criação automática de ordem de serviço e protocolo.
@@ -296,7 +296,7 @@ CARTÃO 4 — Execução em Campo (App Mobile) · Tamanho L
 - Capacidade Salesforce: Field Service Mobile (licença Field Service Community).
 - Casos de uso habilitados: aplicativo único de Field Service Mobile · recebimento de despacho via push nativo · modo offline com fila de sincronização · encerramento com formulário, quando aplicável · travas de negócio (recusa com motivo, foto, check-in geolocalizado).
 
-CARTÃO 5 — Rastreamento e Visibilidade em Tempo Real · Tamanho L
+CARTÃO 5 — Rastreamento e Visibilidade em Tempo Real · Tamanho S
 - O que entrega: protocolo único acompanhável do pedido ao encerramento — rastreamento do cidadão via Appointment Assistant e painel agregado para gestores.
 - Capacidade Salesforce: Field Service (template de Experience Cloud embutido + Appointment Assistant nativo, KA-6140) — sem build de site guest dedicado.
 - Casos de uso habilitados: rastreamento do cidadão via Appointment Assistant (Field Service) · painel agregado para gestores (4 indicadores).
@@ -323,16 +323,16 @@ Do not reference or reproduce any attached file, PDF, or other slide. Use only t
 
 Todo o texto deve estar em português do Brasil (PT-BR). Não traduza para inglês nem para espanhol.
 
-TITLE: Quatro das cinco capacidades concentram alta complexidade — despacho e mobilidade de campo puxam o esforço
+TITLE: Quatro das cinco capacidades concentram alta complexidade — canal digital (com CTI), despacho e mobilidade de campo puxam o esforço
 
-LAYOUT: Duas seções verticais. Seção superior: distribuição de tamanhos das 5 capacidades (1 M, 4 L) como uma linha de 5 blocos, um por capacidade, com o tamanho como rótulo em cada bloco. Seção inferior: tabela de 6 linhas (1 de cabeçalho + 5 de conteúdo) e 2 colunas — capacidade e tecnologia associada. Each field below goes in its OWN cell; never concatenate a row's values into one cell.
+LAYOUT: Duas seções verticais. Seção superior: distribuição de tamanhos das 5 capacidades (4 L, 1 S) como uma linha de 5 blocos, um por capacidade, com o tamanho como rótulo em cada bloco. Seção inferior: tabela de 6 linhas (1 de cabeçalho + 5 de conteúdo) e 2 colunas — capacidade e tecnologia associada. Each field below goes in its OWN cell; never concatenate a row's values into one cell.
 
 DISTRIBUIÇÃO DE TAMANHOS (5 blocos em linha)
-- Canal Digital — M
+- Canal Digital — L
 - Registro e Classificação — L
 - Despacho Automatizado — L
 - Execução em Campo — L
-- Rastreamento em Tempo Real — L
+- Rastreamento em Tempo Real — S
 
 TABELA CAPACIDADE → TECNOLOGIA
 
@@ -342,7 +342,7 @@ LINHA 1 — Cabeçalho
 
 LINHA 2
 - Célula 1: Canal Digital
-- Célula 2: Agentforce Contact Center Enterprise + Digital Engagement, com triagem conversacional
+- Célula 2: Agentforce Contact Center Enterprise + Digital Engagement, com triagem conversacional + integração CTI para o canal de telefonia
 
 LINHA 3
 - Célula 1: Registro e Classificação
@@ -360,7 +360,7 @@ LINHA 6
 - Célula 1: Rastreamento em Tempo Real
 - Célula 2: Appointment Assistant (Field Service)
 
-Style: blocos de tamanho na seção superior usando cores diferentes para M e L (M em cor neutra, L na cor de destaque do template, indicando maior complexidade). Tabela na seção inferior com cabeçalho destacado.
+Style: blocos de tamanho na seção superior usando cores diferentes para L e S (S em cor neutra, L na cor de destaque do template, indicando maior complexidade). Tabela na seção inferior com cabeçalho destacado.
 ```
 
 ---
@@ -577,9 +577,9 @@ Style: tabela com cabeçalho destacado na cor de destaque do template. Matriz 2�
 
 ---
 
-### Slide 9 — Roadmap: Cinco Fases e Linha do Tempo Visual
+### Slide 9 — Roadmap: Seis Fases e Linha do Tempo Visual
 
-Nota de palco: explicar a lógica do diagrama antes de mostrar os números: "as barras semana a semana são ilustrativas — a faixa real é 16 a 31 semanas, a divisão por fase é proporcional para visualização." Nomear a janela do contrato da URA em voz alta.
+Nota de palco: explicar a lógica do diagrama antes de mostrar os números: "as barras semana a semana do build (Fases 0-4) são ilustrativas — a faixa real de build é 16 a 31 semanas, a divisão por fase é proporcional para visualização. A Fase 5, Operação Assistida e Handover, já é um compromisso fechado de 6 semanas, não uma faixa." Nomear a janela do contrato da URA em voz alta.
 
 ```
 Format this slide using my current template — build the layout described below.
@@ -594,34 +594,36 @@ Do not reference or reproduce any attached file, PDF, or other slide. Use only t
 
 Todo o texto deve estar em português do Brasil (PT-BR). Não traduza para inglês nem para espanhol.
 
-TITLE: Cinco fases levam a solução da fundação ao rastreamento em tempo real em 16 a 31 semanas — ilustradas semana a semana, não só nomeadas
+TITLE: Seis fases levam a solução da fundação ao handover de sustentação — build de 16 a 31 semanas, mais 6 semanas comprometidas de Operação Assistida
 
-LAYOUT: Build this as an actual visual Gantt-style diagram — not a table with pipe characters and not a bullet list. Construct a horizontal week axis from S1 to S31 (label at least S1, S5, S10, S15, S20, S25, S31) and 5 horizontal lanes stacked top to bottom, one per phase, in this order: Fase 0, Fase 1, Fase 2, Fase 3, Fase 4. Inside each lane, draw TWO overlapping horizontal bars for that phase's two scenarios:
+LAYOUT: Build this as an actual visual Gantt-style diagram — not a table with pipe characters and not a bullet list. Construct a horizontal week axis from S1 to S37 (label at least S1, S5, S10, S15, S20, S25, S31, S37) and 6 horizontal lanes stacked top to bottom, one per phase, in this order: Fase 0, Fase 1, Fase 2, Fase 3, Fase 4, Fase 5. Inside each of the first 5 lanes (Fase 0-4, the build), draw TWO overlapping horizontal bars for that phase's two scenarios:
 - "Cenário compacto (16 semanas)": solid fill, positioned at that phase's compact-scenario week range.
 - "Cenário estendido (31 semanas)": lighter fill or dashed outline, positioned at that phase's extended-scenario week range — it always starts at or after the compact bar's start and extends further right, since it represents the SAME phase taking longer, never a different phase.
-Give each phase lane its own distinct accent color (5 colors total); within a lane, the two bars share that same hue at different styles (compact = solid/full opacity, extended = lighter/dashed border) so the two scenarios read as paired, not as different phases. Place a small flag/marker at each phase boundary, labeled with its milestone code (M0, M1, M2, M3, M4). Below the grid, add a callout box with the "Caminho crítico" text. Below that, add a small italic disclaimer box with the illustrativeness note, verbatim. Never collapse two phases into one bar, and never render the week grid as a markdown-style table.
+The Fase 5 lane is different: it is a SINGLE solid bar (no compact/extended pair — it is a fixed 6-week commitment, not a benchmark range), positioned immediately after the Fase 4 extended-scenario bar ends, in a visually distinct accent color from the 5 build phases (e.g. a purple, versus the build phases' palette) with a small label inside it: "Comprometido — não é faixa". Give each of the 5 build-phase lanes its own distinct accent color; within a build lane, the two bars share that same hue at different styles (compact = solid/full opacity, extended = lighter/dashed border) so the two scenarios read as paired, not as different phases. Place a small flag/marker at each phase boundary, labeled with its milestone code (M0, M1, M2, M3, M4, M5). Below the grid, add a callout box with the "Caminho crítico" text. Below that, add a small italic disclaimer box with the illustrativeness note, verbatim. Never collapse two phases into one bar, and never render the week grid as a markdown-style table.
 
 FAIXAS (fase | cenário compacto | cenário estendido | marco de transição)
-- Fase 0 — Resolução de Discovery | S1–S2 | S1–S3 | M0
-- Fase 1 — Fundação (Registro e Integrações) | S3–S5 | S4–S9 | M1
-- Fase 2 — Despacho e Canal Digital | S6–S8 | S10–S15 | M2
-- Fase 3 — Execução em Campo | S9–S11 | S16–S20 | M3
-- Fase 4 — Rastreamento e Estabilização | S12–S16 | S21–S31 | M4 (Go-live)
+- Fase 0 — Resolução de Discovery | S1–S2 | S1–S3 | M0 (Discovery resolvido)
+- Fase 1 — Fundação (Registro e Integrações) | S3–S5 | S4–S9 | M1 (Fundação pronta)
+- Fase 2 — Despacho e Canal Digital | S6–S8 | S10–S15 | M2 (Despacho + Canal Digital ativos)
+- Fase 3 — Execução em Campo | S9–S11 | S16–S20 | M3 (Execução em campo em produção)
+- Fase 4 — Rastreamento e Estabilização | S12–S16 | S21–S31 | M4 (Go-live estadual pleno)
+- Fase 5 — Operação Assistida (Hypercare) e Handover | comprometido: 6 semanas a partir do fim da Fase 4 (ilustrado de S32 a S37, já que a Fase 4 no cenário estendido termina em S31) | M5 (Handover p/ Sustentação)
 
-CONTEÚDO DOS MARCOS (texto de apoio abaixo do grid — uma linha por marco, o que cada um entrega)
-- M0: gaps bloqueadores (G0107, G0305, G0309, G0415, G0524) respondidos; especificação SIGOR/SIGEO assinada; workstream de Change Management dimensionado.
-- M1: Work Order criável a partir de qualquer canal; catálogo completo de Work Type; sincronização SIGOR validada; callout SIGEO testado.
-- M2: despacho aciona a viatura correta nas 14 CGRs; console do Dispatcher operacional nos 4 turnos; triagem WhatsApp cria Work Order de ponta a ponta.
-- M3: app de campo em operação nas 14 UBAs, travas de negócio ativas, piloto concluído antes do rollout estadual.
-- M4 (Go-live): link de rastreamento e painel de gestores ativos; UAT estadual (298 viaturas, 1.152 operadores, 14 CGRs) assinado; hypercare concluído.
+CONTEÚDO DOS MARCOS (texto de apoio abaixo do grid — uma linha por marco, o que cada um entrega, no nível mais alto)
+- M0 (Discovery resolvido): gaps bloqueadores resolvidos e escopo de Change Management dimensionado.
+- M1 (Fundação pronta): registro da ocorrência e integrações SIGOR/SIGEO operacionais.
+- M2 (Despacho + Canal Digital ativos): despacho automatizado nas 14 CGRs e canal digital (WhatsApp + CTI) ativos.
+- M3 (Execução em campo em produção): app de campo em produção nas 14 CGRs — 1.152 operadores.
+- M4 (Go-live estadual pleno): UAT estadual assinado e go-live pleno.
+- M5 (Handover p/ Sustentação): hypercare de 6 semanas com handover formal à Sustentação.
 
 CAMINHO CRÍTICO (callout abaixo do grid)
-- E02 → E03 → E04 → E05, com E01 correndo em paralelo a partir da Fase 2 — atraso em qualquer ponto do caminho se propaga às fases seguintes.
+- E02 → E03 → E04 → E05, com E01 correndo em paralelo a partir da Fase 2 — atraso em qualquer ponto do caminho se propaga às fases seguintes, inclusive à data de início da Fase 5, que só começa após o go-live pleno.
 
 DISCLAIMER (caixa pequena, itálica, no rodapé — usar exatamente este texto, sem alterar uma palavra):
-"A divisão semana-a-semana por fase é ilustrativa e proporcional à complexidade relativa de cada fase — não é uma data-compromisso. Só a faixa agregada (16-31 semanas) tem provenance direta; a alocação por fase distribui essa faixa de forma proporcional para visualização."
+"A divisão semana-a-semana das Fases 0-4 (build) é ilustrativa e proporcional à complexidade relativa de cada fase — não é uma data-compromisso. Só a faixa agregada de build (16-31 semanas) tem provenance direta; a alocação por fase distribui essa faixa de forma proporcional para visualização. A Fase 5 (Operação Assistida e Handover, 6 semanas) é, ao contrário do build, um compromisso fechado do usuário, não uma faixa benchmark."
 
-Style: 5 cores de fase distintas, consistentes com as cores usadas para os épicos nos demais slides. Barra "compacto" sólida; barra "estendido" com opacidade menor ou borda tracejada. Marcos M0-M4 como pequenas bandeiras/triângulos na fronteira entre fases, com o código do marco visível. Legenda de cores por fase em um canto do slide.
+Style: 5 cores de fase distintas para o build, consistentes com as cores usadas para os épicos nos demais slides, mais uma 6ª cor claramente diferenciada para a Fase 5 (comprometida, não benchmark). Barra "compacto" sólida; barra "estendido" com opacidade menor ou borda tracejada; barra da Fase 5 sólida e única. Marcos M0-M5 como pequenas bandeiras/triângulos na fronteira entre fases, com o código do marco visível. Legenda de cores por fase em um canto do slide.
 ```
 
 ---
@@ -690,32 +692,35 @@ Do not reference or reproduce any attached file, PDF, or other slide. Use only t
 
 Todo o texto deve estar em português do Brasil (PT-BR). Não traduza para inglês nem para espanhol.
 
-TITLE: 1.152 operadores em 14 empresas terceirizadas — por isso o DER pediu, por escrito, até dois meses de operação assistida e treinamento por persona
+TITLE: 1.152 operadores em 14 empresas terceirizadas — por isso o DER pediu, por escrito, até dois meses de operação assistida e treinamento por persona, agora com handover formal à Sustentação
 
-LAYOUT: Bloco de 3 estatísticas em linha no topo. Abaixo, duas colunas: coluna esquerda "Origem e escopo" (texto narrativo curto em marcadores), coluna direita com uma grade 2×2 de 4 cartões de entregável. Abaixo das duas colunas, uma faixa fina de linha do tempo com dois marcos conectados por uma seta ("Fase 0" → "Fases 3-4").
+LAYOUT: Bloco de 4 estatísticas em linha no topo. Abaixo, duas colunas: coluna esquerda "Origem e escopo" (texto narrativo curto em marcadores), coluna direita com uma grade 2×2 de 4 cartões de entregável. Abaixo das duas colunas, uma faixa fina de linha do tempo com três marcos conectados por setas ("Fase 0" → "Fases 3-4" → "Fase 5 — Handover").
 
-BLOCO DE ESTATÍSTICAS (3 números grandes em linha, cada um com legenda abaixo)
+BLOCO DE ESTATÍSTICAS (4 números grandes em linha, cada um com legenda abaixo)
 - 1.152 / operadores de campo
 - 14 / empresas terceirizadas (UBAs)
-- até 2 meses / de operação assistida
+- 6 semanas / de Operação Assistida comprometidas (Fase 5)
+- 0,5 + 1 FTE / roster técnico de sustentação na Fase 5
 
 ORIGEM E ESCOPO (coluna esquerda, marcadores)
 - O gap G0515 nasceu de uma necessidade de pesquisa de UX para a experiência de rastreamento do cidadão — dispensada porque a PoC (20/08) já validou essa experiência.
 - Na mesma resolução, o DER trouxe um pedido mais amplo e explícito: até 2 meses de operação assistida (hypercare/Scale) pós-go-live, mais treinamento personalizado por persona, com foco específico nos técnicos de campo das 14 UBAs.
-- Não é uma adição do time de entrega — é uma linha de esforço nomeada pelo cliente, refletida no dimensionamento do programa inteiro, não apenas do épico de rastreamento (E05).
+- Em 2026-09-24, o usuário comprometeu esse período em 8 semanas fechadas (Fase 5), ajustado para 6 semanas em 2026-10-04, e adicionou um roster técnico dedicado — 0,5 FTE Technical Architect + 1 FTE Developer ("Technical Consultant") — fundido a este mesmo workstream, mais um handover formal e documentado ao time de Sustentação do DER-SP/PRODESP ao final.
+- Não é uma adição do time de entrega — é uma linha de esforço nomeada e comprometida pelo cliente/usuário, refletida no dimensionamento do programa inteiro, não apenas do épico de rastreamento (E05).
 - O risco de adoção é estrutural: 1.152 operadores terceirizados, de 14 empresas distintas, precisam adotar um único aplicativo e um único fluxo de trabalho no lugar de processos hoje fragmentados por empresa.
 
 ENTREGÁVEIS DO WORKSTREAM (grade 2×2, coluna direita, 4 cartões)
 - Cartão 1 — Currículo de treinamento por persona: trilhas distintas para o operador de campo (uso do app, travas de negócio, evidência), o programador/dispatcher (console, escalonamento N/N-10) e o gestor (painel de indicadores) — não um treinamento genérico único.
 - Cartão 2 — Plano de comunicação e leitura de prontidão para a mudança: antecipando resistência nas 14 empresas terceirizadas antes do rollout estadual, não depois dele.
-- Cartão 3 — Modelo de hypercare/operação assistida: canal de suporte dedicado, escalonamento definido, cadência diária nas primeiras semanas pós-go-live, por até 2 meses.
-- Cartão 4 — Acompanhamento de adoção: usa o próprio painel de gestores (E05) como instrumento de leitura de adesão, não um relatório paralelo.
+- Cartão 3 — Modelo de hypercare/operação assistida (Fase 5, 6 semanas): canal de suporte dedicado, escalonamento técnico definido, cadência diária nas primeiras semanas pós-go-live, com cobertura técnica de 0,5 FTE Technical Architect + 1 FTE Developer.
+- Cartão 4 — Handover formal à Sustentação: runbook e conhecimento transferidos e aceitos pelo time de Sustentação do DER-SP/PRODESP, encerrando a Fase 5; acompanhamento de adoção usa o próprio painel de gestores (E05) como instrumento de leitura, não um relatório paralelo.
 
 LINHA DO TEMPO DO WORKSTREAM (faixa fina abaixo das colunas)
 - Marco 1: "Dimensionado na Fase 0" (junto aos demais gaps bloqueadores)
-- Marco 2: "Executado nas Fases 3-4" — exatamente o período em que o app de campo entra em operação e o programa vai a produção estadual. Roster: função Change & Adoption (lane traditional) / Adoption Architect (lane AI-native) — 1 pessoa, regular, onshore, ativa nas fases 3-4, headcount central por causa deste pedido nomeado (G0515).
+- Marco 2: "Executado nas Fases 3-5" — o período em que o app de campo entra em operação, o programa vai a produção estadual, e a operação assistida pós-go-live acontece. Roster Change & Adoption: 1 pessoa, regular, onshore, ativa nas Fases 3-5, headcount central por causa deste pedido nomeado (G0515).
+- Marco 3: "Fase 5 — Handover à Sustentação" — roster técnico adicional ativo só na Fase 5: 0,5 FTE Technical Architect (regular, onshore) + 1 FTE Developer/"Technical Consultant" (regular, onshore), comprometidos diretamente pelo usuário em 2026-09-24.
 
-Style: bloco de estatísticas com números grandes na cor de destaque do template. 4 cartões de entregável em grade 2×2 na coluna direita. Linha do tempo do workstream como faixa fina com os dois marcos conectados por uma seta, na cor de destaque.
+Style: bloco de estatísticas com números grandes na cor de destaque do template. 4 cartões de entregável em grade 2×2 na coluna direita. Linha do tempo do workstream como faixa fina com os três marcos conectados por setas, na cor de destaque.
 ```
 
 ---
@@ -745,8 +750,9 @@ O QUE ESTÁ MAPEADO (checklist)
 - Fase 0: resolução das 5 perguntas bloqueadoras (G0107, G0305, G0309, G0415, G0524) e dimensionamento do workstream de Change Management.
 - 5 capacidades (épicos): Canal Digital (E01), Registro e Classificação (E02), Despacho Automatizado (E03), Execução em Campo (E04), Rastreamento e Visibilidade (E05) — as 21 sub-capacidades nomeadas na Slide 4, não uma lista aberta.
 - 2 integrações: SIGOR e SIGEO, ponto a ponto, especificadas e testadas.
-- Workstream de Change Management: até 2 meses de operação assistida + treinamento por persona para os 1.152 operadores das 14 UBAs.
-- UAT estadual e hypercare: validação nas 14 CGRs (298 viaturas, 1.152 operadores), não apenas no piloto.
+- Workstream de Change Management: treinamento por persona para os 1.152 operadores das 14 UBAs, atravessando as Fases 3-5.
+- UAT estadual e estabilização pré-go-live: validação nas 14 CGRs (298 viaturas, 1.152 operadores), não apenas no piloto — encerra o build (Fase 4).
+- Fase 5 — Operação Assistida (6 semanas) e Handover à Sustentação: mapeada e comprometida (roster: 0,5 FTE Technical Architect + 1 FTE Developer/"Technical Consultant"), mas **fora da faixa de investimento desta tabela** — ver nota no rodapé do próximo slide.
 
 O QUE NÃO ESTÁ MAPEADO (bloco menor, tom neutro — decisão deliberada, não uma falha)
 - Os 6 itens de Roadmap futuro (Salesforce Voice/substituição da URA, Incidente nativo, enforcement offline, Portal de Parceiros, Street-Level Routing, relatório por CGR) ficam fora deste alcance, com destino nomeado — qualquer decisão de trazê-los para dentro é uma mudança de escopo a validar formalmente, não uma reinterpretação da faixa indicativa.
@@ -830,13 +836,15 @@ LINHA 4 — AI-native (condicional)
 - Célula 3: R$ 2.227.507,84 – R$ 4.231.264,90
 - Célula 4: R$ 2.383.636,00 – R$ 4.528.908,40
 
-RODAPÉ (pequeno, discreto, itálico) — usar exatamente os três avisos abaixo, nesta ordem, sem alterar uma palavra:
+RODAPÉ (pequeno, discreto, itálico) — usar exatamente os quatro avisos abaixo, nesta ordem, sem alterar uma palavra:
 
 Aviso 1: "Esta faixa é baseada nas rates de R$946,69/h (architect-class sênior onshore), R$715,66/h (entrega sênior onshore/qualquer offshore regular) e R$614,21/h (change & adoption regular onshore) que você forneceu e validou em 2026-09-17. Indicativo para planejamento apenas; a estrutura comercial final é confirmada através do acordo comercial aplicável."
 
 Aviso 2: "A faixa AI-native permanece condicional ao gate de qualificação (nenhum sponsor executivo nomeado, mandato AI-first ainda não assumido) — é um motivador, nunca uma entrega comprometida sem nomear o compromisso. Este é um preço indicativo, não custo/margem, e não uma proposta de fixed fee."
 
 Aviso 3: "Esta comparação é benchmark-based, derivada dos dados de treinamento do modelo e padrões gerais de entrega (não validado pela Salesforce) — não é um compromisso. Faixas de duração e a faixa AI-native carregam a incerteza herdada de confidence: Assumed em todos os 5 épicos."
+
+Aviso 4: "Estas faixas cobrem só o build (Fases 0-4, 16-31 semanas conforme o modelo). A Fase 5 — Operação Assistida (6 semanas) e Handover à Sustentação, comprometida em 2026-09-24 (ajustada de 8 para 6 em 2026-10-04) — ainda não passou por um ciclo próprio de `commercials`/`estimate` e não está incluída nestes valores."
 
 Style: Tabela 1 com cabeçalho destacado na cor de destaque do template. Tabela 2 igual, exceto a linha "AI-native (condicional)", que usa borda tracejada e uma etiqueta pequena "CONDICIONAL" em destaque — nunca no mesmo estilo visual das outras duas linhas. Os três avisos no rodapé em fonte pequena, itálica, cor discreta (muted), claramente separados das tabelas por um espaço ou linha fina.
 ```
