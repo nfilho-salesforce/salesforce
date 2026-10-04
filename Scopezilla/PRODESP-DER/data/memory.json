@@ -559,6 +559,23 @@
       "next_steps": [
         "Rodar validate periodicamente para confirmar que a propagação da Fase 5 (6 semanas/20 total) não deixou referência pendente a 8/22 semanas em novos deliverables."
       ]
+    },
+    {
+      "date": "2026-10-04",
+      "skills_used": [
+        "export"
+      ],
+      "summary": "Export completo: workbook Excel (outputs/scoping-deliverables.xlsx, 7 abas: Epics, Gap Analysis, Estimates, Roadmap Phases, Roles & Skills, Efficiency, Estimate Comparison) gerado via export-deliverables.py após sincronizar data/csv/ com json-to-csv.py. Pre-Export Validation (validate-data.py) rodou e retornou FAIL — o mesmo pricing/rate-leak de outputs/artifacts/sow-scope.md (tabela de cronograma de pagamento) já aceito conscientemente nesta sessão (G0526, decision_log 2026-10-04). Usuário confirmou explicitamente seguir com o export mesmo com o FAIL conhecido/disclosed, em vez de excluir o arquivo ou parar para resolver. Sem data/rfp.json — export vanilla, sem Artifact Review (Step 1.5) nem RFP-cycle outputs.",
+      "friction": [
+        "export skill trata pricing-leak como hard stop por padrão, em tensão com a decisão já tomada de aceitar o FAIL conscientemente — resolvido perguntando ao usuário explicitamente antes de empacotar."
+      ],
+      "decisions": [],
+      "open_threads": [
+        "Rodar validate periodicamente para confirmar que a propagação da Fase 5 (6 semanas/20 total) não deixou referência pendente a 8/22 semanas em novos deliverables."
+      ],
+      "next_steps": [
+        "Build-handoff bundle (quantum-leap) disponível caso o usuário queira entregar para um agente de build — Field Service/Agentforce/Service Cloud estão em scope e quantum-leap ainda não rodou."
+      ]
     }
   ],
   "preferences": {
