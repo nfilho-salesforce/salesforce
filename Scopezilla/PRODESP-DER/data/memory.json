@@ -472,6 +472,81 @@
         "Reportar ao usuário o resumo consolidado da propagação e o achado/correção da inconsistência 73→80 gaps.",
         "Resolver moeda BRL vs USD antes de qualquer emissão formal de proposta."
       ]
+    },
+    {
+      "date": "2026-09-24",
+      "skills_used": [
+        "revise"
+      ],
+      "summary": "Rodada de revise para propagar um aumento de escopo comprometido diretamente pelo usuário: acréscimo de uma Fase 5 — Operação Assistida (Hypercare, 8 semanas) e Handover formal à Sustentação do DER-SP/PRODESP — imediatamente após o go-live pleno (fim da Fase 4), com roster técnico comprometido de 0,5 FTE Technical Architect + 1 FTE Developer ('Technical Consultant') + ~10h de toque leve de PM. Candidato grillado e classificado como fusão com o workstream de Change Management/Scale-Operação Assistida já solicitado pelo DER (G0515) — não um segundo workstream concorrente — porque o roster novo é sustentação técnica (arquitetura + suporte direto), distinto do treinamento por persona já coberto por PS-10. Blast radius computado e propagado integralmente: data/roadmap.json (nova Fase 5, duração total comprometida 14→22 semanas, mantendo a faixa benchmark de build 16-31 semanas nas Fases 0-4 intacta), data/resource-plan.json (PS-11 Technical Architect 0,5 FTE e PS-12 Developer 1 FTE novos, phases_active:'5'; PS-01 estendido para '0-5' com toque leve; PS-10 estendido para '3-5'), data/gaps.json (G0515 status atualizado para 'Resolved - Scope Clarified and Propagated'), outputs/02-delivery-plan.md (nova seção Fase 5, riscos consolidados, grounding note), e os 3 deliverables client-facing escolhidos pelo usuário via AskUserQuestion (todos): outputs/artifacts/rom-gemini-prompt.md (header + Slides 9/11/12/13), outputs/artifacts/sow-scope.md (header + Project Approach & Phases), outputs/artifacts/rom-cliente.html (v3.2→v3.3, nav badge 5→6 fases, grid CSS do Gantt estendido de 14 para 22 colunas de semana, seções S8/S10/S12-equivalente/S13-equivalente todas atualizadas). Guardrail de precificação gated respeitado em todo o pacote: nenhuma cifra nova inventada para a Fase 5 — cada render que menciona o roster novo carrega uma nota explícita de que a Fase 5 ainda não passou por um ciclo próprio de commercials/estimate e está fora das faixas de investimento já aprovadas (Fases 0-4). validate-data.py (v1.25.10) rodado como Step 6 — PASS limpo, sem leak de pricing/rate, sem placeholder de disclaimer não substituído, sem referência dangling.",
+      "friction": [
+        "CSS grid do Gantt em rom-cliente.html precisou de engenharia reversa da fórmula de coluna (semana Sn → coluna de grid n+1) a partir da barra existente da Fase 4 (grid-column:12/16 para S11–S14) antes de calcular corretamente a nova barra da Fase 5 (grid-column:16/24 para S15–S22)",
+        "Erro autocorrigido (não do usuário): data da Fase 5 escrita como 22/09/2026 em vez de 24/09/2026 no subtítulo da seção S8 de rom-cliente.html — detectado e corrigido na mesma sessão, sem intervenção do usuário"
+      ],
+      "decisions": [
+        {
+          "decision": "Fase 5 (Operação Assistida/Handover) tratada como fusão com G0515, não como workstream novo e concorrente",
+          "rationale": "O roster comprometido pelo usuário (0,5 FTE Technical Architect + 1 FTE Developer) é sustentação técnica pós-go-live — distinto, mas complementar, do treinamento por persona/adoção já coberto pelo Change & Adoption (PS-10) sob G0515; fundir evita duplicar a narrativa de 'operação assistida' em dois lugares"
+        }
+      ],
+      "open_threads": [
+        "Moeda BRL vs USD para a comparação de 3 lanes permanece não confirmada — tema de sessões anteriores, não tocado nesta",
+        "Fase 5 ainda não passou por um ciclo próprio de commercials/estimate — nenhuma cifra existe para o roster novo (PS-11/PS-12); ainda gated corretamente",
+        "Checkpoint git (commit + push) de todos os arquivos desta rodada de propagação ainda pendente — aguardando autorização explícita do usuário"
+      ],
+      "next_steps": [
+        "Considerar grillar especificamente as premissas novas da Fase 5 (roster comprometido sem critério de saída formal do hypercare, volume de chamados pós-go-live não validado) com grill-me-on-scope — escopo estreito, não um re-grill completo do projeto",
+        "Rodar estimate/commercials para a Fase 5 quando o usuário quiser uma cifra de investimento para o roster de sustentação",
+        "Checkpoint git escopado cobrindo todos os arquivos desta sessão, quando autorizado"
+      ]
+    },
+    {
+      "date": "2026-09-24",
+      "skills_used": [
+        "grill-me-on-scope"
+      ],
+      "summary": "Grill focado exclusivamente na Fase 5 (Operação Assistida/Hypercare + Handover à Sustentação), recém-comprometida via revise no mesmo dia. Dois pontos atacados: (1) o roster técnico (0,5 FTE Technical Architect + 1 FTE Technical Consultant + ~10h PM) foi dimensionado pelo comprometimento direto do usuário, não por volume de incidentes esperado pós-go-live (14 CGRs, 1.152 operadores, 298 viaturas entrando em produção simultaneamente); (2) não existe critério de saída operacional para o hypercare — só calendário (S22) + handover assinado. Usuário confirmou ambos como apostas conscientes, sem gatilho de reforço por volume e sem gate operacional adicional antes do handover — endosso da leitura do modelo, sem base independente nova (user-endorsed, não Confirmed).",
+      "friction": [],
+      "decisions": [],
+      "open_threads": [
+        "Roster de sustentação da Fase 5 (0,5 FTE Architect + 1 FTE Technical Consultant) permanece sem gatilho de reforço por volume — se o volume real de chamados pós-go-live divergir muito da premissa, reabrir.",
+        "Fim da Fase 5 permanece só calendário + handover assinado, sem checklist de aceite da Sustentação ou limiar operacional — decisão consciente do usuário, não lacuna a resolver."
+      ],
+      "next_steps": [
+        "Nenhuma propagação necessária (nenhum resize/rescope) — os dois riscos já estavam corretamente registrados em data/roadmap.json (Fase 5) e resource-plan.json (PS-11/PS-12); apenas anotado o endosso do grill no risks field da Fase 5."
+      ]
+    },
+    {
+      "date": "2026-10-04",
+      "skills_used": [
+        "validate"
+      ],
+      "summary": "Validate: FAIL (pricing-leak scan em outputs/artifacts/sow-scope.md, tabela de honorários linhas 107-129 — esperado em SOW, aguarda decisão). 4 WARN de stale (resource-plan, estimate-comparison, efficiency; efficiency sem model_version). Confiança 50% Confirmed / 50% Assumed; 80 gaps (71 abertos, 7 Source Conflicts). Inconsistência: SOW diz Fase 6 Operação Assistida = 6 sem / total 20 sem (atualizado 2026-10-02); roadmap.json/metadata dizem 8 sem / 22 sem.",
+      "friction": [],
+      "decisions": [],
+      "open_threads": [
+        "Reconciliar duração da Operação Assistida: 6 sem (SOW 10-02) vs 8 sem (roadmap/metadata 09-24)."
+      ],
+      "next_steps": [
+        "Decidir 6 vs 8 semanas e rodar revise para propagar; re-rodar efficiency; decidir tratamento do pricing-leak no sow-scope.md (ou mantê-lo fora de outputs/ até o envio ao Ironclad)."
+      ]
+    },
+    {
+      "date": "2026-10-04",
+      "skills_used": [
+        "efficiency"
+      ],
+      "summary": "Rodada de efficiency category+role-type (resource-plan.json presente). Fator regulated-legacy (0,25-0,35) — setor público, SIGOR/SIGEO sem API fechada, LGPD/auditoria G0305 aberta. Readiness score 2/8 — Low. Banda realizada por readiness: Low ~6-13%, Mid ~7-16%, High ~9-19%. Por categoria: Tech Eng&QA ~5-14%, Analysis&Design ~5-14%, Documentation ~5-13%, PM&Ops ~2-11%. Por papel: QA mais alto (~5-16%), PM mais baixo (~2-11%). AI-native não computado (ai_native_qualification null/not-assessed).",
+      "friction": [],
+      "decisions": [],
+      "open_threads": [
+        "Readiness Low (2/8) é estrutural ao setor público — reabrir só se LGPD/auditoria (G0305) ou política de IA do DER mudarem.",
+        "AI-native qualification nunca foi avaliada para este projeto — rodar se o cliente mostrar interesse no modelo AI-native."
+      ],
+      "next_steps": [
+        "Usuário confirmou Operação Assistida = 6 semanas (SOW, atualizado 02/out) — reconciliar com roadmap.json/metadata que ainda dizem 8 semanas/22 total; rodar revise para propagar.",
+        "Decidir tratamento do pricing-leak no sow-scope.md antes de reexecutar validate."
+      ]
     }
   ],
   "preferences": {
@@ -625,6 +700,16 @@
       "supersedes": [
         "2026-09-17: 'CTI/Voice e Agente de IA de voz ficam fora do MVP...' (decisions/0001, revertida)",
         "2026-09-17: 'Capability de rastreamento público ao vivo (E05): ... Build via site Experience Cloud...' (revertida — Appointment Assistant nativo do Field Service substitui o build customizado)"
+      ]
+    },
+    {
+      "date": "2026-09-24",
+      "area": "delivery-scope",
+      "decision": "Programa ganha uma Fase 5 — Operação Assistida (Hypercare, 8 semanas) e Handover formal à Sustentação do DER-SP/PRODESP — logo após o go-live pleno (fim da Fase 4), com roster técnico comprometido de 0,5 FTE Technical Architect + 1 FTE Developer ('Technical Consultant') + ~10h de toque leve de PM. Fundida com o workstream de Change Management/Scale-Operação Assistida já solicitado pelo DER (G0515), não tratada como workstream concorrente. Duração total comprometida do programa passa de 14 para 22 semanas; a faixa benchmark de build (16-31 semanas, Fases 0-4) não muda.",
+      "rationale": "Compromisso direto do usuário em 2026-09-24, explicitamente para garantir estabilização pós-go-live e uma transição documentada de accountability à Sustentação — distinto de G0515 (que cobria só treinamento/adoção por persona via Change & Adoption) porque o roster novo é cobertura técnica de arquitetura e suporte direto, não formação de usuários. Contagem do roster (0,5 + 1 FTE) é comprometimento do usuário, não derivada do volume de chamados esperado — risco registrado explicitamente na Fase 5 do roadmap.",
+      "rejected": [
+        "Tratar a Operação Assistida como extensão informal da Fase 4 sem fase própria nem roster nomeado",
+        "Abrir um segundo workstream de sustentação técnica desvinculado de G0515, duplicando a narrativa de 'operação assistida' em dois lugares do plano"
       ]
     }
   ]

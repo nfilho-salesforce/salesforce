@@ -37,8 +37,9 @@
       "note": "Também relevante: contrato atual de URA (Instinct) ativo até abril/2027; contrato administrativo renova em 30/nov/2026 — pressiona a decisão Open CTI vs. Salesforce Voice."
     },
     "user_commitment": {
-      "total_weeks": 14,
-      "rationale": "Cenário otimista da linha Augmented (extremo inferior da faixa derivada 14-25 semanas, comprimida da faixa Traditional 16-31 pela banda de eficiência) — mesmo cenário já refletido na linha do tempo do ROM (S8) e na tabela de horas por papel (S13). Comprometido para permitir a derivação de horas/datas por recurso e o carregamento de staffing no estimate Org62 (aH2ed000000XZ2DCAW, 'MVP DER v1').",
+      "total_weeks": 22,
+      "total_weeks_build_only": 14,
+      "rationale": "14 semanas de build (cenário otimista da linha Augmented, comprimida da faixa Traditional 16-31 pela banda de eficiência — mesmo cenário já refletido na linha do tempo do ROM/S8 e na tabela de horas por papel/S13) + 8 semanas de Fase 5 (Operação Assistida/Hypercare pós-go-live) + Handover à Sustentação, acrescentadas por decisão do usuário em 2026-09-24 (revise). Total comprometido fim-a-fim: 22 semanas. `total_weeks_build_only` preserva o valor original de 14 semanas para reconciliação com o staffing já carregado no estimate Org62 (aH2ed000000XZ2DCAW, 'MVP DER v1'), que não inclui a Fase 5.",
       "set_by": "user"
     },
     "derived": {
@@ -48,13 +49,29 @@
       "basis": "Classified Multi-Cloud/Medium (Field Service + Service Cloud/Agentforce Contact Center Enterprise, dois canais WhatsApp+telefonia via CTI): 5 epics, agora 4 L + 1 S (resize desta revisão: E01 M->L pelo canal de telefonia via CTI; E05 L->S pelo Appointment Assistant nativo substituindo o site guest customizado) — complexity-weight equivalente a ~7 épicos típicos, ainda heavily L-weighted vs. a contagem típica de 8-12 épicos da linha; baseline mantido em 16-24 weeks (a queda de peso em E05 compensa parcialmente a alta em E01). Adjusted: +10% custom UI/UX sem padrão declarativo nativo equivalente (E04 — travas de negócio do app mobile; o driver de E05 caiu nesta revisão) + +10% governança/auditoria-compliance overlay (trilha de auditoria de despacho G0305, LGPD geolocalização G0211) + +10% risco de padrão de integração — padrão técnico da CTI com a URA não fixado (E01/E02, G0524; Open CTI clássica em retirada fev/2028) -> high end 24x1.30=31.2, arredondado para 31. Low end mantido no baseline; todos os 5 épicos carregam confidence: Assumed, o que amplia o risco realizado da faixa para a ponta alta na prática mesmo sem mover o piso mecanicamente.",
       "ai_native_compressed": false,
       "range_drivers": [
-        {"epic_id": "E01", "driver": "Padrão técnico da integração CTI com a URA ainda não fixado — Open CTI clássica em retirada (fev/2028), conflita com a exclusão de Salesforce Voice do MVP", "tighten_with": "Confirmar com o fornecedor de telefonia (Instinct) a API de CTI exposta e se o org do DER é anterior ao corte de disponibilidade da Open CTI - G0524"},
-        {"epic_id": "E03", "driver": "Console do Dispatcher e escalonamento N/N-10 sentam sobre um requisito de trilha de auditoria ainda aberto", "tighten_with": "Resolver G0305 (campos a rastrear, retenção exigida) antes do build do console - pode exigir o add-on Field Audit Trail"},
-        {"epic_id": "E04", "driver": "As 3 travas de negócio do app mobile são escopadas como online-only; o enforcement offline é uma premissa de redução de escopo ainda a validar", "tighten_with": "Confirmar formalmente com o cliente o escopo de enforcement offline (G0413) - se exigido em vez de diferido, este épico cresce"}
+        {
+          "epic_id": "E01",
+          "driver": "Padrão técnico da integração CTI com a URA ainda não fixado — Open CTI clássica em retirada (fev/2028), conflita com a exclusão de Salesforce Voice do MVP",
+          "tighten_with": "Confirmar com o fornecedor de telefonia (Instinct) a API de CTI exposta e se o org do DER é anterior ao corte de disponibilidade da Open CTI - G0524"
+        },
+        {
+          "epic_id": "E03",
+          "driver": "Console do Dispatcher e escalonamento N/N-10 sentam sobre um requisito de trilha de auditoria ainda aberto",
+          "tighten_with": "Resolver G0305 (campos a rastrear, retenção exigida) antes do build do console - pode exigir o add-on Field Audit Trail"
+        },
+        {
+          "epic_id": "E04",
+          "driver": "As 3 travas de negócio do app mobile são escopadas como online-only; o enforcement offline é uma premissa de redução de escopo ainda a validar",
+          "tighten_with": "Confirmar formalmente com o cliente o escopo de enforcement offline (G0413) - se exigido em vez de diferido, este épico cresce"
+        }
       ]
     }
   },
-  "products_in_scope": ["Field Service", "Agentforce", "Service Cloud"],
+  "products_in_scope": [
+    "Field Service",
+    "Agentforce",
+    "Service Cloud"
+  ],
   "products_with_overlay": [],
   "org_strategy": {
     "value": "Org única",

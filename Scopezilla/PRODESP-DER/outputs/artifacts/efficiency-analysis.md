@@ -1,71 +1,121 @@
-# AI Delivery Efficiency Analysis — PRODESP · DER-SP
+# AI Delivery Efficiency Analysis — PRODESP - DER
 
 ## So What
-**~10-18% de eficiência de entrega realizada em readiness Low.** Um ganho de ritmo e qualidade dentro da mesma forma de equipe — não redução de headcount, não é insumo de precificação.
 
-Onde os ganhos aparecem neste projeto:
-- **Documentation & Knowledge Management** (~11-20%): especificações de payload SIGOR/SIGEO (E02) e a documentação de segurança do token de guest (E05) — o rascunho comprime bem, mas o sign-off multi-organizacional mantém a revisão em ritmo humano.
-- **Technical Engineering & QA** (~8-16%): integração dupla SIGOR/SIGEO (E02) e motor de despacho/escalonamento (E03) — geração de código e dados de teste acelera, mas a revisão sobre specs legadas não confirmadas limita o ganho.
-- **Analysis & Design** (~8-16%): fluxos de triagem do Agentforce (E01) e lógica de escalonamento N/N-10 (E03) — rascunho rápido, refinamento com stakeholders permanece humano.
+**~6-13% realized delivery efficiency at Low readiness.** A pace and quality lift within the same team shape — not headcount reduction, not a pricing input.
 
-**Onde a IA não ajuda**: resolução de gaps bloqueadores com DER/Stefanini (G0305, G0309, G0517) — decisão formal entre três organizações — mais o trabalho de alinhamento de stakeholders e conflito, que seguem 100% humanos.
+Where the gains show up on this project:
+- **Technical Engineering & QA** (~5-14%): E01-E04, todos L — integração CTI/URA, sincronização SIGOR/SIGEO, lógica de despacho e travas de negócio em LWC. Padrões técnicos ainda não fixados (CTI, SIGOR/SIGEO) limitam o ganho.
+- **Analysis & Design** (~5-14%): E01, E03 — desenho de tópicos do Agentforce e regras de escalonamento cross-CGR ganham no rascunho; validação com DER/Stefanini continua humana.
+- **Documentation & Knowledge Management** (~5-13%): E01, E02 — volume alto de artefatos de discovery e SOW ganha em rascunho; o aceite por marco exige revisão humana.
 
-**Para subir para readiness High (~18-22%)**: resolver LGPD/DPIA e a trilha de auditoria de overrides (G0305), definir política de uso de IA para dados sensíveis do canal de emergência, reduzir camadas de aprovação entre DER/PRODESP/Stefanini.
+**Papéis que capturam mais**: Quality Assurance, Developer, Functional Consultant.
+
+**Onde a IA não ajuda**: fechamento dos gaps bloqueadores G0305/G0309/G0524 com DER/Stefanini, treinamento presencial de 1.152 operadores — mais o maior "AI tax" do projeto, o padrão CTI/URA ainda não fixado.
+
+**Para subir a High readiness (~9-19%)**: resolver LGPD/DPIA e a trilha de auditoria (G0305), aprovar um conjunto restrito de ferramentas de IA, fechar a especificação SIGOR/SIGEO.
 
 ## Headline
-**Realizado: ~10-18%** (readiness Low) · **Blend em nível de tarefa: ~30-45%** · **Fator de realização: 0,30-0,40** — perfil misto entre "config+dev customizado" e "setor regulado/legado pesado", puxado para baixo pela auditoria em aberto e pelas integrações SIGOR/SIGEO sem spec confirmado · **Confiança: Assumed**
 
-**Faixa AI-native (condicional, não qualificada): ~35-40%** — motivador, não um número alcançável hoje. Depende de um compromisso operacional (decisão diária, donos de negócio empoderados, mandato AI-first) que o DER/PRODESP ainda não assumiu — a cadeia de decisão DER→PRODESP→Stefanini e a ausência de um sponsor executivo nomeado são os sinais que mantêm este gate fechado.
+**Realizado: ~7-16%** (Low readiness) · **Blend de nível de tarefa: ~30-45%** · **Fator de realização: 0,25-0,35** — perfil regulado + legado pesado (setor público, integrações SIGOR/SIGEO sem API fechada) · **Confiança: Assumed**
 
-## Cenários de Client-Readiness
-| Cenário | Faixa Realizada | Notas |
+## Cenários de Prontidão do Cliente
+
+| Cenário | Banda Realizada | Notas |
 |---|---|---|
-| Low readiness (atual: ✓) | ~7-11% | Estado atual — ganhos modestos até a cadeia DER→PRODESP→Stefanini amadurecer e a postura de dados ser resolvida. |
-| Mid readiness | ~10-16% | Faixa base se a cadência de decisão e a postura de dados melhorarem moderadamente. |
-| High readiness | ~18-22% | Favorece a ponta alta com cadência ágil e ambiente de integração maduro — improvável no perfil atual de contratação pública. |
+| Low readiness (atual: ✓) | ~6-13% | Estado atual — ganhos modestos até a cadeia DER→PRODESP→Stefanini amadurecer e LGPD/auditoria serem resolvidos. |
+| Mid readiness | ~7-16% | Faixa base se a cadência de decisão e a postura de dados melhorarem moderadamente. |
+| High readiness | ~9-19% | Favorece a ponta alta se o órgão adotar cadência ágil — improvável no perfil atual, mas não descartado. |
 
-**Cenário atual**: Low (score 2/8)
+**Cenário atual**: Low readiness (score 2/8)
 
-### Sinais por trás do score
-- **Postura de ferramentas de IA**: 1/2 — nenhuma menção a política de uso de IA/ferramentas aprovadas na discovery do DER/PRODESP.
-- **Velocidade de entrega**: 0/2 — cadeia de decisão DER→PRODESP→Stefanini, Opportunity em Stage 02-Scoping, ciclo formal de contratação pública.
-- **Higiene de dados e ambiente**: 1/2 — org Salesforce greenfield, mas duas integrações legadas (SIGOR, SIGEO) com payload/API ainda não confirmado.
-- **Postura legal/segurança/compliance**: 0/2 — nenhuma discussão formal de LGPD/DPIA registrada; trilha de auditoria de overrides (G0305) permanece gap aberto.
+### Sinais por trás da pontuação
+- **AI tooling posture**: 1/2 — nenhuma menção a política de IA aprovada na discovery (Unknown, tratado como neutro).
+- **Delivery velocity / speed bias**: 0/2 — cadeia DER→PRODESP→Stefanini; ciclo de contratação pública multi-camada.
+- **Data & environment hygiene**: 1/2 — org Salesforce greenfield, mas SIGOR/SIGEO sem API fechada.
+- **Legal / security / compliance posture**: 0/2 — sem LGPD/DPIA formal; trilha de auditoria de overrides (G0305) é gap bloqueador aberto.
 
-### O que é preciso para subir
-- **Low → Mid**: resolver LGPD/DPIA e G0305; definir política de uso de IA para dados sensíveis; reduzir camadas de aprovação DER/PRODESP/Stefanini.
-- **Mid → High**: aprovar ferramentas de IA para uso em IDE/documentação; fechar a spec SIGOR/SIGEO.
+### O que leva para subir
+- **Low → Mid**: aprovar ferramentas de IA restritas para IDE/documentação; fechar a especificação SIGOR/SIGEO.
+- **Mid → High**: adotar cadência ágil de decisão e maturidade de ambiente de dados/integração — improvável no perfil de contratação pública atual.
 
 ## Por Categoria
 
-### Technical Engineering & QA — realizado ~8-16% (nível de tarefa ~25-40%)
-- **Épicos que impulsionam**: E02 (L), E03 (L), E04 (L)
-- **Como aparece aqui**: Na integração dupla SIGOR/SIGEO (E02) e no motor de despacho/escalonamento (E03), a IA acelera geração de código e dados de teste, mas a revisão sobre duas specs de payload legado ainda não confirmadas limita o ganho realizado [1].
+### Technical Engineering & QA — realizado ~5-14% (nível de tarefa ~20-40%)
+- **Épicos impulsionadores**: E01 (L), E02 (L), E03 (L), E04 (L)
+- **Como aparece aqui**: Densidade alta em triagem Agentforce, integração CTI/URA, sincronização SIGOR/SIGEO e travas de negócio em LWC. O ganho fica no fim do range porque três padrões técnicos ainda não estão fixados (G0524 CTI, payload SIGOR/SIGEO) — AI tax de retrabalho é real aqui per [1].
 
-### Analysis & Design — realizado ~8-16% (nível de tarefa ~25-40%)
-- **Épicos que impulsionam**: E01 (M), E03 (L)
-- **Como aparece aqui**: Rascunhar os fluxos de triagem do Agentforce (E01) e a lógica de escalonamento N/N-10 (E03) comprime bem, mas o refinamento com stakeholders sobre o valor de N e a trilha de auditoria (G0305) permanece 100% humano [2].
+### Analysis & Design — realizado ~5-14% (nível de tarefa ~20-40%)
+- **Épicos impulsionadores**: E01, E03
+- **Como aparece aqui**: Desenho de tópicos/ações do Agentforce e das regras de escalonamento se beneficiam no rascunho, mas a validação de premissas de roteamento com DER/Stefanini permanece humana per [2].
 
-### Documentation & Knowledge Management — realizado ~11-20% (nível de tarefa ~35-50%)
-- **Épicos que impulsionam**: E02 (L), E05 (L)
-- **Como aparece aqui**: As especificações de payload de integração (E02) e a documentação de segurança do token de guest (E05) compressam bem no rascunho, mas a cadeia de aprovação DER/PRODESP/Stefanini mantém a revisão final em ritmo humano [7].
+### Documentation & Knowledge Management — realizado ~5-13% (nível de tarefa ~20-35%)
+- **Épicos impulsionadores**: E01, E02
+- **Como aparece aqui**: Volume alto de artefatos (discovery brief, SOW, especificação SIGOR/SIGEO) ganha em rascunho, mas o aceite formal por marco exige revisão humana linha a linha per [7].
 
-### Project Management & Operations — realizado ~8-14% (nível de tarefa ~25-35%)
-- **Épicos que impulsionam**: E02 (L), E03 (L)
-- **Como aparece aqui**: Um programa de 5 fases cobrindo 14 CGRs e três organizações gera carga alta de coordenação; a IA rascunha status e notas de reunião, mas o alinhamento real sobre G0305/G0309 continua humano.
+### Project Management & Operations — realizado ~2-11% (nível de tarefa ~10-30%)
+- **Épicos impulsionadores**: (cross-cutting, nenhum épico específico)
+- **Como aparece aqui**: 6 fases de roadmap e governança a três organizações mantêm o núcleo de coordenação humano — a categoria de menor ganho per [5].
 
-## Onde a IA não ajuda
-- **Project Pulse Reports** — trabalho de construção de confiança que a IA pode resumir, mas não conduzir.
+## Por Papel
+
+### Developer — realizado ~5-14% (nível de tarefa ~20-40%)
+- **Amplificado**: Create Code, Analyze Code & Fix Defects
+- **Ainda só humano**: Fechamento de padrão técnico CTI (G0524) com DER/Stefanini
+- **Como o dia muda**: Ganho concentrado em LWC de E04 e conectores de E01/E02, limitado pela ausência de padrão CTI fixado.
+
+### Quality Assurance — realizado ~5-16% (nível de tarefa ~20-45%)
+- **Amplificado**: Write Test Classes, QA Test Creation, Generate Test Data
+- **Ainda só humano**: Validação do critério de aceite por marco com o DER
+- **Como o dia muda**: Geração de dados/casos de teste para os 3 canais de entrada é o ganho mais confiável do papel.
+
+### Functional Consultant — realizado ~5-14% (nível de tarefa ~20-40%)
+- **Amplificado**: Write User Stories, Generate Documents, Knowledge Transfer
+- **Ainda só humano**: Alinhamento de premissas de roteamento com o DER
+- **Como o dia muda**: Rascunho de user stories e documentação ganha; revalidação de premissas permanece 100% humana.
+
+### Solution Architect — realizado ~5-14% (nível de tarefa ~20-40%)
+- **Amplificado**: Generation of Analysis Models, Analyze Code & Fix Defects
+- **Ainda só humano**: Decisão de arquitetura CTI vs. Salesforce Voice (decisions/0001)
+- **Como o dia muda**: Modelagem de integração ganha em rascunho; a decisão de arquitetura de voz é humana.
+
+### Technical Architect — realizado ~5-14% (nível de tarefa ~20-40%)
+- **Amplificado**: Analyze Code & Fix Defects, Create Code
+- **Ainda só humano**: Governança técnica do handover à Sustentação na Fase 5
+- **Como o dia muda**: Suporte à resolução dos padrões técnicos abertos é onde a IA ajuda menos.
+
+### Project / Program Manager — realizado ~2-11% (nível de tarefa ~10-30%)
+- **Amplificado**: Project Status Reports, Search & Info Retrieval
+- **Ainda só humano**: Governança de escopo e relacionamento DER/PRODESP/Stefanini
+- **Como o dia muda**: Relatórios de status ganham; a cadeia de decisão a três organizações é o núcleo humano.
+
+### Change & Adoption — realizado ~3-13% (nível de tarefa ~15-35%)
+- **Amplificado**: Generate Documents, Onboard Team Members
+- **Ainda só humano**: Treinamento presencial de 1.152 operadores em 14 CGRs
+- **Como o dia muda**: Material de treinamento ganha em rascunho; adoção efetiva depende de capacitação presencial.
+
+## Trabalho Exclusivamente Humano
+- **Project Pulse Reports** — trabalho de construção de confiança que a IA pode resumir, não facilitar.
 - **Stakeholder Alignment** — negociação humano-a-humano; a IA rascunha posições, pessoas decidem.
 - **Conflict Resolution** — julgamento humano.
-- **Resolução de gaps bloqueadores com DER/Stefanini (G0305, G0309, G0517)** — exige decisão formal entre três organizações; a IA prepara a pauta, não decide.
+- **Resolução dos gaps bloqueadores G0305/G0309/G0524 com DER/Stefanini** — decisões de arquitetura e governança sob incerteza regulatória/contratual.
 
-## Assumptions & Caveats
-- Benchmarks extraídos de dados publicados 2022-2026 (Peng et al./GitHub 2022, Paradis et al./Google 2024, METR 2025, DORA 2024-2025, McKinsey 2025, GitClear 2025, Stanford HAI AI Index 2026) mais observações internas da Salesforce [1][2][7].
-- Todos os 5 épicos carregam `confidence: Assumed` em `estimates.json` — amplia a incerteza em ambas as direções.
-- Bandas são qualitativas e específicas do projeto, não garantias. Nenhuma implicação de horas, FTE ou custo é computada ou implícita.
-- O gap de percepção é real — equipes frequentemente se sentem mais rápidas do que os ganhos medidos confirmam (METR 2025).
-- A faixa AI-native (~35-40%) é condicional e provisória — depende de um compromisso operacional que o DER/PRODESP ainda não assumiu.
+## Premissas e Ressalvas
+- Ganhos de nível de tarefa vêm de estudos publicados 2022-2026; um fator de realização (por formato do projeto, de `efficiency-model.json`) contabiliza a lei de Amdahl, a sobrecarga de revisão/AI-tax e o trabalho humano não movido.
+- **Range honesto para codificação**: evidência de RCT vai de -19% (METR 2025 [1], OSS maduro) a +21% (Paradis/Google 2024 [4], enterprise complexo) a +55% (Peng/GitHub 2022 [3], greenfield lab). A linha enterprise-legado é o ponto de partida defensável para integração Salesforce e desenvolvimento custom.
+- Ganhos individuais ≠ ganhos de equipe: DORA 2024 [5] mediu produtividade individual subindo enquanto estabilidade e throughput de entrega caíam. Ancorar afirmações em resultados de nível de projeto, não em autorrelato.
+- A capacidade do modelo está avançando mais rápido que os ganhos de fluxo de trabalho realizados (Stanford HAI 2026 [9]); esse gap é por que as bandas de nível de projeto ficam em ~10-25%.
+- Bandas são qualitativas e específicas do projeto — nenhuma implicação de horas, FTE ou custo é computada ou implícita.
 
----
-*Esta análise é baseada em benchmark, derivada dos dados de treinamento do modelo e padrões gerais de entrega (não validado pela Salesforce) — não é um compromisso.*
+## Fontes
+1. METR (julho 2025) — RCT de devs experientes de OSS; mediu ~19% de lentidão apesar de ~20% de aceleração percebida.
+2. BCG × Harvard (2023, pilotos 2025) — 12,2-40% de economia de tempo em tarefas no escopo; "jagged frontier" degrada fora dele.
+3. Peng et al., GitHub (2022) — RCT em lab, 95 devs em tarefa greenfield de servidor HTTP; ~55% mais rápido, IC 95% [21%, 89%].
+4. Paradis et al., Google (arXiv 2410.12944, 2024) — RCT de 96 engenheiros do Google em tarefa enterprise complexa; ~21% de redução de tempo com IC amplo. Contrapeso de [1].
+5. DORA 2024 State of DevOps — primeira medição rigorosa de nível de equipe de que ganhos individuais de IA coexistem com queda de estabilidade e throughput de entrega.
+6. DORA 2025 — IA como "amplificador" de sistemas sociotécnicos existentes; qualitativo, suplemento a [5].
+7. McKinsey State of AI (2025) — ganhos de 10-30% em nível de função; ranges amplamente inalterados desde 2024.
+8. GitClear AI Code Quality (atualização 2025, 211M LOC, 2020-2024) — clonagem 8,3%→12,3%, refatoração 25% (2021)→<10% (2024).
+9. Stanford HAI AI Index (abril 2026) — SWE-bench Verified subiu de 60% para quase 100% do baseline humano em um ano; adoção organizacional de 88%; gap de 50 pontos entre especialistas e público sobre o impacto da IA no trabalho.
+10. Salesforce Agentforce pilotos internos (2024-2025, públicos).
+11. Scopezilla observações internas (2025-2026).
